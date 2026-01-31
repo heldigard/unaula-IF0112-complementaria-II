@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="C"><head><title>Clase 3: Transformación del Entorno</title><meta property="og:title" content="Clase 3: Transformación del Entorno"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><style>@media screen{body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{appearance:none;background-color:initial;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:disabled{cursor:not-allowed;opacity:.15!important}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover{opacity:1}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:active{opacity:.6}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:not(:disabled){transition:none}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-prev{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTAgMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-next{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJtMzIgOTAgNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNNDAgNzBIMjBWNTBtMjAgMEwyMCA3MG00MC00MGgyMHYyMG0tMjAgMCAyMC0yMCIgY2xhc3M9ImEiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen]{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNMjAgNTBoMjB2MjBtLTIwIDAgMjAtMjBtNDAgMEg2MFYzMG0yMCAwTDYwIDUwIiBjbGFzcz0iYSIvPjwvc3ZnPg==")}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNODcuOCA0Ny41Qzg5IDUwIDg3LjcgNTIgODUgNTJIMzVhOC43IDguNyAwIDAgMS03LjItNC41bC0xNS42LTMxQzExIDE0IDEyLjIgMTIgMTUgMTJoNTBhOC44IDguOCAwIDAgMSA3LjIgNC41ek02MCA1MnYzNm0tMTAgMGgyME00NSA0MmgyMCIvPjwvc3ZnPg==") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-bigger{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODBNNTIgOTBWMTAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-smaller{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}}@keyframes __bespoke_marp_transition_reduced_outgoing__{0%{opacity:1}to{opacity:0}}@keyframes __bespoke_marp_transition_reduced_incoming__{0%{mix-blend-mode:plus-lighter;opacity:0}to{mix-blend-mode:plus-lighter;opacity:1}}.bespoke-marp-note,.bespoke-marp-osc,.bespoke-progress-parent{display:none;transition:none}@media screen{::view-transition-group(*){animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-timing-function:ease}::view-transition-new(*),::view-transition-old(*){animation-delay:0s;animation-direction:var(--marp-bespoke-transition-animation-direction,normal);animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-fill-mode:both;animation-name:var(--marp-bespoke-transition-animation-name,var(--marp-bespoke-transition-animation-name-fallback,__bespoke_marp_transition_no_animation__));mix-blend-mode:normal}::view-transition-old(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_outgoing__;animation-timing-function:ease}::view-transition-new(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_incoming__;animation-timing-function:ease}::view-transition-new(root),::view-transition-old(root){animation-timing-function:linear}::view-transition-new(__bespoke_marp_transition_osc__),::view-transition-old(__bespoke_marp_transition_osc__){animation-duration:0s!important;animation-name:__bespoke_marp_transition_osc__!important}::view-transition-new(__bespoke_marp_transition_osc__){opacity:0!important}.bespoke-marp-transition-warming-up::view-transition-group(*),.bespoke-marp-transition-warming-up::view-transition-new(*),.bespoke-marp-transition-warming-up::view-transition-old(*){animation-play-state:paused!important}body,html{height:100%;margin:0}body{background:#000;overflow:hidden}svg.bespoke-marp-slide{content-visibility:hidden;opacity:0;pointer-events:none;z-index:-1}svg.bespoke-marp-slide:not(.bespoke-marp-active) *{view-transition-name:none!important}svg.bespoke-marp-slide.bespoke-marp-active{content-visibility:visible;opacity:1;pointer-events:auto;z-index:0}svg.bespoke-marp-slide.bespoke-marp-active.bespoke-marp-active-ready *{animation-name:__bespoke_marp__!important}@supports not (content-visibility:hidden){svg.bespoke-marp-slide[data-bespoke-marp-load=hideable]{display:none}svg.bespoke-marp-slide[data-bespoke-marp-load=hideable].bespoke-marp-active{display:block}}}@media screen and (prefers-reduced-motion:reduce){svg.bespoke-marp-slide *{view-transition-name:none!important}}@media screen{[data-bespoke-marp-fragment=inactive]{visibility:hidden}body[data-bespoke-view=""] .bespoke-marp-parent,body[data-bespoke-view=next] .bespoke-marp-parent{inset:0;position:absolute}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc{background:#000000a6;border-radius:7px;bottom:50px;color:#fff;contain:paint;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;user-select:none;white-space:nowrap;will-change:transform;z-index:1;view-transition-name:__bespoke_marp_transition_osc__}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>*,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>:first-child,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{height:32px;line-height:32px;width:32px}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive{cursor:none}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}body[data-bespoke-view=""] svg.bespoke-marp-slide,body[data-bespoke-view=next] svg.bespoke-marp-slide{height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent+.bespoke-marp-parent{top:5px}body[data-bespoke-view=""] .bespoke-progress-parent .bespoke-progress-bar{background:#0288d1;flex:0 0 0;transition:flex-basis .2s cubic-bezier(0,1,1,1)}body[data-bespoke-view=next]{background:#0000}body[data-bespoke-view=presenter]{background:#161616}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container{display:grid;font-family:Helvetica,Arial,sans-serif;grid-template:"current dragbar next" minmax(140px,1fr) "current dragbar note" 2fr "info    dragbar note" 3em;grid-template-columns:minmax(3px,var(--bespoke-marp-presenter-split-ratio,66%)) 0 minmax(3px,1fr);height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent{grid-area:current;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide{height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide.bespoke-marp-active{filter:drop-shadow(0 3px 10px rgba(0,0,0,.5))}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container{background:#0288d1;cursor:col-resize;grid-area:dragbar;margin-left:-3px;opacity:0;position:relative;transition:opacity .4s linear .1s;width:6px;z-index:10}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container:hover{opacity:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container.active{opacity:1;transition-delay:0s}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container{background:#222;cursor:pointer;display:none;grid-area:next;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container iframe.bespoke-marp-presenter-next{background:#0000;border:0;display:block;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container{background:#222;color:#eee;grid-area:note;position:relative;z-index:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper{display:block;inset:0;position:absolute}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons{background:#000000a6;border-radius:4px;bottom:0;display:flex;gap:4px;margin:12px;opacity:0;padding:6px;pointer-events:none;position:absolute;right:0;transition:opacity .2s linear}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons:focus-within,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper:focus-within+.bespoke-marp-presenter-note-buttons,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container:hover .bespoke-marp-presenter-note-buttons{opacity:1;pointer-events:auto}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note{box-sizing:border-box;font-size:calc(1.1em*var(--bespoke-marp-note-font-scale, 1));height:calc(100% - 40px);margin:20px;overflow:auto;padding-right:3px;white-space:pre-wrap;width:calc(100% - 40px);word-wrap:break-word;scrollbar-color:#eeeeee80 #0000;scrollbar-width:thin}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar{width:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-track{background:#0000}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-thumb{background:#eeeeee80;border-radius:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note:empty{pointer-events:none}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:first-child{margin-top:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:last-child{margin-bottom:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container{align-items:center;box-sizing:border-box;color:#eee;display:flex;flex-wrap:nowrap;grid-area:info;justify-content:center;overflow:hidden;padding:0 10px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{box-sizing:border-box;display:block;padding:0 10px;white-space:nowrap;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page{order:2;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page .bespoke-marp-presenter-info-page-text{display:inline-block;min-width:120px;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time{color:#999;order:1;text-align:left}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{color:#999;order:3;text-align:right}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer:hover{cursor:pointer}}@media print{.bespoke-marp-presenter-info-container,.bespoke-marp-presenter-next-container,.bespoke-marp-presenter-note-container{display:none}}</style><style>div#\:\$p > svg > foreignObject > section{width:1280px;height:720px;box-sizing:border-box;overflow:hidden;position:relative;scroll-snap-align:center center;-webkit-text-size-adjust:100%;text-size-adjust:100%}div#\:\$p > svg > foreignObject > section::after{bottom:0;content:attr(data-marpit-pagination);padding:inherit;pointer-events:none;position:absolute;right:0}div#\:\$p > svg > foreignObject > section:not([data-marpit-pagination])::after{display:none}div#\:\$p > svg > foreignObject > section :is(h1, marp-h1){font-size:2em;margin-block:0.67em}div#\:\$p > svg > foreignObject > section video::-webkit-media-controls{will-change:transform}@page {size:1280px 720px;margin:0}@media print{html, body{background-color:#fff;margin:0;page-break-inside:avoid;break-inside:avoid-page}div#\:\$p > svg > foreignObject > section{page-break-before:always;break-before:page}div#\:\$p > svg > foreignObject > section, div#\:\$p > svg > foreignObject > section *{-webkit-print-color-adjust:exact!important;animation-delay:0s!important;animation-duration:0s!important;color-adjust:exact!important;print-color-adjust:exact!important;transition:none!important}div#\:\$p > svg[data-marpit-svg]{display:block;height:100vh;width:100vw}}div#\:\$p > svg > foreignObject > :where(section){container-type:size}div#\:\$p > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}div#\:\$p > svg > foreignObject > section{--focus-outlineColor:light-dark(#0969da, #1f6feb);--fgColor-default:light-dark(#1f2328, #f0f6fc);--fgColor-muted:light-dark(#59636e, #9198a1);--fgColor-accent:light-dark(#0969da, #4493f8);--fgColor-success:light-dark(#1a7f37, #3fb950);--fgColor-attention:light-dark(#9a6700, #d29922);--fgColor-danger:light-dark(#d1242f, #f85149);--fgColor-done:light-dark(#8250df, #ab7df8);--bgColor-default:light-dark(#fff, #0d1117);--bgColor-muted:light-dark(#f6f8fa, #151b23);--bgColor-neutral-muted:light-dark(#818b981f, #656c7633);--bgColor-attention-muted:light-dark(#fff8c5, #bb800926);--borderColor-default:light-dark(#d1d9e0, #3d444d);--borderColor-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-neutral-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-accent-emphasis:light-dark(#0969da, #1f6feb);--borderColor-success-emphasis:light-dark(#1a7f37, #238636);--borderColor-attention-emphasis:light-dark(#9a6700, #9e6a03);--borderColor-danger-emphasis:light-dark(#cf222e, #da3633);--borderColor-done-emphasis:light-dark(#8250df, #8957e5);--color-prettylights-syntax-comment:light-dark(#59636e, #9198a1);--color-prettylights-syntax-constant:light-dark(#0550ae, #79c0ff);--color-prettylights-syntax-constant-other-reference-link:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-entity:light-dark(#6639ba, #d2a8ff);--color-prettylights-syntax-storage-modifier-import:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-entity-tag:light-dark(#0550ae, #7ee787);--color-prettylights-syntax-keyword:light-dark(#cf222e, #ff7b72);--color-prettylights-syntax-string:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-variable:light-dark(#953800, #ffa657);--color-prettylights-syntax-brackethighlighter-unmatched:light-dark(#82071e, #f85149);--color-prettylights-syntax-brackethighlighter-angle:light-dark(#59636e, #9198a1);--color-prettylights-syntax-invalid-illegal-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-invalid-illegal-bg:light-dark(#82071e, #8e1519);--color-prettylights-syntax-carriage-return-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-carriage-return-bg:light-dark(#cf222e, #b62324);--color-prettylights-syntax-string-regexp:light-dark(#116329, #7ee787);--color-prettylights-syntax-markup-list:light-dark(#3b2300, #f2cc60);--color-prettylights-syntax-markup-heading:light-dark(#0550ae, #1f6feb);--color-prettylights-syntax-markup-italic:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-bold:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-deleted-text:light-dark(#82071e, #ffdcd7);--color-prettylights-syntax-markup-deleted-bg:light-dark(#ffebe9, #67060c);--color-prettylights-syntax-markup-inserted-text:light-dark(#116329, #aff5b4);--color-prettylights-syntax-markup-inserted-bg:light-dark(#dafbe1, #033a16);--color-prettylights-syntax-markup-changed-text:light-dark(#953800, #ffdfb6);--color-prettylights-syntax-markup-changed-bg:light-dark(#ffd8b5, #5a1e02);--color-prettylights-syntax-markup-ignored-text:light-dark(#d1d9e0, #f0f6fc);--color-prettylights-syntax-markup-ignored-bg:light-dark(#0550ae, #1158c7);--color-prettylights-syntax-meta-diff-range:light-dark(#8250df, #d2a8ff);--color-prettylights-syntax-sublimelinter-gutter-mark:light-dark(#818b98, #3d444d);--base-size-4:calc(var(--marpit-root-font-size, 1rem) * 0.25);--base-size-8:calc(var(--marpit-root-font-size, 1rem) * 0.5);--base-size-16:calc(var(--marpit-root-font-size, 1rem) * 1);--base-size-24:calc(var(--marpit-root-font-size, 1rem) * 1.5);--base-size-40:calc(var(--marpit-root-font-size, 1rem) * 2.5);--base-text-weight-normal:400;--base-text-weight-medium:500;--base-text-weight-semibold:600;--fontStack-monospace:ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;--fgColor-accent:Highlight;}/*!
+<!DOCTYPE html><html lang="C"><head><title>Clase 3: Transformación del Entorno</title><meta property="og:title" content="Clase 3: Transformación del Entorno"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><style>@media screen{body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{appearance:none;background-color:initial;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:disabled{cursor:not-allowed;opacity:.15!important}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover{opacity:1}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:active{opacity:.6}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:not(:disabled){transition:none}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-prev{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTAgMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-next{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJtMzIgOTAgNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNNDAgNzBIMjBWNTBtMjAgMEwyMCA3MG00MC00MGgyMHYyMG0tMjAgMCAyMC0yMCIgY2xhc3M9ImEiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen]{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNMjAgNTBoMjB2MjBtLTIwIDAgMjAtMjBtNDAgMEg2MFYzMG0yMCAwTDYwIDUwIiBjbGFzcz0iYSIvPjwvc3ZnPg==")}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNODcuOCA0Ny41Qzg5IDUwIDg3LjcgNTIgODUgNTJIMzVhOC43IDguNyAwIDAgMS03LjItNC41bC0xNS42LTMxQzExIDE0IDEyLjIgMTIgMTUgMTJoNTBhOC44IDguOCAwIDAgMSA3LjIgNC41ek02MCA1MnYzNm0tMTAgMGgyME00NSA0MmgyMCIvPjwvc3ZnPg==") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-bigger{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODBNNTIgOTBWMTAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-smaller{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}}@keyframes __bespoke_marp_transition_reduced_outgoing__{0%{opacity:1}to{opacity:0}}@keyframes __bespoke_marp_transition_reduced_incoming__{0%{mix-blend-mode:plus-lighter;opacity:0}to{mix-blend-mode:plus-lighter;opacity:1}}.bespoke-marp-note,.bespoke-marp-osc,.bespoke-progress-parent{display:none;transition:none}@media screen{::view-transition-group(*){animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-timing-function:ease}::view-transition-new(*),::view-transition-old(*){animation-delay:0s;animation-direction:var(--marp-bespoke-transition-animation-direction,normal);animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-fill-mode:both;animation-name:var(--marp-bespoke-transition-animation-name,var(--marp-bespoke-transition-animation-name-fallback,__bespoke_marp_transition_no_animation__));mix-blend-mode:normal}::view-transition-old(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_outgoing__;animation-timing-function:ease}::view-transition-new(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_incoming__;animation-timing-function:ease}::view-transition-new(root),::view-transition-old(root){animation-timing-function:linear}::view-transition-new(__bespoke_marp_transition_osc__),::view-transition-old(__bespoke_marp_transition_osc__){animation-duration:0s!important;animation-name:__bespoke_marp_transition_osc__!important}::view-transition-new(__bespoke_marp_transition_osc__){opacity:0!important}.bespoke-marp-transition-warming-up::view-transition-group(*),.bespoke-marp-transition-warming-up::view-transition-new(*),.bespoke-marp-transition-warming-up::view-transition-old(*){animation-play-state:paused!important}body,html{height:100%;margin:0}body{background:#000;overflow:hidden}svg.bespoke-marp-slide{content-visibility:hidden;opacity:0;pointer-events:none;z-index:-1}svg.bespoke-marp-slide:not(.bespoke-marp-active) *{view-transition-name:none!important}svg.bespoke-marp-slide.bespoke-marp-active{content-visibility:visible;opacity:1;pointer-events:auto;z-index:0}svg.bespoke-marp-slide.bespoke-marp-active.bespoke-marp-active-ready *{animation-name:__bespoke_marp__!important}@supports not (content-visibility:hidden){svg.bespoke-marp-slide[data-bespoke-marp-load=hideable]{display:none}svg.bespoke-marp-slide[data-bespoke-marp-load=hideable].bespoke-marp-active{display:block}}}@media screen and (prefers-reduced-motion:reduce){svg.bespoke-marp-slide *{view-transition-name:none!important}}@media screen{[data-bespoke-marp-fragment=inactive]{visibility:hidden}body[data-bespoke-view=""] .bespoke-marp-parent,body[data-bespoke-view=next] .bespoke-marp-parent{inset:0;position:absolute}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc{background:#000000a6;border-radius:7px;bottom:50px;color:#fff;contain:paint;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;user-select:none;white-space:nowrap;will-change:transform;z-index:1;view-transition-name:__bespoke_marp_transition_osc__}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>*,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>:first-child,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{height:32px;line-height:32px;width:32px}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive{cursor:none}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}body[data-bespoke-view=""] svg.bespoke-marp-slide,body[data-bespoke-view=next] svg.bespoke-marp-slide{height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent+.bespoke-marp-parent{top:5px}body[data-bespoke-view=""] .bespoke-progress-parent .bespoke-progress-bar{background:#0288d1;flex:0 0 0;transition:flex-basis .2s cubic-bezier(0,1,1,1)}body[data-bespoke-view=next]{background:#0000}body[data-bespoke-view=presenter]{background:#161616}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container{display:grid;font-family:Helvetica,Arial,sans-serif;grid-template:"current dragbar next" minmax(140px,1fr) "current dragbar note" 2fr "info    dragbar note" 3em;grid-template-columns:minmax(3px,var(--bespoke-marp-presenter-split-ratio,66%)) 0 minmax(3px,1fr);height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent{grid-area:current;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide{height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide.bespoke-marp-active{filter:drop-shadow(0 3px 10px rgba(0,0,0,.5))}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container{background:#0288d1;cursor:col-resize;grid-area:dragbar;margin-left:-3px;opacity:0;position:relative;transition:opacity .4s linear .1s;width:6px;z-index:10}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container:hover{opacity:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container.active{opacity:1;transition-delay:0s}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container{background:#222;cursor:pointer;display:none;grid-area:next;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container iframe.bespoke-marp-presenter-next{background:#0000;border:0;display:block;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container{background:#222;color:#eee;grid-area:note;position:relative;z-index:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper{display:block;inset:0;position:absolute}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons{background:#000000a6;border-radius:4px;bottom:0;display:flex;gap:4px;margin:12px;opacity:0;padding:6px;pointer-events:none;position:absolute;right:0;transition:opacity .2s linear}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons:focus-within,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper:focus-within+.bespoke-marp-presenter-note-buttons,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container:hover .bespoke-marp-presenter-note-buttons{opacity:1;pointer-events:auto}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note{box-sizing:border-box;font-size:calc(1.1em*var(--bespoke-marp-note-font-scale, 1));height:calc(100% - 40px);margin:20px;overflow:auto;padding-right:3px;white-space:pre-wrap;width:calc(100% - 40px);word-wrap:break-word;scrollbar-color:#eeeeee80 #0000;scrollbar-width:thin}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar{width:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-track{background:#0000}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-thumb{background:#eeeeee80;border-radius:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note:empty{pointer-events:none}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:first-child{margin-top:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:last-child{margin-bottom:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container{align-items:center;box-sizing:border-box;color:#eee;display:flex;flex-wrap:nowrap;grid-area:info;justify-content:center;overflow:hidden;padding:0 10px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{box-sizing:border-box;display:block;padding:0 10px;white-space:nowrap;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page{order:2;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page .bespoke-marp-presenter-info-page-text{display:inline-block;min-width:120px;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time{color:#999;order:1;text-align:left}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{color:#999;order:3;text-align:right}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer:hover{cursor:pointer}}@media print{.bespoke-marp-presenter-info-container,.bespoke-marp-presenter-next-container,.bespoke-marp-presenter-note-container{display:none}}</style><style>div#\:\$p > svg > foreignObject > section{width:1280px;height:720px;box-sizing:border-box;overflow:hidden;position:relative;scroll-snap-align:center center;-webkit-text-size-adjust:100%;text-size-adjust:100%}div#\:\$p > svg > foreignObject > section::after{bottom:0;content:attr(data-marpit-pagination);padding:inherit;pointer-events:none;position:absolute;right:0}div#\:\$p > svg > foreignObject > section:not([data-marpit-pagination])::after{display:none}div#\:\$p > svg > foreignObject > section :is(h1, marp-h1){font-size:2em;margin-block:0.67em}div#\:\$p > svg > foreignObject > section video::-webkit-media-controls{will-change:transform}@page {size:1280px 720px;margin:0}@media print{html, body{background-color:#fff;margin:0;page-break-inside:avoid;break-inside:avoid-page}div#\:\$p > svg > foreignObject > section{page-break-before:always;break-before:page}div#\:\$p > svg > foreignObject > section, div#\:\$p > svg > foreignObject > section *{-webkit-print-color-adjust:exact!important;animation-delay:0s!important;animation-duration:0s!important;color-adjust:exact!important;print-color-adjust:exact!important;transition:none!important}div#\:\$p > svg[data-marpit-svg]{display:block;height:100vh;width:100vw}}div#\:\$p > svg > foreignObject > :where(section){container-type:size}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"]{direction:ltr}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] > svg{overflow:visible;min-height:1px;min-width:1px}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] > svg a{fill:blue;stroke:blue}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][display="true"]{display:block;text-align:center;margin:1em 0}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][display="true"][width="full"]{display:flex}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][justify="left"]{text-align:left}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][justify="right"]{text-align:right}div#\:\$p > svg > foreignObject > section g[data-mml-node="merror"] > g{fill:red;stroke:red}div#\:\$p > svg > foreignObject > section g[data-mml-node="merror"] > rect[data-background]{fill:yellow;stroke:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > line[data-line], div#\:\$p > svg > foreignObject > section svg[data-table] > g > line[data-line]{stroke-width:70px;fill:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > rect[data-frame], div#\:\$p > svg > foreignObject > section svg[data-table] > g > rect[data-frame]{stroke-width:70px;fill:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > .mjx-dashed, div#\:\$p > svg > foreignObject > section svg[data-table] > g > .mjx-dashed{stroke-dasharray:140}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > .mjx-dotted, div#\:\$p > svg > foreignObject > section svg[data-table] > g > .mjx-dotted{stroke-linecap:round;stroke-dasharray:0,140}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > g > svg{overflow:visible}div#\:\$p > svg > foreignObject > section [jax="SVG"] mjx-tool{display:inline-block;position:relative;width:0;height:0}div#\:\$p > svg > foreignObject > section [jax="SVG"] mjx-tool > mjx-tip{position:absolute;top:0;left:0}div#\:\$p > svg > foreignObject > section mjx-tool > mjx-tip{display:inline-block;padding:.2em;border:1px solid #888;font-size:70%;background-color:#F8F8F8;color:black;box-shadow:2px 2px 5px #AAAAAA}div#\:\$p > svg > foreignObject > section g[data-mml-node="maction"][data-toggle]{cursor:pointer}div#\:\$p > svg > foreignObject > section mjx-status{display:block;position:fixed;left:1em;bottom:1em;min-width:25%;padding:.2em .4em;border:1px solid #888;font-size:90%;background-color:#F8F8F8;color:black}div#\:\$p > svg > foreignObject > section foreignObject[data-mjx-xml]{font-family:initial;line-height:normal;overflow:visible}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] path[data-c], div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] use[data-c]{stroke-width:3}@media print{div#\:\$p > svg > foreignObject > section mjx-container[jax=SVG] path[data-c],div#\:\$p > svg > foreignObject > section mjx-container[jax=SVG] use[data-c]{stroke-width:0}}div#\:\$p > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}div#\:\$p > svg > foreignObject > section{--focus-outlineColor:light-dark(#0969da, #1f6feb);--fgColor-default:light-dark(#1f2328, #f0f6fc);--fgColor-muted:light-dark(#59636e, #9198a1);--fgColor-accent:light-dark(#0969da, #4493f8);--fgColor-success:light-dark(#1a7f37, #3fb950);--fgColor-attention:light-dark(#9a6700, #d29922);--fgColor-danger:light-dark(#d1242f, #f85149);--fgColor-done:light-dark(#8250df, #ab7df8);--bgColor-default:light-dark(#fff, #0d1117);--bgColor-muted:light-dark(#f6f8fa, #151b23);--bgColor-neutral-muted:light-dark(#818b981f, #656c7633);--bgColor-attention-muted:light-dark(#fff8c5, #bb800926);--borderColor-default:light-dark(#d1d9e0, #3d444d);--borderColor-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-neutral-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-accent-emphasis:light-dark(#0969da, #1f6feb);--borderColor-success-emphasis:light-dark(#1a7f37, #238636);--borderColor-attention-emphasis:light-dark(#9a6700, #9e6a03);--borderColor-danger-emphasis:light-dark(#cf222e, #da3633);--borderColor-done-emphasis:light-dark(#8250df, #8957e5);--color-prettylights-syntax-comment:light-dark(#59636e, #9198a1);--color-prettylights-syntax-constant:light-dark(#0550ae, #79c0ff);--color-prettylights-syntax-constant-other-reference-link:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-entity:light-dark(#6639ba, #d2a8ff);--color-prettylights-syntax-storage-modifier-import:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-entity-tag:light-dark(#0550ae, #7ee787);--color-prettylights-syntax-keyword:light-dark(#cf222e, #ff7b72);--color-prettylights-syntax-string:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-variable:light-dark(#953800, #ffa657);--color-prettylights-syntax-brackethighlighter-unmatched:light-dark(#82071e, #f85149);--color-prettylights-syntax-brackethighlighter-angle:light-dark(#59636e, #9198a1);--color-prettylights-syntax-invalid-illegal-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-invalid-illegal-bg:light-dark(#82071e, #8e1519);--color-prettylights-syntax-carriage-return-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-carriage-return-bg:light-dark(#cf222e, #b62324);--color-prettylights-syntax-string-regexp:light-dark(#116329, #7ee787);--color-prettylights-syntax-markup-list:light-dark(#3b2300, #f2cc60);--color-prettylights-syntax-markup-heading:light-dark(#0550ae, #1f6feb);--color-prettylights-syntax-markup-italic:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-bold:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-deleted-text:light-dark(#82071e, #ffdcd7);--color-prettylights-syntax-markup-deleted-bg:light-dark(#ffebe9, #67060c);--color-prettylights-syntax-markup-inserted-text:light-dark(#116329, #aff5b4);--color-prettylights-syntax-markup-inserted-bg:light-dark(#dafbe1, #033a16);--color-prettylights-syntax-markup-changed-text:light-dark(#953800, #ffdfb6);--color-prettylights-syntax-markup-changed-bg:light-dark(#ffd8b5, #5a1e02);--color-prettylights-syntax-markup-ignored-text:light-dark(#d1d9e0, #f0f6fc);--color-prettylights-syntax-markup-ignored-bg:light-dark(#0550ae, #1158c7);--color-prettylights-syntax-meta-diff-range:light-dark(#8250df, #d2a8ff);--color-prettylights-syntax-sublimelinter-gutter-mark:light-dark(#818b98, #3d444d);--base-size-4:calc(var(--marpit-root-font-size, 1rem) * 0.25);--base-size-8:calc(var(--marpit-root-font-size, 1rem) * 0.5);--base-size-16:calc(var(--marpit-root-font-size, 1rem) * 1);--base-size-24:calc(var(--marpit-root-font-size, 1rem) * 1.5);--base-size-40:calc(var(--marpit-root-font-size, 1rem) * 2.5);--base-text-weight-normal:400;--base-text-weight-medium:500;--base-text-weight-semibold:600;--fontStack-monospace:ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;--fgColor-accent:Highlight;}/*!
  * Marp default theme.
  *
  * @theme default
@@ -34,13 +34,22 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 
-<h1 id="clase-3-transformaci%C3%B3n-del-entorno">Clase 3: Transformación del Entorno</h1>
-<h2 id="empresas-y-ciudades-inteligentes">Empresas y Ciudades Inteligentes</h2>
-<p><strong>IF0112 - Complementaria II</strong><br />
-<em>6° Semestre - Ingeniería Informática</em></p>
+<h2 id="%F0%9F%92%A1-%C2%BFpor-qu%C3%A9-la-transformaci%C3%B3n-digital"><img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> ¿Por qué la transformación digital?</h2>
+<p><strong>Datos del mundo real:</strong></p>
+<ul>
+<li>84% de empresas en transformación digital (Gartner 2025)</li>
+<li>$2.3 trillones en IoT para 2026</li>
+</ul>
+<p><strong>Ejemplos en Colombia:</strong></p>
+<ul>
+<li><img class="emoji" draggable="false" alt="🚦" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a6.svg" data-marp-twemoji=""/> Medellín: Semáforos inteligentes con sensores</li>
+<li><img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> Grupo Nutresa: Sensores en líneas de producción</li>
+<li><img class="emoji" draggable="false" alt="🏢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e2.svg" data-marp-twemoji=""/> EPM: Smart grid para gestión energética</li>
+</ul>
+<p><strong>Analogía:</strong> Una empresa sin IoT es ciega y sorda. Con IoT, <strong>siente y reacciona</strong> en tiempo real.</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -69,17 +78,12 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="objetivos-de-la-clase">Objetivos de la Clase</h2>
-<p>Al finalizar esta clase, el estudiante será capaz de:</p>
-<ol>
-<li><strong>Definir</strong> qué es una empresa inteligente</li>
-<li><strong>Describir</strong> los componentes de una Smart City</li>
-<li><strong>Analizar</strong> casos de estudio reales</li>
-<li><strong>Evaluar</strong> el impacto de IoT en diferentes sectores</li>
-</ol>
-<p><strong>Duración:</strong> 2 horas</p>
+<h1 id="clase-3-transformaci%C3%B3n-del-entorno">Clase 3: Transformación del Entorno</h1>
+<h2 id="empresas-y-ciudades-inteligentes">Empresas y Ciudades Inteligentes</h2>
+<p><strong>IF0112 - Complementaria II</strong><br />
+<em>6° Semestre - Ingeniería Informática</em></p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -108,25 +112,17 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="la-transformaci%C3%B3n-digital">La Transformación Digital</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  TRANSFORMACIÓN DIGITAL                     │
-│                                                             │
-│    ANTES                           DESPUÉS                  │
-│  ┌────────────┐                  ┌────────────┐            │
-│  │  Procesos  │                  │  Procesos  │            │
-│  │  manuales  │ ─── IoT ───────► │ inteligentes│            │
-│  └────────────┘                  └────────────┘            │
-│                                                             │
-│    • Papel                        • Digital                │
-│    • Reactivo                     • Predictivo             │
-│    • Aislado                      • Conectado              │
-│    • Ineficiente                  • Optimizado             │
-│    • Basado en intuición          • Basado en datos        │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<h2 id="objetivos-de-la-clase">Objetivos de la Clase</h2>
+<p>Al finalizar esta clase, el estudiante será capaz de:</p>
+<ol>
+<li><strong>Definir</strong> qué es una empresa inteligente</li>
+<li><strong>Describir</strong> los componentes de una Smart City</li>
+<li><strong>Analizar</strong> casos de estudio reales</li>
+<li><strong>Evaluar</strong> el impacto de IoT en diferentes sectores</li>
+</ol>
+<p><strong>Duración:</strong> 2 horas</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -155,7 +151,54 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="la-transformaci%C3%B3n-digital">La Transformación Digital</h2>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                  TRANSFORMACIÓN DIGITAL                     │
+│                                                             │
+│    ANTES                           DESPUÉS                  │
+│  ┌────────────┐                  ┌────────────┐            │
+│  │  Procesos  │                  │  Procesos  │            │
+│  │  manuales  │ ─── IoT ───────► │ inteligentes│            │
+│  └────────────┘                  └────────────┘            │
+│                                                             │
+│    • Papel                        • Digital                │
+│    • Reactivo                     • Predictivo             │
+│    • Aislado                      • Conectado              │
+│    • Ineficiente                  • Optimizado             │
+│    • Basado en intuición          • Basado en datos        │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="5" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="empresa-inteligente">Empresa Inteligente</h2>
 <h3 id="definici%C3%B3n">Definición</h3>
@@ -197,55 +240,6 @@ operaciones, mejorar la toma de decisiones y crear valor.</p>
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="5" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="arquitectura-iot-y-empresas-inteligentes">Arquitectura IoT y Empresas Inteligentes</h2>
-<p><img src="../../../assets/infografias/clase-03-arquitectura-iot.png" alt="Arquitectura IoT de 3 Capas: Percepción, Red y Aplicación" />{: style=&quot;max-width: 80%; max-height: 500px; display: block; margin: 0 auto;&quot;}</p>
-<h3 id="pilares-de-la-empresa-inteligente">Pilares de la Empresa Inteligente</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   EMPRESA INTELIGENTE                       │
-│                                                             │
-│     ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
-│     │   SENSORES  │  │   ANÁLISIS  │  │  ACTUACIÓN  │     │
-│     │             │  │             │  │             │     │
-│     │  Recopilar  │──│  Procesar   │──│  Ejecutar   │     │
-│     │   datos     │  │   datos     │  │  acciones   │     │
-│     └─────────────┘  └─────────────┘  └─────────────┘     │
-│            │                │                │              │
-│     ┌──────┴────────────────┴────────────────┴──────┐     │
-│     │              PLATAFORMA IoT                    │     │
-│     │   Conectividad + Almacenamiento + Seguridad   │     │
-│     └───────────────────────────────────────────────┘     │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -272,25 +266,25 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="industria-40-manufactura-inteligente">Industria 4.0 (Manufactura Inteligente)</h2>
-<h3 id="las-4-revoluciones-industriales">Las 4 Revoluciones Industriales</h3>
+<h2 id="arquitectura-iot-y-empresas-inteligentes">Arquitectura IoT y Empresas Inteligentes</h2>
+<p><img src="../../../assets/infografias/clase-03-arquitectura-iot.png" alt="Arquitectura IoT de 3 Capas: Percepción, Red y Aplicación" />{: style=&quot;max-width: 80%; max-height: 500px; display: block; margin: 0 auto;&quot;}</p>
+<h3 id="pilares-de-la-empresa-inteligente">Pilares de la Empresa Inteligente</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                   EMPRESA INTELIGENTE                       │
 │                                                             │
-│  1.0 Mecanización │ 2.0 Electricidad │ 3.0 Electrónica     │
-│     (1784)        │     (1870)        │     (1969)          │
-│       <img class="emoji" draggable="false" alt="⚙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2699.svg" data-marp-twemoji=""/>          │       <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/>          │       <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>            │
-│    Máquina de     │   Producción      │   Computadores      │
-│      vapor        │     en masa       │   y automatización  │
-│                                                             │
-│                      ▼▼▼ AHORA ▼▼▼                         │
-│                                                             │
-│                   4.0 Cyber-Physical                        │
-│                       (2011+)                               │
-│                        <img class="emoji" draggable="false" alt="🌐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f310.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🤖" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f916.svg" data-marp-twemoji=""/>                                 │
-│                   IoT + IA + Big Data                       │
-│                   Fábricas autónomas                        │
+│     ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│     │   SENSORES  │  │   ANÁLISIS  │  │  ACTUACIÓN  │     │
+│     │             │  │             │  │             │     │
+│     │  Recopilar  │──│  Procesar   │──│  Ejecutar   │     │
+│     │   datos     │  │   datos     │  │  acciones   │     │
+│     └─────────────┘  └─────────────┘  └─────────────┘     │
+│            │                │                │              │
+│     ┌──────┴────────────────┴────────────────┴──────┐     │
+│     │              PLATAFORMA IoT                    │     │
+│     │   Conectividad + Almacenamiento + Seguridad   │     │
+│     └───────────────────────────────────────────────┘     │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -321,26 +315,25 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="caso-f%C3%A1brica-inteligente">Caso: Fábrica Inteligente</h2>
-<h3 id="siemens-amberg-alemania">Siemens Amberg (Alemania)</h3>
+<h2 id="industria-40-manufactura-inteligente">Industria 4.0 (Manufactura Inteligente)</h2>
+<h3 id="las-4-revoluciones-industriales">Las 4 Revoluciones Industriales</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│             FÁBRICA SIEMENS AMBERG                          │
 │                                                             │
-│   <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> DATOS:                                                 │
-│   • 50 millones de registros de proceso/día                │
-│   • 99.99885% tasa de calidad                              │
+│  1.0 Mecanización │ 2.0 Electricidad │ 3.0 Electrónica     │
+│     (1784)        │     (1870)        │     (1969)          │
+│       <img class="emoji" draggable="false" alt="⚙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2699.svg" data-marp-twemoji=""/>          │       <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/>          │       <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>            │
+│    Máquina de     │   Producción      │   Computadores      │
+│      vapor        │     en masa       │   y automatización  │
 │                                                             │
-│   <img class="emoji" draggable="false" alt="🔧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f527.svg" data-marp-twemoji=""/> TECNOLOGÍA:                                            │
-│   • 1,000+ estaciones de trabajo automatizadas             │
-│   • Productos se comunican con máquinas                    │
-│   • Mantenimiento predictivo                               │
+│                      ▼▼▼ AHORA ▼▼▼                         │
 │                                                             │
-│   <img class="emoji" draggable="false" alt="📈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4c8.svg" data-marp-twemoji=""/> RESULTADOS:                                            │
-│   • 75% automatizada                                        │
-│   • Producción aumentó 8x en 25 años                       │
-│   • Mismo espacio, mismo número de empleados               │
+│                   4.0 Cyber-Physical                        │
+│                       (2011+)                               │
+│                        <img class="emoji" draggable="false" alt="🌐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f310.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🤖" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f916.svg" data-marp-twemoji=""/>                                 │
+│                   IoT + IA + Big Data                       │
+│                   Fábricas autónomas                        │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -371,27 +364,26 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="smart-cities-ciudades-inteligentes">Smart Cities: Ciudades Inteligentes</h2>
-<h3 id="definici%C3%B3n-1">Definición</h3>
-<blockquote>
-<p>Una <strong>ciudad inteligente</strong> usa tecnología IoT para mejorar<br />
-la eficiencia de servicios urbanos, la calidad de vida<br />
-y la sostenibilidad ambiental.</p>
-</blockquote>
-<h3 id="componentes-de-una-smart-city">Componentes de una Smart City</h3>
+<h2 id="caso-f%C3%A1brica-inteligente">Caso: Fábrica Inteligente</h2>
+<h3 id="siemens-amberg-alemania">Siemens Amberg (Alemania)</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                      SMART CITY                             │
+│             FÁBRICA SIEMENS AMBERG                          │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> Movilidad     <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> Energía      <img class="emoji" draggable="false" alt="🌳" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f333.svg" data-marp-twemoji=""/> Ambiente              │
-│     inteligente      inteligente     inteligente           │
+│   <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> DATOS:                                                 │
+│   • 50 millones de registros de proceso/día                │
+│   • 99.99885% tasa de calidad                              │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🏛" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3db.svg" data-marp-twemoji=""/> Gobierno     <img class="emoji" draggable="false" alt="🏥" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e5.svg" data-marp-twemoji=""/> Salud        <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> Seguridad             │
-│     inteligente      inteligente     inteligente           │
+│   <img class="emoji" draggable="false" alt="🔧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f527.svg" data-marp-twemoji=""/> TECNOLOGÍA:                                            │
+│   • 1,000+ estaciones de trabajo automatizadas             │
+│   • Productos se comunican con máquinas                    │
+│   • Mantenimiento predictivo                               │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> Edificios    <img class="emoji" draggable="false" alt="🚰" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6b0.svg" data-marp-twemoji=""/> Agua         <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> Conectividad          │
-│     inteligentes     inteligente     5G/Fibra              │
+│   <img class="emoji" draggable="false" alt="📈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4c8.svg" data-marp-twemoji=""/> RESULTADOS:                                            │
+│   • 75% automatizada                                        │
+│   • Producción aumentó 8x en 25 años                       │
+│   • Mismo espacio, mismo número de empleados               │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -422,26 +414,27 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="movilidad-inteligente">Movilidad Inteligente</h2>
+<h2 id="smart-cities-ciudades-inteligentes">Smart Cities: Ciudades Inteligentes</h2>
+<h3 id="definici%C3%B3n-1">Definición</h3>
+<blockquote>
+<p>Una <strong>ciudad inteligente</strong> usa tecnología IoT para mejorar<br />
+la eficiencia de servicios urbanos, la calidad de vida<br />
+y la sostenibilidad ambiental.</p>
+</blockquote>
+<h3 id="componentes-de-una-smart-city">Componentes de una Smart City</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  MOVILIDAD INTELIGENTE                      │
+│                      SMART CITY                             │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🚦" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a6.svg" data-marp-twemoji=""/> Semáforos Adaptativos                                   │
-│     └── Ajustan tiempos según tráfico en tiempo real       │
+│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> Movilidad     <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> Energía      <img class="emoji" draggable="false" alt="🌳" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f333.svg" data-marp-twemoji=""/> Ambiente              │
+│     inteligente      inteligente     inteligente           │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🅿" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f17f.svg" data-marp-twemoji=""/> Estacionamiento Inteligente                            │
-│     └── Sensores detectan espacios libres                  │
-│     └── App guía al usuario                                │
+│  <img class="emoji" draggable="false" alt="🏛" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3db.svg" data-marp-twemoji=""/> Gobierno     <img class="emoji" draggable="false" alt="🏥" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e5.svg" data-marp-twemoji=""/> Salud        <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> Seguridad             │
+│     inteligente      inteligente     inteligente           │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🚌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f68c.svg" data-marp-twemoji=""/> Transporte Público Conectado                           │
-│     └── GPS en buses                                        │
-│     └── Información de llegada en paradas                  │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> Vehículos Conectados                                    │
-│     └── V2V (Vehículo a Vehículo)                          │
-│     └── V2I (Vehículo a Infraestructura)                   │
+│  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> Edificios    <img class="emoji" draggable="false" alt="🚰" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6b0.svg" data-marp-twemoji=""/> Agua         <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> Conectividad          │
+│     inteligentes     inteligente     5G/Fibra              │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -472,26 +465,26 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="energ%C3%ADa-inteligente-smart-grid">Energía Inteligente (Smart Grid)</h2>
+<h2 id="movilidad-inteligente">Movilidad Inteligente</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                     SMART GRID                              │
+│                  MOVILIDAD INTELIGENTE                      │
 │                                                             │
-│   <img class="emoji" draggable="false" alt="☀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2600.svg" data-marp-twemoji=""/> Generación      <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> Distribución      <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> Consumo       │
-│   Distribuida         Inteligente          Inteligente     │
-│        │                   │                    │           │
-│   ┌────▼───────────────────▼────────────────────▼────┐     │
-│   │              RED ELÉCTRICA INTELIGENTE            │     │
-│   └──────────────────────────────────────────────────┘     │
-│                           │                                 │
-│   ┌───────────────────────▼───────────────────────────┐    │
-│   │              CENTRO DE CONTROL                     │    │
-│   │  • Monitoreo en tiempo real                       │    │
-│   │  • Detección de fallas                            │    │
-│   │  • Balance oferta/demanda                         │    │
-│   │  • Integración renovables                         │    │
-│   └───────────────────────────────────────────────────┘    │
+│  <img class="emoji" draggable="false" alt="🚦" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a6.svg" data-marp-twemoji=""/> Semáforos Adaptativos                                   │
+│     └── Ajustan tiempos según tráfico en tiempo real       │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🅿" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f17f.svg" data-marp-twemoji=""/> Estacionamiento Inteligente                            │
+│     └── Sensores detectan espacios libres                  │
+│     └── App guía al usuario                                │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🚌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f68c.svg" data-marp-twemoji=""/> Transporte Público Conectado                           │
+│     └── GPS en buses                                        │
+│     └── Información de llegada en paradas                  │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> Vehículos Conectados                                    │
+│     └── V2V (Vehículo a Vehículo)                          │
+│     └── V2I (Vehículo a Infraestructura)                   │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -522,7 +515,57 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="energ%C3%ADa-inteligente-smart-grid">Energía Inteligente (Smart Grid)</h2>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                     SMART GRID                              │
+│                                                             │
+│   <img class="emoji" draggable="false" alt="☀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2600.svg" data-marp-twemoji=""/> Generación      <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> Distribución      <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> Consumo       │
+│   Distribuida         Inteligente          Inteligente     │
+│        │                   │                    │           │
+│   ┌────▼───────────────────▼────────────────────▼────┐     │
+│   │              RED ELÉCTRICA INTELIGENTE            │     │
+│   └──────────────────────────────────────────────────┘     │
+│                           │                                 │
+│   ┌───────────────────────▼───────────────────────────┐    │
+│   │              CENTRO DE CONTROL                     │    │
+│   │  • Monitoreo en tiempo real                       │    │
+│   │  • Detección de fallas                            │    │
+│   │  • Balance oferta/demanda                         │    │
+│   │  • Integración renovables                         │    │
+│   └───────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="12" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="medidores-inteligentes-smart-meters">Medidores Inteligentes (Smart Meters)</h2>
 <h3 id="beneficios">Beneficios</h3>
@@ -560,57 +603,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="12" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="agua-inteligente">Agua Inteligente</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   GESTIÓN INTELIGENTE DEL AGUA              │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> CAPTACIÓN                                              │
-│   └── Sensores de nivel en embalses                        │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="🚰" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6b0.svg" data-marp-twemoji=""/> TRATAMIENTO                                            │
-│   └── Monitoreo de calidad (pH, turbidez, cloro)          │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> DISTRIBUCIÓN                                           │
-│   └── Sensores de presión en tuberías                      │
-│   └── Detección de fugas (diferencia de flujo)             │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> CONSUMO                                                │
-│   └── Medidores inteligentes                               │
-│   └── Alertas de consumo anormal                           │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> RESULTADO: Reducción 15-30% pérdidas de agua          │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -637,28 +629,27 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="seguridad-ciudadana-inteligente">Seguridad Ciudadana Inteligente</h2>
-<h3 id="tecnolog%C3%ADas">Tecnologías</h3>
+<h2 id="agua-inteligente">Agua Inteligente</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│               SEGURIDAD CIUDADANA IoT                       │
+│                   GESTIÓN INTELIGENTE DEL AGUA              │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="📷" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f7.svg" data-marp-twemoji=""/> CÁMARAS INTELIGENTES                                    │
-│     • Reconocimiento facial                                 │
-│     • Detección de comportamiento anómalo                  │
-│     • Lectura de placas vehiculares                        │
+│   <img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> CAPTACIÓN                                              │
+│   └── Sensores de nivel en embalses                        │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🚨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a8.svg" data-marp-twemoji=""/> BOTONES DE PÁNICO                                       │
-│     • Ubicación GPS automática                             │
-│     • Notificación inmediata a autoridades                 │
+│   <img class="emoji" draggable="false" alt="🚰" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6b0.svg" data-marp-twemoji=""/> TRATAMIENTO                                            │
+│   └── Monitoreo de calidad (pH, turbidez, cloro)          │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/> APPS CIUDADANAS                                         │
-│     • Reportes de incidentes                               │
-│     • Alertas georreferenciadas                            │
+│   <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> DISTRIBUCIÓN                                           │
+│   └── Sensores de presión en tuberías                      │
+│   └── Detección de fugas (diferencia de flujo)             │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🔊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50a.svg" data-marp-twemoji=""/> SENSORES ACÚSTICOS                                      │
-│     • Detección de disparos (ShotSpotter)                  │
+│   <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> CONSUMO                                                │
+│   └── Medidores inteligentes                               │
+│   └── Alertas de consumo anormal                           │
+│                                                             │
+│   <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> RESULTADO: Reducción 15-30% pérdidas de agua          │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -689,25 +680,28 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="caso-de-estudio-singapur">Caso de Estudio: Singapur</h2>
-<h3 id="la-ciudad-m%C3%A1s-inteligente-del-mundo">La Ciudad Más Inteligente del Mundo</h3>
+<h2 id="seguridad-ciudadana-inteligente">Seguridad Ciudadana Inteligente</h2>
+<h3 id="tecnolog%C3%ADas">Tecnologías</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                    SINGAPUR SMART NATION                    │
+│               SEGURIDAD CIUDADANA IoT                       │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🎯" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3af.svg" data-marp-twemoji=""/> INICIATIVAS:                                            │
+│  <img class="emoji" draggable="false" alt="📷" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f7.svg" data-marp-twemoji=""/> CÁMARAS INTELIGENTES                                    │
+│     • Reconocimiento facial                                 │
+│     • Detección de comportamiento anómalo                  │
+│     • Lectura de placas vehiculares                        │
 │                                                             │
-│  • Virtual Singapore: Gemelo digital de la ciudad          │
-│  • Smart Health: Telemedicina + wearables para ancianos   │
-│  • Smart Mobility: Taxis autónomos, apps de transporte    │
-│  • E-Payments: Ciudad casi sin efectivo                    │
-│  • SenseOps: Red de sensores en toda la ciudad             │
+│  <img class="emoji" draggable="false" alt="🚨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a8.svg" data-marp-twemoji=""/> BOTONES DE PÁNICO                                       │
+│     • Ubicación GPS automática                             │
+│     • Notificación inmediata a autoridades                 │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> RESULTADOS:                                             │
-│  • #1 en ranking Smart City Index                          │
-│  • 95% de hogares con banda ancha                          │
-│  • 50% de transacciones sin efectivo                       │
+│  <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/> APPS CIUDADANAS                                         │
+│     • Reportes de incidentes                               │
+│     • Alertas georreferenciadas                            │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🔊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50a.svg" data-marp-twemoji=""/> SENSORES ACÚSTICOS                                      │
+│     • Detección de disparos (ShotSpotter)                  │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -738,7 +732,56 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="caso-de-estudio-singapur">Caso de Estudio: Singapur</h2>
+<h3 id="la-ciudad-m%C3%A1s-inteligente-del-mundo">La Ciudad Más Inteligente del Mundo</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                    SINGAPUR SMART NATION                    │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🎯" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3af.svg" data-marp-twemoji=""/> INICIATIVAS:                                            │
+│                                                             │
+│  • Virtual Singapore: Gemelo digital de la ciudad          │
+│  • Smart Health: Telemedicina + wearables para ancianos   │
+│  • Smart Mobility: Taxis autónomos, apps de transporte    │
+│  • E-Payments: Ciudad casi sin efectivo                    │
+│  • SenseOps: Red de sensores en toda la ciudad             │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> RESULTADOS:                                             │
+│  • #1 en ranking Smart City Index                          │
+│  • 95% de hogares con banda ancha                          │
+│  • 50% de transacciones sin efectivo                       │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="16" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="caso-de-estudio-barcelona">Caso de Estudio: Barcelona</h2>
 <h3 id="iniciativas-iot-destacadas">Iniciativas IoT Destacadas</h3>
@@ -780,58 +823,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="16" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="caso-de-estudio-medell%C3%ADn">Caso de Estudio: Medellín</h2>
-<h3 id="centro-de-control-y-comando---c4">Centro de Control y Comando - C4</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  MEDELLÍN C4 + SIATA                        │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> SEGURIDAD (C4):                                         │
-│     • 5,000+ cámaras en la ciudad                          │
-│     • Integración con Policía                              │
-│     • Monitoreo de transporte público                      │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🌧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f327.svg" data-marp-twemoji=""/> AMBIENTE (SIATA):                                       │
-│     • Red de sensores de calidad del aire                  │
-│     • Estaciones meteorológicas                            │
-│     • Alertas tempranas de lluvias                         │
-│     • Predicción de deslizamientos                         │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🚌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f68c.svg" data-marp-twemoji=""/> MOVILIDAD:                                              │
-│     • Metro con sistema de ubicación                       │
-│     • Encicla (bicicletas públicas) con IoT               │
-│     • App de movilidad integrada                           │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -858,25 +849,29 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="desaf%C3%ADos-de-las-ciudades-inteligentes">Desafíos de las Ciudades Inteligentes</h2>
-<h3 id="t%C3%A9cnicos">Técnicos</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>• Interoperabilidad entre sistemas diferentes
-• Ciberseguridad de infraestructura crítica
-• Escalabilidad de la infraestructura
-• Mantenimiento de miles de dispositivos
-</code></pre>
-<h3 id="sociales">Sociales</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>• Privacidad de los ciudadanos
-• Brecha digital (acceso desigual)
-• Aceptación pública de la tecnología
-• Dependencia tecnológica
-</code></pre>
-<h3 id="econ%C3%B3micos">Económicos</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>• Alto costo inicial de implementación
-• Modelo de negocio sostenible
-• Retorno de inversión a largo plazo
+<h2 id="caso-de-estudio-medell%C3%ADn">Caso de Estudio: Medellín</h2>
+<h3 id="centro-de-control-y-comando---c4">Centro de Control y Comando - C4</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                  MEDELLÍN C4 + SIATA                        │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> SEGURIDAD (C4):                                         │
+│     • 5,000+ cámaras en la ciudad                          │
+│     • Integración con Policía                              │
+│     • Monitoreo de transporte público                      │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🌧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f327.svg" data-marp-twemoji=""/> AMBIENTE (SIATA):                                       │
+│     • Red de sensores de calidad del aire                  │
+│     • Estaciones meteorológicas                            │
+│     • Alertas tempranas de lluvias                         │
+│     • Predicción de deslizamientos                         │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🚌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f68c.svg" data-marp-twemoji=""/> MOVILIDAD:                                              │
+│     • Metro con sistema de ubicación                       │
+│     • Encicla (bicicletas públicas) con IoT               │
+│     • App de movilidad integrada                           │
+└─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
@@ -906,27 +901,25 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="privacidad-en-ciudades-inteligentes">Privacidad en Ciudades Inteligentes</h2>
-<h3 id="el-dilema">El Dilema</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│        SEGURIDAD          vs          PRIVACIDAD           │
-│                                                             │
-│     <img class="emoji" draggable="false" alt="📷" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f7.svg" data-marp-twemoji=""/> Más cámaras              <img class="emoji" draggable="false" alt="👁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f441.svg" data-marp-twemoji=""/> Vigilancia masiva       │
-│     <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> Menos crimen              <img class="emoji" draggable="false" alt="🗃" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f5c3.svg" data-marp-twemoji=""/> Datos de ciudadanos    │
-│     <img class="emoji" draggable="false" alt="🚨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a8.svg" data-marp-twemoji=""/> Respuesta rápida          <img class="emoji" draggable="false" alt="🤖" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f916.svg" data-marp-twemoji=""/> Perfilamiento           │
-│                                                             │
-│  ¿Cómo encontrar el equilibrio?                            │
-│                                                             │
-│  PRINCIPIOS:                                                │
-│  • Transparencia sobre qué datos se recopilan              │
-│  • Consentimiento donde sea posible                        │
-│  • Minimización de datos                                   │
-│  • Retención limitada                                      │
-│  • Auditorías independientes                               │
-└─────────────────────────────────────────────────────────────┘
+<h2 id="desaf%C3%ADos-de-las-ciudades-inteligentes">Desafíos de las Ciudades Inteligentes</h2>
+<h3 id="t%C3%A9cnicos">Técnicos</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>• Interoperabilidad entre sistemas diferentes
+• Ciberseguridad de infraestructura crítica
+• Escalabilidad de la infraestructura
+• Mantenimiento de miles de dispositivos
+</code></pre>
+<h3 id="sociales">Sociales</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>• Privacidad de los ciudadanos
+• Brecha digital (acceso desigual)
+• Aceptación pública de la tecnología
+• Dependencia tecnológica
+</code></pre>
+<h3 id="econ%C3%B3micos">Económicos</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>• Alto costo inicial de implementación
+• Modelo de negocio sostenible
+• Retorno de inversión a largo plazo
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
@@ -956,26 +949,28 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="actividad-en-clase-40-min">Actividad en Clase (40 min)</h2>
-<h3 id="dise%C3%B1o-de-componente-smart-city">Diseño de Componente Smart City</h3>
-<p>En grupos de 4, diseñar un componente IoT para Medellín:</p>
-<p><strong>Opciones:</strong></p>
-<ol>
-<li>Sistema de parqueaderos inteligentes</li>
-<li>Monitoreo de calidad del aire en barrios</li>
-<li>Gestión inteligente de residuos (basuras)</li>
-<li>Sistema de alerta temprana de inundaciones</li>
-</ol>
-<p><strong>Entregable:</strong></p>
-<ul>
-<li>Diagrama de arquitectura</li>
-<li>Lista de sensores/actuadores</li>
-<li>Beneficios esperados</li>
-<li>Desafíos identificados</li>
-<li>Consideraciones de privacidad</li>
-</ul>
+<h2 id="privacidad-en-ciudades-inteligentes">Privacidad en Ciudades Inteligentes</h2>
+<h3 id="el-dilema">El Dilema</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│        SEGURIDAD          vs          PRIVACIDAD           │
+│                                                             │
+│     <img class="emoji" draggable="false" alt="📷" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f7.svg" data-marp-twemoji=""/> Más cámaras              <img class="emoji" draggable="false" alt="👁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f441.svg" data-marp-twemoji=""/> Vigilancia masiva       │
+│     <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> Menos crimen              <img class="emoji" draggable="false" alt="🗃" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f5c3.svg" data-marp-twemoji=""/> Datos de ciudadanos    │
+│     <img class="emoji" draggable="false" alt="🚨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a8.svg" data-marp-twemoji=""/> Respuesta rápida          <img class="emoji" draggable="false" alt="🤖" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f916.svg" data-marp-twemoji=""/> Perfilamiento           │
+│                                                             │
+│  ¿Cómo encontrar el equilibrio?                            │
+│                                                             │
+│  PRINCIPIOS:                                                │
+│  • Transparencia sobre qué datos se recopilan              │
+│  • Consentimiento donde sea posible                        │
+│  • Minimización de datos                                   │
+│  • Retención limitada                                      │
+│  • Auditorías independientes                               │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1004,7 +999,55 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="actividad-en-clase-40-min">Actividad en Clase (40 min)</h2>
+<h3 id="dise%C3%B1o-de-componente-smart-city">Diseño de Componente Smart City</h3>
+<p>En grupos de 4, diseñar un componente IoT para Medellín:</p>
+<p><strong>Opciones:</strong></p>
+<ol>
+<li>Sistema de parqueaderos inteligentes</li>
+<li>Monitoreo de calidad del aire en barrios</li>
+<li>Gestión inteligente de residuos (basuras)</li>
+<li>Sistema de alerta temprana de inundaciones</li>
+</ol>
+<p><strong>Entregable:</strong></p>
+<ul>
+<li>Diagrama de arquitectura</li>
+<li>Lista de sensores/actuadores</li>
+<li>Beneficios esperados</li>
+<li>Desafíos identificados</li>
+<li>Consideraciones de privacidad</li>
+</ul>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="21" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="resumen-de-la-clase">Resumen de la Clase</h2>
 <table>
@@ -1043,46 +1086,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="21" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="tarea-para-la-pr%C3%B3xima-clase">Tarea para la Próxima Clase</h2>
-<h3 id="investigaci%C3%B3n">Investigación</h3>
-<p>Seleccionar una ciudad inteligente del mundo y preparar:</p>
-<ol>
-<li><strong>Ficha técnica</strong> (3 iniciativas IoT destacadas)</li>
-<li><strong>Resultados medibles</strong> (métricas, estadísticas)</li>
-<li><strong>Lecciones aprendidas</strong> para Colombia</li>
-<li><strong>Presentación de 5 minutos</strong> para compartir</li>
-</ol>
-<p><strong>Ciudades sugeridas:</strong> Ámsterdam, Dubái, Seúl, Copenhague, Helsinki</p>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -1109,7 +1112,47 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="22">
+;" data-marpit-pagination-total="23">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="tarea-para-la-pr%C3%B3xima-clase">Tarea para la Próxima Clase</h2>
+<h3 id="investigaci%C3%B3n">Investigación</h3>
+<p>Seleccionar una ciudad inteligente del mundo y preparar:</p>
+<ol>
+<li><strong>Ficha técnica</strong> (3 iniciativas IoT destacadas)</li>
+<li><strong>Resultados medibles</strong> (métricas, estadísticas)</li>
+<li><strong>Lecciones aprendidas</strong> para Colombia</li>
+<li><strong>Presentación de 5 minutos</strong> para compartir</li>
+</ol>
+<p><strong>Ciudades sugeridas:</strong> Ámsterdam, Dubái, Seúl, Copenhague, Helsinki</p>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="23" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="23">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="pr%C3%B3xima-clase">Próxima Clase</h2>
 <h3 id="clase-4-redes-para-iot">Clase 4: Redes para IoT</h3>
