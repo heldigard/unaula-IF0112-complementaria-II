@@ -697,108 +697,54 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="ejemplo-programa-b%C3%A1sico-blink-led">Ejemplo: Programa Básico (Blink LED)</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="c%C3%B3digo-completo">Código Completo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// ═══════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// ZONA DE DECLARACIONES GLOBALES</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════</span>
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;    <span class="hljs-comment">// LED integrado en GPIO2</span>
-<span class="hljs-type">int</span> contador = <span class="hljs-number">0</span>;          <span class="hljs-comment">// Variable global</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;  <span class="hljs-comment">// LED integrado</span>
 
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// SETUP: Configuración inicial (se ejecuta 1 vez)</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════</span>
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Iniciar comunicación serial</span>
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    
-    <span class="hljs-comment">// Configurar pin como salida</span>
-    <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
-    
-    <span class="hljs-comment">// Mensaje de inicio</span>
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;=== ESP32 Iniciado ===&quot;</span>);
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
+  Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;ESP32 Iniciado&quot;</span>);
 }
 
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// LOOP: Bucle principal (se repite infinitamente)</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════</span>
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);  <span class="hljs-comment">// Encender LED (3.3V)</span>
-    <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);                   <span class="hljs-comment">// Esperar 1 segundo</span>
-    
-    <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);   <span class="hljs-comment">// Apagar LED (0V)</span>
-    <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);                   <span class="hljs-comment">// Esperar 1 segundo</span>
-    
-    contador++;                    <span class="hljs-comment">// Incrementar contador</span>
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Blink #&quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(contador);
+  <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);
 }
 </code></pre>
-</td>
-<td width="50%">
-<h3 id="explicaci%C3%B3n-l%C3%ADnea-por-l%C3%ADnea">Explicación Línea por Línea</h3>
+<h3 id="explicaci%C3%B3n">Explicación</h3>
 <table>
 <thead>
 <tr>
-<th>Línea</th>
 <th>Función</th>
 <th>Descripción</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>const int LED_PIN = 2</code></td>
-<td>Constante</td>
-<td>Define pin del LED (no cambia)</td>
-</tr>
-<tr>
-<td><code>Serial.begin(115200)</code></td>
-<td>Serial</td>
-<td>Inicia comunicación a 115200 baudios</td>
-</tr>
-<tr>
-<td><code>pinMode(LED_PIN, OUTPUT)</code></td>
-<td>Config</td>
-<td>Establece pin como salida</td>
+<td><code>pinMode(pin, OUTPUT)</code></td>
+<td>Configura pin como salida</td>
 </tr>
 <tr>
 <td><code>digitalWrite(pin, HIGH)</code></td>
-<td>Escritura</td>
 <td>Escribe 3.3V al pin</td>
 </tr>
 <tr>
 <td><code>digitalWrite(pin, LOW)</code></td>
-<td>Escritura</td>
 <td>Escribe 0V al pin</td>
 </tr>
 <tr>
-<td><code>delay(1000)</code></td>
-<td>Tiempo</td>
-<td>Pausa de 1000 milisegundos (1s)</td>
+<td><code>delay(ms)</code></td>
+<td>Pausa en milisegundos</td>
 </tr>
 <tr>
-<td><code>Serial.println()</code></td>
-<td>Debug</td>
-<td>Imprime mensaje en monitor serial</td>
+<td><code>Serial.begin(115200)</code></td>
+<td>Inicia comunicación serial</td>
 </tr>
 </tbody>
 </table>
-<h3 id="conceptos-clave">Conceptos Clave</h3>
-<p><strong>HIGH vs LOW:</strong></p>
-<ul>
-<li><strong>HIGH</strong> = 3.3V (en ESP32) o 5V (en Arduino)</li>
-<li><strong>LOW</strong> = 0V (tierra)</li>
-</ul>
-<p><strong>delay() vs millis():</strong></p>
-<ul>
-<li><strong>delay(ms):</strong> Pausa TODO el programa</li>
-<li><strong>millis():</strong> Retorna tiempo sin bloquear</li>
-</ul>
-</td>
-</tr>
-</table>
+<p><strong>HIGH = 3.3V (ESP32) | LOW = 0V</strong></p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -830,93 +776,36 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="funciones-b%C3%A1sicas-de-entradasalida">Funciones Básicas de Entrada/Salida</h2>
-<table>
-<tr>
-<td width="33%">
-<h3 id="configuraci%C3%B3n-de-pines">Configuración de Pines</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Configurar pin como salida</span>
-<span class="hljs-built_in">pinMode</span>(pin, OUTPUT);
+<h3 id="configuraci%C3%B3n-y-digital">Configuración y Digital</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Configurar pines</span>
+<span class="hljs-built_in">pinMode</span>(pin, OUTPUT);        <span class="hljs-comment">// Salida</span>
+<span class="hljs-built_in">pinMode</span>(pin, INPUT);         <span class="hljs-comment">// Entrada</span>
+<span class="hljs-built_in">pinMode</span>(pin, INPUT_PULLUP);  <span class="hljs-comment">// Con pull-up interno</span>
 
-<span class="hljs-comment">// Configurar pin como entrada</span>
-<span class="hljs-built_in">pinMode</span>(pin, INPUT);
-
-<span class="hljs-comment">// Entrada con resistencia pull-up</span>
-<span class="hljs-built_in">pinMode</span>(pin, INPUT_PULLUP);
-<span class="hljs-comment">// Internamente conecta a 3.3V</span>
-<span class="hljs-comment">// Útil para botones (estado HIGH por defecto)</span>
+<span class="hljs-comment">// Escribir/leer digital</span>
+<span class="hljs-built_in">digitalWrite</span>(pin, HIGH);     <span class="hljs-comment">// 3.3V</span>
+<span class="hljs-built_in">digitalWrite</span>(pin, LOW);      <span class="hljs-comment">// 0V</span>
+<span class="hljs-type">int</span> valor = <span class="hljs-built_in">digitalRead</span>(pin); <span class="hljs-comment">// HIGH o LOW</span>
 </code></pre>
-<h3 id="digital-onoff">Digital (ON/OFF)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Escribir valor digital</span>
-<span class="hljs-built_in">digitalWrite</span>(pin, HIGH);  <span class="hljs-comment">// Encender</span>
-<span class="hljs-built_in">digitalWrite</span>(pin, LOW);   <span class="hljs-comment">// Apagar</span>
-
-<span class="hljs-comment">// Leer valor digital</span>
-<span class="hljs-type">int</span> valor = <span class="hljs-built_in">digitalRead</span>(pin);
-<span class="hljs-comment">// Retorna: HIGH (1) o LOW (0)</span>
-</code></pre>
-</td>
-<td width="33%">
-<h3 id="anal%C3%B3gico-0-4095">Analógico (0-4095)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Leer valor analógico (ADC)</span>
+<h3 id="anal%C3%B3gico-y-pwm">Analógico y PWM</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Leer ADC (0-4095 en ESP32)</span>
 <span class="hljs-type">int</span> valor = <span class="hljs-built_in">analogRead</span>(pin);
-<span class="hljs-comment">// ESP32: 0-4095 (12 bits)</span>
-<span class="hljs-comment">// Arduino: 0-1023 (10 bits)</span>
 
-<span class="hljs-comment">// Escribir PWM (ESP32)</span>
-<span class="hljs-built_in">ledcWrite</span>(channel, valor);
-<span class="hljs-comment">// valor: 0-255 (8 bits)</span>
-<span class="hljs-comment">// Controla intensidad/brillo</span>
-
-<span class="hljs-comment">// Configurar PWM (ESP32)</span>
-<span class="hljs-built_in">ledcSetup</span>(channel, freq, resolution);
+<span class="hljs-comment">// PWM en ESP32</span>
+<span class="hljs-built_in">ledcSetup</span>(channel, <span class="hljs-number">5000</span>, <span class="hljs-number">8</span>);  <span class="hljs-comment">// 5kHz, 8-bit</span>
 <span class="hljs-built_in">ledcAttachPin</span>(pin, channel);
+<span class="hljs-built_in">ledcWrite</span>(channel, <span class="hljs-number">127</span>);      <span class="hljs-comment">// 50% brillo</span>
 </code></pre>
-<h3 id="comunicaci%C3%B3n-serial">Comunicación Serial</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Iniciar serial</span>
+<h3 id="tiempo-y-serial">Tiempo y Serial</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Pausas</span>
+<span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);              <span class="hljs-comment">// 1 segundo (bloquea)</span>
+<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> t = <span class="hljs-built_in">millis</span>(); <span class="hljs-comment">// Tiempo desde inicio (no bloquea)</span>
+
+<span class="hljs-comment">// Serial</span>
 Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-
-<span class="hljs-comment">// Imprimir texto</span>
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Texto&quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Con salto de línea&quot;</span>);
-
-<span class="hljs-comment">// Imprimir formateado</span>
-Serial.<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Valor: %d\n&quot;</span>, valor);
+Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Valor: &quot;</span> + <span class="hljs-built_in">String</span>(valor));
+Serial.<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Temp: %.2f C\n&quot;</span>, temp);
 </code></pre>
-</td>
-<td width="34%">
-<h3 id="funciones-de-tiempo">Funciones de Tiempo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Pausa (bloquea ejecución)</span>
-<span class="hljs-built_in">delay</span>(milisegundos);
-<span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);  <span class="hljs-comment">// 1 segundo</span>
-
-<span class="hljs-comment">// Pausa en microsegundos</span>
-<span class="hljs-built_in">delayMicroseconds</span>(us);
-
-<span class="hljs-comment">// Tiempo desde inicio (ms)</span>
-<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> t = <span class="hljs-built_in">millis</span>();
-<span class="hljs-comment">// No bloquea, útil para tareas simultáneas</span>
-
-<span class="hljs-comment">// Tiempo desde inicio (us)</span>
-<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> us = <span class="hljs-built_in">micros</span>();
-</code></pre>
-<h3 id="funciones-matem%C3%A1ticas">Funciones Matemáticas</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Mapear rangos</span>
-<span class="hljs-type">int</span> nuevo = <span class="hljs-built_in">map</span>(valor, <span class="hljs-number">0</span>, <span class="hljs-number">4095</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>);
-<span class="hljs-comment">// Convierte 0-4095 a 0-255</span>
-
-<span class="hljs-comment">// Limitar valor</span>
-<span class="hljs-type">int</span> limitado = <span class="hljs-built_in">constrain</span>(valor, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>);
-
-<span class="hljs-comment">// Valor absoluto</span>
-<span class="hljs-type">int</span> abs = <span class="hljs-built_in">abs</span>(<span class="hljs-number">-42</span>);  <span class="hljs-comment">// 42</span>
-
-<span class="hljs-comment">// Aleatorio</span>
-<span class="hljs-built_in">randomSeed</span>(<span class="hljs-built_in">analogRead</span>(<span class="hljs-number">0</span>));
-<span class="hljs-type">int</span> aleatorio = <span class="hljs-built_in">random</span>(<span class="hljs-number">100</span>);  <span class="hljs-comment">// 0-99</span>
-</code></pre>
-</td>
-</tr>
-</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1154,91 +1043,52 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="proyecto-2-bot%C3%B3n-controla-led">Proyecto 2: Botón Controla LED</h2>
-<table>
-<tr>
-<td width="50%">
-<h3 id="c%C3%B3digo-completo-1">Código Completo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Definición de pines</span>
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;      <span class="hljs-comment">// LED en GPIO2</span>
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> BOTON_PIN = <span class="hljs-number">15</span>;   <span class="hljs-comment">// Botón en GPIO15</span>
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Configurar LED como salida</span>
-    <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
-
-    <span class="hljs-comment">// Configurar botón como entrada con pull-up</span>
-    <span class="hljs-built_in">pinMode</span>(BOTON_PIN, INPUT_PULLUP);
-
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Sistema listo&quot;</span>);
-}
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Leer estado del botón</span>
-    <span class="hljs-type">int</span> estadoBoton = <span class="hljs-built_in">digitalRead</span>(BOTON_PIN);
-
-    <span class="hljs-comment">// INPUT_PULLUP: LOW = presionado, HIGH = suelto</span>
-    <span class="hljs-keyword">if</span> (estadoBoton == LOW) {
-        <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Botón PRESIONADO - LED ON&quot;</span>);
-    } <span class="hljs-keyword">else</span> {
-        <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Botón SUELTO - LED OFF&quot;</span>);
-    }
-
-    <span class="hljs-built_in">delay</span>(<span class="hljs-number">100</span>);  <span class="hljs-comment">// Pequeña pausa anti-rebote</span>
-}
-</code></pre>
-<h3 id="tabla-de-estados">Tabla de Estados</h3>
+<h3 id="conexi%C3%B3n">Conexión</h3>
 <table>
 <thead>
 <tr>
-<th>Botón</th>
-<th>Estado Pin</th>
-<th>LED</th>
+<th>ESP32</th>
+<th>Componente</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Suelto</td>
-<td>HIGH</td>
-<td>Apagado</td>
+<td>GPIO15</td>
+<td>Botón (INPUT_PULLUP)</td>
 </tr>
 <tr>
-<td>Presionado</td>
-<td>LOW</td>
-<td>Encendido</td>
+<td>GPIO2</td>
+<td>LED + Resistencia 220Ω</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Común</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Nota:</strong> INPUT_PULLUP invierte la lógica (LOW = presionado)</p>
-</td>
-<td width="50%">
-<h3 id="diagrama-de-conexi%C3%B3n-simplificado">Diagrama de Conexión Simplificado</h3>
-<table>
-<tr>
-<td style="background: #e0e7ff; padding: 8px; text-align: center; font-weight: bold;">ESP32</td>
-<td style="background: #fef3c7; padding: 8px; text-align: center; font-weight: bold;">BOTÓN</td>
-<td style="background: #f0fdf4; padding: 8px; text-align: center; font-weight: bold;">LED</td>
-</tr>
-<tr>
-<td style="background: #dbeafe; padding: 8px;">GPIO15 → Botón</td>
-<td style="background: #fef3c7; padding: 8px;">Entrada</td>
-<td style="background: #f0fdf4; padding: 8px;">Ánodo (+)</td>
-</tr>
-<tr>
-<td style="background: #dbeafe; padding: 8px;">GPIO2 → 220Ω → LED</td>
-<td style="background: #fef3c7; padding: 8px;">(con INPUT_PULLUP)</td>
-<td style="background: #f0fdf4; padding: 8px;">Cátodo (-)</td>
-</tr>
-<tr>
-<td style="background: #dbeafe; padding: 8px;">GND → Común</td>
-<td style="background: #fef3c7; padding: 8px;" colspan="2">LED Cátodo y Botón → GND</td>
-</tr>
-</table>
-<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px;">
-<strong>Nota:</strong> INPUT_PULLUP = resistencia interna (~45KΩ) ya incluida en el ESP32
-</div>
+<p><strong>INPUT_PULLUP</strong>: LOW = presionado, HIGH = suelto</p>
+<h3 id="c%C3%B3digo">Código</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;
+<span class="hljs-type">const</span> <span class="hljs-type">int</span> BOTON_PIN = <span class="hljs-number">15</span>;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
+  <span class="hljs-built_in">pinMode</span>(BOTON_PIN, INPUT_PULLUP);
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+}
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">digitalRead</span>(BOTON_PIN) == LOW) {
+    <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);  <span class="hljs-comment">// Presionado</span>
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);   <span class="hljs-comment">// Suelto</span>
+  }
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">100</span>);
+}
+</code></pre>
+<blockquote>
+<p><strong>Nota:</strong> INPUT_PULLUP usa resistencia interna (~45KΩ) del ESP32</p>
+</blockquote>
 <h3 id="componentes-necesarios">Componentes Necesarios</h3>
 <table>
 <thead>
@@ -1253,7 +1103,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <td>1</td>
 </tr>
 <tr>
-<td>LED (cualquier color)</td>
+<td>LED</td>
 <td>1</td>
 </tr>
 <tr>
@@ -1265,43 +1115,10 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <td>1</td>
 </tr>
 <tr>
-<td>Protoboard</td>
-<td>1</td>
-</tr>
-<tr>
-<td>Cables jumper</td>
-<td>3</td>
+<td>Protoboard + cables</td>
+<td>-</td>
 </tr>
 </tbody>
-</table>
-<h3 id="concepto-input_pullup">Concepto: INPUT_PULLUP</h3>
-<table>
-<thead>
-<tr>
-<th>Modo</th>
-<th>Resistencia</th>
-<th>Estado al soltar</th>
-<th>Estado al presionar</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>INPUT</td>
-<td>No tiene</td>
-<td>Flota/aleatorio</td>
-<td>Depende del circuito</td>
-</tr>
-<tr>
-<td>INPUT_PULLUP</td>
-<td>~45KΩ a 3.3V</td>
-<td>HIGH (1)</td>
-<td>LOW (0)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Ventaja:</strong> Sin INPUT_PULLUP necesitarías resistencia externa. Con INPUT_PULLUP es más simple y confiable.</p>
-</td>
-</tr>
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
@@ -1334,9 +1151,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="proyecto-3-sensor-de-luz-ldr">Proyecto 3: Sensor de Luz (LDR)</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="%C2%BFqu%C3%A9-es-el-ldr">¿Qué es el LDR?</h3>
 <p><strong>LDR (Light Dependent Resistor)</strong> = Fotoresistencia</p>
 <table>
@@ -1349,113 +1163,56 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <tbody>
 <tr>
 <td><strong>Oscuro</strong></td>
-<td>Alta (MΩ - megaohmios)</td>
+<td>Alta (MΩ)</td>
 </tr>
 <tr>
 <td><strong>Iluminado</strong></td>
-<td>Baja (Ω - ohmios)</td>
+<td>Baja (Ω)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="concepto-divisor-de-voltaje">Concepto: Divisor de Voltaje</h3>
-<p>El LDR + Resistencia crean un divisor que permite al ADC medir la luz.</p>
-<table>
-<tr>
-<td style="background: #dbeafe; padding: 12px; text-align: center; font-weight: bold;" colspan="3">3.3V</td>
-</tr>
-<tr>
-<td style="background: #fef3c7; padding: 12px; text-align: center; font-weight: bold;">LDR</td>
-<td style="background: #fef3c7; padding: 12px; text-align: center; font-weight: bold;">Punto Medio</td>
-<td style="background: #fef3c7; padding: 12px; text-align: center; font-weight: bold;">Resistencia 10KΩ</td>
-</tr>
-<tr>
-<td style="background: #f0fdf4; padding: 12px; text-align: center;" rowspan="2">↓</td>
-<td style="background: #dcfce7; padding: 12px; text-align: center;">↓ ADC (GPIO34)</td>
-<td style="background: #f0fdf4; padding: 12px; text-align: center;" rowspan="2">↓</td>
-</tr>
-<tr>
-<td style="background: #f0fdf4; padding: 12px; text-align: center;">↓</td>
-</tr>
-<tr>
-<td style="background: #dbeafe; padding: 12px; text-align: center;" colspan="3">GND</td>
-</tr>
-</table>
-<p><strong>Cómo funciona:</strong></p>
-<ul>
-<li>Más luz → LDR baja resistencia → Más voltaje en ADC → Valor alto</li>
-<li>Menos luz → LDR sube resistencia → Menos voltaje en ADC → Valor bajo</li>
-</ul>
-</td>
-<td width="50%">
-<h3 id="c%C3%B3digo-completo-2">Código Completo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> LDR_PIN = <span class="hljs-number">34</span>;     <span class="hljs-comment">// ADC1_CH6 (GPIO34)</span>
+<h3 id="conexi%C3%B3n-divisor-de-voltaje">Conexión (Divisor de Voltaje)</h3>
+<p><strong>3.3V → LDR → GPIO34 → Resistencia 10KΩ → GND</strong></p>
+<p>Más luz = Mayor valor ADC | Menos luz = Menor valor ADC</p>
+<h3 id="c%C3%B3digo-1">Código</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> LDR_PIN = <span class="hljs-number">34</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Lector de luz iniciado&quot;</span>);
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
 }
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Leer valor analógico (0-4095)</span>
-    <span class="hljs-type">int</span> valorLuz = <span class="hljs-built_in">analogRead</span>(LDR_PIN);
+  <span class="hljs-type">int</span> valorLuz = <span class="hljs-built_in">analogRead</span>(LDR_PIN);
+  <span class="hljs-type">int</span> porcentaje = <span class="hljs-built_in">map</span>(valorLuz, <span class="hljs-number">0</span>, <span class="hljs-number">4095</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>);
 
-    <span class="hljs-comment">// Mapear a porcentaje (0-100%)</span>
-    <span class="hljs-type">int</span> porcentaje = <span class="hljs-built_in">map</span>(valorLuz, <span class="hljs-number">0</span>, <span class="hljs-number">4095</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>);
+  Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Luz: &quot;</span>);
+  Serial.<span class="hljs-built_in">print</span>(porcentaje);
+  Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;%&quot;</span>);
 
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Luz: &quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(valorLuz);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot; (&quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(porcentaje);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;%)&quot;</span>);
-
-    <span class="hljs-comment">// Lógica: Encender LED si está oscuro</span>
-    <span class="hljs-keyword">if</span> (valorLuz &lt; <span class="hljs-number">1000</span>) {
-        <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;► Oscuro - LED encendido&quot;</span>);
-    } <span class="hljs-keyword">else</span> {
-        <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;► Claro - LED apagado&quot;</span>);
-    }
-
-    <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
+  <span class="hljs-comment">// LED se enciende si está oscuro</span>
+  <span class="hljs-built_in">digitalWrite</span>(LED_PIN, valorLuz &lt; <span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
 }
 </code></pre>
-<h3 id="valores-t%C3%ADpicos">Valores Típicos</h3>
 <table>
 <thead>
 <tr>
 <th>Condición</th>
-<th>Valor ADC</th>
-<th>% Luz</th>
+<th>Valor ADC típico</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Oscuro completo</td>
-<td>&lt; 500</td>
-<td>0-12%</td>
+<td>Oscuro</td>
+<td>&lt; 1000</td>
 </tr>
 <tr>
-<td>Interior sombra</td>
-<td>1000-2500</td>
-<td>25-60%</td>
-</tr>
-<tr>
-<td>Luz ambiente</td>
-<td>2500-3500</td>
-<td>60-85%</td>
-</tr>
-<tr>
-<td>Luz directa</td>
-<td>&gt; 3500</td>
-<td>85%+</td>
+<td>Claro</td>
+<td>&gt; 3000</td>
 </tr>
 </tbody>
-</table>
-</td>
-</tr>
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
@@ -1488,9 +1245,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="proyecto-4-control-de-brillo-con-pwm">Proyecto 4: Control de Brillo con PWM</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="%C2%BFqu%C3%A9-es-pwm">¿Qué es PWM?</h3>
 <p><strong>PWM (Pulse Width Modulation)</strong> es una técnica para simular una señal analógica usando pulsos digitales.</p>
 <h3 id="concepto">Concepto</h3>
@@ -1619,35 +1373,32 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="proyecto-5-sensor-dht11-temperatura-y-humedad">Proyecto 5: Sensor DHT11 (Temperatura y Humedad)</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="instalaci%C3%B3n-de-librer%C3%ADa">Instalación de Librería</h3>
-<p><strong>Paso 1:</strong> Arduino IDE → Sketch → Include Library → Manage Libraries</p>
-<p><strong>Paso 2:</strong> Buscar &quot;DHT sensor library&quot; (by Adafruit)</p>
-<p><strong>Paso 3:</strong> Instalar (automáticamente instala &quot;Adafruit Unified Sensor&quot;)</p>
-<h3 id="conexi%C3%B3n-al-esp32">Conexión al ESP32</h3>
+<p>Arduino IDE → Sketch → Include Library → Manage Libraries → Buscar &quot;DHT sensor library&quot; (Adafruit)</p>
+<h3 id="conexi%C3%B3n-1">Conexión</h3>
 <table>
+<thead>
 <tr>
-<td style="background: #dbeafe; padding: 10px; text-align: center; font-weight: bold;">ESP32</td>
-<td style="background: #f0fdf4; padding: 10px; text-align: center; font-weight: bold;">DHT11</td>
+<th>ESP32</th>
+<th>DHT11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.3V</td>
+<td>VCC</td>
 </tr>
 <tr>
-<td style="background: #dcfce7; padding: 10px;">3.3V</td>
-<td style="background: #dcfce7; padding: 10px;">VCC</td>
+<td>GND</td>
+<td>GND</td>
 </tr>
 <tr>
-<td style="background: #fecaca; padding: 10px;">GND</td>
-<td style="background: #fecaca; padding: 10px;">GND</td>
+<td>GPIO4 ── 10KΩ ──►</td>
+<td>DATA</td>
 </tr>
-<tr>
-<td style="background: #fef3c7; padding: 10px;">GPIO4 ── 10KΩ ──►</td>
-<td style="background: #fef3c7; padding: 10px;">DATA</td>
-</tr>
+</tbody>
 </table>
-<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px;">
-<strong>Resistencia 10KΩ</strong> entre DATA y VCC (pull-up)
-</div>
+<p><strong>Resistencia 10KΩ</strong> entre DATA y VCC (pull-up)</p>
 <h3 id="especificaciones-dht11">Especificaciones DHT11</h3>
 <table>
 <thead>
@@ -1658,77 +1409,46 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </thead>
 <tbody>
 <tr>
-<td><strong>Rango temperatura</strong></td>
-<td>0°C a 50°C</td>
+<td>Rango temperatura</td>
+<td>0°C a 50°C (±2°C)</td>
 </tr>
 <tr>
-<td><strong>Precisión temperatura</strong></td>
-<td>±2°C</td>
+<td>Rango humedad</td>
+<td>20% a 80% RH (±5%)</td>
 </tr>
 <tr>
-<td><strong>Rango humedad</strong></td>
-<td>20% a 80% RH</td>
-</tr>
-<tr>
-<td><strong>Precisión humedad</strong></td>
-<td>±5% RH</td>
-</tr>
-<tr>
-<td><strong>Tiempo entre lecturas</strong></td>
+<td>Tiempo entre lecturas</td>
 <td>Mínimo 2 segundos</td>
-</tr>
-<tr>
-<td><strong>Voltaje</strong></td>
-<td>3.3V - 5V</td>
 </tr>
 </tbody>
 </table>
-</td>
-<td width="50%">
-<h3 id="c%C3%B3digo-completo-3">Código Completo</h3>
+<h3 id="c%C3%B3digo-2">Código</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;DHT.h&quot;</span></span>
 
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> DHT_PIN = <span class="hljs-number">4</span>;
 <span class="hljs-function">DHT <span class="hljs-title">dht</span><span class="hljs-params">(DHT_PIN, DHT11)</span></span>;
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    dht.<span class="hljs-built_in">begin</span>();
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;DHT11 iniciado&quot;</span>);
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  dht.<span class="hljs-built_in">begin</span>();
 }
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Leer valores</span>
-    <span class="hljs-type">float</span> humedad = dht.<span class="hljs-built_in">readHumidity</span>();
-    <span class="hljs-type">float</span> temperatura = dht.<span class="hljs-built_in">readTemperature</span>();
+  <span class="hljs-type">float</span> h = dht.<span class="hljs-built_in">readHumidity</span>();
+  <span class="hljs-type">float</span> t = dht.<span class="hljs-built_in">readTemperature</span>();
 
-    <span class="hljs-comment">// Verificar errores</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isnan</span>(humedad) || <span class="hljs-built_in">isnan</span>(temperatura)) {
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Error leyendo DHT11!&quot;</span>);
-        <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);
-        <span class="hljs-keyword">return</span>;
-    }
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isnan</span>(h) || <span class="hljs-built_in">isnan</span>(t)) {
+    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Error DHT11!&quot;</span>);
+    <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);
+    <span class="hljs-keyword">return</span>;
+  }
 
-    <span class="hljs-comment">// Calcular sensación térmica</span>
-    <span class="hljs-type">float</span> indice = dht.<span class="hljs-built_in">computeHeatIndex</span>(
-        temperatura, humedad, <span class="hljs-literal">false</span>);
-
-    <span class="hljs-comment">// Mostrar resultados</span>
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;====================&quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Temperatura: &quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(temperatura);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; °C&quot;</span>);
-
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Humedad: &quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(humedad);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; %&quot;</span>);
-
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sensación: &quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(indice);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; °C&quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;====================&quot;</span>);
-
-    <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);  <span class="hljs-comment">// DHT11 necesita 2s entre lecturas</span>
+  Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Temp: &quot;</span>);
+  Serial.<span class="hljs-built_in">print</span>(t);
+  Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;°C  Hum: &quot;</span>);
+  Serial.<span class="hljs-built_in">print</span>(h);
+  Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;%&quot;</span>);
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);
 }
 </code></pre>
 <h3 id="troubleshooting-dht11">Troubleshooting DHT11</h3>
@@ -1752,14 +1472,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <td>Lecturas erráticas</td>
 <td>Esperar 2s entre lecturas</td>
 </tr>
-<tr>
-<td>No detecta</td>
-<td>Verificar pin GPIO correcto</td>
-</tr>
 </tbody>
-</table>
-</td>
-</tr>
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
