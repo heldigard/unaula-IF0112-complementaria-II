@@ -164,38 +164,43 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="arduino-ide-instalaci%C3%B3n-y-configuraci%C3%B3n">Arduino IDE: Instalación y Configuración</h2>
 <h3 id="paso-a-paso">Paso a Paso</h3>
-<div>
-<div>
-<h3 id="1%EF%B8%8F%E2%83%A3-instalaci%C3%B3n-b%C3%A1sica"><img class="emoji" draggable="false" alt="1️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/31-20e3.svg" data-marp-twemoji=""/> Instalación Básica</h3>
-<ol>
-<li>Descargar de <a href="https://www.arduino.cc/en/software">arduino.cc</a></li>
-<li>Instalar en Windows/Mac/Linux</li>
-<li>Ejecutar Arduino IDE</li>
-</ol>
-<h3 id="2%EF%B8%8F%E2%83%A3-configurar-esp32"><img class="emoji" draggable="false" alt="2️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/32-20e3.svg" data-marp-twemoji=""/> Configurar ESP32</h3>
-<ol>
-<li>File → Preferences</li>
-<li>En &quot;Additional Board URLs&quot; agregar:</li>
-</ol>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>https://dl.espressif.com/dl/package_esp32_index.json
-</code></pre>
-<ol start="3">
-<li>Tools → Board → Boards Manager</li>
-<li>Buscar &quot;esp32&quot; → Install</li>
-</ol>
-</div>
-<div>
-<h3 id="3%EF%B8%8F%E2%83%A3-seleccionar-placa"><img class="emoji" draggable="false" alt="3️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/33-20e3.svg" data-marp-twemoji=""/> Seleccionar Placa</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Tools → Board → ESP32 Arduino
-   └── ESP32 Dev Module
-</code></pre>
-<h3 id="4%EF%B8%8F%E2%83%A3-configurar-puerto"><img class="emoji" draggable="false" alt="4️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/34-20e3.svg" data-marp-twemoji=""/> Configurar Puerto</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Tools → Port
-   └── COM3 (Windows)
-   └── /dev/ttyUSB0 (Linux)
-   └── /dev/cu.usbserial (Mac)
-</code></pre>
-<h3 id="5%EF%B8%8F%E2%83%A3-primera-prueba"><img class="emoji" draggable="false" alt="5️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/35-20e3.svg" data-marp-twemoji=""/> Primera Prueba</h3>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Acción</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><img class="emoji" draggable="false" alt="1️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/31-20e3.svg" data-marp-twemoji=""/></strong></td>
+<td><strong>Descargar</strong></td>
+<td><a href="https://www.arduino.cc/en/software">arduino.cc</a> para Windows/Mac/Linux</td>
+</tr>
+<tr>
+<td><strong><img class="emoji" draggable="false" alt="2️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/32-20e3.svg" data-marp-twemoji=""/></strong></td>
+<td><strong>Configurar ESP32</strong></td>
+<td>File → Preferences → Additional Board URLs: <code>https://dl.espressif.com/dl/package_esp32_index.json</code></td>
+</tr>
+<tr>
+<td><strong><img class="emoji" draggable="false" alt="3️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/33-20e3.svg" data-marp-twemoji=""/></strong></td>
+<td><strong>Instalar Soporte</strong></td>
+<td>Tools → Board → Boards Manager → Buscar &quot;esp32&quot; → Install</td>
+</tr>
+<tr>
+<td><strong><img class="emoji" draggable="false" alt="4️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/34-20e3.svg" data-marp-twemoji=""/></strong></td>
+<td><strong>Seleccionar Placa</strong></td>
+<td>Tools → Board → ESP32 Arduino → ESP32 Dev Module</td>
+</tr>
+<tr>
+<td><strong><img class="emoji" draggable="false" alt="5️⃣" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/35-20e3.svg" data-marp-twemoji=""/></strong></td>
+<td><strong>Configurar Puerto</strong></td>
+<td>Tools → Port → <code>COM3</code> (Win), <code>/dev/ttyUSB0</code> (Linux), <code>/dev/cu.usbserial</code> (Mac)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c%C3%B3digo-de-prueba-blink">Código de Prueba (Blink)</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
   Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
   Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;¡ESP32 listo!&quot;</span>);
@@ -205,8 +210,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
   <span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);
 }
 </code></pre>
-</div>
-</div>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
