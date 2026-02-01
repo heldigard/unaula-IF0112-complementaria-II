@@ -578,20 +578,64 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <p>*En MCUs avanzados (ESP32, ESP8266)</p>
 <h3 id="%E2%9A%A1-flujo-de-datos-en-un-mcu"><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> Flujo de Datos en un MCU</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>         ┌─────────────────────────────────────┐
-         │          MICROCONTROLADOR           │
-         ├─────────────────────────────────────┤
-         │                                     │
-  ENTRADA│  [GPIO] ──► [ADC] ──► [CPU] ◄── [RAM]
-  <img class="emoji" draggable="false" alt="🔌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50c.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/>   │     │           │         │         │
-  SENSOR │     ▼           ▼         ▼         │
-         │  [Procesa]   [Decide]  [Ejecuta]    │
-         │     │           │         │         │
-  SALIDA │     ◄───────────┴─────────┴── [GPIO]
-  <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⚙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2699.svg" data-marp-twemoji=""/>   │                               │      │
-ACTUADOR│  [I2C/SPI/UART] ◄───── [WiFi/BLE]    │
-         └─────────────────────────────────────┘
-</code></pre>
+<div style="background: #f8fafc; padding: 20px; border-radius: 10px;">
+<h4 id="%F0%9F%94%BD-entrada-%E2%86%92-procesamiento-%E2%86%92-salida"><img class="emoji" draggable="false" alt="🔽" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f53d.svg" data-marp-twemoji=""/> ENTRADA → PROCESAMIENTO → SALIDA</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Paso</th>
+<th style="text-align:left">Componente</th>
+<th style="text-align:left">Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left"><strong>GPIO</strong></td>
+<td style="text-align:left">Lee señales digitales</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left"><strong>ADC</strong></td>
+<td style="text-align:left">Convierte analógico → digital</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left"><strong>CPU</strong></td>
+<td style="text-align:left">Procesa los datos</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left"><strong>RAM</strong></td>
+<td style="text-align:left">Almacena temporalmente</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left"><strong>GPIO</strong></td>
+<td style="text-align:left">Actúa sobre el mundo físico</td>
+</tr>
+</tbody>
+</table>
+<h4 id="%F0%9F%93%A1-comunicaci%C3%B3n"><img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> Comunicación</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Protocolo</th>
+<th style="text-align:left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>I2C/SPI/UART</strong></td>
+<td style="text-align:left">Sensores y displays</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>WiFi/BLE</strong></td>
+<td style="text-align:left">Conectividad inalámbrica</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p><strong>Clave:</strong> El MCU es el &quot;cerebro&quot; que conecta lo físico (sensores/actuadores) con lo digital (programa/conectividad).</p>
 </td>
 </tr>
@@ -1004,35 +1048,125 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="60%">
 <h3 id="diagrama-simplificado-de-arduino-uno">Diagrama Simplificado de Arduino UNO</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────┐
-│          ARDUINO UNO R3                    │
-│                                            │
-│  ┌────────┐  ┌────┐  ┌────┐  ┌────┐      │
-│  │ USB    │  │RST│  │LED│  │TX/RX│      │
-│  └────────┘  └────┘  └────┘  └────┘      │
-│                                            │
-│  DIGITAL (PWM = ~)                         │
-│  ┌───┬───┬───┬───┬───┬───┬───┬───┐       │
-│  │ 0 │ 1 │ 2 │ 3~│ 4 │ 5~│ 6 │ 7 │       │
-│  │RX │TX │   │   │   │   │   │   │       │
-│  └───┴───┴───┴───┴───┴───┴───┴───┘       │
-│  ┌───┬───┬───┬───┬───┬───┐               │
-│  │ 8 │ 9~│10~│11~│12 │13 │               │
-│  │   │   │   │   │   │LED│               │
-│  └───┴───┴───┴───┴───┴───┘               │
-│                                            │
-│  ┌──────┐              ┌──────────┐       │
-│  │POWER │              │ ANALOG IN │       │
-│  │3.3V  │              │  A0-A5    │       │
-│  │5V    │              │  ADC 10b  │       │
-│  │GND   │              │           │       │
-│  │Vin   │              └──────────┘       │
-│  └──────┘                                 │
-│                                            │
-│  MCU: ATmega328P @ 16 MHz                 │
-│  Memoria: 32KB Flash / 2KB RAM            │
-└────────────────────────────────────────────┘
-</code></pre>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+<div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+<h4 id="%F0%9F%94%8C-pines-digitales-0-13"><img class="emoji" draggable="false" alt="🔌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50c.svg" data-marp-twemoji=""/> Pines Digitales (0-13)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Pines</th>
+<th style="text-align:left">Características</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0, 1</td>
+<td style="text-align:left">RX/TX (Serial)</td>
+</tr>
+<tr>
+<td style="text-align:left">3, 5, 6, 9, 10, 11</td>
+<td style="text-align:left">PWM (~)</td>
+</tr>
+<tr>
+<td style="text-align:left">2, 3</td>
+<td style="text-align:left">Interrupciones</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">LED integrado</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: #fef3c7; padding: 15px; border-radius: 8px;">
+<h4 id="%E2%9A%A1-pines-anal%C3%B3gicos-a0-a5"><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> Pines Analógicos (A0-A5)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Característica</th>
+<th style="text-align:center">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Canales ADC</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:left">Resolución</td>
+<td style="text-align:center">10-bit (0-1023)</td>
+</tr>
+<tr>
+<td style="text-align:left">Voltaje ref</td>
+<td style="text-align:center">0-5V</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: #f0fdf4; padding: 15px; border-radius: 8px;">
+<h4 id="%F0%9F%94%8B-alimentaci%C3%B3n-1"><img class="emoji" draggable="false" alt="🔋" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50b.svg" data-marp-twemoji=""/> Alimentación</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Pin</th>
+<th style="text-align:left">Voltaje</th>
+<th style="text-align:left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">3.3V</td>
+<td style="text-align:left">3.3V</td>
+<td style="text-align:left">Sensores baja potencia</td>
+</tr>
+<tr>
+<td style="text-align:left">5V</td>
+<td style="text-align:left">5V</td>
+<td style="text-align:left">Circuitos estándar</td>
+</tr>
+<tr>
+<td style="text-align:left">GND</td>
+<td style="text-align:left">0V</td>
+<td style="text-align:left">Tierra</td>
+</tr>
+<tr>
+<td style="text-align:left">Vin</td>
+<td style="text-align:left">7-12V</td>
+<td style="text-align:left">Alimentación externa</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: #fecaca; padding: 15px; border-radius: 8px;">
+<h4 id="%F0%9F%93%8A-especificaciones"><img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> Especificaciones</h4>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCU</td>
+<td>ATmega328P @ 16 MHz</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>32 KB</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>2 KB</td>
+</tr>
+<tr>
+<td>EEPROM</td>
+<td>1 KB</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <h3 id="especificaciones-clave">Especificaciones Clave</h3>
 <table>
 <thead>
@@ -2460,20 +2594,46 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="50%">
 <h3 id="diagrama-de-conexi%C3%B3n">Diagrama de Conexión</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>         ESP32                    DHT11
-      ┌─────────┐              ┌───────┐
-      │         │              │       │
-  3.3V│ •       │              │ VCC •─┼────── 3.3V
-      │         │              │       │
-  GND │ •       │              │ GND •─┼────── GND
-      │         │       10K    │       │
- GPIO4│ •───────┼──────///───┼─ DATA •
-      │         │              │       │
-      │         │              │  NC  •│ (No conectar)
-      └─────────┘              └───────┘
-      
-      Resistencia 10KΩ entre DATA y VCC
-</code></pre>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+<h4 id="esp32-%E2%86%92-dht11">ESP32 → DHT11</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ESP32</th>
+<th style="text-align:center">→</th>
+<th style="text-align:left">DHT11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3.3V</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">VCC</td>
+</tr>
+<tr>
+<td style="text-align:center">GND</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">GND</td>
+</tr>
+<tr>
+<td style="text-align:center">GPIO4</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">DATA</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>(con pull-up 10KΩ a 3.3V)</em></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: #fef3c7; padding: 15px; border-radius: 8px;">
+<h4 id="%E2%9A%A0%EF%B8%8F-nota-importante"><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Nota Importante</h4>
+<p>La resistencia pull-up de <strong>10KΩ</strong> es esencial para comunicación estable. Conectar entre DATA y VCC.</p>
+</div>
+</div>
 <h3 id="c%C3%B3digo-arduino-b%C3%A1sico">Código Arduino Básico</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;DHT.h&quot;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">define</span> DHTPIN 4</span>
@@ -3328,25 +3488,66 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="50%">
 <h3 id="diagrama-de-conexi%C3%B3n-i2c-simplificado">Diagrama de Conexión I2C Simplificado</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>         ESP32 (Maestro)
-          ┌─────────┐
- 3.3V ────┤ 3.3V    ├───────────────────┬─────┬───── VCC
-          │         │                   │     │
- GND ─────┤ GND     ├───────────────────┼─────┼───── GND
-          │         │                   │     │
- GPIO21 ──┤ SDA     ├───┬────────┬──────┼─────┼───── SDA
-          │         │   │        │      │     │
- GPIO22 ──┤ SCL     ├───┼──────┬──┼──────┼─────┼───── SCL
-          └─────────┘   │      │  │      │     │
-                       ▼      ▼  ▼      ▼     ▼
-                    ┌─────┐ ┌─────┐ ┌─────┐
-                    │BMP  │ │OLED │ │ LCD │
-                    │0x76 │ │0x3C │ │0x27 │
-                    └──┬──┘ └──┬──┘ └──┬──┘
-                       │        │        │
-                       └────────┴────────┘
-                    Pull-ups (4.7KΩ cada uno)
-</code></pre>
+<div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+<h4 id="esp32-maestro-%E2%86%94-dispositivos-i2c-esclavos">ESP32 (Maestro) <img class="emoji" draggable="false" alt="↔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2194.svg" data-marp-twemoji=""/> Dispositivos I2C (Esclavos)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ESP32</th>
+<th style="text-align:center">→</th>
+<th style="text-align:left">Todos los dispositivos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3.3V</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">VCC</td>
+</tr>
+<tr>
+<td style="text-align:center">GND</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">GND</td>
+</tr>
+<tr>
+<td style="text-align:center">GPIO21</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">SDA</td>
+</tr>
+<tr>
+<td style="text-align:center">GPIO22</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">SCL</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 10px;">
+<h4 id="dispositivos-en-el-bus-i2c">Dispositivos en el Bus I2C</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dispositivo</th>
+<th style="text-align:center">Dirección</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">BMP280</td>
+<td style="text-align:center">0x76</td>
+</tr>
+<tr>
+<td style="text-align:left">OLED Display</td>
+<td style="text-align:center">0x3C</td>
+</tr>
+<tr>
+<td style="text-align:left">LCD 16x2</td>
+<td style="text-align:center">0x27</td>
+</tr>
+</tbody>
+</table>
+<p><em>Nota: Usar resistencias pull-up de 4.7KΩ a 10KΩ en SDA y SCL</em></p>
+</div>
 <h3 id="c%C3%B3digo-b%C3%A1sico-arduino">Código Básico Arduino</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;Wire.h&gt;</span>  <span class="hljs-comment">// Librería I2C</span></span>
 
@@ -3615,35 +3816,53 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="33%">
 <h3 id="%F0%9F%93%90-arquitectura-en-capas"><img class="emoji" draggable="false" alt="📐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4d0.svg" data-marp-twemoji=""/> Arquitectura en Capas</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>         ╔═══════════════════════════╗
-         ║   USUARIO (App/Web/Voz)   ║
-         ╚═══════════╦═══════════════╝
-                     │
-         ╔═══════════╩═══════════════╗
-         ║      NUBE (MQTT/HTTP)     ║
-         ╚═══════════╦═══════════════╝
-                     │
-    ┌────────────────┼────────────────┐
-    │                │                │
-┌───╴│            ┌──╴───┐        ┌──╴───┐
-│ <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> │            │ <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/>   │        │ <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/>   │
-│WiFi│            │ ESP32 │        │Actua │
-│    │            │       │        │dores │
-└───╶│            └──╶───┘        └──╶───┘
-    │                ▲
-    │                │
-┌───╴┴────────────────┴──╶─────┐
-│        <img class="emoji" draggable="false" alt="🔽" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f53d.svg" data-marp-twemoji=""/> SENSORES          │
-│  <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> Temp <img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> Hum <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> Luz <img class="emoji" draggable="false" alt="📍" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4cd.svg" data-marp-twemoji=""/>Mov│
-└──────────────────────────────┘
-</code></pre>
+<div style="background: #f8fafc; padding: 20px; border-radius: 10px;">
+<div style="text-align: center; background: #1e40af; color: white; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+📱 USUARIO (App/Web/Voz)
+</div>
+<div style="text-align: center; background: #3b82f6; color: white; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+☁️ NUBE (MQTT/HTTP)
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; text-align: center; margin-bottom: 10px;">
+<div style="background: #dbeafe; padding: 10px; border-radius: 8px;">
+📡 WiFi
+</div>
+<div style="background: #fef3c7; padding: 10px; border-radius: 8px;">
+📊 ESP32
+</div>
+<div style="background: #f0fdf4; padding: 10px; border-radius: 8px;">
+⚡ Actuadores
+</div>
+</div>
+<div style="text-align: center; background: #22c55e; color: white; padding: 10px; border-radius: 8px;">
+🌡️ SENSORES (Temp, Hum, Luz, Mov)
+</div>
+</div>
 <h3 id="%F0%9F%94%84-flujo-de-datos-completo"><img class="emoji" draggable="false" alt="🔄" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f504.svg" data-marp-twemoji=""/> Flujo de Datos Completo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Sensor → ADC → MCU → WiFi → MQTT Broker → Cloud
-  ↓                                              ↓
-  └───────────── Decisión local ───────────────→ App
-                        ↓
-                   Actuador
-</code></pre>
+<div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Flujo</th>
+<th style="text-align:left">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Sensor → ADC → MCU → WiFi → MQTT → Cloud</td>
+<td style="text-align:left">Datos hacia la nube</td>
+</tr>
+<tr>
+<td style="text-align:left">Cloud → App → Usuario</td>
+<td style="text-align:left">Visualización y control</td>
+</tr>
+<tr>
+<td style="text-align:left">MCU → Actuador</td>
+<td style="text-align:left">Decisión local</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="%F0%9F%93%90-dise%C3%B1o-por-capas-ventajas"><img class="emoji" draggable="false" alt="📐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4d0.svg" data-marp-twemoji=""/> Diseño por Capas: Ventajas</h3>
 <table>
 <thead>
@@ -3709,20 +3928,40 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <tr>
 <td width="50%">
 <h3 id="diagrama-de-conexi%C3%B3n-1">Diagrama de Conexión</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>             ESP32                    DHT11
-          ┌─────────┐              ┌───────┐
-          │         │              │       │
-      3.3V│ •       │              │ VCC •─┼──── 3.3V
-          │         │              │       │
-      GND │ •       │              │ GND •─┼──── GND
-          │         │       10K    │       │
-     GPIO4│ •───────┼──────//\/───┼─ DATA •
-          │         │              │       │
-          │         │              │  NC  •│ (NC)
-          └─────────┘              └───────┘
-          
-          Resistencia Pull-up: 10KΩ
-</code></pre>
+<div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+<h4 id="esp32-%E2%86%92-dht11-demo-pr%C3%A1ctica">ESP32 → DHT11 (Demo Práctica)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ESP32</th>
+<th style="text-align:center">→</th>
+<th style="text-align:left">DHT11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3.3V</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">VCC</td>
+</tr>
+<tr>
+<td style="text-align:center">GND</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">GND</td>
+</tr>
+<tr>
+<td style="text-align:center">GPIO4</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">DATA</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>(con pull-up 10KΩ)</em></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="lista-de-materiales">Lista de Materiales</h3>
 <table>
 <thead>
