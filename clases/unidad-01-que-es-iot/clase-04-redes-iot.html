@@ -34,7 +34,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 
 <h1 id="clase-4-redes-iot">Clase 4: Redes IoT</h1>
@@ -70,7 +70,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="estructura-de-la-sesi%C3%B3n">Estructura de la Sesión</h2>
 <table>
@@ -127,7 +127,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="objetivos-de-la-clase">Objetivos de la Clase</h2>
 <p>Al finalizar esta clase, el estudiante será capaz de:</p>
@@ -166,22 +166,26 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="tipos-de-redes-visi%C3%B3n-general">Tipos de Redes: Visión General</h2>
+<h2 id="conexi%C3%B3n-con-el-resultado-de-aprendizaje">Conexión con el Resultado de Aprendizaje</h2>
+<blockquote>
+<p><strong>Resultado:</strong> Comprende la interacción de los dispositivos IoT a través de las redes e Internet</p>
+</blockquote>
+<h3 id="%C2%BFpor-qu%C3%A9-importan-las-redes-en-iot">¿Por qué importan las redes en IoT?</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                    TIPOS DE REDES                           │
 │                                                             │
-│   ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐ │
-│   │   PAN   │ ⊂  │   LAN   │ ⊂  │   WAN   │ ⊂  │INTERNET │ │
-│   │Personal │    │  Local  │    │  Amplia │    │ Global  │ │
-│   │  Area   │    │  Area   │    │  Area   │    │         │ │
-│   └─────────┘    └─────────┘    └─────────┘    └─────────┘ │
-│       │               │              │              │       │
-│    &lt; 10m          &lt; 1km          &lt; global       global     │
+│   DISPOSITIVO          RED             INTERNET            │
+│   IoT                  IoT                              │
 │                                                             │
-│   Bluetooth       WiFi          Celular       TCP/IP       │
-│   Zigbee          Ethernet      LoRaWAN                    │
+│   <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> ───────────────► <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> ───────────────► <img class="emoji" draggable="false" alt="☁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2601.svg" data-marp-twemoji=""/>             │
+│   Sensor              Gateway           Nube                │
+│                                                             │
+│   • Genera datos      • Transporta      • Procesa          │
+│   • Pequeños          • Optimizado      • Almacena         │
+│   • Batería           • Seguro          • Analytics        │
+│                                                             │
+│   SIN RED ADECUADA → NO HAY IoT                           │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -212,25 +216,22 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="pan-personal-area-network">PAN: Personal Area Network</h2>
-<h3 id="redes-de-corto-alcance--10-metros">Redes de Corto Alcance (&lt; 10 metros)</h3>
+<h2 id="tipos-de-redes-visi%C3%B3n-general">Tipos de Redes: Visión General</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                 RED DE ÁREA PERSONAL                        │
+│                    TIPOS DE REDES                           │
 │                                                             │
-│            ┌──────────┐                                     │
-│            │ <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/>Teléfono│                                    │
-│            └────┬─────┘                                     │
-│                 │                                           │
-│     ┌───────────┼───────────┐                              │
-│     │           │           │                               │
-│  ┌──┴──┐    ┌──┴──┐    ┌──┴──┐                            │
-│  │<img class="emoji" draggable="false" alt="⌚" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/231a.svg" data-marp-twemoji=""/>    │    │<img class="emoji" draggable="false" alt="🎧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3a7.svg" data-marp-twemoji=""/>    │    │<img class="emoji" draggable="false" alt="⌨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2328.svg" data-marp-twemoji=""/>   │                            │
-│  │Watch │    │Audíf│    │Tecla│                            │
-│  └─────┘    └─────┘    └─────┘                            │
+│   ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐ │
+│   │   PAN   │ ⊂  │   LAN   │ ⊂  │   WAN   │ ⊂  │INTERNET │ │
+│   │Personal │    │  Local  │    │  Amplia │    │ Global  │ │
+│   │  Area   │    │  Area   │    │  Area   │    │         │ │
+│   └─────────┘    └─────────┘    └─────────┘    └─────────┘ │
+│       │               │              │              │       │
+│    &lt; 10m          &lt; 1km          &lt; global       global     │
 │                                                             │
-│   Bluetooth • Bluetooth LE • NFC • ZigBee                  │
+│   Bluetooth       WiFi          Celular       TCP/IP       │
+│   Zigbee          Ethernet      LoRaWAN                    │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -261,24 +262,25 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="lan-local-area-network">LAN: Local Area Network</h2>
-<h3 id="redes-de-%C3%A1rea-local-edificio-campus">Redes de Área Local (edificio, campus)</h3>
+<h2 id="pan-personal-area-network">PAN: Personal Area Network</h2>
+<h3 id="redes-de-corto-alcance--10-metros">Redes de Corto Alcance (&lt; 10 metros)</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   RED DE ÁREA LOCAL                         │
+│                 RED DE ÁREA PERSONAL                        │
 │                                                             │
-│    ┌──────────────────────────────────────────────────┐    │
-│    │                    SWITCH                         │    │
-│    └───┬────────┬────────┬────────┬────────┬─────────┘    │
-│        │        │        │        │        │               │
-│     ┌──┴──┐  ┌──┴──┐  ┌──┴──┐  ┌──┴──┐  ┌──┴──┐          │
-│     │ <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="🖨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f5a8.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="📹" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f9.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/>  │          │
-│     │ PC1 │  │ PC2 │  │Impre│  │Cám  │  │Sensor│          │
-│     └─────┘  └─────┘  └─────┘  └─────┘  └─────┘          │
+│            ┌──────────┐                                     │
+│            │ <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/>Teléfono│                                    │
+│            └────┬─────┘                                     │
+│                 │                                           │
+│     ┌───────────┼───────────┐                              │
+│     │           │           │                               │
+│  ┌──┴──┐    ┌──┴──┐    ┌──┴──┐                            │
+│  │<img class="emoji" draggable="false" alt="⌚" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/231a.svg" data-marp-twemoji=""/>    │    │<img class="emoji" draggable="false" alt="🎧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3a7.svg" data-marp-twemoji=""/>    │    │<img class="emoji" draggable="false" alt="⌨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2328.svg" data-marp-twemoji=""/>   │                            │
+│  │Watch │    │Audíf│    │Tecla│                            │
+│  └─────┘    └─────┘    └─────┘                            │
 │                                                             │
-│   Ethernet (cable) • WiFi (inalámbrico)                    │
-│   Velocidad: 100 Mbps - 10 Gbps                            │
+│   Bluetooth • Bluetooth LE • NFC • ZigBee                  │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -309,7 +311,55 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="lan-local-area-network">LAN: Local Area Network</h2>
+<h3 id="redes-de-%C3%A1rea-local-edificio-campus">Redes de Área Local (edificio, campus)</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                   RED DE ÁREA LOCAL                         │
+│                                                             │
+│    ┌──────────────────────────────────────────────────┐    │
+│    │                    SWITCH                         │    │
+│    └───┬────────┬────────┬────────┬────────┬─────────┘    │
+│        │        │        │        │        │               │
+│     ┌──┴──┐  ┌──┴──┐  ┌──┴──┐  ┌──┴──┐  ┌──┴──┐          │
+│     │ <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="🖨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f5a8.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="📹" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f9.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/>  │          │
+│     │ PC1 │  │ PC2 │  │Impre│  │Cám  │  │Sensor│          │
+│     └─────┘  └─────┘  └─────┘  └─────┘  └─────┘          │
+│                                                             │
+│   Ethernet (cable) • WiFi (inalámbrico)                    │
+│   Velocidad: 100 Mbps - 10 Gbps                            │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="8" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="wifi-para-iot">WiFi para IoT</h2>
 <h3 id="est%C3%A1ndares-wifi">Estándares WiFi</h3>
@@ -362,57 +412,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="8" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="wan-wide-area-network">WAN: Wide Area Network</h2>
-<h3 id="redes-de-%C3%A1rea-amplia-ciudades-pa%C3%ADses">Redes de Área Amplia (ciudades, países)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│               RED DE ÁREA AMPLIA (WAN)                      │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="🏢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e2.svg" data-marp-twemoji=""/> Oficina         <img class="emoji" draggable="false" alt="☁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2601.svg" data-marp-twemoji=""/> Internet           <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> Fábrica      │
-│   Medellín               │                 Bogotá          │
-│       │                  │                    │             │
-│       └──────────────────┼────────────────────┘             │
-│                          │                                  │
-│                     ┌────┴────┐                            │
-│                     │  ISP    │                            │
-│                     │ Router  │                            │
-│                     └─────────┘                            │
-│                                                             │
-│   Tecnologías:                                              │
-│   • Fibra óptica    • Conexiones dedicadas                 │
-│   • DSL             • MPLS                                  │
-│   • Celular (4G/5G) • VPN sobre Internet                   │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -439,27 +438,27 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="redes-celulares-para-iot">Redes Celulares para IoT</h2>
-<h3 id="evoluci%C3%B3n">Evolución</h3>
+<h2 id="wan-wide-area-network">WAN: Wide Area Network</h2>
+<h3 id="redes-de-%C3%A1rea-amplia-ciudades-pa%C3%ADses">Redes de Área Amplia (ciudades, países)</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  REDES CELULARES                            │
+│               RED DE ÁREA AMPLIA (WAN)                      │
 │                                                             │
-│  2G ────── 3G ────── 4G ────── 5G                          │
-│  GPRS      HSPA      LTE       NR                          │
+│   <img class="emoji" draggable="false" alt="🏢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e2.svg" data-marp-twemoji=""/> Oficina         <img class="emoji" draggable="false" alt="☁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2601.svg" data-marp-twemoji=""/> Internet           <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> Fábrica      │
+│   Medellín               │                 Bogotá          │
+│       │                  │                    │             │
+│       └──────────────────┼────────────────────┘             │
+│                          │                                  │
+│                     ┌────┴────┐                            │
+│                     │  ISP    │                            │
+│                     │ Router  │                            │
+│                     └─────────┘                            │
 │                                                             │
-│  Velocidad:                                                 │
-│  50 kbps → 2 Mbps → 100 Mbps → 10 Gbps                    │
-│                                                             │
-│  Latencia:                                                  │
-│  500ms  →  100ms  →   30ms   →   1ms                       │
-│                                                             │
-│  IoT específico:                                            │
-│       │                                                     │
-│       ├── LTE-M (Cat-M1): Movilidad, 1 Mbps               │
-│       │                                                     │
-│       └── NB-IoT: Sensores fijos, 100 kbps, 10 años bat.  │
+│   Tecnologías:                                              │
+│   • Fibra óptica    • Conexiones dedicadas                 │
+│   • DSL             • MPLS                                  │
+│   • Celular (4G/5G) • VPN sobre Internet                   │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -490,28 +489,27 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="lpwan-low-power-wide-area-networks">LPWAN: Low-Power Wide-Area Networks</h2>
-<h3 id="redes-iot-de-largo-alcance">Redes IoT de Largo Alcance</h3>
+<h2 id="redes-celulares-para-iot">Redes Celulares para IoT</h2>
+<h3 id="evoluci%C3%B3n">Evolución</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                        LPWAN                                │
-│           &quot;Bajo consumo + Largo alcance&quot;                    │
+│                  REDES CELULARES                            │
 │                                                             │
-│   Características:                                          │
-│   • Rango: 2-15 km (urbano), hasta 40 km (rural)          │
-│   • Batería: 5-10 años                                      │
-│   • Velocidad: 0.3-50 kbps (suficiente para sensores)      │
-│   • Costo: Bajo por dispositivo                            │
+│  2G ────── 3G ────── 4G ────── 5G                          │
+│  GPRS      HSPA      LTE       NR                          │
 │                                                             │
-│   Tecnologías principales:                                  │
-│   ┌────────────┬────────────┬────────────┐                 │
-│   │   LoRaWAN  │   Sigfox   │   NB-IoT   │                 │
-│   ├────────────┼────────────┼────────────┤                 │
-│   │ Abierto    │ Propietario│ Operadores │                 │
-│   │ 15km rango │ 50km rango │ Existente  │                 │
-│   │ Bidirecc.  │ Limitado   │ Indoor     │                 │
-│   └────────────┴────────────┴────────────┘                 │
+│  Velocidad:                                                 │
+│  50 kbps → 2 Mbps → 100 Mbps → 10 Gbps                    │
+│                                                             │
+│  Latencia:                                                  │
+│  500ms  →  100ms  →   30ms   →   1ms                       │
+│                                                             │
+│  IoT específico:                                            │
+│       │                                                     │
+│       ├── LTE-M (Cat-M1): Movilidad, 1 Mbps               │
+│       │                                                     │
+│       └── NB-IoT: Sensores fijos, 100 kbps, 10 años bat.  │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -542,27 +540,28 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="lorawan-en-detalle">LoRaWAN en Detalle</h2>
-<h3 id="arquitectura">Arquitectura</h3>
+<h2 id="lpwan-low-power-wide-area-networks">LPWAN: Low-Power Wide-Area Networks</h2>
+<h3 id="redes-iot-de-largo-alcance">Redes IoT de Largo Alcance</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   ARQUITECTURA LoRaWAN                      │
+│                        LPWAN                                │
+│           &quot;Bajo consumo + Largo alcance&quot;                    │
 │                                                             │
-│   <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/>           ┌─────────┐       ┌─────────┐   │
-│   Sensores  ─────LoRa────►│ Gateway │──IP──►│ Network │   │
-│   (Nodos)                 │         │       │ Server  │   │
-│                           └─────────┘       └────┬────┘   │
-│                                                  │         │
-│                                             ┌────▼────┐   │
-│                                             │ Aplicación│   │
-│                                             │ Server  │   │
-│                                             └─────────┘   │
-│                                                            │
-│   Clases de dispositivos:                                  │
-│   • Clase A: Mínimo consumo (envía y escucha brevemente)  │
-│   • Clase B: Ventanas de escucha programadas              │
-│   • Clase C: Escucha continua (alto consumo)              │
+│   Características:                                          │
+│   • Rango: 2-15 km (urbano), hasta 40 km (rural)          │
+│   • Batería: 5-10 años                                      │
+│   • Velocidad: 0.3-50 kbps (suficiente para sensores)      │
+│   • Costo: Bajo por dispositivo                            │
+│                                                             │
+│   Tecnologías principales:                                  │
+│   ┌────────────┬────────────┬────────────┐                 │
+│   │   LoRaWAN  │   Sigfox   │   NB-IoT   │                 │
+│   ├────────────┼────────────┼────────────┤                 │
+│   │ Abierto    │ Propietario│ Operadores │                 │
+│   │ 15km rango │ 50km rango │ Existente  │                 │
+│   │ Bidirecc.  │ Limitado   │ Indoor     │                 │
+│   └────────────┴────────────┴────────────┘                 │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -593,7 +592,58 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="lorawan-en-detalle">LoRaWAN en Detalle</h2>
+<h3 id="arquitectura">Arquitectura</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                   ARQUITECTURA LoRaWAN                      │
+│                                                             │
+│   <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/>           ┌─────────┐       ┌─────────┐   │
+│   Sensores  ─────LoRa────►│ Gateway │──IP──►│ Network │   │
+│   (Nodos)                 │         │       │ Server  │   │
+│                           └─────────┘       └────┬────┘   │
+│                                                  │         │
+│                                             ┌────▼────┐   │
+│                                             │ Aplicación│   │
+│                                             │ Server  │   │
+│                                             └─────────┘   │
+│                                                            │
+│   Clases de dispositivos:                                  │
+│   • Clase A: Mínimo consumo (envía y escucha brevemente)  │
+│   • Clase B: Ventanas de escucha programadas              │
+│   • Clase C: Escucha continua (alto consumo)              │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="13" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="comparativa-de-tecnolog%C3%ADas-iot">Comparativa de Tecnologías IoT</h2>
 <table>
@@ -660,56 +710,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="13" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="selecci%C3%B3n-de-red-%C3%A1rbol-de-decisi%C3%B3n">Selección de Red: Árbol de Decisión</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                 ¿Qué red necesito?                          │
-│                                                             │
-│                  ¿Alcance?                                  │
-│                     │                                       │
-│         ┌───────────┼───────────┐                          │
-│         │           │           │                           │
-│      &lt; 100m      &lt; 15km      &gt; 15km                        │
-│         │           │           │                           │
-│    ¿Velocidad?   LPWAN      Celular                        │
-│         │           │           │                           │
-│    ┌────┴────┐  LoRa/NB-IoT  4G/5G                         │
-│    │         │                                              │
-│  Alta     Baja                                              │
-│    │         │                                              │
-│  WiFi    BLE/ZigBee                                        │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -736,29 +736,26 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="casos-de-uso-por-tecnolog%C3%ADa">Casos de Uso por Tecnología</h2>
+<h2 id="selecci%C3%B3n-de-red-%C3%A1rbol-de-decisi%C3%B3n">Selección de Red: Árbol de Decisión</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  CASOS DE USO                               │
+│                 ¿Qué red necesito?                          │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> HOGAR INTELIGENTE                                       │
-│     └── WiFi (cámaras), ZigBee/BLE (sensores, luces)       │
+│                  ¿Alcance?                                  │
+│                     │                                       │
+│         ┌───────────┼───────────┐                          │
+│         │           │           │                           │
+│      &lt; 100m      &lt; 15km      &gt; 15km                        │
+│         │           │           │                           │
+│    ¿Velocidad?   LPWAN      Celular                        │
+│         │           │           │                           │
+│    ┌────┴────┐  LoRa/NB-IoT  4G/5G                         │
+│    │         │                                              │
+│  Alta     Baja                                              │
+│    │         │                                              │
+│  WiFi    BLE/ZigBee                                        │
 │                                                             │
-│  <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> FÁBRICA                                                 │
-│     └── WiFi industrial, Ethernet, 5G privado              │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🌾" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f33e.svg" data-marp-twemoji=""/> AGRICULTURA                                             │
-│     └── LoRaWAN (sensores de campo), NB-IoT                │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🏙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d9.svg" data-marp-twemoji=""/> CIUDAD INTELIGENTE                                      │
-│     └── LoRaWAN (medidores), LTE-M (vehículos)             │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> VEHÍCULOS                                               │
-│     └── 4G/5G (conectividad), V2X (comunicación vehicular) │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="⌚" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/231a.svg" data-marp-twemoji=""/> WEARABLES                                                │
-│     └── Bluetooth LE (bajo consumo)                         │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -789,25 +786,63 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="el-futuro-5g-para-iot">El Futuro: 5G para IoT</h2>
-<h3 id="caracter%C3%ADsticas-de-5g">Características de 5G</h3>
+<h2 id="casos-de-uso-por-tecnolog%C3%ADa">Casos de Uso por Tecnología</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                         5G                                  │
+│                  CASOS DE USO                               │
 │                                                             │
-│   eMBB            URLLC              mMTC                  │
-│   ────            ─────              ────                  │
-│   Enhanced        Ultra-Reliable     Massive Machine       │
-│   Mobile          Low Latency        Type Communications   │
-│   Broadband       Communications                           │
+│  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> HOGAR INTELIGENTE                                       │
+│     └── WiFi (cámaras), ZigBee/BLE (sensores, luces)       │
 │                                                             │
-│   • 10 Gbps       • 1ms latencia     • 1M dispositivos/km² │
-│   • Video 4K/8K   • Cirugía remota   • IoT masivo          │
-│   • Realidad VR   • Vehículos        • Smart cities        │
-│                     autónomos                              │
+│  <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> FÁBRICA                                                 │
+│     └── WiFi industrial, Ethernet, 5G privado              │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🌾" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f33e.svg" data-marp-twemoji=""/> AGRICULTURA                                             │
+│     └── LoRaWAN (sensores de campo), NB-IoT                │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🏙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d9.svg" data-marp-twemoji=""/> CIUDAD INTELIGENTE                                      │
+│     └── LoRaWAN (medidores), LTE-M (vehículos)             │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> VEHÍCULOS                                               │
+│     └── 4G/5G (conectividad), V2X (comunicación vehicular) │
+│                                                             │
+│  <img class="emoji" draggable="false" alt="⌚" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/231a.svg" data-marp-twemoji=""/> WEARABLES                                                │
+│     └── Bluetooth LE (bajo consumo)                         │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
+<h3 id="casos-reales-en-colombia-%F0%9F%87%A8%F0%9F%87%B4">Casos Reales en Colombia <img class="emoji" draggable="false" alt="🇨🇴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1f4.svg" data-marp-twemoji=""/></h3>
+<table>
+<thead>
+<tr>
+<th>Proyecto</th>
+<th>Tecnología</th>
+<th>Ubicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Medidores EPM</td>
+<td>LoRaWAN/NB-IoT</td>
+<td>Medellín</td>
+</tr>
+<tr>
+<td>SIATA (Calidad aire)</td>
+<td>LoRaWAN</td>
+<td>Valle de Aburrá</td>
+</tr>
+<tr>
+<td>Monitoreo agrícola</td>
+<td>LoRaWAN</td>
+<td>Eje Cafetero</td>
+</tr>
+<tr>
+<td>Encicla</td>
+<td>4G + GPS</td>
+<td>Medellín</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -836,7 +871,54 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="el-futuro-5g-para-iot">El Futuro: 5G para IoT</h2>
+<h3 id="caracter%C3%ADsticas-de-5g">Características de 5G</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
+│                         5G                                  │
+│                                                             │
+│   eMBB            URLLC              mMTC                  │
+│   ────            ─────              ────                  │
+│   Enhanced        Ultra-Reliable     Massive Machine       │
+│   Mobile          Low Latency        Type Communications   │
+│   Broadband       Communications                           │
+│                                                             │
+│   • 10 Gbps       • 1ms latencia     • 1M dispositivos/km² │
+│   • Video 4K/8K   • Cirugía remota   • IoT masivo          │
+│   • Realidad VR   • Vehículos        • Smart cities        │
+│                     autónomos                              │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="17" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="resumen-redes-para-iot">Resumen: Redes para IoT</h2>
 <table>
@@ -871,59 +953,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="17" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h1 id="evaluaci%C3%B3n-e1-15">EVALUACIÓN E1 (15%)</h1>
-<h2 id="componentes">Componentes</h2>
-<table>
-<thead>
-<tr>
-<th>Componente</th>
-<th>Peso</th>
-<th>Formato</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Quiz</td>
-<td>10%</td>
-<td>Individual, 30 min</td>
-</tr>
-<tr>
-<td>Ensayo</td>
-<td>5%</td>
-<td>Individual, entregado previamente</td>
-</tr>
-</tbody>
-</table>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -950,28 +979,31 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="quiz-instrucciones">Quiz: Instrucciones</h2>
-<h3 id="duraci%C3%B3n-30-minutos">Duración: 30 minutos</h3>
-<ol>
-<li><strong>10 preguntas</strong> de selección múltiple</li>
-<li><strong>5 preguntas</strong> de verdadero/falso</li>
-<li>Temas:
-<ul>
-<li>Evolución de Internet</li>
-<li>Pilares IoT (P-P-D-C)</li>
-<li>Empresas y ciudades inteligentes</li>
-<li>Redes para IoT</li>
-</ul>
-</li>
-</ol>
-<h3 id="reglas">Reglas</h3>
-<ul>
-<li>Individual, sin consulta</li>
-<li>Un intento</li>
-<li>Resultados al finalizar</li>
-</ul>
+<h1 id="evaluaci%C3%B3n-e1-15">EVALUACIÓN E1 (15%)</h1>
+<h2 id="componentes">Componentes</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Peso</th>
+<th>Formato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quiz</td>
+<td>10%</td>
+<td>Individual, 30 min</td>
+</tr>
+<tr>
+<td>Ensayo</td>
+<td>5%</td>
+<td>Individual, entregado previamente</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1000,7 +1032,57 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="quiz-instrucciones">Quiz: Instrucciones</h2>
+<h3 id="duraci%C3%B3n-30-minutos">Duración: 30 minutos</h3>
+<ol>
+<li><strong>10 preguntas</strong> de selección múltiple</li>
+<li><strong>5 preguntas</strong> de verdadero/falso</li>
+<li>Temas:
+<ul>
+<li>Evolución de Internet</li>
+<li>Pilares IoT (P-P-D-C)</li>
+<li>Empresas y ciudades inteligentes</li>
+<li>Redes para IoT</li>
+</ul>
+</li>
+</ol>
+<h3 id="reglas">Reglas</h3>
+<ul>
+<li>Individual, sin consulta</li>
+<li>Un intento</li>
+<li>Resultados al finalizar</li>
+</ul>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="20" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="ensayo-revisi%C3%B3n">Ensayo: Revisión</h2>
 <h3 id="tema-del-ensayo">Tema del Ensayo</h3>
@@ -1040,44 +1122,6 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="20" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
-img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
-section h1 { font-size: 1.8em; }
-section h2 { font-size: 1.4em; }
-section h3 { font-size: 1.2em; }
-section ul, section ol { font-size: 0.9em; margin-left: 1em; }
-section li { margin-bottom: 0.3em; }
-section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
-section code { font-size: 0.85em; }
-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
-section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
-section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
-<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="pr%C3%B3xima-clase">Próxima Clase</h2>
-<h3 id="clase-5-interconexi%C3%B3n-de-objetos">Clase 5: Interconexión de Objetos</h3>
-<ul>
-<li>Arduino y microcontroladores</li>
-<li>Electrónica básica para IoT</li>
-<li>Primera práctica hands-on</li>
-</ul>
-<p><strong>¡Éxitos en la evaluación!</strong></p>
-<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
@@ -1104,11 +1148,12 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="%F0%9F%92%BB-actividad-pr%C3%A1ctica-configuraci%C3%B3n-de-redes-iot"><img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/> Actividad Práctica: Configuración de Redes IoT</h2>
 <h3 id="objetivo">Objetivo</h3>
 <p>Configurar y comparar diferentes tipos de redes para dispositivos IoT.</p>
+<p><strong>Nota:</strong> Esta actividad es opcional/demo si no hay hardware disponible. Se puede usar Tinkercad o Wokwi.</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1137,30 +1182,52 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h3 id="ejercicio-1-rango-de-comunicaci%C3%B3n-30-min">Ejercicio 1: Rango de Comunicación (30 min)</h3>
+<h3 id="ejercicio-1-rango-de-comunicaci%C3%B3n-demo">Ejercicio 1: Rango de Comunicación (Demo)</h3>
 <p><strong>Materiales:</strong></p>
 <ul>
-<li>ESP32 (2 unidades)</li>
+<li>ESP32 (2 unidades) o simulador</li>
 <li>Teléfono móvil con WiFi</li>
 </ul>
 <p><strong>Tarea:</strong><br />
-Medir el alcance real de WiFi, Bluetooth y LoRa (si disponible).</p>
-<p><strong>Procedimiento:</strong></p>
-<ol>
-<li>Configurar ESP32 como punto de acceso WiFi</li>
-<li>Alejarse gradualmente midiendo señal</li>
-<li>Registrar distancia máxima con conexión estable</li>
-<li>Repetir con Bluetooth</li>
-<li>Comparar resultados con especificaciones teóricas</li>
-</ol>
-<p><strong>Preguntas:</strong></p>
-<ul>
-<li>¿Qué factores afectan el alcance?</li>
-<li>¿Cómo influyen las paredes?</li>
-<li>¿Cuál es más eficiente energéticamente?</li>
-</ul>
+Comparar el alcance teórico vs real de diferentes tecnologías.</p>
+<table>
+<thead>
+<tr>
+<th>Tecnología</th>
+<th>Alcance Teórico</th>
+<th>Alcance Real (estimado)</th>
+<th>Uso Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WiFi</td>
+<td>100m</td>
+<td>30-50m</td>
+<td>Hogar/Oficina</td>
+</tr>
+<tr>
+<td>Bluetooth</td>
+<td>100m</td>
+<td>10-30m</td>
+<td>Wearables</td>
+</tr>
+<tr>
+<td>LoRa</td>
+<td>15km</td>
+<td>2-5km</td>
+<td>Agricultura</td>
+</tr>
+<tr>
+<td>NB-IoT</td>
+<td>10km</td>
+<td>Variable</td>
+<td>Ciudad</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1189,7 +1256,144 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h3 id="ejercicio-2-selecci%C3%B3n-de-red-actividad-en-clase">Ejercicio 2: Selección de Red (Actividad en Clase)</h3>
+<p><strong>Escenarios:</strong></p>
+<ol>
+<li><strong>Sensor en finca de café</strong> (montaña, sin electricidad)</li>
+<li><strong>Cámara de seguridad en oficina</strong></li>
+<li><strong>Wearable de salud</strong></li>
+<li><strong>Medidor de agua en ciudad</strong></li>
+</ol>
+<p><strong>Tarea:</strong> En grupos, seleccionar la tecnología más adecuada y justificar:</p>
+<ul>
+<li>Alcance necesario</li>
+<li>Consumo energético</li>
+<li>Costo</li>
+<li>Disponibilidad de infraestructura</li>
+</ul>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="24" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="pr%C3%B3xima-clase">Próxima Clase</h2>
+<h3 id="clase-5-interconexi%C3%B3n-de-objetos">Clase 5: Interconexión de Objetos</h3>
+<ul>
+<li>Arduino y microcontroladores</li>
+<li>Electrónica básica para IoT</li>
+<li>Primera práctica hands-on</li>
+</ul>
+<p><strong>¡Éxitos en la evaluación!</strong></p>
+<h3 id="objetivo-1">Objetivo</h3>
+<p>Configurar y comparar diferentes tipos de redes para dispositivos IoT.</p>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="25" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h3 id="ejercicio-1-rango-de-comunicaci%C3%B3n-30-min">Ejercicio 1: Rango de Comunicación (30 min)</h3>
+<p><strong>Materiales:</strong></p>
+<ul>
+<li>ESP32 (2 unidades)</li>
+<li>Teléfono móvil con WiFi</li>
+</ul>
+<p><strong>Tarea:</strong><br />
+Medir el alcance real de WiFi, Bluetooth y LoRa (si disponible).</p>
+<p><strong>Procedimiento:</strong></p>
+<ol>
+<li>Configurar ESP32 como punto de acceso WiFi</li>
+<li>Alejarse gradualmente midiendo señal</li>
+<li>Registrar distancia máxima con conexión estable</li>
+<li>Repetir con Bluetooth</li>
+<li>Comparar resultados con especificaciones teóricas</li>
+</ol>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Qué factores afectan el alcance?</li>
+<li>¿Cómo influyen las paredes?</li>
+<li>¿Cuál es más eficiente energéticamente?</li>
+</ul>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="26" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h3 id="ejercicio-2-medici%C3%B3n-de-consumo-energ%C3%A9tico">Ejercicio 2: Medición de Consumo Energético</h3>
 <p><strong>Objetivo:</strong> Comparar consumo de diferentes protocolos.</p>
@@ -1226,7 +1430,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -1239,7 +1443,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="24" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+" lang="C" data-marpit-pagination="27" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -1252,7 +1456,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h3 id="resultados-esperados">Resultados Esperados</h3>
 <table>
@@ -1280,7 +1484,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <p><strong>Tiempo estimado:</strong> 75 minutos</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -1293,7 +1497,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="25" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+" lang="C" data-marpit-pagination="28" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -1306,7 +1510,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="25">
+;" data-marpit-pagination-total="28">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
