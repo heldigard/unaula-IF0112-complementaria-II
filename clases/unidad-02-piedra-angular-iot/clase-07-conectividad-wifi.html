@@ -247,44 +247,29 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="22">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="conexi%C3%B3n-wifi-modo-estaci%C3%B3n-sta">Conexión WiFi: Modo Estación (STA)</h2>
-<table>
-<tr>
-<td width="50%">
-<h3 id="c%C3%B3digo-b%C3%A1sico-de-conexi%C3%B3n">Código Básico de Conexión</h3>
+<h3 id="c%C3%B3digo-b%C3%A1sico">Código Básico</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;WiFi.h&gt;</span></span>
 
-<span class="hljs-comment">// Credenciales de la red WiFi</span>
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* ssid = <span class="hljs-string">&quot;NombreDeTuRed&quot;</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* password = <span class="hljs-string">&quot;ContrasenaDeRed&quot;</span>;
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Iniciando conexión WiFi...&quot;</span>);
-    
-    <span class="hljs-comment">// Iniciar conexión</span>
-    WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
-    
-    <span class="hljs-comment">// Esperar conexión con indicador visual</span>
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Conectando&quot;</span>);
-    <span class="hljs-keyword">while</span> (WiFi.<span class="hljs-built_in">status</span>() != WL_CONNECTED) {
-        <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
-        Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>);
-    }
-    
-    <span class="hljs-comment">// Conexión exitosa</span>
-    Serial.<span class="hljs-built_in">println</span>();
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;✓ ¡Conectado a WiFi!&quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> Dirección IP: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">localIP</span>());
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
+
+  <span class="hljs-keyword">while</span> (WiFi.<span class="hljs-built_in">status</span>() != WL_CONNECTED) {
+    <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
+    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>);
+  }
+
+  Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;✓ Conectado!&quot;</span>);
+  Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;IP: &quot;</span>);
+  Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">localIP</span>());
 }
 
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Aquí va el código principal</span>
-}
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{}
 </code></pre>
-</td>
-<td width="50%">
-<h3 id="estados-de-conexi%C3%B3n-wifi">Estados de Conexión WiFi</h3>
+<h3 id="estados-wifi">Estados WiFi</h3>
 <table>
 <thead>
 <tr>
@@ -295,7 +280,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <tbody>
 <tr>
 <td><code>WL_CONNECTED</code></td>
-<td>Conectado exitosamente</td>
+<td>Conectado</td>
 </tr>
 <tr>
 <td><code>WL_NO_SSID_AVAIL</code></td>
@@ -305,44 +290,14 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <td><code>WL_CONNECT_FAILED</code></td>
 <td>Contraseña incorrecta</td>
 </tr>
-<tr>
-<td><code>WL_DISCONNECTED</code></td>
-<td>Desconectado</td>
-</tr>
-<tr>
-<td><code>WL_IDLE_STATUS</code></td>
-<td>Estado idle (cambio en progreso)</td>
-</tr>
 </tbody>
 </table>
-<h3 id="informaci%C3%B3n-de-la-conexi%C3%B3n">Información de la Conexión</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Obtener información de red</span>
-Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> Información de red:&quot;</span>);
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  IP Local: &quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">localIP</span>());
-
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  Máscara: &quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">subnetMask</span>());
-
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  Gateway: &quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">gatewayIP</span>());
-
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  DNS: &quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">dnsIP</span>());
-
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  MAC: &quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">macAddress</span>());
-
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  Señal (RSSI): &quot;</span>);
-Serial.<span class="hljs-built_in">print</span>(WiFi.<span class="hljs-built_in">RSSI</span>());
-Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; dBm&quot;</span>);
-
-Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  Red (SSID): &quot;</span>);
-Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">SSID</span>());
+<h3 id="informaci%C3%B3n-de-red">Información de Red</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp">WiFi.<span class="hljs-built_in">localIP</span>()      <span class="hljs-comment">// IP local</span>
+WiFi.<span class="hljs-built_in">subnetMask</span>()   <span class="hljs-comment">// Máscara</span>
+WiFi.<span class="hljs-built_in">gatewayIP</span>()    <span class="hljs-comment">// Gateway</span>
+WiFi.<span class="hljs-built_in">RSSI</span>()         <span class="hljs-comment">// Señal (dBm)</span>
 </code></pre>
-</td>
-</tr>
-</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1082,55 +1037,38 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* password = <span class="hljs-string">&quot;TU_PASSWORD&quot;</span>;
 
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> DHT_PIN = <span class="hljs-number">4</span>;
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;
-
-<span class="hljs-comment">// Objetos globales</span>
 <span class="hljs-function">DHT <span class="hljs-title">dht</span><span class="hljs-params">(DHT_PIN, DHT11)</span></span>;
 <span class="hljs-function">WebServer <span class="hljs-title">server</span><span class="hljs-params">(<span class="hljs-number">80</span>)</span></span>;
 
-<span class="hljs-comment">// Variables de sensores</span>
 <span class="hljs-type">float</span> temperatura = <span class="hljs-number">0</span>;
 <span class="hljs-type">float</span> humedad = <span class="hljs-number">0</span>;
-<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> ultimaLectura = <span class="hljs-number">0</span>;
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
-    dht.<span class="hljs-built_in">begin</span>();
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  dht.<span class="hljs-built_in">begin</span>();
 
-    <span class="hljs-comment">// Conectar WiFi</span>
-    WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
-    <span class="hljs-keyword">while</span> (WiFi.<span class="hljs-built_in">status</span>() != WL_CONNECTED) {
-        <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
-        Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>);
-    }
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;WiFi conectado!&quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;IP: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">localIP</span>());
+  WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
+  <span class="hljs-keyword">while</span> (WiFi.<span class="hljs-built_in">status</span>() != WL_CONNECTED) {
+    <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
+    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>);
+  }
+  Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">localIP</span>());
 
-    <span class="hljs-comment">// Configurar rutas</span>
-    server.<span class="hljs-built_in">on</span>(<span class="hljs-string">&quot;/&quot;</span>, handleRoot);
-    server.<span class="hljs-built_in">on</span>(<span class="hljs-string">&quot;/api/datos&quot;</span>, handleApiDatos);
-    server.<span class="hljs-built_in">begin</span>();
+  server.<span class="hljs-built_in">on</span>(<span class="hljs-string">&quot;/&quot;</span>, handleRoot);
+  server.<span class="hljs-built_in">on</span>(<span class="hljs-string">&quot;/api/datos&quot;</span>, handleApiDatos);
+  server.<span class="hljs-built_in">begin</span>();
 }
 </code></pre>
 <h3 id="loop-principal">Loop Principal</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Leer sensores cada 2 segundos</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">millis</span>() - ultimaLectura &gt; <span class="hljs-number">2000</span>) {
-        temperatura = dht.<span class="hljs-built_in">readTemperature</span>();
-        humedad = dht.<span class="hljs-built_in">readHumidity</span>();
+  <span class="hljs-comment">// Leer cada 2s</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">millis</span>() - ultimaLectura &gt; <span class="hljs-number">2000</span>) {
+    temperatura = dht.<span class="hljs-built_in">readTemperature</span>();
+    humedad = dht.<span class="hljs-built_in">readHumidity</span>();
+    ultimaLectura = <span class="hljs-built_in">millis</span>();
+  }
 
-        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isnan</span>(temperatura) &amp;&amp; !<span class="hljs-built_in">isnan</span>(humedad)) {
-            Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Temp: &quot;</span>);
-            Serial.<span class="hljs-built_in">print</span>(temperatura);
-            Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;°C | Hum: &quot;</span>);
-            Serial.<span class="hljs-built_in">println</span>(humedad);
-        }
-        ultimaLectura = <span class="hljs-built_in">millis</span>();
-    }
-
-    server.<span class="hljs-built_in">handleClient</span>();
+  server.<span class="hljs-built_in">handleClient</span>();
 }
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -1166,46 +1104,33 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <h2 id="c%C3%B3digo-completo-estaci%C3%B3n-meteorol%C3%B3gica-22">Código Completo: Estación Meteorológica (2/2)</h2>
 <h3 id="manejador-p%C3%A1gina-html">Manejador: Página HTML</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">handleRoot</span><span class="hljs-params">()</span> </span>{
-    String html = <span class="hljs-string">&quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;head&gt;&lt;meta charset=&#x27;UTF-8&#x27;&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;meta name=&#x27;viewport&#x27; content=&#x27;width=device-width&#x27;&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;title&gt;Estación Meteorológica&lt;/title&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;style&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;body{font-family:Arial;background:#f0f0f0;text-align:center;padding:20px;}&quot;</span>;
-    html += <span class="hljs-string">&quot;.card{background:white;border-radius:15px;padding:30px;margin:15px;}&quot;</span>;
-    html += <span class="hljs-string">&quot;.temp{color:#e74c3c;font-size:56px;font-weight:bold;}&quot;</span>;
-    html += <span class="hljs-string">&quot;.hum{color:#3498db;font-size:56px;font-weight:bold;}&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;h1&gt;<img class="emoji" draggable="false" alt="🌤" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f324.svg" data-marp-twemoji=""/> Estación Meteorológica&lt;/h1&gt;&quot;</span>;
+  String html = <span class="hljs-string">&quot;&lt;html&gt;&lt;head&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;meta charset=&#x27;UTF-8&#x27;&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;style&gt;body{font-family:Arial;text-align:center;padding:20px;}&quot;</span>;
+  html += <span class="hljs-string">&quot;.temp{color:#e74c3c;font-size:48px;}&quot;</span>;
+  html += <span class="hljs-string">&quot;.hum{color:#3498db;font-size:48px;}&lt;/style&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;/head&gt;&lt;body&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;h1&gt;<img class="emoji" draggable="false" alt="🌤" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f324.svg" data-marp-twemoji=""/> Estación Meteorológica&lt;/h1&gt;&quot;</span>;
 
-    <span class="hljs-comment">// Tarjeta temperatura</span>
-    html += <span class="hljs-string">&quot;&lt;div class=&#x27;card&#x27;&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;div&gt;<img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> TEMPERATURA&lt;/div&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;div class=&#x27;temp&#x27;&gt;&quot;</span> + <span class="hljs-built_in">String</span>(temperatura, <span class="hljs-number">1</span>) + <span class="hljs-string">&quot;°C&lt;/div&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;/div&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;div class=&#x27;card&#x27;&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> &quot;</span> + <span class="hljs-built_in">String</span>(temperatura, <span class="hljs-number">1</span>) + <span class="hljs-string">&quot;°C&lt;br&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> &quot;</span> + <span class="hljs-built_in">String</span>(humedad, <span class="hljs-number">1</span>) + <span class="hljs-string">&quot;%&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;/div&gt;&quot;</span>;
 
-    <span class="hljs-comment">// Tarjeta humedad</span>
-    html += <span class="hljs-string">&quot;&lt;div class=&#x27;card&#x27;&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;div&gt;<img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> HUMEDAD&lt;/div&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;div class=&#x27;hum&#x27;&gt;&quot;</span> + <span class="hljs-built_in">String</span>(humedad, <span class="hljs-number">1</span>) + <span class="hljs-string">&quot;%&lt;/div&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;/div&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;script&gt;setTimeout(()=&gt;location.reload(),5000);&lt;/script&gt;&quot;</span>;
+  html += <span class="hljs-string">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>;
 
-    <span class="hljs-comment">// Auto-refresh cada 5 segundos</span>
-    html += <span class="hljs-string">&quot;&lt;script&gt;setTimeout(()=&gt;location.reload(),5000);&lt;/script&gt;&quot;</span>;
-    html += <span class="hljs-string">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>;
-
-    server.<span class="hljs-built_in">send</span>(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;text/html&quot;</span>, html);
+  server.<span class="hljs-built_in">send</span>(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;text/html&quot;</span>, html);
 }
 </code></pre>
-<h3 id="manejador-api-json">Manejador: API JSON</h3>
+<h3 id="api-json">API JSON</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">handleApiDatos</span><span class="hljs-params">()</span> </span>{
-    String json = <span class="hljs-string">&quot;{&quot;</span>;
-    json += <span class="hljs-string">&quot;\&quot;temperatura\&quot;:&quot;</span> + <span class="hljs-built_in">String</span>(temperatura, <span class="hljs-number">2</span>) + <span class="hljs-string">&quot;,&quot;</span>;
-    json += <span class="hljs-string">&quot;\&quot;humedad\&quot;:&quot;</span> + <span class="hljs-built_in">String</span>(humedad, <span class="hljs-number">2</span>) + <span class="hljs-string">&quot;,&quot;</span>;
-    json += <span class="hljs-string">&quot;\&quot;timestamp\&quot;:&quot;</span> + <span class="hljs-built_in">String</span>(<span class="hljs-built_in">millis</span>());
-    json += <span class="hljs-string">&quot;}&quot;</span>;
+  String json = <span class="hljs-string">&quot;{&quot;</span>;
+  json += <span class="hljs-string">&quot;\&quot;temp\&quot;:&quot;</span> + <span class="hljs-built_in">String</span>(temperatura, <span class="hljs-number">2</span>) + <span class="hljs-string">&quot;,&quot;</span>;
+  json += <span class="hljs-string">&quot;\&quot;hum\&quot;:&quot;</span> + <span class="hljs-built_in">String</span>(humedad, <span class="hljs-number">2</span>);
+  json += <span class="hljs-string">&quot;}&quot;</span>;
 
-    server.<span class="hljs-built_in">send</span>(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;application/json&quot;</span>, json);
+  server.<span class="hljs-built_in">send</span>(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;application/json&quot;</span>, json);
 }
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
@@ -1239,25 +1164,16 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="22">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="seguridad-en-wifi-iot">Seguridad en WiFi IoT</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="%E2%9D%8C-pr%C3%A1cticas-inseguras"><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Prácticas Inseguras</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// 1. Credenciales hardcodeadas</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Credenciales hardcodeadas</span>
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* ssid = <span class="hljs-string">&quot;MiRedCasa&quot;</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* password = <span class="hljs-string">&quot;ClaveSecreta123&quot;</span>;
 
-<span class="hljs-comment">// 2. HTTP sin cifrar</span>
+<span class="hljs-comment">// HTTP sin cifrar</span>
 http.<span class="hljs-built_in">begin</span>(<span class="hljs-string">&quot;http://api.ejemplo.com/datos&quot;</span>);
 
-<span class="hljs-comment">// 3. API Keys visibles</span>
+<span class="hljs-comment">// API Keys visibles</span>
 String url = <span class="hljs-string">&quot;?api_key=ABC123XYZ&quot;</span>;
-
-<span class="hljs-comment">// 4. Sin validación de certificados</span>
-<span class="hljs-comment">// (vulnerable a MITM attacks)</span>
-
-<span class="hljs-comment">// 5. WiFi abierto (sin contraseña)</span>
-WiFi.<span class="hljs-built_in">begin</span>(ssid);  <span class="hljs-comment">// Sin password</span>
 </code></pre>
 <h3 id="niveles-de-seguridad-wifi">Niveles de Seguridad WiFi</h3>
 <table>
@@ -1467,15 +1383,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="22">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="troubleshooting-wifi">Troubleshooting WiFi</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="problemas-comunes">Problemas Comunes</h3>
 <table>
 <thead>
 <tr>
 <th>Síntoma</th>
-<th>Causa Probable</th>
+<th>Causa</th>
 <th>Solución</th>
 </tr>
 </thead>
@@ -1491,108 +1404,53 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <td>Reiniciar router</td>
 </tr>
 <tr>
-<td>Desconexiones frecuentes</td>
+<td>Desconexiones</td>
 <td>Señal débil (RSSI &lt; -80)</td>
-<td>Acercar ESP32 al router</td>
+<td>Acercar al router</td>
 </tr>
 <tr>
 <td>Timeout</td>
 <td>Firewall</td>
 <td>Revisar configuración</td>
 </tr>
-<tr>
-<td>Reinicio loop</td>
-<td>Watchdog</td>
-<td>Aumentar tiempo/dividir tareas</td>
-</tr>
-<tr>
-<td>&quot;Failed to connect&quot;</td>
-<td>Credenciales vacías</td>
-<td>Verificar strings SSID/pass</td>
-</tr>
 </tbody>
 </table>
-<h3 id="comandos-de-diagn%C3%B3stico">Comandos de Diagnóstico</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Información completa de red</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">diagnosticoWiFi</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;=== DIAGNÓSTICO WiFi ===&quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Estado: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">status</span>());
-    
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;SSID: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">SSID</span>());
-    
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;IP: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">localIP</span>());
-    
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RSSI: &quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(WiFi.<span class="hljs-built_in">RSSI</span>());
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; dBm&quot;</span>);
-    
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAC: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">macAddress</span>());
-    
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Gateway: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">gatewayIP</span>());
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;========================&quot;</span>);
-}
-</code></pre>
-</td>
-<td width="50%">
 <h3 id="calidad-de-se%C3%B1al-rssi">Calidad de Señal (RSSI)</h3>
 <table>
 <thead>
 <tr>
 <th>RSSI (dBm)</th>
 <th>Calidad</th>
-<th>Indicador</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-30 a -50</td>
-<td>Excelente</td>
-<td><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/></td>
-</tr>
-<tr>
-<td>-50 a -60</td>
-<td>Muy buena</td>
-<td><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/></td>
+<td>-30 a -60</td>
+<td>Excelente/ Muy buena</td>
 </tr>
 <tr>
 <td>-60 a -70</td>
 <td>Buena</td>
-<td><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/></td>
 </tr>
 <tr>
 <td>-70 a -80</td>
 <td>Regular</td>
-<td><img class="emoji" draggable="false" alt="🟡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e1.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🟡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e1.svg" data-marp-twemoji=""/></td>
 </tr>
 <tr>
-<td>-80 a -90</td>
-<td>Mala</td>
-<td><img class="emoji" draggable="false" alt="🔴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f534.svg" data-marp-twemoji=""/></td>
-</tr>
-<tr>
-<td>&lt; -90</td>
-<td>Muy mala</td>
-<td><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/></td>
+<td>&lt; -80</td>
+<td>Mala - cambiar ubicación</td>
 </tr>
 </tbody>
 </table>
-<h3 id="mejorar-se%C3%B1al-wifi">Mejorar Señal WiFi</h3>
-<ol>
-<li><strong>Acercar el ESP32</strong> al router</li>
-<li><strong>Usar antena externa</strong> (modelos compatibles)</li>
-<li><strong>Evitar obstáculos:</strong> paredes, metales</li>
-<li><strong>Cambiar canal</strong> del router (1, 6, 11)</li>
-<li><strong>Verificar interferencias:</strong> microondas, Bluetooth</li>
-<li><strong>Usar repetidor</strong> WiFi si es necesario</li>
-</ol>
-</td>
-</tr>
-</table>
+<h3 id="diagn%C3%B3stico">Diagnóstico</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">diagnosticoWiFi</span><span class="hljs-params">()</span> </span>{
+  Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Estado: &quot;</span>);
+  Serial.<span class="hljs-built_in">println</span>(WiFi.<span class="hljs-built_in">status</span>());
+  Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RSSI: &quot;</span>);
+  Serial.<span class="hljs-built_in">print</span>(WiFi.<span class="hljs-built_in">RSSI</span>());
+  Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; dBm&quot;</span>);
+}
+</code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }

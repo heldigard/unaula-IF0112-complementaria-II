@@ -1505,85 +1505,37 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="buenas-pr%C3%A1cticas-de-programaci%C3%B3n">Buenas Prácticas de Programación</h2>
-<table>
-<tr>
-<td width="50%">
-<h3 id="%E2%9C%85-hacer-best-practices"><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> HACER (Best Practices)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// 1. Usar constantes para pines</span>
+<h3 id="%E2%9C%85-hacer"><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> HACER</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Constantes para pines</span>
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> BOTON_PIN = <span class="hljs-number">15</span>;
 
-<span class="hljs-comment">// 2. Nombres descriptivos</span>
+<span class="hljs-comment">// Nombres descriptivos</span>
 <span class="hljs-type">float</span> temperaturaActual;
-<span class="hljs-type">bool</span> sistemaEncendido;
-<span class="hljs-type">int</span> contadorErrores;
 
-<span class="hljs-comment">// 3. millis() en lugar de delay()</span>
-<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> tiempoAnterior = <span class="hljs-number">0</span>;
-<span class="hljs-type">const</span> <span class="hljs-type">long</span> INTERVALO = <span class="hljs-number">1000</span>;
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> ahora = <span class="hljs-built_in">millis</span>();
-    <span class="hljs-keyword">if</span> (ahora - tiempoAnterior &gt;= INTERVALO) {
-        tiempoAnterior = ahora;
-        <span class="hljs-comment">// Ejecutar tarea</span>
-    }
-    <span class="hljs-comment">// Otras tareas no se bloquean</span>
+<span class="hljs-comment">// millis() en lugar de delay()</span>
+<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> t = <span class="hljs-built_in">millis</span>();
+<span class="hljs-keyword">if</span> (t - tiempoAnterior &gt;= <span class="hljs-number">1000</span>) {
+  <span class="hljs-comment">// Ejecutar cada 1s sin bloquear</span>
 }
 
-<span class="hljs-comment">// 4. Verificar errores de sensores</span>
-<span class="hljs-type">float</span> temp = dht.<span class="hljs-built_in">readTemperature</span>();
+<span class="hljs-comment">// Verificar errores</span>
 <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isnan</span>(temp)) {
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Error: Sensor no responde&quot;</span>);
-    <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// Sensor no responde</span>
 }
 </code></pre>
-</td>
-<td width="50%">
-<h3 id="%E2%9D%8C-evitar-anti-patrones"><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> EVITAR (Anti-patrones)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// 1. Números mágicos</span>
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Mal:</span>
-<span class="hljs-built_in">digitalWrite</span>(<span class="hljs-number">2</span>, HIGH);
-<span class="hljs-built_in">delay</span>(<span class="hljs-number">1000</span>);
+<h3 id="%E2%9D%8C-evitar"><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> EVITAR</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Números mágicos</span>
+<span class="hljs-built_in">digitalWrite</span>(<span class="hljs-number">2</span>, HIGH);  <span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/></span>
 
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Mejor:</span>
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_PIN = <span class="hljs-number">2</span>;
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> TIEMPO_ESPERA = <span class="hljs-number">1000</span>;
-<span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
-<span class="hljs-built_in">delay</span>(TIEMPO_ESPERA);
+<span class="hljs-comment">// Delay excesivo</span>
+<span class="hljs-built_in">delay</span>(<span class="hljs-number">10000</span>);  <span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Bloquea todo</span>
 
-<span class="hljs-comment">// 2. Delay() excesivo bloquea todo</span>
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Mal:</span>
-<span class="hljs-built_in">delay</span>(<span class="hljs-number">10000</span>);  <span class="hljs-comment">// 10 segundos bloqueados</span>
+<span class="hljs-comment">// Variables sin nombre descriptivo</span>
+<span class="hljs-type">int</span> x, y, z;  <span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/></span>
 
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Mejor:</span>
-<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> tiempoInicio = <span class="hljs-built_in">millis</span>();
-<span class="hljs-keyword">while</span> (<span class="hljs-built_in">millis</span>() - tiempoInicio &lt; <span class="hljs-number">10000</span>) {
-    <span class="hljs-comment">// Seguir haciendo otras tareas</span>
-}
-
-<span class="hljs-comment">// 3. Variables globales sin propósito</span>
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Mal:</span>
-<span class="hljs-type">int</span> x, y, z, a, b, c;
-
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Mejor:</span>
-<span class="hljs-type">int</span> posicionX, posicionY;
-<span class="hljs-type">int</span> contadorIntentos;
-
-<span class="hljs-comment">// 4. No verificar errores</span>
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Mal:</span>
-<span class="hljs-type">int</span> valor = <span class="hljs-built_in">analogRead</span>(<span class="hljs-number">34</span>);
-<span class="hljs-comment">// Usar valor sin validar</span>
-
-<span class="hljs-comment">// <img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Mejor:</span>
-<span class="hljs-type">int</span> valor = <span class="hljs-built_in">analogRead</span>(<span class="hljs-number">34</span>);
-<span class="hljs-keyword">if</span> (valor &lt; <span class="hljs-number">0</span> || valor &gt; <span class="hljs-number">4095</span>) {
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Error de lectura&quot;</span>);
-}
+<span class="hljs-comment">// No validar datos</span>
+<span class="hljs-type">int</span> valor = <span class="hljs-built_in">analogRead</span>(<span class="hljs-number">34</span>);  <span class="hljs-comment">// <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Sin validar</span>
 </code></pre>
-</td>
-</tr>
-</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1871,14 +1823,11 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="24">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="actividad-pr%C3%A1ctica-sistema-de-alerta-de-temperatura">Actividad Práctica: Sistema de Alerta de Temperatura</h2>
-<table>
-<tr>
-<td width="50%">
-<h3 id="descripci%C3%B3n-del-proyecto">Descripción del Proyecto</h3>
+<h3 id="descripci%C3%B3n">Descripción</h3>
 <p>Crear un sistema que:</p>
 <ol>
 <li><strong>Mida</strong> temperatura con DHT11</li>
-<li><strong>Indique</strong> con LEDs el estado térmico:
+<li><strong>Indique</strong> estado con LEDs:
 <ul>
 <li><img class="emoji" draggable="false" alt="🔴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f534.svg" data-marp-twemoji=""/> <strong>Rojo:</strong> &gt; 30°C (Calor)</li>
 <li><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/> <strong>Verde:</strong> 20-30°C (Normal)</li>
@@ -1886,103 +1835,48 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </ul>
 </li>
 <li><strong>Muestre</strong> valores en Monitor Serial</li>
-<li><strong>Actualice</strong> cada 2 segundos</li>
 </ol>
-<h3 id="materiales-necesarios">Materiales Necesarios</h3>
+<h3 id="materiales">Materiales</h3>
 <table>
 <thead>
 <tr>
 <th>Componente</th>
-<th>Cantidad</th>
 <th>Pin ESP32</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ESP32 DevKit</td>
-<td>1</td>
-<td>-</td>
-</tr>
-<tr>
 <td>DHT11</td>
-<td>1</td>
 <td>GPIO4</td>
 </tr>
 <tr>
 <td>LED Rojo</td>
-<td>1</td>
 <td>GPIO18</td>
 </tr>
 <tr>
 <td>LED Verde</td>
-<td>1</td>
 <td>GPIO19</td>
 </tr>
 <tr>
 <td>LED Azul</td>
-<td>1</td>
 <td>GPIO21</td>
-</tr>
-<tr>
-<td>Resistencia 220Ω</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Protoboard</td>
-<td>1</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Cables jumper</td>
-<td>10+</td>
-<td>-</td>
 </tr>
 </tbody>
 </table>
 <h3 id="pseudoc%C3%B3digo">Pseudocódigo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>INICIO
-  Configurar pines (LEDs como salida)
-  Iniciar DHT11
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Configurar LEDs como salida
+Iniciar DHT11
 
-  BUCLE INFINITO
-    Leer temperatura
+BUCLE:
+  Leer temperatura
 
-    SI temperatura &gt; 30
-      Encender LED rojo
-    SINO SI temperatura &gt;= 20
-      Encender LED verde
-    SINO
-      Encender LED azul
+  SI temp &gt; 30 → LED Rojo
+  SINO SI temp &gt;= 20 → LED Verde
+  SINO → LED Azul
 
-    Mostrar en Serial
-    Esperar 2 segundos
-  FIN BUCLE
-FIN
+  Mostrar en Serial
+  Esperar 2s
 </code></pre>
-</td>
-<td width="50%">
-<h3 id="diagrama-de-conexiones">Diagrama de Conexiones</h3>
-<table>
-<tr>
-<td style="background: #dbeafe; padding: 8px; text-align: center; font-weight: bold;">ESP32</td>
-<td style="background: #f0fdf4; padding: 8px; text-align: center; font-weight: bold;">DHT11</td>
-<td style="background: #dcfce7; padding: 8px; text-align: center; font-weight: bold;">LEDs (x3)</td>
-</tr>
-<tr>
-<td style="background: #fef3c7; padding: 8px;">GPIO4 ── 10KΩ ──►</td>
-<td style="background: #fef3c7; padding: 8px;">DATA</td>
-<td style="background: #dcfce7; padding: 8px;" rowspan="3" valign="top">GPIO18 ── 220Ω ──► (+) ROJO<br />GPIO19 ── 220Ω ──► (+) VERDE<br />GPIO21 ── 220Ω ──► (+) AZUL<br /><br />GND ────────────────────────────────────► (-)</td>
-</tr>
-<tr>
-<td style="background: #dcfce7; padding: 8px;">3.3V</td>
-<td style="background: #dcfce7; padding: 8px;">VCC</td>
-</tr>
-<tr>
-<td style="background: #fecaca; padding: 8px;">GND</td>
-<td style="background: #fecaca; padding: 8px;">GND</td>
-</tr>
-</table>
 <div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px;">
 <strong>Nota:</strong> Resistencia pull-up de 10KΩ entre DATA y VCC del DHT11
 </div>
@@ -2058,85 +1952,50 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <h2 id="soluci%C3%B3n-de-referencia">Solución de Referencia</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;DHT.h&quot;</span></span>
 
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// CONFIGURACIÓN DE PINES</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> DHT_PIN = <span class="hljs-number">4</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_ROJO = <span class="hljs-number">18</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_VERDE = <span class="hljs-number">19</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> LED_AZUL = <span class="hljs-number">21</span>;
 
-<span class="hljs-comment">// Sensor DHT</span>
 <span class="hljs-function">DHT <span class="hljs-title">dht</span><span class="hljs-params">(DHT_PIN, DHT11)</span></span>;
 
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// SETUP: Configuración inicial</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    
-    <span class="hljs-comment">// Configurar LEDs como salida</span>
-    <span class="hljs-built_in">pinMode</span>(LED_ROJO, OUTPUT);
-    <span class="hljs-built_in">pinMode</span>(LED_VERDE, OUTPUT);
-    <span class="hljs-built_in">pinMode</span>(LED_AZUL, OUTPUT);
-    
-    <span class="hljs-comment">// Apagar todos los LEDs</span>
-    <span class="hljs-built_in">apagarTodosLEDs</span>();
-    
-    <span class="hljs-comment">// Iniciar sensor</span>
-    dht.<span class="hljs-built_in">begin</span>();
-    
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;================================&quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;SISTEMA DE ALERTA DE TEMPERATURA&quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;================================&quot;</span>);
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  <span class="hljs-built_in">pinMode</span>(LED_ROJO, OUTPUT);
+  <span class="hljs-built_in">pinMode</span>(LED_VERDE, OUTPUT);
+  <span class="hljs-built_in">pinMode</span>(LED_AZUL, OUTPUT);
+  dht.<span class="hljs-built_in">begin</span>();
 }
 
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// FUNCIONES AUXILIARES</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">apagarTodosLEDs</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-built_in">digitalWrite</span>(LED_ROJO, LOW);
-    <span class="hljs-built_in">digitalWrite</span>(LED_VERDE, LOW);
-    <span class="hljs-built_in">digitalWrite</span>(LED_AZUL, LOW);
-}
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mostrarEstado</span><span class="hljs-params">(<span class="hljs-type">float</span> temp, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* estado)</span> </span>{
-    Serial.<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Temperatura: %.1f°C - %s\n&quot;</span>, temp, estado);
-}
-
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
-<span class="hljs-comment">// LOOP: Bucle principal</span>
-<span class="hljs-comment">// ═══════════════════════════════════════════════════════════</span>
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// Leer temperatura</span>
-    <span class="hljs-type">float</span> temperatura = dht.<span class="hljs-built_in">readTemperature</span>();
-    
-    <span class="hljs-comment">// Verificar error de lectura</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isnan</span>(temperatura)) {
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;[ERROR] No se pudo leer el sensor&quot;</span>);
-        <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);
-        <span class="hljs-keyword">return</span>;
-    }
-    
-    <span class="hljs-comment">// Apagar todos los LEDs antes de evaluar</span>
-    <span class="hljs-built_in">apagarTodosLEDs</span>();
-    
-    <span class="hljs-comment">// Evaluar rangos y activar LED correspondiente</span>
-    <span class="hljs-keyword">if</span> (temperatura &gt; <span class="hljs-number">30.0</span>) {
-        <span class="hljs-built_in">digitalWrite</span>(LED_ROJO, HIGH);
-        <span class="hljs-built_in">mostrarEstado</span>(temperatura, <span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="🔴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f534.svg" data-marp-twemoji=""/> CALOR EXTREMO&quot;</span>);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (temperatura &gt;= <span class="hljs-number">20.0</span>) {
-        <span class="hljs-built_in">digitalWrite</span>(LED_VERDE, HIGH);
-        <span class="hljs-built_in">mostrarEstado</span>(temperatura, <span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/> TEMPERATURA NORMAL&quot;</span>);
-    }
-    <span class="hljs-keyword">else</span> {
-        <span class="hljs-built_in">digitalWrite</span>(LED_AZUL, HIGH);
-        <span class="hljs-built_in">mostrarEstado</span>(temperatura, <span class="hljs-string">&quot;<img class="emoji" draggable="false" alt="🔵" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f535.svg" data-marp-twemoji=""/> FRÍO&quot;</span>);
-    }
-    
-    <span class="hljs-comment">// Esperar 2 segundos entre lecturas</span>
+  <span class="hljs-type">float</span> temp = dht.<span class="hljs-built_in">readTemperature</span>();
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isnan</span>(temp)) {
+    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Error de sensor&quot;</span>);
     <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-comment">// Apagar todos</span>
+  <span class="hljs-built_in">digitalWrite</span>(LED_ROJO, LOW);
+  <span class="hljs-built_in">digitalWrite</span>(LED_VERDE, LOW);
+  <span class="hljs-built_in">digitalWrite</span>(LED_AZUL, LOW);
+
+  <span class="hljs-comment">// Activar LED correspondiente</span>
+  <span class="hljs-keyword">if</span> (temp &gt; <span class="hljs-number">30.0</span>) {
+    <span class="hljs-built_in">digitalWrite</span>(LED_ROJO, HIGH);
+    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Calor extremo&quot;</span>);
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (temp &gt;= <span class="hljs-number">20.0</span>) {
+    <span class="hljs-built_in">digitalWrite</span>(LED_VERDE, HIGH);
+    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Temperatura normal&quot;</span>);
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">digitalWrite</span>(LED_AZUL, HIGH);
+    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Frío&quot;</span>);
+  }
+
+  <span class="hljs-built_in">delay</span>(<span class="hljs-number">2000</span>);
 }
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>

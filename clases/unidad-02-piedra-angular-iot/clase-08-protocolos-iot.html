@@ -34,7 +34,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
 <div>
@@ -104,7 +104,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
 <div>
@@ -197,7 +197,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="desaf%C3%ADos-de-comunicaci%C3%B3n-en-iot">Desafíos de Comunicación en IoT</h2>
 <table>
@@ -341,7 +341,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="http-el-protocolo-de-la-web">HTTP: El Protocolo de la Web</h2>
 <table>
@@ -498,7 +498,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="mqtt-el-protocolo-estrella-de-iot">MQTT: El Protocolo Estrella de IoT</h2>
 <table>
@@ -679,7 +679,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="conceptos-fundamentales-de-mqtt">Conceptos Fundamentales de MQTT</h2>
 <table>
@@ -807,170 +807,87 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="niveles-de-qos-quality-of-service">Niveles de QoS (Quality of Service)</h2>
-<table>
-<tr>
-<td width="33%">
-<h3 id="qos-0-at-most-once">QoS 0: At Most Once</h3>
-<p><strong>&quot;Fire and Forget&quot;</strong></p>
+<h3 id="qos-0-at-most-once-fire-and-forget">QoS 0: At Most Once (Fire and Forget)</h3>
 <table>
 <thead>
 <tr>
-<th>Flujo</th>
-<th>Descripción</th>
+<th>Característica</th>
+<th>Valor</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Publicador → Broker</td>
-<td>Mensaje enviado</td>
+<td>Confirmación</td>
+<td><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Sin ACK</td>
 </tr>
 <tr>
-<td><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Confirmación</td>
-<td>Sin ACK del broker</td>
+<td>Pérdida</td>
+<td><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Puede perderse</td>
 </tr>
 <tr>
-<td><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Pérdida</td>
-<td>Puede perderse</td>
+<td>Velocidad</td>
+<td>Más rápido</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Datos frecuentes, temperatura en tiempo real</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Características:</strong></p>
-<ul>
-<li>Mensaje enviado una vez</li>
-<li>Sin confirmación del broker</li>
-<li>Puede perderse</li>
-<li>Menor overhead</li>
-<li>Más rápido</li>
-</ul>
-<p><strong>Uso típico:</strong></p>
-<ul>
-<li>Datos que se actualizan frecuentemente</li>
-<li>Temperatura en tiempo real</li>
-<li>Lecturas periódicas donde una pérdida no es crítica</li>
-</ul>
-</td>
-<td width="33%">
-<h3 id="qos-1-at-least-once">QoS 1: At Least Once</h3>
-<p><strong>&quot;Entrega garantizada&quot;</strong></p>
+<h3 id="qos-1-at-least-once-entrega-garantizada">QoS 1: At Least Once (Entrega garantizada)</h3>
 <table>
 <thead>
 <tr>
-<th>Flujo</th>
-<th>Descripción</th>
+<th>Característica</th>
+<th>Valor</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Publicador → Broker</td>
-<td>Mensaje enviado</td>
+<td>Confirmación</td>
+<td><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> ACK (PUBACK)</td>
 </tr>
 <tr>
-<td>Broker → Publicador</td>
-<td>ACK (PUBACK)</td>
+<td>Duplicados</td>
+<td><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Posibles</td>
 </tr>
 <tr>
-<td><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Duplicados</td>
-<td>Posibles si ACK se pierde</td>
+<td>Balance</td>
+<td>Confiabilidad/overhead</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Comandos importantes, alarmas</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Características:</strong></p>
-<ul>
-<li>Mensaje entregado al menos una vez</li>
-<li>Confirmación (PUBACK)</li>
-<li>Puede duplicarse</li>
-<li>Balance confiabilidad/overhead</li>
-</ul>
-<p><strong>Uso típico:</strong></p>
-<ul>
-<li>Comandos importantes</li>
-<li>Alarmas</li>
-<li>Estados de actuadores</li>
-<li>Datos que no pueden perderse</li>
-</ul>
-</td>
-<td width="34%">
-<h3 id="qos-2-exactly-once">QoS 2: Exactly Once</h3>
-<p><strong>&quot;Entrega exacta&quot;</strong></p>
+<h3 id="qos-2-exactly-once-entrega-exacta">QoS 2: Exactly Once (Entrega exacta)</h3>
 <table>
 <thead>
 <tr>
-<th>Flujo</th>
-<th>Descripción</th>
+<th>Característica</th>
+<th>Valor</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Publicador → Broker</td>
-<td>Mensaje enviado</td>
+<td>Handshake</td>
+<td>4-way completo</td>
 </tr>
 <tr>
-<td>Broker → Publicador</td>
-<td>PUBREC (recibido)</td>
+<td>Duplicados</td>
+<td><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Sin duplicados</td>
 </tr>
 <tr>
-<td>Publicador → Broker</td>
-<td>PUBREL (liberar)</td>
+<td>Overhead</td>
+<td>Mayor</td>
 </tr>
 <tr>
-<td>Broker → Publicador</td>
-<td>PUBCOMP (completo)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Características:</strong></p>
-<ul>
-<li>4-way handshake completo</li>
-<li>Entrega exactamente una vez</li>
-<li>Sin duplicados</li>
-<li>Mayor overhead</li>
-<li>Más lento</li>
-</ul>
-<p><strong>Uso típico:</strong></p>
-<ul>
-<li>Transacciones críticas</li>
-<li>Pagos/transferencias</li>
-<li>Comandos irreversibles</li>
-<li>Sistemas financieros</li>
-</ul>
-</td>
-</tr>
-</table>
-<h3 id="comparaci%C3%B3n-de-qos">Comparación de QoS</h3>
-<table>
-<thead>
-<tr>
-<th>QoS</th>
-<th>Entrega</th>
-<th>Duplicados</th>
-<th>Overhead</th>
-<th>Uso</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>0</strong></td>
-<td>Mejor esfuerzo</td>
-<td>Posible</td>
-<td>Mínimo</td>
-<td>Telemetría frecuente</td>
-</tr>
-<tr>
-<td><strong>1</strong></td>
-<td>Al menos una</td>
-<td>Posible</td>
-<td>Medio</td>
-<td>Comandos, alarmas</td>
-</tr>
-<tr>
-<td><strong>2</strong></td>
-<td>Exactamente una</td>
-<td>No</td>
-<td>Alto</td>
-<td>Transacciones críticas</td>
+<td>Uso</td>
+<td>Transacciones críticas, pagos</td>
 </tr>
 </tbody>
 </table>
@@ -1002,7 +919,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="http-vs-mqtt-comparaci%C3%B3n-detallada">HTTP vs MQTT: Comparación Detallada</h2>
 <table>
@@ -1163,7 +1080,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="brokers-mqtt-opciones-disponibles">Brokers MQTT: Opciones Disponibles</h2>
 <table>
@@ -1295,62 +1212,17 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="implementaci%C3%B3n-mqtt-en-esp32">Implementación MQTT en ESP32</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="librer%C3%ADa-pubsubclient">Librería PubSubClient</h3>
-<p><strong>Instalación:</strong></p>
-<ol>
-<li>Arduino IDE → Sketch → Include Library → Manage Libraries</li>
-<li>Buscar: &quot;PubSubClient&quot; (by Nick O'Leary)</li>
-<li>Install versión 2.9.1 o superior</li>
-</ol>
-<h3 id="arquitectura-del-c%C3%B3digo">Arquitectura del Código</h3>
+<p>Arduino IDE → Sketch → Include Library → Manage Libraries → Buscar &quot;PubSubClient&quot;</p>
+<h3 id="c%C3%B3digo-publicador-mqtt">Código: Publicador MQTT</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;WiFi.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;PubSubClient.h&gt;</span></span>
 
-<span class="hljs-comment">// Cliente WiFi</span>
-WiFiClient espClient;
-
-<span class="hljs-comment">// Cliente MQTT</span>
-<span class="hljs-function">PubSubClient <span class="hljs-title">client</span><span class="hljs-params">(espClient)</span></span>;
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// 1. Conectar WiFi</span>
-    WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
-    
-    <span class="hljs-comment">// 2. Configurar servidor MQTT</span>
-    client.<span class="hljs-built_in">setServer</span>(mqtt_server, <span class="hljs-number">1883</span>);
-    
-    <span class="hljs-comment">// 3. Configurar callback (para recibir)</span>
-    client.<span class="hljs-built_in">setCallback</span>(callback);
-}
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// 4. Mantener conexión</span>
-    <span class="hljs-keyword">if</span> (!client.<span class="hljs-built_in">connected</span>()) {
-        <span class="hljs-built_in">reconnect</span>();
-    }
-    client.<span class="hljs-built_in">loop</span>();
-    
-    <span class="hljs-comment">// 5. Publicar datos</span>
-    <span class="hljs-built_in">publicarDatos</span>();
-}
-</code></pre>
-</td>
-<td width="50%">
-<h3 id="c%C3%B3digo-completo-publicador">Código Completo: Publicador</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;WiFi.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;PubSubClient.h&gt;</span></span>
-
-<span class="hljs-comment">// Configuración WiFi</span>
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* ssid = <span class="hljs-string">&quot;TU_RED&quot;</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* password = <span class="hljs-string">&quot;TU_PASS&quot;</span>;
-
-<span class="hljs-comment">// Configuración MQTT</span>
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* mqtt_server = <span class="hljs-string">&quot;broker.hivemq.com&quot;</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">char</span>* topic_temp = <span class="hljs-string">&quot;unaula/sala/temperatura&quot;</span>;
 
@@ -1358,56 +1230,34 @@ WiFiClient espClient;
 <span class="hljs-function">PubSubClient <span class="hljs-title">client</span><span class="hljs-params">(espClient)</span></span>;
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
-    WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
-    
-    <span class="hljs-keyword">while</span> (WiFi.<span class="hljs-built_in">status</span>() != WL_CONNECTED) {
-        <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
-        Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>);
-    }
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;\nWiFi conectado&quot;</span>);
-    
-    client.<span class="hljs-built_in">setServer</span>(mqtt_server, <span class="hljs-number">1883</span>);
+  Serial.<span class="hljs-built_in">begin</span>(<span class="hljs-number">115200</span>);
+  WiFi.<span class="hljs-built_in">begin</span>(ssid, password);
+
+  <span class="hljs-keyword">while</span> (WiFi.<span class="hljs-built_in">status</span>() != WL_CONNECTED) {
+    <span class="hljs-built_in">delay</span>(<span class="hljs-number">500</span>);
+    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>);
+  }
+
+  client.<span class="hljs-built_in">setServer</span>(mqtt_server, <span class="hljs-number">1883</span>);
 }
 
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">if</span> (!client.<span class="hljs-built_in">connected</span>()) {
-        <span class="hljs-built_in">reconnect</span>();
-    }
-    client.<span class="hljs-built_in">loop</span>();
-    
-    <span class="hljs-comment">// Publicar cada 5 segundos</span>
-    <span class="hljs-type">static</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> lastMsg = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">millis</span>() - lastMsg &gt; <span class="hljs-number">5000</span>) {
-        lastMsg = <span class="hljs-built_in">millis</span>();
-        
-        <span class="hljs-type">float</span> temp = <span class="hljs-number">25.5</span>;  <span class="hljs-comment">// Leer sensor real</span>
-        <span class="hljs-type">char</span> msg[<span class="hljs-number">50</span>];
-        <span class="hljs-built_in">snprintf</span>(msg, <span class="hljs-number">50</span>, <span class="hljs-string">&quot;%.1f&quot;</span>, temp);
-        
-        client.<span class="hljs-built_in">publish</span>(topic_temp, msg);
-        Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Publicado: &quot;</span> + <span class="hljs-built_in">String</span>(msg));
-    }
-}
+  <span class="hljs-keyword">if</span> (!client.<span class="hljs-built_in">connected</span>()) {
+    <span class="hljs-built_in">reconnect</span>();
+  }
+  client.<span class="hljs-built_in">loop</span>();
 
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">reconnect</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">while</span> (!client.<span class="hljs-built_in">connected</span>()) {
-        Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Conectando MQTT...&quot;</span>);
-        String clientId = <span class="hljs-string">&quot;ESP32-&quot;</span> + <span class="hljs-built_in">String</span>(<span class="hljs-built_in">random</span>(<span class="hljs-number">0xffff</span>), HEX);
-        
-        <span class="hljs-keyword">if</span> (client.<span class="hljs-built_in">connect</span>(clientId.<span class="hljs-built_in">c_str</span>())) {
-            Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;conectado&quot;</span>);
-        } <span class="hljs-keyword">else</span> {
-            Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;fallo, rc=&quot;</span>);
-            Serial.<span class="hljs-built_in">println</span>(client.<span class="hljs-built_in">state</span>());
-            <span class="hljs-built_in">delay</span>(<span class="hljs-number">5000</span>);
-        }
-    }
+  <span class="hljs-comment">// Publicar cada 5s</span>
+  <span class="hljs-type">static</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> lastMsg = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">millis</span>() - lastMsg &gt; <span class="hljs-number">5000</span>) {
+    lastMsg = <span class="hljs-built_in">millis</span>();
+    <span class="hljs-type">float</span> temp = <span class="hljs-number">25.5</span>;
+    <span class="hljs-type">char</span> msg[<span class="hljs-number">50</span>];
+    <span class="hljs-built_in">snprintf</span>(msg, <span class="hljs-number">50</span>, <span class="hljs-string">&quot;%.1f&quot;</span>, temp);
+    client.<span class="hljs-built_in">publish</span>(topic_temp, msg);
+  }
 }
 </code></pre>
-</td>
-</tr>
-</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1436,77 +1286,39 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="suscriptor-mqtt-con-callback">Suscriptor MQTT con Callback</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="funci%C3%B3n-callback">Función Callback</h3>
-<p>Se ejecuta cada vez que llega un mensaje a un topic suscrito.</p>
+<p>Se ejecuta cuando llega un mensaje a un topic suscrito.</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(<span class="hljs-type">char</span>* topic, byte* payload, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> length)</span> </span>{
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Mensaje recibido [&quot;</span>);
-    Serial.<span class="hljs-built_in">print</span>(topic);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;]: &quot;</span>);
-    
-    <span class="hljs-comment">// Convertir payload a String</span>
-    String mensaje = <span class="hljs-string">&quot;&quot;</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
-        mensaje += (<span class="hljs-type">char</span>)payload[i];
+  String mensaje = <span class="hljs-string">&quot;&quot;</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+    mensaje += (<span class="hljs-type">char</span>)payload[i];
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">String</span>(topic) == <span class="hljs-string">&quot;unaula/sala/luz&quot;</span>) {
+    <span class="hljs-keyword">if</span> (mensaje == <span class="hljs-string">&quot;ON&quot;</span>) {
+      <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mensaje == <span class="hljs-string">&quot;OFF&quot;</span>) {
+      <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);
     }
-    Serial.<span class="hljs-built_in">println</span>(mensaje);
-    
-    <span class="hljs-comment">// Actuar según el topic</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">String</span>(topic) == <span class="hljs-string">&quot;unaula/sala/luz&quot;</span>) {
-        <span class="hljs-keyword">if</span> (mensaje == <span class="hljs-string">&quot;ON&quot;</span>) {
-            <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
-            Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;LED encendido&quot;</span>);
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mensaje == <span class="hljs-string">&quot;OFF&quot;</span>) {
-            <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);
-            Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;LED apagado&quot;</span>);
-        }
-    }
+  }
 }
 </code></pre>
-<h3 id="setup-con-callback">Setup con Callback</h3>
+<h3 id="setup-con-suscripci%C3%B3n">Setup con Suscripción</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">// ... WiFi ...</span>
-    
-    client.<span class="hljs-built_in">setServer</span>(mqtt_server, <span class="hljs-number">1883</span>);
-    client.<span class="hljs-built_in">setCallback</span>(callback);  <span class="hljs-comment">// ← Importante</span>
-    
-    <span class="hljs-built_in">pinMode</span>(LED_PIN, OUTPUT);
+  client.<span class="hljs-built_in">setServer</span>(mqtt_server, <span class="hljs-number">1883</span>);
+  client.<span class="hljs-built_in">setCallback</span>(callback);
+}
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">reconnect</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">if</span> (client.<span class="hljs-built_in">connect</span>(<span class="hljs-string">&quot;ESP32-Sub&quot;</span>)) {
+    client.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;unaula/sala/luz&quot;</span>);
+  }
 }
 </code></pre>
-</td>
-<td width="50%">
-<h3 id="funci%C3%B3n-reconnect-con-suscripci%C3%B3n">Función Reconnect con Suscripción</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">reconnect</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">while</span> (!client.<span class="hljs-built_in">connected</span>()) {
-        Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Conectando MQTT...&quot;</span>);
-        
-        String clientId = <span class="hljs-string">&quot;ESP32-Sub-&quot;</span>;
-        clientId += <span class="hljs-built_in">String</span>(<span class="hljs-built_in">random</span>(<span class="hljs-number">0xffff</span>), HEX);
-        
-        <span class="hljs-comment">// Intentar conectar</span>
-        <span class="hljs-keyword">if</span> (client.<span class="hljs-built_in">connect</span>(clientId.<span class="hljs-built_in">c_str</span>())) {
-            Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;conectado&quot;</span>);
-            
-            <span class="hljs-comment">// Suscribirse a topics</span>
-            client.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;unaula/sala/luz&quot;</span>);
-            client.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;unaula/+/comando&quot;</span>);
-            
-            Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Suscrito a topics&quot;</span>);
-        } <span class="hljs-keyword">else</span> {
-            Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;fallo, rc=&quot;</span>);
-            Serial.<span class="hljs-built_in">print</span>(client.<span class="hljs-built_in">state</span>());
-            Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot; - reintentando en 5s&quot;</span>);
-            <span class="hljs-built_in">delay</span>(<span class="hljs-number">5000</span>);
-        }
-    }
-}
-</code></pre>
-<h3 id="estados-de-conexi%C3%B3n-mqtt">Estados de Conexión MQTT</h3>
+<h3 id="estados-mqtt">Estados MQTT</h3>
 <table>
 <thead>
 <tr>
@@ -1517,48 +1329,13 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <tbody>
 <tr>
 <td><code>-4</code></td>
-<td>Timeout de conexión</td>
-</tr>
-<tr>
-<td><code>-3</code></td>
-<td>Conexión perdida</td>
-</tr>
-<tr>
-<td><code>-2</code></td>
-<td>Fallo al conectar</td>
-</tr>
-<tr>
-<td><code>-1</code></td>
-<td>Desconectado</td>
+<td>Timeout</td>
 </tr>
 <tr>
 <td><code>0</code></td>
 <td>Conectado</td>
 </tr>
-<tr>
-<td><code>1</code></td>
-<td>Protocolo incorrecto</td>
-</tr>
-<tr>
-<td><code>2</code></td>
-<td>Client ID rechazado</td>
-</tr>
-<tr>
-<td><code>3</code></td>
-<td>Servidor no disponible</td>
-</tr>
-<tr>
-<td><code>4</code></td>
-<td>Credenciales malas</td>
-</tr>
-<tr>
-<td><code>5</code></td>
-<td>No autorizado</td>
-</tr>
 </tbody>
-</table>
-</td>
-</tr>
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
@@ -1588,88 +1365,39 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="json-en-mqtt">JSON en MQTT</h2>
-<table>
-<tr>
-<td width="50%">
 <h3 id="publicar-json">Publicar JSON</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ArduinoJson.h&gt;</span></span>
 
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">publicarDatosJSON</span><span class="hljs-params">(<span class="hljs-type">float</span> temp, <span class="hljs-type">float</span> hum)</span> </span>{
-    <span class="hljs-comment">// Crear documento JSON</span>
-    StaticJsonDocument&lt;<span class="hljs-number">256</span>&gt; doc;
-    
-    doc[<span class="hljs-string">&quot;temperatura&quot;</span>] = temp;
-    doc[<span class="hljs-string">&quot;humedad&quot;</span>] = hum;
-    doc[<span class="hljs-string">&quot;timestamp&quot;</span>] = <span class="hljs-built_in">millis</span>();
-    doc[<span class="hljs-string">&quot;dispositivo&quot;</span>] = <span class="hljs-string">&quot;ESP32-Sala&quot;</span>;
-    doc[<span class="hljs-string">&quot;ubicacion&quot;</span>] = <span class="hljs-string">&quot;Aula 302&quot;</span>;
-    
-    <span class="hljs-comment">// Serializar a buffer</span>
-    <span class="hljs-type">char</span> buffer[<span class="hljs-number">256</span>];
-    <span class="hljs-type">size_t</span> n = <span class="hljs-built_in">serializeJson</span>(doc, buffer);
-    
-    <span class="hljs-comment">// Publicar</span>
-    client.<span class="hljs-built_in">publish</span>(<span class="hljs-string">&quot;unaula/sala/datos&quot;</span>, buffer);
-    
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;JSON enviado:&quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(buffer);
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">publicarJSON</span><span class="hljs-params">(<span class="hljs-type">float</span> temp, <span class="hljs-type">float</span> hum)</span> </span>{
+  StaticJsonDocument&lt;<span class="hljs-number">256</span>&gt; doc;
+  doc[<span class="hljs-string">&quot;temperatura&quot;</span>] = temp;
+  doc[<span class="hljs-string">&quot;humedad&quot;</span>] = hum;
+  doc[<span class="hljs-string">&quot;timestamp&quot;</span>] = <span class="hljs-built_in">millis</span>();
+
+  <span class="hljs-type">char</span> buffer[<span class="hljs-number">256</span>];
+  <span class="hljs-built_in">serializeJson</span>(doc, buffer);
+  client.<span class="hljs-built_in">publish</span>(<span class="hljs-string">&quot;unaula/sala/datos&quot;</span>, buffer);
 }
 </code></pre>
 <p><strong>Resultado:</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;temperatura&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">24.5</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;humedad&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">60</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">12345678</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;dispositivo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ESP32-Sala&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;ubicacion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Aula 302&quot;</span>
-<span class="hljs-punctuation">}</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;temperatura&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">24.5</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;humedad&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">60</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">12345678</span><span class="hljs-punctuation">}</span>
 </code></pre>
-</td>
-<td width="50%">
-<h3 id="recibir-y-parsear-json">Recibir y Parsear JSON</h3>
+<h3 id="recibir-json">Recibir JSON</h3>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(<span class="hljs-type">char</span>* topic, byte* payload, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> length)</span> </span>{
-    <span class="hljs-comment">// Crear documento JSON</span>
-    StaticJsonDocument&lt;<span class="hljs-number">256</span>&gt; doc;
-    
-    <span class="hljs-comment">// Deserializar payload</span>
-    DeserializationError error = <span class="hljs-built_in">deserializeJson</span>(doc, payload, length);
-    
-    <span class="hljs-keyword">if</span> (error) {
-        Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error parseando JSON: &quot;</span>);
-        Serial.<span class="hljs-built_in">println</span>(error.<span class="hljs-built_in">c_str</span>());
-        <span class="hljs-keyword">return</span>;
-    }
-    
-    <span class="hljs-comment">// Extraer valores</span>
-    <span class="hljs-type">const</span> <span class="hljs-type">char</span>* comando = doc[<span class="hljs-string">&quot;comando&quot;</span>];
-    <span class="hljs-type">int</span> valor = doc[<span class="hljs-string">&quot;valor&quot;</span>];
-    <span class="hljs-type">int</span> duracion = doc[<span class="hljs-string">&quot;duracion&quot;</span>] | <span class="hljs-number">1000</span>;  <span class="hljs-comment">// Default 1000</span>
-    
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Comando: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(comando);
-    Serial.<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Valor: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(valor);
-    
-    <span class="hljs-comment">// Ejecutar comando</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(comando, <span class="hljs-string">&quot;brillo&quot;</span>) == <span class="hljs-number">0</span>) {
-        <span class="hljs-built_in">ledcWrite</span>(<span class="hljs-number">0</span>, valor);
-    }
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(comando, <span class="hljs-string">&quot;parpadear&quot;</span>) == <span class="hljs-number">0</span>) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; valor; i++) {
-            <span class="hljs-built_in">digitalWrite</span>(LED_PIN, HIGH);
-            <span class="hljs-built_in">delay</span>(duracion);
-            <span class="hljs-built_in">digitalWrite</span>(LED_PIN, LOW);
-            <span class="hljs-built_in">delay</span>(duracion);
-        }
-    }
+  StaticJsonDocument&lt;<span class="hljs-number">256</span>&gt; doc;
+  <span class="hljs-built_in">deserializeJson</span>(doc, payload, length);
+
+  <span class="hljs-type">const</span> <span class="hljs-type">char</span>* comando = doc[<span class="hljs-string">&quot;comando&quot;</span>];
+  <span class="hljs-type">int</span> valor = doc[<span class="hljs-string">&quot;valor&quot;</span>];
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(comando, <span class="hljs-string">&quot;brillo&quot;</span>) == <span class="hljs-number">0</span>) {
+    <span class="hljs-built_in">ledcWrite</span>(<span class="hljs-number">0</span>, valor);
+  }
 }
 </code></pre>
-</td>
-</tr>
-</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1698,7 +1426,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="seguridad-en-mqtt">Seguridad en MQTT</h2>
 <table>
@@ -1825,23 +1553,10 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="coap-protocolo-para-dispositivos-restringidos">CoAP: Protocolo para Dispositivos Restringidos</h2>
-<table>
-<tr>
-<td width="50%">
-<h3 id="constrained-application-protocol">Constrained Application Protocol</h3>
-<p>Protocolo diseñado para dispositivos muy limitados:</p>
-<ul>
-<li>Memoria &lt; 100 KB</li>
-<li>Energía muy limitada</li>
-<li>Redes de bajo ancho de banda</li>
-</ul>
-<table>
-<tr>
-<td width="50%">
-<h4 id="%F0%9F%93%8A-comparaci%C3%B3n-coap-vs-http"><img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> COMPARACIÓN COAP vs HTTP</h4>
+<h3 id="coap-vs-http">CoAP vs HTTP</h3>
 <table>
 <thead>
 <tr>
@@ -1852,120 +1567,63 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </thead>
 <tbody>
 <tr>
-<td><strong>Transporte</strong></td>
+<td>Transporte</td>
 <td>TCP</td>
 <td>UDP</td>
 </tr>
 <tr>
-<td><strong>Overhead</strong></td>
+<td>Overhead</td>
 <td>~800 bytes</td>
 <td>~10 bytes</td>
 </tr>
 <tr>
-<td><strong>Formato</strong></td>
+<td>Formato</td>
 <td>Texto</td>
 <td>Binario</td>
 </tr>
-<tr>
-<td><strong>Modelo</strong></td>
-<td>Síncrono</td>
-<td>Asíncrono</td>
-</tr>
 </tbody>
 </table>
-<p><strong>Ahorro:</strong> CoAP usa ~98% menos overhead que HTTP</p>
-</td>
-<td width="50%">
-<h4 id="%E2%9A%A1-ventajas-coap"><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> VENTAJAS COAP</h4>
+<h3 id="ventajas-coap">Ventajas CoAP</h3>
 <ul>
 <li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Overhead mínimo (~10 bytes)</li>
-<li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> UDP más ligero que TCP</li>
-<li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Formato binario eficiente</li>
-<li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Diseñado para IoT restringido</li>
+<li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> UDP más ligero</li>
 <li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Métodos similares a HTTP (GET, POST, PUT, DELETE)</li>
+<li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Diseñado para IoT restringido</li>
 </ul>
-<h4 id="%E2%9A%A0%EF%B8%8F-limitaciones"><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> LIMITACIONES</h4>
+<h3 id="limitaciones">Limitaciones</h3>
 <ul>
 <li><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Menos compatibilidad web</li>
 <li><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> UDP no garantiza entrega</li>
-<li><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Requiere implementación especial</li>
 </ul>
-</td>
-</tr>
-</table>
 <h3 id="m%C3%A9todos-coap">Métodos CoAP</h3>
 <table>
 <thead>
 <tr>
 <th>Método</th>
-<th>Equivalente HTTP</th>
 <th>Uso</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>GET</td>
-<td>GET</td>
 <td>Obtener recurso</td>
 </tr>
 <tr>
-<td>POST</td>
 <td>POST</td>
 <td>Crear recurso</td>
 </tr>
 <tr>
 <td>PUT</td>
-<td>PUT</td>
 <td>Actualizar recurso</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>DELETE</td>
-<td>Eliminar recurso</td>
 </tr>
 </tbody>
 </table>
-</td>
-<td width="50%">
 <h3 id="%C2%BFcu%C3%A1ndo-usar-coap">¿Cuándo usar CoAP?</h3>
-<p><strong>Usar CoAP cuando:</strong></p>
 <ul>
-<li>Dispositivo tiene &lt; 100 KB RAM</li>
-<li>Red muy limitada (6LoWPAN, ZigBee IP)</li>
-<li>UDP disponible pero TCP no</li>
-<li>Overhead mínimo es crítico</li>
-<li>Red mesh/DTN</li>
+<li>Dispositivo &lt; 100 KB RAM</li>
+<li>Red limitada (6LoWPAN, ZigBee)</li>
+<li>Overhead mínimo crítico</li>
 </ul>
-<p><strong>No usar CoAP cuando:</strong></p>
-<ul>
-<li>Infraestructura HTTP ya existe</li>
-<li>Necesitas compatibilidad web directa</li>
-<li>Dispositivo tiene recursos suficientes</li>
-<li>Red TCP/IP estándar</li>
-</ul>
-<h3 id="implementaci%C3%B3n-coap">Implementación CoAP</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Librería: coap-simple-library</span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;coap-simple.h&gt;</span></span>
-
-Coap coap;
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(CoapPacket &amp;packet, IPAddress ip, <span class="hljs-type">int</span> port)</span> </span>{
-    <span class="hljs-type">char</span> payload[packet.payloadlen + <span class="hljs-number">1</span>];
-    <span class="hljs-built_in">memcpy</span>(payload, packet.payload, packet.payloadlen);
-    payload[packet.payloadlen] = <span class="hljs-string">&#x27;\0&#x27;</span>;
-    
-    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;CoAP recibido: &quot;</span>);
-    Serial.<span class="hljs-built_in">println</span>(payload);
-}
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
-    coap.<span class="hljs-built_in">start</span>();
-    coap.<span class="hljs-built_in">server</span>(callback, <span class="hljs-string">&quot;temperatura&quot;</span>);
-}
-</code></pre>
-</td>
-</tr>
-</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1994,229 +1652,27 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
-<h2 id="comparaci%C3%B3n-de-protocolos-iot">Comparación de Protocolos IoT</h2>
-<table>
-<tr>
-<td width="50%">
-<h3 id="tabla-comparativa-completa">Tabla Comparativa Completa</h3>
-<table>
-<thead>
-<tr>
-<th>Protocolo</th>
-<th>Transporte</th>
-<th>Overhead</th>
-<th>Latencia</th>
-<th>Uso Ideal</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HTTP/REST</strong></td>
-<td>TCP</td>
-<td>Alto (~800B)</td>
-<td>100-500ms</td>
-<td>APIs web, OTA</td>
-</tr>
-<tr>
-<td><strong>MQTT</strong></td>
-<td>TCP</td>
-<td>Bajo (~2B)</td>
-<td>10-50ms</td>
-<td>IoT general</td>
-</tr>
-<tr>
-<td><strong>CoAP</strong></td>
-<td>UDP</td>
-<td>Muy bajo (~10B)</td>
-<td>5-30ms</td>
-<td>Dispositivos restringidos</td>
-</tr>
-<tr>
-<td><strong>WebSocket</strong></td>
-<td>TCP</td>
-<td>Medio</td>
-<td>5-20ms</td>
-<td>Dashboard tiempo real</td>
-</tr>
-<tr>
-<td><strong>AMQP</strong></td>
-<td>TCP</td>
-<td>Alto</td>
-<td>10-100ms</td>
-<td>Enterprise messaging</td>
-</tr>
-<tr>
-<td><strong>DDS</strong></td>
-<td>UDP/TCP</td>
-<td>Medio</td>
-<td>&lt;1ms</td>
-<td>Sistemas críticos</td>
-</tr>
-</tbody>
-</table>
-<h3 id="recomendaci%C3%B3n-por-caso-de-uso">Recomendación por Caso de Uso</h3>
-<table>
-<thead>
-<tr>
-<th>Escenario</th>
-<th>Protocolo</th>
-<th>Razón</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sensor de temperatura</td>
-<td>MQTT</td>
-<td>Eficiente, push</td>
-</tr>
-<tr>
-<td>API REST tradicional</td>
-<td>HTTP</td>
-<td>Compatibilidad</td>
-</tr>
-<tr>
-<td>Dashboard tiempo real</td>
-<td>WebSocket/MQTT</td>
-<td>Push nativo</td>
-</tr>
-<tr>
-<td>Sensor con 50KB RAM</td>
-<td>CoAP</td>
-<td>Overhead mínimo</td>
-</tr>
-<tr>
-<td>Mensajería enterprise</td>
-<td>AMQP</td>
-<td>Transacciones</td>
-</tr>
-<tr>
-<td>Robótica industrial</td>
-<td>DDS</td>
-<td>Tiempo real duro</td>
-</tr>
-</tbody>
-</table>
-</td>
-<td width="50%">
-<h3 id="arquitectura-t%C3%ADpica-iot">Arquitectura Típica IoT</h3>
-<table>
-<tr>
-<td width="50%">
-<h4 id="%F0%9F%94%B5-periferia-edge"><img class="emoji" draggable="false" alt="🔵" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f535.svg" data-marp-twemoji=""/> PERIFERIA (Edge)</h4>
-<table>
-<thead>
-<tr>
-<th>Capa</th>
-<th>Componente</th>
-<th>Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Sensores</strong></td>
-<td>I2C/SPI</td>
-<td>Capturan datos físicos</td>
-</tr>
-<tr>
-<td><strong>Actuadores</strong></td>
-<td>Relés</td>
-<td>Ejecutan acciones</td>
-</tr>
-<tr>
-<td><strong>ESP32</strong></td>
-<td>MCU</td>
-<td>Procesa, comunica (MQTT)</td>
-</tr>
-</tbody>
-</table>
-<h4 id="%F0%9F%9F%A2-comunicaci%C3%B3n"><img class="emoji" draggable="false" alt="🟢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e2.svg" data-marp-twemoji=""/> COMUNICACIÓN</h4>
-<table>
-<thead>
-<tr>
-<th>Capa</th>
-<th>Componente</th>
-<th>Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>WiFi</strong></td>
-<td>TCP/IP</td>
-<td>Conectividad a red</td>
-</tr>
-<tr>
-<td><strong>MQTT</strong></td>
-<td>Broker</td>
-<td>Enruta mensajes pub/sub</td>
-</tr>
-<tr>
-<td><strong>TLS</strong></td>
-<td>Puerto 8883</td>
-<td>Cifrado de datos</td>
-</tr>
-</tbody>
-</table>
-</td>
-<td width="50%">
-<h4 id="%F0%9F%9F%A1-nube-backend"><img class="emoji" draggable="false" alt="🟡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f7e1.svg" data-marp-twemoji=""/> NUBE (Backend)</h4>
-<table>
-<thead>
-<tr>
-<th>Capa</th>
-<th>Componente</th>
-<th>Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Broker</strong></td>
-<td>HiveMQ/Mosquitto</td>
-<td>Mensajería IoT</td>
-</tr>
-<tr>
-<td><strong>Backend</strong></td>
-<td>Node.js/Python</td>
-<td>Lógica de negocio</td>
-</tr>
-<tr>
-<td><strong>Database</strong></td>
-<td>InfluxDB/MongoDB</td>
-<td>Almacenamiento</td>
-</tr>
-</tbody>
-</table>
-<h4 id="%F0%9F%94%B4-aplicaciones"><img class="emoji" draggable="false" alt="🔴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f534.svg" data-marp-twemoji=""/> APLICACIONES</h4>
-<table>
-<thead>
-<tr>
-<th>App</th>
-<th>Canal</th>
-<th>Propósito</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Móvil</strong></td>
-<td>MQTT suscriptor</td>
-<td>Notificaciones</td>
-</tr>
-<tr>
-<td><strong>Dashboard</strong></td>
-<td>WebSocket</td>
-<td>Tiempo real</td>
-</tr>
-<tr>
-<td><strong>API REST</strong></td>
-<td>HTTP</td>
-<td>Integración web</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</table>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-cpp"><span class="hljs-comment">// Librería: coap-simple-library</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;coap-simple.h&gt;</span></span>
+
+Coap coap;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(CoapPacket &amp;packet, IPAddress ip, <span class="hljs-type">int</span> port)</span> </span>{
+    <span class="hljs-type">char</span> payload[packet.payloadlen + <span class="hljs-number">1</span>];
+    <span class="hljs-built_in">memcpy</span>(payload, packet.payload, packet.payloadlen);
+    payload[packet.payloadlen] = <span class="hljs-string">&#x27;\0&#x27;</span>;
+    
+    Serial.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;CoAP recibido: &quot;</span>);
+    Serial.<span class="hljs-built_in">println</span>(payload);
+}
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+    coap.<span class="hljs-built_in">start</span>();
+    coap.<span class="hljs-built_in">server</span>(callback, <span class="hljs-string">&quot;temperatura&quot;</span>);
+}
+</code></pre>
 </td>
 </tr>
 </table>
@@ -2248,7 +1704,145 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
+<header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
+<h2 id="comparaci%C3%B3n-de-protocolos-iot">Comparación de Protocolos IoT</h2>
+<h3 id="tabla-comparativa-1">Tabla Comparativa</h3>
+<table>
+<thead>
+<tr>
+<th>Protocolo</th>
+<th>Transporte</th>
+<th>Overhead</th>
+<th>Latencia</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTTP</strong></td>
+<td>TCP</td>
+<td>Alto</td>
+<td>100-500ms</td>
+<td>APIs web</td>
+</tr>
+<tr>
+<td><strong>MQTT</strong></td>
+<td>TCP</td>
+<td>Bajo</td>
+<td>10-50ms</td>
+<td>IoT general</td>
+</tr>
+<tr>
+<td><strong>CoAP</strong></td>
+<td>UDP</td>
+<td>Muy bajo</td>
+<td>5-30ms</td>
+<td>Dispositivos restringidos</td>
+</tr>
+<tr>
+<td><strong>WebSocket</strong></td>
+<td>TCP</td>
+<td>Medio</td>
+<td>5-20ms</td>
+<td>Dashboard real-time</td>
+</tr>
+<tr>
+<td><strong>AMQP</strong></td>
+<td>TCP</td>
+<td>Alto</td>
+<td>10-100ms</td>
+<td>Enterprise</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recomendaciones">Recomendaciones</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Protocolo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor temperatura</td>
+<td>MQTT</td>
+</tr>
+<tr>
+<td>Dashboard real-time</td>
+<td>WebSocket/MQTT</td>
+</tr>
+<tr>
+<td>Sensor 50KB RAM</td>
+<td>CoAP</td>
+</tr>
+<tr>
+<td>API REST</td>
+<td>HTTP</td>
+</tr>
+</tbody>
+</table>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="17" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="21">
+<header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
+</table>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="18" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="actividad-pr%C3%A1ctica-sistema-pubsub-con-mqtt">Actividad Práctica: Sistema Pub/Sub con MQTT</h2>
 <table>
@@ -2326,7 +1920,7 @@ aula/iot/+/estado
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -2339,7 +1933,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="17" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+" lang="C" data-marpit-pagination="19" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -2352,7 +1946,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="resumen-de-la-clase">Resumen de la Clase</h2>
 <table>
@@ -2474,7 +2068,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -2487,7 +2081,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="18" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+" lang="C" data-marpit-pagination="20" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -2500,7 +2094,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="pr%C3%B3xima-clase">Próxima Clase</h2>
 <h3 id="clase-9-convergencia-itot">Clase 9: Convergencia IT/OT</h3>
@@ -2522,7 +2116,7 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -2535,7 +2129,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-" lang="C" data-marpit-pagination="19" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+" lang="C" data-marpit-pagination="21" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 2;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
 img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
 section h1 { font-size: 1.8em; }
 section h2 { font-size: 1.4em; }
@@ -2548,7 +2142,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="19">
+;" data-marpit-pagination-total="21">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <p><strong>¡Nos vemos!</strong></p>
 <p><img class="emoji" draggable="false" alt="📧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e7.svg" data-marp-twemoji=""/> Contacto: [profesor@unaula.edu.co]<br />
