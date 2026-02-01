@@ -214,21 +214,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <p><strong>Resultado:</strong> Comprende la interacción de los dispositivos IoT a través de las redes e Internet</p>
 </blockquote>
 <h3 id="%C2%BFpor-qu%C3%A9-importan-las-redes-en-iot">¿Por qué importan las redes en IoT?</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│   DISPOSITIVO          RED             INTERNET            │
-│   IoT                  IoT                              │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> ───────────────► <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> ───────────────► <img class="emoji" draggable="false" alt="☁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2601.svg" data-marp-twemoji=""/>             │
-│   Sensor              Gateway           Nube                │
-│                                                             │
-│   • Genera datos      • Transporta      • Procesa          │
-│   • Pequeños          • Optimizado      • Almacena         │
-│   • Batería           • Seguro          • Analytics        │
-│                                                             │
-│   SIN RED ADECUADA → NO HAY IoT                           │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<ul>
+<li><strong>Dispositivo IoT:</strong> genera datos (bajo consumo)</li>
+<li><strong>Red IoT:</strong> transporta datos (seguro y eficiente)</li>
+<li><strong>Internet/Nube:</strong> procesa, almacena y analiza</li>
+</ul>
+<p><strong>Idea clave:</strong> Sin red adecuada, no hay IoT.</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -260,21 +251,37 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="tipos-de-redes-visi%C3%B3n-general">Tipos de Redes: Visión General</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                    TIPOS DE REDES                           │
-│                                                             │
-│   ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐ │
-│   │   PAN   │ ⊂  │   LAN   │ ⊂  │   WAN   │ ⊂  │INTERNET │ │
-│   │Personal │    │  Local  │    │  Amplia │    │ Global  │ │
-│   │  Area   │    │  Area   │    │  Area   │    │         │ │
-│   └─────────┘    └─────────┘    └─────────┘    └─────────┘ │
-│       │               │              │              │       │
-│    &lt; 10m          &lt; 1km          &lt; global       global     │
-│                                                             │
-│   Bluetooth       WiFi          Celular       TCP/IP       │
-│   Zigbee          Ethernet      LoRaWAN                    │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Alcance típico</th>
+<th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PAN</strong></td>
+<td>&lt; 10 m</td>
+<td>Bluetooth, NFC, Zigbee</td>
+</tr>
+<tr>
+<td><strong>LAN</strong></td>
+<td>&lt; 1 km</td>
+<td>WiFi, Ethernet</td>
+</tr>
+<tr>
+<td><strong>WAN</strong></td>
+<td>&gt; 1 km</td>
+<td>LoRaWAN, NB‑IoT, 4G/5G</td>
+</tr>
+<tr>
+<td><strong>Internet</strong></td>
+<td>Global</td>
+<td>TCP/IP</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -307,23 +314,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="pan-personal-area-network">PAN: Personal Area Network</h2>
 <h3 id="redes-de-corto-alcance--10-metros">Redes de Corto Alcance (&lt; 10 metros)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                 RED DE ÁREA PERSONAL                        │
-│                                                             │
-│            ┌──────────┐                                     │
-│            │ <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/>Teléfono│                                    │
-│            └────┬─────┘                                     │
-│                 │                                           │
-│     ┌───────────┼───────────┐                              │
-│     │           │           │                               │
-│  ┌──┴──┐    ┌──┴──┐    ┌──┴──┐                            │
-│  │<img class="emoji" draggable="false" alt="⌚" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/231a.svg" data-marp-twemoji=""/>    │    │<img class="emoji" draggable="false" alt="🎧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3a7.svg" data-marp-twemoji=""/>    │    │<img class="emoji" draggable="false" alt="⌨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2328.svg" data-marp-twemoji=""/>   │                            │
-│  │Watch │    │Audíf│    │Tecla│                            │
-│  └─────┘    └─────┘    └─────┘                            │
-│                                                             │
-│   Bluetooth • Bluetooth LE • NFC • ZigBee                  │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Características</strong></p>
+<ul>
+<li>Muy corto alcance (1–10 m)</li>
+<li>Bajo consumo energético</li>
+<li>Ideal para wearables y domótica</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -356,22 +352,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="lan-local-area-network">LAN: Local Area Network</h2>
 <h3 id="redes-de-%C3%A1rea-local-edificio-campus">Redes de Área Local (edificio, campus)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   RED DE ÁREA LOCAL                         │
-│                                                             │
-│    ┌──────────────────────────────────────────────────┐    │
-│    │                    SWITCH                         │    │
-│    └───┬────────┬────────┬────────┬────────┬─────────┘    │
-│        │        │        │        │        │               │
-│     ┌──┴──┐  ┌──┴──┐  ┌──┴──┐  ┌──┴──┐  ┌──┴──┐          │
-│     │ <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="🖨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f5a8.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="📹" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f9.svg" data-marp-twemoji=""/>  │  │ <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/>  │          │
-│     │ PC1 │  │ PC2 │  │Impre│  │Cám  │  │Sensor│          │
-│     └─────┘  └─────┘  └─────┘  └─────┘  └─────┘          │
-│                                                             │
-│   Ethernet (cable) • WiFi (inalámbrico)                    │
-│   Velocidad: 100 Mbps - 10 Gbps                            │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Características</strong></p>
+<ul>
+<li>Cobertura edificio/campus</li>
+<li>Alta velocidad (100 Mbps–10 Gbps)</li>
+<li>Requiere infraestructura local</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -483,25 +469,17 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="wan-wide-area-network">WAN: Wide Area Network</h2>
 <h3 id="redes-de-%C3%A1rea-amplia-ciudades-pa%C3%ADses">Redes de Área Amplia (ciudades, países)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│               RED DE ÁREA AMPLIA (WAN)                      │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="🏢" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e2.svg" data-marp-twemoji=""/> Oficina         <img class="emoji" draggable="false" alt="☁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2601.svg" data-marp-twemoji=""/> Internet           <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> Fábrica      │
-│   Medellín               │                 Bogotá          │
-│       │                  │                    │             │
-│       └──────────────────┼────────────────────┘             │
-│                          │                                  │
-│                     ┌────┴────┐                            │
-│                     │  ISP    │                            │
-│                     │ Router  │                            │
-│                     └─────────┘                            │
-│                                                             │
-│   Tecnologías:                                              │
-│   • Fibra óptica    • Conexiones dedicadas                 │
-│   • DSL             • MPLS                                  │
-│   • Celular (4G/5G) • VPN sobre Internet                   │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Características</strong></p>
+<ul>
+<li>Conecta sedes o zonas geográficas amplias</li>
+<li>Usa infraestructura de operadores o enlaces dedicados</li>
+</ul>
+<p><strong>Tecnologías comunes</strong></p>
+<ul>
+<li>Fibra óptica, DSL, MPLS</li>
+<li>Celular (4G/5G)</li>
+<li>VPN sobre Internet</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -534,25 +512,52 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="redes-celulares-para-iot">Redes Celulares para IoT</h2>
 <h3 id="evoluci%C3%B3n">Evolución</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  REDES CELULARES                            │
-│                                                             │
-│  2G ────── 3G ────── 4G ────── 5G                          │
-│  GPRS      HSPA      LTE       NR                          │
-│                                                             │
-│  Velocidad:                                                 │
-│  50 kbps → 2 Mbps → 100 Mbps → 10 Gbps                    │
-│                                                             │
-│  Latencia:                                                  │
-│  500ms  →  100ms  →   30ms   →   1ms                       │
-│                                                             │
-│  IoT específico:                                            │
-│       │                                                     │
-│       ├── LTE-M (Cat-M1): Movilidad, 1 Mbps               │
-│       │                                                     │
-│       └── NB-IoT: Sensores fijos, 100 kbps, 10 años bat.  │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Generación</th>
+<th>Tecnología</th>
+<th>Velocidad</th>
+<th>Latencia</th>
+<th>Uso típico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2G</strong></td>
+<td>GPRS</td>
+<td>50 kbps</td>
+<td>500 ms</td>
+<td>Telemetría básica</td>
+</tr>
+<tr>
+<td><strong>3G</strong></td>
+<td>HSPA</td>
+<td>2 Mbps</td>
+<td>100 ms</td>
+<td>Datos móviles</td>
+</tr>
+<tr>
+<td><strong>4G</strong></td>
+<td>LTE</td>
+<td>100 Mbps</td>
+<td>30 ms</td>
+<td>Video y apps</td>
+</tr>
+<tr>
+<td><strong>5G</strong></td>
+<td>NR</td>
+<td>10 Gbps</td>
+<td>1 ms</td>
+<td>IoT masivo y crítico</td>
+</tr>
+</tbody>
+</table>
+<p><strong>IoT específico</strong></p>
+<ul>
+<li><strong>LTE‑M (Cat‑M1):</strong> movilidad, ~1 Mbps</li>
+<li><strong>NB‑IoT:</strong> sensores fijos, ~100 kbps, 10 años de batería</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -585,26 +590,39 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="lpwan-low-power-wide-area-networks">LPWAN: Low-Power Wide-Area Networks</h2>
 <h3 id="redes-iot-de-largo-alcance">Redes IoT de Largo Alcance</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                        LPWAN                                │
-│           &quot;Bajo consumo + Largo alcance&quot;                    │
-│                                                             │
-│   Características:                                          │
-│   • Rango: 2-15 km (urbano), hasta 40 km (rural)          │
-│   • Batería: 5-10 años                                      │
-│   • Velocidad: 0.3-50 kbps (suficiente para sensores)      │
-│   • Costo: Bajo por dispositivo                            │
-│                                                             │
-│   Tecnologías principales:                                  │
-│   ┌────────────┬────────────┬────────────┐                 │
-│   │   LoRaWAN  │   Sigfox   │   NB-IoT   │                 │
-│   ├────────────┼────────────┼────────────┤                 │
-│   │ Abierto    │ Propietario│ Operadores │                 │
-│   │ 15km rango │ 50km rango │ Existente  │                 │
-│   │ Bidirecc.  │ Limitado   │ Indoor     │                 │
-│   └────────────┴────────────┴────────────┘                 │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Características</strong></p>
+<ul>
+<li>Rango: 2–15 km (urbano), hasta 40 km (rural)</li>
+<li>Batería: 5–10 años</li>
+<li>Velocidad: 0.3–50 kbps</li>
+<li>Costo bajo por dispositivo</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Tecnología</th>
+<th>Modelo</th>
+<th>Ventaja clave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LoRaWAN</strong></td>
+<td>Abierto</td>
+<td>Bidireccional</td>
+</tr>
+<tr>
+<td><strong>Sigfox</strong></td>
+<td>Propietario</td>
+<td>Muy bajo consumo</td>
+</tr>
+<tr>
+<td><strong>NB‑IoT</strong></td>
+<td>Operadores</td>
+<td>Buena cobertura indoor</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -637,25 +655,16 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="lorawan-en-detalle">LoRaWAN en Detalle</h2>
 <h3 id="arquitectura">Arquitectura</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   ARQUITECTURA LoRaWAN                      │
-│                                                             │
-│   <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/>           ┌─────────┐       ┌─────────┐   │
-│   Sensores  ─────LoRa────►│ Gateway │──IP──►│ Network │   │
-│   (Nodos)                 │         │       │ Server  │   │
-│                           └─────────┘       └────┬────┘   │
-│                                                  │         │
-│                                             ┌────▼────┐   │
-│                                             │ Aplicación│   │
-│                                             │ Server  │   │
-│                                             └─────────┘   │
-│                                                            │
-│   Clases de dispositivos:                                  │
-│   • Clase A: Mínimo consumo (envía y escucha brevemente)  │
-│   • Clase B: Ventanas de escucha programadas              │
-│   • Clase C: Escucha continua (alto consumo)              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Flujo</strong></p>
+<ul>
+<li>Nodos (sensores) → Gateway → Network Server → Application Server</li>
+</ul>
+<p><strong>Clases de dispositivos</strong></p>
+<ul>
+<li><strong>Clase A:</strong> mínimo consumo, envía y escucha brevemente</li>
+<li><strong>Clase B:</strong> ventanas de escucha programadas</li>
+<li><strong>Clase C:</strong> escucha continua (alto consumo)</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -780,25 +789,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="selecci%C3%B3n-de-red-%C3%A1rbol-de-decisi%C3%B3n">Selección de Red: Árbol de Decisión</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                 ¿Qué red necesito?                          │
-│                                                             │
-│                  ¿Alcance?                                  │
-│                     │                                       │
-│         ┌───────────┼───────────┐                          │
-│         │           │           │                           │
-│      &lt; 100m      &lt; 15km      &gt; 15km                        │
-│         │           │           │                           │
-│    ¿Velocidad?   LPWAN      Celular                        │
-│         │           │           │                           │
-│    ┌────┴────┐  LoRa/NB-IoT  4G/5G                         │
-│    │         │                                              │
-│  Alta     Baja                                              │
-│    │         │                                              │
-│  WiFi    BLE/ZigBee                                        │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Regla rápida de selección</strong></p>
+<ol>
+<li><strong>Alcance corto (&lt;100 m)</strong> → BLE/ZigBee (bajo consumo) o WiFi (alta velocidad)</li>
+<li><strong>Alcance medio (hasta 15 km)</strong> → LPWAN (LoRaWAN / NB‑IoT)</li>
+<li><strong>Alcance alto (&gt;15 km)</strong> → Celular (4G/5G)</li>
+</ol>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -830,28 +826,40 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="casos-de-uso-por-tecnolog%C3%ADa">Casos de Uso por Tecnología</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                  CASOS DE USO                               │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/> HOGAR INTELIGENTE                                       │
-│     └── WiFi (cámaras), ZigBee/BLE (sensores, luces)       │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> FÁBRICA                                                 │
-│     └── WiFi industrial, Ethernet, 5G privado              │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🌾" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f33e.svg" data-marp-twemoji=""/> AGRICULTURA                                             │
-│     └── LoRaWAN (sensores de campo), NB-IoT                │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🏙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d9.svg" data-marp-twemoji=""/> CIUDAD INTELIGENTE                                      │
-│     └── LoRaWAN (medidores), LTE-M (vehículos)             │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> VEHÍCULOS                                               │
-│     └── 4G/5G (conectividad), V2X (comunicación vehicular) │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="⌚" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/231a.svg" data-marp-twemoji=""/> WEARABLES                                                │
-│     └── Bluetooth LE (bajo consumo)                         │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Tecnologías recomendadas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hogar inteligente</strong></td>
+<td>WiFi (cámaras), ZigBee/BLE (sensores, luces)</td>
+</tr>
+<tr>
+<td><strong>Fábrica</strong></td>
+<td>Ethernet, WiFi industrial, 5G privado</td>
+</tr>
+<tr>
+<td><strong>Agricultura</strong></td>
+<td>LoRaWAN, NB‑IoT</td>
+</tr>
+<tr>
+<td><strong>Ciudad inteligente</strong></td>
+<td>LoRaWAN (medidores), LTE‑M (vehículos)</td>
+</tr>
+<tr>
+<td><strong>Vehículos</strong></td>
+<td>4G/5G, V2X</td>
+</tr>
+<tr>
+<td><strong>Wearables</strong></td>
+<td>Bluetooth LE</td>
+</tr>
+</tbody>
+</table>
 <h3 id="casos-reales-en-colombia-%F0%9F%87%A8%F0%9F%87%B4">Casos Reales en Colombia <img class="emoji" draggable="false" alt="🇨🇴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1f4.svg" data-marp-twemoji=""/></h3>
 <table>
 <thead>
@@ -916,21 +924,32 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="el-futuro-5g-para-iot">El Futuro: 5G para IoT</h2>
 <h3 id="caracter%C3%ADsticas-de-5g">Características de 5G</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                         5G                                  │
-│                                                             │
-│   eMBB            URLLC              mMTC                  │
-│   ────            ─────              ────                  │
-│   Enhanced        Ultra-Reliable     Massive Machine       │
-│   Mobile          Low Latency        Type Communications   │
-│   Broadband       Communications                           │
-│                                                             │
-│   • 10 Gbps       • 1ms latencia     • 1M dispositivos/km² │
-│   • Video 4K/8K   • Cirugía remota   • IoT masivo          │
-│   • Realidad VR   • Vehículos        • Smart cities        │
-│                     autónomos                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Perfil 5G</th>
+<th>Enfoque</th>
+<th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>eMBB</strong></td>
+<td>Altas velocidades (hasta 10 Gbps)</td>
+<td>Video 4K/8K, VR</td>
+</tr>
+<tr>
+<td><strong>URLLC</strong></td>
+<td>Ultra baja latencia (≈1 ms)</td>
+<td>Cirugía remota, vehículos autónomos</td>
+</tr>
+<tr>
+<td><strong>mMTC</strong></td>
+<td>1M dispositivos/km²</td>
+<td>IoT masivo, smart cities</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1496,32 +1515,13 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="seguridad-en-redes-iot">Seguridad en Redes IoT</h2>
 <h3 id="principales-amenazas">Principales Amenazas</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│           SEGURIDAD EN REDES IoT                            │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🔓" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f513.svg" data-marp-twemoji=""/> AMENAZAS COMUNES:                                       │
-│                                                             │
-│  1. INTERCEPCIÓN DE DATOS                                   │
-│     • Sniffing de redes WiFi sin encriptar                 │
-│     • Mitigación: WPA3, TLS/SSL                            │
-│                                                             │
-│  2. DISPOSITIVOS ROBOTS                                     │
-│     • Botnets IoT (Mirai, Mozi)                            │
-│     • Mitigación: Credenciales únicas, actualizaciones     │
-│                                                             │
-│  3. FALSIFICACIÓN DE SEÑAL                                 │
-│     • Spoofing de dispositivos                             │
-│     • Mitigación: Autenticación mutua, firmas digitales   │
-│                                                             │
-│  4. DENEGACIÓN DE SERVICIO                                 │
-│     • Saturación de la red                                 │
-│     • Mitigación: Rate limiting, firewall                   │
-│                                                             │
-│  5. JAMMING (Interferencia)                                │
-│     • Bloqueo de señal LoRa/WiFi                           │
-│     • Mitigación: Frequency hopping, redundancia           │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<ol>
+<li><strong>Intercepción de datos</strong> → Mitigación: WPA3, TLS/SSL</li>
+<li><strong>Botnets IoT</strong> (Mirai, Mozi) → Credenciales únicas, actualizaciones</li>
+<li><strong>Falsificación de señal</strong> → Autenticación mutua, firmas digitales</li>
+<li><strong>Denegación de servicio</strong> → Rate limiting, firewalls</li>
+<li><strong>Jamming</strong> → Frequency hopping, redundancia de enlaces</li>
+</ol>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1554,33 +1554,31 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="seguridad-en-redes-iot-continuaci%C3%B3n">Seguridad en Redes IoT (Continuación)</h2>
 <h3 id="mejores-pr%C3%A1cticas">Mejores Prácticas</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│        MEJORES PRÁCTICAS DE SEGURIDAD IoT                   │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/> DISPOSITIVO:                                            │
-│  • Cambiar credenciales por defecto                        │
-│  • Deshabilitar servicios no usados                        │
-│  • Actualizar firmware regularmente                         │
-│  • Usar arranque seguro (secure boot)                      │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e1.svg" data-marp-twemoji=""/> COMUNICACIÓN:                                           │
-│  • Encriptación TLS 1.3+ para datos en tránsito            │
-│  • Certificados digitales para autenticación               │
-│  • VPN para redes privadas                                 │
-│  • Segmentación de red (VLANs)                             │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="☁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2601.svg" data-marp-twemoji=""/> PLATAFORMA:                                             │
-│  • Autenticación multifactor (MFA)                         │
-│  • Principio de mínimo privilegio                          │
-│  • Logs y auditoría de eventos                             │
-│  • Backups encriptados                                     │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🇨" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8.svg" data-marp-twemoji=""/> CUMPLIMIENTO COLOMBIA:                                  │
-│  • Ley 1581 de 2013 (Habeas Data)                          │
-│  • Ley 1273 de 2019 (Ciberseguridad)                       │
-│  • ISO 27001 (Seguridad de información)                    │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Dispositivo</strong></p>
+<ul>
+<li>Cambiar credenciales por defecto</li>
+<li>Deshabilitar servicios no usados</li>
+<li>Actualizar firmware regularmente</li>
+<li>Usar arranque seguro (secure boot)</li>
+</ul>
+<p><strong>Comunicación</strong></p>
+<ul>
+<li>TLS 1.3+ y certificados digitales</li>
+<li>VPN para redes privadas</li>
+<li>Segmentación de red (VLANs)</li>
+</ul>
+<p><strong>Plataforma</strong></p>
+<ul>
+<li>MFA y mínimo privilegio</li>
+<li>Logs y auditoría</li>
+<li>Backups encriptados</li>
+</ul>
+<p><strong>Cumplimiento (Colombia)</strong></p>
+<ul>
+<li>Ley 1581 de 2013 (Habeas Data)</li>
+<li>Ley 1273 de 2009 (Delitos informáticos)</li>
+<li>ISO 27001 (seguridad de información)</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }

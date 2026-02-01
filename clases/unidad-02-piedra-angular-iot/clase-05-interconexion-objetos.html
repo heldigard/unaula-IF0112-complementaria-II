@@ -123,6 +123,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <p><strong>Resultado:</strong> Comprende la interacción entre el mundo físico y el mundo virtual</p>
 </blockquote>
 <h3 id="la-interfaz-f%C3%ADsico-digital">La Interfaz Físico-Digital</h3>
+<ul>
+<li><strong>Sensores</strong> capturan señales del mundo físico</li>
+<li><strong>Microcontrolador</strong> transforma señales en datos</li>
+<li><strong>Procesamiento digital</strong> analiza y decide</li>
+<li><strong>Actuadores</strong> ejecutan acciones físicas</li>
+</ul>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
 │                                                             │
 │         MUNDO FÍSICO           │        MUNDO DIGITAL       │
@@ -175,6 +181,36 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="27">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="de-computadoras-a-microcontroladores">De Computadoras a Microcontroladores</h2>
+<table>
+<thead>
+<tr>
+<th>Era</th>
+<th>Equipo</th>
+<th>Tamaño/uso</th>
+<th>Costo aproximado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1960s</td>
+<td>Mainframe</td>
+<td>Habitación / empresas</td>
+<td>$1,000,000+</td>
+</tr>
+<tr>
+<td>1980s</td>
+<td>PC</td>
+<td>Mesa / hogares</td>
+<td>~$3,000</td>
+</tr>
+<tr>
+<td>2010s</td>
+<td>Microcontrolador</td>
+<td>Chip / objetos</td>
+<td>$2–5</td>
+</tr>
+</tbody>
+</table>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
 │            EVOLUCIÓN DE LA COMPUTACIÓN                      │
 │                                                             │
@@ -227,6 +263,16 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 en un solo chip: CPU, memoria, I/O y periféricos integrados.</p>
 </blockquote>
 <h3 id="componentes-internos">Componentes Internos</h3>
+<p><strong>Componentes típicos</strong></p>
+<ul>
+<li>CPU</li>
+<li>RAM y Flash</li>
+<li>GPIO (pines)</li>
+<li>ADC/DAC</li>
+<li>Temporizadores y PWM</li>
+<li>UART / I2C / SPI</li>
+<li>WiFi/BLE en modelos con conectividad (ESP32, etc.)</li>
+</ul>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
 │                    MICROCONTROLADOR                         │
 │  ┌─────────────────────────────────────────────────────┐   │
@@ -354,6 +400,21 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="arduino-el-inicio">Arduino: El Inicio</h2>
 <h3 id="%C2%BFpor-qu%C3%A9-arduino">¿Por qué Arduino?</h3>
+<p><strong>Ventajas</strong></p>
+<ul>
+<li>Fácil de aprender (IDE amigable)</li>
+<li>Gran comunidad y documentación</li>
+<li>Económico ($5–25)</li>
+<li>Miles de bibliotecas</li>
+<li>Compatible con muchos sensores</li>
+<li>Hardware open‑source</li>
+</ul>
+<p><strong>Limitaciones</strong></p>
+<ul>
+<li>Sin WiFi nativo (salvo modelos especiales)</li>
+<li>Poca memoria (2 KB RAM, 32 KB Flash)</li>
+<li>Un solo núcleo</li>
+</ul>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
 │                       ARDUINO                               │
 │                                                             │
@@ -453,14 +514,13 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </tbody>
 </table>
 <h3 id="arduino-uno-la-m%C3%A1s-com%C3%BAn">Arduino UNO (La más común)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>         ┌─────────────────────────────────┐
-    POWER│ <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/>                    │USB
-    ═════│                  [ATMEGA328P]   │═══
-         │                                 │
-  ANALOG │ <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/>          <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/>│ DIGITAL
-         │                      <img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="▪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25aa.svg" data-marp-twemoji=""/>│
-         └─────────────────────────────────┘
-</code></pre>
+<p><strong>Datos clave</strong></p>
+<ul>
+<li>MCU: ATmega328P</li>
+<li>14 pines digitales, 6 analógicos</li>
+<li>32 KB Flash, 2 KB RAM</li>
+<li>Ideal para aprendizaje y prototipos</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -493,26 +553,44 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="esp32-el-rey-del-iot">ESP32: El Rey del IoT</h2>
 <h3 id="caracter%C3%ADsticas-principales">Características Principales</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                        ESP32                                │
-│                                                             │
-│  CPU: Xtensa Dual-Core 240 MHz                             │
-│  RAM: 520 KB                                                │
-│  Flash: 4 MB (externo)                                      │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f6.svg" data-marp-twemoji=""/> Conectividad:                                           │
-│     • WiFi 802.11 b/g/n (2.4 GHz)                          │
-│     • Bluetooth Classic + BLE 4.2                          │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📍" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4cd.svg" data-marp-twemoji=""/> Pines:                                                  │
-│     • GPIO: 36 (algunos solo entrada)                      │
-│     • ADC: 18 canales (12-bit)                             │
-│     • DAC: 2 canales                                        │
-│     • Touch: 10 pines capacitivos                          │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="💰" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4b0.svg" data-marp-twemoji=""/> Precio: $3-8                                            │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>Xtensa dual‑core 240 MHz</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>520 KB</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>4 MB (externa)</td>
+</tr>
+<tr>
+<td>Conectividad</td>
+<td>WiFi 2.4 GHz + Bluetooth/BLE</td>
+</tr>
+<tr>
+<td>GPIO</td>
+<td>36 (algunos solo entrada)</td>
+</tr>
+<tr>
+<td>ADC/DAC</td>
+<td>18 ADC (12‑bit), 2 DAC</td>
+</tr>
+<tr>
+<td>Precio</td>
+<td>$3–8</td>
+</tr>
+</tbody>
+</table>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -545,26 +623,16 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="raspberry-pi-microcomputador">Raspberry Pi: Microcomputador</h2>
 <h3 id="no-es-microcontrolador-es-computador">No es Microcontrolador, es Computador</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   RASPBERRY PI 4                            │
-│                                                             │
-│  CPU: ARM Cortex-A72 (quad-core) 1.5 GHz                   │
-│  RAM: 1GB - 8GB                                             │
-│  Almacenamiento: microSD                                    │
-│  OS: Raspberry Pi OS (Linux)                               │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f6.svg" data-marp-twemoji=""/> Conectividad:                                           │
-│     • WiFi dual-band (2.4/5 GHz)                           │
-│     • Bluetooth 5.0                                         │
-│     • Ethernet Gigabit                                      │
-│     • 2x USB 3.0, 2x USB 2.0                               │
-│     • 2x micro-HDMI                                         │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📍" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4cd.svg" data-marp-twemoji=""/> GPIO: 40 pines                                          │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="💰" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4b0.svg" data-marp-twemoji=""/> Precio: $35-75                                          │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Raspberry Pi 4</strong></p>
+<ul>
+<li>CPU: ARM Cortex‑A72 (quad‑core) 1.5 GHz</li>
+<li>RAM: 1–8 GB</li>
+<li>Almacenamiento: microSD</li>
+<li>OS: Linux (Raspberry Pi OS)</li>
+<li>Conectividad: WiFi dual‑band, Bluetooth 5.0, Ethernet</li>
+<li>GPIO: 40 pines</li>
+<li>Precio: $35–75</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -699,31 +767,18 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="27">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="gu%C3%ADa-de-selecci%C3%B3n-%C2%BFqu%C3%A9-mcu-usar">Guía de Selección: ¿Qué MCU usar?</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                 ÁRBOL DE DECISIÓN MCU                       │
-│                                                             │
-│                  ¿Tu proyecto necesita?                     │
-│                     │                                       │
-│         ┌───────────┼───────────┐                           │
-│         │           │           │                           │
-│    Linux/OS    Conectar   Batería                          │
-│    completo  a Internet  por meses                          │
-│         │           │           │                           │
-│    Raspberry      ESP32      Arduino                         │
-│    Pi (Gateway)  (WiFi/BT)  (aprender)                       │
-│         │           │           │                           │
-│    ┌────┴────┐  ┌──┴──────┐  ┌──┴──────┐                    │
-│    │Alto    │  │Medio   │  │Bajo    │                    │
-│    │presup  │  │presup  │  │presup  │                    │
-│    │&gt;$100K  │  │~$50K   │  │~$100K  │                    │
-│                                                             │
-│  Casos específicos:                                         │
-│  • Solo aprendizaje → Arduino Uno                           │
-│  • IoT con batería → ESP32 + LoRa                          │
-│  • Procesamiento datos → Raspberry Pi                       │
-│  • Producción masiva → ESP32 o MCU dedicado                │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Decisión rápida</strong></p>
+<ul>
+<li><strong>Necesitas Linux / mucho procesamiento</strong> → Raspberry Pi</li>
+<li><strong>Necesitas WiFi/Bluetooth integrado</strong> → ESP32</li>
+<li><strong>Aprendizaje básico o prototipo simple</strong> → Arduino</li>
+</ul>
+<p><strong>Casos específicos</strong></p>
+<ul>
+<li>IoT con batería larga → ESP32 + LPWAN</li>
+<li>Procesamiento local alto → Raspberry Pi</li>
+<li>Producción masiva → ESP32 o MCU dedicado</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -756,32 +811,29 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="hardware-iot-en-colombia-%F0%9F%87%A8%F0%9F%87%B4">Hardware IoT en Colombia <img class="emoji" draggable="false" alt="🇨🇴" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1f4.svg" data-marp-twemoji=""/></h2>
 <h3 id="proveedores-locales">Proveedores Locales</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│           PROVEEDORES DE HARDWARE IoT EN COLOMBIA            │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🛒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6d2.svg" data-marp-twemoji=""/> TIENDAS ONLINE:                                         │
-│  • HeTica (hetica.co) - Mayorista, envíos nacionales       │
-│  • MC-Hackers (mchackers.co) - Tienda especializada Bogotá │
-│  • Robotizados (robotizados.com) - Bucaramanga            │
-│  • Electrón Panamericana - Componentes electrónicos         │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🏪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ea.svg" data-marp-twemoji=""/> TIENDAS FÍSICAS (Bogotá):                               │
-│  • San Alejo - Centro (Calle 22)                           │
-│  • El Cerezo - Centro (Calle 22)                           │
-│  • Tecnoparts - Chapinero                                   │
-│  • Rapsodia - Chapinero                                     │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="📦" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e6.svg" data-marp-twemoji=""/> MARKETPLACE:                                            │
-│  • MercadoLibre (cuidar con vendedores)                     │
-│  • Linio (oficial HeTica)                                   │
-│  • Amazon (envío internacional, +aranceles)                 │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> COMUNIDADES:                                             │
-│  • Facebook: &quot;Arduino Colombia&quot;                             │
-│  • Telegram: &quot;Electrónica Colombia&quot;                         │
-│  • Meetup: &quot;IoT Colombia Bogotá&quot;                             │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Tiendas online</strong></p>
+<ul>
+<li>HeTica (hetica.co)</li>
+<li>MC‑Hackers (mchackers.co)</li>
+<li>Robotizados (robotizados.com)</li>
+<li>Electrón Panamericana</li>
+</ul>
+<p><strong>Tiendas físicas (Bogotá)</strong></p>
+<ul>
+<li>San Alejo (Calle 22)</li>
+<li>El Cerezo (Calle 22)</li>
+<li>Tecnoparts, Rapsodia (Chapinero)</li>
+</ul>
+<p><strong>Marketplace</strong></p>
+<ul>
+<li>MercadoLibre, Linio, Amazon</li>
+</ul>
+<p><strong>Comunidades</strong></p>
+<ul>
+<li>Facebook: Arduino Colombia</li>
+<li>Telegram: Electrónica Colombia</li>
+<li>Meetup: IoT Colombia Bogotá</li>
+</ul>
 <h3 id="precios-aproximados-cop---2026">Precios Aproximados (COP - 2026)</h3>
 <table>
 <thead>
@@ -857,40 +909,25 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="c%C3%B3mo-armar-tu-kit-iot-inicial">Cómo Armar tu Kit IoT Inicial</h2>
 <h3 id="kit-b%C3%A1sico-150k-cop">Kit Básico (~$150K COP)</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│               KIT IOT BÁSICO - PRINCIPIANTE                  │
-│                                                             │
-│  MICROCONTROLADOR:                                          │
-│  □ ESP32 DevKit ($45K) o Arduino Uno ($120K)                │
-│                                                             │
-│  SENSORES (5 unidades):                                      │
-│  □ DHT11 - Temperatura/Humedad ($12K)                       │
-│  □ HC-SR04 - Distancia ultrasónico ($15K)                   │
-│  □ LDR - Luz ($3K)                                          │
-│  □ PIR HC-SR501 - Movimiento ($12K)                         │
-│  □ BMP280 - Presión ($20K) o MQ-2 Gas ($15K)                │
-│                                                             │
-│  ACTUADORES (4 unidades):                                   │
-│  □ LED Pack (5 colores) ($8K)                              │
-│  □ Buzzer ($8K)                                            │
-│  □ Servo SG90 ($15K)                                        │
-│  □ Relé 5V ($12K)                                          │
-│                                                             │
-│  COMPONENTES:                                              │
-│  □ Protoboard ($12K)                                       │
-│  □ Cables jumper (macho-macho, 40 unidades) ($8K)          │
-│  □ Resistencias (kit 500 unidades) ($15K)                  │
-│  □ Botones pulsadores (10 unidades) ($8K)                  │
-│  □ Potenciómetro ($10K)                                     │
-│  □ Display LCD 16x2 I2C ($20K)                              │
-│  □ Batería 18650 + portapilas ($25K)                        │
-│  □ Regulador de voltaje ($12K)                              │
-│                                                             │
-│  TOTAL: ~$150K - $200K COP                                  │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> CONSEJO: Empezar con ESP32 por WiFi integrado            │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Microcontrolador</strong></p>
+<ul>
+<li>ESP32 DevKit (~$45K) o Arduino Uno (~$120K)</li>
+</ul>
+<p><strong>Sensores (5)</strong></p>
+<ul>
+<li>DHT11, HC‑SR04, LDR, PIR HC‑SR501, BMP280 o MQ‑2</li>
+</ul>
+<p><strong>Actuadores (4)</strong></p>
+<ul>
+<li>LED pack, buzzer, servo SG90, relé 5V</li>
+</ul>
+<p><strong>Componentes</strong></p>
+<ul>
+<li>Protoboard, jumpers, resistencias, botones, potenciómetro</li>
+<li>LCD 16x2 I2C, batería 18650 + portapilas, regulador de voltaje</li>
+</ul>
+<p><strong>Total estimado:</strong> $150K – $200K COP<br />
+<strong>Consejo:</strong> empezar con ESP32 por WiFi integrado</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -923,26 +960,15 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="sensores-capturando-el-mundo-f%C3%ADsico">Sensores: Capturando el Mundo Físico</h2>
 <h3 id="tipos-de-sensores">Tipos de Sensores</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                    TIPOS DE SENSORES                        │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> AMBIENTE           <img class="emoji" draggable="false" alt="📍" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4cd.svg" data-marp-twemoji=""/> POSICIÓN           <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> LUZ         │
-│  • Temperatura          • GPS                 • LDR         │
-│  • Humedad              • Acelerómetro        • Fotoresistor│
-│  • Presión              • Giroscopio          • UV          │
-│  • Calidad aire         • Brújula             • IR          │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🔊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50a.svg" data-marp-twemoji=""/> SONIDO             <img class="emoji" draggable="false" alt="🖐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f590.svg" data-marp-twemoji=""/> TACTO              <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> ELÉCTRICO   │
-│  • Micrófono            • Botón               • Voltaje     │
-│  • Ultrasónico          • Touch capacitivo    • Corriente   │
-│                         • Presión             • Consumo     │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="🔐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f510.svg" data-marp-twemoji=""/> PRESENCIA          <img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> LÍQUIDOS           <img class="emoji" draggable="false" alt="🌿" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f33f.svg" data-marp-twemoji=""/> OTROS       │
-│  • PIR (movimiento)     • Nivel de agua       • Gas         │
-│  • Magnético            • Flujo               • Humo        │
-│  • Proximidad           • pH                  • Pulso/ECG   │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Ambiente:</strong> temperatura, humedad, presión, calidad del aire<br />
+<strong>Posición:</strong> GPS, acelerómetro, giroscopio<br />
+<strong>Luz:</strong> LDR, UV, IR<br />
+<strong>Sonido:</strong> micrófono, ultrasónico<br />
+<strong>Tacto:</strong> botón, touch capacitivo, presión<br />
+<strong>Eléctrico:</strong> voltaje, corriente, consumo<br />
+<strong>Presencia:</strong> PIR, magnético, proximidad<br />
+<strong>Líquidos:</strong> nivel, flujo, pH<br />
+<strong>Otros:</strong> gas, humo, pulso/ECG</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1065,29 +1091,19 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="27">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="dht11-sensor-temperatura-y-humedad">DHT11: Sensor Temperatura y Humedad</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                      DHT11                                  │
-│                                                             │
-│   Especificaciones:                                         │
-│   • Temperatura: 0-50°C (±2°C)                             │
-│   • Humedad: 20-80% (±5%)                                  │
-│   • Muestreo: 1 segundo                                    │
-│                                                             │
-│   Conexión:                                                 │
-│   ┌───────┐                                                │
-│   │ DHT11 │                                                │
-│   │ ┌─┬─┬─┬─┐                                              │
-│   │ │1│2│3│4│                                              │
-│   │ └─┴─┴─┴─┘                                              │
-│   └───────┘                                                │
-│     │ │ │ │                                                │
-│    VCC│ │ GND                                              │
-│       │ │                                                  │
-│      Data NC                                               │
-│       │                                                    │
-│   GPIO + Resistencia 10K                                   │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Especificaciones</strong></p>
+<ul>
+<li>Temperatura: 0–50°C (±2°C)</li>
+<li>Humedad: 20–80% (±5%)</li>
+<li>Muestreo: 1 s</li>
+</ul>
+<p><strong>Conexión (4 pines)</strong></p>
+<ul>
+<li>VCC → 3.3V/5V</li>
+<li>DATA → GPIO + resistencia 10K</li>
+<li>NC → sin conexión</li>
+<li>GND → tierra</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1120,22 +1136,12 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="actuadores-actuando-en-el-mundo-f%C3%ADsico">Actuadores: Actuando en el Mundo Físico</h2>
 <h3 id="tipos-de-actuadores">Tipos de Actuadores</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                   TIPOS DE ACTUADORES                       │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> ILUMINACIÓN        <img class="emoji" draggable="false" alt="🔊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50a.svg" data-marp-twemoji=""/> SONIDO            <img class="emoji" draggable="false" alt="🔌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50c.svg" data-marp-twemoji=""/> ELÉCTRICO    │
-│  • LED                 • Buzzer             • Relé          │
-│  • LED RGB             • Altavoz            • MOSFET        │
-│  • Matriz LED          •                    • Transistor    │
-│  • Display LCD/OLED                                         │
-│                                                             │
-│  <img class="emoji" draggable="false" alt="⚙" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2699.svg" data-marp-twemoji=""/> MECÁNICO           <img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> TÉRMICO          <img class="emoji" draggable="false" alt="💧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a7.svg" data-marp-twemoji=""/> FLUIDOS      │
-│  • Motor DC            • Calentador         • Bomba         │
-│  • Servo               • Peltier            • Válvula       │
-│  • Motor paso a paso   • Ventilador         • Solenoide     │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Iluminación:</strong> LED, LED RGB, matriz LED, LCD/OLED<br />
+<strong>Sonido:</strong> buzzer, altavoz<br />
+<strong>Eléctrico:</strong> relé, MOSFET, transistor<br />
+<strong>Mecánico:</strong> motor DC, servo, paso a paso<br />
+<strong>Térmico:</strong> calentador, Peltier, ventilador<br />
+<strong>Fluidos:</strong> bomba, válvula, solenoide</p>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1167,27 +1173,22 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 ;" data-marpit-pagination-total="27">
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="rel%C3%A9-control-de-alto-voltaje">Relé: Control de Alto Voltaje</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│                    MÓDULO RELÉ                              │
-│                                                             │
-│   El relé permite controlar dispositivos de alto voltaje   │
-│   (110V/220V AC) con señales de bajo voltaje (3.3V/5V)    │
-│                                                             │
-│                      RELÉ                                   │
-│   ESP32         ┌───────────┐         <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> Bombilla          │
-│    GPIO ───────►│    IN     │                               │
-│    GND  ───────►│    GND    │         ┌─────────┐          │
-│    VCC  ───────►│    VCC    │───COM───│         │          │
-│                 │           │         │  110V   │          │
-│                 │    NO ────┼─────────┤  AC     │          │
-│                 │    NC     │         │         │          │
-│                 └───────────┘         └─────────┘          │
-│                                                             │
-│   NO = Normally Open (abierto sin señal)                   │
-│   NC = Normally Closed (cerrado sin señal)                 │
-│   COM = Común                                               │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Uso</strong></p>
+<ul>
+<li>Controla 110V/220V AC con señales de 3.3V/5V</li>
+</ul>
+<p><strong>Conexión básica</strong></p>
+<ul>
+<li>GPIO → IN</li>
+<li>GND → GND</li>
+<li>VCC → VCC</li>
+</ul>
+<p><strong>Terminales</strong></p>
+<ul>
+<li><strong>NO:</strong> normalmente abierto</li>
+<li><strong>NC:</strong> normalmente cerrado</li>
+<li><strong>COM:</strong> común</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1220,24 +1221,24 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <header>IF0112 - Complementaria II (IoT) | Unidad 2</header>
 <h2 id="protocolos-de-comunicaci%C3%B3n">Protocolos de Comunicación</h2>
 <h3 id="interfaces-de-sensoresactuadores">Interfaces de Sensores/Actuadores</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
-│              PROTOCOLOS DE COMUNICACIÓN                     │
-│                                                             │
-│  DIGITAL                                                    │
-│  └── GPIO: Señales ON/OFF (0V / 3.3V o 5V)                │
-│                                                             │
-│  ANALÓGICO                                                  │
-│  └── ADC: Voltaje variable (0V - 3.3V) → 0-4095           │
-│                                                             │
-│  SERIAL                                                     │
-│  ├── UART: TX/RX, comunicación punto a punto              │
-│  ├── I2C: 2 cables (SDA, SCL), múltiples dispositivos     │
-│  └── SPI: 4 cables (MOSI, MISO, SCK, CS), alta velocidad  │
-│                                                             │
-│  1-WIRE                                                     │
-│  └── Un solo cable de datos (ej: DS18B20)                 │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><strong>Digital</strong></p>
+<ul>
+<li>GPIO: ON/OFF (0V / 3.3V / 5V)</li>
+</ul>
+<p><strong>Analógico</strong></p>
+<ul>
+<li>ADC: voltaje variable → valor digital</li>
+</ul>
+<p><strong>Serial</strong></p>
+<ul>
+<li>UART: TX/RX, punto a punto</li>
+<li>I2C: 2 cables, múltiples dispositivos</li>
+<li>SPI: 4 cables, alta velocidad</li>
+</ul>
+<p><strong>1‑Wire</strong></p>
+<ul>
+<li>Un solo cable de datos (ej. DS18B20)</li>
+</ul>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
