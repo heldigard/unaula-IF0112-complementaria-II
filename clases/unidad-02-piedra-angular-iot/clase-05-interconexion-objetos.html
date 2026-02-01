@@ -331,12 +331,30 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </tr>
 </table>
 <h3 id="flujo-completo-sensores-%E2%86%94-mcu-%E2%86%94-actuadores">Flujo Completo: Sensores <img class="emoji" draggable="false" alt="↔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2194.svg" data-marp-twemoji=""/> MCU <img class="emoji" draggable="false" alt="↔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2194.svg" data-marp-twemoji=""/> Actuadores</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code><img class="emoji" draggable="false" alt="🌡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> SENSOR → [ADC] → <img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> MCU → [DAC/PWM] → <img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> ACTUADOR
-   (Lee)    (A→D)    (Procesa)     (D→A)       (Actúa)
-    ↑                              ↓
-    └────────── Conectividad ──────┘
-         (WiFi, Bluetooth, Cloud)
-</code></pre>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; text-align: center; margin: 15px 0;">
+<div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+<h4 id="%F0%9F%8C%A1%EF%B8%8F-entrada"><img class="emoji" draggable="false" alt="🌡️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f321.svg" data-marp-twemoji=""/> ENTRADA</h4>
+<p><strong>Sensores</strong></p>
+<p>Capturan señal física</p>
+<p>↓ ADC</p>
+<p>Señal Digital</p>
+</div>
+<div style="background: #fef3c7; padding: 15px; border-radius: 8px;">
+<h4 id="%F0%9F%93%8A-procesamiento"><img class="emoji" draggable="false" alt="📊" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg" data-marp-twemoji=""/> PROCESAMIENTO</h4>
+<p><strong>MCU</strong></p>
+<p>Procesa datos</p>
+<p>Toma decisiones</p>
+<p>↓ Comunicación</p>
+<p>(WiFi/Bluetooth)</p>
+</div>
+<div style="background: #f0fdf4; padding: 15px; border-radius: 8px;">
+<h4 id="%E2%9A%A1-salida"><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> SALIDA</h4>
+<p><strong>Actuadores</strong></p>
+<p>Reciben señal</p>
+<p>↓ DAC/PWM</p>
+<p>Acción física</p>
+</div>
+</div>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1157,18 +1175,43 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="45%">
 <h3 id="esp32-vs-competencia">ESP32 vs Competencia</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Comparativa de Precio/Funcionalidad:
-
-Arduino UNO + WiFi Shield  │███████████████│ $45
-Arduino MKR WiFi 1010      │███████████│ $35
-Raspberry Pi Zero W        │█████████│ $15
-ESP32 DevKit               │███│ $5  ← Winner!
-                           └────────────────┘
-
-Funcionalidad por dólar:
-ESP32 ofrece 3-5x más valor
-que alternativas tradicionales
-</code></pre>
+<div style="background: #f8fafc; padding: 20px; border-radius: 10px;">
+<h4 id="comparativa-preciofuncionalidad">Comparativa Precio/Funcionalidad</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Plataforma</th>
+<th style="text-align:center">Precio</th>
+<th style="text-align:center">Relación Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Arduino UNO + WiFi Shield</td>
+<td style="text-align:center">$45</td>
+<td style="text-align:center"><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+</tr>
+<tr>
+<td style="text-align:left">Arduino MKR WiFi 1010</td>
+<td style="text-align:center">$35</td>
+<td style="text-align:center"><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+</tr>
+<tr>
+<td style="text-align:left">Raspberry Pi Zero W</td>
+<td style="text-align:center">$15</td>
+<td style="text-align:center"><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ESP32 DevKit</strong></td>
+<td style="text-align:center"><strong>$5</strong></td>
+<td style="text-align:center"><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/> <strong>Winner!</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="background: #d1fae5; padding: 12px; border-radius: 8px; margin-top: 10px; text-align: center;">
+<p><strong><img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> ESP32 ofrece 3-5x más valor que alternativas tradicionales</strong></p>
+</div>
+</div>
 <h3 id="casos-de-uso-ideal">Casos de Uso Ideal</h3>
 <ul>
 <li>Sensores conectados a la nube</li>
@@ -1272,28 +1315,74 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="50%">
 <h3 id="diferencia-fundamental">Diferencia Fundamental</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────┐
-│          MCU (ESP32/Arduino)                    │
-│  ┌─────────────────────────────────────────┐   │
-│  │  • Programa único en bucle infinito    │   │
-│  │  • Respuesta en tiempo real            │   │
-│  │  • Bajo consumo (mA)                   │   │
-│  │  • Arranque instantáneo (&lt; 1s)         │   │
-│  │  • Ideal: Control de sensores/actuadores│  │
-│  └─────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────┐
-│          Microcomputador (Raspberry Pi)         │
-│  ┌─────────────────────────────────────────┐   │
-│  │  • Sistema operativo completo          │   │
-│  │  • Multitarea y multitusuario          │   │
-│  │  • Mayor consumo (600+ mA)             │   │
-│  │  • Tiempo de arranque (~30s)           │   │
-│  │  • Ideal: Gateway, servidor, procesamiento│ │
-│  └─────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────┘
-</code></pre>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div style="background: #dbeafe; padding: 15px; border-radius: 10px;">
+<h4 id="%F0%9F%94%A7-mcu-esp32arduino"><img class="emoji" draggable="false" alt="🔧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f527.svg" data-marp-twemoji=""/> MCU (ESP32/Arduino)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Característica</th>
+<th style="text-align:left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ejecución</td>
+<td style="text-align:left">Programa único, bucle infinito</td>
+</tr>
+<tr>
+<td style="text-align:left">Respuesta</td>
+<td style="text-align:left">Tiempo real</td>
+</tr>
+<tr>
+<td style="text-align:left">Consumo</td>
+<td style="text-align:left">Bajo (mA)</td>
+</tr>
+<tr>
+<td style="text-align:left">Arranque</td>
+<td style="text-align:left">Instantáneo (&lt; 1s)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ideal para</strong></td>
+<td style="text-align:left">Control sensores/actuadores</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: #f0fdf4; padding: 15px; border-radius: 10px;">
+<h4 id="%F0%9F%96%A5%EF%B8%8F-microcomputador-raspberry-pi"><img class="emoji" draggable="false" alt="🖥️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f5a5.svg" data-marp-twemoji=""/> Microcomputador (Raspberry Pi)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Característica</th>
+<th style="text-align:left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Sistema</td>
+<td style="text-align:left">OS completo (Linux)</td>
+</tr>
+<tr>
+<td style="text-align:left">Capacidad</td>
+<td style="text-align:left">Multitarea, multiusuario</td>
+</tr>
+<tr>
+<td style="text-align:left">Consumo</td>
+<td style="text-align:left">Mayor (600+ mA)</td>
+</tr>
+<tr>
+<td style="text-align:left">Arranque</td>
+<td style="text-align:left">~30 segundos</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ideal para</strong></td>
+<td style="text-align:left">Gateway, servidor, procesamiento</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </td>
 </tr>
 </table>
@@ -1383,14 +1472,37 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </tr>
 </table>
 <h3 id="%C3%A1rbol-de-decisi%C3%B3n-r%C3%A1pido">Árbol de Decisión Rápido</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>¿Necesitas Linux?
-    ├── SÍ → Raspberry Pi
-    └── NO → ¿Necesitas WiFi?
-                ├── SÍ → ESP32 (mejor relación costo/beneficio)
-                └── NO → ¿Es para aprender?
-                            ├── SÍ → Arduino UNO
-                            └── NO → ESP32 (más potente y barato)
-</code></pre>
+<div style="background: #f8fafc; padding: 20px; border-radius: 10px;">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Pregunta</th>
+<th style="text-align:left">Respuesta SÍ</th>
+<th style="text-align:left">Respuesta NO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>¿Necesitas Linux?</strong></td>
+<td style="text-align:left">→ Raspberry Pi</td>
+<td style="text-align:left">Continuar...</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>¿Necesitas WiFi?</strong></td>
+<td style="text-align:left">→ ESP32 (mejor valor)</td>
+<td style="text-align:left">Continuar...</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>¿Es para aprender?</strong></td>
+<td style="text-align:left">→ Arduino UNO</td>
+<td style="text-align:left">→ ESP32 (más potente)</td>
+</tr>
+</tbody>
+</table>
+<div style="background: #fef3c7; padding: 12px; border-radius: 8px; margin-top: 15px; text-align: center;">
+<p><strong><img class="emoji" draggable="false" alt="🎯" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3af.svg" data-marp-twemoji=""/> Recomendación general:</strong> ESP32 es la mejor opción para la mayoría de proyectos IoT</p>
+</div>
+</div>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 2" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -2615,26 +2727,46 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </tbody>
 </table>
 <h3 id="%F0%9F%94%8C-niveles-de-control-de-potencia"><img class="emoji" draggable="false" alt="🔌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50c.svg" data-marp-twemoji=""/> Niveles de Control de Potencia</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────┐
-│      JERARQUÍA DE CONTROL DE POTENCIA           │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│  MCU (3.3V, 20mA)                              │
-│     │                                           │
-│     ├─► LED DIRECTO (≤20mA)                     │
-│     │                                           │
-│     ├─► TRANSISTOR BJT (≤500mA)                │
-│     │      └─► Buzzer, Ventilador pequeño       │
-│     │                                           │
-│     ├─► MOSFET (≤5A)                           │
-│     │      └─► Motor DC, Tira LED              │
-│     │                                           │
-│     └─► RELÉ (≤10A @ 250V AC)                  │
-│            └─► Lámparas, Electrodomésticos     │
-│                                                 │
-└─────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Regla de oro:</strong> Nunca conectar cargas de potencia directamente al GPIO. Usar transistor/MOSFET/relé según la corriente requerida.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Nivel</th>
+<th style="text-align:left">Componente</th>
+<th style="text-align:left">Capacidad</th>
+<th style="text-align:left">Uso Típico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Directo</strong></td>
+<td style="text-align:left">LED</td>
+<td style="text-align:left">≤20mA</td>
+<td style="text-align:left">Indicadores</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Transistor BJT</strong></td>
+<td style="text-align:left">2N2222, BC547</td>
+<td style="text-align:left">≤500mA</td>
+<td style="text-align:left">Buzzer, ventilador pequeño</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>MOSFET</strong></td>
+<td style="text-align:left">IRFZ44N</td>
+<td style="text-align:left">≤5A</td>
+<td style="text-align:left">Motores DC, tiras LED</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Relé</strong></td>
+<td style="text-align:left">Módulo 5V</td>
+<td style="text-align:left">≤10A @ 250V AC</td>
+<td style="text-align:left">Lámparas, electrodomésticos</td>
+</tr>
+</tbody>
+</table>
+<div style="background: #fecaca; padding: 15px; border-radius: 8px; margin-top: 15px;">
+<h4 id="%E2%9A%A0%EF%B8%8F-regla-de-oro"><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Regla de Oro</h4>
+<p><strong>Nunca conectar cargas de potencia directamente al GPIO.</strong> Usar transistor/MOSFET/relé según la corriente requerida.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -2738,33 +2870,87 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 </td>
 <td width="50%">
-<h3 id="diagrama-de-conexi%C3%B3n-controlando-una-l%C3%A1mpara">Diagrama de Conexión: Controlando una Lámpara</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────┐
-│              CONTROL DE LÁMPARA 110V AC                 │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│   ESP32                    Módulo Relé                  │
-│  ┌─────────┐              ┌───────────┐                │
-│  │         │              │  VCC •────┼──── 5V         │
-│  │     5V •├──────────────┼─► VCC     │                │
-│  │   GND •─┼──────────────┼─► GND     │    LÁMPARA     │
-│  │ GPIO5 •─┼──────────────┼─► IN      │    ┌─────┐     │
-│  │         │              │     NO •──┼────┤     │     │
-│  └─────────┘              │     COM •─┼────┤  <img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4a1.svg" data-marp-twemoji=""/> │     │
-│                           │           │    └──┬──┘     │
-│                           │    NC •───┘       │        │
-│                           └───────────────────┘        │
-│                                                  │    │
-│                                          NEUTRO ─┴────┘
-│                                          (110V AC)     │
-└─────────────────────────────────────────────────────────┘
-
-Circuito de Potencia (Alto Voltaje):
-Fase (110V) → COM → NO (cuando activado) → Lámpara → Neutro
-
-Circuito de Control (Bajo Voltaje):
-ESP32 GPIO5 → IN del relé
-</code></pre>
+<h3 id="conexi%C3%B3n-controlando-una-l%C3%A1mpara-con-rel%C3%A9">Conexión: Controlando una Lámpara con Relé</h3>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div>
+<h4 id="circuito-de-control-bajo-voltaje">Circuito de Control (Bajo Voltaje)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ESP32</th>
+<th style="text-align:center">→</th>
+<th style="text-align:left">Módulo Relé</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">5V</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">VCC</td>
+</tr>
+<tr>
+<td style="text-align:center">GND</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">GND</td>
+</tr>
+<tr>
+<td style="text-align:center">GPIO5</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">IN</td>
+</tr>
+</tbody>
+</table>
+<h4 id="circuito-de-potencia-alto-voltaje">Circuito de Potencia (Alto Voltaje)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Fuente</th>
+<th style="text-align:center">→</th>
+<th style="text-align:left">Relé</th>
+<th style="text-align:center">→</th>
+<th style="text-align:left">Carga</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Fase 110V</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">COM</td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left">NO*</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">Lámpara</td>
+</tr>
+<tr>
+<td style="text-align:left">Neutro</td>
+<td style="text-align:center">→</td>
+<td style="text-align:left"></td>
+<td style="text-align:center">→</td>
+<td style="text-align:left">Lámpara</td>
+</tr>
+</tbody>
+</table>
+<p>*NO = Normalmente Abierto</p>
+</div>
+<div style="background: #fecaca; padding: 15px; border-radius: 10px;">
+<h4 id="%E2%9A%A0%EF%B8%8F-advertencias-de-seguridad"><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> Advertencias de Seguridad</h4>
+<ul>
+<li><strong>Nunca</strong> tocar terminales cuando está energizado</li>
+<li>Usar <strong>caja aislante</strong> para el relé</li>
+<li>Verificar capacidad de corriente (usualmente 10A)</li>
+<li>Asegurar conexiones firmes</li>
+<li>Usar fusible de protección</li>
+</ul>
+<div style="text-align: center; font-size: 2em; margin: 10px 0;">
+⚡ 🛡️ ⚡
+</div>
+</div>
+</div>
 <p><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" data-marp-twemoji=""/> <strong>ADVERTENCIA DE SEGURIDAD:</strong></p>
 <ul>
 <li>Nunca tocar terminales cuando está energizado</li>
@@ -2923,47 +3109,105 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 </td>
 <td width="50%">
-<h3 id="%F0%9F%94%8C-uart---comunicaci%C3%B3n-punto-a-punto"><img class="emoji" draggable="false" alt="🔌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50c.svg" data-marp-twemoji=""/> UART - Comunicación Punto a Punto</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>MCU A                    MCU B
-┌──────┐                ┌──────┐
-│ TX ──┼───────────────►│ RX   │
-│ RX ◄─┼────────────────│ TX   │
-│ GND ─┼───────────────►│ GND  │
-└──────┘                └──────┘
-
-Características:
-• 1 dispositivo a la vez
-• Velocidad configurable (9600-115200 baud)
-• Full-duplex (envío y recepción simultánea)
-• Usos: GPS, Bluetooth, módulos WiFi
-</code></pre>
-<h3 id="%F0%9F%94%97-i2c---bus-multi-dispositivo"><img class="emoji" draggable="false" alt="🔗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f517.svg" data-marp-twemoji=""/> I2C - Bus Multi-Dispositivo</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>         SDA ◄─────┬─────────┬─────────►
-         SCL ◄─────┼─────────┼─────────►
-         GND ◄─────┴─────────┴─────────►
-            ▲          ▲          ▲
-            │    (0x76) │    (0x3C) │
-      [Maestro]   BMP280    OLED LCD
-
-Características:
-• 2 cables para hasta 127 dispositivos
-• Cada dispositivo tiene dirección única (0x27, 0x3C, etc.)
-• Half-duplex (un sentido a la vez)
-• Usos: Sensores, displays, EEPROM
-</code></pre>
-<h3 id="%E2%9A%A1-spi---m%C3%A1xima-velocidad"><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> SPI - Máxima Velocidad</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>      MOSI ────┬────┬────► [Sensores]
-MISO ◄───┼────┼────┘
-      SCK ────┼────┼────►
-      CS1 ────┼────┼───► [Activar sensor 1]
-      CS2 ────┼────┼───► [Activar sensor 2]
-
-Características:
-• Velocidad más alta (hasta 50+ Mbps)
-• Full-duplex simultáneo
-• Requiere más pines (4+ por dispositivo)
-• Usos: Tarjetas SD, displays TFT, flash memory
-</code></pre>
+<h3 id="uart-vs-i2c-vs-spi">UART vs I2C vs SPI</h3>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+<div style="background: #dbeafe; padding: 12px; border-radius: 8px;">
+<h4 id="%F0%9F%94%8C-uart"><img class="emoji" draggable="false" alt="🔌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f50c.svg" data-marp-twemoji=""/> UART</h4>
+<p><strong>Punto a Punto</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Característica</th>
+<th style="text-align:left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cables</td>
+<td style="text-align:left">2 (TX/RX)</td>
+</tr>
+<tr>
+<td style="text-align:left">Dispositivos</td>
+<td style="text-align:left">1 a 1</td>
+</tr>
+<tr>
+<td style="text-align:left">Velocidad</td>
+<td style="text-align:left">Hasta 1 Mbps</td>
+</tr>
+<tr>
+<td style="text-align:left">Modo</td>
+<td style="text-align:left">Full-duplex</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usos:</strong> GPS, Bluetooth, WiFi</p>
+</div>
+<div style="background: #fef3c7; padding: 12px; border-radius: 8px;">
+<h4 id="%F0%9F%94%97-i2c"><img class="emoji" draggable="false" alt="🔗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f517.svg" data-marp-twemoji=""/> I2C</h4>
+<p><strong>Bus Multi-Dispositivo</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Característica</th>
+<th style="text-align:left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cables</td>
+<td style="text-align:left">2 (SDA/SCL)</td>
+</tr>
+<tr>
+<td style="text-align:left">Dispositivos</td>
+<td style="text-align:left">Hasta 127</td>
+</tr>
+<tr>
+<td style="text-align:left">Velocidad</td>
+<td style="text-align:left">100-400 KHz</td>
+</tr>
+<tr>
+<td style="text-align:left">Modo</td>
+<td style="text-align:left">Half-duplex</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usos:</strong> Sensores, displays</p>
+</div>
+<div style="background: #f0fdf4; padding: 12px; border-radius: 8px;">
+<h4 id="%E2%9A%A1-spi"><img class="emoji" draggable="false" alt="⚡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a1.svg" data-marp-twemoji=""/> SPI</h4>
+<p><strong>Máxima Velocidad</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Característica</th>
+<th style="text-align:left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cables</td>
+<td style="text-align:left">4+ (MOSI/MISO/SCK/CS)</td>
+</tr>
+<tr>
+<td style="text-align:left">Dispositivos</td>
+<td style="text-align:left">Hasta 4*</td>
+</tr>
+<tr>
+<td style="text-align:left">Velocidad</td>
+<td style="text-align:left">Hasta 50+ Mbps</td>
+</tr>
+<tr>
+<td style="text-align:left">Modo</td>
+<td style="text-align:left">Full-duplex</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usos:</strong> SD, displays TFT</p>
+</div>
+</div>
+<blockquote>
+<p>*Con selectores de chip adicionales</p>
+</blockquote>
 </td>
 </tr>
 </table>
