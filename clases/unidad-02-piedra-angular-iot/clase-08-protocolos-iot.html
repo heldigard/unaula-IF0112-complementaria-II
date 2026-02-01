@@ -558,20 +558,46 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="50%">
 <h4 id="%E2%9A%99%EF%B8%8F-flujo-de-datos"><img class="emoji" draggable="false" alt="⚙️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2699.svg" data-marp-twemoji=""/> FLUJO DE DATOS</h4>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>PUBLICADOR (Sensor)
-      │
-      │ publish(&quot;casa/sala/temperatura&quot;, &quot;25.5&quot;)
-      ▼
-   ┌─────────┐
-   │ BROKER  │ ← ROUTING
-   │  MQTT   │
-   └────┬────┘
-      │
-      │ subscribe(&quot;casa/sala/temperatura&quot;)
-      ▼
-SUSCRIPTOR (App)
-</code></pre>
-<p><strong>Desacoplamiento:</strong> Publicador y suscriptor no se conocen</p>
+<table>
+<tr>
+<td style="background: #dbeafe; padding: 12px; text-align: center; font-weight: bold;" colspan="3">FLUJO MQTT PUB/SUB</td>
+</tr>
+<tr>
+<td style="background: #f0fdf4; padding: 10px; text-align: center;">
+<strong>📤 PUBLICADOR</strong><br />
+(Sensor)
+</td>
+<td style="background: #fef3c7; padding: 10px; text-align: center;">
+<strong>🔄 BROKER MQTT</strong><br />
+(Routing)
+</td>
+<td style="background: #dcfce7; padding: 10px; text-align: center;">
+<strong>📥 SUSCRIPTOR</strong><br />
+(App)
+</td>
+</tr>
+<tr>
+<td style="background: #f0fdf4; padding: 10px; text-align: center;">
+publish("casa/sala/temperatura", "25.5")<br />
+↓
+</td>
+<td style="background: #fef3c7; padding: 10px; text-align: center;">
+┌─────────┐<br />
+│ BROKER  │<br />
+│  MQTT   │<br />
+└─────────┘<br />
+↓ Enruta mensaje
+</td>
+<td style="background: #dcfce7; padding: 10px; text-align: center;">
+subscribe("casa/sala/temperatura")<br />
+↓<br />
+Recibe mensaje
+</td>
+</tr>
+</table>
+<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px; text-align: center;">
+<strong>Desacoplamiento:</strong> Publicador y suscriptor no se conocen directamente
+</div>
 </td>
 </tr>
 </table>

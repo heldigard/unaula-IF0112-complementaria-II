@@ -1215,19 +1215,30 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </td>
 <td width="50%">
 <h3 id="diagrama-de-conexi%C3%B3n-simplificado">Diagrama de Conexión Simplificado</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>ESP32                    BOTÓN          LED
-┌──────┐                ┌────┐        ┌────┐
-│ G15  ├────────────────┤    │        │    │
-│      │                │    │        │ (+)│
-│ G2   ├────220Ω────────┤    ├────────┤    │
-│      │                └────┘        └─┬──┘
-│ GND  ├─────────────────────────────────┤
-│      │                                   │
-└──────┘                             GND │
-                                         │
-Nota: INPUT_PULLUP = resistencia interna
-      (~45KΩ) ya incluida en el ESP32
-</code></pre>
+<table>
+<tr>
+<td style="background: #e0e7ff; padding: 8px; text-align: center; font-weight: bold;">ESP32</td>
+<td style="background: #fef3c7; padding: 8px; text-align: center; font-weight: bold;">BOTÓN</td>
+<td style="background: #f0fdf4; padding: 8px; text-align: center; font-weight: bold;">LED</td>
+</tr>
+<tr>
+<td style="background: #dbeafe; padding: 8px;">GPIO15 → Botón</td>
+<td style="background: #fef3c7; padding: 8px;">Entrada</td>
+<td style="background: #f0fdf4; padding: 8px;">Ánodo (+)</td>
+</tr>
+<tr>
+<td style="background: #dbeafe; padding: 8px;">GPIO2 → 220Ω → LED</td>
+<td style="background: #fef3c7; padding: 8px;">(con INPUT_PULLUP)</td>
+<td style="background: #f0fdf4; padding: 8px;">Cátodo (-)</td>
+</tr>
+<tr>
+<td style="background: #dbeafe; padding: 8px;">GND → Común</td>
+<td style="background: #fef3c7; padding: 8px;" colspan="2">LED Cátodo y Botón → GND</td>
+</tr>
+</table>
+<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px;">
+<strong>Nota:</strong> INPUT_PULLUP = resistencia interna (~45KΩ) ya incluida en el ESP32
+</div>
 <h3 id="componentes-necesarios">Componentes Necesarios</h3>
 <table>
 <thead>
@@ -1348,12 +1359,27 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 </table>
 <h3 id="concepto-divisor-de-voltaje">Concepto: Divisor de Voltaje</h3>
 <p>El LDR + Resistencia crean un divisor que permite al ADC medir la luz.</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>     3.3V
-      │
-      ├────[LDR]───┬───────► ADC (GPIO34)
-      │            │
-      └──[10KΩ]────┴───────► GND
-</code></pre>
+<table>
+<tr>
+<td style="background: #dbeafe; padding: 12px; text-align: center; font-weight: bold;" colspan="3">3.3V</td>
+</tr>
+<tr>
+<td style="background: #fef3c7; padding: 12px; text-align: center; font-weight: bold;">LDR</td>
+<td style="background: #fef3c7; padding: 12px; text-align: center; font-weight: bold;">Punto Medio</td>
+<td style="background: #fef3c7; padding: 12px; text-align: center; font-weight: bold;">Resistencia 10KΩ</td>
+</tr>
+<tr>
+<td style="background: #f0fdf4; padding: 12px; text-align: center;" rowspan="2">↓</td>
+<td style="background: #dcfce7; padding: 12px; text-align: center;">↓ ADC (GPIO34)</td>
+<td style="background: #f0fdf4; padding: 12px; text-align: center;" rowspan="2">↓</td>
+</tr>
+<tr>
+<td style="background: #f0fdf4; padding: 12px; text-align: center;">↓</td>
+</tr>
+<tr>
+<td style="background: #dbeafe; padding: 12px; text-align: center;" colspan="3">GND</td>
+</tr>
+</table>
 <p><strong>Cómo funciona:</strong></p>
 <ul>
 <li>Más luz → LDR baja resistencia → Más voltaje en ADC → Valor alto</li>
@@ -1601,18 +1627,27 @@ section tbody tr:nth-child(even) { background-color: #f8f9fa; }
 <p><strong>Paso 2:</strong> Buscar &quot;DHT sensor library&quot; (by Adafruit)</p>
 <p><strong>Paso 3:</strong> Instalar (automáticamente instala &quot;Adafruit Unified Sensor&quot;)</p>
 <h3 id="conexi%C3%B3n-al-esp32">Conexión al ESP32</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>ESP32                  DHT11
-┌──────┐              ┌─────┐
-│ 3.3V ├─────────────►│VCC  │
-│      │              │     │
-│ GND  ├─────────────►│GND  │
-│      │       10K    │     │
-│ G4   ├─────//──────►│DATA │
-│      │              └─────┘
-└──────┘        R pull-up a VCC
-
-Resistencia 10KΩ entre DATA y VCC
-</code></pre>
+<table>
+<tr>
+<td style="background: #dbeafe; padding: 10px; text-align: center; font-weight: bold;">ESP32</td>
+<td style="background: #f0fdf4; padding: 10px; text-align: center; font-weight: bold;">DHT11</td>
+</tr>
+<tr>
+<td style="background: #dcfce7; padding: 10px;">3.3V</td>
+<td style="background: #dcfce7; padding: 10px;">VCC</td>
+</tr>
+<tr>
+<td style="background: #fecaca; padding: 10px;">GND</td>
+<td style="background: #fecaca; padding: 10px;">GND</td>
+</tr>
+<tr>
+<td style="background: #fef3c7; padding: 10px;">GPIO4 ── 10KΩ ──►</td>
+<td style="background: #fef3c7; padding: 10px;">DATA</td>
+</tr>
+</table>
+<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px;">
+<strong>Resistencia 10KΩ</strong> entre DATA y VCC (pull-up)
+</div>
 <h3 id="especificaciones-dht11">Especificaciones DHT11</h3>
 <table>
 <thead>
@@ -2215,23 +2250,29 @@ FIN
 </td>
 <td width="50%">
 <h3 id="diagrama-de-conexiones">Diagrama de Conexiones</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>ESP32                DHT11         LEDs
-┌──────┐            ┌─────┐     ┌─────┐
-│ G4   ├────────────┤DATA │     │     │
-│      │     10K     │     │     │ R   │
-│ 3.3V ├─────//─────┤VCC  │     │     │
-│      │            │     │     │     │
-│ G18  ├────220Ω─────────────────►(+)  │
-│      │            │     │     │     │ ROJO
-│ G19  ├────220Ω───────────────────┼──►(+)  │
-│      │            │     │     │     │ VERDE
-│ G21  ├────220Ω───────────────────┼──►(+)  │
-│      │            │     │     │     │ AZUL
-│ GND  ├────────────┤GND  ├─────┴─────┴─(-)
-└──────┘            └─────┘         │
-                                      │
-                                   GND
-</code></pre>
+<table>
+<tr>
+<td style="background: #dbeafe; padding: 8px; text-align: center; font-weight: bold;">ESP32</td>
+<td style="background: #f0fdf4; padding: 8px; text-align: center; font-weight: bold;">DHT11</td>
+<td style="background: #dcfce7; padding: 8px; text-align: center; font-weight: bold;">LEDs (x3)</td>
+</tr>
+<tr>
+<td style="background: #fef3c7; padding: 8px;">GPIO4 ── 10KΩ ──►</td>
+<td style="background: #fef3c7; padding: 8px;">DATA</td>
+<td style="background: #dcfce7; padding: 8px;" rowspan="3" valign="top">GPIO18 ── 220Ω ──► (+) ROJO<br />GPIO19 ── 220Ω ──► (+) VERDE<br />GPIO21 ── 220Ω ──► (+) AZUL<br /><br />GND ────────────────────────────────────► (-)</td>
+</tr>
+<tr>
+<td style="background: #dcfce7; padding: 8px;">3.3V</td>
+<td style="background: #dcfce7; padding: 8px;">VCC</td>
+</tr>
+<tr>
+<td style="background: #fecaca; padding: 8px;">GND</td>
+<td style="background: #fecaca; padding: 8px;">GND</td>
+</tr>
+</table>
+<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px;">
+<strong>Nota:</strong> Resistencia pull-up de 10KΩ entre DATA y VCC del DHT11
+</div>
 <h3 id="tabla-de-control-de-leds">Tabla de Control de LEDs</h3>
 <table>
 <thead>
