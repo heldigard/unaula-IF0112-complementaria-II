@@ -414,25 +414,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -667,9 +690,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -768,6 +797,7 @@
                 <li><a href="#actuadores">Actuadores</a></li>
                 <li><a href="#protocolos">Protocolos</a></li>
                 <li><a href="#demo">Demo Práctica</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
                 <li><a href="#actividad">Actividad</a></li>
             </ul>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -775,114 +805,60 @@
         <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
         <main>
-            <!-- Introducción -->
+            <!-- Objetivos -->
             <section id="objetivos">
-                <h2>🎯 En esta clase aprenderás</h2>
-                <table>
-                    <tr>
-                        <th>Concepto</th>
-                        <th>Qué exploraremos</th>
-                    </tr>
-                    <tr>
-                        <td>🔧</td>
-                        <td>Identificar componentes hardware para IoT</td>
-                    </tr>
-                    <tr>
-                        <td>⚖️</td>
-                        <td>Comparar microcontroladores populares</td>
-                    </tr>
-                    <tr>
-                        <td>🔌</td>
-                        <td>Describir sensores y actuadores comunes</td>
-                    </tr>
-                    <tr>
-                        <td>⚡</td>
-                        <td>Conectar componentes básicos al MCU</td>
-                    </tr>
-                </table>
+                <h2>Objetivos de la Clase</h2>
 
-                <h3>Hardware Clave</h3>
-                <table>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Ejemplo</th>
-                        <th>Uso</th>
-                    </tr>
-                    <tr>
-                        <td><strong>MCU</strong></td>
-                        <td>ESP32, Arduino</td>
-                        <td>Cerebro del sistema</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sensores</strong></td>
-                        <td>DHT11, PIR</td>
-                        <td>Capturan mundo físico</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Actuadores</strong></td>
-                        <td>Relé, Servo</td>
-                        <td>Ejecutan acciones</td>
-                    </tr>
-                </table>
-
-                <div class="info">
-                    <strong>Pregunta clave:</strong> ¿Cómo conectar lo físico con lo digital?
-                </div>
-            </section>
-
-            <!-- Objetivos de la Clase -->
-            <section>
-                <h2>📚 Objetivos de la Clase</h2>
-                <div class="box-grid">
-                    <div class="box box-blue">
-                        <h4>Competencias a Desarrollar</h4>
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
                         <ul>
-                            <li>🔍 <strong>Identificar</strong> componentes hardware para IoT</li>
-                            <li>⚖️ <strong>Comparar</strong> microcontroladores populares</li>
-                            <li>🔌 <strong>Describir</strong> sensores y actuadores comunes</li>
-                            <li>⚡ <strong>Conectar</strong> componentes básicos al MCU</li>
+                            <li><strong>Identificar</strong> componentes hardware para IoT</li>
+                            <li><strong>Comparar</strong> microcontroladores populares</li>
+                            <li><strong>Describir</strong> sensores y actuadores comunes</li>
+                            <li><strong>Conectar</strong> componentes básicos al MCU</li>
                         </ul>
                     </div>
-                    <div class="box box-green">
-                        <h4>Estructura de la Clase</h4>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
                         <table>
-                            <tr>
-                                <th>Bloque</th>
-                                <th>Tema</th>
-                                <th>Duración</th>
-                            </tr>
-                            <tr>
-                                <td>1️⃣</td>
-                                <td>Microcontroladores (ESP32, Arduino, RPi)</td>
-                                <td>40 min</td>
-                            </tr>
-                            <tr>
-                                <td>2️⃣</td>
-                                <td>Sensores y Actuadores</td>
-                                <td>40 min</td>
-                            </tr>
-                            <tr>
-                                <td>3️⃣</td>
-                                <td>Protocolos I2C, SPI, UART</td>
-                                <td>30 min</td>
-                            </tr>
-                            <tr>
-                                <td>4️⃣</td>
-                                <td>Demo práctica + Actividad</td>
-                                <td>10 min</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Microcontroladores (ESP32, Arduino, RPi)</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Sensores y Actuadores</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Protocolos I2C, SPI, UART</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Demo práctica + Actividad</td>
+                                    <td>10 min</td>
+                                </tr>
+                            </tbody>
                         </table>
-                        <p><strong>Total:</strong> 2 horas</p>
-                        <div class="warning">
-                            <strong>💡 Próxima clase:</strong> Programación de Microcontroladores (código)
-                        </div>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cómo conectar lo físico con lo digital?</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Conexión con Resultados de Aprendizaje -->
-            <section>
-                <h2>🔗 La Interfaz Físico-Digital: El MCU como Puente</h2>
+            <!-- Conexión Físico-Digital -->
 
                 <h3>📥 ENTRADA (Mundo Físico → Digital)</h3>
                 <table>
@@ -2825,6 +2801,65 @@ void loop() {
   Serial.print(h);
   Serial.println("%");
 }</code></pre>
+            </section>
+
+            <!-- Términos Clave -->
+            <section id="terminos-clave">
+                <h2>Términos Clave de Hardware IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término/Acrónimo</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MCU</strong></td>
+                            <td>Microcontroller Unit - Unidad microcontroladora, computadora completa en un chip</td>
+                            <td>ESP32, ATmega328P - cerebro de dispositivos IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ADC</strong></td>
+                            <td>Analog-to-Digital Converter - Convierte señales analógicas a digitales</td>
+                            <td>Convierte voltaje de temperatura (0-5V) a número (0-1023)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DAC</strong></td>
+                            <td>Digital-to-Analog Converter - Convierte señales digitales a analógicas</td>
+                            <td>Convierte número digital (0-255) a voltaje para controlar brillo LED</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PWM</strong></td>
+                            <td>Pulse Width Modulation - Modulación por ancho de pulso</td>
+                            <td>Controla velocidad de motor o brillo de LED variando ancho de pulso</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SRAM</strong></td>
+                            <td>Static Random Access Memory - Memoria volátil de alta velocidad</td>
+                            <td>Almacena variables temporales durante ejecución del programa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EEPROM</strong></td>
+                            <td>Electrically Erasable Programmable Read-Only Memory - Memoria no volátil programable</td>
+                            <td>Guarda configuraciones que persisten sin energía (calibración de sensores)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPIO</strong></td>
+                            <td>General Purpose Input/Output - Pines de entrada/salida de propósito general</td>
+                            <td>Pines del microcontrolador que pueden leer o escribir señales digitales</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RX/TX</strong></td>
+                            <td>Receive/Transmit - Pines de comunicación serial</td>
+                            <td>RX recibe datos, TX transmite datos en comunicación serial</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir memoria Flash con SRAM. Flash es para almacenar el programa (persistente), SRAM es para variables temporales durante ejecución (se borra al apagar). EEPROM también es persistente pero más lenta y con ciclos de escritura limitados.
+                </div>
             </section>
 
             <!-- Actividad Práctica -->

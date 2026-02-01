@@ -444,25 +444,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -718,9 +741,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -792,6 +821,7 @@
                 <li><a href="#seguridad">Seguridad</a></li>
                 <li><a href="#ley-1581">Ley 1581</a></li>
                 <li><a href="#casos">Casos de Estudio</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
                 <li><a href="#ejercicios">Ejercicios</a></li>
                 <li><a href="#referencias">Referencias</a></li>
             </ul>
@@ -1290,6 +1320,19 @@
                 </table>
 
                 <h3>🔒 Modelo de Seguridad por 4 Capas</h3>
+
+                <p><strong>Definiciones de tecnologías de seguridad:</strong></p>
+                <ul>
+                    <li><strong>OTA (Over-The-Air):</strong> Actualizaciones de software enviadas remotamente a dispositivos IoT sin necesidad de conexión física.</li>
+                    <li><strong>AES-256:</strong> Estándar de encriptación avanzada (Advanced Encryption Standard) con clave de 256 bits, usado para proteger datos almacenados.</li>
+                    <li><strong>TLS/SSL:</strong> Protocolos que crean un canal cifrado para proteger datos en tránsito entre dispositivos.</li>
+                    <li><strong>VPN (Virtual Private Network):</strong> Red privada virtual que extiende una red privada a través de una red pública.</li>
+                    <li><strong>MFA (Multi-Factor Authentication):</strong> Autenticación que requiere dos o más factores para verificar identidad.</li>
+                    <li><strong>RBAC (Role-Based Access Control):</strong> Control de acceso basado en roles, donde los permisos se asignan según el rol del usuario.</li>
+                    <li><strong>OAuth 2.0:</strong> Protocolo de autorización que permite aplicaciones obtener acceso limitado a cuentas de usuario sin compartir contraseñas.</li>
+                    <li><strong>DDoS (Distributed Denial of Service):</strong> Ataque que sobrecarga un sistema con tráfico desde múltiples fuentes.</li>
+                </ul>
+
                 <table>
                     <thead>
                         <tr>
@@ -1301,23 +1344,23 @@
                     <tbody>
                         <tr>
                             <td><strong>1. Dispositivo</strong></td>
-                            <td>Boot seguro, encriptación storage, OTA updates</td>
-                            <td>Secure boot, AES-256</td>
+                            <td>Boot seguro, encriptación storage, <abbr title="Over-The-Air: Actualizaciones remotas sin conexión física">OTA</abbr> updates</td>
+                            <td>Secure boot, <abbr title="Advanced Encryption Standard-256: Encriptación de grado militar">AES-256</abbr></td>
                         </tr>
                         <tr>
                             <td><strong>2. Comunicación</strong></td>
                             <td>Datos en tránsito protegidos</td>
-                            <td>TLS/SSL, Certificados, VPN</td>
+                            <td><abbr title="Transport Layer Security/Secure Sockets Layer: Protocolos de cifrado de comunicaciones">TLS/SSL</abbr>, Certificados, <abbr title="Virtual Private Network: Red privada virtual para conexiones seguras">VPN</abbr></td>
                         </tr>
                         <tr>
                             <td><strong>3. Plataforma</strong></td>
                             <td>Autenticación, autorización, encriptación</td>
-                            <td>MFA, RBAC, AES at-rest</td>
+                            <td><abbr title="Multi-Factor Authentication: Autenticación con múltiples factores de verificación">MFA</abbr>, <abbr title="Role-Based Access Control: Control de acceso basado en roles">RBAC</abbr>, AES at-rest</td>
                         </tr>
                         <tr>
                             <td><strong>4. Aplicación</strong></td>
                             <td>Consentimiento, anonimización</td>
-                            <td>OAuth 2.0, GDPR/Ley 1581</td>
+                            <td><abbr title="Protocolo de autorización estándar para acceso delegado">OAuth 2.0</abbr>, <abbr title="General Data Protection Regulation: Reglamento europeo de protección de datos">GDPR</abbr>/Ley 1581</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1386,6 +1429,9 @@
                 </table>
 
                 <h3>⚠️ Sanciones por Incumplimiento</h3>
+
+                <p><strong>SMLMV:</strong> Salario Mínimo Mensual Legal Vigente. Es la unidad de referencia en Colombia para calcular multas y sanciones administrativas. En 2024, el SMLMV es aproximadamente $1,300,000 COP.</p>
+
                 <table>
                     <thead>
                         <tr>
@@ -1396,7 +1442,7 @@
                     <tbody>
                         <tr>
                             <td><strong>Multa</strong></td>
-                            <td>Hasta 1000 SMLMV (~$260M USD)</td>
+                            <td>Hasta 1000 <abbr title="Salario Mínimo Mensual Legal Vigente">SMLMV</abbr> (~$1,300M COP o ~$325,000 USD)</td>
                         </tr>
                         <tr>
                             <td><strong>Operativa</strong></td>
@@ -1410,6 +1456,8 @@
                 </table>
 
                 <h3>📋 Deberes de Empresas IoT</h3>
+
+                <p><strong>Opt-in:</strong> Modelo de consentimiento donde el usuario debe tomar una acción afirmativa (como marcar una casilla o hacer clic en "Aceptar") para dar su permiso. El silencio o la inacción no constituyen consentimiento.</p>
                 <table>
                     <thead>
                         <tr>
@@ -1591,6 +1639,60 @@
                 </table>
 
                 <p class="intro-box"><strong>💡 Impacto:</strong> IoT está transformando la agricultura colombiana a gran escala</p>
+            </section>
+
+            <!-- Términos Clave -->
+            <section id="terminos-clave">
+                <h2>Términos Clave de los 4 Pilares IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término/Acrónimo</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>P-P-D-C</strong></td>
+                            <td>Plan-Do-Check-Act - Ciclo de mejora continua (Deming)</td>
+                            <td>Planificar solución → Implementar → Verificar → Ajustar</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DIKW</strong></td>
+                            <td>Data-Information-Knowledge-Wisdom - Jerarquía de transformación de datos</td>
+                            <td>Datos crudos → Información con contexto → Conocimiento de patrones → Sabiduría para decisiones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2P</strong></td>
+                            <td>Machine-to-Person - Máquina enviando información a humano</td>
+                            <td>Alerta de sensor de humo notificando al usuario</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Latencia</strong></td>
+                            <td>Tiempo de retraso en la transmisión de datos</td>
+                            <td>Un sensor que tarda 50ms en enviar datos a la nube</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telemedicina</strong></td>
+                            <td>Medicina a distancia usando tecnología de comunicación</td>
+                            <td>Consulta médica remota con monitoreo de signos vitales IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relé</strong></td>
+                            <td>Dispositivo electromecánico que abre/cierra circuitos eléctricos</td>
+                            <td>Un relé que enciende la luz cuando el sensor IoT detecta movimiento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acelerómetro</strong></td>
+                            <td>Sensor que mide la aceleración y movimiento</td>
+                            <td>Smartphone que detecta si fue caído o rotado</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir P2M (Persona controla máquina) con M2P (Máquina notifica a persona). P2M es cuando un humano toma una acción activa (como abrir una app), mientras que M2P es cuando la máquina inicia la comunicación (como una alerta automática).
+                </div>
             </section>
 
             <!-- Ejercicios -->

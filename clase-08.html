@@ -415,25 +415,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -668,9 +691,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -724,40 +753,26 @@
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <h1>📡 Clase 8: Protocolos IoT</h1>
-            <p class="subtitle">MQTT, HTTP y Comunicación en la Nube</p>
-            <p class="course-info">IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática<br>UNAULA - 2026-I</p>
-        </div>
+        <h1>Clase 8: Protocolos IoT</h1>
+        <p class="subtitle">MQTT, HTTP y Comunicación en la Nube</p>
+        <p class="meta">
+            IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+        </p>
     </header>
-    
-    <section class="objectives">
-        <h2>🎯 Objetivos de la Clase</h2>
-        <p>Al finalizar esta clase, el estudiante será capaz de:</p>
-        <ul>
-            <li><strong>Comparar</strong> protocolos HTTP vs MQTT</li>
-            <li><strong>Implementar</strong> MQTT publish/subscribe</li>
-            <li><strong>Diseñar</strong> topics jerárquicos</li>
-            <li><strong>Seleccionar</strong> protocolo adecuado según caso de uso</li>
-        </ul>
-        <p class="meta"><strong>Duración:</strong> 2 horas</p>
-    </section>
-    
+
     <nav>
-        <div class="nav-content">
-            <h3>📑 Contenido de la Clase</h3>
-            <ul>
-                <li><a href="#desafios">Desafíos IoT</a></li>
-                <li><a href="#http">HTTP</a></li>
-                <li><a href="#mqtt">MQTT</a></li>
-                <li><a href="#topics">Topics</a></li>
-                <li><a href="#qos">QoS</a></li>
-                <li><a href="#comparacion">Comparación</a></li>
-                <li><a href="#brokers">Brokers</a></li>
-                <li><a href="#implementacion">Implementación</a></li>
-                <li><a href="#coap">CoAP</a></li>
-            </ul>
-        </div>
+        <ul>
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#desafios">Desafíos IoT</a></li>
+            <li><a href="#http">HTTP</a></li>
+            <li><a href="#mqtt">MQTT</a></li>
+            <li><a href="#topics">Topics</a></li>
+            <li><a href="#qos">QoS</a></li>
+            <li><a href="#comparacion">Comparación</a></li>
+            <li><a href="#brokers">Brokers</a></li>
+            <li><a href="#implementacion">Implementación</a></li>
+            <li><a href="#coap">CoAP</a></li>
+        </ul>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -767,6 +782,59 @@
     <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
     <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Comparar</strong> protocolos HTTP vs MQTT</li>
+                            <li><strong>Implementar</strong> MQTT publish/subscribe</li>
+                            <li><strong>Diseñar</strong> topics jerárquicos</li>
+                            <li><strong>Seleccionar</strong> protocolo adecuado según caso de uso</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Desafíos de comunicación IoT</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>HTTP: Request-Response</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>MQTT: Pub/Sub + Topics</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>QoS, Brokers, CoAP y Comparación</td>
+                                    <td>40 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué protocolo elegir para mi caso de uso IoT?</p>
+                    </div>
+                </div>
+            </section>
+
         <!-- Desafíos -->
         <section id="desafios">
             <h2>🎯 Desafíos de Comunicación en IoT</h2>

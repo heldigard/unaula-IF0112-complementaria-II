@@ -385,23 +385,35 @@
            CARDS - Enhanced
            ============================================ */
         .card {
-            background: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            padding: var(--space-5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
 
-        .card h4 {
-            color: var(--color-primary);
-            margin-bottom: var(--space-2);
+        .card h3 {
+            color: var(--color-primary-light);
+            margin-bottom: var(--space-3);
             font-size: var(--text-lg);
+            font-weight: 700;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: var(--space-4);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
         }
 
         .card-blue { background: #eff6ff; border-color: #bfdbfe; }
@@ -415,25 +427,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -668,9 +703,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -726,32 +767,17 @@
     <div class="container">
         <header>
             <h1>Clase 16: Proyecto Final</h1>
-            <p>IF0112 - Complementaria II (IoT) · Unidad 2: La Piedra Angular de IoT</p>
-            <span class="pill">Objetivo general: diseñar y prototipar un sistema IoT completo</span>
-            <div class="grid">
-                <div class="card">
-                    <h3>Objetivos de la clase</h3>
-                    <ul>
-                        <li>Comprender requisitos del proyecto final IoT.</li>
-                        <li>Planificar hardware, software, conectividad y documentacion.</li>
-                        <li>Construir entregables y cronograma de trabajo.</li>
-                        <li>Analizar ejemplos reales exitosos.</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Prerrequisitos</h3>
-                    <ul>
-                        <li>Fundamentos de IoT, sensores y actuadores.</li>
-                        <li>Conectividad WiFi y protocolos (MQTT/HTTP).</li>
-                        <li>Documentacion tecnica basica.</li>
-                    </ul>
-                </div>
-            </div>
+            <p class="subtitle">Diseño y Prototipado de un Sistema IoT Completo</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
         </header>
 
         <nav>
             <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#objetivo">Objetivo</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
                 <li><a href="#requisitos">Requisitos</a></li>
                 <li><a href="#equipos">Equipos</a></li>
                 <li><a href="#entregables">Entregables</a></li>
@@ -762,17 +788,30 @@
                 <li><a href="#practica">Practica / Lab</a></li>
                 <li><a href="#referencias">Referencias</a></li>
             </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </nav>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-    </nav>
 
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
-    <main>
-            <section id="objetivo">
+        <main>
+
+        <!-- Objectives Section -->
+        <section id="objetivos">
+            <h2>Objetivos de la Clase</h2>
+            <p>Al finalizar esta clase, el estudiante será capaz de:</p>
+            <ul>
+                <li>Comprender requisitos del proyecto final IoT.</li>
+                <li>Planificar hardware, software, conectividad y documentacion.</li>
+                <li>Construir entregables y cronograma de trabajo.</li>
+                <li>Analizar ejemplos reales exitosos.</li>
+            </ul>
+        </section>
+
+        <!-- Objetivo del Proyecto -->
+        <section id="objetivo">
                 <h2>Objetivo del proyecto final</h2>
 
                 <div class="learning-key">
@@ -781,6 +820,61 @@
                 </div>
 
                 <p>Disenar y prototipar un sistema IoT completo que resuelva un problema real, integrando hardware, software, conectividad, visualizacion y documentacion.</p>
+            </section>
+
+            <section id="terminos-clave">
+                <h2>Términos Clave del Proyecto Final</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Blynk</strong></td>
+                            <td>Plataforma no-code para crear apps móviles IoT con drag-and-drop</td>
+                            <td>Controlar ESP32 desde smartphone sin programar app nativa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>KPI</strong></td>
+                            <td>Key Performance Indicator - métrica cuantificable para medir éxito</td>
+                            <td>"Ahorro del 40% de agua" o "Tiempo de respuesta < 2 segundos"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geofencing</strong></td>
+                            <td>Delimitación virtual geográfica que dispara acciones al cruzarse</td>
+                            <td>Alerta cuando mascota sale del perímetro definido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anti-hammering</strong></td>
+                            <td>Protección contra intentos repetidos de autenticación (ataques de fuerza bruta)</td>
+                            <td>Bloquear teclado por 5 minutos después de 3 intentos fallidos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>P-P-D-C</strong></td>
+                            <td>Plan-Do-Check-Act - ciclo de mejora continua (Deming)</td>
+                            <td>Planificar proyecto → Implementar → Verificar → Ajustar</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OLED</strong></td>
+                            <td>Organic Light-Emitting Diode - pantalla de bajo consumo para microcontroladores</td>
+                            <td>Pantalla pequeña (128x64) para mostrar datos sin laptop</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PMS5003</strong></td>
+                            <td>Sensor de partículas que mide PM1.0, PM2.5, PM10</td>
+                            <td>Detector de calidad de aire que mide material particulado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Waterproof</strong></td>
+                            <td>Resistente al agua (IP65+)</td>
+                            <td>Caja protectora para sensor IoT exterior contra lluvia</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
             <section id="requisitos">
@@ -1220,79 +1314,78 @@ void checkHumedad() {
             </section>
         </main>
 
-        <button id="backToTop" class="back-to-top" title="Volver arriba">↑</button>
-        
-        <footer style="text-align: center; padding: 2rem; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; background: #1f2937; color: #fed7aa;">
-            <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
-            <p>Universidad Autónoma Latinoamericana (UNAULA) - 2026-I</p>
-            <p style="margin-top: 0.5rem; opacity: 0.8;">Clase 16: Proyecto Final - Evaluación E6</p>
+        <!-- Footer -->
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 16: Proyecto Final | Última actualización: Febrero 2026</p>
         </footer>
-    </div>
+        </div>
 
-    <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
+        <script>
+            // ============================================
+            // SCROLL PROGRESS & BACK TO TOP
+            // ============================================
+            (function() {
+                'use strict';
 
-            const progressFill = document.getElementById('progressFill');
-            const backToTop = document.getElementById('backToTop');
+                const progressFill = document.getElementById('progressFill');
+                const backToTop = document.getElementById('backToTop');
 
-            if (!progressFill || !backToTop) return;
+                if (!progressFill || !backToTop) return;
 
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
+                // Update progress bar and back-to-top visibility
+                function updateProgress() {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                    const scrolled = window.scrollY;
+                    const progress = (scrolled / documentHeight) * 100;
 
-                progressFill.style.width = Math.min(progress, 100) + '%';
+                    progressFill.style.width = Math.min(progress, 100) + '%';
 
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
+                    // Show/hide back-to-top button
+                    if (scrolled > windowHeight * 0.5) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
                 }
-            }
 
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
+                // Smooth scroll to top
+                function scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
                     });
-                    ticking = true;
                 }
-            }
 
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
+                // Throttle scroll events for performance
+                let ticking = false;
+                function onScroll() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(function() {
+                            updateProgress();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
                 }
-            });
 
-            // Initial call
-            updateProgress();
-        })();
-    </script>
+                // Event listeners
+                window.addEventListener('scroll', onScroll, { passive: true });
+                backToTop.addEventListener('click', scrollToTop);
+
+                // Keyboard accessibility for back-to-top
+                backToTop.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        scrollToTop();
+                    }
+                });
+
+                // Initial call
+                updateProgress();
+            })();
+        </script>
 </body>
 </html>

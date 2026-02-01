@@ -384,23 +384,28 @@
            CARDS - Enhanced
            ============================================ */
         .card {
-            background: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius-lg);
             padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
         }
 
         .card h4 {
-            color: var(--color-primary);
+            color: var(--color-primary-light);
             margin-bottom: var(--space-2);
             font-size: var(--text-lg);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
         }
 
         .card-blue { background: #eff6ff; border-color: #bfdbfe; }
@@ -414,25 +419,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -667,9 +695,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -803,38 +837,22 @@
     <div class="container">
         <header>
             <h1>Clase 13: Caso de Estudio Completo</h1>
-            <p class="subtitle">IF0112 - Complementaria II (IoT) · Unidad 2: La Piedra Angular de IoT</p>
-            <div class="meta">
-                <span>Caso central: SIATA (Medellin Smart City)</span>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h4>Objetivos de la clase</h4>
-                    <ul>
-                        <li>Analizar un caso real de IoT urbano en Colombia.</li>
-                        <li>Identificar arquitectura, sensores, conectividad y analitica.</li>
-                        <li>Evaluar ROI, impacto social y lecciones aprendidas.</li>
-                        <li>Extraer un checklist para replicar el modelo.</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>Prerrequisitos</h4>
-                    <ul>
-                        <li>Arquitectura IoT (sensor - gateway - nube).</li>
-                        <li>Conectividad LPWAN (LoRaWAN, 4G/5G).</li>
-                        <li>Conceptos de Edge AI y analitica de datos.</li>
-                    </ul>
-                </div>
-            </div>
+            <p class="subtitle">IF0112 - Complementaria II (IoT) | Caso de Estudio: Medellín Smart City</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
         </header>
 
         <nav>
             <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#contexto">Contexto</a></li>
                 <li><a href="#arquitectura">Arquitectura</a></li>
                 <li><a href="#sensores">Sensores</a></li>
                 <li><a href="#evento">Caso de exito</a></li>
                 <li><a href="#datos">Analitica y datos</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
+                <li><a href="#actualizacion-2025">Actualizacion 2025 📊</a></li>
                 <li><a href="#lecciones">Lecciones</a></li>
                 <li><a href="#checklist">Checklist</a></li>
                 <li><a href="#practica">Practica / Lab</a></li>
@@ -849,6 +867,59 @@
         <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
         <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Analizar</strong> un caso real de IoT urbano en Colombia (SIATA)</li>
+                            <li><strong>Identificar</strong> arquitectura, sensores, conectividad y analítica</li>
+                            <li><strong>Evaluar</strong> ROI, impacto social y lecciones aprendidas</li>
+                            <li><strong>Extraer</strong> un checklist para replicar el modelo</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Contexto del caso SIATA</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Arquitectura técnica y sensores</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Caso de éxito y analítica de datos</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Lecciones aprendidas y checklist</td>
+                                    <td>40 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cómo replicar el modelo SIATA en otros contextos?</p>
+                    </div>
+                </div>
+            </section>
+
             <section id="contexto">
                 <h2>Contexto del caso SIATA</h2>
 
@@ -1028,6 +1099,72 @@ def predecir_riesgo(nivel_actual, precipitacion):
     return riesgo[1]
 </code></pre>
                 <p><strong>Precision:</strong> 94% (sensibilidad), 89% (especificidad).</p>
+            </section>
+
+            <section id="terminos-clave">
+                <h2>Términos Clave del Caso SIATA</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término/Acrónimo</th>
+                            <th>Definición</th>
+                            <th>Contexto/Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Edge AI</strong></td>
+                            <td>Inteligencia artificial ejecutada en dispositivos de borde (gateways/sensores) en lugar de la nube</td>
+                            <td>Detección de patrones de crecida en el gateway SIATA antes de enviar a la nube</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud AI</strong></td>
+                            <td>Inteligencia artificial ejecutada en servidores en la nube</td>
+                            <td>Modelos predictivos de inundación que usan datos históricos masivos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EPM</strong></td>
+                            <td>Empresas Públicas de Medellín - empresa de servicios públicos</td>
+                            <td>Colabora en infraestructura de comunicaciones y energía para SIATA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ruta N</strong></td>
+                            <td>Centro de innovación y negocio digital de Medellín</td>
+                            <td>Aporta desarrollo de tecnologías y analytics para SIATA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PM10 / PM2.5</strong></td>
+                            <td>Material Particulado: Partículas suspendidas en aire de 10μm / 2.5μm de diámetro</td>
+                            <td>Sensores de calidad del aire miden estas partículas para salud pública</td>
+                        </tr>
+                        <tr>
+                            <td><strong>sklearn</strong></td>
+                            <td>Scikit-learn: biblioteca Python para machine learning</td>
+                            <td>Usada en SIATA para modelos de predicción de inundaciones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROI</strong></td>
+                            <td>Return on Investment: Retorno sobre inversión</td>
+                            <td>Evento 23 Mayo 2022: ROI 16,000x (USD 8M evitados / USD 500 costo)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>KPI</strong></td>
+                            <td>Key Performance Indicator: Indicador clave de desempeño</td>
+                            <td>Ejemplo: "Vidas salvadas por alerta temprana" o "Tiempo de evacuación promedio"</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir Edge AI con Cloud AI. Edge AI procesa datos localmente (menos latencia, menos ancho de banda), mientras Cloud AI procesa en servidores centrales (más capacidad histórica, pero mayor latencia). SIATA usa ambos: Edge para detección inmediata, Cloud para predicción a largo plazo.
+                </div>
+            </section>
+
+            <section id="actualizacion-2025">
+                <h2>Actualización de Inversión (2025)</h2>
+                <div class="note" style="border-left: 4px solid #3b82f6; background: #eff6ff; padding: 1rem; margin: 1rem 0;">
+                    <strong>Inversión 2025:</strong> El presupuesto de SIATA para 2025 es de <strong>COP $46.233 billones</strong> (aprox. USD 11.6 millones), lo que representa un aumento significativo frente a 2024 (COP $27.11 billones ≈ USD 6.8M). Este incremento refleja la expansión continua del sistema y su importancia estratégica para la región.
+                    <p style="margin-top: 0.5rem; margin-bottom: 0; font-size: 0.9rem; color: #1e40af;"><em>Fuente: AMVA 2025, Presupuesto aprobado.</em></p>
+                </div>
             </section>
 
             <section id="lecciones">

@@ -414,25 +414,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -667,9 +690,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -755,35 +784,243 @@
         }
         .comparison-card.good { background: #f0fdf4; border: 2px solid #86efac; }
         .comparison-card.bad { background: #fef2f2; border: 2px solid #fca5a5; }
+
+        /* ============================================
+           EXECUTION FLOW DIAGRAM
+           ============================================ */
+        .execution-flow-diagram {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-4) 0;
+        }
+
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: var(--text-sm);
+        }
+
+        .step-icon {
+            font-size: var(--text-lg);
+        }
+
+        .step-text {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .flow-start {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+        }
+
+        .flow-start .step-text {
+            color: #92400e;
+        }
+
+        .flow-setup {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+        }
+
+        .flow-setup .step-text {
+            color: #1e40af;
+        }
+
+        .flow-loop {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+        }
+
+        .flow-loop .step-text {
+            color: #065f46;
+        }
+
+        .flow-ellipsis {
+            background: #e2e8f0;
+            color: var(--text-muted);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-xl);
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .reset-loop {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: var(--space-3);
+        }
+
+        .reset-arrow {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border: 2px solid #ec4899;
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
+
+        .reset-icon {
+            font-size: var(--text-base);
+        }
+
+        .reset-text {
+            color: #9f1239;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================
+           DUTY CYCLE DIAGRAM
+           ============================================ */
+        .duty-cycle-diagram {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+        }
+
+        .duty-intro {
+            text-align: center;
+            font-size: var(--text-base);
+            margin-bottom: var(--space-5);
+            padding: var(--space-3);
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .duty-cycles {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-4);
+        }
+
+        .duty-cycle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .duty-label {
+            font-weight: 700;
+            font-size: var(--text-lg);
+            color: var(--color-primary);
+        }
+
+        .duty-wave {
+            width: 80px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: white;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .wave-high {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            height: 100%;
+            position: relative;
+        }
+
+        .wave-low {
+            background: #e2e8f0;
+            flex: 1;
+        }
+
+        .duty-25 .wave-high {
+            width: 25%;
+            display: inline-block;
+        }
+        .duty-25 .wave-low {
+            width: 75%;
+            display: inline-block;
+        }
+
+        .duty-50 .wave-high {
+            width: 50%;
+            display: inline-block;
+        }
+        .duty-50 .wave-low {
+            width: 50%;
+            display: inline-block;
+        }
+
+        .duty-75 .wave-high {
+            width: 75%;
+            display: inline-block;
+        }
+        .duty-75 .wave-low {
+            width: 25%;
+            display: inline-block;
+        }
+
+        .duty-100 .wave-high {
+            width: 100%;
+            display: inline-block;
+        }
+        .duty-100 .wave-low {
+            display: none;
+        }
+
+        .duty-result {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .duty-cycles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .flow-container {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>⚙️ Clase 6: Programación para Microcontroladores</h1>
+    <div class="container">
+        <header>
+            <h1>Clase 6: Programación para Microcontroladores</h1>
             <p class="subtitle">Arduino IDE y Primeros Programas</p>
-            <p class="course-info">IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática<br>UNAULA - 2026-I</p>
-        </div>
-    </header>
-    
-    <section class="objectives">
-        <h2>🎯 Objetivos de la Clase</h2>
-        <p>Al finalizar esta clase, el estudiante será capaz de:</p>
-        <ul>
-            <li><strong>Configurar</strong> Arduino IDE para ESP32</li>
-            <li><strong>Entender</strong> la estructura de programas (setup/loop)</li>
-            <li><strong>Leer</strong> sensores digitales y analógicos</li>
-            <li><strong>Controlar</strong> LEDs, botones y actuadores básicos</li>
-            <li><strong>Usar</strong> el monitor serial para depuración</li>
-        </ul>
-        <p class="meta"><strong>Duración:</strong> 2 horas | <strong>Evaluación E2:</strong> Proyecto de interacción físico-virtual (15%)</p>
-    </section>
-    
-    <nav>
-        <div class="nav-content">
-            <h3>📑 Contenido de la Clase</h3>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
             <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#intro">Introducción</a></li>
+                <li><a href="#terminos-hardware">Términos Clave</a></li>
                 <li><a href="#arduino">Arduino IDE</a></li>
                 <li><a href="#estructura">Estructura</a></li>
                 <li><a href="#funciones">Funciones</a></li>
@@ -796,16 +1033,30 @@
                 <li><a href="#troubleshooting">Troubleshooting</a></li>
                 <li><a href="#actividad">Actividad</a></li>
             </ul>
-        </div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-    </nav>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
 
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
-    
-    <main>
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+
+        <!-- Objectives Section -->
+        <section id="objetivos">
+            <h2>Objetivos de la Clase</h2>
+
+            <p>Al finalizar esta clase, el estudiante será capaz de:</p>
+            <ul>
+                <li><strong>Configurar</strong> Arduino IDE para ESP32</li>
+                <li><strong>Entender</strong> la estructura de programas (setup/loop)</li>
+                <li><strong>Leer</strong> sensores digitales y analógicos</li>
+                <li><strong>Controlar</strong> LEDs, botones y actuadores básicos</li>
+                <li><strong>Usar</strong> el monitor serial para depuración</li>
+            </ul>
+        </section>
+
         <!-- Introducción -->
         <section id="intro">
             <h2>🤔 ¿Por qué Programar Microcontroladores?</h2>
@@ -852,7 +1103,87 @@
                 <p><strong>Alternativas profesionales:</strong> PlatformIO + VSCode, ESP-IDF (nativo Espressif), MicroPython.</p>
             </div>
         </section>
-        
+
+        <!-- Key Hardware Terms Definitions -->
+        <section id="terminos-hardware">
+            <h2>Términos Clave de Hardware y Programación</h2>
+
+            <div class="highlight">
+                <strong>Nota:</strong> Los siguientes términos son fundamentales para comprender la programación de microcontroladores. Familiarizarse con ellos facilita el aprendizaje de Arduino/ESP32.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Término</th>
+                        <th>Definición</th>
+                        <th>Ejemplo en Arduino/ESP32</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GPIO</strong></td>
+                        <td>General Purpose Input/Output: Pines de entrada/salida de propósito general</td>
+                        <td>GPIO18 puede ser INPUT o OUTPUT según se configure</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ESP32</strong></td>
+                        <td>Microcontrolador de Espressif con WiFi/BLE integrados, low-cost, comunidad grande</td>
+                        <td>La placa usada en este curso (reemplaza a Arduino clásico)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PWM</strong></td>
+                        <td>Pulse Width Modulation: Modulación por ancho de pulso para simular salida analógica</td>
+                        <td>Controla brillo de LED variando el ancho del pulso</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ADC</strong></td>
+                        <td>Analog-to-Digital Converter: Convierte señales analógicas a valores digitales</td>
+                        <td>Lectura de LDR devuelve 0-4095 (12-bit) en ESP32</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pull-up</strong></td>
+                        <td>Resistencia interna que mantiene un pin en estado HIGH cuando no está conectado</td>
+                        <td>INPUT_PULLUP evita lecturas erráticas cuando botón está abierto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Firmware</strong></td>
+                        <td>Software de bajo nivel que controla el hardware directamente</td>
+                        <td>El código Arduino se convierte en firmware que ejecuta el ESP32</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LDR</strong></td>
+                        <td>Light Dependent Resistor: Resistencia que varía con la luz incidente</td>
+                        <td>Mayor luz = menor resistencia, se usa con divisor de voltaje</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DHT11</strong></td>
+                        <td>Sensor digital de temperatura y humedad (rango: 0-50°C, 20-90% HR)</td>
+                        <td Usa protocolo propio de un hilo, requiere librería DHT.h </td>
+                    </tr>
+                    <tr>
+                        <td><strong>isnan()</strong></td>
+                        <td>Is Not a Number: Función C++ que verifica si un valor es inválido (NaN)</td>
+                        <td>Usado para detectar fallas de lectura del sensor DHT11</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Baud Rate</strong></td>
+                        <td>Velocidad de comunicación serial (bits por segundo)</td>
+                        <td>115200 es estándar para ESP32, 9600 es compatible universal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monitor Serial</strong></td>
+                        <td>Herramienta para ver datos enviados por el microcontrolador vía USB</td>
+                        <td>Usa Serial.print() en código, abre con Ctrl+Shift+M</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-box">
+                <strong>Error Común:</strong> Confundir <em>pinMode()</em> con <em>digitalWrite()</em>. <strong>pinMode()</strong> CONFIGURA el pin (una vez en setup), <strong>digitalWrite()</strong> ESCRIBE un valor (en loop, muchas veces). No configures pines repetidamente.
+            </div>
+        </section>
+
         <!-- Arduino IDE -->
         <section id="arduino">
             <h2>🔧 Instalación y Configuración de Arduino IDE</h2>
@@ -945,9 +1276,40 @@
             
             <div class="info-box success">
                 <h4>🔁 Orden de Ejecución</h4>
-                <pre>ENCENDIDO → setup() → loop() → loop() → loop() → ...
-    │                                │
-    └──► RESET ────────────────────────┘</pre>
+
+                <div class="execution-flow-diagram">
+                    <div class="flow-container">
+                        <div class="flow-step flow-start">
+                            <span class="step-icon">⚡</span>
+                            <span class="step-text">ENCENDIDO</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step flow-setup">
+                            <span class="step-icon">⚙️</span>
+                            <span class="step-text">setup()</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step flow-loop">
+                            <span class="step-icon">🔄</span>
+                            <span class="step-text">loop()</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step flow-loop">
+                            <span class="step-icon">🔄</span>
+                            <span class="step-text">loop()</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step flow-ellipsis">
+                            <span class="step-text">...</span>
+                        </div>
+                    </div>
+                    <div class="reset-loop">
+                        <div class="reset-arrow">
+                            <span class="reset-icon">🔙</span>
+                            <span class="reset-text">RESET</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <h3>Analogía con la Vida Real: Cocina</h3>
@@ -1194,16 +1556,50 @@ void loop() {
             <p><strong>PWM (Pulse Width Modulation)</strong> es una técnica para simular una señal analógica usando pulsos digitales.</p>
             
             <h3>Concepto de Duty Cycle</h3>
-            <pre>Duty Cycle = Porcentaje de tiempo en HIGH
 
- 25%        50%        75%       100%
-┌──┐      ┌────┐     ┌────┐    ┌────┐
-│  │      │    │     │    │    │    │
-│  └──┐   │    └──┐  │    │    │    │
-│     │   │       │  │    │    │    │
-┘     └───┘       └──┘    └────┘    └─
+            <div class="duty-cycle-diagram">
+                <div class="duty-intro">
+                    <strong>Duty Cycle</strong> = Porcentaje de tiempo en HIGH
+                </div>
 
-Brillo:   Bajo      Medio     Alto    Máximo</pre>
+                <div class="duty-cycles">
+                    <div class="duty-cycle-item">
+                        <div class="duty-label">25%</div>
+                        <div class="duty-wave duty-25">
+                            <div class="wave-high"></div>
+                            <div class="wave-low"></div>
+                        </div>
+                        <div class="duty-result">Bajo</div>
+                    </div>
+
+                    <div class="duty-cycle-item">
+                        <div class="duty-label">50%</div>
+                        <div class="duty-wave duty-50">
+                            <div class="wave-high"></div>
+                            <div class="wave-low"></div>
+                        </div>
+                        <div class="duty-result">Medio</div>
+                    </div>
+
+                    <div class="duty-cycle-item">
+                        <div class="duty-label">75%</div>
+                        <div class="duty-wave duty-75">
+                            <div class="wave-high"></div>
+                            <div class="wave-low"></div>
+                        </div>
+                        <div class="duty-result">Alto</div>
+                    </div>
+
+                    <div class="duty-cycle-item">
+                        <div class="duty-label">100%</div>
+                        <div class="duty-wave duty-100">
+                            <div class="wave-high"></div>
+                            <div class="wave-low"></div>
+                        </div>
+                        <div class="duty-result">Máximo</div>
+                    </div>
+                </div>
+            </div>
             
             <h3>ESP32 PWM</h3>
             <table>
@@ -1583,11 +1979,14 @@ void loop() {
             </div>
         </section>
     </main>
-    
+
+    <!-- Footer -->
     <footer>
-        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
-        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+        <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 6: Programación para Microcontroladores | Última actualización: Febrero 2026</p>
     </footer>
+    </div>
 
     <script>
         // ============================================

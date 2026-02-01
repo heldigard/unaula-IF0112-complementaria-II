@@ -392,29 +392,41 @@
            CARDS - Enhanced
            ============================================ */
         .card {
-            background: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            padding: var(--space-5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
 
-        .card h4 {
-            color: var(--color-primary);
-            margin-bottom: var(--space-2);
+        .card h3 {
+            color: var(--color-primary-light);
+            margin-bottom: var(--space-3);
             font-size: var(--text-lg);
+            font-weight: 700;
         }
 
-        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
-        .card-yellow { background: #fef3c7; border-color: #fde68a; }
-        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+        .card ul {
+            margin: 0;
+            padding-left: var(--space-4);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
+        }
+
+        .card-blue { background: rgba(219, 234, 254, 0.95); border-color: rgba(59, 130, 246, 0.3); }
+        .card-green { background: rgba(240, 253, 244, 0.95); border-color: rgba(16, 185, 129, 0.3); }
+        .card-yellow { background: rgba(254, 243, 199, 0.95); border-color: rgba(245, 158, 11, 0.3); }
+        .card-pink { background: rgba(253, 242, 248, 0.95); border-color: rgba(236, 72, 153, 0.3); }
 
         /* ============================================
            FLOW DIAGRAM
@@ -422,25 +434,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -682,9 +717,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -788,33 +829,18 @@
 <body>
     <div class="container">
         <header>
-            <h1>Clase 04: Redes IoT</h1>
-            <p>IF0112 - Complementaria II (IoT) · Unidad 1: ¿Qué es IoT?</p>
-            <span class="pill">Objetivo general: seleccionar tecnologías de red IoT según alcance, consumo y ancho de banda</span>
-            <div class="grid">
-                <div class="card">
-                    <h3>Objetivos de la clase</h3>
-                    <ul>
-                        <li>Clasificar redes IoT por alcance (PAN, LAN, WAN, Internet).</li>
-                        <li>Comparar tecnologías (BLE, Zigbee, WiFi, LoRaWAN, NB-IoT, Sigfox, 4G/5G).</li>
-                        <li>Evaluar protocolos de aplicación (MQTT, CoAP, HTTP, AMQP, LwM2M).</li>
-                        <li>Aplicar una matriz de decisión para casos reales.</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Prerrequisitos</h3>
-                    <ul>
-                        <li>Conceptos básicos de IoT (clases 01-02).</li>
-                        <li>Nociones de redes (IP, WiFi, Ethernet).</li>
-                        <li>Lectura de tablas de desempeño.</li>
-                    </ul>
-                </div>
-            </div>
+            <h1>Clase 4: Redes IoT</h1>
+            <p class="subtitle">Tecnologías de Conexión para el Internet de las Cosas</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
         </header>
 
         <nav>
             <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#terminos-redes">Términos Clave</a></li>
                 <li><a href="#clasificacion">Clasificación de redes</a></li>
                 <li><a href="#pan">Tecnologías PAN</a></li>
                 <li><a href="#wifi">WiFi para IoT</a></li>
@@ -835,6 +861,64 @@
         <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
         <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Clasificar</strong> redes IoT por alcance (PAN, LAN, WAN, Internet)</li>
+                            <li><strong>Comparar</strong> tecnologías (BLE, Zigbee, WiFi, LoRaWAN, NB-IoT, Sigfox, 4G/5G)</li>
+                            <li><strong>Evaluar</strong> protocolos de aplicación (MQTT, CoAP, HTTP, AMQP, LwM2M)</li>
+                            <li><strong>Aplicar</strong> una matriz de decisión para casos reales</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Clasificación de redes por alcance</td>
+                                    <td>20 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Tecnologías PAN (BLE, Zigbee)</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>WiFi y WAN (LoRaWAN, NB-IoT)</td>
+                                    <td>35 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Protocolos y matriz de decisión</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>5️⃣</td>
+                                    <td>Práctica/Laboratorio y Ejercicios</td>
+                                    <td>10 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué tecnología de red es más adecuada para mi caso de uso?</p>
+                    </div>
+                </div>
+            </section>
+
             <section id="contexto">
                 <h2>Contexto y motivación</h2>
                 <p>En IoT, la red es el puente entre sensores, actuadores y la nube. Elegir una tecnología incorrecta puede duplicar costos, agotar baterías o dejar puntos ciegos. La decisión se centra en cuatro variables: <strong>alcance</strong>, <strong>consumo</strong>, <strong>ancho de banda</strong> y <strong>densidad de dispositivos</strong>.</p>
@@ -846,6 +930,108 @@
                     <img src="../assets/infografias/clase-04-redes-iot.png" alt="Infografía sobre redes IoT">
                     <figcaption>Figura 4: Panorama de redes IoT clasificadas por alcance, consumo energético y velocidad de transmisión. Fuente: Adaptado de estándares IEEE y 3GPP.</figcaption>
                 </figure>
+            </section>
+
+            <!-- Key Network Terms Definitions -->
+            <section id="terminos-redes">
+                <h2>Términos Clave de Redes IoT</h2>
+
+                <div class="highlight">
+                    <strong>Nota:</strong> Los siguientes términos técnicos se utilizan en esta clase. Comprenderlos facilita el análisis y selección de tecnologías de red.
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término</th>
+                            <th>Definición</th>
+                            <th>Contexto IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>IEEE 802.15.4</strong></td>
+                            <td>Estándar para redes de área personal de baja tasa (WPAN)</td>
+                            <td>Base física de Zigbee, Thread, MiWi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3GPP</strong></td>
+                            <td>3rd Generation Partnership Project: Organismo que estandariza redes celulares</td>
+                            <td>Define NB-IoT, LTE-M, 5G IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PoE</strong></td>
+                            <td>Power over Ethernet: Transmite datos y energía por cable Ethernet</td>
+                            <td>Alimenta cámaras IP y Access Points sin enchufe adicional</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AGV</strong></td>
+                            <td>Automated Guided Vehicle: Vehículo autoguiado industrial</td>
+                            <td>Robots móviles en fábricas que necesitan conectividad 5G</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QoS</strong></td>
+                            <td>Quality of Service: Garantía de calidad en redes</td>
+                            <td>MQTT ofrece 3 niveles de QoS para entrega de mensajes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>V2X</strong></td>
+                            <td>Vehicle-to-Everything: Comunicación vehicular universal</td>
+                            <td>V2V, V2I, V2P, V2N combinados para transporte autónomo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pub/Sub</strong></td>
+                            <td>Publish/Subscribe: Patrón de mensajería desacoplado</td>
+                            <td>Sensores publican, múltiples subscriptores reciben sin conexión directa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Latencia</strong></td>
+                            <td>Tiempo entre envío y recepción de datos</td>
+                            <td>Crítico en aplicaciones de tiempo real (alertas, control)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Throughput</strong></td>
+                            <td>Cantidad de datos transmitidos por unidad de tiempo</td>
+                            <td>Determina si una red puede manejar video, solo sensores, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mesh</strong></td>
+                            <td>Topología de red multipunto a multipunto con enrutamiento</td>
+                            <td>Zigbee usa mesh para extender cobertura saltando entre nodos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2M</strong></td>
+                            <td>Machine-to-Machine: Comunicación directa entre dispositivos</td>
+                            <td>Origen de IoT, ahora evolucionado a arquitecturas cloud-centric</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UDP</strong></td>
+                            <td>User Datagram Protocol: Protocolo de transporte sin conexión</td>
+                            <td>Usado en CoAP por ser ligero y rápido, sin garantía de entrega</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stateless</strong></td>
+                            <td>Sin estado: Cada petición es independiente de las anteriores</td>
+                            <td>HTTP es stateless, facilita escalabilidad pero requiere re-autenticación</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OMA</strong></td>
+                            <td>Open Mobile Alliance: Consorcio de estándares móviles</td>
+                            <td>Define LwM2M para gestión de dispositivos IoT</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight" style="margin-top: 1rem;">
+                    <strong>💡 Aclaración de unidades:</strong>
+                    <ul>
+                        <li><strong>bps</strong> = bits por segundo (unidad básica)</li>
+                        <li><strong>Kbps</strong> = kilobits por segundo (1,000 bps)</li>
+                        <li><strong>Mbps</strong> = megabits por segundo (1,000,000 bps)</li>
+                        <li><strong>Gbps</strong> = gigabits por segundo (1,000,000,000 bps)</li>
+                        <li><em>Nota:</em> 1 byte = 8 bits. Velocidades en redes siempre se miden en bits, no bytes.</li>
+                    </ul>
+                </div>
             </section>
 
             <section id="clasificacion">
@@ -1527,15 +1713,6 @@ WiFi,2,1,4,5,12</code></pre>
                     <li>Kwak, K. (2023). IoT Connectivity: Technologies and Applications. Springer.</li>
                     <li>Mishra, A.R. (2021). Cellular IoT: From Introduction to Practice. Artech House.</li>
                 </ul>
-                <pre><code>@manual{if0112-clase04,
-  title        = {Clase 4: Redes IoT - LAN, WAN e Internet},
-  author       = {UNAULA},
-  organization = {Universidad Autonoma de Colombia},
-  year         = {2026},
-  month        = {Febrero},
-  course       = {IF0112 - Complementaria II (IoT)},
-  unit         = {Unidad 1: Qué es IoT?}
-}</code></pre>
             </section>
         </main>
 

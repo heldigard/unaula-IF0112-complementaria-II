@@ -415,25 +415,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -668,9 +691,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -723,83 +752,12 @@
     </style>
 </head>
 <body>
-    <!-- Back to top button -->
-    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="Volver arriba">↑</button>
-
-    <script>
-
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
-
-            const progressFill = document.getElementById('progressFill');
-            const backToTop = document.getElementById('backToTop');
-
-            if (!progressFill || !backToTop) return;
-
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
-                }
-            });
-
-            // Initial call
-            updateProgress();
-        })();
-    
-    </script>
-
     <header>
-        <div class="header-content">
-            <h1>📝 Clase 10: Examen Parcial (E3)</h1>
-            <p class="subtitle">Evaluación del Primer Seguimiento - 20%</p>
-            <p class="course-info">IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática<br>UNAULA - 2026-I</p>
-        </div>
+        <h1>Clase 10: Examen Parcial (E3)</h1>
+        <p class="subtitle">Evaluación del Primer Seguimiento - 20%</p>
+        <p class="meta">
+            IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+        </p>
     </header>
     
     <div class="alert-box">
@@ -811,19 +769,16 @@
     </div>
     
     <nav>
-        <div class="nav-content">
-            <h3>📑 Contenido de la Guía</h3>
-            <ul>
-                <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#estructura">Estructura</a></li>
-                <li><a href="#temas">Temas a Evaluar</a></li>
-                <li><a href="#ejemplos">Ejemplos</a></li>
-                <li><a href="#conceptos">Conceptos Clave</a></li>
-                <li><a href="#formulas">Fórmulas</a></li>
-                <li><a href="#tiempo">Gestión del Tiempo</a></li>
-                <li><a href="#reglas">Reglas</a></li>
-            </ul>
-        </div>
+        <ul>
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#estructura">Estructura</a></li>
+            <li><a href="#temas">Temas a Evaluar</a></li>
+            <li><a href="#ejemplos">Ejemplos</a></li>
+            <li><a href="#conceptos">Conceptos Clave</a></li>
+            <li><a href="#formulas">Fórmulas</a></li>
+            <li><a href="#tiempo">Gestión del Tiempo</a></li>
+            <li><a href="#reglas">Reglas</a></li>
+        </ul>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>

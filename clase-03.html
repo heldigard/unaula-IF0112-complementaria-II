@@ -128,6 +128,11 @@
             pointer-events: none;
         }
 
+        header .container {
+            background: transparent;
+            box-shadow: none;
+        }
+
         header h1 {
             font-size: var(--text-4xl);
             font-weight: 700;
@@ -422,25 +427,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -684,9 +712,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -986,6 +1020,505 @@
             }
         }
 
+        /* ============================================
+         SENTILO PLATFORM DIAGRAM
+         ============================================ */
+        .sentilo-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sentilo-layer {
+            width: 100%;
+            max-width: 550px;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .sentilo-layer:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .layer-header-simple {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .layer-icon-simple {
+            font-size: var(--text-xl);
+        }
+
+        .layer-header-simple h5 {
+            margin: 0;
+            font-size: var(--text-base);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sentilo-apps {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+        }
+
+        .sentilo-apps .layer-header-simple h5 {
+            color: #1e40af;
+        }
+
+        .sentilo-platform {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            padding: var(--space-5);
+        }
+
+        .sentilo-platform .layer-header-simple h5 {
+            color: #92400e;
+            margin-bottom: var(--space-4);
+        }
+
+        .sentilo-platform .layer-header-simple {
+            flex-direction: column;
+        }
+
+        .sentilo-protocols {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+            padding: var(--space-5);
+        }
+
+        .sentilo-protocols .layer-header-simple h5 {
+            color: #065f46;
+            margin-bottom: var(--space-4);
+        }
+
+        .sentilo-protocols .layer-header-simple {
+            flex-direction: column;
+        }
+
+        .sentilo-sensors {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border: 2px solid #ec4899;
+        }
+
+        .sentilo-sensors .layer-header-simple h5 {
+            color: #9f1239;
+        }
+
+        .layer-components-simple {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+        }
+
+        .sentilo-component {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .component-icon-simple {
+            font-size: var(--text-2xl);
+        }
+
+        .component-name-simple {
+            font-weight: 700;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sentilo-connection {
+            display: flex;
+            justify-content: center;
+            height: 30px;
+        }
+
+        .connection-arrow-down {
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #f59e0b);
+            position: relative;
+        }
+
+        .connection-arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #f59e0b;
+        }
+
+        @media (max-width: 640px) {
+            .layer-components-simple {
+                grid-template-columns: 1fr;
+            }
+
+            .sentilo-diagram {
+                padding: var(--space-4);
+            }
+
+            .sentilo-layer {
+                padding: var(--space-3);
+            }
+        }
+
+        /* ============================================
+           EXERCISE FORM (Printable Worksheet)
+           ============================================ */
+        .exercise-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-layer {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .form-layer-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-4);
+            border-bottom: 2px solid;
+        }
+
+        .form-layer-icon {
+            font-size: var(--text-2xl);
+        }
+
+        .form-layer-header h5 {
+            margin: 0;
+            font-size: var(--text-lg);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-app .form-layer-header {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-bottom-color: #3b82f6;
+        }
+
+        .form-app .form-layer-header h5 {
+            color: #1e40af;
+        }
+
+        .form-network .form-layer-header {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-bottom-color: #10b981;
+        }
+
+        .form-network .form-layer-header h5 {
+            color: #065f46;
+        }
+
+        .form-perception .form-layer-header {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-bottom-color: #f59e0b;
+        }
+
+        .form-perception .form-layer-header h5 {
+            color: #92400e;
+        }
+
+        .form-fields {
+            padding: var(--space-5);
+        }
+
+        .form-field {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-field label {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            min-width: 120px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .form-line {
+            flex: 1;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            position: relative;
+        }
+
+        .form-line::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-line-with-hint {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            flex: 1;
+        }
+
+        .form-line-short {
+            width: 150px;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            position: relative;
+        }
+
+        .form-line-short::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-hint {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .form-field-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-field-checkbox label {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            min-width: 120px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .checkboxes {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .checkbox-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #64748b;
+            border-radius: var(--radius-sm);
+            margin-right: var(--space-1);
+        }
+
+        .form-section {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-section-title {
+            display: block;
+            font-weight: 700;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-3);
+        }
+
+        .form-numbered-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .form-item-numbered {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .item-number {
+            font-weight: 700;
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            min-width: 30px;
+        }
+
+        .form-line-medium {
+            width: 200px;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            position: relative;
+        }
+
+        .form-line-medium::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-qty {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        .form-line-tiny {
+            width: 60px;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            display: inline-block;
+            position: relative;
+        }
+
+        .form-line-tiny::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-connection {
+            display: flex;
+            justify-content: center;
+            height: 25px;
+        }
+
+        .connection-arrow-down-small {
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #10b981);
+            position: relative;
+        }
+
+        .connection-arrow-down-small::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #10b981;
+        }
+
+        @media print {
+            .exercise-form {
+                background: white;
+                box-shadow: none;
+            }
+
+            .form-layer {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .form-layer {
+                max-width: 100%;
+            }
+
+            .form-field {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-2);
+            }
+
+            .form-field label {
+                min-width: auto;
+            }
+
+            .form-field-checkbox {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-item-numbered {
+                flex-wrap: wrap;
+            }
+        }
+
         .learning-key p {
             margin: 0;
             font-size: var(--text-sm);
@@ -1167,92 +1700,194 @@
                 font-size: var(--text-3xl);
             }
         }
+
+        /* ============================================
+           SPEC CARD (Technical Specifications)
+           ============================================ */
+        .spec-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .spec-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-4);
+            text-align: center;
+        }
+
+        .spec-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .spec-icon {
+            font-size: var(--text-xl);
+            width: 40px;
+            text-align: center;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            min-width: 120px;
+        }
+
+        .spec-value {
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           SENSOR NETWORK CARD
+           ============================================ */
+        .sensor-network-card {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            margin: var(--space-8) 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .network-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-5);
+        }
+
+        .network-icon {
+            font-size: var(--text-3xl);
+        }
+
+        .network-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .network-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-5);
+        }
+
+        .network-category {
+            background: white;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .network-category:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-3);
+        }
+
+        .cat-icon {
+            font-size: var(--text-xl);
+        }
+
+        .cat-title {
+            font-weight: 700;
+            font-size: var(--text-base);
+            color: var(--text-primary);
+        }
+
+        .cat-items {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .network-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            padding-top: var(--space-4);
+            border-top: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .stat-current, .stat-goal {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: var(--text-3xl);
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-goal .stat-number {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .network-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .network-stats {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
-
-    <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
-
-            const progressFill = document.getElementById('progressFill');
-            const backToTop = document.getElementById('backToTop');
-
-            if (!progressFill || !backToTop) return;
-
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
-                }
-            });
-
-            // Initial call
-            updateProgress();
-        })();
-    </script>
-    <!-- Header -->
-    <header>
-        <div class="container">
+    <div class="container">
+        <header>
             <h1>Clase 3: Transformación del Entorno</h1>
-            <p class="subtitle">Empresas y Ciudades Inteligentes | IF0112 - Complementaria II (IoT) | UNAULA</p>
-        </div>
-    </header>
+            <p class="subtitle">Empresas y Ciudades Inteligentes | IoT en el Mundo Real</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
+        <nav>
             <ul>
                 <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#evaluacion">Evaluación</a></li>
                 <li><a href="#empresas">Empresas Inteligentes</a></li>
+                <li><a href="#terminos-clave">Términos Clave</a></li>
                 <li><a href="#casos">Casos de Estudio</a></li>
                 <li><a href="#smart-cities">Smart Cities</a></li>
                 <li><a href="#desafios">Desafíos</a></li>
@@ -1262,11 +1897,12 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Main Content -->
-    <main class="container">
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
 
         <!-- Objectives Section -->
         <section id="objetivos">
@@ -1311,96 +1947,14 @@
             </div>
         </section>
 
-        <!-- Evaluation System -->
-        <section id="evaluacion">
-            <h2>Sistema de Evaluación del Curso</h2>
-
-            <div class="evaluation-chart-container">
-                <!-- Donut Chart -->
-                <div class="donut-chart">
-                    <svg viewBox="0 0 100 100" aria-label="Gráfico de donut mostrando el sistema de evaluación">
-                        <!-- Background circle -->
-                        <circle class="donut-bg" cx="50" cy="50" r="40"></circle>
-                        <!-- Autoevaluación: 50% (0 to 180 degrees) -->
-                        <circle class="donut-segment" cx="50" cy="50" r="40"
-                            stroke="#3b82f6"
-                            stroke-dasharray="125.6 251.2"
-                            stroke-dashoffset="0">
-                            <title>Autoevaluación: 50%</title>
-                        </circle>
-                        <!-- CM: 25% (180 to 270 degrees) -->
-                        <circle class="donut-segment" cx="50" cy="50" r="40"
-                            stroke="#10b981"
-                            stroke-dasharray="62.8 251.2"
-                            stroke-dashoffset="-125.6">
-                            <title>CM (Cuestionarios Mensuales): 25%</title>
-                        </circle>
-                        <!-- FC: 25% (270 to 360 degrees) -->
-                        <circle class="donut-segment" cx="50" cy="50" r="40"
-                            stroke="#f59e0b"
-                            stroke-dasharray="62.8 251.2"
-                            stroke-dashoffset="-188.4">
-                            <title>FC (Fichas de Clase): 25%</title>
-                        </circle>
-                    </svg>
-                    <div class="donut-center">
-                        <div class="total-label">Evaluación</div>
-                        <div class="total-value">100%</div>
-                    </div>
-                </div>
-
-                <!-- Legend -->
-                <div class="chart-legend">
-                    <h3>Componentes de Evaluación</h3>
-
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #3b82f6;"></div>
-                        <div class="legend-content">
-                            <div class="legend-label">
-                                Autoevaluación
-                                <span class="legend-full-name">(Evaluación personal del aprendizaje)</span>
-                            </div>
-                        </div>
-                        <div class="legend-percentage">50%</div>
-                    </div>
-
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #10b981;"></div>
-                        <div class="legend-content">
-                            <div class="legend-label">
-                                CM
-                                <span class="legend-full-name">Cuestionarios Mensuales</span>
-                            </div>
-                        </div>
-                        <div class="legend-percentage">25%</div>
-                    </div>
-
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #f59e0b;"></div>
-                        <div class="legend-content">
-                            <div class="legend-label">
-                                FC
-                                <span class="legend-full-name">Fichas de Clase</span>
-                            </div>
-                        </div>
-                        <div class="legend-percentage">25%</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="highlight highlight-success">
-                <strong>Nota importante:</strong> La autoevaluación fomenta la metacognición y la responsabilidad sobre el propio aprendizaje. Los cuestionarios mensuales (CM) evalúan los contenidos teóricos, mientras que las fichas de clase (FC) refuerzan la participación y comprensión de cada sesión.
-            </div>
-        </section>
-
         <!-- Why Digital Transformation -->
         <section>
             <h2>¿Por qué la Transformación Digital?</h2>
 
             <h3>Datos del Mundo Real</h3>
             <ul>
-                <li>84% de empresas en transformación digital (Gartner 2025)</li>
-                <li>$2.3 trillones en IoT para 2026</li>
+                <li>75% de empresas han implementado o están implementando plataformas digitales (IDC 2024)</li>
+                <li>US$1.2 billones (trillions) en IoT para 2026</li>
             </ul>
 
             <h3>Ejemplos en Colombia</h3>
@@ -1544,6 +2098,96 @@
                     </tr>
                 </tbody>
             </table>
+        </section>
+
+        <!-- Key Terms Definitions -->
+        <section id="terminos-clave">
+            <h2>Términos Clave y Definiciones</h2>
+
+            <div class="highlight">
+                <strong>Nota:</strong> Los siguientes términos se utilizan frecuentemente en IoT y transformación digital. Comprenderlos es fundamental para seguir el contenido de esta clase.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Término/Acrónimo</th>
+                        <th>Definición</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IoT</strong></td>
+                        <td>Internet of Things (Internet de las Cosas): Red de objetos físicos con sensores, software y conectividad para intercambiar datos</td>
+                        <td>Termostato conectado que se controla desde el celular</td>
+                    </tr>
+                    <tr>
+                        <td><strong>KPI</strong></td>
+                        <td>Key Performance Indicator (Indicador Clave de Desempeño): Métrica cuantificable para evaluar el éxito de una actividad u objetivo</td>
+                        <td>Porcentaje de reducción de consumo energético</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ROI</strong></td>
+                        <td>Return on Investment (Retorno sobre Inversión): Razón entre ganancia obtenida e inversión realizada</td>
+                        <td>Invertir $100 y recuperar $150 en un año = 50% ROI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PLC</strong></td>
+                        <td>Programmable Logic Controller (Controlador Lógico Programable): Computadora industrial para automatizar procesos de manufactura</td>
+                        <td>Controla una línea de empaque detectando productos defectuosos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SCADA</strong></td>
+                        <td>Supervisory Control and Data Acquisition (Control Supervisorio y Adquisición de Datos): Sistema industrial para monitorear y controlar procesos a distancia</td>
+                        <td>Centro de control que monitorea 50 plantas remotamente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AMI</strong></td>
+                        <td>Advanced Metering Infrastructure (Infraestructura de Medición Avanzada): Sistema de medidores inteligentes con comunicación bidireccional</td>
+                        <td>Medidor eléctrico que envía consumo cada 15 minutos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PLC (comunicación)</strong></td>
+                        <td>Power Line Communication (Comunicación por Línea de Poder): Transmisión de datos por cables de energía eléctrica</td>
+                        <td>El medidor envía datos por el mismo cable que lleva electricidad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MQTT</strong></td>
+                        <td>Message Queuing Telemetry Transport: Protocolo ligero de mensajería para dispositivos con recursos limitados</td>
+                        <td>Un sensor de temperatura publica datos que múltiples subscriptores reciben</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TLS</strong></td>
+                        <td>Transport Layer Security: Protocolo criptográfico para comunicaciones seguras en redes</td>
+                        <td>Cuando ves "https://" en un sitio web, usa TLS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AES-256</strong></td>
+                        <td>Advanced Encryption Standard - 256 bits: Algoritmo de encriptación simétrica de grado militar</td>
+                        <td>Protege datos sensibles como números de tarjetas de crédito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>V2V / V2I</strong></td>
+                        <td>Vehicle-to-Vehicle / Vehicle-to-Infrastructure: Comunicación entre vehículos o entre vehículos e infraestructura</td>
+                        <td>Un auto alerta a otros autos sobre un choque adelante</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cobots</strong></td>
+                        <td>Collaborative Robots (Robots Colaborativos): Robots diseñados para trabajar de forma segura con humanos</td>
+                        <td>Robot que ayuda a ensamblar piezas junto a un operario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wearables</strong></td>
+                        <td>Dispositivos tecnológicos portátiles (vestibles): Electrónica que se lleva puesta en el cuerpo</td>
+                        <td>Smartwatch que monitorea ritmo cardíaco</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-box">
+                <strong>Error Común:</strong> Confundir <em>PLC (controlador)</em> con <em>PLC (comunicación)</em>. Son dos tecnologías diferentes: uno es hardware industrial, el otro es un protocolo de comunicación por líneas eléctricas.
+            </div>
         </section>
 
         <!-- IoT Architecture -->
@@ -2046,15 +2690,42 @@ THEN: Mtto en 48h</code></pre>
             </table>
 
             <h4>Especificaciones Técnicas del Medidor</h4>
-            <pre>
-Medidor: Landis+Gyr E450
-├── Comunicación: Zigbee (home) + Cellular (backhaul)
-├── Frecuencia lectura: 15 min
-├── Memoria: 90 días datos
-├── Precisión: ±1%
-├── Relés: Desconexión remota
-└── Seguridad: AES-256 + TLS 1.3
-            </pre>
+
+            <div class="spec-card">
+                <div class="spec-title">Medidor: Landis+Gyr E450</div>
+                <div class="spec-items">
+                    <div class="spec-item">
+                        <span class="spec-icon">📡</span>
+                        <span class="spec-label">Comunicación:</span>
+                        <span class="spec-value">PLC G3 (Power Line Communication) + RF (módulos opcionales)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">⏱️</span>
+                        <span class="spec-label">Frecuencia lectura:</span>
+                        <span class="spec-value">15 min</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">💾</span>
+                        <span class="spec-label">Memoria:</span>
+                        <span class="spec-value">90 días datos</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">🎯</span>
+                        <span class="spec-label">Precisión:</span>
+                        <span class="spec-value">±1%</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">⚡</span>
+                        <span class="spec-label">Relés:</span>
+                        <span class="spec-value">Desconexión remota</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">🔒</span>
+                        <span class="spec-label">Seguridad:</span>
+                        <span class="spec-value">AES-256 + TLS 1.3</span>
+                    </div>
+                </div>
+            </div>
 
             <h4>App "EPM Móvil" - Features</h4>
             <table>
@@ -2510,18 +3181,67 @@ Medidor: Landis+Gyr E450
             </table>
 
             <h4>SenseOps: Red de Sensores Masiva</h4>
-            <pre>
-Categorías de sensores:
-├── Ambiente: PM2.5, PM10, O3, NO2, SO2, CO
-├── Clima: Temperatura, humedad, lluvia, viento
-├── Tráfico: Flujo vehicular, velocidad, ocupación
-├── Agua: Nivel canales, calidad, presión
-├── Energía: Consumo por edificio, smart meter
-└── Seguridad: Cámaras, botones pánico, disparos
 
-Total: 110,000 sensores (2024)
-Meta: 200,000 sensores (2030)
-            </pre>
+            <div class="sensor-network-card">
+                <div class="network-header">
+                    <span class="network-icon">🌐</span>
+                    <span class="network-title">Categorías de sensores</span>
+                </div>
+                <div class="network-categories">
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🌫️</span>
+                            <span class="cat-title">Ambiente</span>
+                        </div>
+                        <div class="cat-items">PM2.5, PM10, O3, NO2, SO2, CO</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🌡️</span>
+                            <span class="cat-title">Clima</span>
+                        </div>
+                        <div class="cat-items">Temperatura, humedad, lluvia, viento</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🚗</span>
+                            <span class="cat-title">Tráfico</span>
+                        </div>
+                        <div class="cat-items">Flujo vehicular, velocidad, ocupación</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">💧</span>
+                            <span class="cat-title">Agua</span>
+                        </div>
+                        <div class="cat-items">Nivel canales, calidad, presión</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">⚡</span>
+                            <span class="cat-title">Energía</span>
+                        </div>
+                        <div class="cat-items">Consumo por edificio, smart meter</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🔐</span>
+                            <span class="cat-title">Seguridad</span>
+                        </div>
+                        <div class="cat-items">Cámaras, botones pánico, disparos</div>
+                    </div>
+                </div>
+                <div class="network-stats">
+                    <div class="stat-current">
+                        <span class="stat-number">110,000</span>
+                        <span class="stat-label">sensores (2024)</span>
+                    </div>
+                    <div class="stat-goal">
+                        <span class="stat-number">200,000</span>
+                        <span class="stat-label">meta (2030)</span>
+                    </div>
+                </div>
+            </div>
 
             <h4>Datos Abiertos (data.gov.sg)</h4>
             <ul>
@@ -2553,23 +3273,83 @@ Meta: 200,000 sensores (2030)
             <h3 style="margin-top: 3rem;">Caso: Barcelona 🇪🇸 - Smart City Europe</h3>
 
             <h4>Plataforma Sentilo (Open Source)</h4>
-            <pre>
-┌─────────────────────────────────────────────────┐
-│              APLICACIONES (Apps)                 │
-├─────────────────────────────────────────────────┤
-│              Sentilo (Platform)                  │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
-│  │  API     │  │  Pub/Sub │  │ Almacenar │     │
-│  └──────────┘  └──────────┘  └──────────┘     │
-├─────────────────────────────────────────────────┤
-│              PROTOCOL ADAPTERS                   │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
-│  │  HTTP    │  │  MQTT    │  │  CoAP    │     │
-│  └──────────┘  └──────────┘  └──────────┘     │
-├─────────────────────────────────────────────────┤
-│              SENSORES Y ACTUADORES               │
-└─────────────────────────────────────────────────┘
-            </pre>
+
+            <div class="sentilo-diagram">
+                <!-- Applications Layer -->
+                <div class="sentilo-layer sentilo-apps">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">📱</span>
+                        <h5>APLICACIONES (Apps)</h5>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="sentilo-connection">
+                    <div class="connection-arrow-down"></div>
+                </div>
+
+                <!-- Platform Layer -->
+                <div class="sentilo-layer sentilo-platform">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">⚙️</span>
+                        <h5>Sentilo (Platform)</h5>
+                    </div>
+                    <div class="layer-components-simple">
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">🔌</div>
+                            <div class="component-name-simple">API</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">📡</div>
+                            <div class="component-name-simple">Pub/Sub</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">💾</div>
+                            <div class="component-name-simple">Almacenar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="sentilo-connection">
+                    <div class="connection-arrow-down"></div>
+                </div>
+
+                <!-- Protocol Adapters Layer -->
+                <div class="sentilo-layer sentilo-protocols">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">🔀</span>
+                        <h5>PROTOCOL ADAPTERS</h5>
+                    </div>
+                    <div class="layer-components-simple">
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">🌐</div>
+                            <div class="component-name-simple">HTTP</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">📨</div>
+                            <div class="component-name-simple">MQTT</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">📡</div>
+                            <div class="component-name-simple">CoAP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="sentilo-connection">
+                    <div class="connection-arrow-down"></div>
+                </div>
+
+                <!-- Sensors Layer -->
+                <div class="sentilo-layer sentilo-sensors">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">🔌</span>
+                        <h5>SENSORES Y ACTUADORES</h5>
+                    </div>
+                </div>
+            </div>
 
             <h4>Proyectos Destacados</h4>
             <table>
@@ -2935,36 +3715,123 @@ Meta: 200,000 sensores (2030)
             </div>
 
             <h4>Paso 3: Diseño de Arquitectura (20 min)</h4>
-            <pre>
-┌─────────────────────────────────────────────────────────┐
-│                  CAPA DE APLICACIÓN                     │
-│  - Dashboard: _____________________________________      │
-│  - App móvil: ______________________________________     │
-│  - Alertas: ________________________________________     │
-└─────────────────────────────────────────────────────────┘
-                              ▲
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────┐
-│                     CAPA DE RED                         │
-│  - Protocolo: _____________ (WiFi/LoRa/4G/NB-IoT)      │
-│  - Gateway: ________________________________________    │
-│  - Edge computing: [ ] Sí [ ] No                       │
-└─────────────────────────────────────────────────────────┘
-                              ▲
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────┐
-│                   CAPA DE PERCEPCIÓN                    │
-│  Sensores:                                             │
-│    1. _______________ (cantidad: _____)                │
-│    2. _______________ (cantidad: _____)                │
-│    3. _______________ (cantidad: _____)                │
-│  Actuadores:                                           │
-│    1. _______________ (cantidad: _____)                │
-│    2. _______________ (cantidad: _____)                │
-└─────────────────────────────────────────────────────────┘
-            </pre>
+
+            <div class="exercise-form">
+                <!-- Application Layer -->
+                <div class="form-layer form-app">
+                    <div class="form-layer-header">
+                        <span class="form-layer-icon">📱</span>
+                        <h5>CAPA DE APLICACIÓN</h5>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-field">
+                            <label>Dashboard:</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>App móvil:</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Alertas:</label>
+                            <div class="form-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="form-connection">
+                    <div class="connection-arrow-down-small"></div>
+                </div>
+
+                <!-- Network Layer -->
+                <div class="form-layer form-network">
+                    <div class="form-layer-header">
+                        <span class="form-layer-icon">📡</span>
+                        <h5>CAPA DE RED</h5>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-field">
+                            <label>Protocolo:</label>
+                            <div class="form-line-with-hint">
+                                <div class="form-line-short"></div>
+                                <span class="form-hint">(WiFi/LoRa/4G/NB-IoT)</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label>Gateway:</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-field-checkbox">
+                            <label>Edge computing:</label>
+                            <div class="checkboxes">
+                                <span class="checkbox-box"></span> Sí
+                                <span class="checkbox-box"></span> No
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="form-connection">
+                    <div class="connection-arrow-down-small"></div>
+                </div>
+
+                <!-- Perception Layer -->
+                <div class="form-layer form-perception">
+                    <div class="form-layer-header">
+                        <span class="form-layer-icon">🔌</span>
+                        <h5>CAPA DE PERCEPCIÓN</h5>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-section">
+                            <label class="form-section-title">Sensores:</label>
+                            <div class="form-numbered-list">
+                                <div class="form-item-numbered">
+                                    <span class="item-number">1.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                                <div class="form-item-numbered">
+                                    <span class="item-number">2.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                                <div class="form-item-numbered">
+                                    <span class="item-number">3.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <label class="form-section-title">Actuadores:</label>
+                            <div class="form-numbered-list">
+                                <div class="form-item-numbered">
+                                    <span class="item-number">1.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                                <div class="form-item-numbered">
+                                    <span class="item-number">2.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <h4>Paso 4: Especificaciones Técnicas (15 min)</h4>
             <p><strong>Sensores:</strong></p>
@@ -3437,18 +4304,6 @@ Batería solar (6 meses)                          API para integraciones + Alert
                 <li><strong>World Economic Forum C4IR:</strong> <a href="https://www.centreforthefourthindustrialrevolution.org/" target="_blank">https://www.centreforthefourthindustrialrevolution.org/</a></li>
             </ul>
 
-            <h3>Cómo Citar</h3>
-            <pre>
-@manual{if0112-clase03,
-  title        = {Clase 3: Transformación del Entorno - Empresas y Ciudades Inteligentes},
-  author       = {UNAULA},
-  organization = {Universidad Autónoma de Colombia},
-  year         = {2026},
-  month        = {Febrero},
-  course       = {IF0112 - Complementaria II (IoT)},
-  unit         = {Unidad 1: ¿Qué es IoT?}
-}
-            </pre>
         </section>
 
         <!-- Next Class -->
@@ -3471,14 +4326,76 @@ Batería solar (6 meses)                          API para integraciones + Alert
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
-            <p>Universidad Autónoma Latinoamericana (UNAULA) | Ingeniería Informática | 2026-I</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;">
-                Clase 3: Transformación del Entorno - Empresas y Ciudades Inteligentes
-            </p>
-        </div>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+        <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 3: Transformación del Entorno | Última actualización: Febrero 2026</p>
     </footer>
+    </div>
 
+    <script>
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    </script>
 </body>
 </html>

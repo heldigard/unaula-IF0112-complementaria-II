@@ -385,23 +385,28 @@
            CARDS - Enhanced
            ============================================ */
         .card {
-            background: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius-lg);
             padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
         }
 
         .card h4 {
-            color: var(--color-primary);
+            color: var(--color-primary-light);
             margin-bottom: var(--space-2);
             font-size: var(--text-lg);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
         }
 
         .card-blue { background: #eff6ff; border-color: #bfdbfe; }
@@ -415,25 +420,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -668,9 +696,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -726,36 +760,21 @@
     <div class="container">
         <header>
             <h1>Clase 15: Estándares IoT</h1>
-            <p>IF0112 - Complementaria II (IoT) · Unidad 2: La Piedra Angular de IoT</p>
-            <span class="pill">Objetivo general: comprender estándares y certificaciones clave en IoT</span>
-            <div class="grid">
-                <div class="card">
-                    <h3>Objetivos de la clase</h3>
-                    <ul>
-                        <li>Reconocer estándares IEEE relevantes (802.15.4, 802.11).</li>
-                        <li>Comparar protocolos IoT de aplicación (MQTT, CoAP, LwM2M).</li>
-                        <li>Identificar estándares de seguridad (OWASP IoT Top 10).</li>
-                        <li>Analizar certificaciones y normativas colombianas.</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Prerrequisitos</h3>
-                    <ul>
-                        <li>Redes IoT y protocolos básicos.</li>
-                        <li>Conceptos de seguridad en sistemas conectados.</li>
-                        <li>Arquitecturas IoT.</li>
-                    </ul>
-                </div>
-            </div>
+            <p class="subtitle">IF0112 - Complementaria II (IoT) | IEEE, OASIS, IETF y Certificaciones</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
         </header>
 
         <nav>
             <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#contexto">Contexto</a></li>
                 <li><a href="#ieee">IEEE</a></li>
                 <li><a href="#aplicacion">Protocolos</a></li>
                 <li><a href="#seguridad">Seguridad</a></li>
                 <li><a href="#certificaciones">Certificaciones</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
                 <li><a href="#colombia">Colombia</a></li>
                 <li><a href="#practica">Practica / Lab</a></li>
                 <li><a href="#ejercicios">Ejercicios</a></li>
@@ -771,6 +790,59 @@
     <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
     <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Reconocer</strong> estándares IEEE relevantes (802.15.4, 802.11)</li>
+                            <li><strong>Comparar</strong> protocolos IoT de aplicación (MQTT, CoAP, LwM2M)</li>
+                            <li><strong>Identificar</strong> estándares de seguridad (OWASP IoT Top 10)</li>
+                            <li><strong>Analizar</strong> certificaciones y normativas colombianas</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Contexto y organizaciones</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Estándares IEEE y protocolos</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Seguridad y certificaciones</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Normativas colombianas y práctica</td>
+                                    <td>35 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué estándar debo aplicar en mi proyecto IoT?</p>
+                    </div>
+                </div>
+            </section>
+
             <section id="contexto">
                 <h2>Contexto y motivacion</h2>
 
@@ -858,10 +930,10 @@
                         </tr>
                         <tr>
                             <td>802.11az</td>
-                            <td>2024</td>
+                            <td>2023</td>
                             <td>30 Gbps</td>
                             <td>2.4/5/6 GHz</td>
-                            <td>Future IoT</td>
+                            <td>Next-Gen Positioning</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1000,6 +1072,84 @@
                     <li>Cloud IoT Core (registro de dispositivos).</li>
                     <li>Device SDK para C/C++ y Python.</li>
                 </ul>
+            </section>
+
+            <section id="terminos-clave">
+                <h2>Términos Clave de Estándares IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Organización/Acrónimo</th>
+                            <th>Nombre Completo</th>
+                            <th>Propósito en IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>IEEE</strong></td>
+                            <td>Institute of Electrical and Electronics Engineers</td>
+                            <td>Desarrolla estándares de conectividad (802.11 WiFi, 802.15.4 WPAN)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OASIS</strong></td>
+                            <td>Organization for the Advancement of Structured Information Standards</td>
+                            <td>Mantiene especificación MQTT v5.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IETF</strong></td>
+                            <td>Internet Engineering Task Force</td>
+                            <td>Desarrolla estándares de internet (CoAP RFC 7252, UDP)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OMA</strong></td>
+                            <td>Open Mobile Alliance</td>
+                            <td>Especifica LwM2M para gestión de dispositivos IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IPSO Alliance</strong></td>
+                            <td>IP for Smart Objects Alliance</td>
+                            <td>Define objetos/estructuras de datos para LwM2M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OWASP</strong></td>
+                            <td>Open Web Application Security Project</td>
+                            <td>Mantiene OWASP IoT Top 10 (vulnerabilidades comunes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ICONTEC</strong></td>
+                            <td>Instituto Colombiano de Normas Técnicas y Certificación</td>
+                            <td>Emite certificaciones y normas técnicas en Colombia (NTC)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OTA</strong></td>
+                            <td>Over-The-Air Updates</td>
+                            <td>Actualizaciones de firmware remoto sin conexión física</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EMC</strong></td>
+                            <td>Electromagnetic Compatibility</td>
+                            <td>Certificación de compatibilidad electromagnética (CE Europa)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RoHS</strong></td>
+                            <td>Restriction of Hazardous Substances</td>
+                            <td>Directiva europea restringiendo sustancias peligrosas en electrónica</td>
+                        </tr>
+                        <tr>
+                            <td><strong>REACH</strong></td>
+                            <td>Registration, Evaluation, Authorisation and Restriction of Chemicals</td>
+                            <td>Reglamento europeo de sustancias químicas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NTC</strong></td>
+                            <td>Norma Técnica Colombiana</td>
+                            <td>Estándar técnico emitido por ICONTEC</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir IEEE (desarrolla estándares de hardware/conectividad) con IETF (desarrolla estándares de software/protocolos de internet). Ejemplo: IEEE define el WiFi físico (802.11), IETF define protocolos como HTTP/CoAP que corren sobre él.
+                </div>
             </section>
 
             <section id="colombia">

@@ -385,23 +385,28 @@
            CARDS - Enhanced
            ============================================ */
         .card {
-            background: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius-lg);
             padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
         }
 
         .card h4 {
-            color: var(--color-primary);
+            color: var(--color-primary-light);
             margin-bottom: var(--space-2);
             font-size: var(--text-lg);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
         }
 
         .card-blue { background: #eff6ff; border-color: #bfdbfe; }
@@ -415,25 +420,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -668,9 +696,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -726,31 +760,15 @@
     <div class="container">
         <header>
             <h1>Clase 14: Marco Legal (Ley 1581)</h1>
-            <p>IF0112 - Complementaria II (IoT) · Unidad 2: La Piedra Angular de IoT</p>
-            <span class="pill">Objetivo general: cumplir obligaciones legales en proyectos IoT con datos personales</span>
-            <div class="grid">
-                <div class="card">
-                    <h3>Objetivos de la clase</h3>
-                    <ul>
-                        <li>Identificar datos personales en IoT y riesgos asociados.</li>
-                        <li>Aplicar obligaciones de la Ley 1581 (Colombia).</li>
-                        <li>Implementar consentimientos y derechos ARCO.</li>
-                        <li>Diseñar controles de seguridad y respuesta a incidentes.</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Prerrequisitos</h3>
-                    <ul>
-                        <li>Conocimiento basico de arquitecturas IoT.</li>
-                        <li>Fundamentos de seguridad y privacidad.</li>
-                        <li>Conceptos de APIs y almacenamiento de datos.</li>
-                    </ul>
-                </div>
-            </div>
+            <p class="subtitle">IF0112 - Complementaria II (IoT) | Protección de Datos Personales</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
         </header>
 
         <nav>
             <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#contexto">Contexto</a></li>
                 <li><a href="#datos">Datos personales</a></li>
                 <li><a href="#obligaciones">Obligaciones</a></li>
@@ -761,6 +779,7 @@
                 <li><a href="#checklist">Checklist</a></li>
                 <li><a href="#practica">Practica / Lab</a></li>
                 <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#actualizacion-2025">Actualización 2025 ⚠️</a></li>
                 <li><a href="#referencias">Referencias</a></li>
             </ul>
         </nav>
@@ -773,6 +792,59 @@
     <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
     <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Identificar</strong> datos personales en IoT y riesgos asociados</li>
+                            <li><strong>Aplicar</strong> obligaciones de la Ley 1581 (Colombia)</li>
+                            <li><strong>Implementar</strong> consentimientos y derechos ARCO</li>
+                            <li><strong>Diseñar</strong> controles de seguridad y respuesta a incidentes</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Contexto legal y datos personales</td>
+                                    <td>20 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Obligaciones y políticas de privacidad</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Derechos ARCO y seguridad</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Sanciones, checklist y práctica</td>
+                                    <td>35 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cumple mi proyecto IoT con la Ley 1581?</p>
+                    </div>
+                </div>
+            </section>
+
             <section id="contexto">
                 <h2>Resumen ejecutivo para desarrolladores</h2>
 
@@ -1018,10 +1090,30 @@ escribiendo a privacidad@ejemplo.com
                 </ol>
             </section>
 
+            <section id="actualizacion-2025">
+                <h2>Actualización importante (2025)</h2>
+                <div class="note" style="border-left: 4px solid #f59e0b; background: #fffbeb; padding: 1rem; margin: 1rem 0;">
+                    <h3 style="color: #92400e; margin-top: 0;">Proyecto de Reforma Ley 1581 (Agosto 2025)</h3>
+                    <p><strong>Nota importante:</strong> En agosto de 2025, se presentó un proyecto de ley para modernizar y actualizar la Ley 1581 de 2012. Esta reforma propuesta incluye:</p>
+                    <ul>
+                        <li><strong>Adaptación a estándares internacionales:</strong> Alineación con el GDPR europeo y CCPA californiano.</li>
+                        <li><strong>Mayor autonomía del titular:</strong> Fortalecimiento de los derechos ARCO y adición de nuevos derechos (portabilidad, oposición automatizada).</li>
+                        <li><strong>Notificación de incidentes:</strong> Plazos más estrictos (72 horas para incidentes graves, reduciendo los 15 días actuales).</li>
+                        <li><strong>Principios de privacidad por diseño:</strong> Obligación de incorporar protección de datos desde el diseño de sistemas IoT.</li>
+                        <li><strong>Evaluaciones de impacto:</strong> Requerimiento de DPIA (Data Protection Impact Assessment) para proyectos de alto riesgo.</li>
+                        <li><strong>Sanciones actualizadas:</strong> Montos proporcionales a la gravedad y facturación de las empresas.</li>
+                    </ul>
+                    <p><strong>Estado:</strong> Proyecto en trámite legislativo (pendiente de aprobación al 2026-I). Mientras se aprueba, la Ley 1581 de 2012 sigue vigente en su versión original.</p>
+                    <p><strong>Recomendación:</strong> Diseñar sus proyectos IoT cumpliendo los estándares más altos (GDPR + reforma propuesta) para estar preparados cuando entre en vigencia.</p>
+                    <p style="margin-bottom: 0; font-size: 0.9rem; color: #6b7280;"><em>Fuente: Congreso de la República de Colombia, Proyecto de Ley número 318 de 2025 Senado / 397 de 2025 Cámara.</em></p>
+                </div>
+            </section>
+
             <section id="referencias">
                 <h2>Referencias</h2>
                 <ul>
                     <li>Material complementario interno: ley-1581.md (clase 14).</li>
+                    <li>Congreso de la República - Proyecto de Reforma Ley 1581 (2025).</li>
                 </ul>
 
                 <div class="hardware-notice">

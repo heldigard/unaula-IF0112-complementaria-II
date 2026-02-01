@@ -414,25 +414,48 @@
         .flow-diagram {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-2);
+            gap: var(--space-3);
             align-items: center;
-            margin: var(--space-6) 0;
+            margin: var(--space-8) 0;
+            justify-content: center;
         }
 
         .flow-step {
-            background: #dbeafe;
-            padding: var(--space-3) var(--space-4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
             border-radius: var(--radius-lg);
             text-align: center;
-            flex: 1;
-            min-width: 140px;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
             font-size: var(--text-sm);
-            box-shadow: var(--shadow-sm);
         }
 
         .flow-arrow {
-            font-size: var(--text-2xl);
-            color: var(--color-primary-light);
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
         }
 
         /* ============================================
@@ -667,9 +690,15 @@
                 font-size: var(--text-2xl);
             }
             .flow-step {
-                min-width: 100px;
-                font-size: var(--text-xs);
-                padding: var(--space-2) var(--space-3);
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
             }
         }
 
@@ -740,6 +769,7 @@
                 <li><a href="#drivers">Drivers</a></li>
                 <li><a href="#impacto">Impacto</a></li>
                 <li><a href="#casos">Casos de Estudio</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
                 <li><a href="#ejercicios">Ejercicios</a></li>
                 <li><a href="#referencias">Referencias</a></li>
             </ul>
@@ -834,8 +864,20 @@
                 <h2>¿Qué es Internet de las Cosas?</h2>
 
                 <div class="intro-box">
-                    <strong>IoT</strong> es la interconexión de objetos físicos cotidianos con Internet, permitiéndoles enviar y recibir datos.
+                    <strong>IoT</strong> (<strong>Internet of Things</strong> o Internet de las Cosas) es la interconexión de objetos físicos cotidianos con Internet, permitiéndoles enviar y recibir datos.
                 </div>
+
+                <p><strong>Definición:</strong> IoT es una red de objetos físicos ("cosas") incrustados con sensores, software y conectividad que les permite recolectar e intercambiar datos sin intervención humana directa.</p>
+
+                <p><strong>Por qué importa:</strong> IoT permite automatizar procesos, optimizar recursos y crear nuevos modelos de negocio. Desde termostatos que aprenden tus preferencias hasta fábricas que se mantienen solas, IoT está transformando cómo vivimos y trabajamos.</p>
+
+                <p><strong>Ejemplo cotidiano:</strong> Un smartwatch que mide tu ritmo cardíaco, cuenta pasos y te notifica si tienes una frecuencia cardíaca irregular, todo sin que tengas que hacer nada manualmente.</p>
+
+                <ul>
+                    <li><strong>Error común:</strong> Creer que IoT es solo "cosas conectadas a WiFi". IoT incluye dispositivos que usan cellular (NB-IoT), radio de largo alcance (LoRa), Bluetooth, cables Ethernet, y más.</li>
+                </ul>
+
+                <p><strong>Chequeo rápido:</strong> ¿Podrías identificar 3 dispositivos IoT en tu hogar actual? (Respuesta típica: smart TV, Alexa/Google Home, smartwatch, cámara de seguridad)</p>
 
                 <div class="grid-2">
                     <div class="card card-blue">
@@ -876,6 +918,15 @@
                 <h2>Componentes de un Sistema IoT</h2>
 
                 <h3>¿Qué hace posible esta conexión?</h3>
+
+                <p><strong>Definiciones clave:</strong></p>
+                <ul>
+                    <li><strong>Sensor:</strong> Dispositivo que detecta y mide cambios en el entorno físico (temperatura, luz, movimiento, humedad, etc.) y los convierte en señales eléctricas o digitales que pueden ser procesadas.</li>
+                    <li><strong>Actuador:</strong> Dispositivo que convierte señales eléctricas o digitales en acción física (encender un motor, abrir una válvula, mover un brazo robótico, etc.). Es el "músculo" del sistema IoT.</li>
+                </ul>
+
+                <p><strong>Por qué importa esta distinción:</strong> Los sensores son los "ojos y oídos" del sistema (recogen información), mientras que los actuadores son las "manos" (ejecutan acciones). Sin ambos, IoT solo sería monitorización sin capacidad de actuar.</p>
+
                 <table>
                     <thead>
                         <tr>
@@ -908,24 +959,26 @@
                     </tbody>
                 </table>
 
+                <p><strong>Chequeo rápido:</strong> En un sistema de riego automático, ¿qué sería el sensor y qué sería el actuador? (Respuesta: Sensor de humedad en suelo = sensor; Válvula electromecánica que abre el agua = actuador)</p>
+
                 <h3>Ejemplo Real: Refrigerador Inteligente 🧊</h3>
                 <div class="example-box">
                     <h4>Flujo de funcionamiento paso a paso:</h4>
 
                     <div class="flow-diagram">
-                        <div class="flow-step" style="background: #dbeafe;">📡<br><strong>Sensor</strong><br><small>Detecta falta de leche</small></div>
+                        <div class="flow-step">📡<strong>Sensor</strong><small>Detecta falta de leche</small></div>
                         <div class="flow-arrow">→</div>
-                        <div class="flow-step" style="background: #fef3c7;">📶<br><strong>Envío</strong><br><small>Datos a la nube</small></div>
+                        <div class="flow-step">📶<strong>Envío</strong><small>Datos a la nube</small></div>
                         <div class="flow-arrow">→</div>
-                        <div class="flow-step" style="background: #fce7f3;">🧠<br><strong>Análisis</strong><br><small>IA procesa</small></div>
+                        <div class="flow-step">🧠<strong>Análisis</strong><small>IA procesa</small></div>
                         <div class="flow-arrow">→</div>
-                        <div class="flow-step" style="background: #d1fae5;">📱<br><strong>Acción</strong><br><small>Notifica usuario</small></div>
+                        <div class="flow-step">📱<strong>Acción</strong><small>Notifica usuario</small></div>
                     </div>
 
                     <div class="flow-diagram">
-                        <div class="flow-step" style="background: #fef3c7;">🛒 <strong>Agrega</strong><br><small>Lista de compras</small></div>
+                        <div class="flow-step">🛒<strong>Agrega</strong><small>Lista de compras</small></div>
                         <div class="flow-arrow">→</div>
-                        <div class="flow-step" style="background: #fecaca;">🚚 <strong>Ordena</strong><br><small>Automáticamente</small></div>
+                        <div class="flow-step">🚚<strong>Ordena</strong><small>Automáticamente</small></div>
                     </div>
                 </div>
 
@@ -987,7 +1040,7 @@
                         <p>4 nodos universitarios → Nace Internet con packet switching</p>
                     </div>
                     <div class="timeline-item">
-                        <h4>1991 - ERA 2: WWW (World Wide Web)</h4>
+                        <h4>1991 - ERA 2: WWW (<abbr title="World Wide Web: Sistema de documentos de hipertexto interconectados vía Internet">WWW</abbr>)</h4>
                         <p>1M+ páginas web → HTML y navegadores hacen Internet accesible</p>
                     </div>
                     <div class="timeline-item">
@@ -996,7 +1049,7 @@
                     </div>
                     <div class="timeline-item">
                         <h4>2015+ - ERA 4: IoT (Internet de las Cosas)</h4>
-                        <p>75,000M+ dispositivos → Todo inteligente conectado</p>
+                        <p>~21B dispositivos conectados (proyecciones hasta 75B) → Todo inteligente conectado</p>
                     </div>
                 </div>
 
@@ -1050,8 +1103,12 @@
                 <p><strong>Timeline:</strong> 1969 (4 universidades) → 1971 (email) → 1973 (TCP/IP) → 1983 (DNS)</p>
 
                 <div class="intro-box">
-                    <strong>Packet Switching:</strong> Mensaje → Paquetes → Rutas independientes → Reensamblaje
+                    <strong>Packet Switching (Conmutación de Paquetes):</strong> Método de transmisión de datos donde un mensaje se divide en pequeños paquetes que viajan independientemente por diferentes rutas y se reensamblan en el destino.
                 </div>
+
+                <p><strong>Por qué fue revolucionario:</strong> Antes de packet switching, las comunicaciones usaban "circuitos dedicados" (como una llamada telefónica tradicional que ocupa toda la línea). Packet switching permitió que múltiples comunicaciones compartieran la misma red de manera eficiente y resiliente.</p>
+
+                <p><strong>Analogía:</strong> Imagina enviar un libro por correo. En lugar de enviar el libro completo en un camión exclusivo (circuito dedicado), lo divides en páginas (paquetes) y cada página viaja en diferentes camiones por diferentes rutas. Al llegar, se reensamblan las páginas en orden. Si un camión se avería, las otras páginas aún llegan por otras rutas.</p>
 
                 <table>
                     <thead>
@@ -1350,7 +1407,7 @@
                         </tr>
                         <tr>
                             <td><strong>☁️ Cloud</strong></td>
-                            <td>AWS/Azure/GCP IoT</td>
+                            <td><abbr title="Amazon Web Services: Plataforma de computación en la nube de Amazon">AWS</abbr>/<abbr title="Azure: Plataforma de computación en la nube de Microsoft">Azure</abbr>/<abbr title="Google Cloud Platform: Plataforma de computación en la nube de Google">GCP</abbr> IoT</td>
                             <td>Enterprise accesible</td>
                         </tr>
                         <tr>
@@ -1358,13 +1415,10 @@
                             <td>AlexNet → Edge LLMs</td>
                             <td>Ve, oye, predice, decide</td>
                         </tr>
-                        <tr>
-                            <td><strong>🔋 Energía</strong></td>
-                            <td>Baterías +300%</td>
-                            <td>Autónomos 10 años</td>
-                        </tr>
                     </tbody>
                 </table>
+
+                <p><strong>Nota sobre Edge LLMs:</strong> "Edge" se refiere al procesamiento de datos en el dispositivo mismo (en el "borde" de la red) en lugar de enviar todo a la nube. <strong>LLMs</strong> (Large Language Models) son modelos de lenguaje como GPT. "Edge LLMs" significa ejecutar estos modelos directamente en dispositivos IoT, permitiendo respuestas más rápidas y sin necesidad de conexión constante a Internet.</p>
 
                 <p><strong>IA en dispositivos:</strong> 👁️ Ver cámaras | 👂 Oír voz | 🔮 Predecir fallas | ⚡ Decidir autónomo</p>
 
@@ -1571,9 +1625,13 @@
                     </tbody>
                 </table>
 
-                <p class="intro-box"><strong>CAGR: 16%</strong> | 🚀 <strong>4x en 10 años</strong></p>
+                <p class="intro-box"><strong><abbr title="Compound Annual Growth Rate (Tasa de Crecimiento Anual Compuesta): Mide el crecimiento promedio anual de una inversión durante un período específico">CAGR</abbr>: 16%</strong> | 🚀 <strong>4x en 10 años</strong></p>
+
+                <p><strong>Nota sobre proyecciones:</strong> Las estadísticas de IoT varían según la fuente. El rango de dispositivos para 2025 va desde ~19-21B (datos más conservadores de IoT Analytics y Statista) hasta 75B (proyecciones optimistas de IHS Markit). Ambas figuras representan tendencias legítimas del mercado.</p>
 
                 <h3>ROI por Sector</h3>
+
+                <p><strong><abbr title="Return on Investment (Retorno sobre Inversión): Métrica financiera que mide la rentabilidad de una inversión comparando la ganancia obtenida con el costo inicial">ROI</abbr> (Return on Investment):</strong> Métrica que cuantifica qué tan rentable es una inversión de IoT. Se calcula como (Ganancia - Inversión) / Inversión × 100%.</p>
                 <table>
                     <thead>
                         <tr>
@@ -2213,6 +2271,70 @@
                         </tr>
                     </tbody>
                 </table>
+            </section>
+
+            <!-- Términos Clave -->
+            <section id="terminos-clave">
+                <h2>Términos Clave de Introducción a IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término/Acrónimo</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TCP/IP</strong></td>
+                            <td>Transmission Control Protocol/Internet Protocol - Suite de protocolos de comunicación para Internet</td>
+                            <td>Permite que computadoras se comuniquen a través de redes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DNS</strong></td>
+                            <td>Domain Name System - Sistema que traduce nombres de dominio a direcciones IP</td>
+                            <td>Convierte "www.google.com" a "142.250.185.238"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ISP</strong></td>
+                            <td>Internet Service Provider - Proveedor de servicios de Internet</td>
+                            <td>Claro, Movistar, Tigo, EPM</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LoRa</strong></td>
+                            <td>Long Range - Tecnología de comunicación inalámbrica de largo alcance y bajo consumo</td>
+                            <td>Sensores IoT que transmiten hasta 15 km en zonas rurales</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NB-IoT</strong></td>
+                            <td>Narrowband IoT - Estándar de comunicación celular de bajo ancho de banda para IoT</td>
+                            <td>Contadores inteligentes que se conectan directamente a torres celulares</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2M</strong></td>
+                            <td>Machine-to-Machine - Comunicación directa entre dispositivos sin intervención humana</td>
+                            <td>Un sensor que envía datos automáticamente a un servidor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gateway</strong></td>
+                            <td>Puerta de enlace - Dispositivo que conecta diferentes redes y protocolos</td>
+                            <td>Router WiFi que conecta sensores Zigbee con Internet</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prosumidor</strong></td>
+                            <td>Productor + Consumidor - Usuario que crea y consume contenido simultáneamente</td>
+                            <td>Alguien que publica videos en YouTube y también ve contenido de otros</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Packet Switching</strong></td>
+                            <td>Conmutación de paquetes - Método de dividir datos en pequeños paquetes para transmisión</td>
+                            <td>Un email se divide en paquetes, viaja por diferentes rutas, y se reensambla en destino</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir IoT con "cosas conectadas a WiFi". IoT es mucho más amplio - incluye cualquier dispositivo con sensores/actuadores que puede comunicarse (por WiFi, LoRa, celular, cable, etc.), procesar datos, y tomar decisiones automáticamente.
+                </div>
             </section>
 
             <!-- Resumen -->
