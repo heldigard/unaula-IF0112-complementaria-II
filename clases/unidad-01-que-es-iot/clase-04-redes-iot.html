@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="C"><head><title>Clase 4: Redes IoT</title><meta property="og:title" content="Clase 4: Redes IoT"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><style>@media screen{body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{appearance:none;background-color:initial;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:disabled{cursor:not-allowed;opacity:.15!important}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover{opacity:1}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:active{opacity:.6}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:not(:disabled){transition:none}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-prev{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTAgMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-next{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJtMzIgOTAgNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNNDAgNzBIMjBWNTBtMjAgMEwyMCA3MG00MC00MGgyMHYyMG0tMjAgMCAyMC0yMCIgY2xhc3M9ImEiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen]{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNMjAgNTBoMjB2MjBtLTIwIDAgMjAtMjBtNDAgMEg2MFYzMG0yMCAwTDYwIDUwIiBjbGFzcz0iYSIvPjwvc3ZnPg==")}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNODcuOCA0Ny41Qzg5IDUwIDg3LjcgNTIgODUgNTJIMzVhOC43IDguNyAwIDAgMS03LjItNC41bC0xNS42LTMxQzExIDE0IDEyLjIgMTIgMTUgMTJoNTBhOC44IDguOCAwIDAgMSA3LjIgNC41ek02MCA1MnYzNm0tMTAgMGgyME00NSA0MmgyMCIvPjwvc3ZnPg==") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-bigger{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODBNNTIgOTBWMTAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-smaller{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}}@keyframes __bespoke_marp_transition_reduced_outgoing__{0%{opacity:1}to{opacity:0}}@keyframes __bespoke_marp_transition_reduced_incoming__{0%{mix-blend-mode:plus-lighter;opacity:0}to{mix-blend-mode:plus-lighter;opacity:1}}.bespoke-marp-note,.bespoke-marp-osc,.bespoke-progress-parent{display:none;transition:none}@media screen{::view-transition-group(*){animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-timing-function:ease}::view-transition-new(*),::view-transition-old(*){animation-delay:0s;animation-direction:var(--marp-bespoke-transition-animation-direction,normal);animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-fill-mode:both;animation-name:var(--marp-bespoke-transition-animation-name,var(--marp-bespoke-transition-animation-name-fallback,__bespoke_marp_transition_no_animation__));mix-blend-mode:normal}::view-transition-old(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_outgoing__;animation-timing-function:ease}::view-transition-new(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_incoming__;animation-timing-function:ease}::view-transition-new(root),::view-transition-old(root){animation-timing-function:linear}::view-transition-new(__bespoke_marp_transition_osc__),::view-transition-old(__bespoke_marp_transition_osc__){animation-duration:0s!important;animation-name:__bespoke_marp_transition_osc__!important}::view-transition-new(__bespoke_marp_transition_osc__){opacity:0!important}.bespoke-marp-transition-warming-up::view-transition-group(*),.bespoke-marp-transition-warming-up::view-transition-new(*),.bespoke-marp-transition-warming-up::view-transition-old(*){animation-play-state:paused!important}body,html{height:100%;margin:0}body{background:#000;overflow:hidden}svg.bespoke-marp-slide{content-visibility:hidden;opacity:0;pointer-events:none;z-index:-1}svg.bespoke-marp-slide:not(.bespoke-marp-active) *{view-transition-name:none!important}svg.bespoke-marp-slide.bespoke-marp-active{content-visibility:visible;opacity:1;pointer-events:auto;z-index:0}svg.bespoke-marp-slide.bespoke-marp-active.bespoke-marp-active-ready *{animation-name:__bespoke_marp__!important}@supports not (content-visibility:hidden){svg.bespoke-marp-slide[data-bespoke-marp-load=hideable]{display:none}svg.bespoke-marp-slide[data-bespoke-marp-load=hideable].bespoke-marp-active{display:block}}}@media screen and (prefers-reduced-motion:reduce){svg.bespoke-marp-slide *{view-transition-name:none!important}}@media screen{[data-bespoke-marp-fragment=inactive]{visibility:hidden}body[data-bespoke-view=""] .bespoke-marp-parent,body[data-bespoke-view=next] .bespoke-marp-parent{inset:0;position:absolute}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc{background:#000000a6;border-radius:7px;bottom:50px;color:#fff;contain:paint;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;user-select:none;white-space:nowrap;will-change:transform;z-index:1;view-transition-name:__bespoke_marp_transition_osc__}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>*,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>:first-child,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{height:32px;line-height:32px;width:32px}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive{cursor:none}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}body[data-bespoke-view=""] svg.bespoke-marp-slide,body[data-bespoke-view=next] svg.bespoke-marp-slide{height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent+.bespoke-marp-parent{top:5px}body[data-bespoke-view=""] .bespoke-progress-parent .bespoke-progress-bar{background:#0288d1;flex:0 0 0;transition:flex-basis .2s cubic-bezier(0,1,1,1)}body[data-bespoke-view=next]{background:#0000}body[data-bespoke-view=presenter]{background:#161616}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container{display:grid;font-family:Helvetica,Arial,sans-serif;grid-template:"current dragbar next" minmax(140px,1fr) "current dragbar note" 2fr "info    dragbar note" 3em;grid-template-columns:minmax(3px,var(--bespoke-marp-presenter-split-ratio,66%)) 0 minmax(3px,1fr);height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent{grid-area:current;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide{height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide.bespoke-marp-active{filter:drop-shadow(0 3px 10px rgba(0,0,0,.5))}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container{background:#0288d1;cursor:col-resize;grid-area:dragbar;margin-left:-3px;opacity:0;position:relative;transition:opacity .4s linear .1s;width:6px;z-index:10}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container:hover{opacity:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container.active{opacity:1;transition-delay:0s}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container{background:#222;cursor:pointer;display:none;grid-area:next;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container iframe.bespoke-marp-presenter-next{background:#0000;border:0;display:block;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container{background:#222;color:#eee;grid-area:note;position:relative;z-index:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper{display:block;inset:0;position:absolute}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons{background:#000000a6;border-radius:4px;bottom:0;display:flex;gap:4px;margin:12px;opacity:0;padding:6px;pointer-events:none;position:absolute;right:0;transition:opacity .2s linear}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons:focus-within,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper:focus-within+.bespoke-marp-presenter-note-buttons,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container:hover .bespoke-marp-presenter-note-buttons{opacity:1;pointer-events:auto}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note{box-sizing:border-box;font-size:calc(1.1em*var(--bespoke-marp-note-font-scale, 1));height:calc(100% - 40px);margin:20px;overflow:auto;padding-right:3px;white-space:pre-wrap;width:calc(100% - 40px);word-wrap:break-word;scrollbar-color:#eeeeee80 #0000;scrollbar-width:thin}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar{width:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-track{background:#0000}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-thumb{background:#eeeeee80;border-radius:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note:empty{pointer-events:none}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:first-child{margin-top:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:last-child{margin-bottom:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container{align-items:center;box-sizing:border-box;color:#eee;display:flex;flex-wrap:nowrap;grid-area:info;justify-content:center;overflow:hidden;padding:0 10px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{box-sizing:border-box;display:block;padding:0 10px;white-space:nowrap;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page{order:2;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page .bespoke-marp-presenter-info-page-text{display:inline-block;min-width:120px;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time{color:#999;order:1;text-align:left}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{color:#999;order:3;text-align:right}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer:hover{cursor:pointer}}@media print{.bespoke-marp-presenter-info-container,.bespoke-marp-presenter-next-container,.bespoke-marp-presenter-note-container{display:none}}</style><style>div#\:\$p > svg > foreignObject > section{width:1280px;height:720px;box-sizing:border-box;overflow:hidden;position:relative;scroll-snap-align:center center;-webkit-text-size-adjust:100%;text-size-adjust:100%}div#\:\$p > svg > foreignObject > section::after{bottom:0;content:attr(data-marpit-pagination);padding:inherit;pointer-events:none;position:absolute;right:0}div#\:\$p > svg > foreignObject > section:not([data-marpit-pagination])::after{display:none}div#\:\$p > svg > foreignObject > section :is(h1, marp-h1){font-size:2em;margin-block:0.67em}div#\:\$p > svg > foreignObject > section video::-webkit-media-controls{will-change:transform}@page {size:1280px 720px;margin:0}@media print{html, body{background-color:#fff;margin:0;page-break-inside:avoid;break-inside:avoid-page}div#\:\$p > svg > foreignObject > section{page-break-before:always;break-before:page}div#\:\$p > svg > foreignObject > section, div#\:\$p > svg > foreignObject > section *{-webkit-print-color-adjust:exact!important;animation-delay:0s!important;animation-duration:0s!important;color-adjust:exact!important;print-color-adjust:exact!important;transition:none!important}div#\:\$p > svg[data-marpit-svg]{display:block;height:100vh;width:100vw}}div#\:\$p > svg > foreignObject > :where(section){container-type:size}div#\:\$p > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}div#\:\$p > svg > foreignObject > section{--focus-outlineColor:light-dark(#0969da, #1f6feb);--fgColor-default:light-dark(#1f2328, #f0f6fc);--fgColor-muted:light-dark(#59636e, #9198a1);--fgColor-accent:light-dark(#0969da, #4493f8);--fgColor-success:light-dark(#1a7f37, #3fb950);--fgColor-attention:light-dark(#9a6700, #d29922);--fgColor-danger:light-dark(#d1242f, #f85149);--fgColor-done:light-dark(#8250df, #ab7df8);--bgColor-default:light-dark(#fff, #0d1117);--bgColor-muted:light-dark(#f6f8fa, #151b23);--bgColor-neutral-muted:light-dark(#818b981f, #656c7633);--bgColor-attention-muted:light-dark(#fff8c5, #bb800926);--borderColor-default:light-dark(#d1d9e0, #3d444d);--borderColor-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-neutral-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-accent-emphasis:light-dark(#0969da, #1f6feb);--borderColor-success-emphasis:light-dark(#1a7f37, #238636);--borderColor-attention-emphasis:light-dark(#9a6700, #9e6a03);--borderColor-danger-emphasis:light-dark(#cf222e, #da3633);--borderColor-done-emphasis:light-dark(#8250df, #8957e5);--color-prettylights-syntax-comment:light-dark(#59636e, #9198a1);--color-prettylights-syntax-constant:light-dark(#0550ae, #79c0ff);--color-prettylights-syntax-constant-other-reference-link:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-entity:light-dark(#6639ba, #d2a8ff);--color-prettylights-syntax-storage-modifier-import:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-entity-tag:light-dark(#0550ae, #7ee787);--color-prettylights-syntax-keyword:light-dark(#cf222e, #ff7b72);--color-prettylights-syntax-string:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-variable:light-dark(#953800, #ffa657);--color-prettylights-syntax-brackethighlighter-unmatched:light-dark(#82071e, #f85149);--color-prettylights-syntax-brackethighlighter-angle:light-dark(#59636e, #9198a1);--color-prettylights-syntax-invalid-illegal-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-invalid-illegal-bg:light-dark(#82071e, #8e1519);--color-prettylights-syntax-carriage-return-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-carriage-return-bg:light-dark(#cf222e, #b62324);--color-prettylights-syntax-string-regexp:light-dark(#116329, #7ee787);--color-prettylights-syntax-markup-list:light-dark(#3b2300, #f2cc60);--color-prettylights-syntax-markup-heading:light-dark(#0550ae, #1f6feb);--color-prettylights-syntax-markup-italic:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-bold:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-deleted-text:light-dark(#82071e, #ffdcd7);--color-prettylights-syntax-markup-deleted-bg:light-dark(#ffebe9, #67060c);--color-prettylights-syntax-markup-inserted-text:light-dark(#116329, #aff5b4);--color-prettylights-syntax-markup-inserted-bg:light-dark(#dafbe1, #033a16);--color-prettylights-syntax-markup-changed-text:light-dark(#953800, #ffdfb6);--color-prettylights-syntax-markup-changed-bg:light-dark(#ffd8b5, #5a1e02);--color-prettylights-syntax-markup-ignored-text:light-dark(#d1d9e0, #f0f6fc);--color-prettylights-syntax-markup-ignored-bg:light-dark(#0550ae, #1158c7);--color-prettylights-syntax-meta-diff-range:light-dark(#8250df, #d2a8ff);--color-prettylights-syntax-sublimelinter-gutter-mark:light-dark(#818b98, #3d444d);--base-size-4:calc(var(--marpit-root-font-size, 1rem) * 0.25);--base-size-8:calc(var(--marpit-root-font-size, 1rem) * 0.5);--base-size-16:calc(var(--marpit-root-font-size, 1rem) * 1);--base-size-24:calc(var(--marpit-root-font-size, 1rem) * 1.5);--base-size-40:calc(var(--marpit-root-font-size, 1rem) * 2.5);--base-text-weight-normal:400;--base-text-weight-medium:500;--base-text-weight-semibold:600;--fontStack-monospace:ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;--fgColor-accent:Highlight;}/*!
+<!DOCTYPE html><html lang="C"><head><title>Clase 4: Redes IoT</title><meta property="og:title" content="Clase 4: Redes IoT"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><style>@media screen{body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{appearance:none;background-color:initial;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:disabled{cursor:not-allowed;opacity:.15!important}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover{opacity:1}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:active{opacity:.6}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:not(:disabled){transition:none}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-prev{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTAgMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-next{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJtMzIgOTAgNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNNDAgNzBIMjBWNTBtMjAgMEwyMCA3MG00MC00MGgyMHYyMG0tMjAgMCAyMC0yMCIgY2xhc3M9ImEiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen]{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNMjAgNTBoMjB2MjBtLTIwIDAgMjAtMjBtNDAgMEg2MFYzMG0yMCAwTDYwIDUwIiBjbGFzcz0iYSIvPjwvc3ZnPg==")}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNODcuOCA0Ny41Qzg5IDUwIDg3LjcgNTIgODUgNTJIMzVhOC43IDguNyAwIDAgMS03LjItNC41bC0xNS42LTMxQzExIDE0IDEyLjIgMTIgMTUgMTJoNTBhOC44IDguOCAwIDAgMSA3LjIgNC41ek02MCA1MnYzNm0tMTAgMGgyME00NSA0MmgyMCIvPjwvc3ZnPg==") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-bigger{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODBNNTIgOTBWMTAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-smaller{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}}@keyframes __bespoke_marp_transition_reduced_outgoing__{0%{opacity:1}to{opacity:0}}@keyframes __bespoke_marp_transition_reduced_incoming__{0%{mix-blend-mode:plus-lighter;opacity:0}to{mix-blend-mode:plus-lighter;opacity:1}}.bespoke-marp-note,.bespoke-marp-osc,.bespoke-progress-parent{display:none;transition:none}@media screen{::view-transition-group(*){animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-timing-function:ease}::view-transition-new(*),::view-transition-old(*){animation-delay:0s;animation-direction:var(--marp-bespoke-transition-animation-direction,normal);animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-fill-mode:both;animation-name:var(--marp-bespoke-transition-animation-name,var(--marp-bespoke-transition-animation-name-fallback,__bespoke_marp_transition_no_animation__));mix-blend-mode:normal}::view-transition-old(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_outgoing__;animation-timing-function:ease}::view-transition-new(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_incoming__;animation-timing-function:ease}::view-transition-new(root),::view-transition-old(root){animation-timing-function:linear}::view-transition-new(__bespoke_marp_transition_osc__),::view-transition-old(__bespoke_marp_transition_osc__){animation-duration:0s!important;animation-name:__bespoke_marp_transition_osc__!important}::view-transition-new(__bespoke_marp_transition_osc__){opacity:0!important}.bespoke-marp-transition-warming-up::view-transition-group(*),.bespoke-marp-transition-warming-up::view-transition-new(*),.bespoke-marp-transition-warming-up::view-transition-old(*){animation-play-state:paused!important}body,html{height:100%;margin:0}body{background:#000;overflow:hidden}svg.bespoke-marp-slide{content-visibility:hidden;opacity:0;pointer-events:none;z-index:-1}svg.bespoke-marp-slide:not(.bespoke-marp-active) *{view-transition-name:none!important}svg.bespoke-marp-slide.bespoke-marp-active{content-visibility:visible;opacity:1;pointer-events:auto;z-index:0}svg.bespoke-marp-slide.bespoke-marp-active.bespoke-marp-active-ready *{animation-name:__bespoke_marp__!important}@supports not (content-visibility:hidden){svg.bespoke-marp-slide[data-bespoke-marp-load=hideable]{display:none}svg.bespoke-marp-slide[data-bespoke-marp-load=hideable].bespoke-marp-active{display:block}}}@media screen and (prefers-reduced-motion:reduce){svg.bespoke-marp-slide *{view-transition-name:none!important}}@media screen{[data-bespoke-marp-fragment=inactive]{visibility:hidden}body[data-bespoke-view=""] .bespoke-marp-parent,body[data-bespoke-view=next] .bespoke-marp-parent{inset:0;position:absolute}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc{background:#000000a6;border-radius:7px;bottom:50px;color:#fff;contain:paint;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;user-select:none;white-space:nowrap;will-change:transform;z-index:1;view-transition-name:__bespoke_marp_transition_osc__}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>*,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>:first-child,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{height:32px;line-height:32px;width:32px}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive{cursor:none}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}body[data-bespoke-view=""] svg.bespoke-marp-slide,body[data-bespoke-view=next] svg.bespoke-marp-slide{height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent+.bespoke-marp-parent{top:5px}body[data-bespoke-view=""] .bespoke-progress-parent .bespoke-progress-bar{background:#0288d1;flex:0 0 0;transition:flex-basis .2s cubic-bezier(0,1,1,1)}body[data-bespoke-view=next]{background:#0000}body[data-bespoke-view=presenter]{background:#161616}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container{display:grid;font-family:Helvetica,Arial,sans-serif;grid-template:"current dragbar next" minmax(140px,1fr) "current dragbar note" 2fr "info    dragbar note" 3em;grid-template-columns:minmax(3px,var(--bespoke-marp-presenter-split-ratio,66%)) 0 minmax(3px,1fr);height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent{grid-area:current;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide{height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide.bespoke-marp-active{filter:drop-shadow(0 3px 10px rgba(0,0,0,.5))}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container{background:#0288d1;cursor:col-resize;grid-area:dragbar;margin-left:-3px;opacity:0;position:relative;transition:opacity .4s linear .1s;width:6px;z-index:10}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container:hover{opacity:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container.active{opacity:1;transition-delay:0s}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container{background:#222;cursor:pointer;display:none;grid-area:next;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container iframe.bespoke-marp-presenter-next{background:#0000;border:0;display:block;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container{background:#222;color:#eee;grid-area:note;position:relative;z-index:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper{display:block;inset:0;position:absolute}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons{background:#000000a6;border-radius:4px;bottom:0;display:flex;gap:4px;margin:12px;opacity:0;padding:6px;pointer-events:none;position:absolute;right:0;transition:opacity .2s linear}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons:focus-within,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper:focus-within+.bespoke-marp-presenter-note-buttons,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container:hover .bespoke-marp-presenter-note-buttons{opacity:1;pointer-events:auto}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note{box-sizing:border-box;font-size:calc(1.1em*var(--bespoke-marp-note-font-scale, 1));height:calc(100% - 40px);margin:20px;overflow:auto;padding-right:3px;white-space:pre-wrap;width:calc(100% - 40px);word-wrap:break-word;scrollbar-color:#eeeeee80 #0000;scrollbar-width:thin}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar{width:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-track{background:#0000}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-thumb{background:#eeeeee80;border-radius:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note:empty{pointer-events:none}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:first-child{margin-top:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:last-child{margin-bottom:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container{align-items:center;box-sizing:border-box;color:#eee;display:flex;flex-wrap:nowrap;grid-area:info;justify-content:center;overflow:hidden;padding:0 10px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{box-sizing:border-box;display:block;padding:0 10px;white-space:nowrap;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page{order:2;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page .bespoke-marp-presenter-info-page-text{display:inline-block;min-width:120px;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time{color:#999;order:1;text-align:left}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{color:#999;order:3;text-align:right}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer:hover{cursor:pointer}}@media print{.bespoke-marp-presenter-info-container,.bespoke-marp-presenter-next-container,.bespoke-marp-presenter-note-container{display:none}}</style><style>div#\:\$p > svg > foreignObject > section{width:1280px;height:720px;box-sizing:border-box;overflow:hidden;position:relative;scroll-snap-align:center center;-webkit-text-size-adjust:100%;text-size-adjust:100%}div#\:\$p > svg > foreignObject > section::after{bottom:0;content:attr(data-marpit-pagination);padding:inherit;pointer-events:none;position:absolute;right:0}div#\:\$p > svg > foreignObject > section:not([data-marpit-pagination])::after{display:none}div#\:\$p > svg > foreignObject > section :is(h1, marp-h1){font-size:2em;margin-block:0.67em}div#\:\$p > svg > foreignObject > section video::-webkit-media-controls{will-change:transform}@page {size:1280px 720px;margin:0}@media print{html, body{background-color:#fff;margin:0;page-break-inside:avoid;break-inside:avoid-page}div#\:\$p > svg > foreignObject > section{page-break-before:always;break-before:page}div#\:\$p > svg > foreignObject > section, div#\:\$p > svg > foreignObject > section *{-webkit-print-color-adjust:exact!important;animation-delay:0s!important;animation-duration:0s!important;color-adjust:exact!important;print-color-adjust:exact!important;transition:none!important}div#\:\$p > svg[data-marpit-svg]{display:block;height:100vh;width:100vw}}div#\:\$p > svg > foreignObject > :where(section){container-type:size}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"]{direction:ltr}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] > svg{overflow:visible;min-height:1px;min-width:1px}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] > svg a{fill:blue;stroke:blue}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][display="true"]{display:block;text-align:center;margin:1em 0}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][display="true"][width="full"]{display:flex}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][justify="left"]{text-align:left}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][justify="right"]{text-align:right}div#\:\$p > svg > foreignObject > section g[data-mml-node="merror"] > g{fill:red;stroke:red}div#\:\$p > svg > foreignObject > section g[data-mml-node="merror"] > rect[data-background]{fill:yellow;stroke:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > line[data-line], div#\:\$p > svg > foreignObject > section svg[data-table] > g > line[data-line]{stroke-width:70px;fill:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > rect[data-frame], div#\:\$p > svg > foreignObject > section svg[data-table] > g > rect[data-frame]{stroke-width:70px;fill:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > .mjx-dashed, div#\:\$p > svg > foreignObject > section svg[data-table] > g > .mjx-dashed{stroke-dasharray:140}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > .mjx-dotted, div#\:\$p > svg > foreignObject > section svg[data-table] > g > .mjx-dotted{stroke-linecap:round;stroke-dasharray:0,140}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > g > svg{overflow:visible}div#\:\$p > svg > foreignObject > section [jax="SVG"] mjx-tool{display:inline-block;position:relative;width:0;height:0}div#\:\$p > svg > foreignObject > section [jax="SVG"] mjx-tool > mjx-tip{position:absolute;top:0;left:0}div#\:\$p > svg > foreignObject > section mjx-tool > mjx-tip{display:inline-block;padding:.2em;border:1px solid #888;font-size:70%;background-color:#F8F8F8;color:black;box-shadow:2px 2px 5px #AAAAAA}div#\:\$p > svg > foreignObject > section g[data-mml-node="maction"][data-toggle]{cursor:pointer}div#\:\$p > svg > foreignObject > section mjx-status{display:block;position:fixed;left:1em;bottom:1em;min-width:25%;padding:.2em .4em;border:1px solid #888;font-size:90%;background-color:#F8F8F8;color:black}div#\:\$p > svg > foreignObject > section foreignObject[data-mjx-xml]{font-family:initial;line-height:normal;overflow:visible}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] path[data-c], div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] use[data-c]{stroke-width:3}@media print{div#\:\$p > svg > foreignObject > section mjx-container[jax=SVG] path[data-c],div#\:\$p > svg > foreignObject > section mjx-container[jax=SVG] use[data-c]{stroke-width:0}}div#\:\$p > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}div#\:\$p > svg > foreignObject > section{--focus-outlineColor:light-dark(#0969da, #1f6feb);--fgColor-default:light-dark(#1f2328, #f0f6fc);--fgColor-muted:light-dark(#59636e, #9198a1);--fgColor-accent:light-dark(#0969da, #4493f8);--fgColor-success:light-dark(#1a7f37, #3fb950);--fgColor-attention:light-dark(#9a6700, #d29922);--fgColor-danger:light-dark(#d1242f, #f85149);--fgColor-done:light-dark(#8250df, #ab7df8);--bgColor-default:light-dark(#fff, #0d1117);--bgColor-muted:light-dark(#f6f8fa, #151b23);--bgColor-neutral-muted:light-dark(#818b981f, #656c7633);--bgColor-attention-muted:light-dark(#fff8c5, #bb800926);--borderColor-default:light-dark(#d1d9e0, #3d444d);--borderColor-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-neutral-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-accent-emphasis:light-dark(#0969da, #1f6feb);--borderColor-success-emphasis:light-dark(#1a7f37, #238636);--borderColor-attention-emphasis:light-dark(#9a6700, #9e6a03);--borderColor-danger-emphasis:light-dark(#cf222e, #da3633);--borderColor-done-emphasis:light-dark(#8250df, #8957e5);--color-prettylights-syntax-comment:light-dark(#59636e, #9198a1);--color-prettylights-syntax-constant:light-dark(#0550ae, #79c0ff);--color-prettylights-syntax-constant-other-reference-link:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-entity:light-dark(#6639ba, #d2a8ff);--color-prettylights-syntax-storage-modifier-import:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-entity-tag:light-dark(#0550ae, #7ee787);--color-prettylights-syntax-keyword:light-dark(#cf222e, #ff7b72);--color-prettylights-syntax-string:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-variable:light-dark(#953800, #ffa657);--color-prettylights-syntax-brackethighlighter-unmatched:light-dark(#82071e, #f85149);--color-prettylights-syntax-brackethighlighter-angle:light-dark(#59636e, #9198a1);--color-prettylights-syntax-invalid-illegal-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-invalid-illegal-bg:light-dark(#82071e, #8e1519);--color-prettylights-syntax-carriage-return-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-carriage-return-bg:light-dark(#cf222e, #b62324);--color-prettylights-syntax-string-regexp:light-dark(#116329, #7ee787);--color-prettylights-syntax-markup-list:light-dark(#3b2300, #f2cc60);--color-prettylights-syntax-markup-heading:light-dark(#0550ae, #1f6feb);--color-prettylights-syntax-markup-italic:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-bold:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-deleted-text:light-dark(#82071e, #ffdcd7);--color-prettylights-syntax-markup-deleted-bg:light-dark(#ffebe9, #67060c);--color-prettylights-syntax-markup-inserted-text:light-dark(#116329, #aff5b4);--color-prettylights-syntax-markup-inserted-bg:light-dark(#dafbe1, #033a16);--color-prettylights-syntax-markup-changed-text:light-dark(#953800, #ffdfb6);--color-prettylights-syntax-markup-changed-bg:light-dark(#ffd8b5, #5a1e02);--color-prettylights-syntax-markup-ignored-text:light-dark(#d1d9e0, #f0f6fc);--color-prettylights-syntax-markup-ignored-bg:light-dark(#0550ae, #1158c7);--color-prettylights-syntax-meta-diff-range:light-dark(#8250df, #d2a8ff);--color-prettylights-syntax-sublimelinter-gutter-mark:light-dark(#818b98, #3d444d);--base-size-4:calc(var(--marpit-root-font-size, 1rem) * 0.25);--base-size-8:calc(var(--marpit-root-font-size, 1rem) * 0.5);--base-size-16:calc(var(--marpit-root-font-size, 1rem) * 1);--base-size-24:calc(var(--marpit-root-font-size, 1rem) * 1.5);--base-size-40:calc(var(--marpit-root-font-size, 1rem) * 2.5);--base-text-weight-normal:400;--base-text-weight-medium:500;--base-text-weight-semibold:600;--fontStack-monospace:ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;--fgColor-accent:Highlight;}/*!
  * Marp default theme.
  *
  * @theme default
@@ -34,14 +34,18 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 
 <h1 id="clase-4-redes-iot">Clase 4: Redes IoT</h1>
 <h3 id="lan-wan-e-internet--evaluaci%C3%B3n-e1-15">LAN, WAN e Internet + Evaluación E1 (15%)</h3>
 <p><strong>IF0112 - Complementaria II</strong><br />
 <em>6° Semestre - Ingeniería Informática</em></p>
-<p><img src="../../../assets/infografias/clase-04-redes-iot.png" alt="Tipos de Redes para IoT" /></p>
+<p><img src="../../../assets/infografias/clase-04-redes-iot.png" alt="Tipos de Redes para IoT" />{: style=&quot;max-width: 65%; max-height: 350px; display: block; margin: 0 auto;&quot;}</p>
+<h3 id="redes-el-conectivo-del-iot">Redes: El Conectivo del IoT</h3>
+<blockquote>
+<p>Sin redes adecuadas, los dispositivos IoT son islas sin comunicación. La elección de la tecnología de red determina el éxito de cualquier proyecto IoT.</p>
+</blockquote>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -70,7 +74,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="estructura-de-la-sesi%C3%B3n">Estructura de la Sesión</h2>
 <table>
@@ -127,7 +131,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="objetivos-de-la-clase">Objetivos de la Clase</h2>
 <p>Al finalizar esta clase, el estudiante será capaz de:</p>
@@ -166,7 +170,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="conexi%C3%B3n-con-el-resultado-de-aprendizaje">Conexión con el Resultado de Aprendizaje</h2>
 <blockquote>
@@ -216,7 +220,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="tipos-de-redes-visi%C3%B3n-general">Tipos de Redes: Visión General</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
@@ -262,7 +266,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="pan-personal-area-network">PAN: Personal Area Network</h2>
 <h3 id="redes-de-corto-alcance--10-metros">Redes de Corto Alcance (&lt; 10 metros)</h3>
@@ -311,7 +315,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="lan-local-area-network">LAN: Local Area Network</h2>
 <h3 id="redes-de-%C3%A1rea-local-edificio-campus">Redes de Área Local (edificio, campus)</h3>
@@ -359,7 +363,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="wifi-para-iot">WiFi para IoT</h2>
 <h3 id="est%C3%A1ndares-wifi">Estándares WiFi</h3>
@@ -438,7 +442,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="wan-wide-area-network">WAN: Wide Area Network</h2>
 <h3 id="redes-de-%C3%A1rea-amplia-ciudades-pa%C3%ADses">Redes de Área Amplia (ciudades, países)</h3>
@@ -489,7 +493,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="redes-celulares-para-iot">Redes Celulares para IoT</h2>
 <h3 id="evoluci%C3%B3n">Evolución</h3>
@@ -540,7 +544,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="lpwan-low-power-wide-area-networks">LPWAN: Low-Power Wide-Area Networks</h2>
 <h3 id="redes-iot-de-largo-alcance">Redes IoT de Largo Alcance</h3>
@@ -592,7 +596,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="lorawan-en-detalle">LoRaWAN en Detalle</h2>
 <h3 id="arquitectura">Arquitectura</h3>
@@ -643,7 +647,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="comparativa-de-tecnolog%C3%ADas-iot">Comparativa de Tecnologías IoT</h2>
 <table>
@@ -736,7 +740,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="selecci%C3%B3n-de-red-%C3%A1rbol-de-decisi%C3%B3n">Selección de Red: Árbol de Decisión</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
@@ -786,7 +790,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="casos-de-uso-por-tecnolog%C3%ADa">Casos de Uso por Tecnología</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────┐
@@ -871,7 +875,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="el-futuro-5g-para-iot">El Futuro: 5G para IoT</h2>
 <h3 id="caracter%C3%ADsticas-de-5g">Características de 5G</h3>
@@ -918,7 +922,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="resumen-redes-para-iot">Resumen: Redes para IoT</h2>
 <table>
@@ -979,7 +983,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h1 id="evaluaci%C3%B3n-e1-15">EVALUACIÓN E1 (15%)</h1>
 <h2 id="componentes">Componentes</h2>
@@ -1032,7 +1036,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="quiz-instrucciones">Quiz: Instrucciones</h2>
 <h3 id="duraci%C3%B3n-30-minutos">Duración: 30 minutos</h3>
@@ -1082,7 +1086,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="ensayo-revisi%C3%B3n">Ensayo: Revisión</h2>
 <h3 id="tema-del-ensayo">Tema del Ensayo</h3>
@@ -1148,7 +1152,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="%F0%9F%92%BB-actividad-pr%C3%A1ctica-selecci%C3%B3n-de-red-iot"><img class="emoji" draggable="false" alt="💻" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4bb.svg" data-marp-twemoji=""/> Actividad Práctica: Selección de Red IoT</h2>
 <h3 id="objetivo">Objetivo</h3>
@@ -1181,7 +1185,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h3 id="ejercicio-an%C3%A1lisis-de-casos-30-min">Ejercicio: Análisis de Casos (30 min)</h3>
 <p><strong>Instrucciones:</strong><br />
@@ -1214,7 +1218,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h4 id="escenario-1-sensor-en-finca-cafetera">Escenario 1: Sensor en Finca Cafetera</h4>
 <p><strong>Contexto:</strong></p>
@@ -1265,7 +1269,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h4 id="escenario-2-smart-building">Escenario 2: Smart Building</h4>
 <p><strong>Contexto:</strong></p>
@@ -1316,7 +1320,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h4 id="escenario-3-monitoreo-de-pacientes">Escenario 3: Monitoreo de Pacientes</h4>
 <p><strong>Contexto:</strong></p>
@@ -1366,7 +1370,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h4 id="plantilla-de-an%C3%A1lisis">Plantilla de Análisis</h4>
 <table>
@@ -1451,7 +1455,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="seguridad-en-redes-iot">Seguridad en Redes IoT</h2>
 <h3 id="principales-amenazas">Principales Amenazas</h3>
@@ -1509,7 +1513,7 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <h2 id="seguridad-en-redes-iot-continuaci%C3%B3n">Seguridad en Redes IoT (Continuación)</h2>
 <h3 id="mejores-pr%C3%A1cticas">Mejores Prácticas</h3>
@@ -1568,30 +1572,78 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="tabla-comparativa-ampliada-de-redes-iot">Tabla Comparativa Ampliada de Redes IoT</h2>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────────────────┐
-│                    COMPARATIVA COMPLETA DE REDES IoT                        │
-├─────────┬───────────┬─────────┬──────────┬──────────┬──────────┬─────────────┤
-│Tecnología│ Rango     │ Velocidad│ Consumo  │Costo/Modem│Costo/Dato│Mejor Uso   │
-├─────────┼───────────┼─────────┼──────────┼──────────┼──────────┼─────────────┤
-│BLE 5.0  │ 10-100m   │ 2 Mbps   │ 10-50 mA │   $5     │  Gratis  │Wearables   │
-│Zigbee 3.0│ 10-100m  │ 250 kbps │ 10-30 mA │   $5     │  Gratis  │Hogar       │
-│Z-Wave  │ 10-100m   │ 100 kbps │ 10-30 mA │  $15     │  Gratis  │Hogar (US)  │
-│WiFi 6   │ 50-100m   │ 10 Gbps  │ 200-800mA│   $10    │$0.01/MB  │Cámaras HD  │
-│WiFi HaLow│ 1km     │ 150 Kbps │  50-100mA│  $10     │$0.01/MB  │IoT rural   │
-│Thread  │ 10-100m   │ 250 kbps │ 10-30 mA │   $8     │  Gratis  │Hogar (Matter)│
-│LoRaWAN │ 2-15km    │  50 kbps │  10-50mA │  $20     │$0.001/msg│Sensores    │
-│Sigfox  │ 10-50km   │  100 bps │   &lt;10mA  │  $15     │$0.003/msg│Sensores    │
-│NB-IoT  │  10km+    │ 100 kbps │  10-50mA │  $10     │ $1/GB    │Sensores    │
-│LTE-M   │  10km+    │  1 Mbps  │  50-200mA│  $20     │ $2/GB    │Vehículos   │
-│4G LTE  │  30km     │ 100 Mbps │ 200-800mA│  $30     │ $5/GB    │Video móvil │
-│5G      │  1km      │ 10 Gbps  │ 300-1A   │  $50     │ $5/GB    │Vehículos aut│
-├─────────┴───────────┴─────────┴──────────┴──────────┴──────────┴─────────────┤
-│ Costo/Dato aproximado para Colombia 2026 (COP)                                      │
-│ Batería estimada para transmisión 1x/hora                                            │
-└─────────────────────────────────────────────────────────────────────────────────────┘
+<h2 id="tabla-comparativa-de-redes-iot-parte-1">Tabla Comparativa de Redes IoT (Parte 1)</h2>
+<h3 id="redes-de-corto-alcance--100m">Redes de Corto Alcance (&lt; 100m)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Tecnología</th>
+<th style="text-align:left">Rango</th>
+<th style="text-align:left">Velocidad</th>
+<th style="text-align:left">Consumo</th>
+<th style="text-align:left">Costo/Módulo</th>
+<th style="text-align:left">Mejor Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>BLE 5.0</strong></td>
+<td style="text-align:left">10-100m</td>
+<td style="text-align:left">2 Mbps</td>
+<td style="text-align:left">10-50 mA</td>
+<td style="text-align:left">$5 USD</td>
+<td style="text-align:left">Wearables, beacons</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Zigbee 3.0</strong></td>
+<td style="text-align:left">10-100m</td>
+<td style="text-align:left">250 kbps</td>
+<td style="text-align:left">10-30 mA</td>
+<td style="text-align:left">$5 USD</td>
+<td style="text-align:left">Hogar inteligente</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Z-Wave</strong></td>
+<td style="text-align:left">10-100m</td>
+<td style="text-align:left">100 kbps</td>
+<td style="text-align:left">10-30 mA</td>
+<td style="text-align:left">$15 USD</td>
+<td style="text-align:left">Hogar (mercado US)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Thread</strong></td>
+<td style="text-align:left">10-100m</td>
+<td style="text-align:left">250 kbps</td>
+<td style="text-align:left">10-30 mA</td>
+<td style="text-align:left">$8 USD</td>
+<td style="text-align:left">Hogar (Matter/HomeKit)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>WiFi 6</strong></td>
+<td style="text-align:left">50-100m</td>
+<td style="text-align:left">9.6 Gbps</td>
+<td style="text-align:left">200-800mA</td>
+<td style="text-align:left">$10 USD</td>
+<td style="text-align:left">Cámaras HD, video</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>WiFi HaLow</strong></td>
+<td style="text-align:left">1km</td>
+<td style="text-align:left">150 Kbps</td>
+<td style="text-align:left">50-100mA</td>
+<td style="text-align:left">$10 USD</td>
+<td style="text-align:left">IoT rural, bajo consumo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="caracter%C3%ADsticas-comunes">Características Comunes</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg" data-marp-twemoji=""/> Ventajas              <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/274c.svg" data-marp-twemoji=""/> Limitaciones
+• Bajo costo             • Alcance limitado
+• Bajo consumo           • No penetran bien paredes
+• Fácil implementación   • Requieren gateway
+• Mesh networking        • Interferencia en 2.4GHz
 </code></pre>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
@@ -1621,16 +1673,95 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
-<h2 id="pr%C3%B3xima-clase">Próxima Clase</h2>
-<h3 id="clase-5-interconexi%C3%B3n-de-objetos">Clase 5: Interconexión de Objetos</h3>
-<ul>
-<li>Microcontroladores (Arduino, ESP32)</li>
-<li>Electrónica básica para IoT</li>
-<li>Primera práctica hands-on</li>
-</ul>
-<p><strong>¡Éxitos en la evaluación!</strong></p>
+<h2 id="tabla-comparativa-de-redes-iot-parte-2">Tabla Comparativa de Redes IoT (Parte 2)</h2>
+<h3 id="redes-de-largo-alcance--1km">Redes de Largo Alcance (&gt; 1km)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Tecnología</th>
+<th style="text-align:left">Rango</th>
+<th style="text-align:left">Velocidad</th>
+<th style="text-align:left">Batería</th>
+<th style="text-align:left">Costo/Módulo</th>
+<th style="text-align:left">Costo/Datos</th>
+<th style="text-align:left">Mejor Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>LoRaWAN</strong></td>
+<td style="text-align:left">2-15km</td>
+<td style="text-align:left">50 kbps</td>
+<td style="text-align:left">10 años</td>
+<td style="text-align:left">$20 USD</td>
+<td style="text-align:left">$0.001/msg</td>
+<td style="text-align:left">Sensores outdoor</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sigfox</strong></td>
+<td style="text-align:left">10-50km</td>
+<td style="text-align:left">100 bps</td>
+<td style="text-align:left">10 años</td>
+<td style="text-align:left">$15 USD</td>
+<td style="text-align:left">$0.003/msg</td>
+<td style="text-align:left">Sensores simples</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>NB-IoT</strong></td>
+<td style="text-align:left">10km+</td>
+<td style="text-align:left">100 kbps</td>
+<td style="text-align:left">10 años</td>
+<td style="text-align:left">$10 USD</td>
+<td style="text-align:left">~$1/GB</td>
+<td style="text-align:left">Sensores celular</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LTE-M</strong></td>
+<td style="text-align:left">10km+</td>
+<td style="text-align:left">1 Mbps</td>
+<td style="text-align:left">5-10 años</td>
+<td style="text-align:left">$20 USD</td>
+<td style="text-align:left">~$2/GB</td>
+<td style="text-align:left">Vehículos, móviles</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>4G LTE</strong></td>
+<td style="text-align:left">30km</td>
+<td style="text-align:left">100 Mbps</td>
+<td style="text-align:left">Horas</td>
+<td style="text-align:left">$30 USD</td>
+<td style="text-align:left">~$5/GB</td>
+<td style="text-align:left">Video móvil</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>5G</strong></td>
+<td style="text-align:left">1km</td>
+<td style="text-align:left">10 Gbps</td>
+<td style="text-align:left">Horas</td>
+<td style="text-align:left">$50 USD</td>
+<td style="text-align:left">~$5/GB</td>
+<td style="text-align:left">Vehículos autónomos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%C2%BFcu%C3%A1ndo-usar-lpwan-vs-celular">¿Cuándo usar LPWAN vs Celular?</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Usar LPWAN (LoRaWAN/NB-IoT) cuando:
+├── Pocos datos (&lt; 1 KB/día)
+├── Batería crítica (años sin cambio)
+├── Sin energía disponible
+└── Costo de operación debe ser mínimo
+
+Usar Celular (4G/5G) cuando:
+├── Muchos datos (video, audio)
+├── Baja latencia requerida
+├── Movilidad importante
+└── Infraestructura ya existe
+</code></pre>
+<blockquote>
+<p><strong>Costos Colombia 2026:</strong> Estimados en COP. Los costos de datos celulares varían según operador (Claro, Movistar, Tigo) y plan contratado.</p>
+</blockquote>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
@@ -1659,7 +1790,45 @@ section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margi
 section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
 section tbody tr:nth-child(even) { background-color: #f8f9fa; }
-;" data-marpit-pagination-total="31">
+;" data-marpit-pagination-total="32">
+<header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
+<h2 id="pr%C3%B3xima-clase">Próxima Clase</h2>
+<h3 id="clase-5-interconexi%C3%B3n-de-objetos">Clase 5: Interconexión de Objetos</h3>
+<ul>
+<li>Microcontroladores (Arduino, ESP32)</li>
+<li>Electrónica básica para IoT</li>
+<li>Primera práctica hands-on</li>
+</ul>
+<p><strong>¡Éxitos en la evaluación!</strong></p>
+<footer>UNAULA - Ingeniería Informática - 2026-I</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-header="IF0112 - Complementaria II (IoT) | Unidad 1" data-footer="UNAULA - Ingeniería Informática - 2026-I" data-theme="default" data-style="section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+" lang="C" data-marpit-pagination="32" style="--paginate:true;--header:IF0112 - Complementaria II (IoT) | Unidad 1;--footer:UNAULA - Ingeniería Informática - 2026-I;--theme:default;--style:section { font-size: 20px; overflow: hidden; }
+img { max-width: 70% !important; max-height: 50vh !important; object-fit: contain !important; display: block !important; margin: 0 auto !important; }
+section h1 { font-size: 1.8em; }
+section h2 { font-size: 1.4em; }
+section h3 { font-size: 1.2em; }
+section ul, section ol { font-size: 0.9em; margin-left: 1em; }
+section li { margin-bottom: 0.3em; }
+section pre { font-size: 0.7em; max-height: 60vh; overflow-y: auto; }
+section code { font-size: 0.85em; }
+section table { width: 100%; font-size: 0.85em; border-collapse: collapse; margin: 0.5em auto; }
+section th { background-color: #1e40af; color: white; padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section td { padding: 0.4em 0.6em; border: 1px solid #ddd; }
+section tbody tr:nth-child(even) { background-color: #f8f9fa; }
+;" data-marpit-pagination-total="32">
 <header>IF0112 - Complementaria II (IoT) | Unidad 1</header>
 <footer>UNAULA - Ingeniería Informática - 2026-I</footer>
 </section>
