@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 8: Protocolos IoT | IF0112</title>
+    <style>
+        :root {
+            --color-primary: #7c3aed;
+            --color-secondary: #8b5cf6;
+            --color-accent: #f59e0b;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --color-bg: #f8fafc;
+            --color-card: #ffffff;
+            --color-text: #1e293b;
+            --color-text-light: #64748b;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            color: white;
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content { max-width: 1200px; margin: 0 auto; }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        header .subtitle { font-size: 1.3rem; opacity: 0.9; margin-bottom: 1.5rem; }
+        header .course-info { font-size: 0.95rem; opacity: 0.8; }
+        
+        .objectives {
+            background: white;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .objectives h2 { color: var(--color-primary); margin-bottom: 1rem; }
+        .objectives ul { list-style: none; padding-left: 0; }
+        .objectives li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
+        .objectives li::before { content: "📡"; position: absolute; left: 0; }
+        .objectives .meta { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; color: var(--color-text-light); }
+        
+        nav {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-content { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; }
+        nav h3 { color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1rem; }
+        nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        nav li a { display: block; padding: 0.5rem 1rem; background: var(--color-bg); color: var(--color-text); text-decoration: none; border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; }
+        nav li a:hover { background: var(--color-primary); color: white; }
+        
+        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        section h2 { color: var(--color-primary); font-size: 1.8rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--color-secondary); }
+        section h3 { color: var(--color-secondary); font-size: 1.3rem; margin: 1.5rem 0 1rem; }
+        section h4 { color: var(--color-text); font-size: 1.1rem; margin: 1.25rem 0 0.75rem; }
+        
+        p { margin-bottom: 1rem; text-align: justify; }
+        
+        .info-box { padding: 1.25rem; border-radius: var(--border-radius); margin: 1.25rem 0; border-left: 4px solid; }
+        .info-box.success { background: #f0fdf4; border-color: var(--color-success); }
+        .info-box.warning { background: #fef3c7; border-color: var(--color-accent); }
+        .info-box.info { background: #ede9fe; border-color: var(--color-secondary); }
+        .info-box.danger { background: #fef2f2; border-color: var(--color-danger); }
+        .info-box h4 { margin-bottom: 0.5rem; color: inherit; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.875rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: var(--color-primary); color: white; font-weight: 600; }
+        tr:hover { background: #f8fafc; }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        code { font-family: 'Consolas', 'Monaco', monospace; background: #e2e8f0; padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.9em; color: var(--color-primary); }
+        
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+        .tech-card { background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 2px solid #e2e8f0; border-radius: var(--border-radius); padding: 1.25rem; }
+        .tech-card h4 { color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.05rem; }
+        .tech-card ul { list-style: none; padding-left: 0; }
+        .tech-card li { padding: 0.3rem 0; padding-left: 1.25rem; position: relative; font-size: 0.95rem; }
+        .tech-card li::before { content: "→"; position: absolute; left: 0; color: var(--color-secondary); }
+        
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+        .comparison-card { padding: 1.5rem; border-radius: var(--border-radius); border: 2px solid; }
+        
+        ul, ol { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        
+        footer { text-align: center; padding: 2rem; color: var(--color-text-light); font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; }
+        
+        /* Cajas de aprendizaje clave */
+        .learning-key {
+            background: linear-gradient(135deg, #dbeafe, #ede9fe);
+            border-left: 5px solid var(--color-primary);
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+        }
+        .learning-key h4 {
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .learning-key h4::before {
+            content: "💡";
+            font-size: 1.2rem;
+        }
+
+        /* Hardware opcional notice */
+        .hardware-notice {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .hardware-notice strong {
+            color: #92400e;
+        }
+
+        /* Botón volver arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .back-to-top:hover {
+            background: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.5);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Scroll margin para navegación suave */
+        section {
+            scroll-margin-top: 80px;
+        }
+        section h2 {
+            scroll-margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid, .tech-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.75rem; }
+            nav ul { flex-direction: column; }
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media print {
+            .back-to-top { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📡 Clase 8: Protocolos IoT</h1>
+            <p class="subtitle">MQTT, HTTP y Comunicación en la Nube</p>
+            <p class="course-info">IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática<br>UNAULA - 2026-I</p>
+        </div>
+    </header>
+    
+    <section class="objectives">
+        <h2>🎯 Objetivos de la Clase</h2>
+        <p>Al finalizar esta clase, el estudiante será capaz de:</p>
+        <ul>
+            <li><strong>Comparar</strong> protocolos HTTP vs MQTT</li>
+            <li><strong>Implementar</strong> MQTT publish/subscribe</li>
+            <li><strong>Diseñar</strong> topics jerárquicos</li>
+            <li><strong>Seleccionar</strong> protocolo adecuado según caso de uso</li>
+        </ul>
+        <p class="meta"><strong>Duración:</strong> 2 horas</p>
+    </section>
+    
+    <nav>
+        <div class="nav-content">
+            <h3>📑 Contenido de la Clase</h3>
+            <ul>
+                <li><a href="#desafios">Desafíos IoT</a></li>
+                <li><a href="#http">HTTP</a></li>
+                <li><a href="#mqtt">MQTT</a></li>
+                <li><a href="#topics">Topics</a></li>
+                <li><a href="#qos">QoS</a></li>
+                <li><a href="#comparacion">Comparación</a></li>
+                <li><a href="#brokers">Brokers</a></li>
+                <li><a href="#implementacion">Implementación</a></li>
+                <li><a href="#coap">CoAP</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <!-- Desafíos -->
+        <section id="desafios">
+            <h2>🎯 Desafíos de Comunicación en IoT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>IoT enfrenta desafíos únicos: redes inestables, dispositivos con batería limitada, escalabilidad masiva y recursos computacionales restringidos. Los protocolos IoT como MQTT están diseñados específicamente para superar estas limitaciones.</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>📡 Conectividad</h4>
+                    <ul>
+                        <li>Redes inestables → QoS</li>
+                        <li>Ancho de banda limitado</li>
+                        <li>Alta latencia</li>
+                        <li>Conexiones intermitentes</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>🔋 Energía</h4>
+                    <ul>
+                        <li>Batería limitada</li>
+                        <li>Mínimo tiempo de transmisión</li>
+                        <li>Wake-up frecuentes</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>📊 Escala</h4>
+                    <ul>
+                        <li>Miles a millones de dispositivos</li>
+                        <li>Mensajes frecuentes</li>
+                        <li>Muchos a muchos</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>🔒 Seguridad</h4>
+                    <ul>
+                        <li>Recursos computacionales limitados</li>
+                        <li>Memoria reducida</li>
+                        <li>CPU lenta</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- HTTP -->
+        <section id="http">
+            <h2>🌐 HTTP: El Protocolo de la Web</h2>
+            
+            <h3>Modelo Request-Response</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #3b82f6; background: #dbeafe;">
+                    <h4>📤 CLIENTE (ESP32)</h4>
+                    <ul>
+                        <li>Inicia la comunicación</li>
+                        <li>Envía GET /api/temperatura</li>
+                        <li>Espera respuesta</li>
+                    </ul>
+                </div>
+                <div class="comparison-card" style="border-color: #10b981; background: #d1fae5;">
+                    <h4>📥 SERVIDOR (API)</h4>
+                    <ul>
+                        <li>Recibe petición HTTP</li>
+                        <li>Procesa la lógica</li>
+                        <li>Responde HTTP 200 OK</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p><strong>Flujo:</strong> Cliente → Request → Servidor → Response → Cliente</p>
+            
+            <h3>Características Clave</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Iniciador</td><td>Siempre el cliente</td></tr>
+                    <tr><td>Conexión</td><td>Una por petición (HTTP/1.1)</td></tr>
+                    <tr><td>Modelo</td><td>Síncrono (espera respuesta)</td></tr>
+                    <tr><td>Push server</td><td>No (requiere polling)</td></tr>
+                    <tr><td>Overhead</td><td>Alto (~800 bytes headers)</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>✅ Ventajas HTTP</h4>
+                <ul>
+                    <li>Familiar y universalmente soportado</li>
+                    <li>Debugging fácil (Postman, curl, navegador)</li>
+                    <li>HTTPS integrado para seguridad</li>
+                    <li>Infraestructura madura</li>
+                </ul>
+            </div>
+            
+            <div class="info-box warning">
+                <h4>❌ Desventajas para IoT</h4>
+                <ul>
+                    <li>Overhead considerable</li>
+                    <li>No soporta push del servidor</li>
+                    <li>Polling consume batería</li>
+                    <li>No ideal para tiempo real</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- MQTT -->
+        <section id="mqtt">
+            <h2>📨 MQTT: El Protocolo Estrella de IoT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>MQTT usa el modelo publish/subscribe con un broker intermediario. Esto permite <strong>desacoplamiento total</strong>: el publicador no necesita saber quién escucha, y el suscriptor no necesita saber quién publica. El broker enruta mensajes eficientemente.</p>
+            </div>
+            
+            <p><strong>MQTT (Message Queuing Telemetry Transport)</strong> - Protocolo diseñado específicamente para IoT por IBM en 1999.</p>
+            
+            <h3>Modelo Publish/Subscribe</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #f59e0b; background: #fef3c7;">
+                    <h4>🔄 BROKER MQTT</h4>
+                    <p style="text-align: center; font-size: 2rem; margin: 1rem 0;">🔄</p>
+                    <p style="text-align: center;">Centro de mensajes que enruta entre publicadores y suscriptores</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="comparison-card" style="border-color: #3b82f6; background: #dbeafe;">
+                        <h4>📤 PUBLICADOR</h4>
+                        <p>Envía mensajes a topics<br><code>publish("casa/temp", "25.5")</code></p>
+                    </div>
+                    <div class="comparison-card" style="border-color: #10b981; background: #d1fae5;">
+                        <h4>📥 SUSCRIPTOR</h4>
+                        <p>Recibe mensajes de topics<br><code>subscribe("casa/temp")</code></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box success">
+                <h4>✅ ¿Por qué MQTT para IoT?</h4>
+                <ul>
+                    <li>Overhead mínimo (ahorro energía)</li>
+                    <li>Push nativo (tiempo real)</li>
+                    <li>Desacoplamiento (pub/sub)</li>
+                    <li>Escalable (millones de dispositivos)</li>
+                    <li>QoS garantizado</li>
+                    <li>Retained messages</li>
+                    <li>Last Will and Testament</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Topics -->
+        <section id="topics">
+            <h2>🏷️ Topics (Temas) en MQTT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>Los topics usan jerarquía con <code>/</code> como separador. Los wildcards <code>+</code> (un nivel) y <code>#</code> (múltiples niveles) permiten suscripciones flexibles. Esto es esencial para escalar sistemas IoT con muchos dispositivos.</p>
+            </div>
+            
+            <h3>Estructura Jerárquica</h3>
+            <p>Usa <code>/</code> como separador para crear jerarquías:</p>
+            <pre>casa/sala/temperatura
+casa/sala/humedad
+casa/sala/luz/estado
+casa/cocina/temperatura
+casa/cocina/luz
+casa/dormitorio/temperatura
+
+oficina/piso1/sala1/temperatura
+oficina/piso1/sala1/humedad
+oficina/piso2/servidor/cpu
+
+edificio/sectorA/piso3/oficina12/aire</pre>
+            
+            <h3>Wildcards (Comodines)</h3>
+            <table>
+                <thead>
+                    <tr><th>Símbolo</th><th>Significado</th><th>Ejemplo</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>+</code></td><td>Un solo nivel</td><td><code>casa/+/temperatura</code></td></tr>
+                    <tr><td><code>#</code></td><td>Múltiples niveles</td><td><code>casa/#</code></td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>Ejemplo de Wildcard <code>+</code></h4>
+                <p><code>casa/+/temperatura</code> captura:</p>
+                <ul>
+                    <li><code>casa/sala/temperatura</code></li>
+                    <li><code>casa/cocina/temperatura</code></li>
+                    <li><code>casa/dormitorio/temperatura</code></li>
+                </ul>
+            </div>
+            
+            <h3>Propiedades de Mensajes</h3>
+            <table>
+                <thead>
+                    <tr><th>Propiedad</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Payload</strong></td><td>Contenido del mensaje (string, JSON, binario)</td></tr>
+                    <tr><td><strong>Retain</strong></td><td>Último mensaje guardado para nuevos suscriptores</td></tr>
+                    <tr><td><strong>QoS</strong></td><td>Quality of Service (calidad de entrega)</td></tr>
+                    <tr><td><strong>Client ID</strong></td><td>Identificador único del cliente</td></tr>
+                    <tr><td><strong>LWT</strong></td><td>Last Will and Testament (mensaje si se desconecta)</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- QoS -->
+        <section id="qos">
+            <h2>🎯 Niveles de QoS (Quality of Service)</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>QoS 0 (fire & forget) para datos frecuentes como temperatura. QoS 1 (at least once) para comandos importantes. QoS 2 (exactly once) para transacciones críticas como pagos. Mayor QoS = más overhead y latencia.</p>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr><th>QoS</th><th>Nombre</th><th>Confirmación</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>QoS 0</strong></td>
+                        <td>At Most Once<br>(Fire and Forget)</td>
+                        <td>❌ Sin ACK</td>
+                        <td>Datos frecuentes, temperatura en tiempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QoS 1</strong></td>
+                        <td>At Least Once</td>
+                        <td>✅ ACK (PUBACK)<br>⚠️ Posibles duplicados</td>
+                        <td>Comandos importantes, alarmas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QoS 2</strong></td>
+                        <td>Exactly Once</td>
+                        <td>✅ 4-way handshake<br>❌ Sin duplicados</td>
+                        <td>Transacciones críticas, pagos</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⚠️ Trade-off</h4>
+                <p>Mayor QoS = Mayor confiabilidad pero también mayor overhead y latencia.</p>
+            </div>
+        </section>
+        
+        <!-- Comparación -->
+        <section id="comparacion">
+            <h2>⚖️ HTTP vs MQTT: Comparación Detallada</h2>
+            
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>HTTP</th><th>MQTT</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Modelo</strong></td><td>Request-Response</td><td>Publish-Subscribe</td></tr>
+                    <tr><td><strong>Iniciador</strong></td><td>Cliente</td><td>Bidireccional</td></tr>
+                    <tr><td><strong>Overhead</strong></td><td>Alto (~800 bytes)</td><td>Bajo (~2 bytes)</td></tr>
+                    <tr><td><strong>Conexión</strong></td><td>Por petición</td><td>Persistente</td></tr>
+                    <tr><td><strong>Push server</strong></td><td>No (polling)</td><td>Sí (nativo)</td></tr>
+                    <tr><td><strong>QoS</strong></td><td>No</td><td>3 niveles</td></tr>
+                    <tr><td><strong>Tiempo real</strong></td><td>Difícil</td><td>Fácil</td></tr>
+                    <tr><td><strong>Escalabilidad</strong></td><td>Media</td><td>Alta</td></tr>
+                    <tr><td><strong>Batería</strong></td><td>Alto consumo</td><td>Bajo consumo</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>¿Cuándo usar cada uno?</h3>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>Usar HTTP cuando:</h4>
+                    <ul>
+                        <li>Integración con APIs web existentes</li>
+                        <li>Comunicación ocasional</li>
+                        <li>Actualizaciones de firmware (OTA)</li>
+                        <li>Infraestructura HTTP ya existe</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Usar MQTT cuando:</h4>
+                    <ul>
+                        <li>Muchos dispositivos (escala)</li>
+                        <li>Comunicación tiempo real</li>
+                        <li>Push desde servidor necesario</li>
+                        <li>Dispositivos con batería</li>
+                        <li>Alta frecuencia de mensajes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Brokers -->
+        <section id="brokers">
+            <h2>🖥️ Brokers MQTT: Opciones Disponibles</h2>
+            
+            <h3>Gratuitos / Open Source</h3>
+            <table>
+                <thead>
+                    <tr><th>Broker</th><th>Características</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Mosquitto</strong></td><td>Ligero, muy popular</td><td>Self-hosted, Raspberry Pi</td></tr>
+                    <tr><td><strong>HiveMQ CE</strong></td><td>Java, alta disponibilidad</td><td>Empresas, clusters</td></tr>
+                    <tr><td><strong>EMQX</strong></td><td>Escalable, cloud native</td><td>Grandes despliegues</td></tr>
+                    <tr><td><strong>RabbitMQ</strong></td><td>Multi-protocolo</td><td>Enterprise</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Servicios Cloud</h3>
+            <table>
+                <thead>
+                    <tr><th>Servicio</th><th>Plan Gratuito</th><th>Características</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>HiveMQ Cloud</strong></td><td>100 conexiones</td><td>Fácil setup, TLS gratis</td></tr>
+                    <tr><td><strong>CloudMQTT</strong></td><td>5 conexiones</td><td>SSL incluido</td></tr>
+                    <tr><td><strong>AWS IoT Core</strong></td><td>12 meses free</td><td>Integración AWS</td></tr>
+                    <tr><td><strong>Adafruit IO</strong></td><td>10 feeds</td><td>Maker-friendly</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>🌐 Broker Público para Pruebas</h4>
+                <p><strong>broker.hivemq.com</strong></p>
+                <ul>
+                    <li>Puerto: 1883 (sin TLS)</li>
+                    <li>Puerto: 8883 (con TLS)</li>
+                    <li>WebSocket: 8000</li>
+                </ul>
+                <p><strong>⚠️ Solo para pruebas/educación - No usar en producción</strong></p>
+            </div>
+        </section>
+        
+        <!-- Implementación -->
+        <section id="implementacion">
+            <h2>⚙️ Implementación MQTT en ESP32</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>La librería <code>PubSubClient</code> de Arduino es el estándar para MQTT en ESP32/Arduino. Implementa reconexión automática, callbacks para mensajes recibidos y soporta QoS 0 y 1. Los brokers públicos como HiveMQ permiten pruebas sin servidor propio.</p>
+            </div>
+
+            <div class="hardware-notice">
+                <strong>💻 Factibilidad Windows:</strong> Arduino IDE es completamente compatible con Windows. Puedes compilar y cargar código en ESP32 desde Windows sin problemas.
+                <br><br>
+                <strong>🔧 Hardware opcional:</strong> Si no tienes ESP32 físico, puedes usar simuladores gratuitos como <a href="https://wokwi.com" target="_blank">Wokwi</a> para probar MQTT con ESP32 virtual. El docente también puede hacer demostraciones en vivo con hardware físico.
+            </div>
+            
+            <h3>Librería PubSubClient</h3>
+            <p>Arduino IDE → Sketch → Include Library → Manage Libraries → Buscar "PubSubClient"</p>
+            
+            <h3>Código: Publicador MQTT</h3>
+            <pre>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+const char* ssid = "TU_RED";
+const char* password = "TU_PASS";
+const char* mqtt_server = "broker.hivemq.com";
+const char* topic_temp = "unaula/sala/temperatura";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  client.setServer(mqtt_server, 1883);
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  // Publicar cada 5s
+  static unsigned long lastMsg = 0;
+  if (millis() - lastMsg > 5000) {
+    lastMsg = millis();
+    float temp = 25.5;
+    char msg[50];
+    snprintf(msg, 50, "%.1f", temp);
+    client.publish(topic_temp, msg);
+  }
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    if (client.connect("ESP32Client")) {
+      Serial.println("Conectado a MQTT");
+    } else {
+      delay(5000);
+    }
+  }
+}</pre>
+            
+            <h3>Suscriptor con Callback</h3>
+            <pre>void callback(char* topic, byte* payload, unsigned int length) {
+  String mensaje = "";
+  for (int i = 0; i &lt; length; i++) {
+    mensaje += (char)payload[i];
+  }
+
+  if (String(topic) == "unaula/sala/luz") {
+    if (mensaje == "ON") {
+      digitalWrite(LED_PIN, HIGH);
+    } else if (mensaje == "OFF") {
+      digitalWrite(LED_PIN, LOW);
+    }
+  }
+}
+
+void setup() {
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+}
+
+void reconnect() {
+  if (client.connect("ESP32-Sub")) {
+    client.subscribe("unaula/sala/luz");
+  }
+}</pre>
+            
+            <h3>JSON en MQTT</h3>
+            <pre>#include &lt;ArduinoJson.h&gt;
+
+void publicarJSON(float temp, float hum) {
+  StaticJsonDocument&lt;256&gt; doc;
+  doc["temperatura"] = temp;
+  doc["humedad"] = hum;
+  doc["timestamp"] = millis();
+
+  char buffer[256];
+  serializeJson(doc, buffer);
+  client.publish("unaula/sala/datos", buffer);
+}</pre>
+        </section>
+        
+        <!-- CoAP -->
+        <section id="coap">
+            <h2>📡 CoAP: Protocolo para Dispositivos Restringidos</h2>
+            
+            <h3>CoAP vs HTTP</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>HTTP</th><th>CoAP</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Transporte</td><td>TCP</td><td>UDP</td></tr>
+                    <tr><td>Overhead</td><td>~800 bytes</td><td>~10 bytes</td></tr>
+                    <tr><td>Formato</td><td>Texto</td><td>Binario</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Ventajas CoAP</h3>
+            <ul>
+                <li>Overhead mínimo (~10 bytes)</li>
+                <li>UDP más ligero</li>
+                <li>Métodos similares a HTTP (GET, POST, PUT, DELETE)</li>
+                <li>Diseñado para IoT restringido</li>
+            </ul>
+            
+            <h3>Métodos CoAP</h3>
+            <table>
+                <thead>
+                    <tr><th>Método</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GET</td><td>Obtener recurso</td></tr>
+                    <tr><td>POST</td><td>Crear recurso</td></tr>
+                    <tr><td>PUT</td><td>Actualizar recurso</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⚠️ ¿Cuándo usar CoAP?</h4>
+                <ul>
+                    <li>Dispositivo &lt; 100 KB RAM</li>
+                    <li>Red limitada (6LoWPAN, ZigBee)</li>
+                    <li>Overhead mínimo crítico</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Resumen -->
+        <section>
+            <h2>📋 Resumen de la Clase</h2>
+            
+            <table>
+                <thead>
+                    <tr><th>Concepto</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>HTTP</strong></td><td>Protocolo web request-response, alto overhead</td></tr>
+                    <tr><td><strong>MQTT</strong></td><td>Protocolo IoT pub/sub, ligero, tiempo real</td></tr>
+                    <tr><td><strong>Broker</strong></td><td>Servidor que enruta mensajes MQTT</td></tr>
+                    <tr><td><strong>Topic</strong></td><td>Canal de comunicación jerárquico</td></tr>
+                    <tr><td><strong>Publish</strong></td><td>Enviar mensaje a un topic</td></tr>
+                    <tr><td><strong>Subscribe</strong></td><td>Recibir mensajes de un topic</td></tr>
+                    <tr><td><strong>QoS 0</strong></td><td>At most once (mejor esfuerzo)</td></tr>
+                    <tr><td><strong>QoS 1</strong></td><td>At least once (confirmado)</td></tr>
+                    <tr><td><strong>QoS 2</strong></td><td>Exactly once (transaccional)</td></tr>
+                    <tr><td><strong>CoAP</strong></td><td>Para dispositivos muy limitados</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box success">
+                <h4>➡️ Próxima Clase: Convergencia IT/OT</h4>
+                <ul>
+                    <li>🖥️ Edge Computing vs Cloud Computing</li>
+                    <li>🏭 Tecnologías Operacionales (OT)</li>
+                    <li>🔗 Integración IT/OT</li>
+                    <li>⚡ Arquitecturas híbridas</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
+        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
+    </footer>
+
+    <button id="backToTop" class="back-to-top" title="Volver arriba">↑</button>
+
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

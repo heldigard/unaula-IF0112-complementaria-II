@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 3: Transformación del Entorno - IF0112 Complementaria II (IoT)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #f7fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: #2d3748;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            background: #4a5568;
+        }
+
+        /* Main content */
+        main {
+            padding: 2rem 0;
+        }
+
+        section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #1e40af;
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        tbody tr:hover {
+            background: #edf2f7;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        /* Figures */
+        figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        figcaption {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: #718096;
+            font-style: italic;
+        }
+
+        /* Cards grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        /* Highlight boxes */
+        .highlight {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight-success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+
+        .highlight-warning {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+
+        .highlight-danger {
+            background: #fee2e2;
+            border-left-color: #ef4444;
+        }
+
+        /* Infographic section */
+        .infographic-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .layer-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .layer-application {
+            background: #dbeafe;
+            border: 2px solid #3b82f6;
+        }
+
+        .layer-network {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+        }
+
+        .layer-perception {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #e2e8f0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            background: #3b82f6;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #3b82f6;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav a {
+                padding: 0.75rem 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            nav {
+                display: none;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+
+            .back-to-top {
+                display: none;
+            }
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1e40af;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+        /* Learning key box */
+        .learning-key {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .learning-key h4 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .learning-key p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Section anchor offset for sticky nav */
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        /* Enhanced figure captions */
+        figcaption {
+            background: #f7fafc;
+            padding: 0.75rem;
+            border-radius: 0 0 8px 8px;
+            margin-top: -8px;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+        }
+
+        /* Info tooltip style */
+        .info-tooltip {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 0.75rem;
+            line-height: 18px;
+            cursor: help;
+            margin-left: 0.5rem;
+            position: relative;
+        }
+
+        .info-tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to top button -->
+    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="Volver arriba">
+        ↑
+    </button>
+
+    <script>
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const button = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                button.classList.add('visible');
+            } else {
+                button.classList.remove('visible');
+            }
+        });
+    </script>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>Clase 3: Transformación del Entorno</h1>
+            <p class="subtitle">Empresas y Ciudades Inteligentes | IF0112 - Complementaria II (IoT) | UNAULA</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#empresas">Empresas Inteligentes</a></li>
+                <li><a href="#casos">Casos de Estudio</a></li>
+                <li><a href="#smart-cities">Smart Cities</a></li>
+                <li><a href="#desafios">Desafíos</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Objectives Section -->
+        <section id="objetivos">
+            <h2>Objetivos de la Clase</h2>
+
+            <h3>Competencias a Desarrollar</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Competencia</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Definir</strong></td>
+                        <td>Empresas inteligentes e Industria 4.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Describir</strong></td>
+                        <td>Componentes de Smart Cities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analizar</strong></td>
+                        <td>Casos de estudio reales (Colombia)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evaluar</strong></td>
+                        <td>Impacto de IoT en sectores clave</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Pregunta Clave</h3>
+            <div class="highlight">
+                <strong>¿Cómo IoT transforma empresas y ciudades?</strong>
+            </div>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave de esta Sección</h4>
+                <p>IoT es el habilitador fundamental de la transformación digital, permitiendo que empresas y ciudades pasen de reaccionar a <strong>anticipar</strong>, de operar con datos desactualizados a tener <strong>información en tiempo real</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Why Digital Transformation -->
+        <section>
+            <h2>¿Por qué la Transformación Digital?</h2>
+
+            <h3>Datos del Mundo Real</h3>
+            <ul>
+                <li>84% de empresas en transformación digital (Gartner 2025)</li>
+                <li>$2.3 trillones en IoT para 2026</li>
+            </ul>
+
+            <h3>Ejemplos en Colombia</h3>
+            <ul>
+                <li>🚦 <strong>Medellín:</strong> Semáforos inteligentes con sensores</li>
+                <li>🏭 <strong>Grupo Nutresa:</strong> Sensores en líneas de producción</li>
+                <li>🏢 <strong>EPM:</strong> Smart grid para gestión energética</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Analogía:</strong> Una empresa sin IoT es ciega y sorda. Con IoT, <strong>siente y reacciona</strong> en tiempo real.
+            </div>
+        </section>
+
+        <!-- Connection with Previous Class -->
+        <section>
+            <h2>Conexión con la Clase Anterior: P-P-D-C en Acción</h2>
+
+            <h3>Los 4 Pilares Aplicados a Transformación Digital</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pilar</th>
+                        <th>Rol en Smart City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>👤 Personas</strong></td>
+                        <td>Ciudadanos, usuarios, operadores</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⚙️ Procesos</strong></td>
+                        <td>Reglas, flujos, automatizaciones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📊 Datos</strong></td>
+                        <td>Métricas en tiempo real, analytics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📱 Cosas</strong></td>
+                        <td>Sensores y actuadores en el entorno</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="infographic-container">
+                <div class="card">
+                    <h4>👤 Personas</h4>
+                    <p>Usuarios y ciudadanos</p>
+                </div>
+                <div class="card">
+                    <h4>⚙️ Procesos</h4>
+                    <p>Reglas y automatización</p>
+                </div>
+                <div class="card">
+                    <h4>📊 Datos</h4>
+                    <p>Métricas en tiempo real</p>
+                </div>
+                <div class="card" style="background: #1e40af; color: white;">
+                    <h4>📱 Cosas + P-P-D</h4>
+                    <p>= 🏙️ SMART CITY</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Enterprise -->
+        <section id="empresas">
+            <h2>Empresa Inteligente</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Una empresa inteligente no es solo "digital", sino que utiliza datos en tiempo real para <strong>tomar decisiones automáticas</strong> y anticiparse a problemas antes de que ocurran.</p>
+            </div>
+
+            <h3>Definición</h3>
+            <div class="highlight">
+                Una <strong>empresa inteligente</strong> utiliza tecnologías IoT, análisis de datos e inteligencia artificial para optimizar operaciones, mejorar la toma de decisiones y crear valor.
+            </div>
+
+            <h3>Características</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Conectada</strong></td>
+                        <td>Dispositivos y sistemas integrados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automatizada</strong></td>
+                        <td>Procesos sin intervención manual</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Predictiva</strong></td>
+                        <td>Anticipa problemas y oportunidades</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Adaptativa</strong></td>
+                        <td>Se ajusta a cambios en tiempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Centrada en datos</strong></td>
+                        <td>Decisiones basadas en evidencia</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>La Transformación Digital: Antes vs Después</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Antes</th>
+                        <th>Después</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Procesos manuales</td>
+                        <td>Procesos inteligentes</td>
+                    </tr>
+                    <tr>
+                        <td>Reactivo</td>
+                        <td>Predictivo</td>
+                    </tr>
+                    <tr>
+                        <td>Aislado</td>
+                        <td>Conectado</td>
+                    </tr>
+                    <tr>
+                        <td>Ineficiente</td>
+                        <td>Optimizado</td>
+                    </tr>
+                    <tr>
+                        <td>Basado en intuición</td>
+                        <td>Basado en datos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- IoT Architecture -->
+        <section>
+            <h2>Arquitectura IoT: Las 3 Capas</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>La arquitectura de 3 capas (Percepción → Red → Aplicación) es el modelo estándar que permite que datos fluyan desde el mundo físico hasta las aplicaciones de negocio de manera organizada y escalable.</p>
+            </div>
+
+            <figure>
+                <img src="assets/infografias/clase-03-arquitectura-iot.png" alt="Arquitectura IoT de 3 Capas">
+                <figcaption>Figura 3: Arquitectura IoT de 3 Capas - Flujo de Datos desde Sensores hasta Aplicaciones Empresariales. Modelo estándar que organiza las tecnologías IoT en capas funcionales.</figcaption>
+            </figure>
+
+            <div class="infographic-container">
+                <div class="layer-box layer-application">
+                    <h4>☁️ Capa 3: Aplicación</h4>
+                    <p><strong>Función:</strong> Interfaz de usuario</p>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>Dashboards - Visualizar KPIs</li>
+                        <li>Apps - Control remoto</li>
+                        <li>Alertas - Notificaciones</li>
+                    </ul>
+                </div>
+
+                <div class="layer-box layer-network">
+                    <h4>📡 Capa 2: Red</h4>
+                    <p><strong>Función:</strong> Conectividad</p>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>Gateway - Agregar datos</li>
+                        <li>Edge - Procesamiento local</li>
+                        <li>Protocolos - Transmisión segura</li>
+                    </ul>
+                </div>
+
+                <div class="layer-box layer-perception">
+                    <h4>🔌 Capa 1: Percepción</h4>
+                    <p><strong>Función:</strong> Interfaz física</p>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>Sensores - Capturar datos</li>
+                        <li>Actuadores - Ejecutar acciones</li>
+                        <li>Hardware - Interfaz mundo real</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Flujo de Datos: Ejemplo en Fábrica</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Paso</th>
+                        <th>Capa</th>
+                        <th>Acción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Percepción</td>
+                        <td>Sensor detecta</td>
+                        <td>Temperatura = 85°C</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Red</td>
+                        <td>Transmite dato</td>
+                        <td>LoRaWAN → Gateway</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Aplicación</td>
+                        <td>Alerta usuario</td>
+                        <td>"Sobrecalentamiento"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <strong>Principio:</strong> Cada capa tiene responsabilidad única
+            </div>
+        </section>
+
+        <!-- Industry 4.0 -->
+        <section>
+            <h2>Industria 4.0: Manufactura Inteligente</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>La Industria 4.0 representa la cuarta revolución industrial, donde la <strong>fusión de lo físico y lo digital</strong> (sistemas ciberfísicos) permite fábricas autónomas, personalizadas y conectadas.</p>
+            </div>
+
+            <h3>Las 4 Revoluciones Industriales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Revolución</th>
+                        <th>Periodo</th>
+                        <th>Tecnología Clave</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1.0</strong></td>
+                        <td>1784</td>
+                        <td>Máquina de vapor</td>
+                        <td>Mecanización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2.0</strong></td>
+                        <td>1870</td>
+                        <td>Electricidad</td>
+                        <td>Producción en masa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3.0</strong></td>
+                        <td>1969</td>
+                        <td>Electrónica + TI</td>
+                        <td>Automatización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4.0</strong></td>
+                        <td>2011+</td>
+                        <td>IoT + IA + Big Data</td>
+                        <td>Sistemas ciberfísicos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Los 9 Pilares Tecnológicos de Industria 4.0</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>1. 🌐 IoT</h4>
+                    <p>Sensores conectados</p>
+                </div>
+                <div class="card">
+                    <h4>2. 🤖 Robótica</h4>
+                    <p>Cobots colaborativos</p>
+                </div>
+                <div class="card">
+                    <h4>3. 📊 Big Data</h4>
+                    <p>Análisis masivo</p>
+                </div>
+                <div class="card">
+                    <h4>4. 🔮 IA</h4>
+                    <p>Machine Learning</p>
+                </div>
+                <div class="card">
+                    <h4>5. 👓 AR/VR</h4>
+                    <p>Mantenimiento asistido</p>
+                </div>
+                <div class="card">
+                    <h4>6. ☁️ Cloud</h4>
+                    <p>Infraestructura escalable</p>
+                </div>
+                <div class="card">
+                    <h4>7. 🛡️ Ciberseguridad</h4>
+                    <p>Protección de sistemas</p>
+                </div>
+                <div class="card">
+                    <h4>8. 🖨️ Impresión 3D</h4>
+                    <p>Manufactura aditiva</p>
+                </div>
+                <div class="card">
+                    <h4>9. ⛓️ Blockchain</h4>
+                    <p>Trazabilidad</p>
+                </div>
+            </div>
+
+            <h3>Evolución: De Industria 3.0 a 4.0</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Industria 3.0 (1969-2010)</th>
+                        <th>Industria 4.0 (2011+)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Automatización</strong></td>
+                        <td>Rígida y fija</td>
+                        <td>Flexible y adaptable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Producción</strong></td>
+                        <td>En masa, estándar</td>
+                        <td>Personalización masiva</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estructura</strong></td>
+                        <td>Silos departamentales</td>
+                        <td>Integración total</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mantenimiento</strong></td>
+                        <td>Correctivo (reparar)</td>
+                        <td>Predictivo (anticipar)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decisiones</strong></td>
+                        <td>Centralizadas</td>
+                        <td>Distribuidas en red</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success">
+                <strong>Resultado:</strong> Fábricas más ágiles, eficientes y personalizadas
+            </div>
+        </section>
+
+        <!-- Case Studies -->
+        <section id="casos">
+            <h2>Casos de Estudio: Empresas Colombianas</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Los casos reales demuestran que IoT genera <strong>ROI medible</strong>: Nutresa logró 18% más eficiencia, EPM redujo pérdidas eléctricas, y Siemens Amberg alcanza 99.99885% de calidad.</p>
+            </div>
+
+            <!-- Case 1: Nutresa -->
+            <h3>Caso 1: Grupo Nutresa - Planta 4.0 Tocancipá 🏭</h3>
+
+            <h4>Contexto</h4>
+            <ul>
+                <li>Primera planta de alimentos 100% conectada en LATAM</li>
+                <li>Inversión: $25M USD (2018-2022)</li>
+                <li>Certificación LEED Oro</li>
+            </ul>
+
+            <h4>Arquitectura IoT Implementada</h4>
+            <pre>
+┌─────────────────────────────────────────────────────────┐
+│                    CLOUD AWS                            │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
+│  │ Analytics│  │  AI/ML   │  │ Dashboard │             │
+│  └──────────┘  └──────────┘  └──────────┘             │
+└─────────────────────────────────────────────────────────┘
+                              ▲
+                              │ MQTT/TLS
+                              ▼
+┌─────────────────────────────────────────────────────────┐
+│                   EDGE ON-PREMISE                        │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
+│  │ PLCs     │  │  SCADA   │  │  Historian│             │
+│  └──────────┘  └──────────┘  └──────────┘             │
+└─────────────────────────────────────────────────────────┘
+                              ▲
+                              │ Industrial Ethernet
+                              ▼
+┌─────────────────────────────────────────────────────────┐
+│                      SENSORES Y ACTUADORES               │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
+│  │Temp/Humed│  │ Vibración│  │ Cámaras  │             │
+│  │  (50+)   │  │ Motores  │  │  Vision  │             │
+│  └──────────┘  └──────────┘  └──────────┘             │
+└─────────────────────────────────────────────────────────┘
+            </pre>
+
+            <h4>Tecnologías Específicas</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Tecnología</th>
+                        <th>Proveedor</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Control de procesos</td>
+                        <td>PLC Siemens S7-1500</td>
+                        <td>Siemens</td>
+                        <td>-40% variabilidad</td>
+                    </tr>
+                    <tr>
+                        <td>Visión artificial</td>
+                        <td>Cámaras Cognex + DL</td>
+                        <td>Cognex</td>
+                        <td>-90% empaques defectuosos</td>
+                    </tr>
+                    <tr>
+                        <td>Sensores vibración</td>
+                        <td>SKF Multilog IMx-16</td>
+                        <td>SKF</td>
+                        <td>-75% fallos motores</td>
+                    </tr>
+                    <tr>
+                        <td>Gemelo digital</td>
+                        <td>NVIDIA Omniverse</td>
+                        <td>NVIDIA</td>
+                        <td>-25% prototipado físico</td>
+                    </tr>
+                    <tr>
+                        <td>Blockchain</td>
+                        <td>Hyperledger Fabric</td>
+                        <td>Accenture</td>
+                        <td>Trazabilidad 100%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Procesos IF-THEN Implementados</h4>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Pasteurización</h4>
+                    <pre><code>IF: Temp < 72°C por >30s
+THEN: Alerta + reducir línea</code></pre>
+                </div>
+                <div class="card">
+                    <h4>Control Humedad</h4>
+                    <pre><code>IF: HR > 55%
+AND: Producto = galletas
+THEN: Activar deshumidificadores</code></pre>
+                </div>
+                <div class="card">
+                    <h4>Mantenimiento</h4>
+                    <pre><code>IF: Vibración > 4.5 mm/s
+OR: Temp aceite > 85°C
+THEN: Mtto en 48h</code></pre>
+                </div>
+            </div>
+
+            <h4>ROI Detallado</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Inversión</th>
+                        <th>Ahorro Anual</th>
+                        <th>Payback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sensores IoT ($5M)</td>
+                        <td>$12M</td>
+                        <td>5 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Visión artificial ($8M)</td>
+                        <td>$18M</td>
+                        <td>5.3 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Analytics ($7M)</td>
+                        <td>$15M</td>
+                        <td>5.6 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura ($5M)</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL $25M</strong></td>
+                        <td><strong>$45M</strong></td>
+                        <td><strong>6.7 meses</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Resultados Medidos (2020-2024)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Mejora</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eficiencia operativa</td>
+                        <td>+18%</td>
+                        <td>$45M USD ahorro</td>
+                    </tr>
+                    <tr>
+                        <td>Desperdicio materia prima</td>
+                        <td>-25%</td>
+                        <td>12,000 ton menos</td>
+                    </tr>
+                    <tr>
+                        <td>Consumo energético</td>
+                        <td>-30%</td>
+                        <td>-15,000 ton CO2</td>
+                    </tr>
+                    <tr>
+                        <td>Tiempo cambio producto</td>
+                        <td>-50%</td>
+                        <td>+23% capacidad</td>
+                    </tr>
+                    <tr>
+                        <td>Cumplimiento calidad</td>
+                        <td>99.5%</td>
+                        <td>-40% reclamos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Case 2: EPM -->
+            <h3 style="margin-top: 3rem;">Caso 2: EPM - Smart Grid 💡</h3>
+
+            <h4>Infraestructura Desplegada</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Cantidad</th>
+                        <th>Inversión</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Medidores AMI</td>
+                        <td>2.7M</td>
+                        <td>$180M</td>
+                        <td>80% cobertura</td>
+                    </tr>
+                    <tr>
+                        <td>Concentradores</td>
+                        <td>15,000</td>
+                        <td>$25M</td>
+                        <td>Operativos</td>
+                    </tr>
+                    <tr>
+                        <td>Data center</td>
+                        <td>1</td>
+                        <td>$35M</td>
+                        <td>Activo</td>
+                    </tr>
+                    <tr>
+                        <td>App móvil</td>
+                        <td>2.5M descargas</td>
+                        <td>$5M</td>
+                        <td>Activa</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Especificaciones Técnicas del Medidor</h4>
+            <pre>
+Medidor: Landis+Gyr E450
+├── Comunicación: Zigbee (home) + Cellular (backhaul)
+├── Frecuencia lectura: 15 min
+├── Memoria: 90 días datos
+├── Precisión: ±1%
+├── Relés: Desconexión remota
+└── Seguridad: AES-256 + TLS 1.3
+            </pre>
+
+            <h4>App "EPM Móvil" - Features</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Descripción</th>
+                        <th>Uso mensual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Consulta consumo</td>
+                        <td>Gráficos diarios/semanales/mensuales</td>
+                        <td>1.8M usuarios</td>
+                    </tr>
+                    <tr>
+                        <td>Comparativa</td>
+                        <td>Vs vecinos similares (anonimizada)</td>
+                        <td>900K usuarios</td>
+                    </tr>
+                    <tr>
+                        <td>Alertas</td>
+                        <td>Consumo alto, corte programado</td>
+                        <td>650K notificaciones</td>
+                    </tr>
+                    <tr>
+                        <td>Simulador ahorro</td>
+                        <td>"¿Qué pasa si...?"</td>
+                        <td>400K simulaciones</td>
+                    </tr>
+                    <tr>
+                        <td>Reporte fallas</td>
+                        <td>Georreferenciado + foto</td>
+                        <td>120K reportes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Resultados por Segmento</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segmento</th>
+                        <th>Antes</th>
+                        <th>Después</th>
+                        <th>Mejora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pérdidas técnicas</td>
+                        <td>22%</td>
+                        <td>18%</td>
+                        <td>-18% relativo</td>
+                    </tr>
+                    <tr>
+                        <td>Detección fraudes</td>
+                        <td>2,500/mes</td>
+                        <td>6,200/mes</td>
+                        <td>+148%</td>
+                    </tr>
+                    <tr>
+                        <td>Satisfacción</td>
+                        <td>72%</td>
+                        <td>95%</td>
+                        <td>+23 puntos</td>
+                    </tr>
+                    <tr>
+                        <td>Llamadas call center</td>
+                        <td>180K/mes</td>
+                        <td>108K/mes</td>
+                        <td>-40%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Case 3: Siemens Amberg -->
+            <h3 style="margin-top: 3rem;">Caso 3: Siemens Amberg - Fábrica Perfecta 🏭</h3>
+
+            <h4>Especificaciones</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Productos por día</td>
+                        <td>50M variantes</td>
+                    </tr>
+                    <tr>
+                        <td>Tasa de defectos</td>
+                        <td>0.00115% (99.99885% calidad)</td>
+                    </tr>
+                    <tr>
+                        <td>Automatización</td>
+                        <td>75%</td>
+                    </tr>
+                    <tr>
+                        <td>Empleados</td>
+                        <td>1,100 (mismo desde 1989)</td>
+                    </tr>
+                    <tr>
+                        <td>Producción</td>
+                        <td>8x en 25 años</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>"Productos que Hablan"</h4>
+            <p>Cada PLC Siemens producido:</p>
+            <ul>
+                <li>Tiene código único</li>
+                <li>Se identifica en cada etapa de producción</li>
+                <li>Transmite datos a su propio "gemelo digital"</li>
+                <li>Si detecta anomalía, se reporta a sí mismo</li>
+            </ul>
+        </section>
+
+        <!-- Sectors Transformed -->
+        <section>
+            <h2>Sectores Transformados por IoT en Colombia</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sector</th>
+                        <th>Empresas Líderes</th>
+                        <th>Aplicaciones Clave</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🏭 Manufactura</strong></td>
+                        <td>Nutresa, Corona, Ecopetrol</td>
+                        <td>Mantenimiento predictivo, Control calidad</td>
+                        <td>-15-30% costos operativos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏥 Salud</strong></td>
+                        <td>EPM Salud, Keralty, Sura</td>
+                        <td>Telemedicina + wearables, Gestión inventarios</td>
+                        <td>-40% readmisiones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🛒 Retail</strong></td>
+                        <td>Éxito, Falabella, Jumbo</td>
+                        <td>Estanterías inteligentes, Cajas automáticas</td>
+                        <td>-25% mermas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🚛 Logística</strong></td>
+                        <td>Servientrega, 4-72</td>
+                        <td>Flotas GPS, Rutas optimizadas, Cadena de frío</td>
+                        <td>-20% combustible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏦 Financiero</strong></td>
+                        <td>Bancolombia, Davivienda</td>
+                        <td>Cajeros inteligentes, Detección fraude RT</td>
+                        <td>-60% fraudes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🌾 Agricultura</strong></td>
+                        <td>Eje Cafetero, Valle</td>
+                        <td>Riego inteligente, Drones monitoreo</td>
+                        <td>-40% agua, +25% producción</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Estadísticas del Ecosistema IoT Colombia (2024)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicador</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💰 Inversión IoT anual</td>
+                        <td>$850M USD</td>
+                    </tr>
+                    <tr>
+                        <td>📱 Dispositivos conectados</td>
+                        <td>12 millones</td>
+                    </tr>
+                    <tr>
+                        <td>🏢 Empresas con proyectos IoT</td>
+                        <td>35% de medianas y grandes</td>
+                    </tr>
+                    <tr>
+                        <td>🏙️ Principales ciudades</td>
+                        <td>Bogotá (40%), Medellín (25%), Cali (15%)</td>
+                    </tr>
+                    <tr>
+                        <td>📈 Crecimiento anual del mercado</td>
+                        <td>18%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Smart Cities -->
+        <section id="smart-cities">
+            <h2>Smart Cities: Ciudades Inteligentes</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Una Smart City integra múltiples sistemas IoT (movilidad, energía, seguridad, ambiente) para crear una <strong>infraestructura urbana coordinada</strong> que responde en tiempo real a las necesidades ciudadanas.</p>
+            </div>
+
+            <h3>Definición</h3>
+            <div class="highlight">
+                Una <strong>ciudad inteligente</strong> usa tecnología IoT para mejorar la eficiencia de servicios urbanos, la calidad de vida y la sostenibilidad ambiental.
+            </div>
+
+            <h3>Componentes de una Smart City</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🚗 Movilidad</h4>
+                    <p>Semáforos adaptativos, parking inteligente</p>
+                </div>
+                <div class="card">
+                    <h4>💡 Energía</h4>
+                    <p>Smart grid, medidores inteligentes</p>
+                </div>
+                <div class="card">
+                    <h4>🌳 Ambiente</h4>
+                    <p>Calidad aire, ruido, clima</p>
+                </div>
+                <div class="card">
+                    <h4>🏛️ Gobierno</h4>
+                    <p>Transparencia, participación</p>
+                </div>
+                <div class="card">
+                    <h4>🏥 Salud</h4>
+                    <p>Telemedicina, monitoreo</p>
+                </div>
+                <div class="card">
+                    <h4>🔒 Seguridad</h4>
+                    <p>Cámaras, alertas, emergencias</p>
+                </div>
+                <div class="card">
+                    <h4>🏠 Edificios</h4>
+                    <p>Gestión eficiente de recursos</p>
+                </div>
+                <div class="card">
+                    <h4>🚰 Agua</h4>
+                    <p>Detección fugas, calidad</p>
+                </div>
+                <div class="card">
+                    <h4>📡 Conectividad</h4>
+                    <p>5G / fibra / LPWAN</p>
+                </div>
+            </div>
+
+            <!-- Smart Mobility -->
+            <h3>Movilidad Inteligente: Componentes</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🚦 Semáforos Adaptativos</h4>
+                    <ul>
+                        <li>Ajustan tiempos según tráfico</li>
+                        <li>Reducción congestionamiento</li>
+                        <li>Respuesta a emergencias</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🅿️ Estacionamiento Inteligente</h4>
+                    <ul>
+                        <li>Sensores detectan espacios libres</li>
+                        <li>App guía al conductor</li>
+                        <li>Pago automatizado</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚌 Transporte Público</h4>
+                    <ul>
+                        <li>GPS en tiempo real</li>
+                        <li>Info de llegada en paradas</li>
+                        <li>Integración multimodal</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚗 Vehículos Conectados</h4>
+                    <ul>
+                        <li>V2V (Vehículo a Vehículo)</li>
+                        <li>V2I (Vehículo a Infraestructura)</li>
+                        <li>Conducción autónoma</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Smart Grid -->
+            <h3>Energía Inteligente: Smart Grid</h3>
+            <div class="infographic-container">
+                <div class="card">
+                    <h4>☀️ Generación Distribuida</h4>
+                    <ul>
+                        <li>Solar fotovoltaica</li>
+                        <li>Eólica</li>
+                        <li>Generación tradicional</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>⚡ Distribución Inteligente</h4>
+                    <ul>
+                        <li>Transformadores inteligentes</li>
+                        <li>Monitoreo en tiempo real</li>
+                        <li>Balance dinámico</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🏠 Consumo Inteligente</h4>
+                    <ul>
+                        <li>Medidores smart</li>
+                        <li>Tarifas dinámicas</li>
+                        <li>Eficiencia energética</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight" style="text-align: center;">
+                <strong>🎯 Centro de Control:</strong> Monitoreo RT | Detección fallas | Balance oferta/demanda | Integración renovables
+            </div>
+
+            <!-- Water Management -->
+            <h3>Agua Inteligente: Gestión del Recurso</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Etapa</th>
+                        <th>Sensores</th>
+                        <th>Función</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💧 <strong>Captación</strong></td>
+                        <td>Nivel en embalses</td>
+                        <td>Control de reservas</td>
+                    </tr>
+                    <tr>
+                        <td>🚰 <strong>Tratamiento</strong></td>
+                        <td>pH, turbidez, cloro</td>
+                        <td>Calidad del agua</td>
+                    </tr>
+                    <tr>
+                        <td>📡 <strong>Distribución</strong></td>
+                        <td>Presión, flujo</td>
+                        <td>Detección de fugas</td>
+                    </tr>
+                    <tr>
+                        <td>🏠 <strong>Consumo</strong></td>
+                        <td>Medidores smart</td>
+                        <td>Facturación y alertas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success" style="text-align: center;">
+                <span style="font-size: 2em;">📉</span><br>
+                <strong>Reducción de pérdidas: 15-30%</strong><br>
+                <em>Ahorro significativo en infraestructura hídrica</em>
+            </div>
+
+            <!-- Security -->
+            <h3>Seguridad Ciudadana Inteligente</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>📷 Cámaras Inteligentes</h4>
+                    <ul>
+                        <li>Reconocimiento facial</li>
+                        <li>Detección comportamiento anómalo</li>
+                        <li>Lectura de placas vehiculares</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚨 Botones de Pánico</h4>
+                    <ul>
+                        <li>Ubicación GPS automática</li>
+                        <li>Notificación inmediata</li>
+                        <li>Integración autoridades</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>📱 Apps Ciudadanas</h4>
+                    <ul>
+                        <li>Reportes de incidentes</li>
+                        <li>Alertas georreferenciadas</li>
+                        <li>Comunicación bidireccional</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🔊 Sensores Acústicos</h4>
+                    <ul>
+                        <li>Detección de disparos (ShotSpotter)</li>
+                        <li>Identificación de sonidos</li>
+                        <li>Localización precisa</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Smart City Cases -->
+        <section>
+            <h2>Casos Globales de Smart Cities</h2>
+
+            <!-- Singapore -->
+            <h3>Caso: Singapur 🇸🇬 - La Ciudad Más Inteligente del Mundo</h3>
+
+            <h4>Iniciativas Clave</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Iniciativa</th>
+                        <th>Descripción</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Virtual Singapore</strong></td>
+                        <td>Gemelo digital 3D de toda la ciudad</td>
+                        <td>$73M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Health</strong></td>
+                        <td>Telemedicina + monitoreo crónicos</td>
+                        <td>$150M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Mobility</strong></td>
+                        <td>Autonomous vehicles + ERP 2.0</td>
+                        <td>$500M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>National Digital Identity</strong></td>
+                        <td>SingPass</td>
+                        <td>$50M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SenseOps</strong></td>
+                        <td>Red de 100K+ sensores</td>
+                        <td>$100M</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>SenseOps: Red de Sensores Masiva</h4>
+            <pre>
+Categorías de sensores:
+├── Ambiente: PM2.5, PM10, O3, NO2, SO2, CO
+├── Clima: Temperatura, humedad, lluvia, viento
+├── Tráfico: Flujo vehicular, velocidad, ocupación
+├── Agua: Nivel canales, calidad, presión
+├── Energía: Consumo por edificio, smart meter
+└── Seguridad: Cámaras, botones pánico, disparos
+
+Total: 110,000 sensores (2024)
+Meta: 200,000 sensores (2030)
+            </pre>
+
+            <h4>Datos Abiertos (data.gov.sg)</h4>
+            <ul>
+                <li>1,600+ datasets disponibles</li>
+                <li>200,000+ descargas mensuales</li>
+                <li>APIs para desarrolladores</li>
+                <li>Hackathones trimestrales</li>
+            </ul>
+
+            <div class="highlight highlight-success">
+                <h4>📊 Resultados</h4>
+                <table style="margin: 0;">
+                    <tr>
+                        <td>Ranking Smart City</td>
+                        <td><strong>#1 Mundial</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Hogares con banda ancha</td>
+                        <td><strong>95%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Transacciones sin efectivo</td>
+                        <td><strong>50%</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Barcelona -->
+            <h3 style="margin-top: 3rem;">Caso: Barcelona 🇪🇸 - Smart City Europe</h3>
+
+            <h4>Plataforma Sentilo (Open Source)</h4>
+            <pre>
+┌─────────────────────────────────────────────────┐
+│              APLICACIONES (Apps)                 │
+├─────────────────────────────────────────────────┤
+│              Sentilo (Platform)                  │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │  API     │  │  Pub/Sub │  │ Almacenar │     │
+│  └──────────┘  └──────────┘  └──────────┘     │
+├─────────────────────────────────────────────────┤
+│              PROTOCOL ADAPTERS                   │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │  HTTP    │  │  MQTT    │  │  CoAP    │     │
+│  └──────────┘  └──────────┘  └──────────┘     │
+├─────────────────────────────────────────────────┤
+│              SENSORES Y ACTUADORES               │
+└─────────────────────────────────────────────────┘
+            </pre>
+
+            <h4>Proyectos Destacados</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Sensores</th>
+                        <th>Ahorro</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Farolas LED</strong></td>
+                        <td>1,100</td>
+                        <td>30% energía</td>
+                        <td>$2.5M/año</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Riego inteligente</strong></td>
+                        <td>300 humedad</td>
+                        <td>25% agua</td>
+                        <td>100K m³</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contenedores basura</strong></td>
+                        <td>500 nivel</td>
+                        <td>-20% recolección</td>
+                        <td>-10% camiones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aparcamiento</strong></td>
+                        <td>400 inductivos</td>
+                        <td>-20% tráfico</td>
+                        <td>+30% rotación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bicing IoT</strong></td>
+                        <td>6,000 bicis</td>
+                        <td>-</td>
+                        <td>50K viajes/día</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Medellin -->
+            <h3 style="margin-top: 3rem;">Caso: Medellín 🇨🇴 - #1 Smart City LATAM</h3>
+
+            <h4>Centro de Control y Comando - C4 + SIATA</h4>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🔒 Seguridad (C4)</h4>
+                    <ul>
+                        <li>5,000+ cámaras en la ciudad</li>
+                        <li>Integración con Policía</li>
+                        <li>Monitoreo de transporte</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🌧️ Ambiente (SIATA)</h4>
+                    <ul>
+                        <li>Sensores calidad del aire</li>
+                        <li>Estaciones meteorológicas</li>
+                        <li>Alertas tempranas</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚌 Movilidad</h4>
+                    <ul>
+                        <li>Metro con GPS</li>
+                        <li>Encicla con IoT</li>
+                        <li>App integrada</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Impacto Medible en la Ciudad</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🔒 <strong>Seguridad</strong></td>
+                        <td>Reducción delictiva</td>
+                        <td><strong>15%</strong> en zonas con cámaras</td>
+                    </tr>
+                    <tr>
+                        <td>🌧️ <strong>Ambiente</strong></td>
+                        <td>Alertas tempranas</td>
+                        <td><strong>30 min</strong> antes de emergencias</td>
+                    </tr>
+                    <tr>
+                        <td>🚌 <strong>Movilidad</strong></td>
+                        <td>Eficiencia transporte</td>
+                        <td><strong>20%</strong> reducción tiempos espera</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Matriz de Comparación: Smart Cities</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ciudad</th>
+                        <th>Población</th>
+                        <th>Inversión</th>
+                        <th>Proyectos clave</th>
+                        <th>Ranking 2024</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Singapur</td>
+                        <td>5.7M</td>
+                        <td>$2B+</td>
+                        <td>Gemelo digital, e-ID</td>
+                        <td>#1 Mundial</td>
+                    </tr>
+                    <tr>
+                        <td>Barcelona</td>
+                        <td>1.6M</td>
+                        <td>$300M</td>
+                        <td>Sentilo, bicing</td>
+                        <td>#3 Europa</td>
+                    </tr>
+                    <tr>
+                        <td>Medellín</td>
+                        <td>2.5M</td>
+                        <td>$180M</td>
+                        <td>SIATA, C4, Metro</td>
+                        <td>#1 LATAM</td>
+                    </tr>
+                    <tr>
+                        <td>Seúl</td>
+                        <td>9.7M</td>
+                        <td>$1.2B</td>
+                        <td>5G, Songdo</td>
+                        <td>#2 Asia</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Challenges -->
+        <section id="desafios">
+            <h2>Desafíos de Smart Cities</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Implementar Smart Cities requiere equilibrar <strong>innovación técnica</strong> con <strong>consideraciones sociales</strong> (privacidad, brecha digital) y <strong>viabilidad económica</strong> (ROI, sostenibilidad financiera).</p>
+            </div>
+
+            <h3>Desafíos Técnicos 🔧 <span class="info-tooltip" data-tooltip="Desafíos relacionados con tecnología e infraestructura">i</span></h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🔌 Interoperabilidad</h4>
+                    <ul>
+                        <li>Múltiples fabricantes</li>
+                        <li>Protocolos diferentes</li>
+                        <li>Sistemas legacy</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🔒 Ciberseguridad</h4>
+                    <ul>
+                        <li>Infraestructura crítica</li>
+                        <li>Miles de vulnerabilidades</li>
+                        <li>Ataques sofisticados</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>📈 Escalabilidad</h4>
+                    <ul>
+                        <li>Crecimiento exponencial</li>
+                        <li>Mantenimiento masivo</li>
+                        <li>Costos operativos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Desafíos Sociales 👥 <span class="info-tooltip" data-tooltip="Desafíos relacionados con impacto en ciudadanos y sociedad">i</span></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desafío</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>👁️ <strong>Privacidad</strong></td>
+                        <td>¿Quién accede a mis datos?</td>
+                    </tr>
+                    <tr>
+                        <td>🌍 <strong>Brecha Digital</strong></td>
+                        <td>No todos tienen acceso igual</td>
+                    </tr>
+                    <tr>
+                        <td>🤝 <strong>Aceptación</strong></td>
+                        <td>Confianza en la tecnología</td>
+                    </tr>
+                    <tr>
+                        <td>⚠️ <strong>Dependencia</strong></td>
+                        <td>¿Qué pasa si falla el sistema?</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Desafíos Económicos 💰 <span class="info-tooltip" data-tooltip="Desafíos relacionados con financiamiento y sostenibilidad">i</span></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desafío</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💵 <strong>Costo Inicial</strong></td>
+                        <td>Inversión millonaria</td>
+                    </tr>
+                    <tr>
+                        <td>📊 <strong>ROI</strong></td>
+                        <td>Retorno a largo plazo</td>
+                    </tr>
+                    <tr>
+                        <td>🔄 <strong>Sostenibilidad</strong></td>
+                        <td>Modelo de negocio viable</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Privacidad en Ciudades Inteligentes</h3>
+
+            <div class="infographic-container">
+                <div class="highlight highlight-success">
+                    <h4>✅ Más Seguridad</h4>
+                    <ul>
+                        <li>📷 Más cámaras</li>
+                        <li>🔒 Menos crimen</li>
+                        <li>🚨 Respuesta rápida</li>
+                    </ul>
+                </div>
+
+                <div class="highlight highlight-danger">
+                    <h4>⚠️ Menos Privacidad</h4>
+                    <ul>
+                        <li>👁️ Vigilancia masiva</li>
+                        <li>🗃️ Datos ciudadanos</li>
+                        <li>🤖 Perfilamiento</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Principios para el Equilibrio</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Principio</th>
+                        <th>Aplicación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🔍 <strong>Transparencia</strong></td>
+                        <td>Informar qué datos se recopilan</td>
+                    </tr>
+                    <tr>
+                        <td>✅ <strong>Consentimiento</strong></td>
+                        <td>Opt-in donde sea posible</td>
+                    </tr>
+                    <tr>
+                        <td>📉 <strong>Minimización</strong></td>
+                        <td>Solo datos necesarios</td>
+                    </tr>
+                    <tr>
+                        <td>⏱️ <strong>Retención Limitada</strong></td>
+                        <td>Borrar cuando no se necesiten</td>
+                    </tr>
+                    <tr>
+                        <td>🔎 <strong>Auditorías</strong></td>
+                        <td>Revisiones independientes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Exercises -->
+        <section id="ejercicios">
+            <h2>Ejercicios y Actividades</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>El diseño de soluciones IoT requiere un enfoque <strong>sistemático</strong>: definir el problema, diseñar la arquitectura de 3 capas, especificar tecnología, y evaluar desafíos técnicos, sociales y económicos.</p>
+            </div>
+
+            <h3>Actividad Principal: Diseño de Componente Smart City</h3>
+
+            <p><strong>Objetivo:</strong> Diseñar un componente IoT para la ciudad de Medellín que mejore la calidad de vida de sus habitantes.</p>
+
+            <div class="highlight highlight-success">
+                <strong>💡 Contexto del Ejercicio:</strong> Esta actividad es <strong>teórica/diseño</strong>. No requiere hardware ni programación. Los estudiantes trabajarán con papel, lápiz y herramientas de diagramación (draw.io, Lucidchart o incluso PowerPoint) disponibles en Windows.
+            </div>
+
+            <h4>Paso 1: Selección de Escenario (5 min)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Escenario</th>
+                        <th>Complejidad</th>
+                        <th>Impacto Potencial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Parqueaderos inteligentes</td>
+                        <td>Media</td>
+                        <td>Alto</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Monitoreo calidad del aire por barrio</td>
+                        <td>Alta</td>
+                        <td>Muy Alto</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Gestión inteligente de residuos</td>
+                        <td>Media</td>
+                        <td>Medio</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Alerta temprana de inundaciones</td>
+                        <td>Alta</td>
+                        <td>Alto</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Paso 2: Análisis de Problema (10 min)</h4>
+            <div class="card">
+                <h4>Problema Actual</h4>
+                <ul>
+                    <li>¿Qué problema se va a resolver?</li>
+                    <li>¿A quién afecta?</li>
+                    <li>¿Cuál es el impacto actual (sin solución)?</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Solución Propuesta</h4>
+                <ul>
+                    <li>¿Cómo IoT resuelve este problema?</li>
+                    <li>¿Qué valor aporta?</li>
+                </ul>
+            </div>
+
+            <h4>Paso 3: Diseño de Arquitectura (20 min)</h4>
+            <pre>
+┌─────────────────────────────────────────────────────────┐
+│                  CAPA DE APLICACIÓN                     │
+│  - Dashboard: _____________________________________      │
+│  - App móvil: ______________________________________     │
+│  - Alertas: ________________________________________     │
+└─────────────────────────────────────────────────────────┘
+                              ▲
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────┐
+│                     CAPA DE RED                         │
+│  - Protocolo: _____________ (WiFi/LoRa/4G/NB-IoT)      │
+│  - Gateway: ________________________________________    │
+│  - Edge computing: [ ] Sí [ ] No                       │
+└─────────────────────────────────────────────────────────┘
+                              ▲
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────┐
+│                   CAPA DE PERCEPCIÓN                    │
+│  Sensores:                                             │
+│    1. _______________ (cantidad: _____)                │
+│    2. _______________ (cantidad: _____)                │
+│    3. _______________ (cantidad: _____)                │
+│  Actuadores:                                           │
+│    1. _______________ (cantidad: _____)                │
+│    2. _______________ (cantidad: _____)                │
+└─────────────────────────────────────────────────────────┘
+            </pre>
+
+            <h4>Paso 4: Especificaciones Técnicas (15 min)</h4>
+            <p><strong>Sensores:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Especificación</th>
+                        <th>Costo unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Conectividad:</strong></p>
+            <ul>
+                <li>Protocolo: _________ (justificación: ___________)</li>
+                <li>Frecuencia de transmisión: _________</li>
+                <li>Gateway: _________ (costo: $_______)</li>
+            </ul>
+
+            <p><strong>Plataforma:</strong></p>
+            <ul>
+                <li>Proveedor: _________ (AWS/Azure/Google/On-premise)</li>
+                <li>Costo mensual estimado: $_______</li>
+                <li>Escalabilidad: _________ dispositivos</li>
+            </ul>
+
+            <h4>Paso 5: Beneficios y Métricas (10 min)</h4>
+            <p><strong>KPIs (Key Performance Indicators):</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Línea base</th>
+                        <th>Meta 1 año</th>
+                        <th>Métrica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Paso 6: Desafíos y Riesgos (10 min)</h4>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Técnicos</h4>
+                    <ul>
+                        <li>[ ] Interoperabilidad</li>
+                        <li>[ ] Escalabilidad</li>
+                        <li>[ ] Mantenimiento</li>
+                        <li>Otro: _________</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Sociales</h4>
+                    <ul>
+                        <li>[ ] Privacidad</li>
+                        <li>[ ] Aceptación ciudadana</li>
+                        <li>[ ] Brecha digital</li>
+                        <li>Otro: _________</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Económicos</h4>
+                    <ul>
+                        <li>[ ] ROI incierto</li>
+                        <li>[ ] Costo operación</li>
+                        <li>[ ] Financiamiento</li>
+                        <li>Otro: _________</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Paso 7: Consideraciones de Privacidad (10 min)</h4>
+            <p><strong>Datos recopilados:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>¿Es personal?</th>
+                        <th>¿Requiere consentimiento?</th>
+                        <th>¿Cómo se protege?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Cumplimiento Ley 1581:</strong></p>
+            <ul>
+                <li>[ ] Política de privacidad</li>
+                <li>[ ] Autorización explícita</li>
+                <li>[ ] Derechos ARCO implementados</li>
+                <li>[ ] Minimización de datos</li>
+            </ul>
+
+            <h3>Rúbrica de Evaluación</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criterio</th>
+                        <th>4 - Excelente</th>
+                        <th>3 - Bueno</th>
+                        <th>2 - Aceptable</th>
+                        <th>1 - Insuficiente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Arquitectura</strong></td>
+                        <td>Diagrama completo con capas claras</td>
+                        <td>Diagrama básico</td>
+                        <td>Diagrama incompleto</td>
+                        <td>Sin diagrama</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tecnología</strong></td>
+                        <td>Sensores/actuadores específicos y apropiados</td>
+                        <td>Lista genérica</td>
+                        <td>Tecnología limitada</td>
+                        <td>Sin especificación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Beneficios</strong></td>
+                        <td>3+ métricas cuantificables</td>
+                        <td>2 métricas cualitativas</td>
+                        <td>1 beneficio genérico</td>
+                        <td>Sin beneficios</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desafíos</strong></td>
+                        <td>Técnicos, sociales y económicos con mitigaciones</td>
+                        <td>1-2 tipos de desafíos</td>
+                        <td>Solo desafíos obvios</td>
+                        <td>Sin análisis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacidad</strong></td>
+                        <td>Análisis profundo de riesgos y mitigaciones</td>
+                        <td>Menciona privacidad básica</td>
+                        <td>Mínima consideración</td>
+                        <td>Sin mención</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contexto Medellín</strong></td>
+                        <td>Específico con datos locales</td>
+                        <td>Menciona contexto genérico</td>
+                        <td>Sin contexto local</td>
+                        <td>Desconectado</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <strong>Calificación:</strong> Suma / 24 × 100%
+            </div>
+
+            <!-- Example -->
+            <h3 style="margin-top: 3rem;">Ejemplo Resumido: Monitoreo Calidad Aire</h3>
+
+            <h4>Resumen Ejecutivo</h4>
+            <p>Red de 200 sensores IoT para monitoreo hiperlocal de calidad del aire en Medellín. Resolución de 500m (vs 5km actual), con alertas tempranas a ciudadanía y autoridades.</p>
+
+            <h4>Arquitectura Resumida</h4>
+            <pre>
+Sensores (PM2.5, PM10, O3, NO2) → LoRaWAN → Gateway → AWS → App + Dashboard
+    |                                                            |
+    ↓                                                            ↓
+Solar + batería (7 días)                          API pública + Alertas push
+            </pre>
+
+            <h4>Beneficios</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Línea base</th>
+                        <th>Meta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cobertura comunas</td>
+                        <td>50%</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr>
+                        <td>Alertas anticipación</td>
+                        <td>30 min</td>
+                        <td>2 horas</td>
+                    </tr>
+                    <tr>
+                        <td>Consultas respiratorias</td>
+                        <td>-</td>
+                        <td>-20%</td>
+                    </tr>
+                    <tr>
+                        <td>Costo estación</td>
+                        <td>$500K</td>
+                        <td>$30K</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Costos</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Piloto (20 nodos)</td>
+                        <td>$3M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Expansión (180 nodos)</td>
+                        <td>$27M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Plataforma</td>
+                        <td>$15M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Mantenimiento/año</td>
+                        <td>$30M COP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>$75M COP</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success">
+                <strong>ROI:</strong> Ahorro en salud ≈ $200M COP/año<br>
+                <strong>Payback:</strong> 4.5 meses
+            </div>
+
+            <!-- Example 2 -->
+            <h3 style="margin-top: 3rem;">Ejemplo Resumido: Parqueaderos Inteligentes</h3>
+
+            <h4>Resumen Ejecutivo</h4>
+            <p>Sistema IoT para 500 parqueaderos en zona centro de Medellín. Sensores magnéticos detectan ocupación en tiempo real, app guía conductores a espacios libres, reduciendo congestión y contaminación.</p>
+
+            <h4>Arquitectura Resumida</h4>
+            <pre>
+Sensores magnéticos → LoRaWAN → Gateway → AWS IoT → App + Dashboard
+    |                                                            |
+    ↓                                                            ↓
+Batería solar (6 meses)                          API para integraciones + Alertas
+            </pre>
+
+            <h4>Beneficios</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Línea base</th>
+                        <th>Meta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiempo búsqueda</td>
+                        <td>15 min</td>
+                        <td>2 min</td>
+                    </tr>
+                    <tr>
+                        <td>Emisiones CO2</td>
+                        <td>-</td>
+                        <td>-30%</td>
+                    </tr>
+                    <tr>
+                        <td>Ingresos zona</td>
+                        <td>-</td>
+                        <td>+20%</td>
+                    </tr>
+                    <tr>
+                        <td>Costo sensor</td>
+                        <td>$200</td>
+                        <td>$50</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Costos</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Piloto (50 espacios)</td>
+                        <td>$2.5M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Expansión (450 espacios)</td>
+                        <td>$22.5M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Plataforma</td>
+                        <td>$10M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Mantenimiento/año</td>
+                        <td>$15M COP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>$50M COP</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success">
+                <strong>ROI:</strong> Ingresos adicionales + reducción costos congestión ≈ $80M COP/año<br>
+                <strong>Payback:</strong> 7.5 meses
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section>
+            <h2>Resumen de la Clase</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Empresa Inteligente</strong></td>
+                        <td>Usa IoT para optimizar operaciones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Industria 4.0</strong></td>
+                        <td>Manufactura con IoT, IA, Big Data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart City</strong></td>
+                        <td>Ciudad que usa IoT para mejorar servicios</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Grid</strong></td>
+                        <td>Red eléctrica inteligente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Mobility</strong></td>
+                        <td>Transporte conectado y eficiente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desafíos</strong></td>
+                        <td>Interoperabilidad, seguridad, privacidad</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Homework -->
+        <section>
+            <h2>Tarea para la Próxima Clase</h2>
+
+            <h3>Investigación</h3>
+            <p>Seleccionar una ciudad inteligente del mundo y preparar:</p>
+            <ol>
+                <li><strong>Ficha técnica</strong> (3 iniciativas IoT destacadas)</li>
+                <li><strong>Resultados medibles</strong> (métricas, estadísticas)</li>
+                <li><strong>Lecciones aprendidas</strong> para Colombia</li>
+                <li><strong>Presentación de 5 minutos</strong> para compartir</li>
+            </ol>
+
+            <div class="highlight">
+                <strong>Ciudades sugeridas:</strong> Ámsterdam, Dubái, Seúl, Copenhague, Helsinki<br>
+                <strong>Herramientas para investigación:</strong> Sitios web oficiales, IEEE Xplore, Google Scholar, informes de Smart Cities Council
+            </div>
+        </section>
+
+        <!-- References -->
+        <section id="referencias">
+            <h2>Referencias Bibliográficas</h2>
+
+            <h3>Casos de Estudio - Empresas</h3>
+            <h4>Grupo Nutresa</h4>
+            <ol>
+                <li><strong>Grupo Nutresa.</strong> (2024). <em>Reporte de Sostenibilidad 2023</em>. Planta Tocancipá 4.0.</li>
+                <li><strong>Siemens.</strong> (2023). <em>Digital Enterprise - Case Study: Grupo Nutresa</em>.</li>
+                <li><strong>World Economic Forum.</strong> (2023). <em>Global Lighthouse Network: Grupo Nutresa Tocancipá</em>.</li>
+            </ol>
+
+            <h4>EPM</h4>
+            <ol start="4">
+                <li><strong>Empresas Públicas de Medellín (EPM).</strong> (2024). <em>Proyecto Smart Grid: Informe de Avance 2020-2024</em>.</li>
+                <li><strong>Landis+Gyr.</strong> (2024). <em>E450 Smart Meter Technical Specification</em>.</li>
+            </ol>
+
+            <h4>Siemens Amberg</h4>
+            <ol start="6">
+                <li><strong>Siemens.</strong> (2024). <em>Digital Factory: Amberg Plant Showcase</em>.</li>
+                <li><strong>Kagermann, H., et al.</strong> (2013). <em>Industrie 4.0: Recommendations for implementing Industry 4.0</em>. Forschungsunion.</li>
+            </ol>
+
+            <h3>Smart Cities - Globales</h3>
+            <h4>Singapur</h4>
+            <ol start="8">
+                <li><strong>Smart Nation Singapore.</strong> (2024). <em>Digital Government Blueprint</em>.</li>
+                <li><strong>Government Technology Agency (GovTech).</strong> (2024). <em>SenseOps: Sensor Network Specification</em>.</li>
+            </ol>
+
+            <h4>Barcelona</h4>
+            <ol start="10">
+                <li><strong>Ajuntament de Barcelona.</strong> (2024). <em>Barcelona Digital City Roadmap</em>.</li>
+                <li><strong>Sentilo.</strong> (2024). <em>Open Source Sensor Platform Documentation</em>.</li>
+            </ol>
+
+            <h3>Frameworks y Estándares</h3>
+            <ol start="12">
+                <li><strong>IEEE.</strong> (2023). <em>IEEE 802.15.4: Low-Rate Wireless Personal Area Networks</em>.</li>
+                <li><strong>ITU-T.</strong> (2022). <em>Y.4110: Overview of Internet of Things - Smart City Applications</em>.</li>
+                <li><strong>ISO.</strong> (2023). <em>ISO 37120: Sustainable development of communities — Indicators for city services</em>.</li>
+            </ol>
+
+            <h3>Seguridad IoT</h3>
+            <ol start="15">
+                <li><strong>NIST.</strong> (2024). <em>NIR 8423: Smart City Privacy and Security Considerations</em>.</li>
+                <li><strong>ENISA.</strong> (2023). <em>Smart Cities Security and Resilience Guide</em>.</li>
+            </ol>
+
+            <h3>Libros Recomendados</h3>
+            <ol start="17">
+                <li><strong>Batty, M., et al.</strong> (2022). <em>Smart Cities of the Future</em>. MIT Press.</li>
+                <li><strong>Angelidou, M.</strong> (2023). <em>Smart City Policies: A European Perspective</em>. Springer.</li>
+                <li><strong>Huang, R. (Ed.)</strong> (2021). <em>IoT for Smart Cities</em>. IET.</li>
+            </ol>
+
+            <h3>Recursos Online</h3>
+            <ul>
+                <li><strong>Smart Cities Council:</strong> <a href="https://smartcitiescouncil.com/" target="_blank">https://smartcitiescouncil.com/</a></li>
+                <li><strong>IEEE Smart Cities:</strong> <a href="https://smartcities.ieee.org/" target="_blank">https://smartcities.ieee.org/</a></li>
+                <li><strong>World Economic Forum C4IR:</strong> <a href="https://www.centreforthefourthindustrialrevolution.org/" target="_blank">https://www.centreforthefourthindustrialrevolution.org/</a></li>
+            </ul>
+
+            <h3>Cómo Citar</h3>
+            <pre>
+@manual{if0112-clase03,
+  title        = {Clase 3: Transformación del Entorno - Empresas y Ciudades Inteligentes},
+  author       = {UNAULA},
+  organization = {Universidad Autónoma de Colombia},
+  year         = {2026},
+  month        = {Febrero},
+  course       = {IF0112 - Complementaria II (IoT)},
+  unit         = {Unidad 1: ¿Qué es IoT?}
+}
+            </pre>
+        </section>
+
+        <!-- Next Class -->
+        <section>
+            <h2>Próxima Clase</h2>
+
+            <h3>Clase 4: Redes para IoT</h3>
+            <ul>
+                <li>LAN, WAN e Internet</li>
+                <li>Protocolos de comunicación IoT</li>
+                <li>Evaluación E1 (15%): Ensayo + Quiz</li>
+            </ul>
+
+            <div class="highlight" style="text-align: center;">
+                <strong>¡Nos vemos!</strong>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma de Colombia | Ingeniería Informática | 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;">
+                Clase 3: Transformación del Entorno - Empresas y Ciudades Inteligentes
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

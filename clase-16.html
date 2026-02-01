@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 16: Proyecto Final - IF0112 Complementaria II (IoT)</title>
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --card: #ffffff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --accent: #ea580c;
+            --accent-2: #f97316;
+            --border: #e5e7eb;
+            --table-head: #7c2d12;
+            --table-row: #ffedd5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        header {
+            padding: 2.6rem 2rem 2rem;
+            background: linear-gradient(120deg, #7c2d12 0%, #ea580c 50%, #f97316 100%);
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 2.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            max-width: 900px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: #1f2937;
+            color: #fff;
+            z-index: 10;
+            padding: 0.75rem 2rem;
+            font-size: 0.95rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.4rem;
+        }
+
+        nav a {
+            color: #fed7aa;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2.6rem;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        section h3 {
+            font-size: 1.2rem;
+            margin: 1.25rem 0 0.75rem;
+            color: #7c2d12;
+        }
+
+        ul, ol {
+            margin-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .note {
+            background: #ffedd5;
+            border-left: 4px solid var(--accent);
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--table-head);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: var(--table-row);
+        }
+
+        pre {
+            background: #1f2937;
+            color: #ffedd5;
+            padding: 1rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin-top: 0.75rem;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            padding: 1.5rem 2rem 2rem;
+            background: #1f2937;
+            color: #fed7aa;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 1.9rem;
+            }
+        }
+
+        /* Cajas de aprendizaje clave */
+        .learning-key {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 5px solid var(--accent);
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+        }
+        .learning-key h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .learning-key h4::before {
+            content: "💡";
+            font-size: 1.2rem;
+        }
+        .learning-key p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Hardware opcional notice */
+        .hardware-notice {
+            background: #e0f2fe;
+            border-left: 4px solid #0284c7;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .hardware-notice strong {
+            color: #015182b;
+        }
+
+        /* Botón volver arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .back-to-top:hover {
+            background: var(--accent-2);
+            transform: translateY(-2px);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Scroll margin para navegación */
+        section {
+            scroll-margin-top: 80px;
+        }
+        section h2 {
+            scroll-margin-top: 80px;
+        }
+
+        @media print {
+            .back-to-top { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 16: Proyecto Final</h1>
+            <p>IF0112 - Complementaria II (IoT) · Unidad 2: La Piedra Angular de IoT</p>
+            <span class="pill">Objetivo general: diseñar y prototipar un sistema IoT completo</span>
+            <div class="grid">
+                <div class="card">
+                    <h3>Objetivos de la clase</h3>
+                    <ul>
+                        <li>Comprender requisitos del proyecto final IoT.</li>
+                        <li>Planificar hardware, software, conectividad y documentacion.</li>
+                        <li>Construir entregables y cronograma de trabajo.</li>
+                        <li>Analizar ejemplos reales exitosos.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Prerrequisitos</h3>
+                    <ul>
+                        <li>Fundamentos de IoT, sensores y actuadores.</li>
+                        <li>Conectividad WiFi y protocolos (MQTT/HTTP).</li>
+                        <li>Documentacion tecnica basica.</li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivo">Objetivo</a></li>
+                <li><a href="#requisitos">Requisitos</a></li>
+                <li><a href="#equipos">Equipos</a></li>
+                <li><a href="#entregables">Entregables</a></li>
+                <li><a href="#cronograma">Cronograma</a></li>
+                <li><a href="#ideas">Ideas</a></li>
+                <li><a href="#rubrica">Rubrica</a></li>
+                <li><a href="#ejemplos">Ejemplos</a></li>
+                <li><a href="#practica">Practica / Lab</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="objetivo">
+                <h2>Objetivo del proyecto final</h2>
+
+                <div class="learning-key">
+                    <h4>Aprendizaje clave</h4>
+                    <p>El proyecto final integra TODO lo aprendido: hardware (sensores/actuadores), conectividad (WiFi/MQTT), software (Arduino/Python), visualización (dashboard/Grafana), y documentación. Trabajo en equipo de 3-4 estudiantes, con exposición en semana 16. Hardware es opcional: usar simuladores (Wokwi, Tinkercad) o demo del docente.</p>
+                </div>
+
+                <p>Disenar y prototipar un sistema IoT completo que resuelva un problema real, integrando hardware, software, conectividad, visualizacion y documentacion.</p>
+            </section>
+
+            <section id="requisitos">
+                <h2>Requisitos minimos</h2>
+                <h3>Hardware</h3>
+                <ul>
+                    <li>Microcontrolador (ESP32 o similar).</li>
+                    <li>Minimo 2 sensores diferentes.</li>
+                    <li>Minimo 1 actuador.</li>
+                    <li>Circuito de alimentacion apropiado.</li>
+                </ul>
+                <h3>Software</h3>
+                <ul>
+                    <li>Lectura de sensores funcionando.</li>
+                    <li>Logica de decision implementada.</li>
+                    <li>Actuador controlado segun la logica.</li>
+                    <li>Conectividad WiFi activa.</li>
+                    <li>Comunicacion con nube/servidor.</li>
+                </ul>
+                <h3>Conectividad</h3>
+                <ul>
+                    <li>Protocolo de comunicacion (MQTT/HTTP).</li>
+                    <li>Interfaz web o app movil.</li>
+                    <li>Visualizacion de datos en tiempo real.</li>
+                </ul>
+                <h3>Documentacion</h3>
+                <ul>
+                    <li>Diagrama de arquitectura.</li>
+                    <li>Diagrama de conexiones fisicas.</li>
+                    <li>Codigo comentado.</li>
+                    <li>Manual de usuario.</li>
+                    <li>Video demostrativo.</li>
+                </ul>
+            </section>
+
+            <section id="equipos">
+                <h2>Equipos recomendados</h2>
+                <h3>Basico (USD 20-50)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Precio aprox.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ESP32</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>DHT22</td>
+                            <td>1</td>
+                            <td>$3</td>
+                        </tr>
+                        <tr>
+                            <td>LED</td>
+                            <td>2</td>
+                            <td>$1</td>
+                        </tr>
+                        <tr>
+                            <td>Resistencias</td>
+                            <td>5</td>
+                            <td>$1</td>
+                        </tr>
+                        <tr>
+                            <td>Breadboard</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>Cables</td>
+                            <td>10</td>
+                            <td>$2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Intermedio (USD 50-150)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Precio aprox.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ESP32</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>BME280</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>Relay modulo</td>
+                            <td>2</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Servo SG90</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>Pantalla OLED</td>
+                            <td>1</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Caja prototipo</td>
+                            <td>1</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Sensor adicional</td>
+                            <td>2</td>
+                            <td>$20</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Avanzado (USD 150-300)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Precio aprox.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Raspberry Pi</td>
+                            <td>1</td>
+                            <td>$35</td>
+                        </tr>
+                        <tr>
+                            <td>Camara OV2648</td>
+                            <td>1</td>
+                            <td>$30</td>
+                        </tr>
+                        <tr>
+                            <td>GPS</td>
+                            <td>1</td>
+                            <td>$20</td>
+                        </tr>
+                        <tr>
+                            <td>Sensor MQ-2</td>
+                            <td>1</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Modulo LoRa</td>
+                            <td>2</td>
+                            <td>$30</td>
+                        </tr>
+                        <tr>
+                            <td>Bateria + cargador</td>
+                            <td>1</td>
+                            <td>$20</td>
+                        </tr>
+                        <tr>
+                            <td>Caja waterproof</td>
+                            <td>1</td>
+                            <td>$15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="entregables">
+                <h2>Entregables</h2>
+                <h3>Informe tecnico (10 paginas)</h3>
+                <pre><code># Proyecto IoT: [Nombre]
+
+## 1. Introduccion
+- Planteamiento del problema
+- Justificacion del proyecto
+
+## 2. Marco Teorico
+- Modelo P-P-D-C aplicado
+- Tecnologias seleccionadas y por que
+
+## 3. Arquitectura
+- Diagrama de bloques
+- Diagrama de conexiones fisicas
+- Diagrama de flujo de datos
+
+## 4. Implementacion
+- Codigo principal
+- Explicacion de secciones clave
+- Capturas de prototipo
+
+## 5. Resultados
+- Pruebas realizadas
+- Metricas obtenidas
+- Limitaciones encontradas
+
+## 6. Conclusiones
+- Logros alcanzados
+- Trabajo futuro
+- Lecciones aprendidas
+
+## 7. Referencias
+</code></pre>
+                <h3>Prototipo funcional</h3>
+                <ul>
+                    <li>Hardware montado y funcionando.</li>
+                    <li>Codigo subido a GitHub.</li>
+                    <li>Video demostrativo (3-5 minutos).</li>
+                </ul>
+                <h3>Presentacion (10 minutos)</h3>
+                <ul>
+                    <li>10-15 diapositivas.</li>
+                    <li>Demo en vivo o video grabado.</li>
+                    <li>Defensa oral y respuesta a preguntas.</li>
+                </ul>
+            </section>
+
+            <section id="cronograma">
+                <h2>Cronograma sugerido</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Semana</th>
+                            <th>Actividad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Seleccion de tema y aprobacion</td>
+                        </tr>
+                        <tr>
+                            <td>2-3</td>
+                            <td>Adquisicion de componentes</td>
+                        </tr>
+                        <tr>
+                            <td>4-5</td>
+                            <td>Implementacion hardware + codigo basico</td>
+                        </tr>
+                        <tr>
+                            <td>6-7</td>
+                            <td>Integracion completa y pruebas</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Documentacion y video</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Presentacion final</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="ideas">
+                <h2>Ideas de proyectos</h2>
+                <h3>Hogar inteligente</h3>
+                <ul>
+                    <li>Control de iluminacion con sensores de presencia.</li>
+                    <li>Sistema de riego automatico para plantas.</li>
+                    <li>Monitoreo de calidad del aire interior.</li>
+                    <li>Cerradura inteligente con reconocimiento facial.</li>
+                </ul>
+
+                <h3>Agricultura</h3>
+                <ul>
+                    <li>Riego inteligente para huerta.</li>
+                    <li>Invernadero automatizado (temp, humedad, luz).</li>
+                    <li>Monitoreo de cultivos con camara y analisis.</li>
+                    <li>Sistema de alerta de plagas.</li>
+                </ul>
+
+                <h3>Salud</h3>
+                <ul>
+                    <li>Monitor de signos vitales con alertas.</li>
+                    <li>Sistema de medicacion inteligente.</li>
+                    <li>Silla de ruedas con sensores de presion.</li>
+                    <li>Dispensador automatico de medicamentos.</li>
+                </ul>
+
+                <h3>Ambiente</h3>
+                <ul>
+                    <li>Estacion meteorologica local.</li>
+                    <li>Sistema de alerta de inundacion.</li>
+                    <li>Monitor de calidad de agua.</li>
+                    <li>Contador de consumo energetico.</li>
+                </ul>
+
+                <h3>Seguridad</h3>
+                <ul>
+                    <li>Alarma de intrusos con camara.</li>
+                    <li>Sistema de alerta de incendios.</li>
+                    <li>Caja fuerte con apertura remota.</li>
+                    <li>Monitoreo de vehiculos (GPS).</li>
+                </ul>
+            </section>
+
+            <section id="rubrica">
+                <h2>Rúbrica de evaluacion</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Peso</th>
+                            <th>Excelente (4)</th>
+                            <th>Bueno (3)</th>
+                            <th>Aceptable (2)</th>
+                            <th>Insuficiente (1)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hardware</td>
+                            <td>20%</td>
+                            <td>Funciona completo, conexion limpia</td>
+                            <td>Funciona con algunos bugs</td>
+                            <td>Prototipo incompleto</td>
+                            <td>Sin prototipo</td>
+                        </tr>
+                        <tr>
+                            <td>Software</td>
+                            <td>25%</td>
+                            <td>Codigo limpio, documentado, modular</td>
+                            <td>Codigo funcional con comentarios basicos</td>
+                            <td>Codigo sin comentarios</td>
+                            <td>Codigo no funcional</td>
+                        </tr>
+                        <tr>
+                            <td>Documentacion</td>
+                            <td>20%</td>
+                            <td>Informe completo, diagramas claros</td>
+                            <td>Informe con informacion basica</td>
+                            <td>Informe incompleto</td>
+                            <td>Sin informe</td>
+                        </tr>
+                        <tr>
+                            <td>Innovacion</td>
+                            <td>15%</td>
+                            <td>Solucion creativa, no trivial</td>
+                            <td>Solucion conocida bien implementada</td>
+                            <td>Solucion basica</td>
+                            <td>Copia de proyecto existente</td>
+                        </tr>
+                        <tr>
+                            <td>Presentacion</td>
+                            <td>10%</td>
+                            <td>Clara, demo en vivo, responde preguntas</td>
+                            <td>Presentacion clara, demo video</td>
+                            <td>Presentacion basica</td>
+                            <td>Sin presentacion</td>
+                        </tr>
+                        <tr>
+                            <td>Defensa</td>
+                            <td>10%</td>
+                            <td>Responde todas las preguntas con profundidad</td>
+                            <td>Responde mayoria de preguntas</td>
+                            <td>Responde algunas preguntas</td>
+                            <td>No responde</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="ejemplos">
+                <h2>Ejemplos de proyectos exitosos</h2>
+                <h3>Proyecto 1: Sistema de riego inteligente</h3>
+                <ul>
+                    <li>ESP32 + DHT22 + sensor humedad + bomba.</li>
+                    <li>App Blynk con modo automatico y manual.</li>
+                    <li>Ahorro 40% de agua vs riego manual.</li>
+                </ul>
+                <pre><code># Fragmento de codigo (Blynk)
+void checkHumedad() {
+  int humedad = analogRead(HUMEDAD_PIN);
+  humedad = map(humedad, 0, 4095, 0, 100);
+
+  if (humedad < 30) {
+    digitalWrite(BOMBA_PIN, HIGH);
+    Blynk.notify("Riego activado");
+  } else if (humedad > 60) {
+    digitalWrite(BOMBA_PIN, LOW);
+  }
+}
+</code></pre>
+
+                <h3>Proyecto 2: Monitor de calidad del aire</h3>
+                <ul>
+                    <li>ESP32 + PMS5003 + SCD30 + OLED.</li>
+                    <li>Alertas si PM2.5 &gt; 25 ug/m3.</li>
+                    <li>Autonomia 8h con bateria.</li>
+                </ul>
+
+                <h3>Proyecto 3: Cerradura inteligente</h3>
+                <ul>
+                    <li>ESP32 + keypad + huella + servo.</li>
+                    <li>Anti-hammering y logs en SD.</li>
+                </ul>
+
+                <h3>Proyecto 4: Seguimiento de mascotas</h3>
+                <ul>
+                    <li>ESP32 + GPS + acelerometro.</li>
+                    <li>Geofencing y autonomia 8 dias.</li>
+                </ul>
+            </section>
+
+            <section id="practica">
+                <h2>Practica / laboratorio</h2>
+                <h3>Actividad guiada: propuesta rapida</h3>
+                <ol>
+                    <li>Seleccione un problema real (hogar, salud, agro, ciudad).</li>
+                    <li>Liste sensores, actuadores y conectividad necesaria.</li>
+                    <li>Defina un KPI para medir exito.</li>
+                    <li>Esboce un diagrama de arquitectura.</li>
+                    <li>Planifique entregables y cronograma.</li>
+                </ol>
+            </section>
+
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Material complementario interno: especificaciones.md, ejemplos.md (clase 16).</li>
+                </ul>
+
+                <div class="hardware-notice">
+                    <strong>💻 Factibilidad Windows:</strong> Esta clase es teórica sobre especificaciones de proyecto y planificación. No requiere hardware ni software especializado - todo se puede hacer en Windows con herramientas de documentación (Word, PowerPoint, Excel). La implementación del proyecto es opcional y puede usar simuladores web (Wokwi, Tinkercad) o demostraciones del docente.
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) · Clase 16: Proyecto Final</p>
+        </footer>
+
+        <button id="backToTop" class="back-to-top" title="Volver arriba">↑</button>
+
+        <script>
+            const backToTopButton = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
+    </div>
+</body>
+</html>

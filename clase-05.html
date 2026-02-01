@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 5: Interconexión de Objetos - Hardware para IoT - IF0112 Complementaria II (IoT)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        header .meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        nav {
+            background: #2d3748;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: #4a5568;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        section h2 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        section h3 {
+            color: #2d3748;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        section h4 {
+            color: #4a5568;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #1e40af;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        pre {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .info {
+            background: #dbeafe;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+            margin: 1rem 0;
+        }
+
+        .warning {
+            background: #fef3c7;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #f59e0b;
+            margin: 1rem 0;
+        }
+
+        .danger {
+            background: #fecaca;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #ef4444;
+            margin: 1rem 0;
+        }
+
+        .success {
+            background: #d1fae5;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #10b981;
+            margin: 1rem 0;
+        }
+
+        figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        figcaption {
+            margin-top: 0.5rem;
+            color: #4a5568;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .box {
+            padding: 1rem;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .box-blue { background: #dbeafe; }
+        .box-green { background: #d1fae5; }
+        .box-yellow { background: #fef3c7; }
+        .box-red { background: #fecaca; }
+
+        footer {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+            section {
+                padding: 1rem;
+            }
+            table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 5: Interconexión de Objetos</h1>
+            <p class="subtitle">Hardware para IoT: Microcontroladores</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | Unidad 2</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#mcu">Microcontroladores</a></li>
+                <li><a href="#arduino">Arduino</a></li>
+                <li><a href="#esp32">ESP32</a></li>
+                <li><a href="#rpi">Raspberry Pi</a></li>
+                <li><a href="#sensores">Sensores</a></li>
+                <li><a href="#actuadores">Actuadores</a></li>
+                <li><a href="#protocolos">Protocolos</a></li>
+                <li><a href="#demo">Demo Práctica</a></li>
+                <li><a href="#actividad">Actividad</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Introducción -->
+            <section id="objetivos">
+                <h2>🎯 En esta clase aprenderás</h2>
+                <table>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Qué exploraremos</th>
+                    </tr>
+                    <tr>
+                        <td>🔧</td>
+                        <td>Identificar componentes hardware para IoT</td>
+                    </tr>
+                    <tr>
+                        <td>⚖️</td>
+                        <td>Comparar microcontroladores populares</td>
+                    </tr>
+                    <tr>
+                        <td>🔌</td>
+                        <td>Describir sensores y actuadores comunes</td>
+                    </tr>
+                    <tr>
+                        <td>⚡</td>
+                        <td>Conectar componentes básicos al MCU</td>
+                    </tr>
+                </table>
+
+                <h3>Hardware Clave</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Ejemplo</th>
+                        <th>Uso</th>
+                    </tr>
+                    <tr>
+                        <td><strong>MCU</strong></td>
+                        <td>ESP32, Arduino</td>
+                        <td>Cerebro del sistema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sensores</strong></td>
+                        <td>DHT11, PIR</td>
+                        <td>Capturan mundo físico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Actuadores</strong></td>
+                        <td>Relé, Servo</td>
+                        <td>Ejecutan acciones</td>
+                    </tr>
+                </table>
+
+                <div class="info">
+                    <strong>Pregunta clave:</strong> ¿Cómo conectar lo físico con lo digital?
+                </div>
+            </section>
+
+            <!-- Objetivos de la Clase -->
+            <section>
+                <h2>📚 Objetivos de la Clase</h2>
+                <div class="box-grid">
+                    <div class="box box-blue">
+                        <h4>Competencias a Desarrollar</h4>
+                        <ul>
+                            <li>🔍 <strong>Identificar</strong> componentes hardware para IoT</li>
+                            <li>⚖️ <strong>Comparar</strong> microcontroladores populares</li>
+                            <li>🔌 <strong>Describir</strong> sensores y actuadores comunes</li>
+                            <li>⚡ <strong>Conectar</strong> componentes básicos al MCU</li>
+                        </ul>
+                    </div>
+                    <div class="box box-green">
+                        <h4>Estructura de la Clase</h4>
+                        <table>
+                            <tr>
+                                <th>Bloque</th>
+                                <th>Tema</th>
+                                <th>Duración</th>
+                            </tr>
+                            <tr>
+                                <td>1️⃣</td>
+                                <td>Microcontroladores (ESP32, Arduino, RPi)</td>
+                                <td>40 min</td>
+                            </tr>
+                            <tr>
+                                <td>2️⃣</td>
+                                <td>Sensores y Actuadores</td>
+                                <td>40 min</td>
+                            </tr>
+                            <tr>
+                                <td>3️⃣</td>
+                                <td>Protocolos I2C, SPI, UART</td>
+                                <td>30 min</td>
+                            </tr>
+                            <tr>
+                                <td>4️⃣</td>
+                                <td>Demo práctica + Actividad</td>
+                                <td>10 min</td>
+                            </tr>
+                        </table>
+                        <p><strong>Total:</strong> 2 horas</p>
+                        <div class="warning">
+                            <strong>💡 Próxima clase:</strong> Programación de Microcontroladores (código)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conexión con Resultados de Aprendizaje -->
+            <section>
+                <h2>🔗 La Interfaz Físico-Digital: El MCU como Puente</h2>
+
+                <h3>📥 ENTRADA (Mundo Físico → Digital)</h3>
+                <table>
+                    <tr>
+                        <th>Paso</th>
+                        <th>Componente</th>
+                        <th>Acción</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Sensores</strong></td>
+                        <td>Capturan señales físicas</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>ADC</strong></td>
+                        <td>Convierte analógico → digital</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>MCU</strong></td>
+                        <td>Procesa y analiza datos</td>
+                    </tr>
+                </table>
+
+                <h3>🔄 PROCESAMIENTO</h3>
+                <table>
+                    <tr>
+                        <th>Función</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU</strong></td>
+                        <td>Ejecuta lógica del programa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memoria</strong></td>
+                        <td>Almacena datos temporales</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decisión</strong></td>
+                        <td>Compara con umbrales</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comunicación</strong></td>
+                        <td>Envía/recibe datos</td>
+                    </tr>
+                </table>
+
+                <h3>📤 SALIDA (Digital → Mundo Físico)</h3>
+                <table>
+                    <tr>
+                        <th>Paso</th>
+                        <th>Componente</th>
+                        <th>Acción</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>MCU</strong></td>
+                        <td>Toma decisión</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>DAC/PWM</strong></td>
+                        <td>Genera señal de control</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Actuadores</strong></td>
+                        <td>Ejecutan acción física</td>
+                    </tr>
+                </table>
+                <p><em>Ejemplo: Detección de movimiento → Activar iluminación</em></p>
+
+                <h3>Flujo Completo: Sensores ↔ MCU ↔ Actuadores</h3>
+                <div class="box-grid">
+                    <div class="box box-blue">
+                        <h4>🌡️ ENTRADA</h4>
+                        <p><strong>Sensores</strong></p>
+                        <p>Capturan señal física</p>
+                        <p>↓ ADC</p>
+                        <p>Señal Digital</p>
+                    </div>
+                    <div class="box box-yellow">
+                        <h4>📊 PROCESAMIENTO</h4>
+                        <p><strong>MCU</strong></p>
+                        <p>Procesa datos</p>
+                        <p>Toma decisiones</p>
+                        <p>↓ Comunicación</p>
+                        <p>(WiFi/Bluetooth)</p>
+                    </div>
+                    <div class="box box-green">
+                        <h4>⚡ SALIDA</h4>
+                        <p><strong>Actuadores</strong></p>
+                        <p>Reciben señal</p>
+                        <p>↓ DAC/PWM</p>
+                        <p>Acción física</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Evolución de la Computación -->
+            <section id="evolucion">
+                <h2>📈 Evolución de la Computación: De Mainframes a IoT</h2>
+                <table>
+                    <tr>
+                        <th>Era</th>
+                        <th>Equipo</th>
+                        <th>Tamaño/Uso</th>
+                        <th>Costo</th>
+                        <th>Paradigma</th>
+                    </tr>
+                    <tr>
+                        <td><strong>1960s</strong></td>
+                        <td>Mainframe</td>
+                        <td>Habitación / Empresas</td>
+                        <td>$1,000,000+</td>
+                        <td>Un equipo, muchos usuarios</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1980s</strong></td>
+                        <td>PC</td>
+                        <td>Mesa / Hogares</td>
+                        <td>~$3,000</td>
+                        <td>Un usuario, un equipo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2000s</strong></td>
+                        <td>Laptop</td>
+                        <td>Móvil / Personal</td>
+                        <td>~$1,500</td>
+                        <td>Computación portátil</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2010s</strong></td>
+                        <td>Smartphone</td>
+                        <td>Bolsillo / Individual</td>
+                        <td>~$500</td>
+                        <td>Computación ubicua</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2020s</strong></td>
+                        <td>MCU IoT</td>
+                        <td>Chip / Objetos</td>
+                        <td>$2–5</td>
+                        <td>Computación invisible</td>
+                    </tr>
+                </table>
+                <div class="info">
+                    <p><strong>Insight:</strong> La tendencia es hacia la <strong>miniaturización</strong>, <strong>democratización</strong> y <strong>ubiquitación</strong> de la computación.</p>
+                </div>
+            </section>
+
+            <!-- ¿Qué es un Microcontrolador? -->
+            <section id="mcu">
+                <h2>¿Qué es un Microcontrolador (MCU)?</h2>
+                <div class="info">
+                    <p><strong>Definición:</strong> Una computadora completa en un solo chip que integra CPU, memoria, puertos de entrada/salida y periféricos.</p>
+                </div>
+
+                <h3>🧠 NÚCLEO DE PROCESAMIENTO</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Función</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU</strong></td>
+                        <td>Ejecuta instrucciones del programa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clock</strong></td>
+                        <td>Marca el ritmo de ejecución (MHz)</td>
+                    </tr>
+                </table>
+
+                <h3>💾 MEMORIA</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Función</th>
+                        <th>Capacidad Típica</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Flash/ROM</strong></td>
+                        <td>Almacena el programa</td>
+                        <td>32 KB - 4 MB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RAM</strong></td>
+                        <td>Memoria volátil temporal</td>
+                        <td>2 KB - 520 KB</td>
+                    </tr>
+                </table>
+
+                <h3>🔌 PUERTOS DE E/S</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Función</th>
+                    </tr>
+                    <tr>
+                        <td><strong>GPIO</strong></td>
+                        <td>Pines digitales de propósito general</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ADC</strong></td>
+                        <td>Lectura de señales analógicas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DAC</strong></td>
+                        <td>Generación de señales analógicas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PWM</strong></td>
+                        <td>Control de intensidad/velocidad</td>
+                    </tr>
+                </table>
+
+                <h3>📡 COMUNICACIÓN Y PERIFÉRICOS</h3>
+                <table>
+                    <tr>
+                        <th>Protocolo</th>
+                        <th>Uso Principal</th>
+                    </tr>
+                    <tr>
+                        <td><strong>UART</strong></td>
+                        <td>Comunicación serial (TX/RX)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>I2C</strong></td>
+                        <td>Múltiples sensores en 2 cables</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SPI</strong></td>
+                        <td>Alta velocidad con dispositivos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Timers</strong></td>
+                        <td>Control de tiempo y eventos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WiFi/BLE</strong>*</td>
+                        <td>Conectividad inalámbrica</td>
+                    </tr>
+                </table>
+                <p><small>*En MCUs avanzados (ESP32, ESP8266)</small></p>
+
+                <div class="success">
+                    <p><strong>Clave:</strong> El MCU es el "cerebro" que conecta lo físico (sensores/actuadores) con lo digital (programa/conectividad).</p>
+                </div>
+            </section>
+
+            <!-- Microcontrolador vs Microprocesador -->
+            <section>
+                <h2>Microcontrolador vs Microprocesador</h2>
+                <div class="box-grid">
+                    <div class="box box-blue">
+                        <h3>Microcontrolador (MCU)</h3>
+                        <p><em>"Sistema completo en un chip"</em></p>
+                        <h4>✅ Ventajas:</h4>
+                        <ul>
+                            <li>Todo integrado (memoria, I/O)</li>
+                            <li>Bajo consumo energético</li>
+                            <li>Costo muy bajo ($2-10)</li>
+                            <li>Ideal para tareas dedicadas</li>
+                            <li>Arranque inmediato</li>
+                        </ul>
+                        <h4>⚠️ Limitaciones:</h4>
+                        <ul>
+                            <li>Memoria limitada (KB)</li>
+                            <li>Velocidad moderada (MHz)</li>
+                            <li>No ejecuta sistemas operativos completos</li>
+                        </ul>
+                        <p><strong>Ejemplos:</strong> ESP32, Arduino, STM32</p>
+                    </div>
+                    <div class="box box-green">
+                        <h3>Microprocesador (MPU)</h3>
+                        <p><em>"Solo el cerebro, necesita componentes externos"</em></p>
+                        <h4>✅ Ventajas:</h4>
+                        <ul>
+                            <li>Alta velocidad (GHz)</li>
+                            <li>Memoria ampliable (GB)</li>
+                            <li>Ejecuta sistemas operativos completos</li>
+                            <li>Multitarea avanzada</li>
+                            <li>Flexible y potente</li>
+                        </ul>
+                        <h4>⚠️ Limitaciones:</h4>
+                        <ul>
+                            <li>Requiere RAM, storage externos</li>
+                            <li>Mayor consumo energético</li>
+                            <li>Costo elevado ($50-500+)</li>
+                            <li>Más complejo de implementar</li>
+                        </ul>
+                        <p><strong>Ejemplos:</strong> Intel i7, AMD Ryzen, ARM Cortex-A</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Infografía: Microcontroladores -->
+            <section>
+                <h2>Microcontroladores vs Microprocesadores</h2>
+                <figure>
+                    <img src="assets/infografias/clase-05-microcontroladores.png" alt="Infografía: Diferencias entre microcontroladores y microprocesadores">
+                    <figcaption>Figura 1: MCU vs MPU - Comparación de arquitecturas para IoT</figcaption>
+                </figure>
+            </section>
+
+            <!-- Arduino -->
+            <section id="arduino">
+                <h2>Arduino: La Revolución del Hardware Libre</h2>
+
+                <h3>¿Qué es Arduino?</h3>
+                <p>Plataforma de desarrollo open-source que combina:</p>
+                <ul>
+                    <li><strong>Hardware:</strong> Placas con microcontroladores</li>
+                    <li><strong>Software:</strong> IDE simple y accesible</li>
+                    <li><strong>Comunidad:</strong> Millones de usuarios y proyectos</li>
+                </ul>
+
+                <h3>Ventajas</h3>
+                <table>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Beneficio</th>
+                    </tr>
+                    <tr>
+                        <td>Curva de aprendizaje</td>
+                        <td>Muy suave</td>
+                    </tr>
+                    <tr>
+                        <td>Documentación</td>
+                        <td>Extensa y gratuita</td>
+                    </tr>
+                    <tr>
+                        <td>Costo</td>
+                        <td>$5-25 USD</td>
+                    </tr>
+                    <tr>
+                        <td>Bibliotecas</td>
+                        <td>Miles disponibles</td>
+                    </tr>
+                    <tr>
+                        <td>Comunidad</td>
+                        <td>Global y activa</td>
+                    </tr>
+                    <tr>
+                        <td>Hardware</td>
+                        <td>Open-source</td>
+                    </tr>
+                </table>
+
+                <div class="highlight">
+                    <strong>📚 Aprendizaje clave:</strong> Arduino es perfecto para principiantes en IoT por su simplicidad, pero para proyectos conectados elige ESP32 por WiFi integrado.
+                </div>
+
+                <div class="warning">
+                    <h4>Limitaciones a Considerar</h4>
+                    <table>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Limitación</th>
+                        </tr>
+                        <tr>
+                            <td>Conectividad</td>
+                            <td>Sin WiFi nativo*</td>
+                        </tr>
+                        <tr>
+                            <td>Memoria</td>
+                            <td>2 KB RAM, 32 KB Flash</td>
+                        </tr>
+                        <tr>
+                            <td>Procesamiento</td>
+                            <td>Un solo núcleo</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>16 MHz</td>
+                        </tr>
+                    </table>
+                    <p><small>*Excepto modelos específicos como Arduino MKR WiFi</small></p>
+                </div>
+
+                <h3>Familia Arduino: Opciones para Cada Proyecto</h3>
+                <table>
+                    <tr>
+                        <th>Placa</th>
+                        <th>MCU</th>
+                        <th>Flash</th>
+                        <th>RAM</th>
+                        <th>Digital I/O</th>
+                        <th>Analógico</th>
+                        <th>Precio</th>
+                        <th>Uso Ideal</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Uno</strong></td>
+                        <td>ATmega328P</td>
+                        <td>32KB</td>
+                        <td>2KB</td>
+                        <td>14</td>
+                        <td>6</td>
+                        <td>$25</td>
+                        <td>Aprendizaje estándar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nano</strong></td>
+                        <td>ATmega328P</td>
+                        <td>32KB</td>
+                        <td>2KB</td>
+                        <td>14</td>
+                        <td>8</td>
+                        <td>$20</td>
+                        <td>Espacios reducidos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mega</strong></td>
+                        <td>ATmega2560</td>
+                        <td>256KB</td>
+                        <td>8KB</td>
+                        <td>54</td>
+                        <td>16</td>
+                        <td>$45</td>
+                        <td>Muchos pines I/O</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Micro</strong></td>
+                        <td>ATmega32U4</td>
+                        <td>32KB</td>
+                        <td>2.5KB</td>
+                        <td>20</td>
+                        <td>12</td>
+                        <td>$20</td>
+                        <td>USB nativo</td>
+                    </tr>
+                </table>
+
+                <h3>Arduino UNO: La Placa de Referencia</h3>
+                <h4>Especificaciones Técnicas</h4>
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Procesador</strong></td>
+                        <td>ATmega328P @ 16 MHz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memoria Flash</strong></td>
+                        <td>32 KB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SRAM</strong></td>
+                        <td>2 KB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EEPROM</strong></td>
+                        <td>1 KB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Voltaje operación</strong></td>
+                        <td>5V</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Voltaje entrada</strong></td>
+                        <td>7-12V recomendado</td>
+                    </tr>
+                </table>
+
+                <h4>Distribución de Pines</h4>
+                <p><strong>Digitales (0-13):</strong></p>
+                <ul>
+                    <li>0, 1: RX/TX (Serial)</li>
+                    <li>3, 5, 6, 9, 10, 11: PWM (~)</li>
+                    <li>2, 3: Interrupciones externas</li>
+                    <li>13: LED integrado</li>
+                </ul>
+
+                <p><strong>Analógicos (A0-A5):</strong></p>
+                <ul>
+                    <li>Canales ADC: 6</li>
+                    <li>Resolución: 10-bit (0-1023)</li>
+                    <li>Voltaje ref: 0-5V</li>
+                </ul>
+
+                <p><strong>Alimentación:</strong></p>
+                <ul>
+                    <li>3.3V: Sensores baja potencia</li>
+                    <li>5V: Circuitos estándar</li>
+                    <li>GND: Tierra</li>
+                    <li>Vin: 7-12V Alimentación externa</li>
+                </ul>
+            </section>
+
+            <!-- ESP32 -->
+            <section id="esp32">
+                <h2>ESP32: El Estándar de Facto para IoT</h2>
+
+                <h3>¿Por qué ESP32 domina IoT?</h3>
+                <table>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Especificación</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU</strong></td>
+                        <td>Xtensa dual-core @ 240 MHz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RAM</strong></td>
+                        <td>520 KB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flash</strong></td>
+                        <td>4 MB (externa)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WiFi</strong></td>
+                        <td>802.11 b/g/n (2.4 GHz)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bluetooth</strong></td>
+                        <td>Classic + BLE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPIO</strong></td>
+                        <td>34 pines programables</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ADC</strong></td>
+                        <td>18 canales (12-bit)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DAC</strong></td>
+                        <td>2 canales (8-bit)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio</strong></td>
+                        <td>$3-8 USD</td>
+                    </tr>
+                </table>
+
+                <h3>Ventajas Clave</h3>
+                <ul>
+                    <li>🌐 <strong>Conectividad integrada:</strong> WiFi + BT sin shield adicional</li>
+                    <li>⚡ <strong>Potencia:</strong> Dual-core a 240 MHz</li>
+                    <li>💰 <strong>Precio:</strong> Más barato que Arduino con WiFi shield</li>
+                    <li>🔋 <strong>Eficiencia:</strong> Modos de bajo consumo</li>
+                    <li>📡 <strong>Alcance:</strong> Amplia comunidad y ejemplos</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>📚 Aprendizaje clave:</strong> ESP32 combina potencia, conectividad y bajo costo. Es la mejor opción para proyectos IoT que requieren conexión a internet.
+                </div>
+
+                <h3>ESP32 vs Competencia</h3>
+                <table>
+                    <tr>
+                        <th>Plataforma</th>
+                        <th>Precio</th>
+                        <th>Relación Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Arduino UNO + WiFi Shield</td>
+                        <td>$45</td>
+                        <td>⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Arduino MKR WiFi 1010</td>
+                        <td>$35</td>
+                        <td>⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>Raspberry Pi Zero W</td>
+                        <td>$15</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ESP32 DevKit</strong></td>
+                        <td><strong>$5</strong></td>
+                        <td><strong>⭐⭐⭐⭐⭐ Winner!</strong></td>
+                    </tr>
+                </table>
+                <div class="success">
+                    <p><strong>💡 ESP32 ofrece 3-5x más valor que alternativas tradicionales</strong></p>
+                </div>
+
+                <h3>Casos de Uso Ideal</h3>
+                <ul>
+                    <li>Sensores conectados a la nube</li>
+                    <li>Automatización del hogar</li>
+                    <li>Wearables</li>
+                    <li>Prototipos IoT rápidos</li>
+                    <li>Producción en masa</li>
+                </ul>
+            </section>
+
+            <!-- Raspberry Pi -->
+            <section id="rpi">
+                <h2>Raspberry Pi: Microcomputador vs Microcontrolador</h2>
+
+                <h3>Raspberry Pi 4: Un Computador Completo</h3>
+                <table>
+                    <tr>
+                        <th>Especificación</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU</strong></td>
+                        <td>ARM Cortex-A72 (quad-core) 1.5 GHz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RAM</strong></td>
+                        <td>1 / 2 / 4 / 8 GB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Almacenamiento</strong></td>
+                        <td>microSD</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sistema Operativo</strong></td>
+                        <td>Linux (Raspberry Pi OS)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WiFi</strong></td>
+                        <td>Dual-band 802.11ac</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bluetooth</strong></td>
+                        <td>5.0 BLE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ethernet</strong></td>
+                        <td>Gigabit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPIO</strong></td>
+                        <td>40 pines HAT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio</strong></td>
+                        <td>$35-75 USD</td>
+                    </tr>
+                </table>
+
+                <h3>Capacidades Únicas</h3>
+                <ul>
+                    <li>Ejecuta Linux completo</li>
+                    <li>Soporte para múltiples lenguajes</li>
+                    <li>Interfaz gráfica</li>
+                    <li>Puertos USB, HDMI, Ethernet</li>
+                    <li>Ideal como gateway IoT</li>
+                </ul>
+
+                <h3>Diferencia Fundamental</h3>
+                <div class="box-grid">
+                    <div class="box box-blue">
+                        <h4>🔧 MCU (ESP32/Arduino)</h4>
+                        <table>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Valor</th>
+                            </tr>
+                            <tr>
+                                <td>Ejecución</td>
+                                <td>Programa único, bucle infinito</td>
+                            </tr>
+                            <tr>
+                                <td>Respuesta</td>
+                                <td>Tiempo real</td>
+                            </tr>
+                            <tr>
+                                <td>Consumo</td>
+                                <td>Bajo (mA)</td>
+                            </tr>
+                            <tr>
+                                <td>Arranque</td>
+                                <td>Instantáneo (< 1s)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ideal para</strong></td>
+                                <td><strong>Control sensores/actuadores</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="box box-green">
+                        <h4>🖥️ Microcomputador (Raspberry Pi)</h4>
+                        <table>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Valor</th>
+                            </tr>
+                            <tr>
+                                <td>Sistema</td>
+                                <td>OS completo (Linux)</td>
+                            </tr>
+                            <tr>
+                                <td>Capacidad</td>
+                                <td>Multitarea, multiusuario</td>
+                            </tr>
+                            <tr>
+                                <td>Consumo</td>
+                                <td>Mayor (600+ mA)</td>
+                            </tr>
+                            <tr>
+                                <td>Arranque</td>
+                                <td>~30 segundos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ideal para</strong></td>
+                                <td><strong>Gateway, servidor, procesamiento</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Guía de Selección -->
+            <section>
+                <h2>Guía de Selección: ¿Qué Placa Elegir?</h2>
+
+                <div class="box-grid">
+                    <div class="box box-blue">
+                        <h3>🎓 Arduino UNO</h3>
+                        <p><strong>Elige cuando:</strong></p>
+                        <ul>
+                            <li>✅ Estás aprendiendo electrónica</li>
+                            <li>✅ Necesitas muchas bibliotecas</li>
+                            <li>✅ Proyecto simple sin WiFi</li>
+                            <li>✅ Prototipo rápido de bajo riesgo</li>
+                        </ul>
+                        <p><strong>No elijas si:</strong></p>
+                        <ul>
+                            <li>❌ Necesitas conectividad WiFi</li>
+                            <li>❌ Requieres procesamiento intensivo</li>
+                            <li>❌ El espacio es crítico</li>
+                        </ul>
+                    </div>
+                    <div class="box box-green">
+                        <h3>🌐 ESP32</h3>
+                        <p><strong>Elige cuando:</strong></p>
+                        <ul>
+                            <li>✅ Proyecto IoT con WiFi/Bluetooth</li>
+                            <li>✅ Necesitas buena potencia ($5)</li>
+                            <li>✅ Batería con conectividad</li>
+                            <li>✅ Producción en masa</li>
+                            <li>✅ Muchos pines I/O</li>
+                        </ul>
+                        <p><strong>No elijas si:</strong></p>
+                        <ul>
+                            <li>❌ Necesitas Linux completo</li>
+                            <li>❌ Requieres interfaz gráfica</li>
+                            <li>❌ Procesamiento de video/audio pesado</li>
+                        </ul>
+                    </div>
+                    <div class="box box-yellow">
+                        <h3>🖥️ Raspberry Pi</h3>
+                        <p><strong>Elige cuando:</strong></p>
+                        <ul>
+                            <li>✅ Necesitas Linux completo</li>
+                            <li>✅ Gateway/bridge IoT</li>
+                            <li>✅ Procesamiento de datos pesado</li>
+                            <li>✅ Múltiples interfaces (USB, HDMI)</li>
+                            <li>✅ Servidor web local</li>
+                        </ul>
+                        <p><strong>No elijas si:</strong></p>
+                        <ul>
+                            <li>❌ Energía es limitada (batería)</li>
+                            <li>❌ Necesitas respuesta en tiempo real</li>
+                            <li>❌ Costo debe ser mínimo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Árbol de Decisión Rápido</h3>
+                <table>
+                    <tr>
+                        <th>Pregunta</th>
+                        <th>Respuesta SÍ</th>
+                        <th>Respuesta NO</th>
+                    </tr>
+                    <tr>
+                        <td><strong>¿Necesitas Linux?</strong></td>
+                        <td>→ Raspberry Pi</td>
+                        <td>Continuar...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>¿Necesitas WiFi?</strong></td>
+                        <td>→ ESP32 (mejor valor)</td>
+                        <td>Continuar...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>¿Es para aprender?</strong></td>
+                        <td>→ Arduino UNO</td>
+                        <td>→ ESP32 (más potente)</td>
+                    </tr>
+                </table>
+                <div class="success">
+                    <p><strong>🎯 Recomendación general:</strong> ESP32 es la mejor opción para la mayoría de proyectos IoT</p>
+                </div>
+            </section>
+
+            <!-- Hardware IoT en Colombia -->
+            <section>
+                <h2>Hardware IoT en Colombia 🇨🇴</h2>
+
+                <h3>Proveedores Locales</h3>
+                <h4>Tiendas Online Colombianas:</h4>
+                <table>
+                    <tr>
+                        <th>Tienda</th>
+                        <th>URL</th>
+                        <th>Especialidad</th>
+                    </tr>
+                    <tr>
+                        <td>HeTica</td>
+                        <td>hetica.co</td>
+                        <td>Kits educativos</td>
+                    </tr>
+                    <tr>
+                        <td>MC-Hackers</td>
+                        <td>mchackers.co</td>
+                        <td>Componentes</td>
+                    </tr>
+                    <tr>
+                        <td>Robotizados</td>
+                        <td>robotizados.com</td>
+                        <td>Robótica</td>
+                    </tr>
+                    <tr>
+                        <td>Electrón Panamericana</td>
+                        <td>electronpanamericana.com</td>
+                        <td>Industrial</td>
+                    </tr>
+                </table>
+
+                <h4>Tiendas Físicas (Bogotá):</h4>
+                <ul>
+                    <li>📍 <strong>San Alejo</strong> (Calle 22) - Zona de electrónica</li>
+                    <li>📍 <strong>El Cerezo</strong> (Calle 22) - Componentes</li>
+                    <li>📍 <strong>Tecnoparts</strong> (Chapinero) - Profesional</li>
+                    <li>📍 <strong>Rapsodia</strong> (Chapinero) - Maker</li>
+                </ul>
+
+                <h3>Precios Aproximados 2026 (COP)</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Local</th>
+                        <th>Importado</th>
+                        <th>Notas</th>
+                    </tr>
+                    <tr>
+                        <td>Arduino Uno Original</td>
+                        <td>$120K</td>
+                        <td>$80K</td>
+                        <td>Clones: $25K</td>
+                    </tr>
+                    <tr>
+                        <td>ESP32 DevKit</td>
+                        <td>$45K</td>
+                        <td>$30K</td>
+                        <td>Mejor valor</td>
+                    </tr>
+                    <tr>
+                        <td>Raspberry Pi 4 (4GB)</td>
+                        <td>$280K</td>
+                        <td>$220K</td>
+                        <td>Escasez ocasional</td>
+                    </tr>
+                    <tr>
+                        <td>DHT11</td>
+                        <td>$12K</td>
+                        <td>$8K</td>
+                        <td>Sensor temperatura</td>
+                    </tr>
+                    <tr>
+                        <td>Kit IoT Básico (10 sensores)</td>
+                        <td>$80K</td>
+                        <td>$50K</td>
+                        <td>Local + rápido</td>
+                    </tr>
+                </table>
+                <div class="info">
+                    <p><strong>💡 Consejo:</strong> Comprar local para primeros proyectos (soporte, garantía). Importar para producción en masa.</p>
+                </div>
+
+                <!-- Infografía: Hardware IoT en Colombia -->
+                <figure>
+                    <img src="assets/infografias/clase-05-hardware-iot.png" alt="Infografía: Ecosistema de hardware IoT en Colombia">
+                    <figcaption>Figura 2: Hardware IoT en Colombia - Proveedores, precios y recomendaciones</figcaption>
+                </figure>
+            </section>
+
+            <!-- Tu Primer Kit IoT -->
+            <section>
+                <h2>Tu Primer Kit IoT: Recomendación</h2>
+
+                <h3>Kit Básico (~$150K - $200K COP)</h3>
+                <div class="box-grid">
+                    <div class="box">
+                        <h4>🖥️ Microcontrolador</h4>
+                        <ul>
+                            <li>ESP32 DevKit V1: ~$45K</li>
+                            <li>Cable microUSB: incluido</li>
+                        </ul>
+                        <p><strong>Ventaja:</strong> WiFi integrado desde el inicio</p>
+                    </div>
+                    <div class="box">
+                        <h4>🌡️ Sensores (5 esenciales)</h4>
+                        <ul>
+                            <li>DHT11 (Temp/Hum): ~$8K</li>
+                            <li>HC-SR04 (Distancia): ~$8K</li>
+                            <li>LDR (Luz): ~$2K</li>
+                            <li>PIR HC-SR501 (Movimiento): ~$8K</li>
+                            <li>BMP280 (Presión): ~$10K</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h4>⚡ Actuadores y Componentes</h4>
+                        <ul>
+                            <li>LED pack (5 colores): ~$5K</li>
+                            <li>Buzzer pasivo: ~$3K</li>
+                            <li>Servo SG90: ~$12K</li>
+                            <li>Relé 5V: ~$8K</li>
+                            <li>Protoboard 830: ~$15K</li>
+                            <li>Jumpers (40x3): ~$15K</li>
+                            <li>Resistencias pack: ~$8K</li>
+                            <li>LCD 16x2 I2C: ~$18K</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sensores -->
+            <section id="sensores">
+                <h2>Sensores: Los "Sentidos" de IoT</h2>
+
+                <h3>Taxonomía de Sensores por Función</h3>
+
+                <h4>🌡️ AMBIENTE</h4>
+                <table>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Mide</th>
+                        <th>Aplicación</th>
+                    </tr>
+                    <tr>
+                        <td><strong>DHT11/DHT22</strong></td>
+                        <td>Temp + Humedad</td>
+                        <td>Invernaderos, clima</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BMP280</strong></td>
+                        <td>Presión + Altitud</td>
+                        <td>Estación meteorológica</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MQ-2/MQ-135</strong></td>
+                        <td>Gas, humo, CO2</td>
+                        <td>Calidad del aire</td>
+                    </tr>
+                </table>
+
+                <h4>📍 POSICIÓN Y MOVIMIENTO</h4>
+                <table>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Mide</th>
+                        <th>Aplicación</th>
+                    </tr>
+                    <tr>
+                        <td><strong>GPS/GNSS</strong></td>
+                        <td>Ubicación global</td>
+                        <td>Rastreo, navegación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MPU6050</strong></td>
+                        <td>Acel + Giro</td>
+                        <td>Robótica, drones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HC-SR04</strong></td>
+                        <td>Distancia</td>
+                        <td>Parking, nivel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PIR HC-SR501</strong></td>
+                        <td>Movimiento</td>
+                        <td>Seguridad</td>
+                    </tr>
+                </table>
+
+                <h4>💡 ÓPTICOS Y LUMINOSOS</h4>
+                <table>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Mide</th>
+                        <th>Aplicación</th>
+                    </tr>
+                    <tr>
+                        <td><strong>LDR</strong></td>
+                        <td>Intensidad luz</td>
+                        <td>Cortinas automáticas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TSL2561</strong></td>
+                        <td>Lux visible</td>
+                        <td>Iluminación inteligente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sensor UV</strong></td>
+                        <td>Radiación UV</td>
+                        <td>Alerta solar</td>
+                    </tr>
+                </table>
+
+                <h4>💧 LÍQUIDOS Y FLUIDOS</h4>
+                <table>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Mide</th>
+                        <th>Aplicación</th>
+                    </tr>
+                    <tr>
+                        <td><strong>YL-69</strong></td>
+                        <td>Humedad suelo</td>
+                        <td>Riego automático</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sensor nivel</strong></td>
+                        <td>Nivel líquido</td>
+                        <td>Tanques, cisternas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YF-S201</strong></td>
+                        <td>Caudal (L/min)</td>
+                        <td>Medidor consumo agua</td>
+                    </tr>
+                </table>
+
+                <h3>Sensores Esenciales para Principiantes</h3>
+                <table>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Mide</th>
+                        <th>Interfaz</th>
+                        <th>Precio</th>
+                        <th>Precisión</th>
+                        <th>Uso Común</th>
+                    </tr>
+                    <tr>
+                        <td><strong>DHT11</strong></td>
+                        <td>Temp + Humedad</td>
+                        <td>Digital</td>
+                        <td>$2-3</td>
+                        <td>±2°C, ±5%</td>
+                        <td>Invernaderos, hogar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HC-SR04</strong></td>
+                        <td>Distancia</td>
+                        <td>Digital</td>
+                        <td>$2-3</td>
+                        <td>±3mm</td>
+                        <td>Estacionamiento, nivel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PIR HC-SR501</strong></td>
+                        <td>Movimiento</td>
+                        <td>Digital</td>
+                        <td>$2-3</td>
+                        <td>7m, 120°</td>
+                        <td>Seguridad, ahorro energía</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BMP280</strong></td>
+                        <td>Presión + Altitud</td>
+                        <td>I2C/SPI</td>
+                        <td>$3-5</td>
+                        <td>±1 hPa</td>
+                        <td>Estación meteorológica</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LDR</strong></td>
+                        <td>Luz</td>
+                        <td>Analógico</td>
+                        <td>$0.5-1</td>
+                        <td>Variable</td>
+                        <td>Cortinas automáticas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YL-69</strong></td>
+                        <td>Humedad suelo</td>
+                        <td>Analógico</td>
+                        <td>$2-3</td>
+                        <td>Cualitativo</td>
+                        <td>Riego automático</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- DHT11 Detallado -->
+            <section>
+                <h2>DHT11: Sensor de Temperatura y Humedad</h2>
+
+                <h3>Especificaciones Técnicas</h3>
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Rango temperatura</strong></td>
+                        <td>0°C a 50°C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precisión temperatura</strong></td>
+                        <td>±2°C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rango humedad</strong></td>
+                        <td>20% a 80% RH</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precisión humedad</strong></td>
+                        <td>±5% RH</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tiempo de respuesta</strong></td>
+                        <td>1 segundo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Voltaje</strong></td>
+                        <td>3.3V - 5V</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interfaz</strong></td>
+                        <td>Digital (single-wire)</td>
+                    </tr>
+                </table>
+
+                <h3>Conexión al ESP32</h3>
+                <table>
+                    <tr>
+                        <th>DHT11</th>
+                        <th>Conexión</th>
+                    </tr>
+                    <tr>
+                        <td>VCC</td>
+                        <td>3.3V o 5V</td>
+                    </tr>
+                    <tr>
+                        <td>DATA</td>
+                        <td>GPIO4 + Resistencia 10KΩ a VCC</td>
+                    </tr>
+                    <tr>
+                        <td>NC</td>
+                        <td>No conectar</td>
+                    </tr>
+                    <tr>
+                        <td>GND</td>
+                        <td>GND</td>
+                    </tr>
+                </table>
+                <div class="warning">
+                    <p><strong>⚠️ Nota:</strong> La resistencia pull-up (10KΩ) es esencial para comunicación estable.</p>
+                </div>
+
+                <h3>Código Arduino Básico</h3>
+                <pre><code>#include "DHT.h"
+#define DHTPIN 4
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float hum = dht.readHumidity();
+  Serial.println("Temp: " + String(temp) + "°C");
+  Serial.println("Hum: " + String(hum) + "%");
+  delay(2000);
+}</code></pre>
+            </section>
+
+            <!-- Actuadores -->
+            <section id="actuadores">
+                <h2>Actuadores: Actuando sobre el Mundo</h2>
+
+                <h3>Taxonomía de Actuadores por Función</h3>
+
+                <h4>💡 ILUMINACIÓN</h4>
+                <table>
+                    <tr>
+                        <th>Actuador</th>
+                        <th>Características</th>
+                        <th>Uso Típico</th>
+                    </tr>
+                    <tr>
+                        <td><strong>LED simple</strong></td>
+                        <td>5mm, diversos colores</td>
+                        <td>Indicador estado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LED RGB</strong></td>
+                        <td>4 pines (PWM)</td>
+                        <td>Efectos de color</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tira WS2812B</strong></td>
+                        <td>Neopixel, direccionable</td>
+                        <td>Iluminación decorativa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LCD 16x2</strong></td>
+                        <td>Caracteres alfanuméricos</td>
+                        <td>Mostrar datos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OLED 128x64</strong></td>
+                        <td>Alto contraste, bajo consumo</td>
+                        <td>Gráficos</td>
+                    </tr>
+                </table>
+
+                <h4>🔊 SONIDO</h4>
+                <table>
+                    <tr>
+                        <th>Actuador</th>
+                        <th>Características</th>
+                        <th>Uso Típico</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Buzzer activo</strong></td>
+                        <td>Genera tono fijo</td>
+                        <td>Alarmas simples</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Buzzer pasivo</strong></td>
+                        <td>Requiere PWM</td>
+                        <td>Melodías variables</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Altavoz 8Ω</strong></td>
+                        <td>Con amplificador</td>
+                        <td>Audio, música</td>
+                    </tr>
+                </table>
+
+                <h4>⚙️ MOVIMIENTO MECÁNICO</h4>
+                <table>
+                    <tr>
+                        <th>Actuador</th>
+                        <th>Características</th>
+                        <th>Uso Típico</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Servo SG90</strong></td>
+                        <td>0°-180°, 5V</td>
+                        <td>Brazos robóticos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Motor DC</strong></td>
+                        <td>Velocidad variable</td>
+                        <td>Vehículos, ventiladores</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Motor paso a paso</strong></td>
+                        <td>Posición precisa</td>
+                        <td>Impresoras 3D, CNC</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Driver L298N</strong></td>
+                        <td>Control 2 motores DC</td>
+                        <td>Robots diferenciales</td>
+                    </tr>
+                </table>
+
+                <h4>⚡ CONMUTACIÓN DE POTENCIA</h4>
+                <table>
+                    <tr>
+                        <th>Actuador</th>
+                        <th>Características</th>
+                        <th>Uso Típico</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Relé 5V</strong></td>
+                        <td>10A @ 250V AC</td>
+                        <td>Luces, electrodomésticos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MOSFET IRFZ44N</strong></td>
+                        <td>49A @ 55V</td>
+                        <td>Motores DC, LEDs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transistor TIP120</strong></td>
+                        <td>Darlington, 5A</td>
+                        <td>Cargas medias</td>
+                    </tr>
+                </table>
+
+                <h3>Niveles de Control de Potencia</h3>
+                <table>
+                    <tr>
+                        <th>Nivel</th>
+                        <th>Componente</th>
+                        <th>Capacidad</th>
+                        <th>Uso Típico</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Directo</strong></td>
+                        <td>LED</td>
+                        <td>≤20mA</td>
+                        <td>Indicadores</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transistor BJT</strong></td>
+                        <td>2N2222, BC547</td>
+                        <td>≤500mA</td>
+                        <td>Buzzer, ventilador</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MOSFET</strong></td>
+                        <td>IRFZ44N</td>
+                        <td>≤5A</td>
+                        <td>Motores DC, tiras LED</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Relé</strong></td>
+                        <td>Módulo 5V</td>
+                        <td>≤10A @ 250V AC</td>
+                        <td>Lámparas, electrodomésticos</td>
+                    </tr>
+                </table>
+                <div class="danger">
+                    <p><strong>⚠️ Regla de Oro:</strong> Nunca conectar cargas de potencia directamente al GPIO. Usar transistor/MOSFET/relé según la corriente requerida.</p>
+                </div>
+            </section>
+
+            <!-- Relé Detallado -->
+            <section>
+                <h2>Relé: Controlando Alto Voltaje con Bajo Voltaje</h2>
+
+                <h3>¿Qué es un Relé?</h3>
+                <p>Interruptor electromecánico controlado electrónicamente que permite:</p>
+                <ul>
+                    <li><strong>Entrada:</strong> Señal de 3.3V/5V DC del microcontrolador</li>
+                    <li><strong>Salida:</strong> Control de 110V/220V AC o hasta 30V DC</li>
+                    <li><strong>Aislamiento:</strong> Separación galvánica entre circuitos</li>
+                </ul>
+
+                <h3>Módulo Relé 5V</h3>
+                <table>
+                    <tr>
+                        <th>Pin</th>
+                        <th>Función</th>
+                    </tr>
+                    <tr>
+                        <td><strong>VCC</strong></td>
+                        <td>Alimentación 5V</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GND</strong></td>
+                        <td>Tierra</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IN</strong></td>
+                        <td>Señal de control (GPIO)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NO</strong></td>
+                        <td>Normalmente Abierto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NC</strong></td>
+                        <td>Normalmente Cerrado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COM</strong></td>
+                        <td>Común (línea AC/DC)</td>
+                    </tr>
+                </table>
+
+                <h3>Estados del Relé</h3>
+                <table>
+                    <tr>
+                        <th>IN (GPIO)</th>
+                        <th>Estado</th>
+                        <th>COM conectado a</th>
+                    </tr>
+                    <tr>
+                        <td>LOW</td>
+                        <td>Apagado</td>
+                        <td>NC</td>
+                    </tr>
+                    <tr>
+                        <td>HIGH</td>
+                        <td>Encendido</td>
+                        <td>NO</td>
+                    </tr>
+                </table>
+
+                <div class="danger">
+                    <h4>⚠️ Advertencias de Seguridad</h4>
+                    <ul>
+                        <li><strong>Nunca</strong> tocar terminales cuando está energizado</li>
+                        <li>Usar <strong>caja aislante</strong> para el relé</li>
+                        <li>Verificar capacidad de corriente (usualmente 10A)</li>
+                        <li>Asegurar conexiones firmes</li>
+                        <li>Usar fusible de protección</li>
+                    </ul>
+                    <p style="text-align: center; font-size: 2em;">⚡ 🛡️ ⚡</p>
+                </div>
+            </section>
+
+            <!-- Protocolos de Comunicación -->
+            <section id="protocolos">
+                <h2>Protocolos de Comunicación: El "Idioma" del Hardware</h2>
+
+                <h3>Protocolos Seriales Comparados</h3>
+                <table>
+                    <tr>
+                        <th>Protocolo</th>
+                        <th>Cables</th>
+                        <th>Dispositivos</th>
+                        <th>Velocidad</th>
+                        <th>Características</th>
+                    </tr>
+                    <tr>
+                        <td><strong>UART</strong></td>
+                        <td>2 (TX/RX)</td>
+                        <td>1 a 1</td>
+                        <td>Hasta 1 Mbps</td>
+                        <td>Punto a punto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>I2C</strong></td>
+                        <td>2 (SDA/SCL)</td>
+                        <td>Hasta 127</td>
+                        <td>100-400 KHz</td>
+                        <td>Bus compartido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SPI</strong></td>
+                        <td>4+</td>
+                        <td>Hasta 4*</td>
+                        <td>Hasta 50 Mbps</td>
+                        <td>Alta velocidad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1-Wire</strong></td>
+                        <td>1</td>
+                        <td>Hasta 100</td>
+                        <td>16 Kbps</td>
+                        <td>Distancia larga</td>
+                    </tr>
+                </table>
+                <p><small>*Con selectores de chip adicionales</small></p>
+
+                <h3>¿Cuándo Usar Cada Protocolo?</h3>
+                <table>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Protocolo</th>
+                    </tr>
+                    <tr>
+                        <td>Sensor único simple</td>
+                        <td>GPIO digital/analógico</td>
+                    </tr>
+                    <tr>
+                        <td>Comunicación MCU/PC</td>
+                        <td>UART</td>
+                    </tr>
+                    <tr>
+                        <td>Múltiples sensores mismo bus</td>
+                        <td>I2C</td>
+                    </tr>
+                    <tr>
+                        <td>Alta velocidad</td>
+                        <td>SPI</td>
+                    </tr>
+                    <tr>
+                        <td>Distancia larga (>5m)</td>
+                        <td>RS485, 1-Wire</td>
+                    </tr>
+                </table>
+
+                <div class="info">
+                    <p><strong>💡 Regla:</strong> I2C para múltiples sensores con pocos pines. SPI para velocidad máxima. UART para comunicación con otros microcontroladores.</p>
+                </div>
+            </section>
+
+            <!-- I2C Detallado -->
+            <section>
+                <h2>I2C: El Protocolo Estrella de IoT</h2>
+
+                <h3>¿Por qué I2C es tan popular?</h3>
+                <table>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Beneficio</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Solo 2 cables</strong></td>
+                        <td>SDA (datos) + SCL (reloj)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Múltiples dispositivos</strong></td>
+                        <td>Hasta 127 en mismo bus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Direccionamiento</strong></td>
+                        <td>Cada dispositivo tiene ID única</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Velocidad</strong></td>
+                        <td>100-400 KHz (suficiente para sensores)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arquitectura</strong></td>
+                        <td>Un maestro, múltiples esclavos</td>
+                    </tr>
+                </table>
+
+                <h3>Dispositivos Comunes I2C</h3>
+                <table>
+                    <tr>
+                        <th>Dirección</th>
+                        <th>Dispositivo</th>
+                    </tr>
+                    <tr>
+                        <td>0x27 / 0x3F</td>
+                        <td>LCD 16x2 (I2C adapter)</td>
+                    </tr>
+                    <tr>
+                        <td>0x3C / 0x3D</td>
+                        <td>OLED Display 128x64</td>
+                    </tr>
+                    <tr>
+                        <td>0x76 / 0x77</td>
+                        <td>BMP280 (presión atmosférica)</td>
+                    </tr>
+                    <tr>
+                        <td>0x68</td>
+                        <td>MPU6050 (acelerómetro)</td>
+                    </tr>
+                    <tr>
+                        <td>0x40</td>
+                        <td>PCA9685 (driver PWM 16 canales)</td>
+                    </tr>
+                </table>
+                <div class="warning">
+                    <p><strong>⚠️ Importante:</strong> Siempre conectar resistencias pull-up (4.7KΩ - 10KΩ) en SDA y SCL a VCC.</p>
+                </div>
+
+                <h3>Diagrama de Conexión I2C</h3>
+                <p><strong>ESP32 (Maestro) ↔ Dispositivos I2C (Esclavos)</strong></p>
+                <table>
+                    <tr>
+                        <th>ESP32</th>
+                        <th>→</th>
+                        <th>Todos los dispositivos</th>
+                    </tr>
+                    <tr>
+                        <td>3.3V</td>
+                        <td>→</td>
+                        <td>VCC</td>
+                    </tr>
+                    <tr>
+                        <td>GND</td>
+                        <td>→</td>
+                        <td>GND</td>
+                    </tr>
+                    <tr>
+                        <td>GPIO21</td>
+                        <td>→</td>
+                        <td>SDA</td>
+                    </tr>
+                    <tr>
+                        <td>GPIO22</td>
+                        <td>→</td>
+                        <td>SCL</td>
+                    </tr>
+                </table>
+
+                <h3>Código Básico Arduino</h3>
+                <pre><code>#include &lt;Wire.h&gt;  // Librería I2C
+
+void setup() {
+  Wire.begin();           // Iniciar I2C (maestro)
+  Serial.begin(115200);
+}
+
+void loop() {
+  // Escribir al dispositivo
+  Wire.beginTransmission(0x76); // Dirección BMP280
+  Wire.write(0xF4);             // Registro ctrl
+  Wire.write(0x27);             // Valor
+  Wire.endTransmission();
+
+  // Leer del dispositivo
+  Wire.requestFrom(0x76, 2);    // Leer 2 bytes
+  while(Wire.available()) {
+    byte data = Wire.read();
+    Serial.println(data, HEX);
+  }
+  delay(1000);
+}</code></pre>
+
+                <h3>Escáner de Dispositivos I2C</h3>
+                <pre><code>// Escanea 0x03 a 0x77 encontrando dispositivos
+for(byte addr = 1; addr &lt; 127; addr++) {
+  Wire.beginTransmission(addr);
+  if(Wire.endTransmission() == 0) {
+    Serial.print("Dispositivo encontrado: 0x");
+    Serial.println(addr, HEX);
+  }
+}</code></pre>
+            </section>
+
+            <!-- Anatomía de un Proyecto IoT -->
+            <section>
+                <h2>Anatomía de un Proyecto IoT Completo</h2>
+
+                <h3>🔽 CAPA DE PERCEPCIÓN (Sensores)</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Función</th>
+                        <th>Ejemplos</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Sensores</strong></td>
+                        <td>Capturan datos del mundo físico</td>
+                        <td>DHT11, LDR, PIR, HC-SR04</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frecuencia</strong></td>
+                        <td>Cada 1-60 segundos según necesidad</td>
+                        <td>Temperatura: 60s, Movimiento: 0.5s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Conexión</strong></td>
+                        <td>GPIO, ADC, I2C, SPI</td>
+                        <td>Directos al MCU</td>
+                    </tr>
+                </table>
+
+                <h3>📊 CAPA DE PROCESAMIENTO (Edge)</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Función</th>
+                        <th>ESP32</th>
+                    </tr>
+                    <tr>
+                        <td><strong>MCU</strong></td>
+                        <td>Cerebro del sistema</td>
+                        <td>Dual-core 240 MHz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memoria</strong></td>
+                        <td>Buffer temporal</td>
+                        <td>520 KB RAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lógica</strong></td>
+                        <td>Decisiones locales</td>
+                        <td>If temp > 30 → encender fan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filtrado</strong></td>
+                        <td>Eliminar ruido</td>
+                        <td>Promedio móvil</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compresión</strong></td>
+                        <td>Ahorrar ancho de banda</td>
+                        <td>JSON compacto</td>
+                    </tr>
+                </table>
+
+                <h3>📤 CAPA DE ACTUACIÓN</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Función</th>
+                        <th>Ejemplos</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Relé</strong></td>
+                        <td>Interruptor 110V/220V</td>
+                        <td>Luces, electrodomésticos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Servo</strong></td>
+                        <td>Posición angular</td>
+                        <td>Persianas, válvulas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LEDs</strong></td>
+                        <td>Indicadores visuales</td>
+                        <td>Alertas, estado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Display</strong></td>
+                        <td>Información local</td>
+                        <td>OLED, LCD</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Buzzer</strong></td>
+                        <td>Alertas sonoras</td>
+                        <td>Alarmas</td>
+                    </tr>
+                </table>
+
+                <h3>📱 CAPA USUARIO</h3>
+                <table>
+                    <tr>
+                        <th>Interfaz</th>
+                        <th>Uso</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Móvil</strong></td>
+                        <td>Control remoto, notificaciones</td>
+                        <td>App Android/iOS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Web</strong></td>
+                        <td>Dashboard, configuración</td>
+                        <td>React, Vue</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Voice</strong></td>
+                        <td>Asistente por voz</td>
+                        <td>Alexa, Google Home</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SMS</strong></td>
+                        <td>Alertas críticas</td>
+                        <td>Twilio, msg91</td>
+                    </tr>
+                </table>
+
+                <h3>🌐 CAPA DE CONECTIVIDAD</h3>
+                <table>
+                    <tr>
+                        <th>Protocolo</th>
+                        <th>Uso</th>
+                        <th>Alcance</th>
+                    </tr>
+                    <tr>
+                        <td><strong>WiFi</strong></td>
+                        <td>Conexión a router</td>
+                        <td>Dentro del hogar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BLE</strong></td>
+                        <td>Comunicación móvil</td>
+                        <td>10-100m</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MQTT</strong></td>
+                        <td>Mensajes ligeros</td>
+                        <td>Cloud</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HTTP/REST</strong></td>
+                        <td>API estándar</td>
+                        <td>Web services</td>
+                    </tr>
+                </table>
+
+                <h3>☁️ CAPA NUBE (Cloud)</h3>
+                <table>
+                    <tr>
+                        <th>Plataforma</th>
+                        <th>Características</th>
+                    </tr>
+                    <tr>
+                        <td><strong>ThingsBoard</strong></td>
+                        <td>Open-source, dashboards</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AWS IoT</strong></td>
+                        <td>Escalable, integración AWS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blynk</strong></td>
+                        <td>Fácil, móvil primero</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Firebase</strong></td>
+                        <td>Realtime database</td>
+                    </tr>
+                </table>
+
+                <h3>🔄 Flujo de Datos</h3>
+                <table>
+                    <tr>
+                        <th>Flujo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>Sensor → ADC → MCU → WiFi → MQTT → Cloud</td>
+                        <td>Datos hacia la nube</td>
+                    </tr>
+                    <tr>
+                        <td>Cloud → App → Usuario</td>
+                        <td>Visualización y control</td>
+                    </tr>
+                    <tr>
+                        <td>MCU → Actuador</td>
+                        <td>Decisión local</td>
+                    </tr>
+                </table>
+
+                <div class="success">
+                    <h3>Diseño por Capas: Ventajas</h3>
+                    <table>
+                        <tr>
+                            <th>Enfoque</th>
+                            <th>Beneficio</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Desacoplado</strong></td>
+                            <td>Cambiar sensor sin afectar cloud</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Escalable</strong></td>
+                            <td>Agregar 10 sensores = mismo código</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resiliente</strong></td>
+                            <td>Fallo de WiFi → sigue funcionando localmente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mantenible</strong></td>
+                            <td>Debug por capas, no todo junto</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Demo Práctica -->
+            <section id="demo">
+                <h2>Demo Práctica: ESP32 + DHT11</h2>
+
+                <h3>Diagrama de Conexión</h3>
+                <table>
+                    <tr>
+                        <th>ESP32</th>
+                        <th>→</th>
+                        <th>DHT11</th>
+                    </tr>
+                    <tr>
+                        <td>3.3V</td>
+                        <td>→</td>
+                        <td>VCC</td>
+                    </tr>
+                    <tr>
+                        <td>GND</td>
+                        <td>→</td>
+                        <td>GND</td>
+                    </tr>
+                    <tr>
+                        <td>GPIO4</td>
+                        <td>→</td>
+                        <td>DATA</td>
+                    </tr>
+                    <tr>
+                        <td>*(con pull-up 10KΩ)*</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <h3>Lista de Materiales</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Cantidad</th>
+                    </tr>
+                    <tr>
+                        <td>ESP32 DevKit</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>DHT11</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Resistencia 10KΩ</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Cables jumper</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Protoboard</td>
+                        <td>1</td>
+                    </tr>
+                </table>
+
+                <h3>Código Completo (Arduino)</h3>
+                <pre><code>#include "DHT.h"
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  delay(2000);
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Error leyendo DHT11!");
+    return;
+  }
+
+  Serial.print("Temp: ");
+  Serial.print(t);
+  Serial.print("°C  Hum: ");
+  Serial.print(h);
+  Serial.println("%");
+}</code></pre>
+            </section>
+
+            <!-- Actividad Práctica -->
+            <section id="actividad">
+                <h2>Actividad Práctica: Identificación de Componentes</h2>
+
+                <h3>Instrucciones (30 minutos)</h3>
+
+                <h4>Parte 1: Exploración (15 min)</h4>
+                <p>En equipos de 3 personas:</p>
+                <ol>
+                    <li><strong>Identificar</strong> 5 sensores diferentes del kit</li>
+                    <li><strong>Clasificar</strong> cada sensor por tipo:
+                        <ul>
+                            <li>Ambiente (temperatura, humedad)</li>
+                            <li>Posición (distancia, movimiento)</li>
+                            <li>Luz</li>
+                            <li>Otros</li>
+                        </ul>
+                    </li>
+                    <li><strong>Investigar</strong> el protocolo de comunicación:
+                        <ul>
+                            <li>Digital (GPIO)</li>
+                            <li>Analógico (ADC)</li>
+                            <li>I2C</li>
+                            <li>SPI</li>
+                            <li>1-Wire</li>
+                        </ul>
+                    </li>
+                    <li><strong>Buscar</strong> la hoja de datos (datasheet) de cada sensor</li>
+                </ol>
+
+                <h4>Parte 2: Propuesta de Proyecto (15 min)</h4>
+                <p>Diseñar un proyecto IoT que use <strong>mínimo 3 sensores</strong> y <strong>1 actuador</strong>.</p>
+
+                <h4>Ejemplos de proyectos para contexto colombiano:</h4>
+                <table>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Sensores</th>
+                        <th>Actuador</th>
+                        <th>Aplicación</th>
+                    </tr>
+                    <tr>
+                        <td>🌾 <strong>Invernadero</strong></td>
+                        <td>DHT11, LDR, Humedad suelo</td>
+                        <td>Bomba agua</td>
+                        <td>Agricultura</td>
+                    </tr>
+                    <tr>
+                        <td>🏠 <strong>Alarma</strong></td>
+                        <td>PIR, Magnético, LDR</td>
+                        <td>Sirena/Buzzer</td>
+                        <td>Seguridad</td>
+                    </tr>
+                    <tr>
+                        <td>💧 <strong>Fugas</strong></td>
+                        <td>Agua, Humedad</td>
+                        <td>Válvula</td>
+                        <td>Prevención</td>
+                    </tr>
+                    <tr>
+                        <td>🚗 <strong>Parking</strong></td>
+                        <td>Ultrasónico, LDR</td>
+                        <td>Display LED</td>
+                        <td>Control</td>
+                    </tr>
+                    <tr>
+                        <td>🌡️ <strong>Incubadora</strong></td>
+                        <td>DHT22</td>
+                        <td>Calefactor</td>
+                        <td>Avicultura</td>
+                    </tr>
+                </table>
+
+                <h3>Entregable</h3>
+                <p>Crear una tabla como esta:</p>
+                <table>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Tipo</th>
+                        <th>Protocolo</th>
+                        <th>Proyecto Propuesto</th>
+                        <th>Rol en el Proyecto</th>
+                    </tr>
+                    <tr>
+                        <td>DHT11</td>
+                        <td>Ambiente</td>
+                        <td>Digital</td>
+                        <td>Invernadero</td>
+                        <td>Monitorear clima</td>
+                    </tr>
+                    <tr>
+                        <td>LDR</td>
+                        <td>Luz</td>
+                        <td>Analógico</td>
+                        <td>Invernadero</td>
+                        <td>Controlar iluminación</td>
+                    </tr>
+                    <tr>
+                        <td>YL-69</td>
+                        <td>Humedad</td>
+                        <td>Analógico</td>
+                        <td>Invernadero</td>
+                        <td>Activar riego</td>
+                    </tr>
+                    <tr>
+                        <td>Relé 5V</td>
+                        <td>Actuador</td>
+                        <td>Digital</td>
+                        <td>Invernadero</td>
+                        <td>Controlar bomba</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Resumen -->
+            <section>
+                <h2>Resumen: Conceptos Clave de la Clase</h2>
+
+                <div class="box-grid">
+                    <div class="box">
+                        <h4>Microcontrolador</h4>
+                        <p>Computadora completa en un chip: CPU, memoria, I/O, comunicación.</p>
+                        <p><strong>Ejemplos:</strong> ESP32, Arduino, STM32</p>
+                    </div>
+                    <div class="box">
+                        <h4>Arduino</h4>
+                        <p>Plataforma de aprendizaje con gran comunidad. Fácil pero limitado en conectividad.</p>
+                        <p><strong>Uso:</strong> Prototipos, aprendizaje</p>
+                    </div>
+                    <div class="box">
+                        <h4>ESP32</h4>
+                        <p>MCU con WiFi y Bluetooth integrados. Mejor relación costo/beneficio para IoT.</p>
+                        <p><strong>Uso:</strong> IoT conectado, producción</p>
+                    </div>
+                    <div class="box">
+                        <h4>Raspberry Pi</h4>
+                        <p>Microcomputador con Linux. Potente pero más complejo y consumo alto.</p>
+                        <p><strong>Uso:</strong> Gateway, servidor, procesamiento</p>
+                    </div>
+                </div>
+
+                <div class="box-grid">
+                    <div class="box">
+                        <h4>Sensores</h4>
+                        <p>Capturan datos del mundo físico: temperatura, luz, movimiento, distancia, etc.</p>
+                        <p><strong>Tipos:</strong> DHT11, PIR, HC-SR04, LDR, BMP280</p>
+                    </div>
+                    <div class="box">
+                        <h4>Actuadores</h4>
+                        <p>Ejecutan acciones físicas: LEDs, motores, relés, displays, buzzers.</p>
+                        <p><strong>Tipos:</strong> Relé (alto voltaje), Servo (posición), LED (indicación)</p>
+                    </div>
+                    <div class="box">
+                        <h4>Protocolos</h4>
+                        <p>"Idiomas" de comunicación entre dispositivos.</p>
+                        <p><strong>Tipos:</strong> GPIO (digital), I2C (multi-dispositivo), SPI (velocidad), UART (punto a punto)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tarea -->
+            <section>
+                <h2>Tarea: Preparación para la Próxima Clase</h2>
+
+                <h3>Instalación de Software</h3>
+                <ol>
+                    <li><strong>Arduino IDE</strong>
+                        <ul>
+                            <li>Descargar de: arduino.cc</li>
+                            <li>Instalar versión 1.8.x o 2.x</li>
+                            <li>Configurar ESP32 (ver guía)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Soporte ESP32</strong>
+                        <ul>
+                            <li>File → Preferences → Additional Board URLs</li>
+                            <li>Agregar: <code>https://dl.espressif.com/dl/package_esp32_index.json</code></li>
+                            <li>Tools → Board → Boards Manager → ESP32</li>
+                        </ul>
+                    </li>
+                    <li><strong>Librerías necesarias</strong>
+                        <ul>
+                            <li>DHT sensor library (Adafruit)</li>
+                            <li>Adafruit Unified Sensor</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="highlight">
+                    <strong>💻 Factibilidad Windows:</strong> Arduino IDE es completamente compatible con Windows. Todas las librerías están disponibles. Hardware opcional (demo docente).
+                </div>
+
+                <h3>Investigación Previa</h3>
+                <p>Seleccionar <strong>un sensor</strong> del kit y preparar ficha técnica:</p>
+                <table>
+                    <tr>
+                        <th>Sección</th>
+                        <th>Contenido</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Especificaciones</strong></td>
+                        <td>Rangos, precisión, voltaje, corriente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diagrama</strong></td>
+                        <td>Conexión al ESP32</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Código ejemplo</strong></td>
+                        <td>Sketch Arduino básico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aplicaciones</strong></td>
+                        <td>3 casos de uso reales en Colombia</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Limitaciones</strong></td>
+                        <td>Qué NO puede hacer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alternativas</strong></td>
+                        <td>Otros sensores similares</td>
+                    </tr>
+                </table>
+
+                <div class="highlight">
+                    <p><strong>Fecha de entrega:</strong> Próxima clase - Traer instalado y funcionando</p>
+                </div>
+            </section>
+
+            <!-- Próxima Clase -->
+            <section>
+                <h2>Próxima Clase</h2>
+                <h3>Clase 6: Programación de Microcontroladores</h3>
+
+                <h4>Temas a Cubrir</h4>
+                <ul>
+                    <li>Arduino IDE y alternativas (PlatformIO)</li>
+                    <li>Estructura de un programa Arduino</li>
+                    <li>Manejo de pines GPIO (entrada/salida)</li>
+                    <li>Lectura de sensores analógicos y digitales</li>
+                    <li>Control de actuadores (PWM, digital)</li>
+                    <li>Comunicación serial para depuración</li>
+                    <li>Mejores prácticas de código</li>
+                </ul>
+
+                <h4>Demo Práctico</h4>
+                <p>Programaremos el ESP32 para leer múltiples sensores y enviar datos por WiFi.</p>
+            </section>
+
+            <!-- Referencias -->
+            <section>
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Arduino Documentation - arduino.cc/en/reference</li>
+                    <li>Espressif ESP32 Datasheet - docs.espressif.com</li>
+                    <li>Raspberry Pi Documentation - raspberrypi.com/documentation</li>
+                    <li>Sensors, Datasheets (DHT11, BMP280, MPU6050)</li>
+                    <li>I2C Specification - nxp.com/docs/en/user-guide/UM10204</li>
+                    <li>SPI Specification - motorola.com</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma de Colombia | Ingeniería Informática | 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;">
+                Clase 5: Interconexión de Objetos - Hardware para IoT
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

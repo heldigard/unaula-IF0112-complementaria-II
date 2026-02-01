@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 12: Conexiones M2M-M2P-P2P - IF0112 Complementaria II (IoT)</title>
+    <style>
+        :root {
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --ink: #111827;
+            --muted: #6b7280;
+            --accent: #1d4ed8;
+            --accent-2: #0ea5e9;
+            --border: #e5e7eb;
+            --table-head: #1e3a8a;
+            --table-row: #eff6ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        header {
+            padding: 2.6rem 2rem 2rem;
+            background: linear-gradient(120deg, #1d4ed8 0%, #2563eb 50%, #0ea5e9 100%);
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            max-width: 880px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: #0f172a;
+            color: #fff;
+            z-index: 10;
+            padding: 0.75rem 2rem;
+            font-size: 0.95rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.4rem;
+        }
+
+        nav a {
+            color: #bfdbfe;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2.6rem;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        section h3 {
+            font-size: 1.2rem;
+            margin: 1.25rem 0 0.75rem;
+            color: #1e3a8a;
+        }
+
+        ul, ol {
+            margin-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid var(--accent);
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--table-head);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: var(--table-row);
+        }
+
+        pre {
+            background: #0f172a;
+            color: #dbeafe;
+            padding: 1rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin-top: 0.75rem;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9rem;
+        }
+
+        .diagram {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            color: #1e293b;
+        }
+
+        footer {
+            padding: 1.5rem 2rem 2rem;
+            background: #0f172a;
+            color: #bfdbfe;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 1.9rem;
+            }
+        }
+
+        /* Cajas de aprendizaje clave */
+        .learning-key {
+            background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+            border-left: 5px solid var(--accent);
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(29, 78, 216, 0.15);
+        }
+        .learning-key h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .learning-key h4::before {
+            content: "💡";
+            font-size: 1.2rem;
+        }
+        .learning-key p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Hardware opcional notice */
+        .hardware-notice {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .hardware-notice strong {
+            color: #92400e;
+        }
+
+        /* Botón volver arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .back-to-top:hover {
+            background: var(--accent-2);
+            transform: translateY(-2px);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Scroll margin para navegación */
+        section {
+            scroll-margin-top: 80px;
+        }
+        section h2 {
+            scroll-margin-top: 80px;
+        }
+
+        @media print {
+            .back-to-top { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 12: Conexiones M2M - M2P - P2P</h1>
+            <p>IF0112 - Complementaria II (IoT) · Unidad 2: La Piedra Angular de IoT</p>
+            <span class="pill">Objetivo general: distinguir patrones de interacción entre personas y máquinas</span>
+            <div class="grid">
+                <div class="card">
+                    <h3>Objetivos de la clase</h3>
+                    <ul>
+                        <li>Diferenciar P2M, M2M, M2P y P2P en sistemas IoT.</li>
+                        <li>Evaluar latencia, complejidad y confianza en cada tipo.</li>
+                        <li>Relacionar patrones de comunicación con casos reales.</li>
+                        <li>Diseñar un flujo IoT según el tipo de conexión.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Prerrequisitos</h3>
+                    <ul>
+                        <li>Conectividad y protocolos IoT.</li>
+                        <li>Arquitectura sensor-borde-nube.</li>
+                        <li>Lectura básica de código en C++/Arduino.</li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#clasificacion">Clasificacion</a></li>
+                <li><a href="#p2m">P2M</a></li>
+                <li><a href="#m2m">M2M</a></li>
+                <li><a href="#m2p">M2P</a></li>
+                <li><a href="#p2p">P2P</a></li>
+                <li><a href="#comparativa">Comparativa</a></li>
+                <li><a href="#practica">Practica / Lab</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="contexto">
+                <h2>Contexto y motivacion</h2>
+                <p>En IoT no solo importan los dispositivos, sino la forma en que interactuan. Las conexiones P2M, M2M, M2P y P2P definen el flujo de control, los tiempos de respuesta y el nivel de autonomia. Identificar el tipo de conexion permite diseñar arquitecturas eficientes y seguras.</p>
+                <div class="note">
+                    <strong>Idea clave:</strong> cambia el actor que inicia la accion y cambia el diseño completo del sistema.
+                </div>
+            </section>
+
+            <section id="clasificacion">
+                <h2>Clasificacion de conexiones</h2>
+
+                <div class="learning-key">
+                    <h4>Aprendizaje clave</h4>
+                    <p>Los 4 patrones de conexión IoT son: <strong>P2M</strong> (Persona controla máquina), <strong>M2P</strong> (Máquina notifica persona), <strong>M2M</strong> (Máquina con máquina, sin humanos), y <strong>P2P</strong> (Persona con persona a través de tecnología). Cada patrón tiene latencia, complejidad y confianza diferentes.</p>
+                </div>
+
+                <div class="diagram">
+Persona (P)                   Maquina (M)
+    |                             |
+    |                             |
++---+---+                     +---+---+
+|       |                     |       |
+P2M   M2P                     M2M   P2P
+                </div>
+            </section>
+
+            <section id="p2m">
+                <h2>P2M (Persona a Maquina)</h2>
+                <p>Un humano controla o interactua directamente con un dispositivo IoT.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caso</th>
+                            <th>P → M</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Smart Home</td>
+                            <td>App enciende luz</td>
+                            <td>Usuario toca boton en app</td>
+                        </tr>
+                        <tr>
+                            <td>Vehiculo</td>
+                            <td>Conductor activa calefaccion</td>
+                            <td>Boton fisico en panel</td>
+                        </tr>
+                        <tr>
+                            <td>Industrial</td>
+                            <td>Operario ajusta parametros</td>
+                            <td>HMI panel tactil</td>
+                        </tr>
+                        <tr>
+                            <td>Wearable</td>
+                            <td>Usuario consulta reloj</td>
+                            <td>Tap en pantalla</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li><strong>Latencia:</strong> &lt; 100 ms (feedback inmediato).</li>
+                    <li><strong>Confianza:</strong> alta (humano en el loop).</li>
+                    <li><strong>Complejidad:</strong> baja.</li>
+                </ul>
+                <pre><code>// App envia comando al ESP32
+void loop() {
+  if (Serial.available()) {
+    char comando = Serial.read();
+    if (comando == '1') {
+      digitalWrite(LED_PIN, HIGH); // Encender luz
+    }
+  }
+}</code></pre>
+            </section>
+
+            <section id="m2m">
+                <h2>M2M (Maquina a Maquina)</h2>
+                <p>Dispositivos IoT se comunican sin intervencion humana.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caso</th>
+                            <th>M → M</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Domotica</td>
+                            <td>Sensor movimiento → Camara</td>
+                            <td>Movimiento detectado activa grabacion</td>
+                        </tr>
+                        <tr>
+                            <td>Industrial</td>
+                            <td>Sensor vibracion → Motor</td>
+                            <td>Vibracion alta apaga motor</td>
+                        </tr>
+                        <tr>
+                            <td>Agricultura</td>
+                            <td>Sensor humedad → Valvula</td>
+                            <td>Suelo seco abre riego</td>
+                        </tr>
+                        <tr>
+                            <td>Smart Grid</td>
+                            <td>Medidor → Interruptor</td>
+                            <td>Demanda alta reduce carga</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li><strong>Latencia:</strong> variable (ms a segundos).</li>
+                    <li><strong>Autonomia:</strong> completa.</li>
+                    <li><strong>Complejidad:</strong> media-alta.</li>
+                </ul>
+                <pre><code>// ESP32 (M1) publica, ESP32 (M2) recibe y actua
+// Emisor (M1)
+void loop() {
+  float temp = dht.readTemperature();
+  if (temp > 30) {
+    client.publish("casa/living/alerta", "TEMP_ALTA");
+  }
+}
+
+// Receptor (M2)
+void callback(char* topic, byte* payload, unsigned int length) {
+  if (strcmp((char*)payload, "TEMP_ALTA") == 0) {
+    digitalWrite(AIRE_PIN, HIGH); // Encender A/C
+  }
+}</code></pre>
+            </section>
+
+            <section id="m2p">
+                <h2>M2P (Maquina a Persona)</h2>
+                <p>El dispositivo notifica o entrega informacion al humano.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caso</th>
+                            <th>M → P</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wearable</td>
+                            <td>Reloj → Usuario</td>
+                            <td>Alerta de frecuencia cardiaca</td>
+                        </tr>
+                        <tr>
+                            <td>Smart Home</td>
+                            <td>Sensor → App</td>
+                            <td>Notificacion "Puerta abierta"</td>
+                        </tr>
+                        <tr>
+                            <td>Industrial</td>
+                            <td>Maquina → Operario</td>
+                            <td>"Mantenimiento requerido"</td>
+                        </tr>
+                        <tr>
+                            <td>Smart City</td>
+                            <td>Semaforo → Conductor</td>
+                            <td>"Luz roja en 10s"</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li><strong>Latencia:</strong> segundos aceptable.</li>
+                    <li><strong>Formato:</strong> push, email, dashboard.</li>
+                    <li><strong>Confianza:</strong> media (requiere verificacion).</li>
+                </ul>
+                <pre><code>// ESP32 notifica al usuario via Push
+void enviarNotificacionPush(String mensaje) {
+  HTTPClient http;
+  http.begin("https://push.example.com/api");
+  http.addHeader("Content-Type", "application/json");
+
+  String payload = "{\"message\":\"" + mensaje + "\"}";
+  int httpCode = http.POST(payload);
+
+  http.end();
+}
+
+void loop() {
+  if (alguienDetectada()) {
+    enviarNotificacionPush("Movimiento en sala");
+  }
+}</code></pre>
+            </section>
+
+            <section id="p2p">
+                <h2>P2P (Persona a Persona via IoT)</h2>
+                <p>Personas se comunican mediadas por infraestructura IoT.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caso</th>
+                            <th>P → [IoT] → P</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Telemedicina</td>
+                            <td>Paciente → Cloud → Doctor</td>
+                            <td>Datos vitales transmitidos</td>
+                        </tr>
+                        <tr>
+                            <td>Adulto mayor</td>
+                            <td>Abuelo → Alerta → Familia</td>
+                            <td>Caida detectada</td>
+                        </tr>
+                        <tr>
+                            <td>Colaborativo</td>
+                            <td>Usuario 1 → Shared → Usuario 2</td>
+                            <td>Edificio compartido</td>
+                        </tr>
+                        <tr>
+                            <td>Social</td>
+                            <td>Jugador → Plataforma → Amigos</td>
+                            <td>Videojuego AR</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li><strong>Latencia:</strong> baja (&lt; 1 s para inmediatez).</li>
+                    <li><strong>Interactividad:</strong> bidireccional.</li>
+                    <li><strong>Enriquecimiento:</strong> datos contextuales.</li>
+                </ul>
+                <pre><code>// Paciente (P1) -> Cloud -> Doctor (P2)
+void enviarVitals() {
+  String payload = "{\"hr\":85, \"spo2\":98, \"temp\":36.5}";
+  client.publish("paciente/123/vitals", payload);
+}
+
+// Receptor (P2 - Doctor dashboard)
+void callback(char* topic, byte* payload, unsigned int length) {
+  StaticJsonDocument<200> doc;
+  deserializeJson(doc, payload);
+
+  int hr = doc["hr"];
+  displayHeartRate(patientID, hr);
+}</code></pre>
+            </section>
+
+            <section id="comparativa">
+                <h2>Comparativa de tipos de conexion</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>P2M</th>
+                            <th>M2M</th>
+                            <th>M2P</th>
+                            <th>P2P</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Iniciativa</td>
+                            <td>Humano</td>
+                            <td>Automatico</td>
+                            <td>Automatico</td>
+                            <td>Humanos</td>
+                        </tr>
+                        <tr>
+                            <td>Feedback</td>
+                            <td>Inmediato</td>
+                            <td>Variable</td>
+                            <td>Diferido</td>
+                            <td>Rapido</td>
+                        </tr>
+                        <tr>
+                            <td>Confianza</td>
+                            <td>Alta</td>
+                            <td>Media</td>
+                            <td>Media</td>
+                            <td>Media</td>
+                        </tr>
+                        <tr>
+                            <td>Complejidad</td>
+                            <td>Baja</td>
+                            <td>Media</td>
+                            <td>Media</td>
+                            <td>Alta</td>
+                        </tr>
+                        <tr>
+                            <td>Ejemplo IoT</td>
+                            <td>App → Luz</td>
+                            <td>Sensor → Aire</td>
+                            <td>Sensor → Push</td>
+                            <td>Reloj → Cloud → App</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practica">
+                <h2>Practica / laboratorio</h2>
+                <h3>Actividad guiada: mapa de interacciones</h3>
+                <ol>
+                    <li>Seleccione un sistema IoT (smart home, industria, salud).</li>
+                    <li>Liste 5 interacciones clave entre personas y maquinas.</li>
+                    <li>Clasifique cada interaccion como P2M, M2M, M2P o P2P.</li>
+                    <li>Identifique el tipo de latencia y seguridad requerida.</li>
+                </ol>
+                <pre><code># Plantilla rapida
+Interaccion,Tipo,Latencia,Sensibilidad
+Sensor puerta -> App,M2P,Segundos,Media
+Usuario -> Luz,P2M,Inmediato,Baja
+Sensor humo -> Sirena,M2M,Sub-segundo,Alta</code></pre>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios</h2>
+                <ol>
+                    <li>Clasifique 8 interacciones de un hospital IoT en P2M, M2M, M2P y P2P.</li>
+                    <li>Explique por que un sistema de riego inteligente requiere M2M y no P2M.</li>
+                    <li>Disene un flujo IoT que combine M2P y P2P en telemedicina.</li>
+                    <li>Para un ascensor inteligente, identifique que conexiones son criticas y su latencia maxima.</li>
+                    <li>Proponga dos medidas de seguridad para un escenario M2M industrial.</li>
+                </ol>
+
+                <div class="hardware-notice">
+                    <strong>💻 Factibilidad Windows:</strong> Esta clase es teórica sobre patrones de conexión IoT. Los ejercicios son de diseño y clasificación, pueden realizarse en papel o con herramientas como draw.io/PowerPoint en Windows. No requiere hardware ni instalación de software.
+                </div>
+            </section>
+
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Material complementario interno: tipos.md (clase 12).</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) · Clase 12: Conexiones M2M-M2P-P2P</p>
+        </footer>
+
+        <button id="backToTop" class="back-to-top" title="Volver arriba">↑</button>
+
+        <script>
+            const backToTopButton = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
+    </div>
+</body>
+</html>

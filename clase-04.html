@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 04: Redes IoT - IF0112 Complementaria II (IoT)</title>
+    <style>
+        :root {
+            --bg: #f4f6f9;
+            --card: #ffffff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --accent: #0f766e;
+            --accent-2: #0ea5a4;
+            --border: #e5e7eb;
+            --table-head: #0f172a;
+            --table-row: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+        }
+
+        header {
+            padding: 2.5rem 2rem 2rem;
+            background: linear-gradient(120deg, #0f766e 0%, #0ea5a4 60%, #38bdf8 100%);
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 2.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            max-width: 900px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: #0f172a;
+            color: #fff;
+            z-index: 10;
+            padding: 0.75rem 2rem;
+            font-size: 0.95rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        section h3 {
+            font-size: 1.2rem;
+            margin: 1.25rem 0 0.75rem;
+            color: #0f172a;
+        }
+
+        ul {
+            margin-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .note {
+            background: #f0fdfa;
+            border-left: 4px solid var(--accent);
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        figure {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        figure img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        figcaption {
+            margin-top: 0.75rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--table-head);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: var(--table-row);
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin-top: 0.75rem;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .tag {
+            background: #e0f2fe;
+            color: #0f172a;
+            padding: 0.3rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            border: 1px solid #bae6fd;
+        }
+
+        footer {
+            padding: 1.5rem 2rem 2rem;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        footer a {
+            color: #7dd3fc;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 04: Redes IoT</h1>
+            <p>IF0112 - Complementaria II (IoT) · Unidad 1: ¿Qué es IoT?</p>
+            <span class="pill">Objetivo general: seleccionar tecnologías de red IoT según alcance, consumo y ancho de banda</span>
+            <div class="grid">
+                <div class="card">
+                    <h3>Objetivos de la clase</h3>
+                    <ul>
+                        <li>Clasificar redes IoT por alcance (PAN, LAN, WAN, Internet).</li>
+                        <li>Comparar tecnologías (BLE, Zigbee, WiFi, LoRaWAN, NB-IoT, Sigfox, 4G/5G).</li>
+                        <li>Evaluar protocolos de aplicación (MQTT, CoAP, HTTP, AMQP, LwM2M).</li>
+                        <li>Aplicar una matriz de decisión para casos reales.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Prerrequisitos</h3>
+                    <ul>
+                        <li>Conceptos básicos de IoT (clases 01-02).</li>
+                        <li>Nociones de redes (IP, WiFi, Ethernet).</li>
+                        <li>Lectura de tablas de desempeño.</li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#clasificacion">Clasificación de redes</a></li>
+                <li><a href="#pan">Tecnologías PAN</a></li>
+                <li><a href="#wifi">WiFi para IoT</a></li>
+                <li><a href="#wan">Tecnologías WAN</a></li>
+                <li><a href="#protocolos">Protocolos IoT</a></li>
+                <li><a href="#comparacion">Matriz comparativa</a></li>
+                <li><a href="#casos">Casos de uso</a></li>
+                <li><a href="#practica">Práctica / Lab</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="contexto">
+                <h2>Contexto y motivación</h2>
+                <p>En IoT, la red es el puente entre sensores, actuadores y la nube. Elegir una tecnología incorrecta puede duplicar costos, agotar baterías o dejar puntos ciegos. La decisión se centra en cuatro variables: <strong>alcance</strong>, <strong>consumo</strong>, <strong>ancho de banda</strong> y <strong>densidad de dispositivos</strong>.</p>
+                <div class="note">
+                    <strong>Idea clave:</strong> no existe “la mejor red” universal. Existe la red adecuada para cada caso de uso.
+                </div>                <div class="highlight-box">
+                    <strong>📚 Aprendizaje clave:</strong> La selección de red IoT depende de trade-offs entre alcance, consumo, velocidad y costo. WiFi para alta velocidad corta distancia, LoRaWAN para largo alcance bajo consumo.
+                </div>                <figure>
+                    <img src="assets/infografias/clase-04-redes-iot.png" alt="Infografía sobre redes IoT">
+                    <figcaption>Figura 4: Panorama de redes IoT clasificadas por alcance, consumo energético y velocidad de transmisión. Fuente: Adaptado de estándares IEEE y 3GPP.</figcaption>
+                </figure>
+            </section>
+
+            <section id="clasificacion">
+                <h2>Clasificación de redes por alcance</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Alcance</th>
+                            <th>Velocidad</th>
+                            <th>Consumo</th>
+                            <th>Tecnologías</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PAN</td>
+                            <td>&lt; 10 m</td>
+                            <td>1-100 Mbps</td>
+                            <td>Bajo-Medio</td>
+                            <td>Bluetooth, NFC, Zigbee, Infrared</td>
+                        </tr>
+                        <tr>
+                            <td>LAN</td>
+                            <td>&lt; 1 km</td>
+                            <td>100 Mbps-10 Gbps</td>
+                            <td>Alto</td>
+                            <td>WiFi, Ethernet, Powerline</td>
+                        </tr>
+                        <tr>
+                            <td>WAN</td>
+                            <td>&gt; 1 km</td>
+                            <td>10 Kbps-100 Mbps</td>
+                            <td>Bajo</td>
+                            <td>LoRaWAN, NB-IoT, Sigfox, 4G/5G</td>
+                        </tr>
+                        <tr>
+                            <td>Internet</td>
+                            <td>Global</td>
+                            <td>Variable</td>
+                            <td>Variable</td>
+                            <td>TCP/IP, Satélite</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box">
+                    <strong>📚 Aprendizaje clave:</strong> Las redes PAN ofrecen el mejor balance velocidad-consumo para aplicaciones cercanas. Bluetooth BLE es ideal para wearables y sensores móviles por su bajo consumo.
+                </div>
+            </section>
+
+            <section id="pan">
+                <h2>Tecnologías PAN detalladas</h2>
+                <h3>Bluetooth (Clásico y BLE)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Bluetooth Clásico</th>
+                            <th>Bluetooth Low Energy (BLE)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>1-3 Mbps</td>
+                            <td>1 Mbps</td>
+                        </tr>
+                        <tr>
+                            <td>Consumo</td>
+                            <td>Alto</td>
+                            <td>Muy bajo</td>
+                        </tr>
+                        <tr>
+                            <td>Alcance</td>
+                            <td>10-100 m</td>
+                            <td>10-50 m</td>
+                        </tr>
+                        <tr>
+                            <td>Uso IoT</td>
+                            <td>Audio, streaming</td>
+                            <td>Sensores, wearables, beacons</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tag-list">
+                    <span class="tag">Wearables</span>
+                    <span class="tag">Beacons</span>
+                    <span class="tag">Home automation</span>
+                    <span class="tag">Audio</span>
+                </div>
+
+                <h3>Zigbee</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Estándar</td>
+                            <td>IEEE 802.15.4</td>
+                        </tr>
+                        <tr>
+                            <td>Frecuencia</td>
+                            <td>2.4 GHz (global)</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>250 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Topología</td>
+                            <td>Mesh</td>
+                        </tr>
+                        <tr>
+                            <td>Nodos por red</td>
+                            <td>65,000+</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>NFC</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alcance</td>
+                            <td>&lt; 10 cm</td>
+                        </tr>
+                        <tr>
+                            <td>Frecuencia</td>
+                            <td>13.56 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>106-848 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Modos</td>
+                            <td>Lectura/Escritura, Peer-to-Peer, Card Emulation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="wifi">
+                <h2>WiFi para IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estándar</th>
+                            <th>Nombre</th>
+                            <th>Velocidad</th>
+                            <th>Rango</th>
+                            <th>Frecuencia</th>
+                            <th>Uso IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>802.11n</td>
+                            <td>WiFi 4</td>
+                            <td>150-600 Mbps</td>
+                            <td>70 m</td>
+                            <td>2.4/5 GHz</td>
+                            <td>Cámaras IP</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ac</td>
+                            <td>WiFi 5</td>
+                            <td>433-6933 Mbps</td>
+                            <td>35 m</td>
+                            <td>5 GHz</td>
+                            <td>Video HD</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ax</td>
+                            <td>WiFi 6</td>
+                            <td>9.6 Gbps</td>
+                            <td>30 m</td>
+                            <td>2.4/5/6 GHz</td>
+                            <td>Alta densidad</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ah</td>
+                            <td>WiFi HaLow</td>
+                            <td>150 Kbps</td>
+                            <td>1 km</td>
+                            <td>900 MHz</td>
+                            <td>IoT rural</td>
+                        </tr>
+                        <tr>
+                            <td>802.11be</td>
+                            <td>WiFi 7</td>
+                            <td>30 Gbps</td>
+                            <td>20 m</td>
+                            <td>2.4/5/6 GHz</td>
+                            <td>Futuro</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Ventajas:</strong> infraestructura existente, alta velocidad, configuración simple.<br>
+                    <strong>Desventajas:</strong> consumo alto, congestión en redes densas, poca autonomía en baterías.
+                </div>
+            </section>
+
+            <section id="wan">
+                <h2>Tecnologías WAN IoT</h2>
+                <h3>LoRaWAN</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Frecuencia</td>
+                            <td>868 MHz (EU), 915 MHz (US)</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>0.3-50 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Alcance</td>
+                            <td>2-15 km (rural), 2-5 km (urbano)</td>
+                        </tr>
+                        <tr>
+                            <td>Consumo</td>
+                            <td>Muy bajo (10+ años)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>NB-IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Estándar</td>
+                            <td>3GPP Release 13</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>20-250 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Latencia</td>
+                            <td>1.6-10 segundos</td>
+                        </tr>
+                        <tr>
+                            <td>Movilidad</td>
+                            <td>Limitada</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Sigfox</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>100 bps (down), 600 bps (up)</td>
+                        </tr>
+                        <tr>
+                            <td>Mensajes/día</td>
+                            <td>140 (up), 4 (down)</td>
+                        </tr>
+                        <tr>
+                            <td>Alcance</td>
+                            <td>10-50 km rural</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>4G LTE-M / 5G IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tecnología</th>
+                            <th>Velocidad</th>
+                            <th>Latencia</th>
+                            <th>Consumo</th>
+                            <th>Casos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>4G LTE-M</td>
+                            <td>1 Mbps</td>
+                            <td>10-100 ms</td>
+                            <td>Medio</td>
+                            <td>Video, tracking</td>
+                        </tr>
+                        <tr>
+                            <td>5G IoT</td>
+                            <td>10+ Mbps</td>
+                            <td>1-10 ms</td>
+                            <td>Medio-Alto</td>
+                            <td>V2X, crítica</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="protocolos">
+                <h2>Protocolos de aplicación IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protocolo</th>
+                            <th>Uso</th>
+                            <th>Características</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MQTT</td>
+                            <td>Messaging</td>
+                            <td>Pub/Sub, ligero, QoS</td>
+                        </tr>
+                        <tr>
+                            <td>HTTP/REST</td>
+                            <td>Web</td>
+                            <td>Stateless, on-demand</td>
+                        </tr>
+                        <tr>
+                            <td>CoAP</td>
+                            <td>IoT</td>
+                            <td>UDP, REST-like, bajo consumo</td>
+                        </tr>
+                        <tr>
+                            <td>AMQP</td>
+                            <td>Enterprise</td>
+                            <td>Mensajería confiable</td>
+                        </tr>
+                        <tr>
+                            <td>LwM2M</td>
+                            <td>M2M</td>
+                            <td>Gestión de dispositivos (OMA)</td>
+                        </tr>
+                        <tr>
+                            <td>WebSocket</td>
+                            <td>Tiempo real</td>
+                            <td>Bidireccional</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="comparacion">
+                <h2>Matriz comparativa rápida</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tecnología</th>
+                            <th>Velocidad</th>
+                            <th>Alcance</th>
+                            <th>Consumo</th>
+                            <th>Costo nodo</th>
+                            <th>Mensajes/día</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BLE</td>
+                            <td>1 Mbps</td>
+                            <td>50 m</td>
+                            <td>Bajo</td>
+                            <td>$2-5</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td>Zigbee</td>
+                            <td>250 Kbps</td>
+                            <td>100 m</td>
+                            <td>Bajo</td>
+                            <td>$3-8</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td>WiFi</td>
+                            <td>100 Mbps+</td>
+                            <td>50 m</td>
+                            <td>Alto</td>
+                            <td>$5-15</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td>LoRaWAN</td>
+                            <td>50 Kbps</td>
+                            <td>15 km</td>
+                            <td>Muy bajo</td>
+                            <td>$5-10</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td>NB-IoT</td>
+                            <td>250 Kbps</td>
+                            <td>10+ km</td>
+                            <td>Muy bajo</td>
+                            <td>$10-20</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td>Sigfox</td>
+                            <td>600 bps</td>
+                            <td>50 km</td>
+                            <td>Muy bajo</td>
+                            <td>$5-10</td>
+                            <td>140</td>
+                        </tr>
+                        <tr>
+                            <td>4G LTE-M</td>
+                            <td>1 Mbps</td>
+                            <td>10+ km</td>
+                            <td>Medio</td>
+                            <td>$20-50</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="casos">
+                <h2>Casos de uso recomendados</h2>
+                <h3>Smart Home (Piso/Casa)</h3>
+                <p><strong>Requisitos:</strong> alcance 10-50 m, 50-200 dispositivos, bajo consumo, interoperabilidad alta.</p>
+                <ul>
+                    <li>Zigbee 3.0 para sensores/actuadores.</li>
+                    <li>WiFi para cámaras y streaming.</li>
+                    <li>BLE para cerraduras y wearables.</li>
+                </ul>
+                <pre><code>WiFi Router (Internet) &lt;--&gt; Smart Hub (Zigbee) &lt;--&gt; Sensores (50+)</code></pre>
+
+                <h3>Smart Building (Oficina/Edificio)</h3>
+                <p><strong>Requisitos:</strong> 500-2000 dispositivos, alta fiabilidad y escalabilidad.</p>
+                <ul>
+                    <li>WiFi 6 para dispositivos IP.</li>
+                    <li>Zigbee para sensores de ambiente.</li>
+                    <li>Ethernet + PoE para infraestructura crítica.</li>
+                </ul>
+
+                <h3>Agricultura (Campo)</h3>
+                <p><strong>Requisitos:</strong> 2-15 km, muy bajo consumo, conectividad limitada.</p>
+                <ul>
+                    <li>LoRaWAN para sensores de suelo y clima.</li>
+                    <li>4G/5G para drones o cámaras.</li>
+                    <li>Satélite como respaldo.</li>
+                </ul>
+                <pre><code>Sensores LoRa -&gt; Gateway rural -&gt; 4G -&gt; Cloud -&gt; App agricultor</code></pre>
+
+                <h3>Smart City (Urbano)</h3>
+                <p><strong>Requisitos:</strong> miles de nodos, costo bajo por sensor, alta fiabilidad.</p>
+                <ul>
+                    <li>LoRaWAN para parking, residuos, ambiente.</li>
+                    <li>NB-IoT para medidores y alarmas.</li>
+                    <li>5G para movilidad y casos críticos.</li>
+                </ul>
+
+                <h3>Industrial (Fábrica)</h3>
+                <p><strong>Requisitos:</strong> latencia &lt;10 ms, fiabilidad crítica.</p>
+                <ul>
+                    <li>Ethernet para control crítico.</li>
+                    <li>WiFi 6 para flexibilidad.</li>
+                    <li>5G para movilidad (AGVs).</li>
+                    <li>Zigbee para sensores no críticos.</li>
+                </ul>
+
+                <h3>Errores comunes en selección</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Error</th>
+                            <th>Consecuencia</th>
+                            <th>Solución</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Usar WiFi para todo</td>
+                            <td>Baterías duran días</td>
+                            <td>Usar Zigbee/LoRa para sensores</td>
+                        </tr>
+                        <tr>
+                            <td>Ignorar topología</td>
+                            <td>Puntos ciegos</td>
+                            <td>Mapear cobertura primero</td>
+                        </tr>
+                        <tr>
+                            <td>No considerar densidad</td>
+                            <td>Congestión</td>
+                            <td>Usar tecnología escalable</td>
+                        </tr>
+                        <tr>
+                            <td>Subestimar consumo</td>
+                            <td>Reemplazo frecuente</td>
+                            <td>Calcular vida de batería</td>
+                        </tr>
+                        <tr>
+                            <td>Olvidar seguridad</td>
+                            <td>Vulnerabilidades</td>
+                            <td>Encriptación end-to-end</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practica">
+                <h2>Práctica / laboratorio</h2>
+                <h3>Actividad guiada: matriz de decisión</h3>
+                <ol>
+                    <li>Defina el caso (alcance, dispositivos, consumo, datos/día).</li>
+                    <li>Elija 3 tecnologías candidatas.</li>
+                    <li>Asigne puntajes 1-5 en alcance, consumo, costo y ancho de banda.</li>
+                    <li>Elija la opción con mayor puntaje total.</li>
+                </ol>
+                <pre><code># Ejemplo de matriz (CSV)
+Tecnologia,Alcance,Consumo,Costo,AnchoBanda,Total
+LoRaWAN,5,5,4,2,16
+NB-IoT,4,5,3,3,15
+WiFi,2,1,4,5,12</code></pre>
+
+                <h3>Checklist de selección</h3>
+                <ul>
+                    <li>¿Alcance requerido?</li>
+                    <li>¿Cantidad de dispositivos?</li>
+                    <li>¿Frecuencia y tamaño de transmisión?</li>
+                    <li>¿Vida de batería objetivo?</li>
+                    <li>¿Infraestructura existente?</li>
+                    <li>¿Costo máximo por nodo?</li>
+                    <li>¿Movilidad requerida?</li>
+                    <li>¿Latencia aceptable?</li>
+                    <li>¿Interoperabilidad con sistemas actuales?</li>
+                </ul>
+                <div class="note">
+                    <strong>Factibilidad Windows:</strong> La actividad usa Excel o Google Sheets para matrices de decisión. Herramientas disponibles en Windows sin costos adicionales. Simuladores de red IoT pueden ejecutarse en navegador web.
+                </div>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios</h2>
+                <ol>
+                    <li>Diseñe la red para un campus universitario con 800 sensores de ocupación en aulas. Justifique la tecnología principal y la secundaria.</li>
+                    <li>Compare LoRaWAN vs NB-IoT para un proyecto de riego inteligente rural. ¿Cuál se adapta mejor y por qué?</li>
+                    <li>Explique cuándo usaría CoAP en lugar de MQTT. Incluya restricciones de consumo y red.</li>
+                    <li>Calcule la vida de batería aproximada si un sensor BLE transmite 10 bytes cada 60 segundos (suponga 0.1 mA en sleep y 15 mA en TX).</li>
+                    <li>Redacte tres políticas de seguridad mínimas para una red IoT industrial.</li>
+                </ol>
+
+                <h3>Ejemplo resuelto: Ejercicio 1 - Campus universitario</h3>
+                <p><strong>Caso:</strong> 800 sensores de ocupación en aulas de un campus universitario. Cada sensor mide presencia (IR) y envía dato cada 5 minutos. Requisitos: bajo consumo, cobertura completa, costo razonable.</p>
+                <p><strong>Tecnología principal: Zigbee</strong></p>
+                <ul>
+                    <li>Alcance: 100m por nodo, topología mesh permite cobertura amplia.</li>
+                    <li>Consumo: Muy bajo, baterías duran 2+ años.</li>
+                    <li>Densidad: Soporta 65,000+ nodos por red.</li>
+                    <li>Costo: $3-8 por nodo, total ~$4,000-6,400.</li>
+                </ul>
+                <p><strong>Tecnología secundaria: WiFi</strong></p>
+                <ul>
+                    <li>Para gateways y puntos de acceso a Internet.</li>
+                    <li>Alcance: 50m, velocidad alta para agregación de datos.</li>
+                    <li>Justificación: Infraestructura existente en campus, fácil integración con sistemas universitarios.</li>
+                </ul>
+                <p><strong>Arquitectura:</strong> Sensores Zigbee → Coordinadores Zigbee → Gateways WiFi → Servidor central.</p>
+
+                <h3>Ejemplo resuelto: Ejercicio 2 - Riego inteligente rural</h3>
+                <p><strong>Caso:</strong> Proyecto de riego inteligente en finca rural de 50 hectáreas. 20 sensores de humedad suelo y temperatura, transmisión cada 30 minutos. Requisitos: cobertura amplia, bajo consumo, sin infraestructura eléctrica.</p>
+                <p><strong>Comparación:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>LoRaWAN</th>
+                            <th>NB-IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alcance</td>
+                            <td>10-20 km</td>
+                            <td>10-15 km</td>
+                        </tr>
+                        <tr>
+                            <td>Consumo batería</td>
+                            <td>Excelente (años)</td>
+                            <td>Bueno (1-2 años)</td>
+                        </tr>
+                        <tr>
+                            <td>Costo infraestructura</td>
+                            <td>$50-200 por gateway</td>
+                            <td>$0 (usa red celular)</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad datos</td>
+                            <td>0.3-50 kbps</td>
+                            <td>20-250 kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Disponibilidad rural</td>
+                            <td>Limitada (requiere gateways propios)</td>
+                            <td>Buena (cobertura celular)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Recomendación: NB-IoT</strong></p>
+                <ul>
+                    <li>Mejor adaptado por cobertura celular existente en áreas rurales colombianas.</li>
+                    <li>Menor costo inicial (no requiere instalar gateways LoRa).</li>
+                    <li>Suficiente velocidad para datos de sensores (humedad, temperatura).</li>
+                    <li>Consumo aceptable con transmisión cada 30 minutos.</li>
+                </ul>
+
+                <h3>Ejemplo resuelto: Ejercicio 3 - CoAP vs MQTT</h3>
+                <p><strong>Caso:</strong> Sistema de monitoreo industrial con 100 sensores enviando datos cada 10 segundos. Red con ancho de banda limitado (50 kbps total).</p>
+                <p><strong>CoAP recomendado:</strong></p>
+                <ul>
+                    <li>Protocolo RESTful más liviano que MQTT (UDP vs TCP).</li>
+                    <li>Mejor para redes con restricciones de ancho de banda.</li>
+                    <li>Consumo menor: headers más pequeños, sin conexión persistente.</li>
+                    <li>Ideal para consultas puntuales y actualizaciones periódicas.</li>
+                </ul>
+                <p><strong>Cuándo usar MQTT:</strong> Cuando se necesita QoS alto, suscripciones complejas, o conexiones persistentes para eventos en tiempo real.</p>
+
+                <h3>Ejemplo resuelto: Ejercicio 4 - Vida de batería BLE</h3>
+                <p><strong>Caso:</strong> Sensor BLE transmitiendo 10 bytes cada 60 segundos. Consumo: 0.1 mA en sleep, 15 mA en TX. Batería CR2032 (220 mAh).</p>
+                <p><strong>Cálculo aproximado:</strong></p>
+                <ul>
+                    <li>Tiempo TX: ~10ms por transmisión (asumiendo 1 Mbps).</li>
+                    <li>Consumo promedio: (0.1 mA × 59.99 s + 15 mA × 0.01 s) / 60 s ≈ 0.12 mA.</li>
+                    <li>Vida batería: 220 mAh / 0.12 mA ≈ 1,833 horas ≈ 76 días.</li>
+                    <li>Factores: Eficiencia real del módulo BLE, temperatura, distancia afectan el cálculo.</li>
+                </ul>
+
+                <h3>Ejemplo resuelto: Ejercicio 5 - Políticas de seguridad IoT industrial</h3>
+                <p><strong>Políticas mínimas para red IoT industrial:</strong></p>
+                <ol>
+                    <li><strong>Autenticación mutua:</strong> Todos los dispositivos deben autenticarse con certificados X.509 antes de unirse a la red. Prohíbe conexiones no autorizadas.</li>
+                    <li><strong>Cifrado end-to-end:</strong> Todos los datos en tránsito y reposo deben cifrarse con AES-256. Protege contra interceptación y manipulación.</li>
+                    <li><strong>Actualizaciones seguras:</strong> Implementar OTA (Over-The-Air) con firma digital. Asegura que solo firmware autorizado se instale, previniendo malware.</li>
+                </ol>
+                <p><strong>Justificación:</strong> Estas políticas abordan los tres pilares de seguridad IoT: confidencialidad, integridad y disponibilidad en entornos industriales críticos.</p>
+            </section>
+
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>IEEE 802.15.4 - Wireless Personal Area Networks.</li>
+                    <li>IEEE 802.11 - Familia WiFi.</li>
+                    <li>IEEE 802.3 - Ethernet.</li>
+                    <li>Bluetooth SIG - Bluetooth Core Specification 5.4.</li>
+                    <li>LoRa Alliance - LoRaWAN 1.1 Specification.</li>
+                    <li>Zigbee Alliance - Zigbee 3.0.</li>
+                    <li>3GPP TS 23.720 - Study on NB-IoT.</li>
+                    <li>3GPP TS 36.300 - LTE-M specification.</li>
+                    <li>Hollenstein, M. (2022). Wireless Communication for IoT. Cambridge.</li>
+                    <li>Kwak, K. (2023). IoT Connectivity: Technologies and Applications. Springer.</li>
+                    <li>Mishra, A.R. (2021). Cellular IoT: From Introduction to Practice. Artech House.</li>
+                </ul>
+                <pre><code>@manual{if0112-clase04,
+  title        = {Clase 4: Redes IoT - LAN, WAN e Internet},
+  author       = {UNAULA},
+  organization = {Universidad Autonoma de Colombia},
+  year         = {2026},
+  month        = {Febrero},
+  course       = {IF0112 - Complementaria II (IoT)},
+  unit         = {Unidad 1: Qué es IoT?}
+}</code></pre>
+            </section>
+        </main>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) · Clase 04: Redes IoT</p>
+        </footer>
+    </div>
+</body>
+</html>

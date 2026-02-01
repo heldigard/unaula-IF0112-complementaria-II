@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 2: Personas, Procesos, Datos y Cosas - IF0112 Complementaria II (IoT)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        header .meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        nav {
+            background: #1e293b;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            background: #334155;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 60px;
+        }
+
+        section h2 {
+            color: #1e40af;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        section h3 {
+            color: #3b82f6;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.3rem;
+        }
+
+        section h4 {
+            color: #475569;
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .intro-box {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .intro-box strong {
+            color: #1e40af;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #1e40af;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tbody tr:hover {
+            background: #f1f5f9;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .card h4 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-blue { background: #f0f9ff; border-color: #bae6fd; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .flow-step {
+            background: #dbeafe;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #3b82f6, #1e40af);
+        }
+
+        .timeline-item {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            background: #3b82f6;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        code {
+            background: #e2e8f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .dikw-pyramid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .dikw-level {
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid;
+            text-align: center;
+        }
+
+        .dikw-level h4 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .dikw-wisdom { background: #fef3c7; border-color: #f59e0b; }
+        .dikw-knowledge { background: #f0fdf4; border-color: #22c55e; }
+        .dikw-information { background: #f0f9ff; border-color: #3b82f6; }
+        .dikw-data { background: #fdf2f8; border-color: #ec4899; }
+
+        .process-table td:first-child {
+            font-family: monospace;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .interaction-box {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            margin: 1rem 0;
+        }
+
+        .arco-table td:first-child {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5rem; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            nav ul { flex-direction: column; }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 2: Personas, Procesos, Datos y Cosas</h1>
+            <p class="subtitle">Los Cuatro Pilares del Internet de las Cosas</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#pilares">Los 4 Pilares</a></li>
+                <li><a href="#personas">Personas</a></li>
+                <li><a href="#procesos">Procesos</a></li>
+                <li><a href="#datos">Datos (DIKW)</a></li>
+                <li><a href="#cosas">Cosas</a></li>
+                <li><a href="#seguridad">Seguridad</a></li>
+                <li><a href="#ley-1581">Ley 1581</a></li>
+                <li><a href="#casos">Casos de Estudio</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Identificar</strong> los 4 pilares de IoT (Personas, Procesos, Datos, Cosas)</li>
+                            <li><strong>Explicar</strong> las interacciones entre pilares (P2M, M2M, P2P)</li>
+                            <li><strong>Aplicar</strong> el modelo DIKW para transformar datos en valor</li>
+                            <li><strong>Diseñar</strong> soluciones IoT usando la metodología P-P-D-C</li>
+                            <li><strong>Cumplir</strong> con la Ley 1581 en proyectos IoT colombianos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Modelo de 4 pilares P-P-D-C</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>DIKW: Datos a Sabiduría</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Casos de estudio (Hogar, Agro)</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Seguridad, Ley 1581 y Actividad</td>
+                                    <td>25 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cómo pasar de "cosas conectadas" a "valor real"?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Los 4 Pilares -->
+            <section id="pilares">
+                <h2>Modelo de los Cuatro Pilares</h2>
+
+                <h3>El Marco Conceptual de IoT</h3>
+
+                <figure>
+                    <img src="assets/infografias/clase-02-4-pilares-iot.png" alt="Los 4 Pilares de IoT: Personas, Procesos, Datos y Cosas">
+                    <figcaption>Figura 1: Los 4 Pilares del Internet de las Cosas (basado en el modelo Cisco IoE Framework). Cada pilar se conecta con los demás para crear soluciones integrales.</figcaption>
+                </figure>
+
+                <div class="intro-box">
+                    <strong>¿Qué representa este modelo?</strong><br>
+                    Los cuatro pilares son los componentes esenciales de cualquier solución IoT. Cada pilar se conecta con los demás para crear valor.
+                </div>
+
+                <div class="grid-2">
+                    <div class="card card-blue">
+                        <h3>👤 PERSONAS</h3>
+                        <p><strong>Deciden y operan</strong></p>
+                        <p style="font-size: 0.9em;">Definen objetivos y criterios</p>
+                    </div>
+                    <div class="card card-yellow">
+                        <h3>⚙️ PROCESOS</h3>
+                        <p><strong>Automatizan</strong></p>
+                        <p style="font-size: 0.9em;">Convierten datos en decisiones</p>
+                    </div>
+                    <div class="card card-green">
+                        <h3>📊 DATOS</h3>
+                        <p><strong>Alimentan e informan</strong></p>
+                        <p style="font-size: 0.9em;">Conectan físico con digital</p>
+                    </div>
+                    <div class="card card-pink">
+                        <h3>📱 COSAS</h3>
+                        <p><strong>Capturan y actúan</strong></p>
+                        <p style="font-size: 0.9em;">Sensores y actuadores físicos</p>
+                    </div>
+                </div>
+
+                <p class="intro-box"><strong>💡 Idea clave:</strong> El valor de IoT surge cuando los 4 pilares se <strong>interconectan</strong> en un ciclo completo.</p>
+
+                <h3>Interdependencia de los Pilares</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conexión</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Personas ↔ Procesos</strong></td>
+                            <td>Las personas definen reglas</td>
+                            <td>Configurar horario de encendido de luces</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Procesos ↔ Datos</strong></td>
+                            <td>Los procesos usan datos para decidir</td>
+                            <td>Si temperatura > 30°C, encender A/C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Datos ↔ Cosas</strong></td>
+                            <td>Las cosas generan datos</td>
+                            <td>Sensor envía lectura cada 5 minutos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cosas ↔ Personas</strong></td>
+                            <td>Las personas usan las cosas</td>
+                            <td>Usuario controla termostato desde app</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box">
+                    <strong>Principio clave:</strong> Ningún pilar funciona de forma aislada. El valor de IoT surge de sus <strong>interconexiones</strong>.
+                </div>
+            </section>
+
+            <!-- Pilar 1: Personas -->
+            <section id="personas">
+                <h2>Pilar 1: PERSONAS 👤</h2>
+
+                <blockquote class="intro-box" style="font-style: italic; font-size: 1.1rem;">
+                    "Las personas son el centro de todo sistema IoT.<br>
+                    La tecnología debe servir a las personas, no al revés."
+                </blockquote>
+
+                <h3>Roles de las Personas en IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Usuario Final</strong></td>
+                            <td>Beneficiario de la solución IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operador</strong></td>
+                            <td>Gestiona y monitorea el sistema</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Desarrollador</strong></td>
+                            <td>Diseña e implementa soluciones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tomador de Decisiones</strong></td>
+                            <td>Actúa basado en información</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>¿Cómo se conectan las personas?</h3>
+                <ul>
+                    <li>Smartphones, tablets, computadores</li>
+                    <li>Interfaces web y aplicaciones móviles</li>
+                    <li>Asistentes de voz (Alexa, Google Home)</li>
+                </ul>
+            </section>
+
+            <!-- Pilar 2: Procesos -->
+            <section id="procesos">
+                <h2>Pilar 2: PROCESOS ⚙️</h2>
+
+                <blockquote class="intro-box" style="font-style: italic; font-size: 1.1rem;">
+                    "Los procesos son las reglas que determinan cómo se<br>
+                    usa la información para agregar valor."
+                </blockquote>
+
+                <h3>Características de los Procesos IoT</h3>
+
+                <div class="interaction-box">
+                    <h4>Estructura de un Proceso IoT</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <strong>ENTRADA</strong><br>
+                            <small>Datos sensores</small>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <strong>PROCESAMIENTO</strong><br>
+                            <small>Reglas + Algoritmos</small>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <strong>SALIDA</strong><br>
+                            <small>Acción</small>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        <strong>Ejemplo:</strong> Temperatura = 32°C → Si T > 30°C entonces... → Encender A/C
+                    </p>
+                </div>
+
+                <h3>Tipos de Procesos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Automatizados</strong></td>
+                            <td>Sin intervención humana</td>
+                            <td>A/C enciende solo cuando temp > 30°C (sensor → actuador directo)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Semi-automatizados</strong></td>
+                            <td>Con aprobación humana</td>
+                            <td>Alerta de fallo → espera confirmación → despacha técnico (notificación push + workflow)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Manuales asistidos</strong></td>
+                            <td>Humano decide con datos</td>
+                            <td>Dashboard de ocupación → administrador decide cerrar aula (datos en tiempo real + decisión humana)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Pilar 3: Datos -->
+            <section id="datos">
+                <h2>Pilar 3: DATOS 📊</h2>
+
+                <blockquote class="intro-box" style="font-style: italic; font-size: 1.1rem;">
+                    "Los datos son la información generada por sensores<br>
+                    y convertida en conocimiento útil."
+                </blockquote>
+
+                <h3>Flujo de Datos en IoT: La Pirámide DIKW</h3>
+
+                <figure>
+                    <img src="assets/infografias/clase-02-dikw-pyramid.png" alt="Pirámide DIKW - Datos Información Conocimiento Sabiduría">
+                    <figcaption>Figura 2: Jerarquía DIKW - Transformación de Datos Crudos en Sabiduría Aplicada. Modelo adaptado de Ackoff (1989) y Rowley (2007).</figcaption>
+                </figure>
+
+                <p>La Pirámide DIKW explica cómo los datos crudos se transforman en valor:</p>
+                <ul>
+                    <li><strong>Datos sin procesar</strong> + Contexto = Información</li>
+                    <li><strong>Información</strong> + Patrones = Conocimiento</li>
+                    <li><strong>Conocimiento</strong> + Experiencia = Sabiduría</li>
+                </ul>
+
+                <h3>Jerarquía DIKW Detallada</h3>
+                <div class="dikw-pyramid">
+                    <div class="dikw-level dikw-wisdom">
+                        <h4>🧠 SABIDURÍA (WISDOM)</h4>
+                        <p><em>"Usar el conocimiento para tomar mejores decisiones"</em></p>
+                        <p style="font-size: 0.9em;">🔮 <strong>Predecir:</strong> "Optimizar riego según patrones de 10 años"</p>
+                    </div>
+                    <div class="dikw-level dikw-knowledge">
+                        <h4>📚 CONOCIMIENTO (KNOWLEDGE)</h4>
+                        <p><em>"Entender patrones y relaciones"</em></p>
+                        <p style="font-size: 0.9em;">🔍 <strong>Explicar:</strong> "La temperatura sube cuando la humedad baja"</p>
+                    </div>
+                    <div class="dikw-level dikw-information">
+                        <h4>📋 INFORMACIÓN (INFORMATION)</h4>
+                        <p><em>"Datos con contexto y significado"</em></p>
+                        <p style="font-size: 0.9em;">📊 <strong>Contextualizar:</strong> "32°C es alta → encender A/C"</p>
+                    </div>
+                    <div class="dikw-level dikw-data">
+                        <h4>🔢 DATOS (DATA)</h4>
+                        <p><em>"Hechos brutos sin procesar"</em></p>
+                        <p style="font-size: 0.9em;">📈 <strong>Capturar:</strong> "32" (número crudo del sensor)</p>
+                    </div>
+                </div>
+
+                <h3>Las "4 V" de los Datos IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>V</th>
+                            <th>Dimensión</th>
+                            <th>Descripción</th>
+                            <th>Métrica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>📊</td>
+                            <td><strong>Volumen</strong></td>
+                            <td>Cantidad de datos generados</td>
+                            <td>Terabytes/día</td>
+                        </tr>
+                        <tr>
+                            <td>⚡</td>
+                            <td><strong>Velocidad</strong></td>
+                            <td>Rapidez de generación y procesamiento</td>
+                            <td>Milisegundos de latencia</td>
+                        </tr>
+                        <tr>
+                            <td>🎨</td>
+                            <td><strong>Variedad</strong></td>
+                            <td>Diferentes tipos de datos</td>
+                            <td>Texto, video, numérico, audio</td>
+                        </tr>
+                        <tr>
+                            <td>✅</td>
+                            <td><strong>Veracidad</strong></td>
+                            <td>Calidad y confiabilidad de los datos</td>
+                            <td>Precisión del sensor, fiabilidad</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Ejemplo Completo: Sensor de Temperatura</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nivel</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🧠 <strong>Sabiduría</strong></td>
+                            <td>"Optimizar energía según patrones estacionales"</td>
+                        </tr>
+                        <tr>
+                            <td>📚 <strong>Conocimiento</strong></td>
+                            <td>"Entre las 2-6 PM, temperatura sube 15% en promedio"</td>
+                        </tr>
+                        <tr>
+                            <td>📋 <strong>Información</strong></td>
+                            <td>"32°C es alta, encender A/C; 22°C es óptima, apagar"</td>
+                        </tr>
+                        <tr>
+                            <td>🔢 <strong>Datos</strong></td>
+                            <td>"32, 31, 33, 32, 34, 31, 30, 29, 28, 27, 26..."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Pilar 4: Cosas -->
+            <section id="cosas">
+                <h2>Pilar 4: COSAS 📱</h2>
+
+                <blockquote class="intro-box" style="font-style: italic; font-size: 1.1rem;">
+                    "Las 'cosas' son los objetos físicos conectados<br>
+                    que capturan datos o ejecutan acciones."
+                </blockquote>
+
+                <h3>Tipos de "Cosas"</h3>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>SENSORES (Capturan datos)</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>🌡️ Temperatura, humedad</li>
+                            <li>📍 GPS, acelerómetros</li>
+                            <li>📷 Cámaras, micrófonos</li>
+                            <li>💡 Luz, proximidad</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>ACTUADORES (Ejecutan acciones)</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>🔌 Relés, interruptores</li>
+                            <li>🔊 Altavoces, sirenas</li>
+                            <li>🚿 Válvulas, bombas</li>
+                            <li>🤖 Motores, servos</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>HÍBRIDOS (Ambos)</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>📱 Smartphones</li>
+                            <li>⌚ Smartwatches</li>
+                            <li>🔊 Asistentes de voz</li>
+                            <li>🏠 Controladores centrales</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interacciones -->
+            <section>
+                <h2>Interacciones entre Pilares 🔗</h2>
+
+                <h3>P2M | M2M | P2P</h3>
+
+                <div class="grid-3">
+                    <div class="card card-blue">
+                        <h4>P2M (Persona ↔ Cosa)</h4>
+                        <p>Humano controla dispositivo</p>
+                        <p style="font-size: 0.9em;"><strong>Ejemplo:</strong> App móvil enciende luz</p>
+                    </div>
+                    <div class="card card-green">
+                        <h4>M2M (Cosa ↔ Cosa)</h4>
+                        <p>Dispositivos se comunican</p>
+                        <p style="font-size: 0.9em;"><strong>Ejemplo:</strong> Sensor temp → A/C enfría</p>
+                    </div>
+                    <div class="card card-pink">
+                        <h4>P2P (Persona ↔ Persona)</h4>
+                        <p>Humanos colaboran vía IoT</p>
+                        <p style="font-size: 0.9em;"><strong>Ejemplo:</strong> Telemedicina con datos reales</p>
+                    </div>
+                </div>
+
+                <h3>Beneficios P2P</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>P2P Casos</th>
+                            <th>Beneficio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Telemedicina</td>
+                            <td>Consulta remota con datos reales</td>
+                        </tr>
+                        <tr>
+                            <td>Adulto mayor</td>
+                            <td>Alerta de caídas inmediata</td>
+                        </tr>
+                        <tr>
+                            <td>Empresas</td>
+                            <td>Reserva de sala inteligente</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>Clave:</strong> IoT mediado por tecnología, datos contextuales, comunicación síncrona/asíncrona</p>
+            </section>
+
+            <!-- Seguridad -->
+            <section id="seguridad">
+                <h2>Seguridad y Privacidad de Datos IoT</h2>
+
+                <h3>Desafíos de Seguridad</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de Riesgo</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Intercepción</strong></td>
+                            <td>Datos capturados en tránsito</td>
+                            <td>Hacker lee datos de sensor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Manipulación</strong></td>
+                            <td>Datos alterados maliciousmente</td>
+                            <td>Falsificar lectura de medidor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disponibilidad</strong></td>
+                            <td>Sistema no disponible</td>
+                            <td>DDoS a servicios IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privacidad</strong></td>
+                            <td>Datos personales expuestos</td>
+                            <td>Venta de hábitos de consumo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔒 Modelo de Seguridad por 4 Capas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capa</th>
+                            <th>Elementos</th>
+                            <th>Tecnologías</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Dispositivo</strong></td>
+                            <td>Boot seguro, encriptación storage, OTA updates</td>
+                            <td>Secure boot, AES-256</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Comunicación</strong></td>
+                            <td>Datos en tránsito protegidos</td>
+                            <td>TLS/SSL, Certificados, VPN</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Plataforma</strong></td>
+                            <td>Autenticación, autorización, encriptación</td>
+                            <td>MFA, RBAC, AES at-rest</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Aplicación</strong></td>
+                            <td>Consentimiento, anonimización</td>
+                            <td>OAuth 2.0, GDPR/Ley 1581</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="grid-2">
+                    <div class="card" style="background: #fee2e2; border-color: #ef4444;">
+                        <h4>🛡️ Amenazas Comunes</h4>
+                        <ul style="text-align: left; font-size: 0.85em;">
+                            <li>Intercepción de datos</li>
+                            <li>Manipulación de sensores</li>
+                            <li>Ataques DDoS</li>
+                            <li>Explotación de vulnerabilidades</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="background: #d1fae5; border-color: #22c55e;">
+                        <h4>✅ Buenas Prácticas</h4>
+                        <ul style="text-align: left; font-size: 0.85em;">
+                            <li>Actualizaciones automáticas</li>
+                            <li>Encriptación end-to-end</li>
+                            <li>Autenticación multifactor</li>
+                            <li>Monitoreo continuo</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ley 1581 -->
+            <section id="ley-1581">
+                <h2>Ley 1581: Derechos del Titular (ARCO) 🇨🇴</h2>
+
+                <div class="intro-box">
+                    <strong>Colombia fue pionera en América Latina</strong> con la Ley 1581 de 2012, que regula el tratamiento de datos personales. Todo proyecto IoT que capture datos de personas debe cumplirla.
+                </div>
+
+                <h3>Derechos en Protección de Datos Personales</h3>
+                <table class="arco-table">
+                    <thead>
+                        <tr>
+                            <th>Derecho</th>
+                            <th>Significado</th>
+                            <th>Aplicación IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>A</strong>cceso</td>
+                            <td>Saber qué datos se tienen</td>
+                            <td>Ver datos recolectados por sensores</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R</strong>ectificación</td>
+                            <td>Modificar datos errados</td>
+                            <td>Corregir información de perfil</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C</strong>ancelación</td>
+                            <td>Eliminar datos</td>
+                            <td>Borrar historial de uso</td>
+                        </tr>
+                        <tr>
+                            <td><strong>O</strong>posición</td>
+                            <td>Negar uso de datos</td>
+                            <td>Rechazar compartir datos con terceros</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>⚠️ Sanciones por Incumplimiento</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Sanción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Multa</strong></td>
+                            <td>Hasta 1000 SMLMV (~$260M USD)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operativa</strong></td>
+                            <td>Cierre de servicios</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Legal</strong></td>
+                            <td>Responsabilidad civil/penal</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📋 Deberes de Empresas IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Deber</th>
+                            <th>Requisito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Política</strong></td>
+                            <td>Informar privacidad claramente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Autorización</strong></td>
+                            <td>Consentimiento explícito (opt-in)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seguridad</strong></td>
+                            <td>Garantizar protección de datos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Minimización</strong></td>
+                            <td>Solo recolectar datos necesarios</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box">
+                    <strong>💡 Importante:</strong> Todo sistema IoT en Colombia debe cumplir con la Ley 1581 de 2012
+                </div>
+            </section>
+
+            <!-- Casos de Estudio -->
+            <section id="casos">
+                <h2>Casos de Estudio: P-P-D-C en Acción</h2>
+
+                <h3>Caso 1: Hogar Inteligente 🏠</h3>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>👤 Personas</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rol</th>
+                                    <th>Perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Usuario Primario</td>
+                                    <td>Padre de familia</td>
+                                </tr>
+                                <tr>
+                                    <td>Usuario Secundario</td>
+                                    <td>Madre, hijos</td>
+                                </tr>
+                                <tr>
+                                    <td>Administrador</td>
+                                    <td>Padre (tech-savvy)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h4>📱 Cosas</h4>
+                        <p><strong>Sensores:</strong> 5× temperatura/humedad, 8× presencia, 8× apertura, 1× medidor energético, 4× cámaras</p>
+                        <p><strong>Actuadores:</strong> 12× bombillas LED, 4× interruptores, 1× termostato, 1× cerradura</p>
+                    </div>
+                </div>
+
+                <h4>⚙️ Procesos IF→THEN</h4>
+                <table class="process-table">
+                    <thead>
+                        <tr>
+                            <th>Condición</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nadie en casa + luces on</td>
+                            <td>Apagar todo</td>
+                        </tr>
+                        <tr>
+                            <td>Noche + movimiento</td>
+                            <td>Luces ext + grabar</td>
+                        </tr>
+                        <tr>
+                            <td>Puerta abre < 19:00</td>
+                            <td>Temp 22°C + luz sala</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Caso 2: Agricultura Inteligente - Colombia 🌾🇨🇴</h3>
+
+                <div class="grid-2">
+                    <div class="card card-green">
+                        <h4>🍚 FEDEARROZ</h4>
+                        <h5>"Arroz Sostenible"</h5>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Productores</td>
+                                    <td>500+</td>
+                                </tr>
+                                <tr>
+                                    <td>Ahorro de agua</td>
+                                    <td>35% promedio</td>
+                                </tr>
+                                <tr>
+                                    <td>ROI</td>
+                                    <td>18 meses</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card card-yellow">
+                        <h4>☕ FNC - Cafeteros</h4>
+                        <h5>"Cosecha Bluetooth"</h5>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Fincas conectadas</td>
+                                    <td>10,000+</td>
+                                </tr>
+                                <tr>
+                                    <td>Precisión predicción</td>
+                                    <td>85%</td>
+                                </tr>
+                                <tr>
+                                    <td>Target</td>
+                                    <td>Pequeños productores</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h4>Impacto Colombia</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cultivo</th>
+                            <th>Ahorro</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Arroz (Meta)</td>
+                            <td>💧 -40% agua</td>
+                            <td>7,200 m³/ha</td>
+                        </tr>
+                        <tr>
+                            <td>Café (Eje)</td>
+                            <td>📈 +25% prod</td>
+                            <td>19 qq/ha</td>
+                        </tr>
+                        <tr>
+                            <td>Maíz (Llanos)</td>
+                            <td>💰 -30% costos</td>
+                            <td>$800K/ha/año</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>💡 Impacto:</strong> IoT está transformando la agricultura colombiana a gran escala</p>
+            </section>
+
+            <!-- Ejercicios -->
+            <section id="ejercicios">
+                <h2>Ejercicios y Actividades</h2>
+
+                <h3>Actividad Principal: Diseño de Solución IoT con P-P-D-C</h3>
+
+                <div class="intro-box">
+                    <p><strong>Objetivo:</strong> Aplicar el modelo de los 4 pilares para diseñar una solución IoT completa para un escenario del campus universitario.</p>
+                </div>
+
+                <h4>Escenarios Disponibles</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Escenario</th>
+                            <th>Complejidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Estacionamiento inteligente</td>
+                            <td>Media</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Biblioteca inteligente (aforo)</td>
+                            <td>Baja</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sistema de riego jardines</td>
+                            <td>Alta</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Monitoreo de aulas</td>
+                            <td>Media</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Rúbrica de Evaluación</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Puntos</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Completitud</strong></td>
+                            <td>30</td>
+                            <td>Los 4 pilares bien definidos con 5+ elementos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interacciones</strong></td>
+                            <td>25</td>
+                            <td>Flujo claro entre pilares, P2M/M2M/M2P identificados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viabilidad</strong></td>
+                            <td>25</td>
+                            <td>Tecnología disponible hoy, arquitectura coherente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Innovación</strong></td>
+                            <td>20</td>
+                            <td>Propuesta creativa, valor real diferenciado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL</strong></td>
+                            <td>100</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Plantilla de Diseño</h4>
+
+                <div class="interaction-box">
+                    <p><strong>👤 PERSONAS</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Nombre/Rol Real</th>
+                                <th>Responsabilidades</th>
+                                <th>Interfaz</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Usuario 1</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Usuario 2</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Operador</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Admin</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="interaction-box">
+                    <p><strong>⚙️ PROCESOS</strong> (mínimo 3)</p>
+                    <p><strong>Proceso 1:</strong> IF ____________________ THEN ____________________</p>
+                    <p><strong>Proceso 2:</strong> IF ____________________ THEN ____________________</p>
+                    <p><strong>Proceso 3:</strong> IF ____________________ THEN ____________________</p>
+                </div>
+
+                <div class="interaction-box">
+                    <p><strong>📊 DATOS</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dato</th>
+                                <th>Sensor</th>
+                                <th>Frecuencia</th>
+                                <th>Tipo</th>
+                                <th>Retención</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="interaction-box">
+                    <p><strong>📱 COSAS</strong></p>
+                    <p><strong>Sensores:</strong> ____________________</p>
+                    <p><strong>Actuadores:</strong> ____________________</p>
+                    <p><strong>Infraestructura:</strong> Gateway, Protocolo, Conectividad, Alimentación</p>
+                </div>
+
+                <div class="interaction-box">
+                    <p><strong>🔗 INTERACCIONES</strong></p>
+                    <p>Persona ──[P2M]──> Dispositivo</p>
+                    <p>Dispositivo ──[M2M]──> Dispositivo</p>
+                    <p>Dispositivo ──[M2P]──> Persona (alerta)</p>
+                </div>
+
+                <div class="interaction-box" style="background: #fee2e2; border-color: #ef4444;">
+                    <p><strong>🔒 SEGURIDAD Y PRIVACIDAD</strong></p>
+                    <ul>
+                        <li>¿Se capturan datos personales?: [ ] Sí [ ] No</li>
+                        <li>¿Se requiere autorización?: [ ] Sí [ ] No</li>
+                        <li>¿Se implementa ARCO?: [ ] Sí [ ] No</li>
+                    </ul>
+                </div>
+
+                <h4>Ejemplo Completado: Biblioteca Inteligente (Escenario #2)</h4>
+                <div class="example-box">
+                    <p><strong>👤 PERSONAS</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Nombre/Rol Real</th>
+                                <th>Responsabilidades</th>
+                                <th>Interfaz</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Usuario</td>
+                                <td>Estudiante</td>
+                                <td>Reservar puesto, consultar libros</td>
+                                <td>App móvil</td>
+                            </tr>
+                            <tr>
+                                <td>Operador</td>
+                                <td>Bibliotecario</td>
+                                <td>Monitorear ocupación, gestionar reservas</td>
+                                <td>Dashboard web</td>
+                            </tr>
+                            <tr>
+                                <td>Admin</td>
+                                <td>Director biblioteca</td>
+                                <td>Configurar políticas, ver reportes</td>
+                                <td>Panel administrativo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>⚙️ PROCESOS</strong></p>
+                    <p><strong>Proceso 1:</strong> IF ocupación > 80% THEN mostrar "Sala llena" en app</p>
+                    <p><strong>Proceso 2:</strong> IF reserva expirada THEN liberar puesto y notificar</p>
+                    <p><strong>Proceso 3:</strong> IF sensor presencia = vacío THEN apagar luces después de 5 min</p>
+
+                    <p><strong>📊 DATOS</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dato</th>
+                                <th>Sensor</th>
+                                <th>Frecuencia</th>
+                                <th>Tipo</th>
+                                <th>Retención</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ocupación sala</td>
+                                <td>Sensor IR presencia</td>
+                                <td>30 seg</td>
+                                <td>Numérico</td>
+                                <td>1 año</td>
+                            </tr>
+                            <tr>
+                                <td>Reservas activas</td>
+                                <td>Base de datos</td>
+                                <td>En tiempo real</td>
+                                <td>Texto/fecha</td>
+                                <td>2 años</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>📱 COSAS</strong></p>
+                    <p><strong>Sensores:</strong> Cámaras térmicas, sensores de presencia IR, lectores RFID</p>
+                    <p><strong>Actuadores:</strong> Luces LED, displays digitales, cerraduras electrónicas</p>
+                    <p><strong>Infraestructura:</strong> Gateway WiFi, MQTT, Cloud (AWS IoT), batería + USB</p>
+
+                    <p><strong>🔗 INTERACCIONES</strong></p>
+                    <p>Estudiante ──[P2M]──> App reserva puesto</p>
+                    <p>Sensor presencia ──[M2M]──> Gateway actualiza ocupación</p>
+                    <p>Gateway ──[M2P]──> Notificación "Puesto listo"</p>
+
+                    <p><strong>🔒 SEGURIDAD</strong></p>
+                    <ul>
+                        <li>¿Se capturan datos personales?: Sí (nombres, correos)</li>
+                        <li>¿Se requiere autorización?: Sí (registro con ID estudiante)</li>
+                        <li>¿Se implementa ARCO?: Sí (derecho a ver/eliminar datos)</li>
+                    </ul>
+                </div>
+
+                <h3>Tarea para Casa</h3>
+                <div class="card">
+                    <h4>Entregable</h4>
+                    <p>Usando el escenario trabajado en clase:</p>
+                    <ol>
+                        <li><strong>Expandir</strong> cada pilar con 5+ elementos adicionales</li>
+                        <li><strong>Dibujar diagrama</strong> de arquitectura (herramientas gratuitas: <a href="https://www.draw.io" target="_blank">draw.io</a> web, <a href="https://www.lucidchart.com" target="_blank">Lucidchart</a> free tier, o Microsoft Visio si disponible)</li>
+                        <li><strong>Identificar 3 procesos</strong> con lógica IF-THEN detallada</li>
+                        <li><strong>Listar datos</strong> con frecuencia, formato y almacenamiento</li>
+                        <li><strong>Documentar seguridad</strong> según 4 capas</li>
+                    </ol>
+                    <p><strong>Formato:</strong> Documento PDF, 3-5 páginas</p>
+                    <p><strong>Entrega:</strong> Próxima clase (inicio)</p>
+                </div>
+            </section>
+
+            <!-- Resumen -->
+            <section>
+                <h2>Resumen de la Clase</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pilar</th>
+                            <th>Rol en IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Personas</strong></td>
+                            <td>Usuarios, operadores, tomadores de decisiones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Procesos</strong></td>
+                            <td>Reglas, automatizaciones, workflows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Datos</strong></td>
+                            <td>Información capturada, procesada, almacenada</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cosas</strong></td>
+                            <td>Sensores, actuadores, dispositivos conectados</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Tipos de Interacciones</h3>
+                <ul>
+                    <li><strong>P2M:</strong> Persona controla dispositivo</li>
+                    <li><strong>M2M:</strong> Dispositivos se comunican entre sí</li>
+                    <li><strong>M2P:</strong> Dispositivo notifica a persona</li>
+                    <li><strong>P2P:</strong> Personas colaboran vía IoT</li>
+                </ul>
+
+                <h3>Próxima Clase</h3>
+                <div class="intro-box" style="text-align: center;">
+                    <h4>Clase 3: La Transformación del Entorno</h4>
+                    <p>Empresas inteligentes | Ciudades inteligentes (Smart Cities) | Casos de estudio reales</p>
+                    <p><strong>¡Nos vemos!</strong></p>
+                </div>
+            </section>
+
+            <!-- Referencias -->
+            <section id="referencias">
+                <h2>Referencias Bibliográficas</h2>
+
+                <h3>Fuentes Primarias</h3>
+                <h4>Libros y Textos Académicos</h4>
+                <ol>
+                    <li><strong>Cisco Networking Academy.</strong> (2023). <em>Introduction to IoT - Connecting Things</em>. Cisco Press. (Capítulo 2: "Connecting Things")</li>
+                    <li><strong>Ackoff, R. L.</strong> (1989). "From Data to Wisdom." <em>Journal of Applied Systems Analysis</em>, 16, 3-9.</li>
+                    <li><strong>Rowley, J.</strong> (2007). "The wisdom hierarchy: representations of the DIKW hierarchy." <em>Journal of Information Science</em>, 33(2), 163-180.</li>
+                </ol>
+
+                <h4>Marco Legal Colombia</h4>
+                <ol start="6">
+                    <li><strong>Congreso de Colombia.</strong> (2012). <em>Ley 1581 de 2012: Por la cual se dictan disposiciones generales para la protección de datos personales</em>.</li>
+                    <li><strong>SIC.</strong> (2024). <em>Guía para el cumplimiento de la Ley 1581 en proyectos de tecnología e innovación</em>.</li>
+                    <li><strong>MinTIC.</strong> (2023). <em>Política Nacional de Internet de las Cosas (IoT) y Ciudades Inteligentes</em>.</li>
+                </ol>
+
+                <h3>Casos de Estudio: Agricultura</h3>
+                <ol start="11">
+                    <li><strong>FEDEARROZ.</strong> (2024). <em>Programa Arroz Sostenible: Informe de Resultados 2020-2024</em>.</li>
+                    <li><strong>Federación Nacional de Cafeteros.</strong> (2024). <em>Cosecha Bluetooth: Tecnología para pequeños productores</em>.</li>
+                </ol>
+
+                <h3>Seguridad IoT</h3>
+                <ol start="20">
+                    <li><strong>OWASP.</strong> (2024). <em>OWASP IoT Top 10 - 2024</em>.</li>
+                    <li><strong>NIST.</strong> (2023). <em>NIST IR 8259: IoT Device Cybersecurity Guidance</em>.</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma de Colombia - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 2: Personas, Procesos, Datos y Cosas | Última actualización: Febrero 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

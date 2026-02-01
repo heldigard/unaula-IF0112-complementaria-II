@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 7: Conectividad WiFi | IF0112</title>
+    <style>
+        :root {
+            --color-primary: #0891b2;
+            --color-secondary: #06b6d4;
+            --color-accent: #f59e0b;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --color-bg: #f8fafc;
+            --color-card: #ffffff;
+            --color-text: #1e293b;
+            --color-text-light: #64748b;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0891b2, #06b6d4);
+            color: white;
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content { max-width: 1200px; margin: 0 auto; }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        header .subtitle { font-size: 1.3rem; opacity: 0.9; margin-bottom: 1.5rem; }
+        header .course-info { font-size: 0.95rem; opacity: 0.8; }
+        
+        .objectives {
+            background: white;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .objectives h2 { color: var(--color-primary); margin-bottom: 1rem; }
+        .objectives ul { list-style: none; padding-left: 0; }
+        .objectives li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
+        .objectives li::before { content: "📡"; position: absolute; left: 0; }
+        .objectives .meta { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; color: var(--color-text-light); }
+        
+        nav {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-content { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; }
+        nav h3 { color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1rem; }
+        nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        nav li a { display: block; padding: 0.5rem 1rem; background: var(--color-bg); color: var(--color-text); text-decoration: none; border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; }
+        nav li a:hover { background: var(--color-primary); color: white; }
+        
+        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        section h2 { color: var(--color-primary); font-size: 1.8rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--color-secondary); }
+        section h3 { color: var(--color-secondary); font-size: 1.3rem; margin: 1.5rem 0 1rem; }
+        section h4 { color: var(--color-text); font-size: 1.1rem; margin: 1.25rem 0 0.75rem; }
+        
+        p { margin-bottom: 1rem; text-align: justify; }
+        
+        .info-box { padding: 1.25rem; border-radius: var(--border-radius); margin: 1.25rem 0; border-left: 4px solid; }
+        .info-box.success { background: #f0fdf4; border-color: var(--color-success); }
+        .info-box.warning { background: #fef3c7; border-color: var(--color-accent); }
+        .info-box.info { background: #cffafe; border-color: var(--color-secondary); }
+        .info-box.danger { background: #fef2f2; border-color: var(--color-danger); }
+        .info-box h4 { margin-bottom: 0.5rem; color: inherit; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.875rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: var(--color-primary); color: white; font-weight: 600; }
+        tr:hover { background: #f8fafc; }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        code { font-family: 'Consolas', 'Monaco', monospace; background: #e2e8f0; padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.9em; color: var(--color-primary); }
+        
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+        .tech-card { background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 2px solid #e2e8f0; border-radius: var(--border-radius); padding: 1.25rem; }
+        .tech-card h4 { color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.05rem; }
+        .tech-card ul { list-style: none; padding-left: 0; }
+        .tech-card li { padding: 0.3rem 0; padding-left: 1.25rem; position: relative; font-size: 0.95rem; }
+        .tech-card li::before { content: "→"; position: absolute; left: 0; color: var(--color-secondary); }
+        
+        .arch-diagram { background: linear-gradient(135deg, #cffafe, #a5f3fc); border: 2px solid #22d3ee; border-radius: var(--border-radius); padding: 1.5rem; margin: 1.5rem 0; }
+        .arch-diagram h4 { color: #155e75; margin-bottom: 1rem; text-align: center; }
+        .arch-layer { background: white; border: 2px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin: 0.75rem 0; }
+        .arch-layer-title { font-weight: bold; color: var(--color-primary); margin-bottom: 0.5rem; }
+        
+        ul, ol { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        
+        footer { text-align: center; padding: 2rem; color: var(--color-text-light); font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Learning key box */
+        .learning-key {
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .learning-key h4 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .learning-key p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Hardware optional notice */
+        .hardware-notice {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+
+        .hardware-notice h4 {
+            color: #92400e;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .hardware-notice p {
+            color: #78350f;
+            margin: 0;
+        }
+
+        /* Section anchor offset for sticky nav */
+        section {
+            scroll-margin-top: 80px;
+        }
+        
+        @media (max-width: 768px) {
+            .tech-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.75rem; }
+            nav ul { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to top button -->
+    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="Volver arriba">↑</button>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const button = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                button.classList.add('visible');
+            } else {
+                button.classList.remove('visible');
+            }
+        });
+    </script>
+
+    <header>
+        <div class="header-content">
+            <h1>📡 Clase 7: Conectividad WiFi</h1>
+            <p class="subtitle">ESP32 como Dispositivo Conectado</p>
+            <p class="course-info">IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática<br>UNAULA - 2026-I</p>
+        </div>
+    </header>
+    
+    <section class="objectives">
+        <h2>🎯 Objetivos de la Clase</h2>
+        <p>Al finalizar esta clase, el estudiante será capaz de:</p>
+        <ul>
+            <li><strong>Conectar</strong> ESP32 a red WiFi existente (modo STA)</li>
+            <li><strong>Crear</strong> punto de acceso (AP) con ESP32</li>
+            <li><strong>Desarrollar</strong> servidor web básico</li>
+            <li><strong>Enviar</strong> datos a servicios en la nube</li>
+            <li><strong>Implementar</strong> reconexión automática</li>
+        </ul>
+        <p class="meta"><strong>Duración:</strong> 2 horas | <strong>Evaluación E2:</strong> Presentación (15%)</p>
+    </section>
+    
+    <nav>
+        <div class="nav-content">
+            <h3>📑 Contenido de la Clase</h3>
+            <ul>
+                <li><a href="#modos">Modos WiFi</a></li>
+                <li><a href="#conexion">Conexión STA</a></li>
+                <li><a href="#reconexion">Reconexión</a></li>
+                <li><a href="#servidor">Servidor Web</a></li>
+                <li><a href="#api">API REST</a></li>
+                <li><a href="#nube">ThingSpeak</a></li>
+                <li><a href="#proyecto">Proyecto</a></li>
+                <li><a href="#seguridad">Seguridad</a></li>
+                <li><a href="#energia">Ahorro Energía</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <!-- Modos WiFi -->
+        <section id="modos">
+            <h2>📶 Modos de Operación WiFi</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>El ESP32 puede operar en <strong>modo STA</strong> (conectarse a red existente), <strong>modo AP</strong> (crear su propia red), o <strong>ambos simultáneamente</strong>. La elección depende del caso de uso.</p>
+            </div>
+
+            <div class="hardware-notice">
+                <h4>💻 Nota sobre Factibilidad Windows</h4>
+                <p><strong>Todo el código puede probarse en simuladores gratuitos</strong> como Wokwi.com, sin necesidad de hardware físico. El curso IF0112 no obliga compras de equipos.</p>
+            </div>
+            
+            <p>El ESP32 puede operar en diferentes modos WiFi según las necesidades del proyecto:</p>
+            
+            <table>
+                <thead>
+                    <tr><th>Modo</th><th>Descripción</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>STA</strong> (Station)</td><td>Se conecta a una red WiFi existente</td><td>Conectar a router/internet</td></tr>
+                    <tr><td><strong>AP</strong> (Access Point)</td><td>Crea su propia red WiFi</td><td>Configuración inicial, red local</td></tr>
+                    <tr><td><strong>STA+AP</strong> (Dual)</td><td>Ambos modos simultáneamente</td><td>Configuración avanzada</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Funciones para Configurar Modos</h3>
+            <pre>WiFi.mode(WIFI_STA);      // Modo estación
+WiFi.mode(WIFI_AP);       // Modo access point
+WiFi.mode(WIFI_AP_STA);   // Modo dual
+
+WiFi.softAP(ssid, pass);  // Crear red WiFi
+WiFi.softAPIP();          // IP del AP</pre>
+        </section>
+        
+        <!-- Conexión STA -->
+        <section id="conexion">
+            <h2>🔗 Conexión WiFi: Modo Estación (STA)</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>La conexión WiFi requiere <code>WiFi.begin()</code> con credenciales, verificación del estado con <code>WiFi.status()</code>, y manejo de la IP asignada mediante <code>WiFi.localIP()</code>.</p>
+            </div>
+            
+            <h3>Código Básico</h3>
+            <pre>#include &lt;WiFi.h&gt;
+
+const char* ssid = "NombreDeTuRed";
+const char* password = "ContrasenaDeRed";
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("✓ Conectado!");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {}</pre>
+            
+            <h3>Estados WiFi</h3>
+            <table>
+                <thead>
+                    <tr><th>Estado</th><th>Significado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>WL_CONNECTED</code></td><td>Conectado</td></tr>
+                    <tr><td><code>WL_NO_SSID_AVAIL</code></td><td>Red no encontrada</td></tr>
+                    <tr><td><code>WL_CONNECT_FAILED</code></td><td>Contraseña incorrecta</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Información de Red</h3>
+            <table>
+                <thead>
+                    <tr><th>Función</th><th>Retorna</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>WiFi.localIP()</code></td><td>IP local asignada</td></tr>
+                    <tr><td><code>WiFi.subnetMask()</code></td><td>Máscara de subred</td></tr>
+                    <tr><td><code>WiFi.gatewayIP()</code></td><td>Gateway</td></tr>
+                    <tr><td><code>WiFi.RSSI()</code></td><td>Señal en dBm</td></tr>
+                    <tr><td><code>WiFi.macAddress()</code></td><td>Dirección MAC</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Reconexión -->
+        <section id="reconexion">
+            <h2>🔄 Reconexión Automática WiFi</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Las redes WiFi pueden fallar. Implementar <strong>reconexión automática</strong> con <code>millis()</code> es esencial para sistemas IoT robustos que operan 24/7 sin intervención humana.</p>
+            </div>
+            
+            <div class="info-box warning">
+                <h4>⚠️ El Problema</h4>
+                <p>Las redes WiFi pueden perder señal temporalmente, reiniciarse por apagones o mantenimiento, o saturarse y desconectar dispositivos. <strong>Sin reconexión automática:</strong> El ESP32 queda "colgado" sin conexión hasta reiniciarlo manualmente.</p>
+            </div>
+            
+            <h3>Solución: Verificación Periódica</h3>
+            <pre>#include &lt;WiFi.h&gt;
+
+const char* ssid = "MiRed";
+const char* password = "MiClave";
+
+unsigned long ultimoIntento = 0;
+const long INTERVALO_RECONEXION = 30000; // 30s
+
+void setup() {
+    Serial.begin(115200);
+    conectarWiFi();
+}
+
+void loop() {
+    // Verificar conexión periódicamente
+    if (WiFi.status() != WL_CONNECTED) {
+        unsigned long ahora = millis();
+        
+        if (ahora - ultimoIntento >= INTERVALO_RECONEXION) {
+            Serial.println("⚠️ Conexión perdida. Reconectando...");
+            conectarWiFi();
+            ultimoIntento = ahora;
+        }
+    }
+    
+    // Tu código principal aquí
+}
+
+void conectarWiFi() {
+    WiFi.begin(ssid, password);
+    
+    int intentos = 0;
+    while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+        delay(500);
+        Serial.print(".");
+        intentos++;
+    }
+    
+    if (WiFi.status() == WL_CONNECTED) {
+        Serial.println("\n✓ WiFi conectado!");
+    } else {
+        Serial.println("\n✗ Fallo de conexión");
+    }
+}</pre>
+        </section>
+        
+        <!-- Servidor Web -->
+        <section id="servidor">
+            <h2>🌐 Crear un Servidor Web en ESP32</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Un servidor web en ESP32 permite <strong>controlar hardware desde cualquier navegador</strong>. Se configuran rutas (endpoints) con <code>server.on()</code> y se atienden peticiones con <code>server.handleClient()</code>.</p>
+            </div>
+            
+            <h3>Conceptos Básicos</h3>
+            <p>Un <strong>servidor web</strong> en el ESP32 permite mostrar páginas HTML desde el microcontrolador, recibir comandos mediante URLs, exponer una API REST, y controlar hardware desde el navegador.</p>
+            
+            <h3>Librerías Necesarias</h3>
+            <pre>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;  // Servidor web
+
+// Crear servidor en puerto 80 (HTTP)
+WebServer server(80);</pre>
+            
+            <h3>Configuración del Servidor</h3>
+            <pre>void setup() {
+    // Conectar WiFi...
+    
+    // Definir rutas (endpoints)
+    server.on("/", handleRoot);
+    server.on("/led/on", handleLedOn);
+    server.on("/led/off", handleLedOff);
+
+    // Iniciar servidor
+    server.begin();
+    Serial.println("Servidor iniciado");
+}
+
+void loop() {
+    // Atender peticiones de clientes
+    server.handleClient();
+}</pre>
+            
+            <h3>Manejadores de Rutas</h3>
+            <pre>const int LED_PIN = 2;
+
+// Página principal
+void handleRoot() {
+    String html = "&lt;html&gt;&lt;body&gt;";
+    html += "&lt;h1&gt;Control ESP32&lt;/h1&gt;";
+    html += "&lt;a href='/led/on'&gt;Encender LED&lt;/a&gt;&lt;br&gt;";
+    html += "&lt;a href='/led/off'&gt;Apagar LED&lt;/a&gt;";
+    html += "&lt;/body&gt;&lt;/html&gt;";
+
+    server.send(200, "text/html", html);
+}
+
+// Encender LED
+void handleLedOn() {
+    digitalWrite(LED_PIN, HIGH);
+    server.sendHeader("Location", "/");
+    server.send(303);  // Redirect
+}
+
+// Apagar LED
+void handleLedOff() {
+    digitalWrite(LED_PIN, LOW);
+    server.sendHeader("Location", "/");
+    server.send(303);
+}</pre>
+        </section>
+        
+        <!-- API REST -->
+        <section id="api">
+            <h2>📊 API REST con JSON</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Las APIs REST permiten que <strong>máquinas se comuniquen entre sí</strong> usando HTTP y JSON. El ESP32 puede exponer datos de sensores mediante endpoints que devuelven JSON.</p>
+            </div>
+            
+            <h3>¿Qué es una API REST?</h3>
+            <p><strong>API</strong> (Application Programming Interface): Interfaz para que programas se comuniquen.<br>
+            <strong>REST</strong> (Representational State Transfer): Estilo de arquitectura usando HTTP.</p>
+            
+            <h3>Métodos HTTP Comunes</h3>
+            <table>
+                <thead>
+                    <tr><th>Método</th><th>Acción</th><th>Ejemplo</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GET</td><td>Obtener datos</td><td><code>/api/sensores</code></td></tr>
+                    <tr><td>POST</td><td>Crear/enviar datos</td><td><code>/api/datos</code></td></tr>
+                    <tr><td>PUT</td><td>Actualizar datos</td><td><code>/api/config</code></td></tr>
+                    <tr><td>DELETE</td><td>Eliminar datos</td><td><code>/api/alarma</code></td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Código: API REST en ESP32</h3>
+            <pre>#include &lt;ArduinoJson.h&gt;  // Librería JSON
+
+void handleSensorData() {
+    // Leer sensores reales
+    float temperatura = dht.readTemperature();
+    float humedad = dht.readHumidity();
+    
+    // Crear documento JSON
+    StaticJsonDocument&lt;200&gt; doc;
+    doc["temperatura"] = temperatura;
+    doc["humedad"] = humedad;
+    doc["timestamp"] = millis();
+    doc["dispositivo"] = "ESP32-Sala";
+    
+    // Serializar a String
+    String jsonResponse;
+    serializeJson(doc, jsonResponse);
+    
+    // Enviar respuesta
+    server.send(200, "application/json", jsonResponse);
+}</pre>
+            
+            <h3>Respuesta JSON</h3>
+            <pre>{
+  "temperatura": 24.5,
+  "humedad": 60,
+  "timestamp": 12456789,
+  "dispositivo": "ESP32-Sala"
+}</pre>
+        </section>
+        
+        <!-- Nube -->
+        <section id="nube">
+            <h2>☁️ ThingSpeak: Plataforma IoT Gratuita</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>ThingSpeak es una plataforma gratuita para <strong>almacenar y visualizar datos IoT</strong>. Usa HTTP GET simple, permitiendo enviar datos desde ESP32 sin librerías complejas.</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>¿Qué es ThingSpeak?</h4>
+                    <ul>
+                        <li>Almacenar datos de sensores</li>
+                        <li>Visualizar datos en gráficos</li>
+                        <li>Analizar datos con MATLAB</li>
+                        <li>Activar alertas</li>
+                        <li>API simple basada en HTTP</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Configuración</h4>
+                    <ol>
+                        <li>Crear cuenta en thingspeak.com</li>
+                        <li>Crear un nuevo "Channel"</li>
+                        <li>Configurar campos:
+                            <ul>
+                                <li>Field 1: Temperatura</li>
+                                <li>Field 2: Humedad</li>
+                            </ul>
+                        </li>
+                        <li>Obtener Write API Key</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <h3>Código para ThingSpeak</h3>
+            <pre>#include &lt;HTTPClient.h&gt;
+
+const char* apiKey = "TU_API_KEY_AQUI";  // Write API Key
+
+void enviarAThingSpeak(float temp, float hum) {
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("Sin WiFi");
+        return;
+    }
+    
+    HTTPClient http;
+    
+    // Construir URL
+    String url = "http://api.thingspeak.com/update?api_key=";
+    url += apiKey;
+    url += "&field1=" + String(temp);   // Temperatura
+    url += "&field2=" + String(hum);    // Humedad
+    
+    http.begin(url);
+    int httpCode = http.GET();
+    
+    if (httpCode == 200) {
+        String respuesta = http.getString();
+        Serial.println("✓ Datos enviados. Entry: " + respuesta);
+    } else {
+        Serial.println("✗ Error: " + String(httpCode));
+    }
+    
+    http.end();
+}
+
+// IMPORTANTE: ThingSpeak permite enviar datos cada 15 segundos (mínimo en cuenta gratuita)</pre>
+        </section>
+        
+        <!-- Proyecto -->
+        <section id="proyecto">
+            <h2>🌤️ Proyecto Integrador: Estación Meteorológica Web</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Integrar WiFi + servidor web + sensores crea un <strong>sistema IoT completo</strong>. El ESP32 lee datos, sirve una página HTML, y actualiza información en tiempo real.</p>
+            </div>
+
+            <div class="hardware-notice">
+                <h4>🔧 Opciones para Realizar el Proyecto</h4>
+                <p><strong>Opción A (Simulador - Recomendado):</strong> Wokwi.com permite simular ESP32 con WiFi, DHT11 y servidor web completo. Gratuito.<br><br>
+                <strong>Opción B (Demo Docente):</strong> El profesor demuestra el sistema en clase.<br><br>
+                <strong>Opción C:</strong> Usar hardware solo si ya se dispone de él.</p>
+            </div>
+            
+            <h3>Descripción</h3>
+            <p>Estación meteorológica con sensor DHT11, servidor web integrado, dashboard visual y actualización automática.</p>
+            
+            <h3>Componentes</h3>
+            <table>
+                <thead>
+                    <tr><th>Componente</th><th>Pin ESP32</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>DHT11</td><td>GPIO4</td></tr>
+                    <tr><td>LED Status</td><td>GPIO2</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="arch-diagram">
+                <h4>Arquitectura del Sistema</h4>
+                <div class="arch-layer">
+                    <div class="arch-layer-title">📥 CAPA DE SENSORES</div>
+                    <p>DHT11 lee temperatura y humedad → GPIO4</p>
+                </div>
+                <div class="arch-layer">
+                    <div class="arch-layer-title">⚙️ CAPA DE PROCESAMIENTO</div>
+                    <p>ESP32: Lee datos + Servidor web en puerto 80</p>
+                </div>
+                <div class="arch-layer">
+                    <div class="arch-layer-title">📡 CAPA DE CONECTIVIDAD</div>
+                    <p>WiFi conexión a red local, IP asignada por DHCP</p>
+                </div>
+                <div class="arch-layer">
+                    <div class="arch-layer-title">🖥️ CAPA DE USUARIO</div>
+                    <p>Navegador web con dashboard y auto-refresh cada 5s</p>
+                </div>
+            </div>
+            
+            <h3>Código Completo</h3>
+            <pre>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+#include "DHT.h"
+
+const char* ssid = "TU_RED_WIFI";
+const char* password = "TU_PASSWORD";
+
+const int DHT_PIN = 4;
+DHT dht(DHT_PIN, DHT11);
+WebServer server(80);
+
+float temperatura = 0;
+float humedad = 0;
+unsigned long ultimaLectura = 0;
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println(WiFi.localIP());
+
+  server.on("/", handleRoot);
+  server.on("/api/datos", handleApiDatos);
+  server.begin();
+}
+
+void loop() {
+  // Leer cada 2s
+  if (millis() - ultimaLectura > 2000) {
+    temperatura = dht.readTemperature();
+    humedad = dht.readHumidity();
+    ultimaLectura = millis();
+  }
+  server.handleClient();
+}
+
+void handleRoot() {
+  String html = "&lt;html&gt;&lt;head&gt;";
+  html += "&lt;meta charset='UTF-8'&gt;";
+  html += "&lt;style&gt;body{font-family:Arial;text-align:center;padding:20px;}";
+  html += ".temp{color:#e74c3c;font-size:48px;}";
+  html += ".hum{color:#3498db;font-size:48px;}&lt;/style&gt;";
+  html += "&lt;/head&gt;&lt;body&gt;";
+  html += "&lt;h1&gt;🌤️ Estación Meteorológica&lt;/h1&gt;";
+  html += "&lt;div class='temp'&gt;🌡️ " + String(temperatura, 1) + "°C&lt;/div&gt;";
+  html += "&lt;div class='hum'&gt;💧 " + String(humedad, 1) + "%&lt;/div&gt;";
+  html += "&lt;script&gt;setTimeout(()=&gt;location.reload(),5000);&lt;/script&gt;";
+  html += "&lt;/body&gt;&lt;/html&gt;";
+  server.send(200, "text/html", html);
+}
+
+void handleApiDatos() {
+  String json = "{\"temp\":" + String(temperatura, 2) + ",\"hum\":" + String(humedad, 2) + "}";
+  server.send(200, "application/json", json);
+}</pre>
+        </section>
+        
+        <!-- Seguridad -->
+        <section id="seguridad">
+            <h2>🔐 Seguridad en WiFi IoT</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>La seguridad en IoT requiere <strong>no hardcodear credenciales</strong>, usar WPA2 como mínimo, y preferir HTTPS sobre HTTP. Las credenciales deben estar en archivos separados no versionados.</p>
+            </div>
+            
+            <h3>❌ Prácticas Inseguras</h3>
+            <pre>// Credenciales hardcodeadas
+const char* ssid = "MiRedCasa";
+const char* password = "ClaveSecreta123";
+
+// HTTP sin cifrar
+http.begin("http://api.ejemplo.com/datos");
+
+// API Keys visibles
+String url = "?api_key=ABC123XYZ";</pre>
+            
+            <h3>Niveles de Seguridad WiFi</h3>
+            <table>
+                <thead>
+                    <tr><th>Protocolo</th><th>Seguridad</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Abierto</td><td>❌ Nunca usar</td></tr>
+                    <tr><td>WEP</td><td>❌ Obsoleto</td></tr>
+                    <tr><td>WPA</td><td>⚠️ Vulnerable</td></tr>
+                    <tr><td>WPA2</td><td>✅ Seguro</td></tr>
+                    <tr><td>WPA3</td><td>✅✅ Más seguro</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>✅ Mejores Prácticas</h3>
+            <ul>
+                <li><strong>Credenciales en archivo separado:</strong> config.h (no subir a git)</li>
+                <li><strong>Usar HTTPS:</strong> cuando sea posible</li>
+                <li><strong>API Key en variables de entorno</strong></li>
+                <li><strong>WPA2 mínimo:</strong> Configurar router con WPA2 o superior</li>
+                <li><strong>Portal de configuración:</strong> Crear AP temporal para configurar WiFi sin hardcodear</li>
+            </ul>
+        </section>
+        
+        <!-- Energía -->
+        <section id="energia">
+            <h2>🔋 Modos de Ahorro de Energía</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>El <strong>Deep Sleep</strong> reduce el consumo de 260mA a ~10µA, extendiendo la vida de baterías por meses. Ideal para sensores que reportan datos periódicamente.</p>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr><th>Modo</th><th>Consumo</th><th>Uso Típico</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Activo (transmitiendo)</td><td>160-260 mA</td><td>Streaming de datos</td></tr>
+                    <tr><td>Activo (idle)</td><td>80-120 mA</td><td>Servidor web activo</td></tr>
+                    <tr><td>Light Sleep</td><td>0.8 mA</td><td>Lecturas periódicas</td></tr>
+                    <tr><td>Deep Sleep</td><td>0.01 mA (10µA)</td><td>Reportes horarios</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Ejemplo: Deep Sleep</h3>
+            <pre>// Dormir 60 segundos
+esp_sleep_enable_timer_wakeup(60 * 1000000);  // 60 segundos en microsegundos
+esp_deep_sleep_start();
+
+// Al despertar: reboot completo
+// Consumo: ~10 µA durante el sueño</pre>
+            
+            <h3>Calidad de Señal (RSSI)</h3>
+            <table>
+                <thead>
+                    <tr><th>RSSI (dBm)</th><th>Calidad</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>-30 a -60</td><td>Excelente/Muy buena</td></tr>
+                    <tr><td>-60 a -70</td><td>Buena</td></tr>
+                    <tr><td>-70 a -80</td><td>Regular</td></tr>
+                    <tr><td>&lt; -80</td><td>Mala - cambiar ubicación</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Resumen -->
+        <section>
+            <h2>📋 Resumen: Funciones Clave WiFi</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>Conexión y Estado</h4>
+                    <ul>
+                        <li><code>WiFi.begin(ssid, pass)</code> - Iniciar conexión</li>
+                        <li><code>WiFi.status()</code> - Estado de conexión</li>
+                        <li><code>WiFi.localIP()</code> - IP asignada</li>
+                        <li><code>WiFi.RSSI()</code> - Intensidad de señal</li>
+                        <li><code>WiFi.macAddress()</code> - Dirección MAC</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Servidor Web</h4>
+                    <ul>
+                        <li><code>WebServer server(80)</code> - Crear servidor</li>
+                        <li><code>server.on("/", handler)</code> - Definir ruta</li>
+                        <li><code>server.send(code, type, content)</code> - Enviar respuesta</li>
+                        <li><code>server.handleClient()</code> - Atender peticiones</li>
+                        <li><code>server.begin()</code> - Iniciar servidor</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Cliente HTTP</h4>
+                    <ul>
+                        <li><code>HTTPClient http</code> - Crear cliente</li>
+                        <li><code>http.begin(url)</code> - Configurar URL</li>
+                        <li><code>http.GET()</code> - Enviar GET</li>
+                        <li><code>http.POST(data)</code> - Enviar POST</li>
+                        <li><code>http.getString()</code> - Obtener respuesta</li>
+                        <li><code>http.end()</code> - Cerrar conexión</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box info">
+                <h4>➡️ Próxima Clase: Protocolos IoT</h4>
+                <ul>
+                    <li>📡 MQTT: Protocolo publish/subscribe</li>
+                    <li>🌐 HTTP REST APIs</li>
+                    <li>📊 Comparación de protocolos IoT</li>
+                    <li>🔧 Hands-on: MQTT con ESP32</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
+        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
+    </footer>
+</body>
+</html>
