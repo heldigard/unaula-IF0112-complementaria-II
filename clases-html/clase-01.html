@@ -409,53 +409,131 @@
         .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
 
         /* ============================================
-           FLOW DIAGRAM
+           FLOW DIAGRAM (Mejorado)
            ============================================ */
-        .flow-diagram {
+        .flow-panel {
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, #fffbeb, #fffef7);
+            border-left: 4px solid var(--color-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .flow-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3);
+            flex-direction: column;
+            gap: var(--space-4);
             align-items: center;
-            margin: var(--space-8) 0;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            flex-wrap: wrap;
             justify-content: center;
         }
 
-        .flow-step {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
+        .flow-card {
+            background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
+            color: var(--text-primary);
             padding: var(--space-4) var(--space-5);
-            border-radius: var(--radius-lg);
+            border-radius: calc(var(--radius-lg) + 4px);
+            min-width: 160px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            flex: 0 0 auto;
-            min-width: 150px;
-            font-size: var(--text-base);
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid #1d4ed8;
-            transition: transform 0.2s, box-shadow 0.2s;
+            gap: var(--space-1);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
 
-        .flow-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        .flow-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .flow-step strong {
-            display: block;
-            font-size: var(--text-lg);
+        .flow-card .icon {
+            font-size: 1.5rem;
             margin-bottom: var(--space-1);
         }
 
-        .flow-step small {
-            color: rgba(255, 255, 255, 0.9);
+        .flow-card strong {
+            display: block;
+            font-size: var(--text-lg);
+            color: var(--color-primary);
+            margin-bottom: 2px;
+        }
+
+        .flow-card small {
+            color: var(--text-muted);
+            display: block;
             font-size: var(--text-sm);
         }
 
+        .flow-card--muted {
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            border: 1px dashed var(--border-medium);
+            color: var(--text-secondary);
+        }
+
         .flow-arrow {
-            font-size: var(--text-3xl);
-            color: #1d4ed8;
-            font-weight: bold;
-            flex: 0 0 auto;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary-light);
+        }
+
+        .flow-arrow svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--color-primary);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Flujo básico estilo 'pill' */
+        .basic-flow {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            background: linear-gradient(90deg,#0b1220,#0f172a);
+            color: var(--text-inverse);
+            padding: var(--space-3);
+            border-radius: 999px;
+            box-shadow: var(--shadow-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: var(--space-4) 0 0 0;
+        }
+
+        .basic-step {
+            background: rgba(255,255,255,0.06);
+            padding: var(--space-2) var(--space-4);
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: var(--text-sm);
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .basic-chevron {
+            color: rgba(255,255,255,0.6);
+            font-size: var(--text-lg);
+            padding: 0 var(--space-2);
+        }
+
+        @media (max-width: 768px) {
+            .flow-row { gap: var(--space-3); }
+            .flow-card { min-width: 120px; }
+            .flow-arrow svg { width: 20px; height: 20px; }
+            .basic-flow { padding: var(--space-2); }
         }
 
         /* ============================================
@@ -962,28 +1040,80 @@
                 <p><strong>Chequeo rápido:</strong> En un sistema de riego automático, ¿qué sería el sensor y qué sería el actuador? (Respuesta: Sensor de humedad en suelo = sensor; Válvula electromecánica que abre el agua = actuador)</p>
 
                 <h3>Ejemplo Real: Refrigerador Inteligente 🧊</h3>
-                <div class="example-box">
-                    <h4>Flujo de funcionamiento paso a paso:</h4>
+                <div class="example-box flow-panel" aria-labelledby="refrigerator-flow">
+                    <h4 id="refrigerator-flow">Flujo de funcionamiento paso a paso:</h4>
 
-                    <div class="flow-diagram">
-                        <div class="flow-step">📡<strong>Sensor</strong><small>Detecta falta de leche</small></div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">📶<strong>Envío</strong><small>Datos a la nube</small></div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">🧠<strong>Análisis</strong><small>IA procesa</small></div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">📱<strong>Acción</strong><small>Notifica usuario</small></div>
-                    </div>
+                    <div class="flow-container">
+                        <div class="flow-row" role="list" aria-label="Flujo principal">
+                            <div class="flow-card" role="listitem">
+                                <div class="icon">📡</div>
+                                <strong>Sensor</strong>
+                                <small>Detecta falta de leche</small>
+                            </div>
 
-                    <div class="flow-diagram">
-                        <div class="flow-step">🛒<strong>Agrega</strong><small>Lista de compras</small></div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">🚚<strong>Ordena</strong><small>Automáticamente</small></div>
+                            <div class="flow-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12h14M13 5l8 7-8 7"/></svg>
+                            </div>
+
+                            <div class="flow-card" role="listitem">
+                                <div class="icon">📶</div>
+                                <strong>Envío</strong>
+                                <small>Datos a la nube</small>
+                            </div>
+
+                            <div class="flow-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12h14M13 5l8 7-8 7"/></svg>
+                            </div>
+
+                            <div class="flow-card" role="listitem">
+                                <div class="icon">🧠</div>
+                                <strong>Análisis</strong>
+                                <small>IA procesa</small>
+                            </div>
+
+                            <div class="flow-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12h14M13 5l8 7-8 7"/></svg>
+                            </div>
+
+                            <div class="flow-card" role="listitem">
+                                <div class="icon">📱</div>
+                                <strong>Acción</strong>
+                                <small>Notifica usuario</small>
+                            </div>
+                        </div>
+
+                        <div class="flow-row" role="list" aria-label="Flujo de compras" style="margin-top: var(--space-3)">
+                            <div class="flow-card flow-card--muted" role="listitem">
+                                <div class="icon">🛒</div>
+                                <strong>Agrega</strong>
+                                <small>Lista de compras</small>
+                            </div>
+
+                            <div class="flow-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12h14M13 5l8 7-8 7"/></svg>
+                            </div>
+
+                            <div class="flow-card flow-card--muted" role="listitem">
+                                <div class="icon">🚚</div>
+                                <strong>Ordena</strong>
+                                <small>Automáticamente</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <h3>Flujo Básico de un Sistema IoT</h3>
-                <pre><code>Sensor ──► Gateway ──► Nube ──► Analítica ──► Acción</code></pre>
+                <div class="basic-flow" role="list" aria-label="Flujo básico de un sistema IoT">
+                    <div class="basic-step" role="listitem">Sensor</div>
+                    <div class="basic-chevron" aria-hidden="true">→</div>
+                    <div class="basic-step" role="listitem">Gateway</div>
+                    <div class="basic-chevron" aria-hidden="true">→</div>
+                    <div class="basic-step" role="listitem">Nube</div>
+                    <div class="basic-chevron" aria-hidden="true">→</div>
+                    <div class="basic-step" role="listitem">Analítica</div>
+                    <div class="basic-chevron" aria-hidden="true">→</div>
+                    <div class="basic-step" role="listitem">Acción</div>
+                </div>
 
                 <table>
                     <thead>
