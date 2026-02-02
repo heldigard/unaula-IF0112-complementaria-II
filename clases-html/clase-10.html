@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 10: Examen Parcial (E3) | IF0112 - Complementaria II (IoT)</title>
+    <style>
+
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
+            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
+            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card h4 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Clase 10: Examen Parcial (E3)</h1>
+        <p class="subtitle">Evaluación del Primer Seguimiento - 20%</p>
+        <p class="meta">
+            IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+        </p>
+    </header>
+    
+    <div class="alert-box">
+        <h3>⚠️ Información Importante</h3>
+        <p><strong>Fecha límite:</strong> Antes del 27 de marzo<br>
+        <strong>Modalidad:</strong> Individual, sin consulta<br>
+        <strong>Duración:</strong> 90 minutos<br>
+        <strong>Peso en nota final:</strong> 20%</p>
+    </div>
+    
+    <nav>
+        <ul>
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#estructura">Estructura</a></li>
+            <li><a href="#temas">Temas a Evaluar</a></li>
+            <li><a href="#ejemplos">Ejemplos</a></li>
+            <li><a href="#conceptos">Conceptos Clave</a></li>
+            <li><a href="#formulas">Fórmulas</a></li>
+            <li><a href="#tiempo">Gestión del Tiempo</a></li>
+            <li><a href="#reglas">Reglas</a></li>
+            <li><a href="#referencias">Referencias</a></li>
+        </ul>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </nav>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+    <main>
+        <!-- Objetivos -->
+        <section id="objetivos">
+            <h2>🎯 Objetivos del Examen Parcial</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Enfoque de la Evaluación</h4>
+                <p>Este examen parcial (20% de la nota) evalúa la <strong>comprensión integral</strong> de IoT cubierto en clases 1-9. Incluye: conceptos fundamentales, arquitectura, programación, protocolos y conectividad.</p>
+            </div>
+            
+            <p>Este examen evalúa la comprensión integral de los conceptos fundamentales de IoT cubiertos en las clases 1-9. El estudiante deberá demostrar capacidad para:</p>
+            
+            <ol>
+                <li><strong>Conceptos fundamentales de IoT:</strong> Definir y explicar los pilares del IoT, su evolución y aplicaciones</li>
+                <li><strong>Arquitectura de sistemas IoT:</strong> Diseñar y justificar arquitecturas de 3 capas (Device/Edge/Cloud)</li>
+                <li><strong>Programación de microcontroladores:</strong> Interpretar código Arduino/ESP32 y seleccionar sensores/actuadores apropiados</li>
+                <li><strong>Protocolos de comunicación:</strong> Comparar HTTP vs MQTT, explicar QoS, seleccionar protocolos según caso</li>
+                <li><strong>Conectividad y redes:</strong> Diferenciar tipos de redes (LAN, WAN, LPWAN) y tecnologías (WiFi, LoRa, NB-IoT)</li>
+            </ol>
+
+            <div class="hardware-notice">
+                <strong>💻 Factibilidad Windows:</strong> Este examen es una guía teórica de estudio. No requiere instalación de software ni hardware específico. Todo el contenido se puede estudiar directamente en el navegador en Windows.
+            </div>
+        </section>
+        
+        <!-- Estructura -->
+        <section id="estructura">
+            <h2>📋 Estructura del Examen</h2>
+            
+            <table class="table-exam">
+                <thead>
+                    <tr>
+                        <th>Sección</th>
+                        <th>Puntos</th>
+                        <th>Preguntas</th>
+                        <th>Tiempo Sugerido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Selección múltiple</strong></td>
+                        <td>30</td>
+                        <td>15 preguntas (2 pts c/u)</td>
+                        <td>15 minutos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Verdadero/Falso</strong></td>
+                        <td>10</td>
+                        <td>10 preguntas (1 pt c/u)</td>
+                        <td>10 minutos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desarrollo corto</strong></td>
+                        <td>30</td>
+                        <td>3 preguntas (10 pts c/u)</td>
+                        <td>25 minutos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso de análisis</strong></td>
+                        <td>30</td>
+                        <td>1 caso completo (3 partes)</td>
+                        <td>30 minutos</td>
+                    </tr>
+                    <tr style="background: #dbeafe; font-weight: bold;">
+                        <td>TOTAL</td>
+                        <td>100</td>
+                        <td>29 preguntas + 1 caso</td>
+                        <td>80 min + 10 revisión</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⏱️ Importante: Gestión del Tiempo</h4>
+                <p>El examen está diseñado para 90 minutos. Se recomienda no detenerse demasiado en una sola pregunta. Si no sabe una respuesta, márchela y continúe; puede volver al final si hay tiempo.</p>
+            </div>
+        </section>
+        
+        <!-- Temas -->
+        <section id="temas">
+            <h2>📚 Temas a Evaluar</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Temas Clave</h4>
+                <p>El examen cubre <strong>6 áreas principales</strong>: fundamentos de IoT, hardware, redes, protocolos, arquitecturas y casos de aplicación. Repase las clases 1-9 y los ejemplos de esta guía.</p>
+            </div>
+            
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h4>🌐 Unidad 1: ¿Qué es IoT?</h4>
+                    <ul>
+                        <li>Evolución de Internet (ARPANET → Web → IoT)</li>
+                        <li>Pilares: Personas, Procesos, Datos, Cosas</li>
+                        <li>Pirámide DIKW (Datos → Información → Conocimiento → Sabiduría)</li>
+                        <li>Empresas inteligentes (Smart Business)</li>
+                        <li>Ciudades inteligentes (Smart Cities)</li>
+                        <li>Tipos de redes: PAN, LAN, WAN, LPWAN</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>⚙️ Unidad 2: La Piedra Angular de IoT</h4>
+                    <ul>
+                        <li>Microcontroladores (Arduino, ESP32)</li>
+                        <li>Sensores: temperatura, humedad, distancia, luz, movimiento</li>
+                        <li>Actuadores: LEDs, relés, motores, servos</li>
+                        <li>Protocolos: HTTP (request-response), MQTT (pub-sub)</li>
+                        <li>Niveles de QoS en MQTT (0, 1, 2)</li>
+                        <li>Edge vs Cloud Computing</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>🔧 Dispositivos y Hardware</h4>
+                    <ul>
+                        <li>Arduino UNO/Nano: especificaciones, pines</li>
+                        <li>ESP32: WiFi, Bluetooth, dual-core</li>
+                        <li>Raspberry Pi: uso como gateway</li>
+                        <li>DHT11 vs DHT22: especificaciones</li>
+                        <li>Sensor ultrasónico HC-SR04</li>
+                        <li>Sensor PIR (movimiento)</li>
+                        <li>LDR (fotorresistencia)</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>🌐 Redes y Conectividad</h4>
+                    <ul>
+                        <li>WiFi: alcance, velocidad, consumo</li>
+                        <li>Bluetooth/BLE: corto alcance, bajo consumo</li>
+                        <li>LoRaWAN: largo alcance, baja velocidad</li>
+                        <li>NB-IoT: cobertura celular, bajo consumo</li>
+                        <li>Selección de red según caso de uso</li>
+                        <li>Arquitectura de 3 capas (Device/Edge/Cloud)</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>📡 Protocolos de Comunicación</h4>
+                    <ul>
+                        <li>HTTP: puerto 80, request-response</li>
+                        <li>HTTPS: puerto 443, con TLS</li>
+                        <li>MQTT: puerto 1883 (8883 TLS)</li>
+                        <li>MQTT Topics y Wildcards (+, #)</li>
+                        <li>QoS 0 (at most once)</li>
+                        <li>QoS 1 (at least once)</li>
+                        <li>QoS 2 (exactly once)</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>☁️ Arquitecturas</h4>
+                    <ul>
+                        <li>Edge Computing: procesamiento local</li>
+                        <li>Cloud Computing: procesamiento centralizado</li>
+                        <li>Fog Computing: capa intermedia</li>
+                        <li>Gateway IoT: funciones y traducción</li>
+                        <li>IT vs OT: diferencias y convergencia</li>
+                        <li>Cuándo usar Edge vs Cloud</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Ejemplos -->
+        <section id="ejemplos">
+            <h2>💡 Ejemplos de Preguntas</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Estrategia de Respuesta</h4>
+                <p>Los ejemplos a continuación muestran el <strong>formato y nivel de profundidad</strong> esperado. Lea atentamente todas las opciones antes de responder. En caso de duda, elimine las opciones claramente incorrectas.</p>
+            </div>
+            
+            <h3>🅰️ Selección Múltiple</h3>
+            
+            <div class="question-box">
+                <h4>Pregunta 1 (2 puntos)</h4>
+                <p><strong>¿Cuál es la característica principal de MQTT?</strong></p>
+                <ul class="question-options">
+                    <li data-option="a)">Modelo request-response</li>
+                    <li data-option="b)" class="correct">Modelo publish-subscribe</li>
+                    <li data-option="c)">Solo funciona con HTTP</li>
+                    <li data-option="d)">Requiere conexión permanente a Internet</li>
+                </ul>
+                <div class="answer-box">
+                    <h5>Respuesta Correcta: b)</h5>
+                    <p>MQTT utiliza el modelo publish-subscribe donde los clientes se suscriben a topics y reciben mensajes publicados en esos topics, sin necesidad de conocer al publicador.</p>
+                </div>
+            </div>
+            
+            <div class="question-box">
+                <h4>Pregunta 2 (2 puntos)</h4>
+                <p><strong>Un sensor DHT11 se comunica mediante:</strong></p>
+                <ul class="question-options">
+                    <li data-option="a)">Protocolo I2C</li>
+                    <li data-option="b)">Protocolo SPI</li>
+                    <li data-option="c)" class="correct">Pin digital con protocolo propietario</li>
+                    <li data-option="d)">Conexión analógica</li>
+                </ul>
+                <div class="answer-box">
+                    <h5>Respuesta Correcta: c)</h5>
+                    <p>El DHT11 utiliza un pin digital con su propio protocolo de comunicación (single-wire). Requiere la librería DHT para Arduino/ESP32.</p>
+                </div>
+            </div>
+            
+            <div class="question-box">
+                <h4>Pregunta 3 (2 puntos)</h4>
+                <p><strong>¿Qué tecnología de red es más adecuada para sensores agrícolas a 5 km del gateway con batería que debe durar 5 años?</strong></p>
+                <ul class="question-options">
+                    <li data-option="a)">WiFi</li>
+                    <li data-option="b)" class="correct">LoRaWAN</li>
+                    <li data-option="c)">Bluetooth</li>
+                    <li data-option="d)">Zigbee</li>
+                </ul>
+                <div class="answer-box">
+                    <h5>Respuesta Correcta: b)</h5>
+                    <p>LoRaWAN ofrece largo alcance (hasta 15 km rural), bajo consumo (años de batería) y es ideal para aplicaciones agrícolas donde no hay infraestructura eléctrica cercana.</p>
+                </div>
+            </div>
+            
+            <h3>🅱️ Verdadero/Falso</h3>
+            
+            <div class="question-box">
+                <h4>Preguntas de V/F (1 punto cada una)</h4>
+                <p>Indique <strong>V</strong> si la afirmación es verdadera o <strong>F</strong> si es falsa:</p>
+                
+                <table style="margin-top: 1rem;">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">V/F</th>
+                            <th>Afirmación</th>
+                            <th style="width: 15%;">Respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. ____</td>
+                            <td>Edge Computing procesa datos más cerca de la fuente que Cloud Computing.</td>
+                            <td><strong>V</strong> - Edge = local, Cloud = remoto</td>
+                        </tr>
+                        <tr>
+                            <td>2. ____</td>
+                            <td>El ESP32 tiene WiFi y Bluetooth integrado.</td>
+                            <td><strong>V</strong> - Característica principal del ESP32</td>
+                        </tr>
+                        <tr>
+                            <td>3. ____</td>
+                            <td>MQTT usa el puerto 80 por defecto.</td>
+                            <td><strong>F</strong> - MQTT usa 1883 (80 es HTTP)</td>
+                        </tr>
+                        <tr>
+                            <td>4. ____</td>
+                            <td>Un actuador captura datos del mundo físico.</td>
+                            <td><strong>F</strong> - Los actuadores <em>ejecutan</em> acciones; los sensores capturan</td>
+                        </tr>
+                        <tr>
+                            <td>5. ____</td>
+                            <td>LoRaWAN es ideal para transmitir video en tiempo real.</td>
+                            <td><strong>F</strong> - LoRaWAN tiene baja velocidad (ideal para datos pequeños)</td>
+                        </tr>
+                        <tr>
+                            <td>6. ____</td>
+                            <td>La pirámide DIKW representa la jerarquía Datos → Información → Conocimiento → Sabiduría.</td>
+                            <td><strong>V</strong> - DIKW = Data, Information, Knowledge, Wisdom</td>
+                        </tr>
+                        <tr>
+                            <td>7. ____</td>
+                            <td>QoS 2 en MQTT garantiza entrega exactamente una vez.</td>
+                            <td><strong>V</strong> - "Exactly once" = sin duplicados ni pérdidas</td>
+                        </tr>
+                        <tr>
+                            <td>8. ____</td>
+                            <td>Un gateway IoT solo sirve para conectar dispositivos a Internet.</td>
+                            <td><strong>F</strong> - También traduce protocolos, filtra, agrega datos, etc.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>✏️ Desarrollo Corto</h3>
+            
+            <div class="question-box">
+                <h4>Pregunta de Desarrollo (10 puntos)</h4>
+                <p><strong>Explique las diferencias entre los niveles de QoS en MQTT (QoS 0, 1 y 2). Para cada nivel, indique un caso de uso apropiado.</strong></p>
+                
+                <div class="answer-box">
+                    <h5>Respuesta Esperada (10 puntos)</h5>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>QoS</th>
+                                <th>Significado</th>
+                                <th>Caso de Uso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>QoS 0</strong></td>
+                                <td>"At most once" - El mensaje puede perderse. Fire and forget. Mínima latencia.</td>
+                                <td>Lecturas frecuentes de sensores de temperatura donde perder una lectura no es crítico.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>QoS 1</strong></td>
+                                <td>"At least once" - El mensaje se entrega al menos una vez, puede duplicarse.</td>
+                                <td>Comandos importantes como encender una válvula de riego.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>QoS 2</strong></td>
+                                <td>"Exactly once" - Entrega garantizada y única. Mayor overhead.</td>
+                                <td>Transacciones críticas como registros de facturación o alarmas de seguridad.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <h3>📊 Caso de Análisis</h3>
+            
+            <div class="case-study">
+                <h4>🌾 Caso: Sistema de Riego Inteligente (30 puntos)</h4>
+                
+                <p><strong>Escenario:</strong> Una finca de café en la montaña requiere un sistema de riego automatizado con las siguientes características:</p>
+                
+                <ul>
+                    <li>20 sensores de humedad del suelo distribuidos en 5 hectáreas</li>
+                    <li>5 estaciones meteorológicas (temperatura, lluvia, viento)</li>
+                    <li>10 válvulas de riego controlables remotamente</li>
+                    <li>Monitoreo desde una app móvil en tiempo real</li>
+                    <li>Operación autónoma incluso sin conexión a Internet</li>
+                    <li>La finca tiene conectividad celular intermitente</li>
+                </ul>
+                
+                <h4 style="margin-top: 1.5rem;">Preguntas del Caso:</h4>
+                
+                <div class="question-box" style="background: white; margin: 1rem 0;">
+                    <h4>Pregunta 1 (10 puntos)</h4>
+                    <p><strong>Diseñe la arquitectura del sistema indicando:</strong></p>
+                    <ul>
+                        <li>Dispositivos en la capa de percepción</li>
+                        <li>Componentes en la capa Edge/Gateway</li>
+                        <li>Servicios en la capa Cloud</li>
+                        <li>Protocolos de comunicación entre capas</li>
+                    </ul>
+                    
+                    <div class="answer-box">
+                        <h5>Respuesta Esperada</h5>
+                        <ul>
+                            <li><strong>Percepción:</strong> Sensores de humedad capacitivos, estaciones meteorológicas con sensores DHT22 y pluviómetros, válvulas motorizadas con actuadores, microcontroladores ESP32 en cada nodo.</li>
+                            <li><strong>Edge:</strong> Gateway LoRaWAN (como Dragino o RAK) que recibe datos de sensores remotos, Raspberry Pi para procesamiento local, almacenamiento buffer para cuando no hay Internet.</li>
+                            <li><strong>Cloud:</strong> Plataforma IoT (AWS IoT o similar), base de datos histórica, servidor de aplicación para la app móvil, dashboard web.</li>
+                            <li><strong>Protocolos:</strong> LoRaWAN (sensores al gateway), MQTT (gateway a cloud), HTTP/REST (API a app móvil).</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="question-box" style="background: white; margin: 1rem 0;">
+                    <h4>Pregunta 2 (10 puntos)</h4>
+                    <p><strong>Justifique la selección del protocolo de comunicación para los sensores de humedad.</strong> ¿Por qué no usar WiFi o celular directamente?</p>
+                    
+                    <div class="answer-box">
+                        <h5>Respuesta Esperada</h5>
+                        <p><strong>LoRaWAN es la mejor opción porque:</strong></p>
+                        <ul>
+                            <li><strong>Alcance:</strong> Los sensores están a 5 hectáreas (500m x 100m), WiFi no alcanza esas distancias sin repetidores.</li>
+                            <li><strong>Batería:</strong> Los sensores deben operar con batería por años; LoRaWAN tiene muy bajo consumo vs WiFi/celular.</li>
+                            <li><strong>Costo:</strong> No requiere plan de datos celular para cada sensor.</li>
+                            <li><strong>Velocidad de datos:</strong> Los sensores de humedad envían pocos bytes cada hora; LoRaWAN es suficiente.</li>
+                            <li><strong>Contra WiFi:</strong> WiFi tiene alto consumo, menor alcance y requiere infraestructura de energía.</li>
+                            <li><strong>Contra celular:</strong> Costos de plan de datos, mayor consumo, puede ser excesivo para datos simples.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="question-box" style="background: white; margin: 1rem 0;">
+                    <h4>Pregunta 3 (10 puntos)</h4>
+                    <p><strong>Explique cómo manejaría la operación sin conexión a Internet.</strong> ¿Qué componentes y lógica se requieren?</p>
+                    
+                    <div class="answer-box">
+                        <h5>Respuesta Esperada</h5>
+                        <ul>
+                            <li><strong>Gateway Edge autónomo:</strong> Raspberry Pi o similar ejecutando Node-RED o código Python localmente.</li>
+                            <li><strong>Lógica de riego local:</strong> Reglas programadas en el gateway (ej: "si humedad < 30% y no llovió hoy, abrir válvula 5 min").</li>
+                            <li><strong>Buffer de datos:</strong> Almacenar lecturas en SD card o SQLite mientras no hay conexión.</li>
+                            <li><strong>Sincronización:</strong> Cuando regresa Internet, enviar datos históricos a la nube.</li>
+                            <li><strong>Modo offline:</strong> App móvil puede conectarse directamente al gateway por Bluetooth o WiFi local si está cerca.</li>
+                            <li><strong>QoS MQTT:</strong> Usar QoS 1 para comandos importantes que deben ejecutarse cuando regrese la conexión.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Conceptos Clave -->
+        <section id="conceptos">
+            <h2>🔑 Conceptos Clave para Repasar</h2>
+            
+            <h3>🔧 Dispositivos</h3>
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h4>Arduino UNO/Nano</h4>
+                    <ul>
+                        <li>Microcontrolador ATMega328P</li>
+                        <li>Flash: 32KB, SRAM: 2KB</li>
+                        <li>Voltaje: 5V lógica</li>
+                        <li>Pines: 14 digitales, 6 analógicos</li>
+                        <li>No tiene WiFi nativo</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>ESP32</h4>
+                    <ul>
+                        <li>Dual-core Xtensa LX6</li>
+                        <li>WiFi 802.11 b/g/n</li>
+                        <li>Bluetooth 4.2 + BLE</li>
+                        <li>Flash: 4MB típico</li>
+                        <li>Voltaje: 3.3V (¡cuidado!)</li>
+                        <li>ADC: 12 bits (0-4095)</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>Sensores Comunes</h4>
+                    <ul>
+                        <li><strong>DHT11:</strong> Temp 0-50°C (±2°C), Hum 20-80% (±5%)</li>
+                        <li><strong>DHT22:</strong> Mayor precisión y rango</li>
+                        <li><strong>HC-SR04:</strong> Ultrasónico 2cm-4m</li>
+                        <li><strong>PIR:</strong> Infrarrojo pasivo (movimiento)</li>
+                        <li><strong>LDR:</strong> Fotorresistencia (luz)</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>Actuadores</h4>
+                    <ul>
+                        <li><strong>LED:</strong> Indicador simple</li>
+                        <li><strong>Relé:</strong> Control ON/OFF AC/DC</li>
+                        <li><strong>Motor DC:</strong> Requiere driver (L298N)</li>
+                        <li><strong>Servo:</strong> Posición angular precisa</li>
+                        <li><strong>Válvula solenoide:</strong> Control de fluidos</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>🌐 Redes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tecnología</th>
+                        <th>Alcance</th>
+                        <th>Velocidad</th>
+                        <th>Consumo</th>
+                        <th>Uso Ideal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>WiFi</strong></td>
+                        <td>~50m</td>
+                        <td>Alta (Mbps)</td>
+                        <td>Alto</td>
+                        <td>Dispositivos conectados, video</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bluetooth</strong></td>
+                        <td>~10m</td>
+                        <td>Media</td>
+                        <td>Bajo</td>
+                        <td>Wearables, control cercano</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LoRaWAN</strong></td>
+                        <td>~15km rural</td>
+                        <td>Muy baja (kbps)</td>
+                        <td>Muy bajo</td>
+                        <td>Sensores agrícolas, remotos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NB-IoT</strong></td>
+                        <td>Cobertura celular</td>
+                        <td>Baja</td>
+                        <td>Bajo</td>
+                        <td>Smart cities, medidores</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📡 Protocolos</h3>
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h4>HTTP (REST)</h4>
+                    <ul>
+                        <li>Modelo: Request-Response</li>
+                        <li>Puerto: 80 (443 HTTPS)</li>
+                        <li>Overhead: Alto (headers)</li>
+                        <li>Ideal: APIs web, GET/POST</li>
+                        <li>Ejemplo: HTTP GET /api/sensor/1</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>MQTT</h4>
+                    <ul>
+                        <li>Modelo: Publish-Subscribe</li>
+                        <li>Puerto: 1883 (8883 TLS)</li>
+                        <li>Overhead: Bajo</li>
+                        <li>Ideal: IoT, mensajes pequeños</li>
+                        <li>Topics: casa/sensor/temperatura</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>MQTT QoS</h4>
+                    <ul>
+                        <li><strong>QoS 0:</strong> At most once</li>
+                        <li><strong>QoS 1:</strong> At least once</li>
+                        <li><strong>QoS 2:</strong> Exactly once</li>
+                        <li>Mayor QoS = más overhead</li>
+                        <li>Elegir según criticidad</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h4>Wildcards MQTT</h4>
+                    <ul>
+                        <li><strong>+ :</strong> Un solo nivel<br><code>casa/+/temperatura</code></li>
+                        <li><strong># :</strong> Múltiples niveles<br><code>casa/sensor/#</code></li>
+                        <li># debe ir al final</li>
+                        <li>+ puede ir en cualquier nivel</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>☁️ Arquitecturas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Edge Computing</th>
+                        <th>Cloud Computing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ubicación</strong></td>
+                        <td>Cerca de fuente de datos</td>
+                        <td>Centros de datos remotos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latencia</strong></td>
+                        <td>1-10 ms</td>
+                        <td>100-500 ms</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ancho de banda</strong></td>
+                        <td>Reduce tráfico a cloud</td>
+                        <td>Requiere más transferencia</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internet</strong></td>
+                        <td>Puede operar offline</td>
+                        <td>Requerido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Procesamiento</strong></td>
+                        <td>Limitado (gateway)</td>
+                        <td>Ilimitado (escalable)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cuándo usar</strong></td>
+                        <td>Latencia crítica, offline</td>
+                        <td>ML, históricos, escala</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Fórmulas -->
+        <section id="formulas">
+            <h2>📐 Fórmulas y Datos Útiles</h2>
+            
+            <div class="formulas-box">
+                <h4>🚪 Puertos por Defecto</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protocolo</th>
+                            <th>Puerto</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HTTP</td>
+                            <td><strong>80</strong></td>
+                            <td>Web sin cifrar</td>
+                        </tr>
+                        <tr>
+                            <td>HTTPS</td>
+                            <td><strong>443</strong></td>
+                            <td>Web con TLS/SSL</td>
+                        </tr>
+                        <tr>
+                            <td>MQTT</td>
+                            <td><strong>1883</strong></td>
+                            <td>IoT sin cifrar</td>
+                        </tr>
+                        <tr>
+                            <td>MQTT TLS</td>
+                            <td><strong>8883</strong></td>
+                            <td>IoT con TLS/SSL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="formulas-box">
+                <h4>⚡ ESP32 ADC</h4>
+                <ul>
+                    <li><strong>Resolución:</strong> 12 bits</li>
+                    <li><strong>Rango digital:</strong> 0 - 4095</li>
+                    <li><strong>Voltaje de referencia:</strong> 0 - 3.3V</li>
+                    <li><strong>Fórmula de conversión:</strong></li>
+                </ul>
+                <pre style="background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; margin-top: 1rem;">voltaje = (lectura_ADC / 4095.0) * 3.3;</pre>
+            </div>
+            
+            <div class="formulas-box">
+                <h4>🌡️ DHT11 Especificaciones</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Rango</th>
+                            <th>Precisión</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Temperatura</td>
+                            <td>0 - 50°C</td>
+                            <td>±2°C</td>
+                        </tr>
+                        <tr>
+                            <td>Humedad</td>
+                            <td>20 - 80% RH</td>
+                            <td>±5% RH</td>
+                        </tr>
+                        <tr>
+                            <td>Tasa de muestreo</td>
+                            <td colspan="2">1 lectura/segundo máximo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="formulas-box">
+                <h4>📏 Sensor Ultrasónico HC-SR04</h4>
+                <ul>
+                    <li><strong>Rango:</strong> 2 cm - 400 cm (4 metros)</li>
+                    <li><strong>Precisión:</strong> ±3 mm</li>
+                    <li><strong>Fórmula de distancia:</strong></li>
+                </ul>
+                <pre style="background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; margin-top: 1rem;">// Velocidad del sonido = 343 m/s (aprox 29.1 µs/cm)
+distancia_cm = (duracion_pulso_us / 2) / 29.1;
+
+// O equivalente:
+distancia_cm = duracion_pulso_us * 0.017;</pre>
+            </div>
+        </section>
+        
+        <!-- Gestión del Tiempo -->
+        <section id="tiempo">
+            <h2>⏱️ Distribución del Tiempo Sugerida</h2>
+            
+            <div class="timeline">
+                <h4>📅 Planificación de 90 Minutos</h4>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">0:00 - 0:05</div>
+                    <div class="timeline-content">
+                        <strong>Lectura general del examen</strong><br>
+                        Leer todas las preguntas primero. Identificar las más fáciles y las que requieren más tiempo.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">0:05 - 0:20</div>
+                    <div class="timeline-content">
+                        <strong>Selección múltiple (15 preguntas)</strong><br>
+                        15 minutos máximo. No detenerse en dudas; marcar y continuar.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">0:20 - 0:30</div>
+                    <div class="timeline-content">
+                        <strong>Verdadero/Falso (10 preguntas)</strong><br>
+                        10 minutos. Generalmente rápidas si conoce los conceptos.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">0:30 - 0:55</div>
+                    <div class="timeline-content">
+                        <strong>Desarrollo corto (3 preguntas)</strong><br>
+                        25 minutos (~8 min por pregunta). Ser conciso pero completo.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">0:55 - 1:25</div>
+                    <div class="timeline-content">
+                        <strong>Caso de análisis</strong><br>
+                        30 minutos. Leer cuidadosamente, identificar los 3 componentes del caso.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">1:25 - 1:30</div>
+                    <div class="timeline-content">
+                        <strong>Revisión final</strong><br>
+                        5 minutos. Verificar preguntas marcadas para revisión, revisar nombres y código.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box info">
+                <h4>💡 Estrategia de Respuesta</h4>
+                <ol>
+                    <li><strong>Primero lo fácil:</strong> Responda primero las preguntas que domina para ganar confianza y tiempo.</li>
+                    <li><strong>Marque las dudosas:</strong> Si no está seguro, marque la pregunta y continúe. Vuelva al final si hay tiempo.</li>
+                    <li><strong>No deje en blanco:</strong> En selección múltiple, si no sabe, intente eliminar opciones obviamente incorrectas y adivine entre las restantes.</li>
+                    <li><strong>Caso de análisis:</strong> Lea todo el caso antes de responder. A veces una pregunta posterior da pistas para una anterior.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Reglas -->
+        <section id="reglas">
+            <h2>📜 Reglas del Examen</h2>
+            
+            <div class="rules-box">
+                <div class="rules-allowed">
+                    <h4>✅ Permitido</h4>
+                    <ul>
+                        <li>Bolígrafo azul o negro</li>
+                        <li>Calculadora básica (no programable)</li>
+                        <li>Diccionario español-inglés (si aplica)</li>
+                        <li>Tinta correctora (de ser necesario)</li>
+                        <li>Reloj (no smartwatch)</li>
+                    </ul>
+                </div>
+                
+                <div class="rules-forbidden">
+                    <h4>❌ No Permitido</h4>
+                    <ul>
+                        <li>Celulares (deben estar apagados y guardados)</li>
+                        <li>Apuntes, libros o cualquier material de consulta</li>
+                        <li>Comunicación con compañeros</li>
+                        <li>Tablets, laptops o cualquier dispositivo electrónico</li>
+                        <li>Smartwatches o dispositivos vestibles</li>
+                        <li>Audífonos</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box danger">
+                <h4>⚠️ Penalizaciones Severas</h4>
+                <ul>
+                    <li><strong>Copia o intento de copia:</strong> Nota 0.0 para ambos estudiantes involucrados</li>
+                    <li><strong>Uso de celular durante el examen:</strong> Retiro inmediato del examen y nota 0.0</li>
+                    <li><strong>Uso de apuntes:</strong> Retiro del examen y procedimiento disciplinario</li>
+                    <li><strong>Sustitución de persona:</strong> Reporte académico y sanciones según reglamento</li>
+                </ul>
+            </div>
+            
+            <h3>Recomendaciones Antes del Examen</h3>
+            <div class="info-box success">
+                <h4>📚 Preparación</h4>
+                <ul>
+                    <li>Revisar todas las presentaciones de las clases 1-9</li>
+                    <li>Estudiar los diagramas de arquitectura (3 capas)</li>
+                    <li>Repasar protocolos y sus diferencias clave</li>
+                    <li>Practicar diseño de sistemas IoT (arquitectura)</li>
+                    <li>Memorizar puertos de protocolos (HTTP, MQTT)</li>
+                    <li>Repasar especificaciones de sensores comunes</li>
+                </ul>
+            </div>
+            
+            <h3>Recomendaciones Durante el Examen</h3>
+            <div class="info-box warning">
+                <h4>🎯 Estrategia</h4>
+                <ul>
+                    <li>Leer todas las preguntas primero</li>
+                    <li>Distribuir el tiempo por sección según sugerencia</li>
+                    <li>En desarrollo, ser conciso pero completo (no excederse)</li>
+                    <li>En el caso de análisis, usar diagramas si ayuda a clarificar</li>
+                    <li>Revisar respuestas si queda tiempo al final</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Próximos pasos -->
+        <section>
+            <h2>📋 Después del Examen</h2>
+            
+            <h3>Revisión de Notas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        <th>Fecha/Tiempo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Publicación de notas</td>
+                        <td>5 días hábiles después del examen</td>
+                    </tr>
+                    <tr>
+                        <td>Periodo de reclamaciones</td>
+                        <td>3 días hábiles después de publicación</td>
+                    </tr>
+                    <tr>
+                        <td>Retroalimentación en clase</td>
+                        <td>Clase siguiente a la publicación</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Temas Pendientes (Segundo Seguimiento)</h3>
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h4>Próximas Clases</h4>
+                    <ul>
+                        <li>Clase 11: Futuro de IoT y 5G</li>
+                        <li>Clase 12: Conexiones M2M, M2P, P2P</li>
+                        <li>Clase 13: Caso de Estudio</li>
+                        <li>Clase 14: Marco Legal</li>
+                        <li>Clase 15: Estándares</li>
+                        <li>Clase 16: Proyecto Aplicado</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="referencias">
+            <h2>Referencias</h2>
+            <ul>
+                <li>Syllabus IF0112 - Complementaria II (IoT) - UNAULA 2026-I</li>
+                <li>Clases 01-09 - Material de teoría y práctica</li>
+                <li>Arduino y ESP32 - Documentación oficial</li>
+                <li>MQTT Protocol - OASIS Standard v3.1.1</li>
+                <li>WiFi para IoT - IEEE 802.11 Standards</li>
+                <li>Redes IoT - LoRaWAN, NB-IoT Specifications</li>
+                <li>Guías de laboratorio - Prácticas anteriores</li>
+            </ul>
+        </section>
+    </main>
+
+    <div class="success-banner">
+        <h2>🍀 ¡Éxitos en el Examen!</h2>
+        <p>Recuerden:</p>
+        <p style="font-size: 1.1rem; margin-top: 1rem;">✓ Llegar 10 minutos antes &nbsp;|&nbsp; ✓ Traer documento de identidad &nbsp;|&nbsp; ✓ Descansar bien la noche anterior &nbsp;|&nbsp; ✓ Confiar en su preparación</p>
+    </div>
+    
+    <footer>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
+        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,4506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 3: Transformación del Entorno - IF0112 Complementaria II (IoT)</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header .container {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card h4 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* Cards grid (legacy support) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+            padding-left: var(--space-6);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+            background: var(--bg-secondary);
+            padding: var(--space-3);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            border: 1px solid var(--border-light);
+            border-top: none;
+            margin-top: calc(-1 * var(--space-2));
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3, .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        /* ============================================
+           SPECIAL COMPONENTS (from clase-03)
+           ============================================ */
+        /* Highlight boxes */
+        .highlight {
+            background: #dbeafe;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-4) var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .highlight-success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+
+        .highlight-warning {
+            background: #fef3c7;
+            border-left-color: var(--color-accent);
+        }
+
+        .highlight-danger {
+            background: #fee2e2;
+            border-left-color: #ef4444;
+        }
+
+        /* Infographic section - improved layout */
+        .infographic-grid {
+            display: grid;
+            grid-template-columns: 1fr 220px minmax(260px, 360px);
+            gap: var(--space-6);
+            align-items: center;
+            margin: var(--space-8) 0;
+        }
+
+        .infographic-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .infographic-list .card {
+            text-align: left;
+            display: flex;
+            gap: var(--space-4);
+            align-items: center;
+            padding: var(--space-4);
+            min-height: 64px;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .card .icon {
+            font-size: 1.5rem;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(30,64,175,0.08);
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .infographic-arrows {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .card--hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-lg);
+            border: none;
+            padding: var(--space-6);
+            text-align: center;
+            min-height: 160px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            border-radius: var(--radius-xl);
+        }
+
+        .card--small {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+        }
+
+        .card--small h4 {
+            margin: 0;
+            font-size: var(--text-base);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .muted {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .card--hero h4 {
+            margin: 0 0 var(--space-2);
+            font-size: var(--text-xl);
+            font-weight: 700;
+        }
+
+        .card:focus, .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            outline: 2px solid rgba(99,102,241,0.12);
+            outline-offset: 0;
+        }
+
+        @media (max-width: 900px) {
+            .infographic-grid {
+                grid-template-columns: 1fr;
+            }
+            .infographic-arrows {
+                transform: rotate(90deg);
+                padding: var(--space-4) 0;
+            }
+            .card--hero {
+                margin-top: var(--space-4);
+            }
+        }
+
+        /* Learning key box */
+        .learning-key {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .learning-key h4 {
+            color: var(--text-inverse);
+            margin-top: 0;
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        /* ============================================
+           IOT ARCHITECTURE DIAGRAM
+           ============================================ */
+        .iot-architecture-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .arch-layer {
+            width: 100%;
+            max-width: 600px;
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .arch-layer:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-3);
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .layer-icon {
+            font-size: var(--text-2xl);
+        }
+
+        .layer-header h5 {
+            margin: 0;
+            font-size: var(--text-lg);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .arch-cloud {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+        }
+
+        .arch-cloud .layer-header h5 {
+            color: #1e40af;
+        }
+
+        .arch-cloud .layer-header {
+            border-bottom-color: rgba(30, 64, 175, 0.2);
+        }
+
+        .arch-edge {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+        }
+
+        .arch-edge .layer-header h5 {
+            color: #92400e;
+        }
+
+        .arch-edge .layer-header {
+            border-bottom-color: rgba(146, 64, 14, 0.2);
+        }
+
+        .arch-sensors {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+        }
+
+        .arch-sensors .layer-header h5 {
+            color: #065f46;
+        }
+
+        .arch-sensors .layer-header {
+            border-bottom-color: rgba(6, 95, 70, 0.2);
+        }
+
+        .layer-components {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+        }
+
+        .arch-component {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .component-icon {
+            font-size: var(--text-2xl);
+        }
+
+        .component-name {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+        }
+
+        .component-detail {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+
+        .arch-connection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-1);
+            height: 40px;
+        }
+
+        .connection-line {
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #f59e0b);
+            position: relative;
+        }
+
+        .connection-line::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #f59e0b;
+        }
+
+        .connection-label {
+            background: var(--color-primary);
+            color: white;
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: var(--space-1);
+        }
+
+        @media (max-width: 640px) {
+            .layer-components {
+                grid-template-columns: 1fr;
+            }
+
+            .iot-architecture-diagram {
+                padding: var(--space-4);
+            }
+
+            .arch-layer {
+                padding: var(--space-4);
+            }
+        }
+
+        /* ============================================
+         SENTILO PLATFORM DIAGRAM
+         ============================================ */
+        .sentilo-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sentilo-layer {
+            width: 100%;
+            max-width: 550px;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .sentilo-layer:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .layer-header-simple {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .layer-icon-simple {
+            font-size: var(--text-xl);
+        }
+
+        .layer-header-simple h5 {
+            margin: 0;
+            font-size: var(--text-base);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sentilo-apps {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+        }
+
+        .sentilo-apps .layer-header-simple h5 {
+            color: #1e40af;
+        }
+
+        .sentilo-platform {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            padding: var(--space-5);
+        }
+
+        .sentilo-platform .layer-header-simple h5 {
+            color: #92400e;
+            margin-bottom: var(--space-4);
+        }
+
+        .sentilo-platform .layer-header-simple {
+            flex-direction: column;
+        }
+
+        .sentilo-protocols {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+            padding: var(--space-5);
+        }
+
+        .sentilo-protocols .layer-header-simple h5 {
+            color: #065f46;
+            margin-bottom: var(--space-4);
+        }
+
+        .sentilo-protocols .layer-header-simple {
+            flex-direction: column;
+        }
+
+        .sentilo-sensors {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border: 2px solid #ec4899;
+        }
+
+        .sentilo-sensors .layer-header-simple h5 {
+            color: #9f1239;
+        }
+
+        .layer-components-simple {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+        }
+
+        .sentilo-component {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .component-icon-simple {
+            font-size: var(--text-2xl);
+        }
+
+        .component-name-simple {
+            font-weight: 700;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sentilo-connection {
+            display: flex;
+            justify-content: center;
+            height: 30px;
+        }
+
+        .connection-arrow-down {
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #f59e0b);
+            position: relative;
+        }
+
+        .connection-arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #f59e0b;
+        }
+
+        @media (max-width: 640px) {
+            .layer-components-simple {
+                grid-template-columns: 1fr;
+            }
+
+            .sentilo-diagram {
+                padding: var(--space-4);
+            }
+
+            .sentilo-layer {
+                padding: var(--space-3);
+            }
+        }
+
+        /* ============================================
+           EXERCISE FORM (Printable Worksheet)
+           ============================================ */
+        .exercise-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-layer {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .form-layer-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-4);
+            border-bottom: 2px solid;
+        }
+
+        .form-layer-icon {
+            font-size: var(--text-2xl);
+        }
+
+        .form-layer-header h5 {
+            margin: 0;
+            font-size: var(--text-lg);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-app .form-layer-header {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-bottom-color: #3b82f6;
+        }
+
+        .form-app .form-layer-header h5 {
+            color: #1e40af;
+        }
+
+        .form-network .form-layer-header {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-bottom-color: #10b981;
+        }
+
+        .form-network .form-layer-header h5 {
+            color: #065f46;
+        }
+
+        .form-perception .form-layer-header {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-bottom-color: #f59e0b;
+        }
+
+        .form-perception .form-layer-header h5 {
+            color: #92400e;
+        }
+
+        .form-fields {
+            padding: var(--space-5);
+        }
+
+        .form-field {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-field label {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            min-width: 120px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .form-line {
+            flex: 1;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            position: relative;
+        }
+
+        .form-line::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-line-with-hint {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            flex: 1;
+        }
+
+        .form-line-short {
+            width: 150px;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            position: relative;
+        }
+
+        .form-line-short::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-hint {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .form-field-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-field-checkbox label {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            min-width: 120px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .checkboxes {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .checkbox-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #64748b;
+            border-radius: var(--radius-sm);
+            margin-right: var(--space-1);
+        }
+
+        .form-section {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-section-title {
+            display: block;
+            font-weight: 700;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-3);
+        }
+
+        .form-numbered-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .form-item-numbered {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .item-number {
+            font-weight: 700;
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            min-width: 30px;
+        }
+
+        .form-line-medium {
+            width: 200px;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            position: relative;
+        }
+
+        .form-line-medium::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-qty {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        .form-line-tiny {
+            width: 60px;
+            height: 28px;
+            border-bottom: 2px dotted #94a3b8;
+            display: inline-block;
+            position: relative;
+        }
+
+        .form-line-tiny::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #94a3b8 0px,
+                #94a3b8 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        .form-connection {
+            display: flex;
+            justify-content: center;
+            height: 25px;
+        }
+
+        .connection-arrow-down-small {
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #10b981);
+            position: relative;
+        }
+
+        .connection-arrow-down-small::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #10b981;
+        }
+
+        @media print {
+            .exercise-form {
+                background: white;
+                box-shadow: none;
+            }
+
+            .form-layer {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .form-layer {
+                max-width: 100%;
+            }
+
+            .form-field {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-2);
+            }
+
+            .form-field label {
+                min-width: auto;
+            }
+
+            .form-field-checkbox {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-item-numbered {
+                flex-wrap: wrap;
+            }
+        }
+
+        .learning-key p {
+            margin: 0;
+            font-size: var(--text-sm);
+            opacity: 0.95;
+        }
+
+        /* Info tooltip style */
+        .info-tooltip {
+            display: inline-block;
+            background: var(--color-primary-light);
+            color: var(--text-inverse);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: var(--text-xs);
+            line-height: 18px;
+            cursor: help;
+            margin-left: var(--space-2);
+            position: relative;
+        }
+
+        .info-tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            font-size: var(--text-xs);
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        /* ============================================
+           DONUT CHART - Sistema de Evaluación
+           ============================================ */
+        .evaluation-chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-10);
+            margin: var(--space-8) 0;
+            padding: var(--space-8);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+        }
+
+        .donut-chart {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            flex-shrink: 0;
+        }
+
+        .donut-chart svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .donut-chart circle {
+            fill: none;
+            stroke-width: 40;
+        }
+
+        .donut-bg {
+            stroke: var(--bg-tertiary);
+        }
+
+        .donut-segment {
+            transition: stroke-width 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+        }
+
+        .donut-segment:hover {
+            stroke-width: 48;
+            filter: brightness(1.1);
+        }
+
+        .donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .donut-center .total-label {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .donut-center .total-value {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            min-width: 280px;
+        }
+
+        .chart-legend h3 {
+            margin: 0 0 var(--space-2) 0;
+            font-size: var(--text-xl);
+            color: var(--color-primary);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .legend-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .legend-content {
+            flex: 1;
+        }
+
+        .legend-label {
+            font-weight: 600;
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .legend-full-name {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .legend-percentage {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        @media (max-width: 768px) {
+            .evaluation-chart-container {
+                flex-direction: column;
+                gap: var(--space-6);
+                padding: var(--space-4);
+            }
+
+            .donut-chart {
+                width: 220px;
+                height: 220px;
+            }
+
+            .donut-center .total-value {
+                font-size: var(--text-3xl);
+            }
+        }
+
+        /* ============================================
+           SPEC CARD (Technical Specifications)
+           ============================================ */
+        .spec-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .spec-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-4);
+            text-align: center;
+        }
+
+        .spec-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .spec-icon {
+            font-size: var(--text-xl);
+            width: 40px;
+            text-align: center;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            min-width: 120px;
+        }
+
+        .spec-value {
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           SENSOR NETWORK CARD
+           ============================================ */
+        .sensor-network-card {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            margin: var(--space-8) 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .network-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-5);
+        }
+
+        .network-icon {
+            font-size: var(--text-3xl);
+        }
+
+        .network-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .network-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-5);
+        }
+
+        .network-category {
+            background: white;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .network-category:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-3);
+        }
+
+        .cat-icon {
+            font-size: var(--text-xl);
+        }
+
+        .cat-title {
+            font-weight: 700;
+            font-size: var(--text-base);
+            color: var(--text-primary);
+        }
+
+        .cat-items {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .network-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            padding-top: var(--space-4);
+            border-top: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .stat-current, .stat-goal {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: var(--text-3xl);
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-goal .stat-number {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .network-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .network-stats {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 3: Transformación del Entorno</h1>
+            <p class="subtitle">Empresas y Ciudades Inteligentes | IoT en el Mundo Real</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#empresas">Empresas Inteligentes</a></li>
+                <li><a href="#terminos-clave">Términos Clave</a></li>
+                <li><a href="#casos">Casos de Estudio</a></li>
+                <li><a href="#smart-cities">Smart Cities</a></li>
+                <li><a href="#desafios">Desafíos</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+
+        <!-- Objectives Section -->
+        <section id="objetivos">
+            <h2>Objetivos de la Clase</h2>
+
+            <h3>Competencias a Desarrollar</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Competencia</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Definir</strong></td>
+                        <td>Empresas inteligentes e Industria 4.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Describir</strong></td>
+                        <td>Componentes de Smart Cities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analizar</strong></td>
+                        <td>Casos de estudio reales (Colombia)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evaluar</strong></td>
+                        <td>Impacto de IoT en sectores clave</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Pregunta Clave</h3>
+            <div class="highlight">
+                <strong>¿Cómo IoT transforma empresas y ciudades?</strong>
+            </div>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave de esta Sección</h4>
+                <p>IoT es el habilitador fundamental de la transformación digital, permitiendo que empresas y ciudades pasen de reaccionar a <strong>anticipar</strong>, de operar con datos desactualizados a tener <strong>información en tiempo real</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Why Digital Transformation -->
+        <section>
+            <h2>¿Por qué la Transformación Digital?</h2>
+
+            <h3>Datos del Mundo Real</h3>
+            <ul>
+                <li>75% de empresas han implementado o están implementando plataformas digitales (IDC 2024)</li>
+                <li>US$1.2 billones (trillions) en IoT para 2026</li>
+            </ul>
+
+            <h3>Ejemplos en Colombia</h3>
+            <ul>
+                <li>🚦 <strong>Medellín:</strong> Semáforos inteligentes con sensores</li>
+                <li>🏭 <strong>Grupo Nutresa:</strong> Sensores en líneas de producción</li>
+                <li>🏢 <strong>EPM:</strong> Smart grid para gestión energética</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Analogía:</strong> Una empresa sin IoT es ciega y sorda. Con IoT, <strong>siente y reacciona</strong> en tiempo real.
+            </div>
+        </section>
+
+        <!-- Connection with Previous Class -->
+        <section>
+            <h2>Conexión con la Clase Anterior: P-P-D-C en Acción</h2>
+
+            <h3>Los 4 Pilares Aplicados a Transformación Digital</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pilar</th>
+                        <th>Rol en Smart City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>👤 Personas</strong></td>
+                        <td>Ciudadanos, usuarios, operadores</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⚙️ Procesos</strong></td>
+                        <td>Reglas, flujos, automatizaciones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📊 Datos</strong></td>
+                        <td>Métricas en tiempo real, analytics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📱 Cosas</strong></td>
+                        <td>Sensores y actuadores en el entorno</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="infographic-grid" aria-label="Diagrama: Personas, Procesos y Datos convergen en Smart City">
+                <div class="infographic-list" role="list">
+                    <div class="card card--small" role="listitem">
+                        <div class="icon">👤</div>
+                        <div>
+                          <h4>Personas</h4>
+                          <p class="muted">Usuarios y ciudadanos</p>
+                        </div>
+                    </div>
+                    <div class="card card--small" role="listitem">
+                        <div class="icon">⚙️</div>
+                        <div>
+                          <h4>Procesos</h4>
+                          <p class="muted">Reglas y automatización</p>
+                        </div>
+                    </div>
+                    <div class="card card--small" role="listitem">
+                        <div class="icon">📊</div>
+                        <div>
+                          <h4>Datos</h4>
+                          <p class="muted">Métricas en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="infographic-arrows" aria-hidden="true">
+                    <svg width="220" height="220" viewBox="0 0 220 220" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                        <defs>
+                          <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+                            <path d="M0,0 L10,5 L0,10 z" fill="#1e40af"/>
+                          </marker>
+                        </defs>
+                        <path d="M10 30 C80 30, 140 60, 190 90" stroke="#60a5fa" stroke-width="3" fill="none" marker-end="url(#arrow)" stroke-linecap="round"/>
+                        <path d="M10 110 C80 110, 140 110, 190 110" stroke="#f59e0b" stroke-width="3" fill="none" marker-end="url(#arrow)" stroke-linecap="round"/>
+                        <path d="M10 190 C80 190, 140 160, 190 130" stroke="#34d399" stroke-width="3" fill="none" marker-end="url(#arrow)" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                <div class="card card--hero" role="region" aria-label="Smart City">
+                    <h4>📱 Cosas + P-P-D</h4>
+                    <p>= 🏙️ <strong>SMART CITY</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Enterprise -->
+        <section id="empresas">
+            <h2>Empresa Inteligente</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Una empresa inteligente no es solo "digital", sino que utiliza datos en tiempo real para <strong>tomar decisiones automáticas</strong> y anticiparse a problemas antes de que ocurran.</p>
+            </div>
+
+            <h3>Definición</h3>
+            <div class="highlight">
+                Una <strong>empresa inteligente</strong> utiliza tecnologías IoT, análisis de datos e inteligencia artificial para optimizar operaciones, mejorar la toma de decisiones y crear valor.
+            </div>
+
+            <h3>Características</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Conectada</strong></td>
+                        <td>Dispositivos y sistemas integrados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automatizada</strong></td>
+                        <td>Procesos sin intervención manual</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Predictiva</strong></td>
+                        <td>Anticipa problemas y oportunidades</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Adaptativa</strong></td>
+                        <td>Se ajusta a cambios en tiempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Centrada en datos</strong></td>
+                        <td>Decisiones basadas en evidencia</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>La Transformación Digital: Antes vs Después</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Antes</th>
+                        <th>Después</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Procesos manuales</td>
+                        <td>Procesos inteligentes</td>
+                    </tr>
+                    <tr>
+                        <td>Reactivo</td>
+                        <td>Predictivo</td>
+                    </tr>
+                    <tr>
+                        <td>Aislado</td>
+                        <td>Conectado</td>
+                    </tr>
+                    <tr>
+                        <td>Ineficiente</td>
+                        <td>Optimizado</td>
+                    </tr>
+                    <tr>
+                        <td>Basado en intuición</td>
+                        <td>Basado en datos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Key Terms Definitions -->
+        <section id="terminos-clave">
+            <h2>Términos Clave y Definiciones</h2>
+
+            <div class="highlight">
+                <strong>Nota:</strong> Los siguientes términos se utilizan frecuentemente en IoT y transformación digital. Comprenderlos es fundamental para seguir el contenido de esta clase.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Término/Acrónimo</th>
+                        <th>Definición</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IoT</strong></td>
+                        <td>Internet of Things (Internet de las Cosas): Red de objetos físicos con sensores, software y conectividad para intercambiar datos</td>
+                        <td>Termostato conectado que se controla desde el celular</td>
+                    </tr>
+                    <tr>
+                        <td><strong>KPI (Key Performance Indicator)</strong></td>
+                        <td>Key Performance Indicator (Indicador Clave de Desempeño): Métrica cuantificable para evaluar el éxito de una actividad u objetivo</td>
+                        <td>Porcentaje de reducción de consumo energético</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ROI</strong></td>
+                        <td>Return on Investment (Retorno sobre Inversión): Razón entre ganancia obtenida e inversión realizada</td>
+                        <td>Invertir $100 y recuperar $150 en un año = 50% ROI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PLC</strong></td>
+                        <td>Programmable Logic Controller (Controlador Lógico Programable): Computadora industrial para automatizar procesos de manufactura</td>
+                        <td>Controla una línea de empaque detectando productos defectuosos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SCADA</strong></td>
+                        <td>Supervisory Control and Data Acquisition (Control Supervisorio y Adquisición de Datos): Sistema industrial para monitorear y controlar procesos a distancia</td>
+                        <td>Centro de control que monitorea 50 plantas remotamente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AMI</strong></td>
+                        <td>Advanced Metering Infrastructure (Infraestructura de Medición Avanzada): Sistema de medidores inteligentes con comunicación bidireccional</td>
+                        <td>Medidor eléctrico que envía consumo cada 15 minutos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PLC (comunicación)</strong></td>
+                        <td>Power Line Communication (Comunicación por Línea de Poder): Transmisión de datos por cables de energía eléctrica</td>
+                        <td>El medidor envía datos por el mismo cable que lleva electricidad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MQTT</strong></td>
+                        <td>Message Queuing Telemetry Transport: Protocolo ligero de mensajería para dispositivos con recursos limitados</td>
+                        <td>Un sensor de temperatura publica datos que múltiples subscriptores reciben</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TLS</strong></td>
+                        <td>Transport Layer Security: Protocolo criptográfico para comunicaciones seguras en redes</td>
+                        <td>Cuando ves "https://" en un sitio web, usa TLS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AES-256</strong></td>
+                        <td>Advanced Encryption Standard - 256 bits: Algoritmo de encriptación simétrica de grado militar</td>
+                        <td>Protege datos sensibles como números de tarjetas de crédito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>V2V / V2I</strong></td>
+                        <td>Vehicle-to-Vehicle / Vehicle-to-Infrastructure: Comunicación entre vehículos o entre vehículos e infraestructura</td>
+                        <td>Un auto alerta a otros autos sobre un choque adelante</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cobots</strong></td>
+                        <td>Collaborative Robots (Robots Colaborativos): Robots diseñados para trabajar de forma segura con humanos</td>
+                        <td>Robot que ayuda a ensamblar piezas junto a un operario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wearables</strong></td>
+                        <td>Dispositivos tecnológicos portátiles (vestibles): Electrónica que se lleva puesta en el cuerpo</td>
+                        <td>Smartwatch que monitorea ritmo cardíaco</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-box">
+                <strong>Error Común:</strong> Confundir <em>PLC (controlador)</em> con <em>PLC (comunicación)</em>. Son dos tecnologías diferentes: uno es hardware industrial, el otro es un protocolo de comunicación por líneas eléctricas.
+            </div>
+        </section>
+
+        <!-- IoT Architecture -->
+        <section>
+            <h2>Arquitectura IoT: Las 3 Capas</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>La arquitectura de 3 capas (Percepción → Red → Aplicación) es el modelo estándar que permite que datos fluyan desde el mundo físico hasta las aplicaciones de negocio de manera organizada y escalable.</p>
+            </div>
+
+            <figure>
+                <img src="../assets/infografias/clase-03-arquitectura-iot.png" alt="Arquitectura IoT de 3 Capas">
+                <figcaption>Figura 3: Arquitectura IoT de 3 Capas - Flujo de Datos desde Sensores hasta Aplicaciones Empresariales. Modelo estándar que organiza las tecnologías IoT en capas funcionales.</figcaption>
+            </figure>
+
+            <div class="infographic-container">
+                <div class="layer-box layer-application">
+                    <h4>☁️ Capa 3: Aplicación</h4>
+                    <p><strong>Función:</strong> Interfaz de usuario</p>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>Dashboards - Visualizar KPIs</li>
+                        <li>Apps - Control remoto</li>
+                        <li>Alertas - Notificaciones</li>
+                    </ul>
+                </div>
+
+                <div class="layer-box layer-network">
+                    <h4>📡 Capa 2: Red</h4>
+                    <p><strong>Función:</strong> Conectividad</p>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>Gateway - Agregar datos</li>
+                        <li>Edge - Procesamiento local</li>
+                        <li>Protocolos - Transmisión segura</li>
+                    </ul>
+                </div>
+
+                <div class="layer-box layer-perception">
+                    <h4>🔌 Capa 1: Percepción</h4>
+                    <p><strong>Función:</strong> Interfaz física</p>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>Sensores - Capturar datos</li>
+                        <li>Actuadores - Ejecutar acciones</li>
+                        <li>Hardware - Interfaz mundo real</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Flujo de Datos: Ejemplo en Fábrica</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Paso</th>
+                        <th>Capa</th>
+                        <th>Acción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Percepción</td>
+                        <td>Sensor detecta</td>
+                        <td>Temperatura = 85°C</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Red</td>
+                        <td>Transmite dato</td>
+                        <td>LoRaWAN → Gateway</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Aplicación</td>
+                        <td>Alerta usuario</td>
+                        <td>"Sobrecalentamiento"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <strong>Principio:</strong> Cada capa tiene responsabilidad única
+            </div>
+        </section>
+
+        <!-- Industry 4.0 -->
+        <section>
+            <h2>Industria 4.0: Manufactura Inteligente</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>La Industria 4.0 representa la cuarta revolución industrial, donde la <strong>fusión de lo físico y lo digital</strong> (sistemas ciberfísicos) permite fábricas autónomas, personalizadas y conectadas.</p>
+            </div>
+
+            <h3>Las 4 Revoluciones Industriales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Revolución</th>
+                        <th>Periodo</th>
+                        <th>Tecnología Clave</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1.0</strong></td>
+                        <td>1784</td>
+                        <td>Máquina de vapor</td>
+                        <td>Mecanización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2.0</strong></td>
+                        <td>1870</td>
+                        <td>Electricidad</td>
+                        <td>Producción en masa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3.0</strong></td>
+                        <td>1969</td>
+                        <td>Electrónica + TI</td>
+                        <td>Automatización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4.0</strong></td>
+                        <td>2011+</td>
+                        <td>IoT + IA + Big Data</td>
+                        <td>Sistemas ciberfísicos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Los 9 Pilares Tecnológicos de Industria 4.0</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>1. 🌐 IoT</h4>
+                    <p>Sensores conectados</p>
+                </div>
+                <div class="card">
+                    <h4>2. 🤖 Robótica</h4>
+                    <p>Cobots colaborativos</p>
+                </div>
+                <div class="card">
+                    <h4>3. 📊 Big Data</h4>
+                    <p>Análisis masivo</p>
+                </div>
+                <div class="card">
+                    <h4>4. 🔮 IA</h4>
+                    <p>Machine Learning</p>
+                </div>
+                <div class="card">
+                    <h4>5. 👓 AR/VR</h4>
+                    <p>Mantenimiento asistido</p>
+                </div>
+                <div class="card">
+                    <h4>6. ☁️ Cloud</h4>
+                    <p>Infraestructura escalable</p>
+                </div>
+                <div class="card">
+                    <h4>7. 🛡️ Ciberseguridad</h4>
+                    <p>Protección de sistemas</p>
+                </div>
+                <div class="card">
+                    <h4>8. 🖨️ Impresión 3D</h4>
+                    <p>Manufactura aditiva</p>
+                </div>
+                <div class="card">
+                    <h4>9. ⛓️ Blockchain</h4>
+                    <p>Trazabilidad</p>
+                </div>
+            </div>
+
+            <h3>Evolución: De Industria 3.0 a 4.0</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Industria 3.0 (1969-2010)</th>
+                        <th>Industria 4.0 (2011+)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Automatización</strong></td>
+                        <td>Rígida y fija</td>
+                        <td>Flexible y adaptable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Producción</strong></td>
+                        <td>En masa, estándar</td>
+                        <td>Personalización masiva</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estructura</strong></td>
+                        <td>Silos departamentales</td>
+                        <td>Integración total</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mantenimiento</strong></td>
+                        <td>Correctivo (reparar)</td>
+                        <td>Predictivo (anticipar)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decisiones</strong></td>
+                        <td>Centralizadas</td>
+                        <td>Distribuidas en red</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success">
+                <strong>Resultado:</strong> Fábricas más ágiles, eficientes y personalizadas
+            </div>
+        </section>
+
+        <!-- Case Studies -->
+        <section id="casos">
+            <h2>Casos de Estudio: Empresas Colombianas</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Los casos reales demuestran que IoT genera <strong>ROI medible</strong>: Nutresa logró 18% más eficiencia, EPM redujo pérdidas eléctricas, y Siemens Amberg alcanza 99.99885% de calidad.</p>
+            </div>
+
+            <!-- Case 1: Nutresa -->
+            <h3>Caso 1: Grupo Nutresa - Planta 4.0 Tocancipá 🏭</h3>
+
+            <h4>Contexto</h4>
+            <ul>
+                <li>Primera planta de alimentos 100% conectada en LATAM</li>
+                <li>Inversión: $25M USD (2018-2022)</li>
+                <li>Certificación LEED Oro</li>
+            </ul>
+
+            <h4>Arquitectura IoT Implementada</h4>
+
+            <div class="iot-architecture-diagram">
+                <!-- Cloud Layer -->
+                <div class="arch-layer arch-cloud">
+                    <div class="layer-header">
+                        <span class="layer-icon">☁️</span>
+                        <h5>CLOUD AWS</h5>
+                    </div>
+                    <div class="layer-components">
+                        <div class="arch-component">
+                            <div class="component-icon">📊</div>
+                            <div class="component-name">Analytics</div>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">🤖</div>
+                            <div class="component-name">AI/ML</div>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">📈</div>
+                            <div class="component-name">Dashboard</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="arch-connection">
+                    <div class="connection-line"></div>
+                    <div class="connection-label">MQTT/TLS</div>
+                </div>
+
+                <!-- Edge Layer -->
+                <div class="arch-layer arch-edge">
+                    <div class="layer-header">
+                        <span class="layer-icon">🏭</span>
+                        <h5>EDGE ON-PREMISE</h5>
+                    </div>
+                    <div class="layer-components">
+                        <div class="arch-component">
+                            <div class="component-icon">⚙️</div>
+                            <div class="component-name">PLCs</div>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">🖥️</div>
+                            <div class="component-name">SCADA</div>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">📚</div>
+                            <div class="component-name">Historian</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="arch-connection">
+                    <div class="connection-line"></div>
+                    <div class="connection-label">Industrial Ethernet</div>
+                </div>
+
+                <!-- Sensors Layer -->
+                <div class="arch-layer arch-sensors">
+                    <div class="layer-header">
+                        <span class="layer-icon">🔌</span>
+                        <h5>SENSORES Y ACTUADORES</h5>
+                    </div>
+                    <div class="layer-components">
+                        <div class="arch-component">
+                            <div class="component-icon">🌡️</div>
+                            <div class="component-name">Temp/Humed</div>
+                            <div class="component-detail">(50+)</div>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">📳</div>
+                            <div class="component-name">Vibración</div>
+                            <div class="component-detail">Motores</div>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">📷</div>
+                            <div class="component-name">Cámaras</div>
+                            <div class="component-detail">Vision</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Tecnologías Específicas</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Tecnología</th>
+                        <th>Proveedor</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Control de procesos</td>
+                        <td>PLC Siemens S7-1500</td>
+                        <td>Siemens</td>
+                        <td>-40% variabilidad</td>
+                    </tr>
+                    <tr>
+                        <td>Visión artificial</td>
+                        <td>Cámaras Cognex + DL</td>
+                        <td>Cognex</td>
+                        <td>-90% empaques defectuosos</td>
+                    </tr>
+                    <tr>
+                        <td>Sensores vibración</td>
+                        <td>SKF Multilog IMx-16</td>
+                        <td>SKF</td>
+                        <td>-75% fallos motores</td>
+                    </tr>
+                    <tr>
+                        <td>Gemelo digital</td>
+                        <td>NVIDIA Omniverse</td>
+                        <td>NVIDIA</td>
+                        <td>-25% prototipado físico</td>
+                    </tr>
+                    <tr>
+                        <td>Blockchain</td>
+                        <td>Hyperledger Fabric</td>
+                        <td>Accenture</td>
+                        <td>Trazabilidad 100%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Procesos IF-THEN Implementados</h4>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Pasteurización</h4>
+                    <pre><code>IF: Temp < 72°C por >30s
+THEN: Alerta + reducir línea</code></pre>
+                </div>
+                <div class="card">
+                    <h4>Control Humedad</h4>
+                    <pre><code>IF: HR > 55%
+AND: Producto = galletas
+THEN: Activar deshumidificadores</code></pre>
+                </div>
+                <div class="card">
+                    <h4>Mantenimiento</h4>
+                    <pre><code>IF: Vibración > 4.5 mm/s
+OR: Temp aceite > 85°C
+THEN: Mtto en 48h</code></pre>
+                </div>
+            </div>
+
+            <h4>ROI Detallado</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Inversión</th>
+                        <th>Ahorro Anual</th>
+                        <th>Payback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sensores IoT ($5M)</td>
+                        <td>$12M</td>
+                        <td>5 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Visión artificial ($8M)</td>
+                        <td>$18M</td>
+                        <td>5.3 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Analytics ($7M)</td>
+                        <td>$15M</td>
+                        <td>5.6 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura ($5M)</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL $25M</strong></td>
+                        <td><strong>$45M</strong></td>
+                        <td><strong>6.7 meses</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Resultados Medidos (2020-2024)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Mejora</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eficiencia operativa</td>
+                        <td>+18%</td>
+                        <td>$45M USD ahorro</td>
+                    </tr>
+                    <tr>
+                        <td>Desperdicio materia prima</td>
+                        <td>-25%</td>
+                        <td>12,000 ton menos</td>
+                    </tr>
+                    <tr>
+                        <td>Consumo energético</td>
+                        <td>-30%</td>
+                        <td>-15,000 ton CO2</td>
+                    </tr>
+                    <tr>
+                        <td>Tiempo cambio producto</td>
+                        <td>-50%</td>
+                        <td>+23% capacidad</td>
+                    </tr>
+                    <tr>
+                        <td>Cumplimiento calidad</td>
+                        <td>99.5%</td>
+                        <td>-40% reclamos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Case 2: EPM -->
+            <h3 style="margin-top: 3rem;">Caso 2: EPM - Smart Grid 💡</h3>
+
+            <h4>Infraestructura Desplegada</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Cantidad</th>
+                        <th>Inversión</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Medidores AMI</td>
+                        <td>2.7M</td>
+                        <td>$180M</td>
+                        <td>80% cobertura</td>
+                    </tr>
+                    <tr>
+                        <td>Concentradores</td>
+                        <td>15,000</td>
+                        <td>$25M</td>
+                        <td>Operativos</td>
+                    </tr>
+                    <tr>
+                        <td>Data center</td>
+                        <td>1</td>
+                        <td>$35M</td>
+                        <td>Activo</td>
+                    </tr>
+                    <tr>
+                        <td>App móvil</td>
+                        <td>2.5M descargas</td>
+                        <td>$5M</td>
+                        <td>Activa</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Especificaciones Técnicas del Medidor</h4>
+
+            <div class="spec-card">
+                <div class="spec-title">Medidor: Landis+Gyr E450</div>
+                <div class="spec-items">
+                    <div class="spec-item">
+                        <span class="spec-icon">📡</span>
+                        <span class="spec-label">Comunicación:</span>
+                        <span class="spec-value">PLC G3 (Power Line Communication) + RF (módulos opcionales)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">⏱️</span>
+                        <span class="spec-label">Frecuencia lectura:</span>
+                        <span class="spec-value">15 min</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">💾</span>
+                        <span class="spec-label">Memoria:</span>
+                        <span class="spec-value">90 días datos</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">🎯</span>
+                        <span class="spec-label">Precisión:</span>
+                        <span class="spec-value">±1%</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">⚡</span>
+                        <span class="spec-label">Relés:</span>
+                        <span class="spec-value">Desconexión remota</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">🔒</span>
+                        <span class="spec-label">Seguridad:</span>
+                        <span class="spec-value">AES-256 + TLS 1.3</span>
+                    </div>
+                </div>
+            </div>
+
+            <h4>App "EPM Móvil" - Features</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Descripción</th>
+                        <th>Uso mensual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Consulta consumo</td>
+                        <td>Gráficos diarios/semanales/mensuales</td>
+                        <td>1.8M usuarios</td>
+                    </tr>
+                    <tr>
+                        <td>Comparativa</td>
+                        <td>Vs vecinos similares (anonimizada)</td>
+                        <td>900K usuarios</td>
+                    </tr>
+                    <tr>
+                        <td>Alertas</td>
+                        <td>Consumo alto, corte programado</td>
+                        <td>650K notificaciones</td>
+                    </tr>
+                    <tr>
+                        <td>Simulador ahorro</td>
+                        <td>"¿Qué pasa si...?"</td>
+                        <td>400K simulaciones</td>
+                    </tr>
+                    <tr>
+                        <td>Reporte fallas</td>
+                        <td>Georreferenciado + foto</td>
+                        <td>120K reportes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Resultados por Segmento</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segmento</th>
+                        <th>Antes</th>
+                        <th>Después</th>
+                        <th>Mejora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pérdidas técnicas</td>
+                        <td>22%</td>
+                        <td>18%</td>
+                        <td>-18% relativo</td>
+                    </tr>
+                    <tr>
+                        <td>Detección fraudes</td>
+                        <td>2,500/mes</td>
+                        <td>6,200/mes</td>
+                        <td>+148%</td>
+                    </tr>
+                    <tr>
+                        <td>Satisfacción</td>
+                        <td>72%</td>
+                        <td>95%</td>
+                        <td>+23 puntos</td>
+                    </tr>
+                    <tr>
+                        <td>Llamadas call center</td>
+                        <td>180K/mes</td>
+                        <td>108K/mes</td>
+                        <td>-40%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Case 3: Siemens Amberg -->
+            <h3 style="margin-top: 3rem;">Caso 3: Siemens Amberg - Fábrica Perfecta 🏭</h3>
+
+            <h4>Especificaciones</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Productos por día</td>
+                        <td>50M variantes</td>
+                    </tr>
+                    <tr>
+                        <td>Tasa de defectos</td>
+                        <td>0.00115% (99.99885% calidad)</td>
+                    </tr>
+                    <tr>
+                        <td>Automatización</td>
+                        <td>75%</td>
+                    </tr>
+                    <tr>
+                        <td>Empleados</td>
+                        <td>1,100 (mismo desde 1989)</td>
+                    </tr>
+                    <tr>
+                        <td>Producción</td>
+                        <td>8x en 25 años</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>"Productos que Hablan"</h4>
+            <p>Cada PLC Siemens producido:</p>
+            <ul>
+                <li>Tiene código único</li>
+                <li>Se identifica en cada etapa de producción</li>
+                <li>Transmite datos a su propio "gemelo digital"</li>
+                <li>Si detecta anomalía, se reporta a sí mismo</li>
+            </ul>
+        </section>
+
+        <!-- Sectors Transformed -->
+        <section>
+            <h2>Sectores Transformados por IoT en Colombia</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sector</th>
+                        <th>Empresas Líderes</th>
+                        <th>Aplicaciones Clave</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🏭 Manufactura</strong></td>
+                        <td>Nutresa, Corona, Ecopetrol</td>
+                        <td>Mantenimiento predictivo, Control calidad</td>
+                        <td>-15-30% costos operativos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏥 Salud</strong></td>
+                        <td>EPM Salud, Keralty, Sura</td>
+                        <td>Telemedicina + wearables, Gestión inventarios</td>
+                        <td>-40% readmisiones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🛒 Retail</strong></td>
+                        <td>Éxito, Falabella, Jumbo</td>
+                        <td>Estanterías inteligentes, Cajas automáticas</td>
+                        <td>-25% mermas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🚛 Logística</strong></td>
+                        <td>Servientrega, 4-72</td>
+                        <td>Flotas GPS, Rutas optimizadas, Cadena de frío</td>
+                        <td>-20% combustible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏦 Financiero</strong></td>
+                        <td>Bancolombia, Davivienda</td>
+                        <td>Cajeros inteligentes, Detección fraude RT</td>
+                        <td>-60% fraudes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🌾 Agricultura</strong></td>
+                        <td>Eje Cafetero, Valle</td>
+                        <td>Riego inteligente, Drones monitoreo</td>
+                        <td>-40% agua, +25% producción</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Estadísticas del Ecosistema IoT Colombia (2024)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicador</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💰 Inversión IoT anual</td>
+                        <td>$850M USD</td>
+                    </tr>
+                    <tr>
+                        <td>📱 Dispositivos conectados</td>
+                        <td>12 millones</td>
+                    </tr>
+                    <tr>
+                        <td>🏢 Empresas con proyectos IoT</td>
+                        <td>35% de medianas y grandes</td>
+                    </tr>
+                    <tr>
+                        <td>🏙️ Principales ciudades</td>
+                        <td>Bogotá (40%), Medellín (25%), Cali (15%)</td>
+                    </tr>
+                    <tr>
+                        <td>📈 Crecimiento anual del mercado</td>
+                        <td>18%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Smart Cities -->
+        <section id="smart-cities">
+            <h2>Smart Cities: Ciudades Inteligentes</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Una Smart City integra múltiples sistemas IoT (movilidad, energía, seguridad, ambiente) para crear una <strong>infraestructura urbana coordinada</strong> que responde en tiempo real a las necesidades ciudadanas.</p>
+            </div>
+
+            <h3>Definición</h3>
+            <div class="highlight">
+                Una <strong>ciudad inteligente</strong> usa tecnología IoT para mejorar la eficiencia de servicios urbanos, la calidad de vida y la sostenibilidad ambiental.
+            </div>
+
+            <h3>Componentes de una Smart City</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🚗 Movilidad</h4>
+                    <p>Semáforos adaptativos, parking inteligente</p>
+                </div>
+                <div class="card">
+                    <h4>💡 Energía</h4>
+                    <p>Smart grid, medidores inteligentes</p>
+                </div>
+                <div class="card">
+                    <h4>🌳 Ambiente</h4>
+                    <p>Calidad aire, ruido, clima</p>
+                </div>
+                <div class="card">
+                    <h4>🏛️ Gobierno</h4>
+                    <p>Transparencia, participación</p>
+                </div>
+                <div class="card">
+                    <h4>🏥 Salud</h4>
+                    <p>Telemedicina, monitoreo</p>
+                </div>
+                <div class="card">
+                    <h4>🔒 Seguridad</h4>
+                    <p>Cámaras, alertas, emergencias</p>
+                </div>
+                <div class="card">
+                    <h4>🏠 Edificios</h4>
+                    <p>Gestión eficiente de recursos</p>
+                </div>
+                <div class="card">
+                    <h4>🚰 Agua</h4>
+                    <p>Detección fugas, calidad</p>
+                </div>
+                <div class="card">
+                    <h4>📡 Conectividad</h4>
+                    <p>5G / fibra / LPWAN</p>
+                </div>
+            </div>
+
+            <!-- Smart Mobility -->
+            <h3>Movilidad Inteligente: Componentes</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🚦 Semáforos Adaptativos</h4>
+                    <ul>
+                        <li>Ajustan tiempos según tráfico</li>
+                        <li>Reducción congestionamiento</li>
+                        <li>Respuesta a emergencias</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🅿️ Estacionamiento Inteligente</h4>
+                    <ul>
+                        <li>Sensores detectan espacios libres</li>
+                        <li>App guía al conductor</li>
+                        <li>Pago automatizado</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚌 Transporte Público</h4>
+                    <ul>
+                        <li>GPS en tiempo real</li>
+                        <li>Info de llegada en paradas</li>
+                        <li>Integración multimodal</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚗 Vehículos Conectados</h4>
+                    <ul>
+                        <li>V2V (Vehículo a Vehículo)</li>
+                        <li>V2I (Vehículo a Infraestructura)</li>
+                        <li>Conducción autónoma</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Smart Grid -->
+            <h3>Energía Inteligente: Smart Grid</h3>
+            <div class="infographic-container">
+                <div class="card">
+                    <h4>☀️ Generación Distribuida</h4>
+                    <ul>
+                        <li>Solar fotovoltaica</li>
+                        <li>Eólica</li>
+                        <li>Generación tradicional</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>⚡ Distribución Inteligente</h4>
+                    <ul>
+                        <li>Transformadores inteligentes</li>
+                        <li>Monitoreo en tiempo real</li>
+                        <li>Balance dinámico</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🏠 Consumo Inteligente</h4>
+                    <ul>
+                        <li>Medidores smart</li>
+                        <li>Tarifas dinámicas</li>
+                        <li>Eficiencia energética</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight" style="text-align: center;">
+                <strong>🎯 Centro de Control:</strong> Monitoreo RT | Detección fallas | Balance oferta/demanda | Integración renovables
+            </div>
+
+            <!-- Water Management -->
+            <h3>Agua Inteligente: Gestión del Recurso</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Etapa</th>
+                        <th>Sensores</th>
+                        <th>Función</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💧 <strong>Captación</strong></td>
+                        <td>Nivel en embalses</td>
+                        <td>Control de reservas</td>
+                    </tr>
+                    <tr>
+                        <td>🚰 <strong>Tratamiento</strong></td>
+                        <td>pH, turbidez, cloro</td>
+                        <td>Calidad del agua</td>
+                    </tr>
+                    <tr>
+                        <td>📡 <strong>Distribución</strong></td>
+                        <td>Presión, flujo</td>
+                        <td>Detección de fugas</td>
+                    </tr>
+                    <tr>
+                        <td>🏠 <strong>Consumo</strong></td>
+                        <td>Medidores smart</td>
+                        <td>Facturación y alertas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success" style="text-align: center;">
+                <span style="font-size: 2em;">📉</span><br>
+                <strong>Reducción de pérdidas: 15-30%</strong><br>
+                <em>Ahorro significativo en infraestructura hídrica</em>
+            </div>
+
+            <!-- Security -->
+            <h3>Seguridad Ciudadana Inteligente</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>📷 Cámaras Inteligentes</h4>
+                    <ul>
+                        <li>Reconocimiento facial</li>
+                        <li>Detección comportamiento anómalo</li>
+                        <li>Lectura de placas vehiculares</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚨 Botones de Pánico</h4>
+                    <ul>
+                        <li>Ubicación GPS automática</li>
+                        <li>Notificación inmediata</li>
+                        <li>Integración autoridades</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>📱 Apps Ciudadanas</h4>
+                    <ul>
+                        <li>Reportes de incidentes</li>
+                        <li>Alertas georreferenciadas</li>
+                        <li>Comunicación bidireccional</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🔊 Sensores Acústicos</h4>
+                    <ul>
+                        <li>Detección de disparos (ShotSpotter)</li>
+                        <li>Identificación de sonidos</li>
+                        <li>Localización precisa</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Smart City Cases -->
+        <section>
+            <h2>Casos Globales de Smart Cities</h2>
+
+            <!-- Singapore -->
+            <h3>Caso: Singapur 🇸🇬 - La Ciudad Más Inteligente del Mundo</h3>
+
+            <h4>Iniciativas Clave</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Iniciativa</th>
+                        <th>Descripción</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Virtual Singapore</strong></td>
+                        <td>Gemelo digital 3D de toda la ciudad</td>
+                        <td>$73M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Health</strong></td>
+                        <td>Telemedicina + monitoreo crónicos</td>
+                        <td>$150M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Mobility</strong></td>
+                        <td>Autonomous vehicles + ERP 2.0</td>
+                        <td>$500M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>National Digital Identity</strong></td>
+                        <td>SingPass</td>
+                        <td>$50M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SenseOps</strong></td>
+                        <td>Red de 100K+ sensores</td>
+                        <td>$100M</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>SenseOps: Red de Sensores Masiva</h4>
+
+            <div class="sensor-network-card">
+                <div class="network-header">
+                    <span class="network-icon">🌐</span>
+                    <span class="network-title">Categorías de sensores</span>
+                </div>
+                <div class="network-categories">
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🌫️</span>
+                            <span class="cat-title">Ambiente</span>
+                        </div>
+                        <div class="cat-items">PM2.5, PM10, O3, NO2, SO2, CO</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🌡️</span>
+                            <span class="cat-title">Clima</span>
+                        </div>
+                        <div class="cat-items">Temperatura, humedad, lluvia, viento</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🚗</span>
+                            <span class="cat-title">Tráfico</span>
+                        </div>
+                        <div class="cat-items">Flujo vehicular, velocidad, ocupación</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">💧</span>
+                            <span class="cat-title">Agua</span>
+                        </div>
+                        <div class="cat-items">Nivel canales, calidad, presión</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">⚡</span>
+                            <span class="cat-title">Energía</span>
+                        </div>
+                        <div class="cat-items">Consumo por edificio, smart meter</div>
+                    </div>
+                    <div class="network-category">
+                        <div class="category-header">
+                            <span class="cat-icon">🔐</span>
+                            <span class="cat-title">Seguridad</span>
+                        </div>
+                        <div class="cat-items">Cámaras, botones pánico, disparos</div>
+                    </div>
+                </div>
+                <div class="network-stats">
+                    <div class="stat-current">
+                        <span class="stat-number">110,000</span>
+                        <span class="stat-label">sensores (2024)</span>
+                    </div>
+                    <div class="stat-goal">
+                        <span class="stat-number">200,000</span>
+                        <span class="stat-label">meta (2030)</span>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Datos Abiertos (data.gov.sg)</h4>
+            <ul>
+                <li>1,600+ datasets disponibles</li>
+                <li>200,000+ descargas mensuales</li>
+                <li>APIs para desarrolladores</li>
+                <li>Hackathones trimestrales</li>
+            </ul>
+
+            <div class="highlight highlight-success">
+                <h4>📊 Resultados</h4>
+                <table style="margin: 0;">
+                    <tr>
+                        <td>Ranking Smart City</td>
+                        <td><strong>#1 Mundial</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Hogares con banda ancha</td>
+                        <td><strong>95%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Transacciones sin efectivo</td>
+                        <td><strong>50%</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Barcelona -->
+            <h3 style="margin-top: 3rem;">Caso: Barcelona 🇪🇸 - Smart City Europe</h3>
+
+            <h4>Plataforma Sentilo (Open Source)</h4>
+
+            <div class="sentilo-diagram">
+                <!-- Applications Layer -->
+                <div class="sentilo-layer sentilo-apps">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">📱</span>
+                        <h5>APLICACIONES (Apps)</h5>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="sentilo-connection">
+                    <div class="connection-arrow-down"></div>
+                </div>
+
+                <!-- Platform Layer -->
+                <div class="sentilo-layer sentilo-platform">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">⚙️</span>
+                        <h5>Sentilo (Platform)</h5>
+                    </div>
+                    <div class="layer-components-simple">
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">🔌</div>
+                            <div class="component-name-simple">API</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">📡</div>
+                            <div class="component-name-simple">Pub/Sub</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">💾</div>
+                            <div class="component-name-simple">Almacenar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="sentilo-connection">
+                    <div class="connection-arrow-down"></div>
+                </div>
+
+                <!-- Protocol Adapters Layer -->
+                <div class="sentilo-layer sentilo-protocols">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">🔀</span>
+                        <h5>PROTOCOL ADAPTERS</h5>
+                    </div>
+                    <div class="layer-components-simple">
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">🌐</div>
+                            <div class="component-name-simple">HTTP</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">📨</div>
+                            <div class="component-name-simple">MQTT</div>
+                        </div>
+                        <div class="sentilo-component">
+                            <div class="component-icon-simple">📡</div>
+                            <div class="component-name-simple">CoAP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="sentilo-connection">
+                    <div class="connection-arrow-down"></div>
+                </div>
+
+                <!-- Sensors Layer -->
+                <div class="sentilo-layer sentilo-sensors">
+                    <div class="layer-header-simple">
+                        <span class="layer-icon-simple">🔌</span>
+                        <h5>SENSORES Y ACTUADORES</h5>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Proyectos Destacados</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Sensores</th>
+                        <th>Ahorro</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Farolas LED</strong></td>
+                        <td>1,100</td>
+                        <td>30% energía</td>
+                        <td>$2.5M/año</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Riego inteligente</strong></td>
+                        <td>300 humedad</td>
+                        <td>25% agua</td>
+                        <td>100K m³</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contenedores basura</strong></td>
+                        <td>500 nivel</td>
+                        <td>-20% recolección</td>
+                        <td>-10% camiones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aparcamiento</strong></td>
+                        <td>400 inductivos</td>
+                        <td>-20% tráfico</td>
+                        <td>+30% rotación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bicing IoT</strong></td>
+                        <td>6,000 bicis</td>
+                        <td>-</td>
+                        <td>50K viajes/día</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Medellin -->
+            <h3 style="margin-top: 3rem;">Caso: Medellín 🇨🇴 - #1 Smart City LATAM</h3>
+
+            <h4>Centro de Control y Comando - C4 + SIATA</h4>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🔒 Seguridad (C4)</h4>
+                    <ul>
+                        <li>5,000+ cámaras en la ciudad</li>
+                        <li>Integración con Policía</li>
+                        <li>Monitoreo de transporte</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🌧️ Ambiente (SIATA)</h4>
+                    <ul>
+                        <li>Sensores calidad del aire</li>
+                        <li>Estaciones meteorológicas</li>
+                        <li>Alertas tempranas</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🚌 Movilidad</h4>
+                    <ul>
+                        <li>Metro con GPS</li>
+                        <li>Encicla con IoT</li>
+                        <li>App integrada</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Impacto Medible en la Ciudad</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🔒 <strong>Seguridad</strong></td>
+                        <td>Reducción delictiva</td>
+                        <td><strong>15%</strong> en zonas con cámaras</td>
+                    </tr>
+                    <tr>
+                        <td>🌧️ <strong>Ambiente</strong></td>
+                        <td>Alertas tempranas</td>
+                        <td><strong>30 min</strong> antes de emergencias</td>
+                    </tr>
+                    <tr>
+                        <td>🚌 <strong>Movilidad</strong></td>
+                        <td>Eficiencia transporte</td>
+                        <td><strong>20%</strong> reducción tiempos espera</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Matriz de Comparación: Smart Cities</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ciudad</th>
+                        <th>Población</th>
+                        <th>Inversión</th>
+                        <th>Proyectos clave</th>
+                        <th>Ranking 2024</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Singapur</td>
+                        <td>5.7M</td>
+                        <td>$2B+</td>
+                        <td>Gemelo digital, e-ID</td>
+                        <td>#1 Mundial</td>
+                    </tr>
+                    <tr>
+                        <td>Barcelona</td>
+                        <td>1.6M</td>
+                        <td>$300M</td>
+                        <td>Sentilo, bicing</td>
+                        <td>#3 Europa</td>
+                    </tr>
+                    <tr>
+                        <td>Medellín</td>
+                        <td>2.5M</td>
+                        <td>$180M</td>
+                        <td>SIATA, C4, Metro</td>
+                        <td>#1 LATAM</td>
+                    </tr>
+                    <tr>
+                        <td>Seúl</td>
+                        <td>9.7M</td>
+                        <td>$1.2B</td>
+                        <td>5G, Songdo</td>
+                        <td>#2 Asia</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Challenges -->
+        <section id="desafios">
+            <h2>Desafíos de Smart Cities</h2>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>Implementar Smart Cities requiere equilibrar <strong>innovación técnica</strong> con <strong>consideraciones sociales</strong> (privacidad, brecha digital) y <strong>viabilidad económica</strong> (ROI, sostenibilidad financiera).</p>
+            </div>
+
+            <h3>Desafíos Técnicos 🔧 <span class="info-tooltip" data-tooltip="Desafíos relacionados con tecnología e infraestructura">i</span></h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🔌 Interoperabilidad</h4>
+                    <ul>
+                        <li>Múltiples fabricantes</li>
+                        <li>Protocolos diferentes</li>
+                        <li>Sistemas legacy</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🔒 Ciberseguridad</h4>
+                    <ul>
+                        <li>Infraestructura crítica</li>
+                        <li>Miles de vulnerabilidades</li>
+                        <li>Ataques sofisticados</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>📈 Escalabilidad</h4>
+                    <ul>
+                        <li>Crecimiento exponencial</li>
+                        <li>Mantenimiento masivo</li>
+                        <li>Costos operativos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Desafíos Sociales 👥 <span class="info-tooltip" data-tooltip="Desafíos relacionados con impacto en ciudadanos y sociedad">i</span></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desafío</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>👁️ <strong>Privacidad</strong></td>
+                        <td>¿Quién accede a mis datos?</td>
+                    </tr>
+                    <tr>
+                        <td>🌍 <strong>Brecha Digital</strong></td>
+                        <td>No todos tienen acceso igual</td>
+                    </tr>
+                    <tr>
+                        <td>🤝 <strong>Aceptación</strong></td>
+                        <td>Confianza en la tecnología</td>
+                    </tr>
+                    <tr>
+                        <td>⚠️ <strong>Dependencia</strong></td>
+                        <td>¿Qué pasa si falla el sistema?</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Desafíos Económicos 💰 <span class="info-tooltip" data-tooltip="Desafíos relacionados con financiamiento y sostenibilidad">i</span></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desafío</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💵 <strong>Costo Inicial</strong></td>
+                        <td>Inversión millonaria</td>
+                    </tr>
+                    <tr>
+                        <td>📊 <strong>ROI</strong></td>
+                        <td>Retorno a largo plazo</td>
+                    </tr>
+                    <tr>
+                        <td>🔄 <strong>Sostenibilidad</strong></td>
+                        <td>Modelo de negocio viable</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Privacidad en Ciudades Inteligentes</h3>
+
+            <div class="infographic-container">
+                <div class="highlight highlight-success">
+                    <h4>✅ Más Seguridad</h4>
+                    <ul>
+                        <li>📷 Más cámaras</li>
+                        <li>🔒 Menos crimen</li>
+                        <li>🚨 Respuesta rápida</li>
+                    </ul>
+                </div>
+
+                <div class="highlight highlight-danger">
+                    <h4>⚠️ Menos Privacidad</h4>
+                    <ul>
+                        <li>👁️ Vigilancia masiva</li>
+                        <li>🗃️ Datos ciudadanos</li>
+                        <li>🤖 Perfilamiento</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Principios para el Equilibrio</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Principio</th>
+                        <th>Aplicación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🔍 <strong>Transparencia</strong></td>
+                        <td>Informar qué datos se recopilan</td>
+                    </tr>
+                    <tr>
+                        <td>✅ <strong>Consentimiento</strong></td>
+                        <td>Opt-in donde sea posible</td>
+                    </tr>
+                    <tr>
+                        <td>📉 <strong>Minimización</strong></td>
+                        <td>Solo datos necesarios</td>
+                    </tr>
+                    <tr>
+                        <td>⏱️ <strong>Retención Limitada</strong></td>
+                        <td>Borrar cuando no se necesiten</td>
+                    </tr>
+                    <tr>
+                        <td>🔎 <strong>Auditorías</strong></td>
+                        <td>Revisiones independientes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Exercises -->
+        <section id="ejercicios">
+            <h2>Ejercicios y Actividades</h2>
+
+            <section class="actividad">
+                <h4>⚪ Tipo de Actividad</h4>
+                <p><strong>Tipo:</strong> Opcional (práctica de diseño en clase)</p>
+                <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                <p><strong>Entregable:</strong> Diseño de componente Smart City (no afecta nota)</p>
+                <p><strong>Tiempo estimado:</strong> 45 minutos en clase</p>
+                <p><strong>Criterios:</strong> Arquitectura de 3 capas, viabilidad técnica, impacto social</p>
+            </section>
+
+            <div class="learning-key">
+                <h4>🎯 Aprendizaje Clave</h4>
+                <p>El diseño de soluciones IoT requiere un enfoque <strong>sistemático</strong>: definir el problema, diseñar la arquitectura de 3 capas, especificar tecnología, y evaluar desafíos técnicos, sociales y económicos.</p>
+            </div>
+
+            <h3>Actividad Principal: Diseño de Componente Smart City</h3>
+
+            <p><strong>Objetivo:</strong> Diseñar un componente IoT para la ciudad de Medellín que mejore la calidad de vida de sus habitantes.</p>
+
+            <div class="highlight highlight-success">
+                <strong>💡 Contexto del Ejercicio:</strong> Esta actividad es <strong>teórica/diseño</strong>. No requiere hardware ni programación. Los estudiantes trabajarán con papel, lápiz y herramientas de diagramación (draw.io, Lucidchart o incluso PowerPoint) disponibles en Windows.
+            </div>
+
+            <h4>Paso 1: Selección de Escenario (5 min)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Escenario</th>
+                        <th>Complejidad</th>
+                        <th>Impacto Potencial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Parqueaderos inteligentes</td>
+                        <td>Media</td>
+                        <td>Alto</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Monitoreo calidad del aire por barrio</td>
+                        <td>Alta</td>
+                        <td>Muy Alto</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Gestión inteligente de residuos</td>
+                        <td>Media</td>
+                        <td>Medio</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Alerta temprana de inundaciones</td>
+                        <td>Alta</td>
+                        <td>Alto</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Paso 2: Análisis de Problema (10 min)</h4>
+            <div class="card">
+                <h4>Problema Actual</h4>
+                <ul>
+                    <li>¿Qué problema se va a resolver?</li>
+                    <li>¿A quién afecta?</li>
+                    <li>¿Cuál es el impacto actual (sin solución)?</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Solución Propuesta</h4>
+                <ul>
+                    <li>¿Cómo IoT resuelve este problema?</li>
+                    <li>¿Qué valor aporta?</li>
+                </ul>
+            </div>
+
+            <h4>Paso 3: Diseño de Arquitectura (20 min)</h4>
+
+            <div class="exercise-form">
+                <!-- Application Layer -->
+                <div class="form-layer form-app">
+                    <div class="form-layer-header">
+                        <span class="form-layer-icon">📱</span>
+                        <h5>CAPA DE APLICACIÓN</h5>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-field">
+                            <label>Dashboard:</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>App móvil:</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Alertas:</label>
+                            <div class="form-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="form-connection">
+                    <div class="connection-arrow-down-small"></div>
+                </div>
+
+                <!-- Network Layer -->
+                <div class="form-layer form-network">
+                    <div class="form-layer-header">
+                        <span class="form-layer-icon">📡</span>
+                        <h5>CAPA DE RED</h5>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-field">
+                            <label>Protocolo:</label>
+                            <div class="form-line-with-hint">
+                                <div class="form-line-short"></div>
+                                <span class="form-hint">(WiFi/LoRa/4G/NB-IoT)</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label>Gateway:</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-field-checkbox">
+                            <label>Edge computing:</label>
+                            <div class="checkboxes">
+                                <span class="checkbox-box"></span> Sí
+                                <span class="checkbox-box"></span> No
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Arrow -->
+                <div class="form-connection">
+                    <div class="connection-arrow-down-small"></div>
+                </div>
+
+                <!-- Perception Layer -->
+                <div class="form-layer form-perception">
+                    <div class="form-layer-header">
+                        <span class="form-layer-icon">🔌</span>
+                        <h5>CAPA DE PERCEPCIÓN</h5>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-section">
+                            <label class="form-section-title">Sensores:</label>
+                            <div class="form-numbered-list">
+                                <div class="form-item-numbered">
+                                    <span class="item-number">1.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                                <div class="form-item-numbered">
+                                    <span class="item-number">2.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                                <div class="form-item-numbered">
+                                    <span class="item-number">3.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <label class="form-section-title">Actuadores:</label>
+                            <div class="form-numbered-list">
+                                <div class="form-item-numbered">
+                                    <span class="item-number">1.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                                <div class="form-item-numbered">
+                                    <span class="item-number">2.</span>
+                                    <div class="form-line-medium"></div>
+                                    <span class="form-qty">(cantidad: </span>
+                                    <div class="form-line-tiny"></div>
+                                    <span class="form-qty">)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Paso 4: Especificaciones Técnicas (15 min)</h4>
+            <p><strong>Sensores:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Especificación</th>
+                        <th>Costo unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Conectividad:</strong></p>
+            <ul>
+                <li>Protocolo: _________ (justificación: ___________)</li>
+                <li>Frecuencia de transmisión: _________</li>
+                <li>Gateway: _________ (costo: $_______)</li>
+            </ul>
+
+            <p><strong>Plataforma:</strong></p>
+            <ul>
+                <li>Proveedor: _________ (AWS/Azure/Google/On-premise)</li>
+                <li>Costo mensual estimado: $_______</li>
+                <li>Escalabilidad: _________ dispositivos</li>
+            </ul>
+
+            <h4>Paso 5: Beneficios y Métricas (10 min)</h4>
+            <p><strong>KPIs (Key Performance Indicators):</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Línea base</th>
+                        <th>Meta 1 año</th>
+                        <th>Métrica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Paso 6: Desafíos y Riesgos (10 min)</h4>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Técnicos</h4>
+                    <ul>
+                        <li>[ ] Interoperabilidad</li>
+                        <li>[ ] Escalabilidad</li>
+                        <li>[ ] Mantenimiento</li>
+                        <li>Otro: _________</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Sociales</h4>
+                    <ul>
+                        <li>[ ] Privacidad</li>
+                        <li>[ ] Aceptación ciudadana</li>
+                        <li>[ ] Brecha digital</li>
+                        <li>Otro: _________</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Económicos</h4>
+                    <ul>
+                        <li>[ ] ROI incierto</li>
+                        <li>[ ] Costo operación</li>
+                        <li>[ ] Financiamiento</li>
+                        <li>Otro: _________</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Paso 7: Consideraciones de Privacidad (10 min)</h4>
+            <p><strong>Datos recopilados:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>¿Es personal?</th>
+                        <th>¿Requiere consentimiento?</th>
+                        <th>¿Cómo se protege?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Cumplimiento Ley 1581:</strong></p>
+            <ul>
+                <li>[ ] Política de privacidad</li>
+                <li>[ ] Autorización explícita</li>
+                <li>[ ] Derechos ARCO implementados</li>
+                <li>[ ] Minimización de datos</li>
+            </ul>
+
+            <h3>Rúbrica de Evaluación</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criterio</th>
+                        <th>4 - Excelente</th>
+                        <th>3 - Bueno</th>
+                        <th>2 - Aceptable</th>
+                        <th>1 - Insuficiente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Arquitectura</strong></td>
+                        <td>Diagrama completo con capas claras</td>
+                        <td>Diagrama básico</td>
+                        <td>Diagrama incompleto</td>
+                        <td>Sin diagrama</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tecnología</strong></td>
+                        <td>Sensores/actuadores específicos y apropiados</td>
+                        <td>Lista genérica</td>
+                        <td>Tecnología limitada</td>
+                        <td>Sin especificación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Beneficios</strong></td>
+                        <td>3+ métricas cuantificables</td>
+                        <td>2 métricas cualitativas</td>
+                        <td>1 beneficio genérico</td>
+                        <td>Sin beneficios</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desafíos</strong></td>
+                        <td>Técnicos, sociales y económicos con mitigaciones</td>
+                        <td>1-2 tipos de desafíos</td>
+                        <td>Solo desafíos obvios</td>
+                        <td>Sin análisis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacidad</strong></td>
+                        <td>Análisis profundo de riesgos y mitigaciones</td>
+                        <td>Menciona privacidad básica</td>
+                        <td>Mínima consideración</td>
+                        <td>Sin mención</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contexto Medellín</strong></td>
+                        <td>Específico con datos locales</td>
+                        <td>Menciona contexto genérico</td>
+                        <td>Sin contexto local</td>
+                        <td>Desconectado</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <strong>Calificación:</strong> Suma / 24 × 100%
+            </div>
+
+            <!-- Example -->
+            <h3 style="margin-top: 3rem;">Ejemplo Resumido: Monitoreo Calidad Aire</h3>
+
+            <h4>Resumen Ejecutivo</h4>
+            <p>Red de 200 sensores IoT para monitoreo hiperlocal de calidad del aire en Medellín. Resolución de 500m (vs 5km actual), con alertas tempranas a ciudadanía y autoridades.</p>
+
+            <h4>Arquitectura Resumida</h4>
+            <pre>
+Sensores (PM2.5, PM10, O3, NO2) → LoRaWAN → Gateway → AWS → App + Dashboard
+    |                                                            |
+    ↓                                                            ↓
+Solar + batería (7 días)                          API pública + Alertas push
+            </pre>
+
+            <h4>Beneficios</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Línea base</th>
+                        <th>Meta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cobertura comunas</td>
+                        <td>50%</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr>
+                        <td>Alertas anticipación</td>
+                        <td>30 min</td>
+                        <td>2 horas</td>
+                    </tr>
+                    <tr>
+                        <td>Consultas respiratorias</td>
+                        <td>-</td>
+                        <td>-20%</td>
+                    </tr>
+                    <tr>
+                        <td>Costo estación</td>
+                        <td>$500K</td>
+                        <td>$30K</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Costos</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Piloto (20 nodos)</td>
+                        <td>$3M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Expansión (180 nodos)</td>
+                        <td>$27M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Plataforma</td>
+                        <td>$15M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Mantenimiento/año</td>
+                        <td>$30M COP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>$75M COP</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success">
+                <strong>ROI:</strong> Ahorro en salud ≈ $200M COP/año<br>
+                <strong>Payback:</strong> 4.5 meses
+            </div>
+
+            <!-- Example 2 -->
+            <h3 style="margin-top: 3rem;">Ejemplo Resumido: Parqueaderos Inteligentes</h3>
+
+            <h4>Resumen Ejecutivo</h4>
+            <p>Sistema IoT para 500 parqueaderos en zona centro de Medellín. Sensores magnéticos detectan ocupación en tiempo real, app guía conductores a espacios libres, reduciendo congestión y contaminación.</p>
+
+            <h4>Arquitectura Resumida</h4>
+            <pre>
+Sensores magnéticos → LoRaWAN → Gateway → AWS IoT → App + Dashboard
+    |                                                            |
+    ↓                                                            ↓
+Batería solar (6 meses)                          API para integraciones + Alertas
+            </pre>
+
+            <h4>Beneficios</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Línea base</th>
+                        <th>Meta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiempo búsqueda</td>
+                        <td>15 min</td>
+                        <td>2 min</td>
+                    </tr>
+                    <tr>
+                        <td>Emisiones CO2</td>
+                        <td>-</td>
+                        <td>-30%</td>
+                    </tr>
+                    <tr>
+                        <td>Ingresos zona</td>
+                        <td>-</td>
+                        <td>+20%</td>
+                    </tr>
+                    <tr>
+                        <td>Costo sensor</td>
+                        <td>$200</td>
+                        <td>$50</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Costos</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Piloto (50 espacios)</td>
+                        <td>$2.5M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Expansión (450 espacios)</td>
+                        <td>$22.5M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Plataforma</td>
+                        <td>$10M COP</td>
+                    </tr>
+                    <tr>
+                        <td>Mantenimiento/año</td>
+                        <td>$15M COP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>$50M COP</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight highlight-success">
+                <strong>ROI:</strong> Ingresos adicionales + reducción costos congestión ≈ $80M COP/año<br>
+                <strong>Payback:</strong> 7.5 meses
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section>
+            <h2>Resumen de la Clase</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Empresa Inteligente</strong></td>
+                        <td>Usa IoT para optimizar operaciones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Industria 4.0</strong></td>
+                        <td>Manufactura con IoT, IA, Big Data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart City</strong></td>
+                        <td>Ciudad que usa IoT para mejorar servicios</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Grid</strong></td>
+                        <td>Red eléctrica inteligente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Mobility</strong></td>
+                        <td>Transporte conectado y eficiente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desafíos</strong></td>
+                        <td>Interoperabilidad, seguridad, privacidad</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Homework -->
+        <section>
+            <h2>Tarea para la Próxima Clase</h2>
+
+            <h3>Investigación</h3>
+            <p>Seleccionar una ciudad inteligente del mundo y preparar:</p>
+            <ol>
+                <li><strong>Ficha técnica</strong> (3 iniciativas IoT destacadas)</li>
+                <li><strong>Resultados medibles</strong> (métricas, estadísticas)</li>
+                <li><strong>Lecciones aprendidas</strong> para Colombia</li>
+                <li><strong>Presentación de 5 minutos</strong> para compartir</li>
+            </ol>
+
+            <div class="highlight">
+                <strong>Ciudades sugeridas:</strong> Ámsterdam, Dubái, Seúl, Copenhague, Helsinki<br>
+                <strong>Herramientas para investigación:</strong> Sitios web oficiales, IEEE Xplore, Google Scholar, informes de Smart Cities Council
+            </div>
+        </section>
+
+        <!-- References -->
+        <section id="referencias">
+            <h2>Referencias Bibliográficas</h2>
+
+            <h3>Casos de Estudio - Empresas</h3>
+            <h4>Grupo Nutresa</h4>
+            <ol>
+                <li><strong>Grupo Nutresa.</strong> (2024). <em>Reporte de Sostenibilidad 2023</em>. Planta Tocancipá 4.0.</li>
+                <li><strong>Siemens.</strong> (2023). <em>Digital Enterprise - Case Study: Grupo Nutresa</em>.</li>
+                <li><strong>World Economic Forum.</strong> (2023). <em>Global Lighthouse Network: Grupo Nutresa Tocancipá</em>.</li>
+            </ol>
+
+            <h4>EPM</h4>
+            <ol start="4">
+                <li><strong>Empresas Públicas de Medellín (EPM).</strong> (2024). <em>Proyecto Smart Grid: Informe de Avance 2020-2024</em>.</li>
+                <li><strong>Landis+Gyr.</strong> (2024). <em>E450 Smart Meter Technical Specification</em>.</li>
+            </ol>
+
+            <h4>Siemens Amberg</h4>
+            <ol start="6">
+                <li><strong>Siemens.</strong> (2024). <em>Digital Factory: Amberg Plant Showcase</em>.</li>
+                <li><strong>Kagermann, H., et al.</strong> (2013). <em>Industrie 4.0: Recommendations for implementing Industry 4.0</em>. Forschungsunion.</li>
+            </ol>
+
+            <h3>Smart Cities - Globales</h3>
+            <h4>Singapur</h4>
+            <ol start="8">
+                <li><strong>Smart Nation Singapore.</strong> (2024). <em>Digital Government Blueprint</em>.</li>
+                <li><strong>Government Technology Agency (GovTech).</strong> (2024). <em>SenseOps: Sensor Network Specification</em>.</li>
+            </ol>
+
+            <h4>Barcelona</h4>
+            <ol start="10">
+                <li><strong>Ajuntament de Barcelona.</strong> (2024). <em>Barcelona Digital City Roadmap</em>.</li>
+                <li><strong>Sentilo.</strong> (2024). <em>Open Source Sensor Platform Documentation</em>.</li>
+            </ol>
+
+            <h3>Frameworks y Estándares</h3>
+            <ol start="12">
+                <li><strong>IEEE.</strong> (2023). <em>IEEE 802.15.4: Low-Rate Wireless Personal Area Networks</em>.</li>
+                <li><strong>ITU-T.</strong> (2022). <em>Y.4110: Overview of Internet of Things - Smart City Applications</em>.</li>
+                <li><strong>ISO.</strong> (2023). <em>ISO 37120: Sustainable development of communities — Indicators for city services</em>.</li>
+            </ol>
+
+            <h3>Seguridad IoT</h3>
+            <ol start="15">
+                <li><strong>NIST.</strong> (2024). <em>NIR 8423: Smart City Privacy and Security Considerations</em>.</li>
+                <li><strong>ENISA.</strong> (2023). <em>Smart Cities Security and Resilience Guide</em>.</li>
+            </ol>
+
+            <h3>Libros Recomendados</h3>
+            <ol start="17">
+                <li><strong>Batty, M., et al.</strong> (2022). <em>Smart Cities of the Future</em>. MIT Press.</li>
+                <li><strong>Angelidou, M.</strong> (2023). <em>Smart City Policies: A European Perspective</em>. Springer.</li>
+                <li><strong>Huang, R. (Ed.)</strong> (2021). <em>IoT for Smart Cities</em>. IET.</li>
+            </ol>
+
+            <h3>Recursos Online</h3>
+            <ul>
+                <li><strong>Smart Cities Council:</strong> <a href="https://smartcitiescouncil.com/" target="_blank">https://smartcitiescouncil.com/</a></li>
+                <li><strong>IEEE Smart Cities:</strong> <a href="https://smartcities.ieee.org/" target="_blank">https://smartcities.ieee.org/</a></li>
+                <li><strong>World Economic Forum C4IR:</strong> <a href="https://www.centreforthefourthindustrialrevolution.org/" target="_blank">https://www.centreforthefourthindustrialrevolution.org/</a></li>
+            </ul>
+
+        </section>
+
+        <!-- Next Class -->
+        <section>
+            <h2>Próxima Clase</h2>
+
+            <h3>Clase 4: Redes para IoT</h3>
+            <ul>
+                <li>LAN, WAN e Internet</li>
+                <li>Protocolos de comunicación IoT</li>
+                <li>Evaluación E1 (15%): Ensayo + Quiz</li>
+            </ul>
+
+            <div class="highlight" style="text-align: center;">
+                <strong>¡Nos vemos!</strong>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+        <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 3: Transformación del Entorno | Última actualización: Febrero 2026</p>
+    </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

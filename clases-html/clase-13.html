@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 13: Caso de Estudio - Medellín Smart City - IF0112</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .card h4 {
+            color: var(--color-primary-light);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        /* ============================================
+           SPECIAL COMPONENTS (Preserved from original)
+           ============================================ */
+        /* Cajas de aprendizaje clave */
+        .learning-key {
+            background: linear-gradient(135deg, #ede9fe, #f3e8ff);
+            border-left: 5px solid #6d28d9;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(109, 85, 247, 0.15);
+        }
+        .learning-key h4 {
+            color: #6d28d9;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .learning-key h4::before {
+            content: "💡";
+            font-size: 1.2rem;
+        }
+        .learning-key p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Hardware opcional notice */
+        .hardware-notice {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .hardware-notice strong {
+            color: #92400e;
+        }
+
+        /* Diagram boxes */
+        .diagram {
+            background: #faf5ff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            color: #312e81;
+        }
+
+        /* Note boxes */
+        .note {
+            background: #f3e8ff;
+            border-left: 4px solid #6d28d9;
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        /* Header pills */
+        .pill {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+        }
+
+        /* Header grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 13: Caso de Estudio Completo</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT) | Caso de Estudio: Medellín Smart City</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#arquitectura">Arquitectura</a></li>
+                <li><a href="#sensores">Sensores</a></li>
+                <li><a href="#evento">Caso de exito</a></li>
+                <li><a href="#datos">Analitica y datos</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
+                <li><a href="#actualizacion-2025">Actualizacion 2025 📊</a></li>
+                <li><a href="#lecciones">Lecciones</a></li>
+                <li><a href="#checklist">Checklist</a></li>
+                <li><a href="#practica">Practica / Lab</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Analizar</strong> un caso real de IoT urbano en Colombia (SIATA)</li>
+                            <li><strong>Identificar</strong> arquitectura, sensores, conectividad y analítica</li>
+                            <li><strong>Evaluar</strong> ROI, impacto social y lecciones aprendidas</li>
+                            <li><strong>Extraer</strong> un checklist para replicar el modelo</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Contexto del caso SIATA</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Arquitectura técnica y sensores</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Caso de éxito y analítica de datos</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Lecciones aprendidas y checklist</td>
+                                    <td>40 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cómo replicar el modelo SIATA en otros contextos?</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contexto">
+                <h2>Contexto del caso SIATA</h2>
+
+                <div class="learning-key">
+                    <h4>Aprendizaje clave</h4>
+                    <p>SIATA es un caso real de Smart City en Colombia. Integra IoT, Big Data y ciencia de datos para gestión de riesgos ambientales. Lecciones: infraestructura escalable, colaboración público-privada, datos abiertos, y APIs para desarrolladores.</p>
+                </div>
+
+                <ul>
+                    <li><strong>Ubicacion:</strong> Medellin y 9 municipios del Valle de Aburra.</li>
+                    <li><strong>Poblacion protegida:</strong> 2.5 millones de habitantes.</li>
+                    <li><strong>Inversion total:</strong> USD 2.5M (fase 1) + USD 8M (fases 2-3).</li>
+                    <li><strong>Operador:</strong> Area Metropolitana del Valle de Aburra (AMVA).</li>
+                </ul>
+                <div class="note">
+                    <strong>Enfoque:</strong> gestionar riesgos hidrometeorologicos con datos en tiempo real.
+                </div>
+            </section>
+
+            <section id="arquitectura">
+                <h2>Arquitectura tecnica</h2>
+                <div class="diagram">
++----------------------------------------------------------+
+| SIATA - NUBE (AWS)                                       |
+| Portal Web | API Publica | Analytics (ML) | App Movil   |
++----------------------------------------------------------+
+                      ^ 4G/LTE
+                      |
++----------------------------------------------------------+
+| GATEWAYS SIATA (6)                                       |
+| Gateway -> 4G -> Nube                                    |
+| LoRa                                                     |
++----------------------------------------------------------+
+                      ^ LoRaWAN (15 km)
+                      |
++----------------------------------------------------------+
+| RED DE SENSORES                                          |
+| Estaciones clima (50) | Aire (20) | Radar (2) | Hidro (30)|
++----------------------------------------------------------+
+                </div>
+                <p>El sistema combina LoRaWAN para los sensores distribuidos y 4G/LTE para backhaul hacia la nube. En la nube se integran API publica, analitica ML y aplicaciones ciudadanas.</p>
+            </section>
+
+            <section id="sensores">
+                <h2>Infraestructura de sensores</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Modelo</th>
+                            <th>Parametros</th>
+                            <th>Frecuencia</th>
+                            <th>Ubicacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Estacion climatica</td>
+                            <td>Davis Vantage Pro 2</td>
+                            <td>Temp, HR, presion, lluvia, viento</td>
+                            <td>Cada 1 min</td>
+                            <td>50 sitios</td>
+                        </tr>
+                        <tr>
+                            <td>Calidad aire</td>
+                            <td>MetOne ES-642</td>
+                            <td>PM10, PM2.5, O3, NO2, SO2, CO</td>
+                            <td>Cada 15 min</td>
+                            <td>20 sitios</td>
+                        </tr>
+                        <tr>
+                            <td>Radar meteorologico</td>
+                            <td>EEC Meteor 600S</td>
+                            <td>Reflectividad, velocidad viento</td>
+                            <td>Cada 5 min</td>
+                            <td>2 torres</td>
+                        </tr>
+                        <tr>
+                            <td>Nivel quebradas</td>
+                            <td>Sensor nivel presion</td>
+                            <td>Altura agua (cm)</td>
+                            <td>Cada 5 min</td>
+                            <td>30 quebradas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="evento">
+                <h2>Caso de exito: Alerta de inundacion (23 Mayo 2022)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Evento</th>
+                            <th>Accion SIATA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>22:30</td>
+                            <td>Sensor quebrada Santa Elena detecta nivel critico</td>
+                            <td>Edge AI confirma patron de crecida</td>
+                        </tr>
+                        <tr>
+                            <td>22:32</td>
+                            <td>Algoritmo predice desbordamiento en 45 min</td>
+                            <td>Alerta masiva (App + SMS + sirenas)</td>
+                        </tr>
+                        <tr>
+                            <td>22:35</td>
+                            <td>2,500 personas evacuadas</td>
+                            <td>0 victimas vs 12 en evento similar 2015</td>
+                        </tr>
+                        <tr>
+                            <td>22:45</td>
+                            <td>Quebrada se desborda</td>
+                            <td>Danos minimizados</td>
+                        </tr>
+                        <tr>
+                            <td>23:30</td>
+                            <td>Nivel baja</td>
+                            <td>Fin alerta</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>ROI del evento</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metrica</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vidas salvadas (potencial)</td>
+                            <td>2,500</td>
+                        </tr>
+                        <tr>
+                            <td>Danos evitados</td>
+                            <td>USD 8M</td>
+                        </tr>
+                        <tr>
+                            <td>Costo operacion</td>
+                            <td>USD 500</td>
+                        </tr>
+                        <tr>
+                            <td>ROI del evento</td>
+                            <td>16,000x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="datos">
+                <h2>Analitica y datos</h2>
+                <div class="note">
+                    <strong>Dataset historico (2017-2024):</strong> 7 anios, 2.6 billones de registros, 45 TB.
+                </div>
+                <pre><code># Modelo predictivo de inundacion (simplificado)
+from sklearn.ensemble import RandomForestClassifier
+
+features = [
+    "nivel_quebrada_1h_antes",
+    "nivel_quebrada_2h_antes",
+    "precipitacion_24h",
+    "saturacion_suelo",
+    "caudal_rio"
+]
+
+model = RandomForestClassifier(n_estimators=100)
+model.train(datos_historicos)
+
+def predecir_riesgo(nivel_actual, precipitacion):
+    riesgo = model.predict_proba([[nivel_actual, precipitacion, ...]])
+    return riesgo[1]
+</code></pre>
+                <p><strong>Precision:</strong> 94% (sensibilidad), 89% (especificidad).</p>
+            </section>
+
+            <section id="terminos-clave">
+                <h2>Términos Clave del Caso SIATA</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término/Acrónimo</th>
+                            <th>Definición</th>
+                            <th>Contexto/Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Edge AI</strong></td>
+                            <td>Inteligencia artificial ejecutada en dispositivos de borde (gateways/sensores) en lugar de la nube</td>
+                            <td>Detección de patrones de crecida en el gateway SIATA antes de enviar a la nube</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud AI</strong></td>
+                            <td>Inteligencia artificial ejecutada en servidores en la nube</td>
+                            <td>Modelos predictivos de inundación que usan datos históricos masivos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EPM</strong></td>
+                            <td>Empresas Públicas de Medellín - empresa de servicios públicos</td>
+                            <td>Colabora en infraestructura de comunicaciones y energía para SIATA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ruta N</strong></td>
+                            <td>Centro de innovación y negocio digital de Medellín</td>
+                            <td>Aporta desarrollo de tecnologías y analytics para SIATA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PM10 / PM2.5</strong></td>
+                            <td>Material Particulado: Partículas suspendidas en aire de 10μm / 2.5μm de diámetro</td>
+                            <td>Sensores de calidad del aire miden estas partículas para salud pública</td>
+                        </tr>
+                        <tr>
+                            <td><strong>sklearn</strong></td>
+                            <td>Scikit-learn: biblioteca Python para machine learning</td>
+                            <td>Usada en SIATA para modelos de predicción de inundaciones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROI</strong></td>
+                            <td>Return on Investment: Retorno sobre inversión</td>
+                            <td>Evento 23 Mayo 2022: ROI 16,000x (USD 8M evitados / USD 500 costo)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>KPI</strong></td>
+                            <td>Key Performance Indicator: Indicador clave de desempeño</td>
+                            <td>Ejemplo: "Vidas salvadas por alerta temprana" o "Tiempo de evacuación promedio"</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir Edge AI con Cloud AI. Edge AI procesa datos localmente (menos latencia, menos ancho de banda), mientras Cloud AI procesa en servidores centrales (más capacidad histórica, pero mayor latencia). SIATA usa ambos: Edge para detección inmediata, Cloud para predicción a largo plazo.
+                </div>
+            </section>
+
+            <section id="actualizacion-2025">
+                <h2>Actualización de Inversión (2025)</h2>
+                <div class="note" style="border-left: 4px solid #3b82f6; background: #eff6ff; padding: 1rem; margin: 1rem 0;">
+                    <strong>Inversión 2025:</strong> El presupuesto de SIATA para 2025 es de <strong>COP $46.233 billones</strong> (aprox. USD 11.6 millones), lo que representa un aumento significativo frente a 2024 (COP $27.11 billones ≈ USD 6.8M). Este incremento refleja la expansión continua del sistema y su importancia estratégica para la región.
+                    <p style="margin-top: 0.5rem; margin-bottom: 0; font-size: 0.9rem; color: #1e40af;"><em>Fuente: AMVA 2025, Presupuesto aprobado.</em></p>
+                </div>
+            </section>
+
+            <section id="lecciones">
+                <h2>Lecciones aprendidas</h2>
+                <h3>Exitos</h3>
+                <ul>
+                    <li>Sensorizacion densa (50 estaciones vs 10 tradicionales).</li>
+                    <li>Edge AI para reducir latencia.</li>
+                    <li>Alerta multi-canal: app, SMS, sirenas, radio.</li>
+                    <li>Colaboracion institucional (AMVA + EPM + Ruta N).</li>
+                </ul>
+                <h3>Desafios superados</h3>
+                <ul>
+                    <li>Conectividad rural con LoRaWAN (15 km).</li>
+                    <li>Calibracion de sensores automatizada.</li>
+                    <li>Adopcion ciudadana mediante campañas educativas.</li>
+                    <li>Sostenibilidad financiera publico-privada.</li>
+                </ul>
+            </section>
+
+            <section id="checklist">
+                <h2>Checklist para replicar SIATA</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Esencial</th>
+                            <th>Alternativa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Red de sensores</td>
+                            <td>Si</td>
+                            <td>Menos densa al inicio</td>
+                        </tr>
+                        <tr>
+                            <td>Radar meteorologico</td>
+                            <td>Deseable</td>
+                            <td>Datos de terceros</td>
+                        </tr>
+                        <tr>
+                            <td>Edge AI</td>
+                            <td>Si</td>
+                            <td>Cloud AI (mayor latencia)</td>
+                        </tr>
+                        <tr>
+                            <td>App ciudadana</td>
+                            <td>Si</td>
+                            <td>SMS unicamente</td>
+                        </tr>
+                        <tr>
+                            <td>Sirenas</td>
+                            <td>Si</td>
+                            <td>Solo alerta digital</td>
+                        </tr>
+                        <tr>
+                            <td>Modelo predictivo</td>
+                            <td>Si</td>
+                            <td>Umbrales simples</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practica">
+                <h2>Practica / laboratorio</h2>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Opcional (análisis de caso guiado)</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Análisis de caso SIATA (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 20 minutos en clase</p>
+                    <p><strong>Criterios:</strong> Análisis de arquitectura, KPIs, plan de escalamiento</p>
+                </section>
+
+                <h3>Actividad guiada: analisis de caso</h3>
+                <ol>
+                    <li>Identifique sensores clave y su ubicacion.</li>
+                    <li>Explique por que se usa LoRaWAN y 4G.</li>
+                    <li>Proponga un KPI para medir impacto social.</li>
+                    <li>Enumere riesgos operativos y mitigaciones.</li>
+                    <li>Diseñe un plan de escalamiento a otra ciudad.</li>
+                </ol>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios</h2>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Opcional (recomendado para practicar)</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Soluciones a ejercicios (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 30-45 minutos autónomos</p>
+                    <p><strong>Criterios:</strong> Aplicación de conceptos de Smart City y SIATA</p>
+                </section>
+
+                <ol>
+                    <li>Calcule el ROI si se evita un dano de USD 5M con un costo de USD 800.</li>
+                    <li>Explique la diferencia entre Edge AI y Cloud AI en SIATA.</li>
+                    <li>Disene un modelo de alerta para incendios forestales basado en SIATA.</li>
+                    <li>Liste 5 datos que deben publicarse en una API abierta para ciudadanos.</li>
+                    <li>Proponga una estrategia de sostenibilidad financiera a 5 anios.</li>
+                </ol>
+            </section>
+
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Material complementario interno: siata.md (clase 13).</li>
+                </ul>
+
+                <div class="hardware-notice">
+                    <strong>💻 Factibilidad Windows:</strong> Este caso de estudio es completamente teórico sobre SIATA. No requiere hardware ni software especializado. Todo el contenido se puede estudiar directamente en el navegador en Windows.
+                </div>
+            </section>
+
+            <!-- Evaluación 5 -->
+            <section id="evaluacion-5" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
+                <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Evaluación Programada</h3>
+                <p style="margin: 0;"><strong>Eval 5 (15%):</strong> Presentación + Debate - Fecha: 2026-05-04</p>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
+                    Consulte la plataforma educativa para el detalle completo de la evaluación.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 13: Caso de Estudio - Medellín Smart City | Última actualización: Febrero 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 15: Estándares IoT - IF0112 Complementaria II (IoT)</title>
+    <style>
+
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
+            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
+            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .card h4 {
+            color: var(--color-primary-light);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 15: Estándares IoT</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT) | IEEE, OASIS, IETF y Certificaciones</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#ieee">IEEE</a></li>
+                <li><a href="#aplicacion">Protocolos</a></li>
+                <li><a href="#seguridad">Seguridad</a></li>
+                <li><a href="#certificaciones">Certificaciones</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
+                <li><a href="#colombia">Colombia</a></li>
+                <li><a href="#practica">Practica / Lab</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+        </nav>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </nav>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+    <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Reconocer</strong> estándares IEEE relevantes (802.15.4, 802.11)</li>
+                            <li><strong>Comparar</strong> protocolos IoT de aplicación (MQTT, CoAP, LwM2M)</li>
+                            <li><strong>Identificar</strong> estándares de seguridad (OWASP IoT Top 10)</li>
+                            <li><strong>Analizar</strong> certificaciones y normativas colombianas</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Contexto y organizaciones</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Estándares IEEE y protocolos</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Seguridad y certificaciones</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Normativas colombianas y práctica</td>
+                                    <td>35 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué estándar debo aplicar en mi proyecto IoT?</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contexto">
+                <h2>Contexto y motivacion</h2>
+
+                <div class="learning-key">
+                    <h4>Aprendizaje clave</h4>
+                    <p>Los estándares IoT se agrupan en: conectividad (IEEE 802.15.4, 802.11), protocolos de aplicación (MQTT v5.0 OASIS, CoAP IETF, LwM2M OMA), seguridad (OWASP IoT Top 10), y certificaciones (FCC, CE, ICONTEC). Sin estándares, los dispositivos no hablan el mismo idioma.</p>
+                </div>
+
+                <p>Los estandares garantizan interoperabilidad, seguridad y escalabilidad. En IoT, se combinan estandares de conectividad (IEEE), protocolos de aplicacion (MQTT, CoAP) y marcos de seguridad (OWASP, ISO).</p>
+                <div class="note">
+                    <strong>Idea clave:</strong> sin estandares, los dispositivos no hablan el mismo idioma.
+                </div>
+            </section>
+
+            <section id="ieee">
+                <h2>Estandares IEEE</h2>
+                <h3>IEEE 802.15.4</h3>
+                <p>Base para Zigbee, Thread y WirelessHART. Disenado para redes personales de bajo consumo.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parametro</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Frecuencias</td>
+                            <td>868 MHz (EU), 915 MHz (US), 2.4 GHz (global)</td>
+                        </tr>
+                        <tr>
+                            <td>Velocidad</td>
+                            <td>20-250 Kbps</td>
+                        </tr>
+                        <tr>
+                            <td>Topologia</td>
+                            <td>Star, Mesh</td>
+                        </tr>
+                        <tr>
+                            <td>Direcciones</td>
+                            <td>16-bit (65,536 nodos)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>IEEE 802.11 (WiFi)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estándar</th>
+                            <th>Año</th>
+                            <th>Velocidad</th>
+                            <th>Frecuencia</th>
+                            <th>Uso IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>802.11n</td>
+                            <td>2009</td>
+                            <td>600 Mbps</td>
+                            <td>2.4/5 GHz</td>
+                            <td>Camaras IP</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ac</td>
+                            <td>2013</td>
+                            <td>6.93 Gbps</td>
+                            <td>5 GHz</td>
+                            <td>Streaming 4K</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ax</td>
+                            <td>2019</td>
+                            <td>9.6 Gbps</td>
+                            <td>2.4/5/6 GHz</td>
+                            <td>Densidad alta</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ah</td>
+                            <td>2016</td>
+                            <td>150 Kbps</td>
+                            <td>900 MHz</td>
+                            <td>IoT rural</td>
+                        </tr>
+                        <tr>
+                            <td>802.11az</td>
+                            <td>2023</td>
+                            <td>30 Gbps</td>
+                            <td>2.4/5/6 GHz</td>
+                            <td>Next-Gen Positioning</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="aplicacion">
+                <h2>Protocolos de aplicacion IoT</h2>
+                <h3>MQTT v5.0 (OASIS)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caracteristica</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Publicador/Suscriptor</td>
+                            <td>Desacoplamiento completo</td>
+                        </tr>
+                        <tr>
+                            <td>QoS</td>
+                            <td>0 (fire & forget), 1 (1 vez), 2 (exactamente 1 vez)</td>
+                        </tr>
+                        <tr>
+                            <td>Retained messages</td>
+                            <td>Broker guarda ultimo mensaje</td>
+                        </tr>
+                        <tr>
+                            <td>Will messages</td>
+                            <td>Mensaje de desconexion</td>
+                        </tr>
+                        <tr>
+                            <td>TLS</td>
+                            <td>Puerto 8883 para MQTT seguro</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>CoAP (IETF RFC 7252)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caracteristica</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Transporte</td>
+                            <td>UDP (no TCP)</td>
+                        </tr>
+                        <tr>
+                            <td>REST-like</td>
+                            <td>GET, POST, PUT, DELETE</td>
+                        </tr>
+                        <tr>
+                            <td>Discovery</td>
+                            <td>Recursos .well-known/core</td>
+                        </tr>
+                        <tr>
+                            <td>Observacion</td>
+                            <td>Observe resource para cambios</td>
+                        </tr>
+                        <tr>
+                            <td>Bloques</td>
+                            <td>Transferencia confiable sobre UDP</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>LwM2M (OMA)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caracteristica</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Arquitectura</td>
+                            <td>Cliente - Servidor</td>
+                        </tr>
+                        <tr>
+                            <td>Objetos</td>
+                            <td>Definidos en IPSO Alliance</td>
+                        </tr>
+                        <tr>
+                            <td>Interfaces</td>
+                            <td>Bootstrap, Read, Write, Execute</td>
+                        </tr>
+                        <tr>
+                            <td>Comunicacion</td>
+                            <td>CoAP sobre UDP</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="seguridad">
+                <h2>Estandares de seguridad</h2>
+                <h3>OWASP IoT Top 10 (2024)</h3>
+                <ol>
+                    <li>Weak, guessable, or hardcoded passwords</li>
+                    <li>Insecure network services</li>
+                    <li>Insecure ecosystem interfaces</li>
+                    <li>Lack of secure update mechanism</li>
+                    <li>Use of insecure or outdated components</li>
+                    <li>Insufficient privacy protection</li>
+                    <li>Insecure data transfer</li>
+                    <li>Lack of device management</li>
+                    <li>Insecure default settings</li>
+                    <li>Lacking physical hardening</li>
+                </ol>
+                <div class="note">
+                    <strong>Tip:</strong> usar OWASP IoT como lista de chequeo en auditorias.
+                </div>
+            </section>
+
+            <section id="certificaciones">
+                <h2>Certificaciones y plataformas</h2>
+                <h3>AWS IoT Core</h3>
+                <ul>
+                    <li>Device Defender: seguridad de dispositivos.</li>
+                    <li>IoT Device Management: OTA, configuracion.</li>
+                    <li>FreeRTOS: OS para microcontroladores.</li>
+                </ul>
+                <h3>Azure IoT</h3>
+                <ul>
+                    <li>Azure Certified for IoT.</li>
+                    <li>IoT Plug and Play (autodescubrimiento).</li>
+                </ul>
+                <h3>Google Cloud IoT</h3>
+                <ul>
+                    <li>Cloud IoT Core (registro de dispositivos).</li>
+                    <li>Device SDK para C/C++ y Python.</li>
+                </ul>
+            </section>
+
+            <section id="terminos-clave">
+                <h2>Términos Clave de Estándares IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Organización/Acrónimo</th>
+                            <th>Nombre Completo</th>
+                            <th>Propósito en IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>IEEE</strong></td>
+                            <td>Institute of Electrical and Electronics Engineers</td>
+                            <td>Desarrolla estándares de conectividad (802.11 WiFi, 802.15.4 WPAN)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OASIS</strong></td>
+                            <td>Organization for the Advancement of Structured Information Standards</td>
+                            <td>Mantiene especificación MQTT v5.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IETF</strong></td>
+                            <td>Internet Engineering Task Force</td>
+                            <td>Desarrolla estándares de internet (CoAP RFC 7252, UDP)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OMA</strong></td>
+                            <td>Open Mobile Alliance</td>
+                            <td>Especifica LwM2M para gestión de dispositivos IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IPSO Alliance</strong></td>
+                            <td>IP for Smart Objects Alliance</td>
+                            <td>Define objetos/estructuras de datos para LwM2M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OWASP</strong></td>
+                            <td>Open Web Application Security Project</td>
+                            <td>Mantiene OWASP IoT Top 10 (vulnerabilidades comunes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ICONTEC</strong></td>
+                            <td>Instituto Colombiano de Normas Técnicas y Certificación</td>
+                            <td>Emite certificaciones y normas técnicas en Colombia (NTC)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OTA</strong></td>
+                            <td>Over-The-Air Updates</td>
+                            <td>Actualizaciones de firmware remoto sin conexión física</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EMC</strong></td>
+                            <td>Electromagnetic Compatibility</td>
+                            <td>Certificación de compatibilidad electromagnética (CE Europa)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RoHS</strong></td>
+                            <td>Restriction of Hazardous Substances</td>
+                            <td>Directiva europea restringiendo sustancias peligrosas en electrónica</td>
+                        </tr>
+                        <tr>
+                            <td><strong>REACH</strong></td>
+                            <td>Registration, Evaluation, Authorisation and Restriction of Chemicals</td>
+                            <td>Reglamento europeo de sustancias químicas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NTC</strong></td>
+                            <td>Norma Técnica Colombiana</td>
+                            <td>Estándar técnico emitido por ICONTEC</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir IEEE (desarrolla estándares de hardware/conectividad) con IETF (desarrolla estándares de software/protocolos de internet). Ejemplo: IEEE define el WiFi físico (802.11), IETF define protocolos como HTTP/CoAP que corren sobre él.
+                </div>
+            </section>
+
+            <section id="colombia">
+                <h2>Normatividad y certificaciones en Colombia</h2>
+                <h3>Certificaciones de dispositivos</h3>
+                <ul>
+                    <li><strong>FCC (EE.UU.):</strong> Part 15, Part 18.</li>
+                    <li><strong>CE (Europa):</strong> EMC, REACH, RoHS.</li>
+                    <li><strong>ICONTEC (Colombia):</strong> NTC 6001.</li>
+                </ul>
+                <h3>Normas colombianas IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Norma</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>NTC 6001</td>
+                            <td>Guia implementacion IoT en Colombia</td>
+                        </tr>
+                        <tr>
+                            <td>NTC-ISO/IEC 27001</td>
+                            <td>Seguridad de informacion</td>
+                        </tr>
+                        <tr>
+                            <td>NTC-ISO/IEC 30141</td>
+                            <td>Arquitectura de referencia IoT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practica">
+                <h2>Practica / laboratorio</h2>
+                <h3>Actividad guiada: matriz de cumplimiento</h3>
+                <ol>
+                    <li>Seleccione un dispositivo IoT real.</li>
+                    <li>Liste los estandares que aplica (IEEE, protocolo, seguridad).</li>
+                    <li>Defina que certificaciones necesita para vender en Colombia/USA.</li>
+                    <li>Proponga un plan de pruebas para garantizar cumplimiento.</li>
+                </ol>
+                <pre><code># Plantilla rapida
+Dispositivo:
+Conectividad (IEEE):
+Protocolo app:
+Seguridad (OWASP/ISO):
+Certificaciones:
+Riesgos por incumplimiento:</code></pre>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios</h2>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Opcional (recomendado para practicar)</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Soluciones a ejercicios (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 30-45 minutos autónomos</p>
+                    <p><strong>Criterios:</strong> Aplicación de conceptos de estándares IoT</p>
+                </section>
+
+                <ol>
+                    <li>Explique por que 802.15.4 es base para Zigbee y Thread.</li>
+                    <li>Compare MQTT vs CoAP para sensores con bateria limitada.</li>
+                    <li>Seleccione 3 riesgos del OWASP IoT Top 10 y proponga mitigaciones.</li>
+                    <li>Defina cuando conviene LwM2M frente a HTTP/REST.</li>
+                    <li>Elabore una lista de certificaciones necesarias para un sensor IoT exportado a Europa.</li>
+                </ol>
+            </section>
+
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Material complementario interno: iot-standards.md (clase 15).</li>
+                </ul>
+
+                <div class="hardware-notice">
+                    <strong>💻 Factibilidad Windows:</strong> Esta clase es completamente teórica sobre estándares IoT. No requiere hardware ni software especializado. Todo el contenido se puede estudiar directamente en el navegador en Windows.
+                </div>
+            </section>
+        </main>
+
+        <button id="backToTop" class="back-to-top" title="Volver arriba">↑</button>
+        
+        <footer style="text-align: center; padding: 2rem; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; background: #0f172a; color: #a5f3fc;">
+            <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - 2026-I</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Clase 15: Estándares IoT</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

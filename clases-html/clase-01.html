@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 1: Evolución de Internet - IF0112 Complementaria II (IoT)</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
+            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
+            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card h4 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 1: Evolución de Internet</h1>
+            <p class="subtitle">De ARPANET al Internet de las Cosas</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#que-es-iot">¿Qué es IoT?</a></li>
+                <li><a href="#componentes">Componentes</a></li>
+                <li><a href="#evolucion">Evolución</a></li>
+                <li><a href="#eras">Las 4 Eras</a></li>
+                <li><a href="#drivers">Drivers</a></li>
+                <li><a href="#impacto">Impacto</a></li>
+                <li><a href="#casos">Casos de Estudio</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <table class="competencies-table">
+                            <thead>
+                                <tr>
+                                    <th>Icono</th>
+                                    <th>Competencia</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🕰️</td>
+                                    <td><strong>Histórica</strong></td>
+                                    <td>Describir las 4 eras de la evolución de Internet</td>
+                                </tr>
+                                <tr>
+                                    <td>🔀</td>
+                                    <td><strong>Transición</strong></td>
+                                    <td>Explicar cómo llegamos de ARPANET a IoT</td>
+                                </tr>
+                                <tr>
+                                    <td>⚙️</td>
+                                    <td><strong>Tecnológica</strong></td>
+                                    <td>Identificar los 5 drivers del cambio</td>
+                                </tr>
+                                <tr>
+                                    <td>📊</td>
+                                    <td><strong>Impacto</strong></td>
+                                    <td>Visualizar efectos económicos y sociales</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Evolución de Internet</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>Drivers tecnológicos</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>Impacto y casos</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>Debate</td>
+                                    <td>20 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta:</strong> ¿Cómo conectó personas y ahora conecta TODO?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ¿Qué es IoT? -->
+            <section id="que-es-iot">
+                <h2>¿Qué es Internet de las Cosas?</h2>
+
+                <div class="intro-box">
+                    <strong>IoT</strong> (<strong>Internet of Things</strong> o Internet de las Cosas) es la interconexión de objetos físicos cotidianos con Internet, permitiéndoles enviar y recibir datos.
+                </div>
+
+                <p><strong>Definición:</strong> IoT es una red de objetos físicos ("cosas") incrustados con sensores, software y conectividad que les permite recolectar e intercambiar datos sin intervención humana directa.</p>
+
+                <p><strong>Por qué importa:</strong> IoT permite automatizar procesos, optimizar recursos y crear nuevos modelos de negocio. Desde termostatos que aprenden tus preferencias hasta fábricas que se mantienen solas, IoT está transformando cómo vivimos y trabajamos.</p>
+
+                <p><strong>Ejemplo cotidiano:</strong> Un smartwatch que mide tu ritmo cardíaco, cuenta pasos y te notifica si tienes una frecuencia cardíaca irregular, todo sin que tengas que hacer nada manualmente.</p>
+
+                <ul>
+                    <li><strong>Error común:</strong> Creer que IoT es solo "cosas conectadas a WiFi". IoT incluye dispositivos que usan cellular (NB-IoT), radio de largo alcance (LoRa), Bluetooth, cables Ethernet, y más.</li>
+                </ul>
+
+                <p><strong>Chequeo rápido:</strong> ¿Podrías identificar 3 dispositivos IoT en tu hogar actual? (Respuesta típica: smart TV, Alexa/Google Home, smartwatch, cámara de seguridad)</p>
+
+                <div class="grid-2">
+                    <div class="card card-blue">
+                        <h3>🌍 MUNDO FÍSICO</h3>
+                        <p style="font-size: 2em; margin: 10px 0;">🚗 🏠 👕 🌡️ 💡</p>
+                        <p><strong>Sensores y Actuadores</strong></p>
+                        <p style="font-size: 0.85em;">Recogen datos del entorno</p>
+                    </div>
+                    <div class="card card-yellow">
+                        <h3>🔗 CONECTIVIDAD</h3>
+                        <p style="font-size: 1.5em; margin: 10px 0;">📡</p>
+                        <p><strong>WiFi · 5G · LoRa · BT</strong></p>
+                        <p style="font-size: 0.85em;">Transmisión de datos</p>
+                    </div>
+                </div>
+
+                <h3>La Conexión de Mundos</h3>
+                <div class="grid-2">
+                    <div class="card card-green">
+                        <h3>☁️ MUNDO DIGITAL</h3>
+                        <p style="font-size: 2em; margin: 10px 0;">☁️ 📊 🤖 📱</p>
+                        <p><strong>Nube, Analytics e IA</strong></p>
+                        <p style="font-size: 0.85em;">Procesamiento y acción</p>
+                    </div>
+                    <div class="card" style="background: #dbeafe;">
+                        <h3>🔄 CICLO DE DATOS</h3>
+                        <p style="font-size: 1.5em; margin: 10px 0;">📡 ➜ ☁️ ➜ 🤖 ➜ ⚡</p>
+                        <p><strong>Sensor → Nube → Análisis → Acción</strong></p>
+                        <p style="font-size: 0.85em;">Todo sin intervención humana</p>
+                    </div>
+                </div>
+
+                <p class="intro-box"><strong>💡 Insight:</strong> IoT convierte objetos cotidianos en dispositivos inteligentes que <strong>actúan automáticamente</strong></p>
+            </section>
+
+            <!-- Componentes -->
+            <section id="componentes">
+                <h2>Componentes de un Sistema IoT</h2>
+
+                <h3>¿Qué hace posible esta conexión?</h3>
+
+                <p><strong>Definiciones clave:</strong></p>
+                <ul>
+                    <li><strong>Sensor:</strong> Dispositivo que detecta y mide cambios en el entorno físico (temperatura, luz, movimiento, humedad, etc.) y los convierte en señales eléctricas o digitales que pueden ser procesadas.</li>
+                    <li><strong>Actuador:</strong> Dispositivo que convierte señales eléctricas o digitales en acción física (encender un motor, abrir una válvula, mover un brazo robótico, etc.). Es el "músculo" del sistema IoT.</li>
+                </ul>
+
+                <p><strong>Por qué importa esta distinción:</strong> Los sensores son los "ojos y oídos" del sistema (recogen información), mientras que los actuadores son las "manos" (ejecutan acciones). Sin ambos, IoT solo sería monitorización sin capacidad de actuar.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Componente</th>
+                            <th>Función</th>
+                            <th>Ejemplo Cotidiano</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center; font-size: 1.5rem;">📡 <strong>Sensores</strong></td>
+                            <td>Capturan datos del mundo físico</td>
+                            <td>Termostato que mide temperatura</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-size: 1.5rem;">📶 <strong>Conectividad</strong></td>
+                            <td>Transmiten datos a la nube</td>
+                            <td>WiFi que envía datos al servidor</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-size: 1.5rem;">🧠 <strong>Procesamiento</strong></td>
+                            <td>Analizan y toman decisiones</td>
+                            <td>IA que ajusta la temperatura</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-size: 1.5rem;">⚡ <strong>Actuadores</strong></td>
+                            <td>Ejecutan acciones físicas</td>
+                            <td>Aire acondicionado se enciende</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Chequeo rápido:</strong> En un sistema de riego automático, ¿qué sería el sensor y qué sería el actuador? (Respuesta: Sensor de humedad en suelo = sensor; Válvula electromecánica que abre el agua = actuador)</p>
+
+                <h3>Ejemplo Real: Refrigerador Inteligente 🧊</h3>
+                <div class="example-box">
+                    <h4>Flujo de funcionamiento paso a paso:</h4>
+
+                    <div class="flow-diagram">
+                        <div class="flow-step">📡<strong>Sensor</strong><small>Detecta falta de leche</small></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">📶<strong>Envío</strong><small>Datos a la nube</small></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">🧠<strong>Análisis</strong><small>IA procesa</small></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">📱<strong>Acción</strong><small>Notifica usuario</small></div>
+                    </div>
+
+                    <div class="flow-diagram">
+                        <div class="flow-step">🛒<strong>Agrega</strong><small>Lista de compras</small></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">🚚<strong>Ordena</strong><small>Automáticamente</small></div>
+                    </div>
+                </div>
+
+                <h3>Flujo Básico de un Sistema IoT</h3>
+                <pre><code>Sensor ──► Gateway ──► Nube ──► Analítica ──► Acción</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Qué hace</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sensor</strong></td>
+                            <td>Mide una variable física</td>
+                            <td>Temperatura de una nevera</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gateway</strong></td>
+                            <td>Agrupa y envía datos</td>
+                            <td>Router WiFi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nube</strong></td>
+                            <td>Almacena y procesa</td>
+                            <td>Plataforma IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analítica</strong></td>
+                            <td>Detecta patrones</td>
+                            <td>Alerta de falla</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acción</strong></td>
+                            <td>Ejecuta respuesta</td>
+                            <td>Ajuste automático</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Evolución - Infografía -->
+            <section id="evolucion">
+                <h2>Línea del Tiempo de Internet</h2>
+
+                <figure>
+                    <img src="../assets/infografias/clase-01-evolucion-internet.png" alt="Infografía: Evolución de Internet desde ARPANET hasta IoT">
+                    <figcaption>Figura 1: Evolución de Internet - Desde ARPANET (1969) hasta el Internet de las Cosas (2025+)</figcaption>
+                </figure>
+
+                <h3>Las 4 Eras de la Conectividad Digital</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>1969 - ERA 1: ARPANET</h4>
+                        <p>4 nodos universitarios → Nace Internet con packet switching</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>1991 - ERA 2: WWW (<abbr title="World Wide Web: Sistema de documentos de hipertexto interconectados vía Internet">WWW</abbr>)</h4>
+                        <p>1M+ páginas web → HTML y navegadores hacen Internet accesible</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2004-2007 - ERA 3: Web 2.0</h4>
+                        <p>1,000M+ usuarios → Facebook, iPhone, todos producen contenido</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2015+ - ERA 4: IoT (Internet de las Cosas)</h4>
+                        <p>~21B dispositivos conectados (proyecciones hasta 75B) → Todo inteligente conectado</p>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Era</th>
+                            <th>Año</th>
+                            <th>Hito Tecnológico</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ARPANET</strong></td>
+                            <td>1969</td>
+                            <td>Primer mensaje entre 4 universidades</td>
+                            <td>Nace Internet</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WWW</strong></td>
+                            <td>1991</td>
+                            <td>HTML y navegadores</td>
+                            <td>Internet para todos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web 2.0</strong></td>
+                            <td>2004-2007</td>
+                            <td>Facebook, iPhone</td>
+                            <td>Todos producen contenido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT</strong></td>
+                            <td>2015+</td>
+                            <td>AWS IoT, 6G, Edge AI</td>
+                            <td>Todo inteligente conectado</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>Insight:</strong> Cada era aumentó exponencialmente los nodos conectados</p>
+            </section>
+
+            <!-- Las 4 Eras - Detalle -->
+            <section id="eras">
+                <h2>Detalle de las 4 Eras</h2>
+
+                <h3>Era 1: ARPANET (1969-1990) 🌐</h3>
+
+                <h4>Los Inicios + Packet Switching</h4>
+                <p><strong>Timeline:</strong> 1969 (4 universidades) → 1971 (email) → 1973 (TCP/IP) → 1983 (DNS)</p>
+
+                <div class="intro-box">
+                    <strong>Packet Switching (Conmutación de Paquetes):</strong> Método de transmisión de datos donde un mensaje se divide en pequeños paquetes que viajan independientemente por diferentes rutas y se reensamblan en el destino.
+                </div>
+
+                <p><strong>Por qué fue revolucionario:</strong> Antes de packet switching, las comunicaciones usaban "circuitos dedicados" (como una llamada telefónica tradicional que ocupa toda la línea). Packet switching permitió que múltiples comunicaciones compartieran la misma red de manera eficiente y resiliente.</p>
+
+                <p><strong>Analogía:</strong> Imagina enviar un libro por correo. En lugar de enviar el libro completo en un camión exclusivo (circuito dedicado), lo divides en páginas (paquetes) y cada página viaja en diferentes camiones por diferentes rutas. Al llegar, se reensamblan las páginas en orden. Si un camión se avería, las otras páginas aún llegan por otras rutas.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ventaja</th>
+                            <th>Beneficio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🛡️ <strong>Resiliencia</strong></td>
+                            <td>Rutas alternativas si falla nodo</td>
+                        </tr>
+                        <tr>
+                            <td>⚡ <strong>Eficiencia</strong></td>
+                            <td>Sin circuitos dedicados</td>
+                        </tr>
+                        <tr>
+                            <td>🔒 <strong>Seguridad</strong></td>
+                            <td>Sobrevive ataques militares</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>💡 Clave:</strong> La red funciona incluso si partes son destruidas</p>
+
+                <h4>ARPANET: Latinoamérica y Colombia</h4>
+                <div class="grid-2">
+                    <div>
+                        <h5>Conexión Regional: Timeline</h5>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Año</th>
+                                    <th>País</th>
+                                    <th>Detalle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1988</strong></td>
+                                    <td>🇧🇷 Brasil</td>
+                                    <td>Primer país latinoamericano conectado</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1989</strong></td>
+                                    <td>🇲🇽 México</td>
+                                    <td>Conexión al backbone de Internet</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1990</strong></td>
+                                    <td>🇨🇱 Chile / 🇦🇷 Argentina</td>
+                                    <td>Conexión simultánea</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1991</strong></td>
+                                    <td>🇨🇴 Colombia</td>
+                                    <td>Eduardo Santoja - Uniandes (64 Kbps)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1992</strong></td>
+                                    <td>🇻🇪 Venezuela / 🇵🇪 Perú</td>
+                                    <td>Expansión regional</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h5>🇨🇴 Colombia: Pioneros Digitales</h5>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hito</th>
+                                    <th>Año</th>
+                                    <th>Detalle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Primer email</td>
+                                    <td>1991</td>
+                                    <td>Enviado desde Uniandes</td>
+                                </tr>
+                                <tr>
+                                    <td>Conexión Internet</td>
+                                    <td>1991</td>
+                                    <td>64 Kbps vs ~100 Mbps actual</td>
+                                </tr>
+                                <tr>
+                                    <td>Primer sitio web</td>
+                                    <td>1994</td>
+                                    <td>www.uniandes.edu.co</td>
+                                </tr>
+                                <tr>
+                                    <td>ISP comercial</td>
+                                    <td>1995</td>
+                                    <td>Colomsat, EPM Internet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box" style="margin-top: 1rem;"><strong>🎯 Dato clave:</strong> Colombia fue uno de los primeros 5 países latinoamericanos en conectarse.</p>
+                    </div>
+                </div>
+
+                <h3>Era 2: World Wide Web (1991-2003)</h3>
+                <h4>La Web se Vuelve Accesible</h4>
+                <ul>
+                    <li><strong>1991:</strong> Tim Berners-Lee inventa la WWW</li>
+                    <li><strong>1993:</strong> Mosaic - primer navegador gráfico</li>
+                    <li><strong>1994:</strong> Netscape, Yahoo!, Amazon</li>
+                    <li><strong>1995:</strong> Internet Explorer, eBay</li>
+                    <li><strong>1998:</strong> Google revoluciona la búsqueda</li>
+                </ul>
+
+                <div class="example-box" style="background: linear-gradient(to bottom, #fef9c3 0%, #fef08a 100%); border-left-color: #eab308;">
+                    <p><strong>Web 1.0 (La Web de solo lectura):</strong></p>
+                    <div style="font-family: 'Courier New', monospace; background: #0f172a; color: #f8fafc; padding: 0; border-radius: 8px; overflow: hidden; border: 2px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                        <!-- Browser chrome -->
+                        <div style="background: linear-gradient(to bottom, #1e293b 0%, #0f172a 100%); padding: 8px 12px; border-bottom: 2px solid #334155; display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #ef4444;">●</span>
+                            <span style="color: #f59e0b;">●</span>
+                            <span style="color: #22c55e;">●</span>
+                            <div style="flex: 1; background: #334155; border-radius: 4px; padding: 4px 10px; display: flex; align-items: center; gap: 6px; margin-left: 8px;">
+                                <span style="color: #60a5fa;">🌐</span>
+                                <span style="color: #94a3b8; font-size: 0.85em;">http://www.ejemplo.com</span>
+                                <span style="margin-left: auto; color: #64748b;">▼</span>
+                            </div>
+                        </div>
+                        <!-- Page content -->
+                        <div style="padding: 1.5rem; background: #1e293b; min-height: 120px;">
+                            <div style="text-align: center; color: #fbbf24; margin-bottom: 1rem; font-size: 0.75em; text-transform: uppercase; letter-spacing: 2px;">
+                                ★★★ ★ Página Personal ★★★ ★
+                            </div>
+                            <div style="text-align: center; font-size: 1.1em; color: #f1f5f9; margin-bottom: 1rem;">
+                                ════════════════════════<br>
+                                ¡Bienvenido a mi página!<br>
+                                ════════════════════════
+                            </div>
+                            <div style="text-align: center; color: #94a3b8; font-size: 0.9em; margin-bottom: 1rem;">
+                                Última actualización: Enero 1999
+                            </div>
+                            <div style="background: #0f172a; border: 1px dashed #475569; padding: 8px; display: inline-block; margin: 0 auto; border-radius: 4px;">
+                                <span style="color: #22c55e;">▶</span>
+                                <span style="color: #ef4444; font-family: 'Courier New', monospace; letter-spacing: 2px;">000127</span>
+                                <span style="color: #64748b; font-size: 0.8em;"> visitantes</span>
+                            </div>
+                            <div style="text-align: center; margin-top: 1rem; color: #f59e0b; font-size: 0.8em;">
+                                📧 Email webmaster@ejemplo.com
+                            </div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 0.75rem; color: #854d0e; font-style: italic;">
+                        La Web 1.0 era principalmente de lectura — "sitios estáticos" sin interacción
+                    </p>
+                </div>
+
+                <h3>Era 3: Web 2.0 (2004-2015)</h3>
+                <h4>La Web Social</h4>
+                <p><strong>📅 Hitos Clave:</strong></p>
+                <ul>
+                    <li><strong>2004:</strong> Facebook, Gmail, Web 2.0</li>
+                    <li><strong>2005:</strong> YouTube</li>
+                    <li><strong>2006:</strong> Twitter, AWS</li>
+                    <li><strong>2007:</strong> iPhone - Internet en el bolsillo</li>
+                    <li><strong>2010:</strong> Instagram, IoT comienza a crecer</li>
+                </ul>
+
+                <div class="intro-box">
+                    <strong>🔄 El Prosumidor:</strong> Usuario = Creador + Consumidor
+                </div>
+
+                <h4>Web 2.0: Producción vs Consumo</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>📝 PRODUCIR</th>
+                            <th>📖 CONSUMIR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Blogs</td>
+                            <td>Leer noticias</td>
+                        </tr>
+                        <tr>
+                            <td>Videos (YouTube)</td>
+                            <td>Ver contenido</td>
+                        </tr>
+                        <tr>
+                            <td>Redes sociales</td>
+                            <td>Comentar, compartir</td>
+                        </tr>
+                        <tr>
+                            <td>Fotos (Instagram)</td>
+                            <td>Like, follow</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>💡 Concepto clave:</strong> En Web 2.0, todos somos <strong>prosumidores</strong> - creamos y consumimos contenido simultáneamente.</p>
+
+                <h3>Era 4: Internet de las Cosas (2015+)</h3>
+                <h4>Las Cosas se Conectan</h4>
+                <p><strong>📈 Crecimiento de Dispositivos:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Dispositivos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2015</td>
+                            <td>15 mil millones</td>
+                        </tr>
+                        <tr>
+                            <td>2020</td>
+                            <td>30 mil millones</td>
+                        </tr>
+                        <tr>
+                            <td>2025</td>
+                            <td>75+ mil millones</td>
+                        </tr>
+                        <tr>
+                            <td>2030</td>
+                            <td>Hacia IoE</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>¿Por qué el Crecimiento Exponencial? 📈</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>2010</th>
+                            <th>2025</th>
+                            <th>Cambio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>💰 Costo sensor</td>
+                            <td>$5.00</td>
+                            <td>$0.50</td>
+                            <td><strong>-90%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>📡 Conectividad</td>
+                            <td>$50/mes</td>
+                            <td>$2/mes</td>
+                            <td><strong>-96%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>⚡ Potencia cómputo</td>
+                            <td>1x</td>
+                            <td>100x</td>
+                            <td><strong>+10,000%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>🔋 Batería</td>
+                            <td>1 mes</td>
+                            <td>10 años</td>
+                            <td><strong>+12,000%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>Insight:</strong> De 15B a 75B dispositivos en 15 años (<strong>5x</strong>)</p>
+            </section>
+
+            <!-- Drivers Tecnológicos -->
+            <section id="drivers">
+                <h2>Drivers Tecnológicos de IoT 🚀</h2>
+
+                <h3>Los 5 Drivers + Capacidades IA</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Driver</th>
+                            <th>Evolución</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>💰 Hardware</strong></td>
+                            <td>Arduino $30 → ESP32 $5</td>
+                            <td>Entrada ↓ 90%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📡 Conectividad</strong></td>
+                            <td>WiFi/4G/LoRa/NB-IoT</td>
+                            <td>Cobertura universal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>☁️ Cloud</strong></td>
+                            <td><abbr title="Amazon Web Services: Plataforma de computación en la nube de Amazon">AWS</abbr>/<abbr title="Azure: Plataforma de computación en la nube de Microsoft">Azure</abbr>/<abbr title="Google Cloud Platform: Plataforma de computación en la nube de Google">GCP</abbr> IoT</td>
+                            <td>Enterprise accesible</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🧠 IA</strong></td>
+                            <td>AlexNet → Edge LLMs</td>
+                            <td>Ve, oye, predice, decide</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Nota sobre Edge LLMs:</strong> "Edge" se refiere al procesamiento de datos en el dispositivo mismo (en el "borde" de la red) en lugar de enviar todo a la nube. <strong>LLMs</strong> (Large Language Models) son modelos de lenguaje como GPT. "Edge LLMs" significa ejecutar estos modelos directamente en dispositivos IoT, permitiendo respuestas más rápidas y sin necesidad de conexión constante a Internet.</p>
+
+                <p><strong>IA en dispositivos:</strong> 👁️ Ver cámaras | 👂 Oír voz | 🔮 Predecir fallas | ⚡ Decidir autónomo</p>
+
+                <h3>Ley de Moore + ESP32: El Game Changer 💻</h3>
+                <p class="intro-box">"5 tecnologías maduras → efecto <strong>multiplicativo</strong>" — Chris Anderson</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Procesador</th>
+                            <th>Transistores</th>
+                            <th>Costo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1971</td>
+                            <td>Intel 4004</td>
+                            <td>2,300</td>
+                            <td>$60</td>
+                        </tr>
+                        <tr>
+                            <td>2010</td>
+                            <td>ARM Cortex-A9</td>
+                            <td>26M</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>2020</td>
+                            <td><strong>ESP32</strong></td>
+                            <td>~160K</td>
+                            <td><strong>$3</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>🎯 A $3, IoT masivo es posible</strong></p>
+
+                <h3>De Internet de Personas a Internet de Cosas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Internet Tradicional</th>
+                            <th>IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Iniciador</strong></td>
+                            <td>Humano (clic)</td>
+                            <td>Sensor (auto)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frecuencia</strong></td>
+                            <td>Baja (bajo demanda)</td>
+                            <td>Alta (24/7)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Datos</strong></td>
+                            <td>Texto, video</td>
+                            <td>Temp, humedad</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Respuesta</strong></td>
+                            <td>Pantalla</td>
+                            <td>Acción física</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Escala</strong></td>
+                            <td>Miles de millones</td>
+                            <td><strong>Billones</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ul>
+                    <li><strong>Tradicional:</strong> Persona ↔ PC/Móvil ↔ Servidor (petición-respuesta)</li>
+                    <li><strong>IoT:</strong> Sensor ↔ Datos continuos ↔ Máquina (M2M automático)</li>
+                </ul>
+
+                <h3>Internet de Todo (IoE): El Siguiente Nivel</h3>
+                <div class="intro-box">
+                    <strong>Internet of Everything (IoE)</strong> = IoT + Personas + Procesos + Datos
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>IoT</th>
+                            <th>IoE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enfoque</strong></td>
+                            <td>Conectar dispositivos</td>
+                            <td>Conectar ecosistema completo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Actores</strong></td>
+                            <td>Máquinas ↔ Máquinas</td>
+                            <td>Personas + Procesos + Datos + Cosas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valor</strong></td>
+                            <td>Recolección de datos</td>
+                            <td>Transformación del negocio</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Los 4 Pilares de IoE</h4>
+                <div class="grid-2">
+                    <div class="card card-blue">
+                        <h3>👤 Personas</h3>
+                        <p style="font-size: 0.85em;">Creadores y consumidores</p>
+                    </div>
+                    <div class="card card-yellow">
+                        <h3>⚙️ Procesos</h3>
+                        <p style="font-size: 0.85em;">Flujos automatizados</p>
+                    </div>
+                    <div class="card card-green">
+                        <h3>📊 Datos</h3>
+                        <p style="font-size: 0.85em;">Combustible de decisiones</p>
+                    </div>
+                    <div class="card card-pink">
+                        <h3>📱 Cosas</h3>
+                        <p style="font-size: 0.85em;">Sensores y actuadores</p>
+                    </div>
+                </div>
+
+                <p class="intro-box"><strong>💡 Insight:</strong> IoT es la tecnología, IoE es el <strong>resultado de negocio</strong></p>
+
+                <h4>IoE en Acción: Hospital Inteligente</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pilar</th>
+                            <th>Rol</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>👤 Personas</strong></td>
+                            <td>Creadores y consumidores</td>
+                            <td>Médico recibe alerta de paciente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>⚙️ Procesos</strong></td>
+                            <td>Flujos automatizados</td>
+                            <td>Si temp > 4°C → alerta + reenvío</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📊 Datos</strong></td>
+                            <td>Combustible de decisiones</td>
+                            <td>Historial predice fallas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📱 Cosas</strong></td>
+                            <td>Sensores y actuadores</td>
+                            <td>Termostato ajusta temperatura</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>IoT (Dispositivo):</strong> Pulsera mide signos vitales → <strong>IoE (Ecosistema):</strong> Alerta automática → reserva ascensor → prepara sala → notifica familia
+                </div>
+            </section>
+
+            <!-- Impacto Económico y Social -->
+            <section id="impacto">
+                <h2>Impacto Económico y Social de IoT 💰</h2>
+
+                <h3>📊 Mercado Mundial</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Valor</th>
+                            <th>Dispositivos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2020</td>
+                            <td>$742M</td>
+                            <td>~15B</td>
+                        </tr>
+                        <tr>
+                            <td>2025</td>
+                            <td>$1.5B</td>
+                            <td>~30B</td>
+                        </tr>
+                        <tr>
+                            <td>2030</td>
+                            <td>$3+B</td>
+                            <td>~75B</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong><abbr title="Compound Annual Growth Rate (Tasa de Crecimiento Anual Compuesta): Mide el crecimiento promedio anual de una inversión durante un período específico">CAGR</abbr>: 16%</strong> | 🚀 <strong>4x en 10 años</strong></p>
+
+                <p><strong>Nota sobre proyecciones:</strong> Las estadísticas de IoT varían según la fuente. El rango de dispositivos para 2025 va desde ~19-21B (datos más conservadores de IoT Analytics y Statista) hasta 75B (proyecciones optimistas de IHS Markit). Ambas figuras representan tendencias legítimas del mercado.</p>
+
+                <h3>ROI por Sector</h3>
+
+                <p><strong><abbr title="Return on Investment (Retorno sobre Inversión): Métrica financiera que mide la rentabilidad de una inversión comparando la ganancia obtenida con el costo inicial">ROI</abbr> (Return on Investment):</strong> Métrica que cuantifica qué tan rentable es una inversión de IoT. Se calcula como (Ganancia - Inversión) / Inversión × 100%.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sector</th>
+                            <th>%</th>
+                            <th>ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🏭 <strong>Manufactura</strong></td>
+                            <td>35%</td>
+                            <td>+15% eficiencia</td>
+                        </tr>
+                        <tr>
+                            <td>🏥 <strong>Salud</strong></td>
+                            <td>20%</td>
+                            <td>-30% readmisiones</td>
+                        </tr>
+                        <tr>
+                            <td>🚗 <strong>Transporte</strong></td>
+                            <td>15%</td>
+                            <td>-15% combustible</td>
+                        </tr>
+                        <tr>
+                            <td>🏢 <strong>Smart Cities</strong></td>
+                            <td>12%</td>
+                            <td>-25% agua</td>
+                        </tr>
+                        <tr>
+                            <td>🏠 <strong>Hogar</strong></td>
+                            <td>10%</td>
+                            <td>Comodidad</td>
+                        </tr>
+                        <tr>
+                            <td>🌾 <strong>Agricultura</strong></td>
+                            <td>8%</td>
+                            <td>+20% cultivos</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Impacto Social: Beneficios ⚖️</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Área</th>
+                            <th>Beneficio</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🏥 <strong>Salud</strong></td>
+                            <td>Monitoreo remoto de pacientes</td>
+                            <td>Pacientes crónicos en casa</td>
+                        </tr>
+                        <tr>
+                            <td>🛡️ <strong>Seguridad</strong></td>
+                            <td>Ciudades más seguras</td>
+                            <td>Alertas tempranas de emergencia</td>
+                        </tr>
+                        <tr>
+                            <td>⚡ <strong>Eficiencia</strong></td>
+                            <td>Reducción de consumo energético</td>
+                            <td>Edificios inteligentes</td>
+                        </tr>
+                        <tr>
+                            <td>♿ <strong>Accesibilidad</strong></td>
+                            <td>Tecnología para discapacitados</td>
+                            <td>Casas adaptadas por voz</td>
+                        </tr>
+                        <tr>
+                            <td>📈 <strong>Productividad</strong></td>
+                            <td>Automatización de tareas</td>
+                            <td>Fábricas sin intervención humana</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>Dato:</strong> Se estima que IoT puede reducir el consumo energético mundial en un 20%</p>
+
+                <h3>Impacto Social: Desafíos ⚠️</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Desafío</th>
+                            <th>Descripción</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🔒 <strong>Privacidad</strong></td>
+                            <td>¿Quién tiene mis datos?</td>
+                            <td>Vigilancia masiva</td>
+                        </tr>
+                        <tr>
+                            <td>🛡️ <strong>Seguridad</strong></td>
+                            <td>Vulnerabilidades de dispositivos</td>
+                            <td>Hackeo de infraestructura</td>
+                        </tr>
+                        <tr>
+                            <td>👷 <strong>Empleo</strong></td>
+                            <td>Automatización reemplaza trabajos</td>
+                            <td>Desempleo estructural</td>
+                        </tr>
+                        <tr>
+                            <td>🌍 <strong>Brecha digital</strong></td>
+                            <td>Acceso desigual</td>
+                            <td>Mayor desigualdad</td>
+                        </tr>
+                        <tr>
+                            <td>♻️ <strong>Sostenibilidad</strong></td>
+                            <td>Basura electrónica</td>
+                            <td>Contaminación</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box">
+                    <strong>Reflexión:</strong> Como ingenieros, debemos diseñar soluciones éticas y sostenibles
+                </div>
+            </section>
+
+            <!-- Casos de Estudio -->
+            <section id="casos">
+                <h2>Casos de Estudio: Medellín, Colombia 🇨🇴</h2>
+
+                <div class="intro-box">
+                    <p>Medellín se ha posicionado como referente en Smart Cities en Latinoamérica, transformándose de la "ciudad más violenta del mundo" (1991) a "Ciudad del Año" según Wall Street Journal (2013).</p>
+                    <p><strong>Inversión total en IoT 2015-2025:</strong> ~$72.5M USD</p>
+                </div>
+
+                <h3>🚌 Transporte Inteligente: Metro de Medellín</h3>
+
+                <h4>Especificaciones Técnicas</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Especificación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Buses equipados</td>
+                            <td>500+</td>
+                            <td>GPS + validación tarjeta</td>
+                        </tr>
+                        <tr>
+                            <td>App Usuarios</td>
+                            <td>2M+ descargas</td>
+                            <td>Mi Metro, Metro Med</td>
+                        </tr>
+                        <tr>
+                            <td>Tarjeta Cívica</td>
+                            <td>4M+ activas</td>
+                            <td>Validación < 300ms</td>
+                        </tr>
+                        <tr>
+                            <td>Centro control</td>
+                            <td>1</td>
+                            <td>Monitoreo 24/7</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Impacto Medido</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Métrica</th>
+                            <th>Antes</th>
+                            <th>Después</th>
+                            <th>Mejora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tiempo espera promedio</td>
+                            <td>18 min</td>
+                            <td>12 min</td>
+                            <td><strong>-33%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Satisfacción usuarios</td>
+                            <td>67%</td>
+                            <td>85%</td>
+                            <td><strong>+18 pts</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Oleadas fraudulentas</td>
+                            <td>12%</td>
+                            <td>< 1%</td>
+                            <td><strong>-92%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Optimización rutas</td>
+                            <td>Manual</td>
+                            <td>Automática</td>
+                            <td><strong>+20% eficiencia</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>ROI del Proyecto</h4>
+                <ul>
+                    <li><strong>Inversión:</strong> $15M USD (2018-2023)</li>
+                    <li><strong>Ahorro anual:</strong> $3.5M USD</li>
+                    <li><strong>Payback:</strong> 4.3 años</li>
+                </ul>
+
+                <h3>🔒 Seguridad: Centro CUIC</h3>
+                <h4>Infraestructura</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Capacidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cámaras IA</td>
+                            <td>800+</td>
+                            <td>Reconocimiento facial</td>
+                        </tr>
+                        <tr>
+                            <td>Sensores</td>
+                            <td>500+</td>
+                            <td>Movimiento, sonido</td>
+                        </tr>
+                        <tr>
+                            <td>Centro de mando</td>
+                            <td>1</td>
+                            <td>Sala crisis 24/7</td>
+                        </tr>
+                        <tr>
+                            <td>Analistas</td>
+                            <td>50</td>
+                            <td>Monitoreo activo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Resultados 2020-2024</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Métrica</th>
+                            <th>2020</th>
+                            <th>2024</th>
+                            <th>Cambio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Homicidios/100k</td>
+                            <td>12.4</td>
+                            <td>8.1</td>
+                            <td><strong>-35%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Hurtos</td>
+                            <td>18,200</td>
+                            <td>14,500</td>
+                            <td><strong>-20%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Recuperación vehículos</td>
+                            <td>42%</td>
+                            <td>67%</td>
+                            <td><strong>+60%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Tiempo respuesta</td>
+                            <td>12 min</td>
+                            <td>4 min</td>
+                            <td><strong>-67%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Sensación seguridad</td>
+                            <td>38%</td>
+                            <td>56%</td>
+                            <td><strong>+18 pts</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>💧🌳 Servicios Públicos: EPM Smart Grid</h3>
+                <h4>Medidores Inteligentes (500K unidades)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Inversión</strong></td>
+                            <td>$45M USD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ahorro</strong></td>
+                            <td>$12M USD/año, 15% consumo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROI</strong></td>
+                            <td>3.75 años</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🌡️ SIATA - Alertas Tempranas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Especificación</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Estaciones</strong></td>
+                            <td>50 (aire + clima)</td>
+                            <td>Datos /15 min</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Radar</strong></td>
+                            <td>Predicción 48h</td>
+                            <td>Alertas 2-4h antes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App</strong></td>
+                            <td>500K usuarios</td>
+                            <td>$8M USD/año evitados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protección</strong></td>
+                            <td>2.5M habitantes</td>
+                            <td>$2.5M USD inversión</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🏆 Factores de Éxito</h3>
+                <h4>Métricas 2020-2025</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proyecto</th>
+                            <th>Inversión</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SIATA</td>
+                            <td>$2.5M</td>
+                            <td>Protege 2.5M personas</td>
+                        </tr>
+                        <tr>
+                            <td>EPM</td>
+                            <td>$45M</td>
+                            <td>Ahorra $12M/año</td>
+                        </tr>
+                        <tr>
+                            <td>Metro</td>
+                            <td>$15M</td>
+                            <td>+20% eficiencia</td>
+                        </tr>
+                        <tr>
+                            <td>CUIC</td>
+                            <td>$10M</td>
+                            <td>-25% criminalidad</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>✅ Claves del Éxito</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🤝 <strong>Alianza</strong></td>
+                            <td>EPM + Metro + Alcaldía + Ruta N</td>
+                        </tr>
+                        <tr>
+                            <td>🔌 <strong>Infraestructura</strong></td>
+                            <td>Fibra óptica desde 2000s</td>
+                        </tr>
+                        <tr>
+                            <td>👨‍💻 <strong>Talento</strong></td>
+                            <td>Universidades locales</td>
+                        </tr>
+                        <tr>
+                            <td>📱 <strong>Adopción</strong></td>
+                            <td>Apps con alta penetración</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>Wall Street Journal 2013:</strong> "Ciudad del Año" - Referente Smart City en LATAM
+                </div>
+
+                <h3>Visión 2030 Medellín</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Área</th>
+                            <th>2025</th>
+                            <th>2030</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🌫️ Aire</td>
+                            <td>50 estaciones</td>
+                            <td>200 estaciones</td>
+                        </tr>
+                        <tr>
+                            <td>🚌 Transporte</td>
+                            <td>500 buses</td>
+                            <td>100% IoT</td>
+                        </tr>
+                        <tr>
+                            <td>💡 Energía</td>
+                            <td>500K medidores</td>
+                            <td>1.5M medidores</td>
+                        </tr>
+                        <tr>
+                            <td>🚗 Movilidad</td>
+                            <td>Apps</td>
+                            <td>IA predictiva</td>
+                        </tr>
+                        <tr>
+                            <td>🏥 Salud</td>
+                            <td>Pilotos</td>
+                            <td>Telemedicina masiva</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Smart Cities Latinoamericanas 🌎</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ciudad</th>
+                            <th>Proyecto</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🇧🇷 <strong>Rio</strong></td>
+                            <td>Centro de Operações (900 cámaras)</td>
+                            <td>Alertas desastres</td>
+                        </tr>
+                        <tr>
+                            <td>🇲🇽 <strong>CDMX</strong></td>
+                            <td>SEDEMA (4K sensores ozono)</td>
+                            <td>Alertas 7M habitantes</td>
+                        </tr>
+                        <tr>
+                            <td>🇦🇷 <strong>Buenos Aires</strong></td>
+                            <td>BA Electrónica</td>
+                            <td>Rutas <strong>-30%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>🇨🇱 <strong>Santiago</strong></td>
+                            <td>Metro Inteligente</td>
+                            <td>Alerta sismos 60s</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>Claves:</strong> 🤝 Inversión público-privada | 📊 Datos abiertos | 🔌 Integración | 📱 Apps ciudadanas</p>
+            </section>
+
+            <!-- Ejercicios -->
+            <section id="ejercicios">
+                <h2>Ejercicios y Actividades</h2>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Opcional (práctica de clase)</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Participación en debate (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 30 minutos</p>
+                    <p><strong>Criterios:</strong> Argumentación con datos, investigación de fuentes, contexto colombiano</p>
+                </section>
+
+                <h3>Actividad Principal: Debate "IoT: ¿Oportunidad o Amenaza?" 🗣️</h3>
+
+                <div class="grid-2">
+                    <div class="card card-green">
+                        <h4>Grupo A 🟢 (Defensores)</h4>
+                        <p>IoT es principalmente una <strong>oportunidad</strong></p>
+                        <ul>
+                            <li>Salud (-70% costos)</li>
+                            <li>Agricultura (+25% prod)</li>
+                            <li>Seguridad (-35% hurtos)</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="background: #fecaca; border-color: #fca5a5;">
+                        <h4>Grupo B 🔴 (Escépticos)</h4>
+                        <p>IoT presenta principalmente <strong>riesgos y amenazas</strong></p>
+                        <ul>
+                            <li>Privacidad (¿datos?)</li>
+                            <li>Empleo (40% riesgo)</li>
+                            <li>Brecha digital (67% sin internet)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4>Rúbrica de Evaluación</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>4 - Excelente</th>
+                            <th>3 - Bueno</th>
+                            <th>2 - Aceptable</th>
+                            <th>1 - Insuficiente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Argumentación</strong></td>
+                            <td>3+ argumentos con datos verificables</td>
+                            <td>2 argumentos con algunos datos</td>
+                            <td>1-2 argumentos básicos</td>
+                            <td>Sin argumentos o sin evidencia</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investigación</strong></td>
+                            <td>3+ fuentes diversas citadas</td>
+                            <td>2 fuentes citadas</td>
+                            <td>1 fuente genérica</td>
+                            <td>Sin investigación</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contexto CO</strong></td>
+                            <td>Múltiples ejemplos locales</td>
+                            <td>Menciona contexto local</td>
+                            <td>Ejemplo genérico</td>
+                            <td>Sin contexto colombiano</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="intro-box"><strong>Calificación:</strong> Suma de puntos / 12 × 100%</p>
+
+                <h3>Checklist de Preparación Individual</h3>
+                <div class="card">
+                    <p>Use este checklist para preparar sus argumentos:</p>
+                    <ul>
+                        <li><input type="checkbox"> <strong>Leer</strong> el capítulo 1 de Cisco Networking Academy IoT</li>
+                        <li><input type="checkbox"> <strong>Investigar</strong> 3+ ejemplos reales de IoT en Colombia</li>
+                        <li><input type="checkbox"> <strong>Identificar</strong> 3+ datos estadísticos verificables</li>
+                        <li><input type="checkbox"> <strong>Preparar</strong> 2+ argumentos con ejemplos locales</li>
+                        <li><input type="checkbox"> <strong>Anticipar</strong> 2+ contraargumentos del grupo opuesto</li>
+                        <li><input type="checkbox"> <strong>Documentar</strong> fuentes (para citar durante debate)</li>
+                    </ul>
+                </div>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Opcional (recomendado para practicar)</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Ficha de dispositivo (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 20 minutos</p>
+                    <p><strong>Criterios:</strong> Análisis completo de dispositivo IoT real</p>
+                </section>
+
+                <h3>Actividad Adicional: Ficha de Dispositivo IoT</h3>
+                <div class="card">
+                    <p><strong>Objetivo:</strong> Analizar un dispositivo IoT real para entender su funcionamiento y implicaciones.</p>
+                    <h4>Plantilla:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Nombre</strong></td>
+                                <td>______________________________</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fabricante</strong></td>
+                                <td>______________________________</td>
+                            </tr>
+                            <tr>
+                                <td><strong>¿Qué hace?</strong></td>
+                                <td>______________________________</td>
+                            </tr>
+                            <tr>
+                                <td><strong>¿Cómo se conecta?</strong></td>
+                                <td>[ ] WiFi [ ] BT [ ] Zigbee [ ] Otro</td>
+                            </tr>
+                            <tr>
+                                <td><strong>¿Qué datos recopila?</strong></td>
+                                <td>______________________________</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Beneficios</strong></td>
+                                <td>______________________________</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riesgos</strong></td>
+                                <td>______________________________</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>Dispositivos Sugeridos</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categoría</th>
+                            <th>Dispositivos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hogar</strong></td>
+                            <td>Smart bulb, Alexa/Google Home, Smart lock</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Salud</strong></td>
+                            <td>Smart watch, Monitor glucosa, Pulse oximeter</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transporte</strong></td>
+                            <td>GPS tracker, Dash cam, Tire pressure sensor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ciudad</strong></td>
+                            <td>Smart meter, Parking sensor, Traffic camera</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Términos Clave -->
+            <section id="terminos-clave">
+                <h2>Términos Clave de Introducción a IoT</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término/Acrónimo</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TCP/IP</strong></td>
+                            <td>Transmission Control Protocol/Internet Protocol - Suite de protocolos de comunicación para Internet</td>
+                            <td>Permite que computadoras se comuniquen a través de redes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DNS</strong></td>
+                            <td>Domain Name System - Sistema que traduce nombres de dominio a direcciones IP</td>
+                            <td>Convierte "www.google.com" a "142.250.185.238"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ISP</strong></td>
+                            <td>Internet Service Provider - Proveedor de servicios de Internet</td>
+                            <td>Claro, Movistar, Tigo, EPM</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LoRa</strong></td>
+                            <td>Long Range - Tecnología de comunicación inalámbrica de largo alcance y bajo consumo</td>
+                            <td>Sensores IoT que transmiten hasta 15 km en zonas rurales</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NB-IoT</strong></td>
+                            <td>Narrowband IoT - Estándar de comunicación celular de bajo ancho de banda para IoT</td>
+                            <td>Contadores inteligentes que se conectan directamente a torres celulares</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2M</strong></td>
+                            <td>Machine-to-Machine - Comunicación directa entre dispositivos sin intervención humana</td>
+                            <td>Un sensor que envía datos automáticamente a un servidor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gateway</strong></td>
+                            <td>Puerta de enlace - Dispositivo que conecta diferentes redes y protocolos</td>
+                            <td>Router WiFi que conecta sensores Zigbee con Internet</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prosumidor</strong></td>
+                            <td>Productor + Consumidor - Usuario que crea y consume contenido simultáneamente</td>
+                            <td>Alguien que publica videos en YouTube y también ve contenido de otros</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Packet Switching</strong></td>
+                            <td>Conmutación de paquetes - Método de dividir datos en pequeños paquetes para transmisión</td>
+                            <td>Un email se divide en paquetes, viaja por diferentes rutas, y se reensambla en destino</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>Error común:</strong> Confundir IoT con "cosas conectadas a WiFi". IoT es mucho más amplio - incluye cualquier dispositivo con sensores/actuadores que puede comunicarse (por WiFi, LoRa, celular, cable, etc.), procesar datos, y tomar decisiones automáticamente.
+                </div>
+            </section>
+
+            <!-- Resumen -->
+            <section id="resumen">
+                <h2>Resumen y Reflexión 💭</h2>
+
+                <blockquote class="intro-box" style="font-style: italic; font-size: 1.1rem;">
+                    "La mejor forma de predecir el futuro es crearlo."<br>
+                    <strong>— Kevin Ashton (1999)</strong>, acuñador del término "Internet of Things"
+                </blockquote>
+
+                <h3>Resumen Clase 01</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Clave</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Eras Internet</strong></td>
+                            <td>ARPANET → WWW → Web 2.0 → IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT</strong></td>
+                            <td>Objetos conectados, sensores, M2M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoE</strong></td>
+                            <td>= IoT + Personas + Procesos + Datos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drivers</strong></td>
+                            <td>Hardware barato, conectividad, nube, IA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Impacto</strong></td>
+                            <td>$3B billones 2030, cambio social</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>Como ingenieros:</strong> Diseñan sistemas → Definen funcionamiento → Deciden ética
+                </div>
+
+                <h3>Tarea para la Próxima Clase</h3>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Opcional (preparación para siguiente clase)</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Lectura e investigación (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 30-45 minutos autónomos</p>
+                    <p><strong>Criterios:</strong> Preparación previa para participar en clase 2</p>
+                </section>
+
+                <div class="card">
+                    <h4>Lectura</h4>
+                    <p>Capítulo 1 del curso Cisco Networking Academy IoT</p>
+
+                    <h4>Investigación</h4>
+                    <p>Preparar ficha de un dispositivo IoT:</p>
+                    <ul>
+                        <li>¿Qué hace?</li>
+                        <li>¿Cómo se conecta?</li>
+                        <li>¿Qué datos recopila?</li>
+                        <li>¿Qué beneficio ofrece?</li>
+                        <li>¿Qué riesgos tiene?</li>
+                    </ul>
+                </div>
+
+                <h3>Próxima Clase</h3>
+                <div class="intro-box" style="text-align: center;">
+                    <h4>Clase 2: Personas, Procesos, Datos y Cosas</h4>
+                    <p>Los cuatro pilares del Internet de las Cosas</p>
+                    <p><strong>¡Nos vemos!</strong></p>
+                </div>
+            </section>
+
+            <!-- Referencias -->
+            <section id="referencias">
+                <h2>Referencias Bibliográficas</h2>
+
+                <h3>Fuentes Primarias</h3>
+                <h4>Libros y Textos Académicos</h4>
+                <ol>
+                    <li><strong>Cisco Networking Academy.</strong> (2023). <em>Introduction to IoT - Cisco Networking Academy</em>. Cisco Press. (Capítulo 1: "What is IoT?")</li>
+                    <li>Ashton, K. (2009). "That 'Internet of Things' Thing." <em>RFID Journal</em>.</li>
+                    <li>Gubbi, J., Buyya, R., Marusic, S., & Palaniswami, M. (2013). "Internet of Things (IoT): A vision, architectural elements, and future directions." <em>Future Generation Computer Systems</em>, 29(7), 1645-1660.</li>
+                </ol>
+
+                <h4>Informes de Industria</h4>
+                <ol start="4">
+                    <li><strong>McKinsey & Company.</strong> (2024). <em>The Internet of Things: Capturing the value and navigating the complexity</em>.</li>
+                    <li><strong>Gartner.</strong> (2024). <em>Gartner Top Strategic Technology Trends for 2025: IoT Edge</em>.</li>
+                    <li><strong>IDC.</strong> (2023). <em>Worldwide Internet of Things Spending Guide</em>.</li>
+                </ol>
+
+                <h3>Casos de Estudio - Medellín</h3>
+                <ol start="7">
+                    <li><strong>Empresas Públicas de Medellín (EPM).</strong> (2024). <em>Proyecto Medidores Inteligentes: Informe de Resultados 2015-2023</em>.</li>
+                    <li><strong>Alcaldía de Medellín - SIATA.</strong> (2024). <em>Sistema de Alerta Temprana de Medellín: Memoria Técnica</em>.</li>
+                    <li><strong>Metro de Medellín.</strong> (2023). <em>Transformación Digital: Reporte Anual</em>.</li>
+                    <li><strong>CUIC (Centro Urbano de Información y Control).</strong> (2024). <em>Informe de Seguridad Ciudadana</em>.</li>
+                </ol>
+
+                <h3>Normatividad Colombiana</h3>
+                <ol start="11">
+                    <li><strong>Congreso de Colombia.</strong> (2021). <em>Ley 2052 de 2021: Protección de Datos Personales</em>.</li>
+                    <li><strong>MinTIC.</strong> (2023). <em>Política Nacional de IoT y Ciudades Inteligentes</em>.</li>
+                    <li><strong>ICONTEC.</strong> (2022). <em>NTC 6001: Guía de Implementación IoT en Colombia</em>.</li>
+                </ol>
+
+                <h3>Estadísticas y Datos</h3>
+                <ol start="14">
+                    <li><strong>DANE.</strong> (2023). <em>Uso de TIC en Hogares Colombianos</em>.</li>
+                    <li><strong>ITU.</strong> (2024). <em>Measuring Digital Development: Facts and Figures</em>.</li>
+                    <li><strong>IoT Analytics.</strong> (2024). <em>State of IoT 2024: Number of IoT Connections</em>.</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 1: Evolución de Internet | Última actualización: Febrero 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

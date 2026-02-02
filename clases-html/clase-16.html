@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 16: Proyecto Final - IF0112 Complementaria II (IoT)</title>
+    <style>
+
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
+            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
+            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--color-primary-light);
+            margin-bottom: var(--space-3);
+            font-size: var(--text-lg);
+            font-weight: 700;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: var(--space-4);
+        }
+
+        .card li {
+            color: #0f172a;
+            margin-bottom: var(--space-2);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 16: Proyecto Final</h1>
+            <p class="subtitle">Diseño y Prototipado de un Sistema IoT Completo</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <!-- Evaluación Final -->
+        <section id="evaluacion-final" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
+            <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Evaluación Programada</h3>
+            <p style="margin: 0;"><strong>Final (20%):</strong> Examen + Proyecto Integrador - Fecha: 2026-05-25</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
+                Consulte la plataforma educativa para el detalle completo de la evaluación.
+            </p>
+        </section>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#objetivo">Objetivo</a></li>
+                <li><a href="#terminos-clave">Terminos Clave</a></li>
+                <li><a href="#requisitos">Requisitos</a></li>
+                <li><a href="#equipos">Equipos</a></li>
+                <li><a href="#entregables">Entregables</a></li>
+                <li><a href="#cronograma">Cronograma</a></li>
+                <li><a href="#ideas">Ideas</a></li>
+                <li><a href="#rubrica">Rubrica</a></li>
+                <li><a href="#ejemplos">Ejemplos</a></li>
+                <li><a href="#practica">Practica / Lab</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+
+        <!-- Objectives Section -->
+        <section id="objetivos">
+            <h2>Objetivos de la Clase</h2>
+            <p>Al finalizar esta clase, el estudiante será capaz de:</p>
+            <ul>
+                <li>Comprender requisitos del proyecto final IoT.</li>
+                <li>Planificar hardware, software, conectividad y documentacion.</li>
+                <li>Construir entregables y cronograma de trabajo.</li>
+                <li>Analizar ejemplos reales exitosos.</li>
+            </ul>
+        </section>
+
+        <!-- Objetivo del Proyecto -->
+        <section id="objetivo">
+                <h2>Objetivo del proyecto final</h2>
+
+                <div class="learning-key">
+                    <h4>Aprendizaje clave</h4>
+                    <p>El proyecto final integra TODO lo aprendido: hardware (sensores/actuadores), conectividad (WiFi/MQTT), software (Arduino/Python), visualización (dashboard/Grafana), y documentación. Trabajo en equipo de 3-4 estudiantes, con exposición en semana 16. Hardware es opcional: usar simuladores (Wokwi, Tinkercad) o demo del docente.</p>
+                </div>
+
+                <p>Disenar y prototipar un sistema IoT completo que resuelva un problema real, integrando hardware, software, conectividad, visualizacion y documentacion.</p>
+            </section>
+
+            <section id="terminos-clave">
+                <h2>Términos Clave del Proyecto Final</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Blynk</strong></td>
+                            <td>Plataforma no-code para crear apps móviles IoT con drag-and-drop</td>
+                            <td>Controlar ESP32 desde smartphone sin programar app nativa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>KPI</strong></td>
+                            <td>Key Performance Indicator - métrica cuantificable para medir éxito</td>
+                            <td>"Ahorro del 40% de agua" o "Tiempo de respuesta < 2 segundos"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geofencing</strong></td>
+                            <td>Delimitación virtual geográfica que dispara acciones al cruzarse</td>
+                            <td>Alerta cuando mascota sale del perímetro definido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anti-hammering</strong></td>
+                            <td>Protección contra intentos repetidos de autenticación (ataques de fuerza bruta)</td>
+                            <td>Bloquear teclado por 5 minutos después de 3 intentos fallidos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>P-P-D-C</strong></td>
+                            <td>Personas - Procesos - Datos - Cosas (modelo de 4 pilares de IoT)</td>
+                            <td>Identificar roles (personas), flujos (procesos), qué se recolecta (datos) y dispositivos (cosas)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OLED</strong></td>
+                            <td>Organic Light-Emitting Diode - pantalla de bajo consumo para microcontroladores</td>
+                            <td>Pantalla pequeña (128x64) para mostrar datos sin laptop</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PMS5003</strong></td>
+                            <td>Sensor de partículas que mide PM1.0, PM2.5, PM10</td>
+                            <td>Detector de calidad de aire que mide material particulado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Waterproof</strong></td>
+                            <td>Resistente al agua (IP65+)</td>
+                            <td>Caja protectora para sensor IoT exterior contra lluvia</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="requisitos">
+                <h2>Requisitos minimos</h2>
+                <h3>Hardware</h3>
+                <ul>
+                    <li>Microcontrolador (ESP32 o similar).</li>
+                    <li>Minimo 2 sensores diferentes.</li>
+                    <li>Minimo 1 actuador.</li>
+                    <li>Circuito de alimentacion apropiado.</li>
+                </ul>
+                <h3>Software</h3>
+                <ul>
+                    <li>Lectura de sensores funcionando.</li>
+                    <li>Logica de decision implementada.</li>
+                    <li>Actuador controlado segun la logica.</li>
+                    <li>Conectividad WiFi activa.</li>
+                    <li>Comunicacion con nube/servidor.</li>
+                </ul>
+                <h3>Conectividad</h3>
+                <ul>
+                    <li>Protocolo de comunicacion (MQTT/HTTP).</li>
+                    <li>Interfaz web o app movil.</li>
+                    <li>Visualizacion de datos en tiempo real.</li>
+                </ul>
+                <h3>Documentacion</h3>
+                <ul>
+                    <li>Diagrama de arquitectura.</li>
+                    <li>Diagrama de conexiones fisicas.</li>
+                    <li>Codigo comentado.</li>
+                    <li>Manual de usuario.</li>
+                    <li>Video demostrativo.</li>
+                </ul>
+            </section>
+
+            <section id="equipos">
+                <h2>Equipos recomendados</h2>
+                <h3>Basico (USD 20-50)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Precio aprox.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ESP32</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>DHT22</td>
+                            <td>1</td>
+                            <td>$3</td>
+                        </tr>
+                        <tr>
+                            <td>LED</td>
+                            <td>2</td>
+                            <td>$1</td>
+                        </tr>
+                        <tr>
+                            <td>Resistencias</td>
+                            <td>5</td>
+                            <td>$1</td>
+                        </tr>
+                        <tr>
+                            <td>Breadboard</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>Cables</td>
+                            <td>10</td>
+                            <td>$2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Intermedio (USD 50-150)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Precio aprox.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ESP32</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>BME280</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>Relay modulo</td>
+                            <td>2</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Servo SG90</td>
+                            <td>1</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td>Pantalla OLED</td>
+                            <td>1</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Caja prototipo</td>
+                            <td>1</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Sensor adicional</td>
+                            <td>2</td>
+                            <td>$20</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Avanzado (USD 150-300)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Precio aprox.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Raspberry Pi</td>
+                            <td>1</td>
+                            <td>$35</td>
+                        </tr>
+                        <tr>
+                            <td>Camara OV2648</td>
+                            <td>1</td>
+                            <td>$30</td>
+                        </tr>
+                        <tr>
+                            <td>GPS</td>
+                            <td>1</td>
+                            <td>$20</td>
+                        </tr>
+                        <tr>
+                            <td>Sensor MQ-2</td>
+                            <td>1</td>
+                            <td>$10</td>
+                        </tr>
+                        <tr>
+                            <td>Modulo LoRa</td>
+                            <td>2</td>
+                            <td>$30</td>
+                        </tr>
+                        <tr>
+                            <td>Bateria + cargador</td>
+                            <td>1</td>
+                            <td>$20</td>
+                        </tr>
+                        <tr>
+                            <td>Caja waterproof</td>
+                            <td>1</td>
+                            <td>$15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="entregables">
+                <h2>Entregables</h2>
+                <h3>Informe tecnico (10 paginas)</h3>
+                <pre><code># Proyecto IoT: [Nombre]
+
+## 1. Introduccion
+- Planteamiento del problema
+- Justificacion del proyecto
+
+## 2. Marco Teorico
+- Modelo P-P-D-C (Personas, Procesos, Datos, Cosas) aplicado
+- Tecnologias seleccionadas y por que
+
+## 3. Arquitectura
+- Diagrama de bloques
+- Diagrama de conexiones fisicas
+- Diagrama de flujo de datos
+
+## 4. Implementacion
+- Codigo principal
+- Explicacion de secciones clave
+- Capturas de prototipo
+
+## 5. Resultados
+- Pruebas realizadas
+- Metricas obtenidas
+- Limitaciones encontradas
+
+## 6. Conclusiones
+- Logros alcanzados
+- Trabajo futuro
+- Lecciones aprendidas
+
+## 7. Referencias
+</code></pre>
+                <h3>Prototipo funcional</h3>
+                <ul>
+                    <li>Hardware montado y funcionando.</li>
+                    <li>Codigo subido a GitHub.</li>
+                    <li>Video demostrativo (3-5 minutos).</li>
+                </ul>
+                <h3>Presentacion (10 minutos)</h3>
+                <ul>
+                    <li>10-15 diapositivas.</li>
+                    <li>Demo en vivo o video grabado.</li>
+                    <li>Defensa oral y respuesta a preguntas.</li>
+                </ul>
+            </section>
+
+            <section id="cronograma">
+                <h2>Cronograma sugerido</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Semana</th>
+                            <th>Actividad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Seleccion de tema y aprobacion</td>
+                        </tr>
+                        <tr>
+                            <td>2-3</td>
+                            <td>Adquisicion de componentes</td>
+                        </tr>
+                        <tr>
+                            <td>4-5</td>
+                            <td>Implementacion hardware + codigo basico</td>
+                        </tr>
+                        <tr>
+                            <td>6-7</td>
+                            <td>Integracion completa y pruebas</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Documentacion y video</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Presentacion final</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="ideas">
+                <h2>Ideas de proyectos</h2>
+                <h3>Hogar inteligente</h3>
+                <ul>
+                    <li>Control de iluminacion con sensores de presencia.</li>
+                    <li>Sistema de riego automatico para plantas.</li>
+                    <li>Monitoreo de calidad del aire interior.</li>
+                    <li>Cerradura inteligente con reconocimiento facial.</li>
+                </ul>
+
+                <h3>Agricultura</h3>
+                <ul>
+                    <li>Riego inteligente para huerta.</li>
+                    <li>Invernadero automatizado (temp, humedad, luz).</li>
+                    <li>Monitoreo de cultivos con camara y analisis.</li>
+                    <li>Sistema de alerta de plagas.</li>
+                </ul>
+
+                <h3>Salud</h3>
+                <ul>
+                    <li>Monitor de signos vitales con alertas.</li>
+                    <li>Sistema de medicacion inteligente.</li>
+                    <li>Silla de ruedas con sensores de presion.</li>
+                    <li>Dispensador automatico de medicamentos.</li>
+                </ul>
+
+                <h3>Ambiente</h3>
+                <ul>
+                    <li>Estacion meteorologica local.</li>
+                    <li>Sistema de alerta de inundacion.</li>
+                    <li>Monitor de calidad de agua.</li>
+                    <li>Contador de consumo energetico.</li>
+                </ul>
+
+                <h3>Seguridad</h3>
+                <ul>
+                    <li>Alarma de intrusos con camara.</li>
+                    <li>Sistema de alerta de incendios.</li>
+                    <li>Caja fuerte con apertura remota.</li>
+                    <li>Monitoreo de vehiculos (GPS).</li>
+                </ul>
+            </section>
+
+            <section id="rubrica">
+                <h2>Rúbrica de evaluacion</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Peso</th>
+                            <th>Excelente (4)</th>
+                            <th>Bueno (3)</th>
+                            <th>Aceptable (2)</th>
+                            <th>Insuficiente (1)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hardware</td>
+                            <td>20%</td>
+                            <td>Funciona completo, conexion limpia</td>
+                            <td>Funciona con algunos bugs</td>
+                            <td>Prototipo incompleto</td>
+                            <td>Sin prototipo</td>
+                        </tr>
+                        <tr>
+                            <td>Software</td>
+                            <td>25%</td>
+                            <td>Codigo limpio, documentado, modular</td>
+                            <td>Codigo funcional con comentarios basicos</td>
+                            <td>Codigo sin comentarios</td>
+                            <td>Codigo no funcional</td>
+                        </tr>
+                        <tr>
+                            <td>Documentacion</td>
+                            <td>20%</td>
+                            <td>Informe completo, diagramas claros</td>
+                            <td>Informe con informacion basica</td>
+                            <td>Informe incompleto</td>
+                            <td>Sin informe</td>
+                        </tr>
+                        <tr>
+                            <td>Innovacion</td>
+                            <td>15%</td>
+                            <td>Solucion creativa, no trivial</td>
+                            <td>Solucion conocida bien implementada</td>
+                            <td>Solucion basica</td>
+                            <td>Copia de proyecto existente</td>
+                        </tr>
+                        <tr>
+                            <td>Presentacion</td>
+                            <td>10%</td>
+                            <td>Clara, demo en vivo, responde preguntas</td>
+                            <td>Presentacion clara, demo video</td>
+                            <td>Presentacion basica</td>
+                            <td>Sin presentacion</td>
+                        </tr>
+                        <tr>
+                            <td>Defensa</td>
+                            <td>10%</td>
+                            <td>Responde todas las preguntas con profundidad</td>
+                            <td>Responde mayoria de preguntas</td>
+                            <td>Responde algunas preguntas</td>
+                            <td>No responde</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="ejemplos">
+                <h2>Ejemplos de proyectos exitosos</h2>
+                <h3>Proyecto 1: Sistema de riego inteligente</h3>
+                <ul>
+                    <li>ESP32 + DHT22 + sensor humedad + bomba.</li>
+                    <li>App Blynk con modo automatico y manual.</li>
+                    <li>Ahorro 40% de agua vs riego manual.</li>
+                </ul>
+                <pre><code># Fragmento de codigo (Blynk)
+void checkHumedad() {
+  int humedad = analogRead(HUMEDAD_PIN);
+  humedad = map(humedad, 0, 4095, 0, 100);
+
+  if (humedad < 30) {
+    digitalWrite(BOMBA_PIN, HIGH);
+    Blynk.notify("Riego activado");
+  } else if (humedad > 60) {
+    digitalWrite(BOMBA_PIN, LOW);
+  }
+}
+</code></pre>
+
+                <h3>Proyecto 2: Monitor de calidad del aire</h3>
+                <ul>
+                    <li>ESP32 + PMS5003 + SCD30 + OLED.</li>
+                    <li>Alertas si PM2.5 &gt; 25 ug/m3.</li>
+                    <li>Autonomia 8h con bateria.</li>
+                </ul>
+
+                <h3>Proyecto 3: Cerradura inteligente</h3>
+                <ul>
+                    <li>ESP32 + keypad + huella + servo.</li>
+                    <li>Anti-hammering y logs en SD.</li>
+                </ul>
+
+                <h3>Proyecto 4: Seguimiento de mascotas</h3>
+                <ul>
+                    <li>ESP32 + GPS + acelerometro.</li>
+                    <li>Geofencing y autonomia 8 dias.</li>
+                </ul>
+            </section>
+
+            <section id="practica">
+                <h2>Practica / laboratorio</h2>
+                <h3>Actividad guiada: propuesta rapida</h3>
+                <ol>
+                    <li>Seleccione un problema real (hogar, salud, agro, ciudad).</li>
+                    <li>Liste sensores, actuadores y conectividad necesaria.</li>
+                    <li>Defina un KPI para medir exito.</li>
+                    <li>Esboce un diagrama de arquitectura.</li>
+                    <li>Planifique entregables y cronograma.</li>
+                </ol>
+            </section>
+
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Material complementario interno: especificaciones.md, ejemplos.md (clase 16).</li>
+                </ul>
+
+                <div class="hardware-notice">
+                    <strong>💻 Factibilidad Windows:</strong> Esta clase es teórica sobre especificaciones de proyecto y planificación. No requiere hardware ni software especializado - todo se puede hacer en Windows con herramientas de documentación (Word, PowerPoint, Excel). La implementación del proyecto es opcional y puede usar simuladores web (Wokwi, Tinkercad) o demostraciones del docente.
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 16: Proyecto Final | Última actualización: Febrero 2026</p>
+        </footer>
+        </div>
+
+        <script>
+            // ============================================
+            // SCROLL PROGRESS & BACK TO TOP
+            // ============================================
+            (function() {
+                'use strict';
+
+                const progressFill = document.getElementById('progressFill');
+                const backToTop = document.getElementById('backToTop');
+
+                if (!progressFill || !backToTop) return;
+
+                // Update progress bar and back-to-top visibility
+                function updateProgress() {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                    const scrolled = window.scrollY;
+                    const progress = (scrolled / documentHeight) * 100;
+
+                    progressFill.style.width = Math.min(progress, 100) + '%';
+
+                    // Show/hide back-to-top button
+                    if (scrolled > windowHeight * 0.5) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
+                }
+
+                // Smooth scroll to top
+                function scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Throttle scroll events for performance
+                let ticking = false;
+                function onScroll() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(function() {
+                            updateProgress();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }
+
+                // Event listeners
+                window.addEventListener('scroll', onScroll, { passive: true });
+                backToTop.addEventListener('click', scrollToTop);
+
+                // Keyboard accessibility for back-to-top
+                backToTop.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        scrollToTop();
+                    }
+                });
+
+                // Initial call
+                updateProgress();
+            })();
+        </script>
+</body>
+</html>

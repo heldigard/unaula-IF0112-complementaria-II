@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 8: Protocolos IoT | IF0112</title>
+    <style>
+
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
+            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
+            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-tight);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* ============================================
+           NAVIGATION - Enhanced
+           ============================================ */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+            scroll-margin-block: 80px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY HIERARCHY
+           ============================================ */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: var(--leading-tight);
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: var(--leading-snug);
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        section h5 {
+            color: var(--text-secondary);
+            margin: var(--space-3) 0 var(--space-2);
+            font-size: var(--text-base);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            text-align: justify;
+            line-height: var(--leading-relaxed);
+            max-width: 75ch;
+        }
+
+        /* ============================================
+           CALLOUT BOXES
+           ============================================ */
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TABLES - Enhanced
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                font-size: var(--text-xs);
+            }
+            th, td {
+                padding: var(--space-2) var(--space-3);
+            }
+        }
+
+        /* ============================================
+           GRIDS
+           ============================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+
+        /* ============================================
+           CARDS - Enhanced
+           ============================================ */
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card h4 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
+        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
+        .card-yellow { background: #fef3c7; border-color: #fde68a; }
+        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
+
+        /* ============================================
+           FLOW DIAGRAM
+           ============================================ */
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+            margin: var(--space-8) 0;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: var(--space-4) var(--space-5);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            flex: 0 0 auto;
+            min-width: 150px;
+            font-size: var(--text-base);
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #1d4ed8;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step strong {
+            display: block;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+
+        .flow-step small {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--text-3xl);
+            color: #1d4ed8;
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+
+        /* ============================================
+           TIMELINE
+           ============================================ */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: var(--space-2);
+            bottom: var(--space-2);
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-8) - 5px);
+            top: var(--space-2);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ============================================
+           FIGURES
+           ============================================ */
+        figure {
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        figcaption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ============================================
+           SPECIAL TABLES
+           ============================================ */
+        .competencies-table th:first-child,
+        .competencies-table td:first-child {
+            width: 20%;
+            text-align: center;
+            font-size: var(--text-3xl);
+        }
+
+        .eras-table td:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            main { padding: var(--space-6); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+            header .subtitle {
+                font-size: var(--text-base);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            section {
+                margin-bottom: var(--space-10);
+            }
+            section h2 {
+                font-size: var(--text-2xl);
+            }
+            .back-to-top {
+                bottom: var(--space-4);
+                right: var(--space-4);
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            header h1 {
+                font-size: var(--text-2xl);
+            }
+            .flow-step {
+                min-width: 120px;
+                font-size: var(--text-sm);
+                padding: var(--space-3) var(--space-4);
+            }
+            .flow-step strong {
+                font-size: var(--text-base);
+            }
+            .flow-arrow {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-2) var(--space-4);
+            z-index: 999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .back-to-top, .progress-bar {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Clase 8: Protocolos IoT</h1>
+        <p class="subtitle">MQTT, HTTP y Comunicación en la Nube</p>
+        <p class="meta">
+            IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+        </p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#desafios">Desafíos IoT</a></li>
+            <li><a href="#http">HTTP</a></li>
+            <li><a href="#mqtt">MQTT</a></li>
+            <li><a href="#topics">Topics</a></li>
+            <li><a href="#qos">QoS</a></li>
+            <li><a href="#comparacion">Comparación</a></li>
+            <li><a href="#brokers">Brokers</a></li>
+            <li><a href="#implementacion">Implementación</a></li>
+            <li><a href="#coap">CoAP</a></li>
+            <li><a href="#referencias">Referencias</a></li>
+        </ul>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </nav>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+    <main>
+            <!-- Objetivos -->
+            <section id="objetivos">
+                <h2>Objetivos de la Clase</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta clase, podrá:</p>
+                        <ul>
+                            <li><strong>Comparar</strong> protocolos HTTP vs MQTT</li>
+                            <li><strong>Implementar</strong> MQTT publish/subscribe</li>
+                            <li><strong>Diseñar</strong> topics jerárquicos</li>
+                            <li><strong>Seleccionar</strong> protocolo adecuado según caso de uso</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Desafíos de comunicación IoT</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>HTTP: Request-Response</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>MQTT: Pub/Sub + Topics</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>QoS, Brokers, CoAP y Comparación</td>
+                                    <td>40 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué protocolo elegir para mi caso de uso IoT?</p>
+                    </div>
+                </div>
+            </section>
+
+        <!-- Desafíos -->
+        <section id="desafios">
+            <h2>🎯 Desafíos de Comunicación en IoT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>IoT enfrenta desafíos únicos: redes inestables, dispositivos con batería limitada, escalabilidad masiva y recursos computacionales restringidos. Los protocolos IoT como MQTT están diseñados específicamente para superar estas limitaciones.</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>📡 Conectividad</h4>
+                    <ul>
+                        <li>Redes inestables → QoS</li>
+                        <li>Ancho de banda limitado</li>
+                        <li>Alta latencia</li>
+                        <li>Conexiones intermitentes</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>🔋 Energía</h4>
+                    <ul>
+                        <li>Batería limitada</li>
+                        <li>Mínimo tiempo de transmisión</li>
+                        <li>Wake-up frecuentes</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>📊 Escala</h4>
+                    <ul>
+                        <li>Miles a millones de dispositivos</li>
+                        <li>Mensajes frecuentes</li>
+                        <li>Muchos a muchos</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>🔒 Seguridad</h4>
+                    <ul>
+                        <li>Recursos computacionales limitados</li>
+                        <li>Memoria reducida</li>
+                        <li>CPU lenta</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- HTTP -->
+        <section id="http">
+            <h2>🌐 HTTP: El Protocolo de la Web</h2>
+            
+            <h3>Modelo Request-Response</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #3b82f6; background: #dbeafe;">
+                    <h4>📤 CLIENTE (ESP32)</h4>
+                    <ul>
+                        <li>Inicia la comunicación</li>
+                        <li>Envía GET /api/temperatura</li>
+                        <li>Espera respuesta</li>
+                    </ul>
+                </div>
+                <div class="comparison-card" style="border-color: #10b981; background: #d1fae5;">
+                    <h4>📥 SERVIDOR (API)</h4>
+                    <ul>
+                        <li>Recibe petición HTTP</li>
+                        <li>Procesa la lógica</li>
+                        <li>Responde HTTP 200 OK</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p><strong>Flujo:</strong> Cliente → Request → Servidor → Response → Cliente</p>
+            
+            <h3>Características Clave</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Iniciador</td><td>Siempre el cliente</td></tr>
+                    <tr><td>Conexión</td><td>Una por petición (HTTP/1.1)</td></tr>
+                    <tr><td>Modelo</td><td>Síncrono (espera respuesta)</td></tr>
+                    <tr><td>Push server</td><td>No (requiere polling)</td></tr>
+                    <tr><td>Overhead</td><td>Alto (~800 bytes headers)</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>✅ Ventajas HTTP</h4>
+                <ul>
+                    <li>Familiar y universalmente soportado</li>
+                    <li>Debugging fácil (Postman, curl, navegador)</li>
+                    <li>HTTPS integrado para seguridad</li>
+                    <li>Infraestructura madura</li>
+                </ul>
+            </div>
+            
+            <div class="info-box warning">
+                <h4>❌ Desventajas para IoT</h4>
+                <ul>
+                    <li>Overhead considerable</li>
+                    <li>No soporta push del servidor</li>
+                    <li>Polling consume batería</li>
+                    <li>No ideal para tiempo real</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- MQTT -->
+        <section id="mqtt">
+            <h2>📨 MQTT: El Protocolo Estrella de IoT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>MQTT usa el modelo publish/subscribe con un broker intermediario. Esto permite <strong>desacoplamiento total</strong>: el publicador no necesita saber quién escucha, y el suscriptor no necesita saber quién publica. El broker enruta mensajes eficientemente.</p>
+            </div>
+            
+            <p><strong>MQTT (Message Queuing Telemetry Transport)</strong> - Protocolo diseñado específicamente para IoT por IBM en 1999.</p>
+            
+            <h3>Modelo Publish/Subscribe</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #f59e0b; background: #fef3c7;">
+                    <h4>🔄 BROKER MQTT</h4>
+                    <p style="text-align: center; font-size: 2rem; margin: 1rem 0;">🔄</p>
+                    <p style="text-align: center;">Centro de mensajes que enruta entre publicadores y suscriptores</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="comparison-card" style="border-color: #3b82f6; background: #dbeafe;">
+                        <h4>📤 PUBLICADOR</h4>
+                        <p>Envía mensajes a topics<br><code>publish("casa/temp", "25.5")</code></p>
+                    </div>
+                    <div class="comparison-card" style="border-color: #10b981; background: #d1fae5;">
+                        <h4>📥 SUSCRIPTOR</h4>
+                        <p>Recibe mensajes de topics<br><code>subscribe("casa/temp")</code></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box success">
+                <h4>✅ ¿Por qué MQTT para IoT?</h4>
+                <ul>
+                    <li>Overhead mínimo (ahorro energía)</li>
+                    <li>Push nativo (tiempo real)</li>
+                    <li>Desacoplamiento (pub/sub)</li>
+                    <li>Escalable (millones de dispositivos)</li>
+                    <li>QoS garantizado</li>
+                    <li>Retained messages</li>
+                    <li>Last Will and Testament</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Topics -->
+        <section id="topics">
+            <h2>🏷️ Topics (Temas) en MQTT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>Los topics usan jerarquía con <code>/</code> como separador. Los wildcards <code>+</code> (un nivel) y <code>#</code> (múltiples niveles) permiten suscripciones flexibles. Esto es esencial para escalar sistemas IoT con muchos dispositivos.</p>
+            </div>
+            
+            <h3>Estructura Jerárquica</h3>
+            <p>Usa <code>/</code> como separador para crear jerarquías:</p>
+            <pre>casa/sala/temperatura
+casa/sala/humedad
+casa/sala/luz/estado
+casa/cocina/temperatura
+casa/cocina/luz
+casa/dormitorio/temperatura
+
+oficina/piso1/sala1/temperatura
+oficina/piso1/sala1/humedad
+oficina/piso2/servidor/cpu
+
+edificio/sectorA/piso3/oficina12/aire</pre>
+            
+            <h3>Wildcards (Comodines)</h3>
+            <table>
+                <thead>
+                    <tr><th>Símbolo</th><th>Significado</th><th>Ejemplo</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>+</code></td><td>Un solo nivel</td><td><code>casa/+/temperatura</code></td></tr>
+                    <tr><td><code>#</code></td><td>Múltiples niveles</td><td><code>casa/#</code></td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>Ejemplo de Wildcard <code>+</code></h4>
+                <p><code>casa/+/temperatura</code> captura:</p>
+                <ul>
+                    <li><code>casa/sala/temperatura</code></li>
+                    <li><code>casa/cocina/temperatura</code></li>
+                    <li><code>casa/dormitorio/temperatura</code></li>
+                </ul>
+            </div>
+            
+            <h3>Propiedades de Mensajes</h3>
+            <table>
+                <thead>
+                    <tr><th>Propiedad</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Payload</strong></td><td>Contenido del mensaje (string, JSON, binario)</td></tr>
+                    <tr><td><strong>Retain</strong></td><td>Último mensaje guardado para nuevos suscriptores</td></tr>
+                    <tr><td><strong>QoS</strong></td><td>Quality of Service (calidad de entrega)</td></tr>
+                    <tr><td><strong>Client ID</strong></td><td>Identificador único del cliente</td></tr>
+                    <tr><td><strong>LWT</strong></td><td>Last Will and Testament (mensaje si se desconecta)</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- QoS -->
+        <section id="qos">
+            <h2>🎯 Niveles de QoS (Quality of Service)</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>QoS 0 (fire & forget) para datos frecuentes como temperatura. QoS 1 (at least once) para comandos importantes. QoS 2 (exactly once) para transacciones críticas como pagos. Mayor QoS = más overhead y latencia.</p>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr><th>QoS</th><th>Nombre</th><th>Confirmación</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>QoS 0</strong></td>
+                        <td>At Most Once<br>(Fire and Forget)</td>
+                        <td>❌ Sin ACK</td>
+                        <td>Datos frecuentes, temperatura en tiempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QoS 1</strong></td>
+                        <td>At Least Once</td>
+                        <td>✅ ACK (PUBACK)<br>⚠️ Posibles duplicados</td>
+                        <td>Comandos importantes, alarmas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QoS 2</strong></td>
+                        <td>Exactly Once</td>
+                        <td>✅ 4-way handshake<br>❌ Sin duplicados</td>
+                        <td>Transacciones críticas, pagos</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⚠️ Trade-off</h4>
+                <p>Mayor QoS = Mayor confiabilidad pero también mayor overhead y latencia.</p>
+            </div>
+        </section>
+        
+        <!-- Comparación -->
+        <section id="comparacion">
+            <h2>⚖️ HTTP vs MQTT: Comparación Detallada</h2>
+            
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>HTTP</th><th>MQTT</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Modelo</strong></td><td>Request-Response</td><td>Publish-Subscribe</td></tr>
+                    <tr><td><strong>Iniciador</strong></td><td>Cliente</td><td>Bidireccional</td></tr>
+                    <tr><td><strong>Overhead</strong></td><td>Alto (~800 bytes)</td><td>Bajo (~2 bytes)</td></tr>
+                    <tr><td><strong>Conexión</strong></td><td>Por petición</td><td>Persistente</td></tr>
+                    <tr><td><strong>Push server</strong></td><td>No (polling)</td><td>Sí (nativo)</td></tr>
+                    <tr><td><strong>QoS</strong></td><td>No</td><td>3 niveles</td></tr>
+                    <tr><td><strong>Tiempo real</strong></td><td>Difícil</td><td>Fácil</td></tr>
+                    <tr><td><strong>Escalabilidad</strong></td><td>Media</td><td>Alta</td></tr>
+                    <tr><td><strong>Batería</strong></td><td>Alto consumo</td><td>Bajo consumo</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>¿Cuándo usar cada uno?</h3>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>Usar HTTP cuando:</h4>
+                    <ul>
+                        <li>Integración con APIs web existentes</li>
+                        <li>Comunicación ocasional</li>
+                        <li>Actualizaciones de firmware (OTA)</li>
+                        <li>Infraestructura HTTP ya existe</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Usar MQTT cuando:</h4>
+                    <ul>
+                        <li>Muchos dispositivos (escala)</li>
+                        <li>Comunicación tiempo real</li>
+                        <li>Push desde servidor necesario</li>
+                        <li>Dispositivos con batería</li>
+                        <li>Alta frecuencia de mensajes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Brokers -->
+        <section id="brokers">
+            <h2>🖥️ Brokers MQTT: Opciones Disponibles</h2>
+            
+            <h3>Gratuitos / Open Source</h3>
+            <table>
+                <thead>
+                    <tr><th>Broker</th><th>Características</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Mosquitto</strong></td><td>Ligero, muy popular</td><td>Self-hosted, Raspberry Pi</td></tr>
+                    <tr><td><strong>HiveMQ CE</strong></td><td>Java, alta disponibilidad</td><td>Empresas, clusters</td></tr>
+                    <tr><td><strong>EMQX</strong></td><td>Escalable, cloud native</td><td>Grandes despliegues</td></tr>
+                    <tr><td><strong>RabbitMQ</strong></td><td>Multi-protocolo</td><td>Enterprise</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Servicios Cloud</h3>
+            <table>
+                <thead>
+                    <tr><th>Servicio</th><th>Plan Gratuito</th><th>Características</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>HiveMQ Cloud</strong></td><td>100 conexiones</td><td>Fácil setup, TLS gratis</td></tr>
+                    <tr><td><strong>CloudMQTT</strong></td><td>5 conexiones</td><td>SSL incluido</td></tr>
+                    <tr><td><strong>AWS IoT Core</strong></td><td>12 meses free</td><td>Integración AWS</td></tr>
+                    <tr><td><strong>Adafruit IO</strong></td><td>10 feeds</td><td>Maker-friendly</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>🌐 Broker Público para Pruebas</h4>
+                <p><strong>broker.hivemq.com</strong></p>
+                <ul>
+                    <li>Puerto: 1883 (sin TLS)</li>
+                    <li>Puerto: 8883 (con TLS)</li>
+                    <li>WebSocket: 8000</li>
+                </ul>
+                <p><strong>⚠️ Solo para pruebas/educación - No usar en producción</strong></p>
+            </div>
+        </section>
+        
+        <!-- Implementación -->
+        <section id="implementacion">
+            <h2>⚙️ Implementación MQTT en ESP32</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>La librería <code>PubSubClient</code> de Arduino es el estándar para MQTT en ESP32/Arduino. Implementa reconexión automática, callbacks para mensajes recibidos y soporta QoS 0 y 1. Los brokers públicos como HiveMQ permiten pruebas sin servidor propio.</p>
+            </div>
+
+            <div class="hardware-notice">
+                <strong>💻 Factibilidad Windows:</strong> Arduino IDE es completamente compatible con Windows. Puedes compilar y cargar código en ESP32 desde Windows sin problemas.
+                <br><br>
+                <strong>🔧 Hardware opcional:</strong> Si no tienes ESP32 físico, puedes usar simuladores gratuitos como <a href="https://wokwi.com" target="_blank">Wokwi</a> para probar MQTT con ESP32 virtual. El docente también puede hacer demostraciones en vivo con hardware físico.
+            </div>
+            
+            <h3>Librería PubSubClient</h3>
+            <p>Arduino IDE → Sketch → Include Library → Manage Libraries → Buscar "PubSubClient"</p>
+            
+            <h3>Código: Publicador MQTT</h3>
+            <pre>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+const char* ssid = "TU_RED";
+const char* password = "TU_PASS";
+const char* mqtt_server = "broker.hivemq.com";
+const char* topic_temp = "unaula/sala/temperatura";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  client.setServer(mqtt_server, 1883);
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  // Publicar cada 5s
+  static unsigned long lastMsg = 0;
+  if (millis() - lastMsg > 5000) {
+    lastMsg = millis();
+    float temp = 25.5;
+    char msg[50];
+    snprintf(msg, 50, "%.1f", temp);
+    client.publish(topic_temp, msg);
+  }
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    if (client.connect("ESP32Client")) {
+      Serial.println("Conectado a MQTT");
+    } else {
+      delay(5000);
+    }
+  }
+}</pre>
+            
+            <h3>Suscriptor con Callback</h3>
+            <pre>void callback(char* topic, byte* payload, unsigned int length) {
+  String mensaje = "";
+  for (int i = 0; i &lt; length; i++) {
+    mensaje += (char)payload[i];
+  }
+
+  if (String(topic) == "unaula/sala/luz") {
+    if (mensaje == "ON") {
+      digitalWrite(LED_PIN, HIGH);
+    } else if (mensaje == "OFF") {
+      digitalWrite(LED_PIN, LOW);
+    }
+  }
+}
+
+void setup() {
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+}
+
+void reconnect() {
+  if (client.connect("ESP32-Sub")) {
+    client.subscribe("unaula/sala/luz");
+  }
+}</pre>
+            
+            <h3>JSON en MQTT</h3>
+            <pre>#include &lt;ArduinoJson.h&gt;
+
+void publicarJSON(float temp, float hum) {
+  StaticJsonDocument&lt;256&gt; doc;
+  doc["temperatura"] = temp;
+  doc["humedad"] = hum;
+  doc["timestamp"] = millis();
+
+  char buffer[256];
+  serializeJson(doc, buffer);
+  client.publish("unaula/sala/datos", buffer);
+}</pre>
+        </section>
+        
+        <!-- CoAP -->
+        <section id="coap">
+            <h2>📡 CoAP: Protocolo para Dispositivos Restringidos</h2>
+            
+            <h3>CoAP vs HTTP</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>HTTP</th><th>CoAP</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Transporte</td><td>TCP</td><td>UDP</td></tr>
+                    <tr><td>Overhead</td><td>~800 bytes</td><td>~10 bytes</td></tr>
+                    <tr><td>Formato</td><td>Texto</td><td>Binario</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Ventajas CoAP</h3>
+            <ul>
+                <li>Overhead mínimo (~10 bytes)</li>
+                <li>UDP más ligero</li>
+                <li>Métodos similares a HTTP (GET, POST, PUT, DELETE)</li>
+                <li>Diseñado para IoT restringido</li>
+            </ul>
+            
+            <h3>Métodos CoAP</h3>
+            <table>
+                <thead>
+                    <tr><th>Método</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GET</td><td>Obtener recurso</td></tr>
+                    <tr><td>POST</td><td>Crear recurso</td></tr>
+                    <tr><td>PUT</td><td>Actualizar recurso</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⚠️ ¿Cuándo usar CoAP?</h4>
+                <ul>
+                    <li>Dispositivo &lt; 100 KB RAM</li>
+                    <li>Red limitada (6LoWPAN, ZigBee)</li>
+                    <li>Overhead mínimo crítico</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Resumen -->
+        <section>
+            <h2>📋 Resumen de la Clase</h2>
+            
+            <table>
+                <thead>
+                    <tr><th>Concepto</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>HTTP</strong></td><td>Protocolo web request-response, alto overhead</td></tr>
+                    <tr><td><strong>MQTT</strong></td><td>Protocolo IoT pub/sub, ligero, tiempo real</td></tr>
+                    <tr><td><strong>Broker</strong></td><td>Servidor que enruta mensajes MQTT</td></tr>
+                    <tr><td><strong>Topic</strong></td><td>Canal de comunicación jerárquico</td></tr>
+                    <tr><td><strong>Publish</strong></td><td>Enviar mensaje a un topic</td></tr>
+                    <tr><td><strong>Subscribe</strong></td><td>Recibir mensajes de un topic</td></tr>
+                    <tr><td><strong>QoS 0</strong></td><td>At most once (mejor esfuerzo)</td></tr>
+                    <tr><td><strong>QoS 1</strong></td><td>At least once (confirmado)</td></tr>
+                    <tr><td><strong>QoS 2</strong></td><td>Exactly once (transaccional)</td></tr>
+                    <tr><td><strong>CoAP</strong></td><td>Para dispositivos muy limitados</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box success">
+                <h4>➡️ Próxima Clase: Convergencia IT/OT</h4>
+                <ul>
+                    <li>🖥️ Edge Computing vs Cloud Computing</li>
+                    <li>🏭 Tecnologías Operacionales (OT)</li>
+                    <li>🔗 Integración IT/OT</li>
+                    <li>⚡ Arquitecturas híbridas</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Evaluación 3 -->
+        <section id="evaluacion-3" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
+            <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Evaluación Programada</h3>
+            <p style="margin: 0;"><strong>Eval 3 (20%):</strong> Examen Parcial - Fecha: 2026-03-23</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
+                Consulte la plataforma educativa para el detalle completo de la evaluación.
+            </p>
+        </section>
+        <section id="referencias">
+            <h2>Referencias</h2>
+            <ul>
+                <li>MQTT Specification v3.1.1 - OASIS Standard</li>
+                <li>MQTT Essentials - Packt Publishing</li>
+                <li>HiveMQ MQTT Guide - hivemq.com/mqtt-essentials</li>
+                <li>CoAP Specification - RFC 7252</li>
+                <li>HTTP/1.1 vs MQTT - IoT For All</li>
+                <li>Eclipse Mosquitto Broker - mosquitto.org</li>
+                <li>ThingSpeak MQTT API - mathworks.com</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
+        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
+    </footer>
+
+    <script>
+
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    
+    </script>
+</body>
+</html>
