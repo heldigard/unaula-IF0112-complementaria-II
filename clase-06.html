@@ -1016,8 +1016,53 @@
             </p>
         </header>
 
+
+        <!-- Info Cronograma -->
+        <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+                <div>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Clase 6 - Programación Microcontroladores</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-lg);"><strong>Fecha:</strong> 09-03-2026 | <strong>Horario:</strong> Lunes 06:00-08:00</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📅 PRÓXIMA CLASE</span>
+                </div>
+            </div>
+            
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
+                    📋 Evaluación E2: Presentación
+                </h4>
+                <p style="margin: var(--space-2) 0; color: #78716c; font-size: var(--text-sm);"><strong>15%</strong> - Mini-proyecto con módulo de sensor</p>
+            </div>
+
+            
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
+                    🔬 Laboratorio 3: Entradas Analógicas (LDR)
+                </h4>
+                
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                    <a href="../laboratorios-html/lab-03-entradas-analogicas-ldr.html" style="display: inline-block; background: #10b981; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); text-decoration: none; font-size: var(--text-sm); font-weight: 500;">
+                        Ver Laboratorio 3 →
+                    </a>
+                    
+                </div>
+
+            </div>
+
+            
+            <div style="background: white; border-left: 4px solid #8b5cf6; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #6d28d9; margin: 0 0 var(--space-2) 0;">🎯 Progreso del Proyecto Final</h4>
+                <p style="margin: 0; color: #64748b; font-size: var(--text-sm);">Fase 1: Entradas analógicas (LDR). PREPARA PARA E2: Integra este sensor en tu mini-proyecto.</p>
+            </div>
+
+        </section>
+
+
         <nav>
-            <ul>
+            <ul>                <li><a href="#laboratorios">Laboratorios</a></li>
+
                 <li><a href="#objetivos">Objetivos</a></li>
                 <li><a href="#intro">Introducción</a></li>
                 <li><a href="#terminos-hardware">Términos Clave</a></li>
@@ -1981,7 +2026,91 @@ void loop() {
                 </ul>
             </div>
         </section>
-        <section id="referencias">
+        
+        <!-- Laboratorios Relacionados -->
+        <section id="laboratorios">
+            <h2>🔬 Laboratorios Relacionados</h2>
+
+            <div class="info-box info">
+                <h4>💡 Aprendizaje Práctico</h4>
+                <p>Los siguientes laboratorios refuerzan los conceptos teóricos de esta clase con práctica hands-on. Completa estos laboratorios para construir las habilidades necesarias para el proyecto final.</p>
+            </div>
+
+            
+            <div class="lab-header" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: var(--color-accent);">
+                <h3 style="color: #92400e; margin: 0 0 0.5rem 0; font-size: 1.5rem;">🎯 FASE 1: Fundamentos de Hardware</h3>
+                <p style="margin: 0; color: #78716c;">En esta fase aprendes las bases de programación y electrónica con el ESP32. Los laboratorios 00-04 te preparan para construir la parte de sensores del proyecto final.</p>
+            </div>
+
+
+            <div class="grid-2" style="margin-top: 2rem;">
+                
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 00</span>
+                        Introducción Arduino IDE
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Instalación y configuración de Arduino IDE para ESP32. Primer programa con el LED integrado.</p>
+                    <a href="../laboratorios-html/lab-00-introduccion-arduino-ide.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 01</span>
+                        LED Blink y Estructura
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Control de LEDs externos, estructuras de código, delay vs millis, y PWM.</p>
+                    <a href="../laboratorios-html/lab-01-led-blink-estructura.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 02</span>
+                        Entradas Digitales (Botones)
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Uso de botones con INPUT_PULLUP, anti-rebote, y lógica de control.</p>
+                    <a href="../laboratorios-html/lab-02-entradas-digitales-botones.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 03</span>
+                        Entradas Analógicas (LDR)
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Lectura de sensores analógicos con el LDR, divisor de voltaje, y mapeo de valores.</p>
+                    <a href="../laboratorios-html/lab-03-entradas-analogicas-ldr.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 04</span>
+                        Sensor DHT (Temperatura/Humedad)
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Uso del sensor DHT11/DHT22 para leer temperatura y humedad. Manejo de librerías.</p>
+                    <a href="../laboratorios-html/lab-04-sensor-dht-temperatura.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="../laboratorios-html/index.html" style="display: inline-block; background: var(--color-primary); color: var(--text-inverse); padding: 0.75rem 1.5rem; border-radius: var(--radius-lg); text-decoration: none; font-weight: 600;">
+                    Ver Todos los Laboratorios →
+                </a>
+            </div>
+        </section>
+
+
+<section id="referencias">
             <h2>Referencias</h2>
             <ul>
                 <li>Arduino Language Reference - arduino.cc/reference/en</li>
