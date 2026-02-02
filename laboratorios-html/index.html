@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorios - IF0112 Complementaria II (IoT)</title>
+    <style>
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            padding: var(--space-4) var(--space-6);
+            text-align: center;
+        }
+
+        nav a {
+            display: inline-block;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            padding: var(--space-2) var(--space-4);
+            margin: var(--space-2);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-3);
+            font-size: var(--text-2xl);
+        }
+
+        .intro p {
+            max-width: 60ch;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+
+        /* Phase Sections */
+        .phase {
+            margin-bottom: var(--space-12);
+        }
+
+        .phase-header {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+            border: 2px solid var(--color-accent);
+            text-align: center;
+        }
+
+        .phase-header h2 {
+            color: #92400e;
+            margin: 0;
+            font-size: var(--text-3xl);
+        }
+
+        .phase-header p {
+            color: #78716c;
+            margin: var(--space-2) 0 0 0;
+        }
+
+        /* Lab Grid */
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .lab-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 2px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+        }
+
+        .lab-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: var(--color-primary-light);
+        }
+
+        .lab-card .badge {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+        }
+
+        .lab-card h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-xl);
+        }
+
+        .lab-card .week {
+            color: var(--text-muted);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-3);
+        }
+
+        .lab-card .description {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .lab-card .meta {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-4);
+        }
+
+        .lab-card .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+
+        .lab-card .link {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            text-decoration: none;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .lab-card .link:hover {
+            background: var(--color-primary-light);
+        }
+
+        /* Project Card */
+        .project-card {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 3px solid #3b82f6;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            margin-top: var(--space-8);
+            text-align: center;
+        }
+
+        .project-card h3 {
+            color: var(--color-primary);
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-3);
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+        }
+
+        .project-card .link {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            text-decoration: none;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-base);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .project-card .link:hover {
+            background: var(--color-primary-light);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+
+            main {
+                padding: var(--space-4);
+            }
+
+            .lab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 Laboratorios IoT</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+        </header>
+
+        <nav>
+            <a href="../clases-html/index.html">📚 Clases</a>
+            <a href="#fase1">Fase 1: Fundamentos</a>
+            <a href="#fase2">Fase 2: Conectividad</a>
+            <a href="#fase3">Fase 3: Proyecto</a>
+        </nav>
+
+        <main>
+            <div class="intro">
+                <h2>🎯 Proyecto Progresivo IoT</h2>
+                <p>
+                    Los laboratorios están diseñados para construir <strong>progresivamente</strong> un sistema IoT completo.
+                    Cada laboratorio desarrolla habilidades específicas que se integran en el proyecto final.
+                </p>
+            </div>
+
+            <!-- FASE 1: FUNDAMENTOS -->
+            <section class="phase" id="fase1">
+                <div class="phase-header">
+                    <h2>🏗️ FASE 1: Fundamentos de Hardware</h2>
+                    <p>Semanas 2-6 | Base para el proyecto IoT</p>
+                </div>
+
+                <div class="lab-grid">
+                    <div class="lab-card">
+                        <span class="badge">Lab 00</span>
+                        <h3>Introducción Arduino IDE</h3>
+                        <p class="week">📅 Semana 2 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Instalación y configuración del entorno de desarrollo. Primer programa "Hola Mundo" con el LED integrado.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">🔧 ESP32 + USB</span>
+                            <span class="meta-item">📝 No previo</span>
+                        </div>
+                        <a href="lab-00-introduccion-arduino-ide.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 01</span>
+                        <h3>LED Blink y Estructura</h3>
+                        <p class="week">📅 Semana 3 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Control de LEDs externos, estructuras de código Arduino, delay vs millis, y control PWM para intensidad.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">💡 LEDs + Resistencias</span>
+                            <span class="meta-item">📝 Lab 00</span>
+                        </div>
+                        <a href="lab-01-led-blink-estructura.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 02</span>
+                        <h3>Entradas Digitales (Botones)</h3>
+                        <p class="week">📅 Semana 4 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Uso de botones con INPUT_PULLUP, anti-rebote, y lógica de control con condicionales.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">🔘 Botones + LEDs</span>
+                            <span class="meta-item">📝 Lab 01</span>
+                        </div>
+                        <a href="lab-02-entradas-digitales-botones.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 03</span>
+                        <h3>Entradas Analógicas (LDR)</h3>
+                        <p class="week">📅 Semana 5 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Lectura de sensores analógicos con el LDR (fotoresistencia), divisor de voltaje, y mapeo de valores.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">☀️ LDR + Potenciómetro</span>
+                            <span class="meta-item">📝 Lab 02</span>
+                        </div>
+                        <a href="lab-03-entradas-analogicas-ldr.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 04</span>
+                        <h3>Sensor DHT (Temperatura/Humedad)</h3>
+                        <p class="week">📅 Semana 6 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Uso del sensor DHT11/DHT22 para leer temperatura y humedad. Manejo de librerías y validación de datos.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">🌡️ DHT11/DHT22</span>
+                            <span class="meta-item">📝 Lab 03</span>
+                            <span class="meta-item">⭐ E2 - Opción A</span>
+                        </div>
+                        <a href="lab-04-sensor-dht-temperatura.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 05</span>
+                        <h3>Sensor Ultrasónico (Proximidad)</h3>
+                        <p class="week">📅 Semana 7 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Medición de distancia con el sensor HC-SR04. Sistema de alerta con buzzer y LEDs.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">📏 HC-SR04 + Buzzer</span>
+                            <span class="meta-item">📝 Lab 03</span>
+                            <span class="meta-item">⭐ E2 - Opción C</span>
+                        </div>
+                        <a href="lab-05-sensor-ultrasonico-proximidad.html" class="link">Ver Laboratorio →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FASE 2: CONECTIVIDAD -->
+            <section class="phase" id="fase2">
+                <div class="phase-header">
+                    <h2>🌐 FASE 2: Conectividad IoT</h2>
+                    <p>Semanas 8-10 | Conexión a la nube</p>
+                </div>
+
+                <div class="lab-grid">
+                    <div class="lab-card">
+                        <span class="badge">Lab 06</span>
+                        <h3>Conectividad WiFi + Servidor Web</h3>
+                        <p class="week">📅 Semana 8 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Configuración WiFi en ESP32, modo Station/AP, servidor web integrado, y reconexión automática.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">📡 ESP32 + WiFi</span>
+                            <span class="meta-item">📝 Labs 0-4</span>
+                            <span class="meta-item">⭐ E3, E6</span>
+                        </div>
+                        <a href="lab-06-conectividad-wifi-esp32.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 07-A</span>
+                        <h3>ThingSpeak IoT Cloud</h3>
+                        <p class="week">📅 Semana 9 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Envío de datos a ThingSpeak, visualización en gráficos, y almacenamiento histórico en la nube.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">☁️ ThingSpeak + WiFi</span>
+                            <span class="meta-item">📝 Lab 06</span>
+                            <span class="meta-item">⭐ E3, E6</span>
+                        </div>
+                        <a href="lab-07-thingspeak-iot-cloud.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 07-B</span>
+                        <h3>SPIFFS Almacenamiento Local</h3>
+                        <p class="week">📅 Semana 10-12 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Sistema de archivos SPIFFS para almacenamiento local. Buffer de datos y sincronización con la nube.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">💾 SPIFFS</span>
+                            <span class="meta-item">📝 Lab 06</span>
+                            <span class="meta-item">⭐ Avanzado</span>
+                        </div>
+                        <a href="lab-07-spiffs-almacenamiento-local.html" class="link">Ver Laboratorio →</a>
+                    </div>
+
+                    <div class="lab-card">
+                        <span class="badge">Lab 08-A</span>
+                        <h3>MQTT y Protocolos IoT</h3>
+                        <p class="week">📅 Semana 10 | ⏱️ 2 horas</p>
+                        <p class="description">
+                            Protocolo MQTT para IoT, comunicación pub/sub, y comparación con HTTP para aplicaciones IoT.
+                        </p>
+                        <div class="meta">
+                            <span class="meta-item">📡 MQTT + WiFi</span>
+                            <span class="meta-item">📝 Lab 06</span>
+                            <span class="meta-item">⭐ E3, E6</span>
+                        </div>
+                        <a href="lab-08-mqtt-protocolos.html" class="link">Ver Laboratorio →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FASE 3: PROYECTO -->
+            <section class="phase" id="fase3">
+                <div class="phase-header">
+                    <h2>🚀 FASE 3: Proyecto Integrador</h2>
+                    <p>Semanas 10-12 | Integración completa</p>
+                </div>
+
+                <div class="project-card">
+                    <h3>🎓 PROYECTO INTEGRADOR FINAL</h3>
+                    <p>
+                        Monitor Ambiental IoT completo con sensores, almacenamiento local, WiFi, ThingSpeak,
+                        servidor web y sistema de alertas. Integra todos los laboratorios anteriores en un
+                        sistema funcional del mundo real.
+                    </p>
+                    <div class="meta" style="justify-content: center; margin: var(--space-4) 0;">
+                        <span class="meta-item">🌡️ DHT22</span>
+                        <span class="meta-item">💡 LDR</span>
+                        <span class="meta-item">📡 WiFi</span>
+                        <span class="meta-item">☁️ ThingSpeak</span>
+                        <span class="meta-item">💾 SPIFFS</span>
+                        <span class="meta-item">🌐 Web Server</span>
+                    </div>
+                    <p style="font-size: var(--text-sm); color: var(--text-muted);">
+                        📝 Requiere: Labs 0-7 completados | ⏱️ 4 horas (2 sesiones)
+                    </p>
+                    <a href="lab-08-proyecto-integrador-monitor-iot.html" class="link">Ver Proyecto Integrador →</a>
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <section style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-5); margin: var(--space-8) 0; border-radius: 0 var(--radius-lg) var(--radius-lg) 0;">
+                <h3 style="color: #065f46; margin-bottom: var(--space-3);">💡 Cómo usar estos laboratorios</h3>
+                <ol style="margin-left: var(--space-6); color: var(--text-secondary);">
+                    <li style="margin-bottom: var(--space-2);">Completa los laboratorios en orden secuencial</li>
+                    <li style="margin-bottom: var(--space-2);">Cada laboratorio construye sobre el anterior</li>
+                    <li style="margin-bottom: var(--space-2);">Los proyectos de evaluación (E2, E3, E6) se basan en estos laboratorios</li>
+                    <li style="margin-bottom: var(--space-2);">Puedes usar simuladores (Wokwi, Tinkercad) si no tienes hardware</li>
+                    <li>El Proyecto Integrador (Lab 08) combina TODO lo aprendido</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
+                <a href="../clases-html/index.html" style="color: #60a5fa;">← Volver a Clases</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

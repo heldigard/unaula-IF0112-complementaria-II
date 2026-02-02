@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: LED Blink y Estructura del Código</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: LED Blink y Estructura del Código</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 3</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-1-led-blink-y-estructura-del-código"># Laboratorio 1: LED Blink y Estructura del Código</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-parte-1-conexión-básica-de-led">🔧 Parte 1: Conexión Básica de LED</a></li>
+<li><a href="#🔧-parte-2-variaciones-del-blink">🔧 Parte 2: Variaciones del Blink</a></li>
+<li><a href="#🔧-parte-3-código-no-bloqueante-con-millis()">🔧 Parte 3: Código No Bloqueante con millis()</a></li>
+<li><a href="#🔧-parte-4-pwm---control-de-intensidad">🔧 Parte 4: PWM - Control de Intensidad</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-solución-de-problemas">🔍 Solución de Problemas</a></li>
+<li><a href="#📚-conceptos-clave">📚 Conceptos Clave</a></li>
+<li><a href="#🎯-preparación-para-lab-2">🎯 Preparación para Lab 2</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-1-led-blink-y-estructura-del-código">
+<h2># Laboratorio 1: LED Blink y Estructura del Código</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 3</p>
+<p><strong>Pre-requisitos:</strong> Lab 0 completado</p>
+<p><strong>Componentes:</strong> ESP32 + LED + Resistencia + Protoboard</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Conectar componentes externos al ESP32 usando protoboard</li>
+<li> Controlar salidas digitales (HIGH/LOW)</li>
+<li> Diferenciar entre delay() y millis()</li>
+<li> Implementar código no bloqueante</li>
+<li> Crear secuencias de LEDs</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td>Con cable USB</td></p>
+</tr>
+<p><tr></p>
+<p><td>Protoboard</td></p>
+<p><td>1</td></p>
+<p><td>830 puntos preferiblemente</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED 5mm</td></p>
+<p><td>3</td></p>
+<p><td>Diferentes colores (R, G, Amarillo)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Resistencia 220Ω</td></p>
+<p><td>3</td></p>
+<p><td>Código de colores: Rojo-Rojo-Marrón</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cables jumper</td></p>
+<p><td>10+</td></p>
+<p><td>Macho-macho</td></p>
+</tr>
+</tbody></table>
+
+<h3>Diagrama de conexión básico:</h3>
+<pre><code>ESP32 GPIO2 ──┬──[220Ω]──┳── LED ───┫── GND
+<p>│          ┃          ┃</p>
+<p>│          ┃          ┃</p>
+<p>ESP32 GPIO4 ──┼──[220Ω]──╋── LED ───┫</p>
+<p>│          ┃          ┃</p>
+<p>ESP32 GPIO5 ──┴──[220Ω]──╋── LED ───┛</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-conexión-básica-de-led">
+<h2>🔧 Parte 1: Conexión Básica de LED</h2>
+
+<h3>Paso 1: Identificar el LED</h3>
+<p>Los LEDs tienen dos patas:</p>
+<ul>
+<li><strong>Pata larga (ánodo)</strong> = Positivo (+) → Conecta al GPIO</li>
+<li><strong>Pata corta (cátodo)</strong> = Negativo (-) → Conecta a GND</li>
+</ul>
+
+<h3>Paso 2: Conexión en protoboard</h3>
+<pre><code>        ┌──────────────────────────────┐
+<p>│         Protoboard           │</p>
+<p>│  ┌─────┬─────┬─────┬─────┐   │</p>
+<p>│  │     │     │     │     │   │</p>
+<p>GPIO2├──┤220Ω │     │ LED │     ├───┤── GND</p>
+<p>│  │     │     │     │     │   │</p>
+<p>│  └─────┴─────┴─────┴─────┘   │</p>
+<p>└──────────────────────────────┘</p>
+</code></pre>
+
+<h3>Paso 3: Código base</h3>
+<pre><code>/<em>
+ </em> Lab 1 - Control de LED externo
+<p><em> Enciende y apaga un LED conectado al GPIO 2</p>
+ </em>/
+
+<p>const int LED_PIN = 2;  // Pin donde está conectado el LED</p>
+
+<p>void setup() {</p>
+<p>// Configurar el pin como salida</p>
+<p>pinMode(LED_PIN, OUTPUT);</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Lab 1 iniciado - Control de LED");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Encender LED (3.3V en el pin)</p>
+<p>digitalWrite(LED_PIN, HIGH);</p>
+<p>Serial.println("LED: ON");</p>
+<p>delay(1000);  // Esperar 1 segundo</p>
+
+<p>// Apagar LED (0V en el pin)</p>
+<p>digitalWrite(LED_PIN, LOW);</p>
+<p>Serial.println("LED: OFF");</p>
+<p>delay(1000);  // Esperar 1 segundo</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-variaciones-del-blink">
+<h2>🔧 Parte 2: Variaciones del Blink</h2>
+
+<h3>Ejercicio 2.1: Ritmo de parpadeo</h3>
+<p>Modificar el código para diferentes patrones:</p>
+
+<pre><code>void loop() {
+<p>// Patrón: Corto-Largo-Corto (como "SOS")</p>
+
+<p>// Tres cortos</p>
+<p>for(int i = 0; i < 3; i++) {</p>
+<p>digitalWrite(LED_PIN, HIGH);</p>
+<p>delay(200);   // 200ms encendido</p>
+<p>digitalWrite(LED_PIN, LOW);</p>
+<p>delay(200);   // 200ms apagado</p>
+<p>}</p>
+
+<p>delay(500);  // Pausa entre letras</p>
+
+<p>// Tres largos</p>
+<p>for(int i = 0; i < 3; i++) {</p>
+<p>digitalWrite(LED_PIN, HIGH);</p>
+<p>delay(600);   // 600ms encendido</p>
+<p>digitalWrite(LED_PIN, LOW);</p>
+<p>delay(200);   // 200ms apagado</p>
+<p>}</p>
+
+<p>delay(500);  // Pausa</p>
+
+<p>// Tres cortos (repetir código de arriba)</p>
+<p>// ...</p>
+
+<p>delay(2000);  // Pausa antes de repetir SOS</p>
+<p>}</p>
+</code></pre>
+
+<h3>Ejercicio 2.2: Secuencia de LEDs</h3>
+<p>Conectar 3 LEDs y crear una secuencia tipo "carrera":</p>
+
+<pre><code>const int LED1 = 2;
+<p>const int LED2 = 4;</p>
+<p>const int LED3 = 5;</p>
+
+<p>void setup() {</p>
+<p>pinMode(LED1, OUTPUT);</p>
+<p>pinMode(LED2, OUTPUT);</p>
+<p>pinMode(LED3, OUTPUT);</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Secuencia: 1-2-3-2-1-2-3...</p>
+<p>digitalWrite(LED1, HIGH);</p>
+<p>delay(200);</p>
+<p>digitalWrite(LED1, LOW);</p>
+
+<p>digitalWrite(LED2, HIGH);</p>
+<p>delay(200);</p>
+<p>digitalWrite(LED2, LOW);</p>
+
+<p>digitalWrite(LED3, HIGH);</p>
+<p>delay(200);</p>
+<p>digitalWrite(LED3, LOW);</p>
+
+<p>digitalWrite(LED2, HIGH);</p>
+<p>delay(200);</p>
+<p>digitalWrite(LED2, LOW);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-código-no-bloqueante-con-millis()">
+<h2>🔧 Parte 3: Código No Bloqueante con millis()</h2>
+
+<h3>El problema de delay()</h3>
+<p>La función <code>delay()</code> <strong>bloquea</strong> el microcontrolador. Durante ese tiempo, no puede hacer nada más.</p>
+
+<h3>Solución: millis()</h3>
+<p><code>millis()</code> devuelve el tiempo en milisegundos desde que el ESP32 se encendió.</p>
+
+<pre><code>/<em>
+ </em> Lab 1 - Versión NO BLOQUEANTE con millis()
+<p><em> Permite hacer múltiples tareas simultáneamente</p>
+ </em>/
+
+<p>const int LED1_PIN = 2;</p>
+<p>const int LED2_PIN = 4;</p>
+
+<p>// Variables para control de tiempo</p>
+<p>unsigned long tiempoAnterior1 = 0;</p>
+<p>unsigned long tiempoAnterior2 = 0;</p>
+
+<p>const long intervalo1 = 1000;  // LED1: cada 1 segundo</p>
+<p>const long intervalo2 = 300;   // LED2: cada 300ms</p>
+
+<p>int estadoLED1 = LOW;</p>
+<p>int estadoLED2 = LOW;</p>
+
+<p>void setup() {</p>
+<p>pinMode(LED1_PIN, OUTPUT);</p>
+<p>pinMode(LED2_PIN, OUTPUT);</p>
+<p>Serial.begin(115200);</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>unsigned long tiempoActual = millis();</p>
+
+<p>// Controlar LED 1</p>
+<p>if (tiempoActual - tiempoAnterior1 >= intervalo1) {</p>
+<p>tiempoAnterior1 = tiempoActual;</p>
+<p>estadoLED1 = !estadoLED1;  // Cambiar estado</p>
+<p>digitalWrite(LED1_PIN, estadoLED1);</p>
+<p>Serial.println("LED1 cambiado");</p>
+<p>}</p>
+
+<p>// Controlar LED 2 (INDEPENDIENTE)</p>
+<p>if (tiempoActual - tiempoAnterior2 >= intervalo2) {</p>
+<p>tiempoAnterior2 = tiempoActual;</p>
+<p>estadoLED2 = !estadoLED2;</p>
+<p>digitalWrite(LED2_PIN, estadoLED2);</p>
+<p>Serial.println("LED2 cambiado");</p>
+<p>}</p>
+
+<p>// Aquí podemos hacer OTRAS COSAS sin esperar</p>
+<p>// Por ejemplo: leer sensores, checar botones, etc.</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-pwm---control-de-intensidad">
+<h2>🔧 Parte 4: PWM - Control de Intensidad</h2>
+
+<p>El ESP32 puede controlar la intensidad del LED usando PWM (Pulse Width Modulation).</p>
+
+<pre><code>/<em>
+ </em> Control de brillo con PWM
+<p>*/</p>
+
+<p>const int LED_PIN = 2;</p>
+<p>const int PWM_CHANNEL = 0;      // Canal PWM (0-15)</p>
+<p>const int PWM_FREQ = 5000;      // Frecuencia 5KHz</p>
+<p>const int PWM_RESOLUTION = 8;   // Resolución 8 bits (0-255)</p>
+
+<p>void setup() {</p>
+<p>// Configurar canal PWM</p>
+<p>ledcSetup(PWM_CHANNEL, PWM_FREQ, PWM_RESOLUTION);</p>
+
+<p>// Asociar pin al canal</p>
+<p>ledcAttachPin(LED_PIN, PWM_CHANNEL);</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("PWM iniciado");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Aumentar brillo gradualmente (Fade in)</p>
+<p>for (int duty = 0; duty <= 255; duty++) {</p>
+<p>ledcWrite(PWM_CHANNEL, duty);</p>
+<p>delay(15);</p>
+<p>}</p>
+
+<p>Serial.println("Brillo máximo");</p>
+<p>delay(500);</p>
+
+<p>// Disminuir brillo gradualmente (Fade out)</p>
+<p>for (int duty = 255; duty >= 0; duty--) {</p>
+<p>ledcWrite(PWM_CHANNEL, duty);</p>
+<p>delay(15);</p>
+<p>}</p>
+
+<p>Serial.println("Brillo mínimo");</p>
+<p>delay(500);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio Obligatorio 1: Semáforo Simple (40%)</h3>
+<p>Crear un semáforo con 3 LEDs:</p>
+<ul>
+<li>LED rojo: 3 segundos</li>
+<li>LED amarillo: 1 segundo</li>
+<li>LED verde: 3 segundos</li>
+</ul>
+
+<p><strong>Entregable:</strong> Código + video del funcionamiento</p>
+
+<h3>Ejercicio Obligatorio 2: Patrón Personalizado (40%)</h3>
+<p>Crear un patrón de luces con al menos 3 LEDs que represente algo (inicial de su nombre, figura geométrica, etc.)</p>
+
+<p><strong>Entregable:</strong> Código comentado + video + diagrama de conexión</p>
+
+<h3>Ejercicio Opcional: Control de Intensidad (20% bonus)</h3>
+<p>Usar PWM para simular el parpadeo de una vela (aleatorio, suave)</p>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Excelente (5)</th></p>
+<p><th>Bueno (4)</th></p>
+<p><th>Regular (3)</th></p>
+<p><th>Deficiente (1-2)</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Conexiones</strong></td></p>
+<p><td>Todas correctas y ordenadas</td></p>
+<p><td>Correctas</td></p>
+<p><td>Una incorrecta</td></p>
+<p><td>Varias mal o cortocircuito</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Funcionamiento</strong></td></p>
+<p><td>Perfecto, todos los ejercicios</td></p>
+<p><td>Funciona principal</td></p>
+<p><td>Funciona parcial</td></p>
+<p><td>No funciona</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Código</strong></td></p>
+<p><td>Limpio, comentado, eficiente</td></p>
+<p><td>Funcional con comentarios</td></p>
+<p><td>Funcional sin comentarios</td></p>
+<p><td>Desordenado o copiado</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Creatividad</strong></td></p>
+<p><td>Patrón original e interesante</td></p>
+<p><td>Buen patrón</td></p>
+<p><td>Básico</td></p>
+<p><td>No cumple</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Entrega</strong></td></p>
+<p><td>Completa y a tiempo</td></p>
+<p><td>Completa</td></p>
+<p><td>Incompleta</td></p>
+<p><td>No entrega</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-solución-de-problemas">
+<h2>🔍 Solución de Problemas</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>LED no enciende</td></p>
+<p><td>Verificar polaridad (pata larga = +)</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED muy tenue</td></p>
+<p><td>Revisar valor de resistencia</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED quemado</td></p>
+<p><td>Resistencia era muy pequeña o no tenía</td></p>
+</tr>
+<p><tr></p>
+<p><td>Un LED no funciona</td></p>
+<p><td>Cambiar LED, probar en otro pin</td></p>
+</tr>
+<p><tr></p>
+<p><td>Todo apagado</td></p>
+<p><td>Verificar conexión GND común</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="📚-conceptos-clave">
+<h2>📚 Conceptos Clave</h2>
+
+<h3>Diferencia delay() vs millis()</h3>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Aspecto</th></p>
+<p><th>delay()</th></p>
+<p><th>millis()</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Bloquea el programa</td></p>
+<p><td>Sí</td></p>
+<p><td>No</td></p>
+</tr>
+<p><tr></p>
+<p><td>Permite multitarea</td></p>
+<p><td>No</td></p>
+<p><td>Sí</td></p>
+</tr>
+<p><tr></p>
+<p><td>Complejidad</td></p>
+<p><td>Simple</td></p>
+<p><td>Requiere variables adicionales</td></p>
+</tr>
+<p><tr></p>
+<p><td>Uso recomendado</td></p>
+<p><td>Inicio/aprendizaje</td></p>
+<p><td>Proyectos serios</td></p>
+</tr>
+</tbody></table>
+
+<h3>Puntos importantes ESP32:</h3>
+<ul>
+<li>Voltaje de salida: 3.3V (no dañará LEDs)</li>
+<li>Corriente máxima por pin: 40mA (con resistencia 220Ω estamos seguros)</li>
+<li>GPIO disponibles: 2, 4, 5, 12-19, 21-23, 25-27, 32-33</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-preparación-para-lab-2">
+<h2>🎯 Preparación para Lab 2</h2>
+
+<p>El <strong>Laboratorio 2</strong> trabajará con:</p>
+<ul>
+<li>Entradas digitales (botones)</li>
+<li>Resistencias pull-up/pull-down</li>
+<li>Lógica de control con condicionales</li>
+</ul>
+
+<p><strong>Revisar antes de clase:</strong></p>
+<ul>
+<li>Concepto de INPUT vs OUTPUT</li>
+<li>Uso de resistencias pull-up</li>
+<li>Estructuras if/else en C++</li>
+</ul>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

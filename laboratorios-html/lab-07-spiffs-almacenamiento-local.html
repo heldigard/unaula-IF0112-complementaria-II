@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Almacenamiento Local - SPIFFS</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Almacenamiento Local - SPIFFS</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 9</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-7-almacenamiento-local---spiffs"># Laboratorio 7: Almacenamiento Local - SPIFFS</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-conceptos-teóricos">🔧 Conceptos Teóricos</a></li>
+<li><a href="#🔧-parte-1-formatear-e-inicializar-spiffs">🔧 Parte 1: Formatear e Inicializar SPIFFS</a></li>
+<li><a href="#🔧-parte-2-escribir-y-leer-archivos">🔧 Parte 2: Escribir y Leer Archivos</a></li>
+<li><a href="#🔧-parte-3-buffer-de-datos-sensores">🔧 Parte 3: Buffer de Datos Sensores</a></li>
+<li><a href="#🔧-parte-4-sistema-de-configuración">🔧 Parte 4: Sistema de Configuración</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-solución-de-problemas">🔍 Solución de Problemas</a></li>
+<li><a href="#🎯-relación-con-el-proyecto-final">🎯 Relación con el Proyecto Final</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-7-almacenamiento-local---spiffs">
+<h2># Laboratorio 7: Almacenamiento Local - SPIFFS</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 9</p>
+<p><strong>Pre-requisitos:</strong> Labs 0-6 completados</p>
+<p><strong>Componentes:</strong> ESP32 + WiFi</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Entender qué es SPIFFS y sus usos</li>
+<li> Guardar datos de sensores localmente</li>
+<li> Implementar buffer para desconexiones WiFi</li>
+<li> Leer y escribir archivos JSON</li>
+<li> Sincronizar datos con ThingSpeak cuando hay conexión</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td>Con ~1.5MB flash disponibles</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cable USB</td></p>
+<p><td>1</td></p>
+<p><td></td></p>
+</tr>
+<p><tr></p>
+<p><td>Cuenta ThingSpeak</td></p>
+<p><td>1</td></p>
+<p><td>Del Lab 6</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔧-conceptos-teóricos">
+<h2>🔧 Conceptos Teóricos</h2>
+
+<h3>¿Qué es SPIFFS?</h3>
+
+<p><strong>SPIFFS</strong> = SPI Flash File System</p>
+
+<p>Es un sistema de archivos que permite:</p>
+<ul>
+<li>Guardar archivos en la memoria flash del ESP32</li>
+<li>Persistencia de datos (se guardan incluso si se apaga)</li>
+<li>Lectura/escritura de archivos tipo texto</li>
+</ul>
+
+<h3>Cuándo Usar SPIFFS</h3>
+
+<pre><code>┌─────────────────────────────────────────────────────┐
+<p>│                  FLUJO DE DATOS IoT                  │</p>
+<p>├─────────────────────────────────────────────────────┤</p>
+<p>│                                                      │</p>
+<p>│  ┌─────────┐     ┌──────────┐     ┌─────────────┐  │</p>
+<p>│  │ Sensores │────►│ Buffer   │────►│ ThingSpeak  │  │</p>
+<p>│  └─────────┘     │ Local    │     │   Cloud     │  │</p>
+<p>│                 │ (SPIFFS) │     └─────────────┘  │</p>
+<p>│                 └──────────┘                      │</p>
+<p>│                      ▲                             │</p>
+<p>│                      │                              │</p>
+<p>│                 ¿WiFi OK?                          │</p>
+<p>│                      │                              │</p>
+<p>│                 ┌────┴────┐                        │</p>
+<p>│                 │         │                        │</p>
+<p>│              SÍ   │     NO  │                       │</p>
+<p>│                 │         │                        │</p>
+<p>│           Enviar   │   Guardar                       │</p>
+<p>│          directo   │   local                        │</p>
+<p>│                      │                             │</p>
+<p>│                      ▼                             │</p>
+<p>│              Cuando reconecte,                      │</p>
+<p>│              sincronizar datos                      │</p>
+<p>└─────────────────────────────────────────────────────┘</p>
+</code></pre>
+
+<h3>Ventajas y Desventajas</h3>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Ventajas</th></p>
+<p><th>Desventajas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Datos persisten sin WiFi</td></p>
+<p><td>Memoria flash limitada (~3MB)</td></p>
+</tr>
+<p><tr></p>
+<p><td>No perder datos en cortes de luz</td></p>
+<p><td>Flash tiene ciclos de escritura limitados</td></p>
+</tr>
+<p><tr></p>
+<p><td>Funciona offline</td></p>
+<p><td>Requiere formateo inicial</td></p>
+</tr>
+<p><tr></p>
+<p><td>Sincronización cuando haya red</td></p>
+<p><td>Leer/escribir es más lento que RAM</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-formatear-e-inicializar-spiffs">
+<h2>🔧 Parte 1: Formatear e Inicializar SPIFFS</h2>
+
+<h3>Código:</h3>
+
+<pre><code>/<em>
+ </em> Lab 7 - Parte 1: Inicializar y formatear SPIFFS
+<p>*/</p>
+
+<p>#include "SPIFFS.h"</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>delay(1000);</p>
+
+<p>Serial.println("========================================");</p>
+<p>Serial.println("  Inicializando SPIFFS...");</p>
+<p>Serial.println("========================================");</p>
+
+<p>// Iniciar SPIFFS</p>
+<p>if (!SPIFFS.begin(true)) {  // true = formatear si falla</p>
+<p>Serial.println("❌ Error montando SPIFFS");</p>
+<p>Serial.println("  Formateando...");</p>
+
+<p>// Formatear (¡borra todos los datos!)</p>
+<p>if (SPIFFS.format()) {</p>
+<p>Serial.println("✅ Formateo exitoso");</p>
+<p>if (SPIFFS.begin()) {</p>
+<p>Serial.println("✅ SPIFFS montado");</p>
+<p>}</p>
+<p>} else {</p>
+<p>Serial.println("❌ Error formateando");</p>
+<p>return;</p>
+<p>}</p>
+<p>} else {</p>
+<p>Serial.println("✅ SPIFFS montado correctamente");</p>
+<p>}</p>
+
+<p>// Mostrar información del sistema de archivos</p>
+<p>Serial.println("\n── Información SPIFFS ──");</p>
+<p>Serial.print("  Total: ");</p>
+<p>Serial.print(SPIFFS.totalBytes());</p>
+<p>Serial.println(" bytes");</p>
+
+<p>Serial.print("  Usado: ");</p>
+<p>Serial.print(SPIFFS.usedBytes());</p>
+<p>Serial.println(" bytes");</p>
+
+<p>Serial.print("  Libre: ");</p>
+<p>Serial.print(SPIFFS.totalBytes() - SPIFFS.usedBytes());</p>
+<p>Serial.println(" bytes");</p>
+<p>Serial.println("─────────────────────────────\n");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// No hace nada - solo inicialización</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-escribir-y-leer-archivos">
+<h2>🔧 Parte 2: Escribir y Leer Archivos</h2>
+
+<h3>Escribir un archivo de texto:</h3>
+
+<pre><code>/<em>
+ </em> Lab 7 - Parte 2: Escribir y leer archivos
+<p><em>/</p>
+
+<p>#include "SPIFFS.h"</p>
+
+<p>const char</em> filename = "/datos.txt";</p>
+
+<p>void writeFile(const char<em> path, const char</em> message) {</p>
+<p>Serial.printf("Escribiendo en: %s\n", path);</p>
+
+<p>File file = SPIFFS.open(path, FILE_WRITE);</p>
+<p>if (!file) {</p>
+<p>Serial.println("❌ Error abriendo archivo para escritura");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>if (file.print(message)) {</p>
+<p>Serial.println("✅ Archivo escrito");</p>
+<p>} else {</p>
+<p>Serial.println("❌ Error escribiendo");</p>
+<p>}</p>
+
+<p>file.close();</p>
+<p>}</p>
+
+<p>void readFile(const char<em> path) {</p>
+<p>Serial.printf("Leyendo: %s\n", path);</p>
+
+<p>File file = SPIFFS.open(path, FILE_READ);</p>
+<p>if (!file) {</p>
+<p>Serial.println("❌ Error abriendo archivo para lectura");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>Serial.println("── Contenido ──");</p>
+<p>while (file.available()) {</p>
+<p>Serial.write(file.read());</p>
+<p>}</p>
+<p>Serial.println("────────────────");</p>
+
+<p>file.close();</p>
+<p>}</p>
+
+<p>void appendFile(const char</em> path, const char* message) {</p>
+<p>Serial.printf("Agregando a: %s\n", path);</p>
+
+<p>File file = SPIFFS.open(path, FILE_APPEND);</p>
+<p>if (!file) {</p>
+<p>Serial.println("❌ Error abriendo archivo para append");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>if (file.print(message)) {</p>
+<p>Serial.println("✅ Mensaje agregado");</p>
+<p>} else {</p>
+<p>Serial.println("❌ Error agregando");</p>
+<p>}</p>
+
+<p>file.close();</p>
+<p>}</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+
+<p>if (!SPIFFS.begin(true)) {</p>
+<p>Serial.println("Error SPIFFS");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Escribir archivo nuevo</p>
+<p>writeFile(filename, "Hola SPIFFS!\n");</p>
+
+<p>// Agregar contenido</p>
+<p>appendFile(filename, "Línea 2\n");</p>
+<p>appendFile(filename, "Línea 3\n");</p>
+
+<p>// Leer archivo completo</p>
+<p>readFile(filename);</p>
+<p>}</p>
+
+<p>void loop() {}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-buffer-de-datos-sensores">
+<h2>🔧 Parte 3: Buffer de Datos Sensores</h2>
+
+<h3>Estructura del Buffer:</h3>
+
+<pre><code>/buffer.txt (archivo local):
+<p>{"temp":25.5,"hum":60.0,"luz":2048,"ts":1234567890}</p>
+<p>{"temp":26.0,"hum":59.0,"luz":2100,"ts":1234567910}</p>
+<p>{"temp":26.5,"hum":58.5,"luz":2150,"ts":1234567930}</p>
+<p>...</p>
+</code></pre>
+
+<h3>Código:</h3>
+
+<pre><code>/<em>
+ </em> Lab 7 - Parte 3: Buffer de sensores con SPIFFS
+<p><em>/</p>
+
+<p>#include "SPIFFS.h"</p>
+<p>#include <WiFi.h></p>
+<p>#include "DHT.h"</p>
+
+<p>#define DHTPIN 4</p>
+<p>#define DHTTYPE DHT11</p>
+<p>DHT dht(DHTPIN, DHTTYPE);</p>
+
+<p>const char</em> ssid = "TU_RED";</p>
+<p>const char<em> password = "TU_PASSWORD";</p>
+<p>const char</em> apiKey = "TU_API_KEY_THINGSPEAK";</p>
+
+<p>const char* bufferFile = "/buffer.txt";</p>
+
+<p>unsigned long lastRead = 0;</p>
+<p>const unsigned long READ_INTERVAL = 10000;  // Leer cada 10s</p>
+<p>const unsigned long SYNC_INTERVAL = 60000;  // Sincronizar cada 60s</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+
+<p>if (!SPIFFS.begin(true)) {</p>
+<p>Serial.println("Error SPIFFS");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>dht.begin();</p>
+
+<p>WiFi.begin(ssid, password);</p>
+<p>Serial.println("Conectando WiFi...");</p>
+<p>while (WiFi.status() != WL_CONNECTED) {</p>
+<p>delay(500);</p>
+<p>Serial.print(".");</p>
+<p>}</p>
+<p>Serial.println("\n✅ WiFi conectado");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>unsigned long now = millis();</p>
+
+<p>// Leer sensores periódicamente</p>
+<p>if (now - lastRead >= READ_INTERVAL) {</p>
+<p>lastRead = now;</p>
+
+<p>float temp = dht.readTemperature();</p>
+<p>float hum = dht.readHumidity();</p>
+<p>int luz = analogRead(34);</p>
+
+<p>if (isnan(temp) || isnan(hum)) {</p>
+<p>Serial.println("Error leyendo sensores");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Crear línea JSON</p>
+<p>String json = "{";</p>
+<p>json += "\"temp\":" + String(temp, 1) + ",";</p>
+<p>json += "\"hum\":" + String(hum, 1) + ",";</p>
+<p>json += "\"luz\":" + String(luz) + ",";</p>
+<p>json += "\"ts\":" + String(now / 1000);</p>
+<p>json += "}\n";</p>
+
+<p>Serial.print("Lectura: ");</p>
+<p>Serial.println(json);</p>
+
+<p>// Guardar en buffer local</p>
+<p>saveToBuffer(json);</p>
+
+<p>// Si hay WiFi, enviar a ThingSpeak</p>
+<p>if (WiFi.status() == WL_CONNECTED) {</p>
+<p>sendToThingSpeak(temp, hum, luz);</p>
+<p>// Sincronizar buffer pendiente</p>
+<p>syncBuffer();</p>
+<p>} else {</p>
+<p>Serial.println("⚠️ Sin WiFi - Datos guardados localmente");</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+
+<p>void saveToBuffer(String json) {</p>
+<p>File file = SPIFFS.open(bufferFile, FILE_APPEND);</p>
+<p>if (file) {</p>
+<p>file.println(json);</p>
+<p>file.close();</p>
+<p>Serial.println("✅ Guardado en buffer");</p>
+<p>} else {</p>
+<p>Serial.println("❌ Error guardando");</p>
+<p>}</p>
+<p>}</p>
+
+<p>void sendToThingSpeak(float temp, float hum, int luz) {</p>
+<p>HTTPClient http;</p>
+<p>String url = "http://api.thingspeak.com/update?";</p>
+<p>url += "api_key=" + String(apiKey);</p>
+<p>url += "&field1=" + String(temp, 1);</p>
+<p>url += "&field2=" + String(hum, 1);</p>
+<p>url += "&field3=" + String(luz);</p>
+
+<p>http.begin(url);</p>
+<p>int code = http.GET();</p>
+<p>http.end();</p>
+
+<p>if (code == 200) {</p>
+<p>Serial.println("✅ Enviado a ThingSpeak");</p>
+<p>} else {</p>
+<p>Serial.print("❌ Error ThingSpeak: ");</p>
+<p>Serial.println(code);</p>
+<p>}</p>
+<p>}</p>
+
+<p>void syncBuffer() {</p>
+<p>File file = SPIFFS.open(bufferFile, FILE_READ);</p>
+<p>if (!file) {</p>
+<p>return;  // No hay archivo = buffer vacío</p>
+<p>}</p>
+
+<p>Serial.println("Sincronizando buffer...");</p>
+
+<p>int count = 0;</p>
+<p>while (file.available()) {</p>
+<p>String line = file.readStringUntil('\n');</p>
+<p>line.trim();</p>
+
+<p>if (line.length() > 0) {</p>
+<p>// Parsear JSON simple</p>
+<p>float temp = line.substring(line.indexOf("\"temp\":") + 7,</p>
+<p>line.indexOf(",")).toFloat();</p>
+<p>float hum = line.substring(line.indexOf("\"hum\":") + 6,</p>
+<p>line.indexOf(",", line.indexOf("\"hum\":"))).toFloat();</p>
+<p>int luz = line.substring(line.indexOf("\"luz\":") + 6,</p>
+<p>line.indexOf(",\"ts\"")).toInt();</p>
+
+<p>// Reenviar a ThingSpeak</p>
+<p>sendToThingSpeak(temp, hum, luz);</p>
+<p>count++;</p>
+
+<p>delay(15000);  // Esperar 15s entre envíos</p>
+<p>}</p>
+<p>}</p>
+
+<p>file.close();</p>
+
+<p>if (count > 0) {</p>
+<p>Serial.printf("✅ Sincronizados %d registros\n", count);</p>
+<p>// Borrar buffer después de sincronizar</p>
+<p>SPIFFS.remove(bufferFile);</p>
+<p>Serial.println("Buffer vaciado");</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-sistema-de-configuración">
+<h2>🔧 Parte 4: Sistema de Configuración</h2>
+
+<p>Guardar configuración en JSON:</p>
+
+<pre><code>/<em>
+ </em> Lab 7 - Parte 4: Sistema de configuración
+<p><em>/</p>
+
+<p>#include "SPIFFS.h"</p>
+<p>#include <ArduinoJson.h>  // Instalar desde Library Manager</p>
+
+<p>const char</em> configFile = "/config.json";</p>
+
+<p>struct Config {</p>
+<p>char ssid[32];</p>
+<p>char password[64];</p>
+<p>char thingspeakKey[32];</p>
+<p>long channelID;</p>
+<p>int updateInterval;</p>
+<p>bool ledEnabled;</p>
+<p>};</p>
+
+<p>Config config;</p>
+
+<p>void saveConfig() {</p>
+<p>DynamicJsonDocument doc(256);</p>
+
+<p>doc["ssid"] = config.ssid;</p>
+<p>doc["password"] = config.password;</p>
+<p>doc["thingspeakKey"] = config.thingspeakKey;</p>
+<p>doc["channelID"] = config.channelID;</p>
+<p>doc["updateInterval"] = config.updateInterval;</p>
+<p>doc["ledEnabled"] = config.ledEnabled;</p>
+
+<p>File file = SPIFFS.open(configFile, FILE_WRITE);</p>
+<p>if (file) {</p>
+<p>serializeJson(doc, file);</p>
+<p>file.close();</p>
+<p>Serial.println("✅ Configuración guardada");</p>
+<p>}</p>
+<p>}</p>
+
+<p>void loadConfig() {</p>
+<p>File file = SPIFFS.open(configFile, FILE_READ);</p>
+<p>if (!file) {</p>
+<p>Serial.println("⚠️ No hay config - usando valores por defecto");</p>
+<p>setDefaultConfig();</p>
+<p>return;</p>
+<p>}</p>
+
+<p>DynamicJsonDocument doc(256);</p>
+<p>DeserializationError error = deserializeJson(doc, file);</p>
+<p>file.close();</p>
+
+<p>if (error) {</p>
+<p>Serial.println("Error parseando config - usando defaults");</p>
+<p>setDefaultConfig();</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Cargar valores en struct</p>
+<p>strlcpy(config.ssid, doc["ssid"] | "", sizeof(config.ssid));</p>
+<p>strlcpy(config.password, doc["password"] | "", sizeof(config.password));</p>
+<p>strlcpy(config.thingspeakKey, doc["thingspeakKey"] | "", sizeof(config.thingspeakKey));</p>
+<p>config.channelID = doc["channelID"] | 0;</p>
+<p>config.updateInterval = doc["updateInterval"] | 60000;</p>
+<p>config.ledEnabled = doc["ledEnabled"] | true;</p>
+
+<p>Serial.println("✅ Configuración cargada");</p>
+<p>Serial.print("  SSID: ");</p>
+<p>Serial.println(config.ssid);</p>
+<p>Serial.print("  Channel ID: ");</p>
+<p>Serial.println(config.channelID);</p>
+<p>}</p>
+
+<p>void setDefaultConfig() {</p>
+<p>strcpy(config.ssid, "");</p>
+<p>strcpy(config.password, "");</p>
+<p>strcpy(config.thingspeakKey, "");</p>
+<p>config.channelID = 0;</p>
+<p>config.updateInterval = 60000;</p>
+<p>config.ledEnabled = true;</p>
+<p>}</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+
+<p>if (!SPIFFS.begin(true)) {</p>
+<p>Serial.println("Error SPIFFS");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>loadConfig();</p>
+<p>saveConfig();  // Guardar config actual</p>
+<p>}</p>
+
+<p>void loop() {}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio 1: Logger de Sensores con Buffer (60%)</h3>
+
+<p>Crear sistema que:</p>
+<ul>
+<li> Lea temperatura y humedad cada 30 segundos</li>
+<li> Guarde en <code>/data_logger.txt</code> con formato:</li>
+   <pre><code>   2026-02-15 10:30:45, 25.5, 60.0, 2048
+</ul>
+<p>2026-02-15 10:31:15, 25.7, 59.5, 2100</p>
+   </code></pre>
+<ul>
+<li> Si hay WiFi, envíe a ThingSpeak también</li>
+<li> Cuando se reconecte, lea el archivo y envíe datos históricos</li>
+<li> Implemente un comando serial para:</li>
+<li><code>STATS</code>: Mostrar líneas guardadas, tamaño del archivo</li>
+<li><code>CLEAR</code>: Borrar el archivo</li>
+<li><code>SYNC</code>: Forzar sincronización manual</li>
+</ul>
+
+<h3>Ejercicio 2: Sistema de Configuración Web (40%)</h3>
+
+<p>Crear sistema que:</p>
+<ul>
+<li> Use SPIFFS para guardar config: SSID, password, API key</li>
+<li> Si no hay config, arranque en modo AP (punto de acceso)</li>
+<li> Desde celular conectarse al ESP32 y llenar formulario web</li>
+<li> Guardar config y reiniciar en modo STA</li>
+<li> Leer config al inicio y usarla</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Puntos</th></p>
+<p><th>Descripción</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Inicialización SPIFFS</strong></td></p>
+<p><td>15</td></p>
+<p><td>Montaje correcto</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Escritura de archivos</strong></td></p>
+<p><td>20</td></p>
+<p><td>Datos se guardan correctamente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Lectura de archivos</strong></td></p>
+<p><td>15</td></p>
+<p><td>Lectura correcta del buffer</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Sincronización</strong></td></p>
+<p><td>25</td></p>
+<p><td>Envía datos pendientes a ThingSpeak</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Configuración</strong></td></p>
+<p><td>15</td></p>
+<p><td>Sistema de config funcional</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Manejo de errores</strong></td></p>
+<p><td>10</td></p>
+<p><td>Verifica errores de E/S</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-solución-de-problemas">
+<h2>🔍 Solución de Problemas</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>"No space left"</td></p>
+<p><td>Memoria llena</td></p>
+<p><td>Borrar archivos antiguos</td></p>
+</tr>
+<p><tr></p>
+<p><td>Archivo corrupto</td></p>
+<p><td>Escritura interrumpida</td></p>
+<p><td>Validar JSON antes de guardar</td></p>
+</tr>
+<p><tr></p>
+<p><td>Pérdida de datos</td></p>
+<p><td>Apagado durante escritura</td></p>
+<p><td>Escribir en bloques pequeños</td></p>
+</tr>
+<p><tr></p>
+<p><td>Lectura lenta</td></p>
+<p><td>Archivo muy grande</td></p>
+<p><td>Rotar archivos (log1, log2...)</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🎯-relación-con-el-proyecto-final">
+<h2>🎯 Relación con el Proyecto Final</h2>
+
+<ul>
+<li>✅ <strong>Persistencia local</strong> → Datos seguros sin WiFi</li>
+<li>✅ <strong>Buffer offline</strong> → Sistema robusto</li>
+<li>✅ <strong>Configuración</strong> → Sin hardcoded values</li>
+<li>✅ <strong>Historial de datos</strong> → Análisis posterior</li>
+</ul>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

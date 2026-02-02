@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Conectividad WiFi con ESP32</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Conectividad WiFi con ESP32</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 8</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-6-conectividad-wifi-con-esp32"># Laboratorio 6: Conectividad WiFi con ESP32</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-conceptos-teóricos">🔧 Conceptos Teóricos</a></li>
+<li><a href="#🔧-parte-1-conexión-básica-a-wifi">🔧 Parte 1: Conexión Básica a WiFi</a></li>
+<li><a href="#🔧-parte-2-escanear-redes-disponibles">🔧 Parte 2: Escanear Redes Disponibles</a></li>
+<li><a href="#🔧-parte-3-servidor-web-en-el-esp32">🔧 Parte 3: Servidor Web en el ESP32</a></li>
+<li><a href="#🔧-parte-4-sistema-de-reconexión-automática">🔧 Parte 4: Sistema de Reconexión Automática</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-solución-de-problemas">🔍 Solución de Problemas</a></li>
+<li><a href="#📚-conceptos-avanzados">📚 Conceptos Avanzados</a></li>
+<li><a href="#🎯-relación-con-el-proyecto-final">🎯 Relación con el Proyecto Final</a></li>
+<li><a href="#🎯-preparación-para-lab-6">🎯 Preparación para Lab 6</a></li>
+<li><a href="#⚠️-notas-de-seguridad">⚠️ Notas de Seguridad</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-6-conectividad-wifi-con-esp32">
+<h2># Laboratorio 6: Conectividad WiFi con ESP32</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 8</p>
+<p><strong>Nota:</strong> Este laboratorio viene después de E2 (Interacción Físico-Virtual). Ahora conectamos el proyecto a internet.</p>
+<p><strong>Pre-requisitos:</strong> Labs 0-4 completados</p>
+<p><strong>Componentes:</strong> ESP32 + Cable USB + Red WiFi disponible</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Configurar el ESP32 para conectarse a una red WiFi</li>
+<li> Entender el ciclo de conexión WiFi</li>
+<li> Implementar reconexión automática</li>
+<li> Crear un servidor web simple en el ESP32</li>
+<li> Diagnosticar problemas de conectividad</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td>Con chip WiFi integrado</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cable USB</td></p>
+<p><td>1</td></p>
+<p><td>Para alimentación y carga de código</td></p>
+</tr>
+<p><tr></p>
+<p><td>Red WiFi</td></p>
+<p><td>1</td></p>
+<p><td>Red disponible (casa, celular, UNAULA)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Computadora</td></p>
+<p><td>1</td></p>
+<p><td>Con Arduino IDE instalado</td></p>
+</tr>
+</tbody></table>
+
+<p><strong>NO se necesitan componentes adicionales</strong> - Todo el trabajo es con el ESP32 y WiFi.</p>
+
+<p>---</p>
+
+</section>
+<section id="🔧-conceptos-teóricos">
+<h2>🔧 Conceptos Teóricos</h2>
+
+<h3>¿Cómo se conecta el ESP32 a WiFi?</h3>
+
+<pre><code>ESP32                    Router/AP                  Internet
+<p>│                        │                            │</p>
+<p>│  1. Escanea redes      │                            │</p>
+<p>│◄──────────────────────│                            │</p>
+<p>│                        │                            │</p>
+<p>│  2. Selecciona red     │                            │</p>
+<p>│───────────────────────►│                            │</p>
+<p>│                        │                            │</p>
+<p>│  3. Envía credenciales │                            │</p>
+<p>│───────────────────────►│                            │</p>
+<p>│                        │                            │</p>
+<p>│  4. Autenticación      │                            │</p>
+<p>│◄──────────────────────│                            │</p>
+<p>│                        │                            │</p>
+<p>│  5. Asignación IP      │                            │</p>
+<p>│◄──────────────────────│                            │</p>
+<p>│  (DHCP)                │                            │</p>
+<p>│                        │                            │</p>
+<p>│  6. Conectado!         │                            │</p>
+<p>│════════════════════════│════════════════════════════│</p>
+<p>▼                        ▼                            ▼</p>
+<p>Datos IoT              Router                    Cloud/IoT Platform</p>
+</code></pre>
+
+<h3>Modos de WiFi</h3>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Modo</th></p>
+<p><th>Descripción</th></p>
+<p><th>Uso en IoT</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>STA (Station)</strong></td></p>
+<p><td>El ESP32 se conecta a un router existente</td></p>
+<p><td>Más común</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>AP (Access Point)</strong></td></p>
+<p><td>El ESP32 crea su propia red</td></p>
+<p><td>Configuración inicial</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>STA+AP</strong></td></p>
+<p><td>Ambos modos simultáneos</td></p>
+<p><td>Configuración + operación</td></p>
+</tr>
+</tbody></table>
+
+<h3>Lo que haremos</h3>
+
+<pre><code>Tu celular                ESP32                    Internet
+<p>(Usando como hotspot)     │                        │</p>
+<p>│                    │                        │</p>
+<p>│  WiFi              │                        │</p>
+<p>├────────────────────┤                        │</p>
+<p>│                    │                        │</p>
+<p>│  IP: 192.168.137.1 │                        │</p>
+<p>│                    │                        │</p>
+<p>│  ◄─────────────────┤                        │</p>
+<p>│  Página web        │                        │</p>
+<p>│  del ESP32         │                        │</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-conexión-básica-a-wifi">
+<h2>🔧 Parte 1: Conexión Básica a WiFi</h2>
+
+<h3>Código:</h3>
+<pre><code>/<em>
+ </em> Lab 5 - Parte 1: Conexión básica a WiFi
+<p><em> El ESP32 se conecta a una red WiFi existente</p>
+ </em>/
+
+<p>#include <WiFi.h></p>
+
+<p>// ============================================</p>
+<p>// CONFIGURACIÓN - CAMBIAR ESTOS VALORES</p>
+<p>// ============================================</p>
+<p>const char<em> ssid = "NOMBRE_DE_TU_RED";</p>
+<p>const char</em> password = "TU_CONTRASENA";</p>
+<p>// ============================================</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>delay(1000);</p>
+
+<p>Serial.println();</p>
+<p>Serial.println("========================================");</p>
+<p>Serial.println("  Lab 5: Conexión WiFi con ESP32");</p>
+<p>Serial.println("========================================");</p>
+<p>Serial.print("Conectando a: ");</p>
+<p>Serial.println(ssid);</p>
+
+<p>// Iniciar WiFi en modo Station (cliente)</p>
+<p>WiFi.mode(WIFI_STA);</p>
+<p>WiFi.begin(ssid, password);</p>
+
+<p>// Esperar conexión con timeout de 20 segundos</p>
+<p>int intentos = 0;</p>
+<p>while (WiFi.status() != WL_CONNECTED && intentos < 20) {</p>
+<p>delay(500);</p>
+<p>Serial.print(".");</p>
+<p>intentos++;</p>
+<p>}</p>
+
+<p>Serial.println();</p>
+
+<p>if (WiFi.status() == WL_CONNECTED) {</p>
+<p>// ¡Conectado!</p>
+<p>Serial.println("✅ WiFi CONECTADO!");</p>
+<p>Serial.print("  IP asignada: ");</p>
+<p>Serial.println(WiFi.localIP());</p>
+<p>Serial.print("  Gateway: ");</p>
+<p>Serial.println(WiFi.gatewayIP());</p>
+<p>Serial.print("  Máscara: ");</p>
+<p>Serial.println(WiFi.subnetMask());</p>
+<p>Serial.print("  RSSI (señal): ");</p>
+<p>Serial.print(WiFi.RSSI());</p>
+<p>Serial.println(" dBm");</p>
+
+<p>// RSSI: -50 a -30 = Excelente, -70 a -60 = Bueno, < -80 = Débil</p>
+<p>} else {</p>
+<p>Serial.println("❌ NO se pudo conectar al WiFi");</p>
+<p>Serial.println("Verifica:");</p>
+<p>Serial.println("  - Nombre y contraseña correctos");</p>
+<p>Serial.println("  - El router esté encendido");</p>
+<p>Serial.println("  - Estás dentro del rango de cobertura");</p>
+<p>}</p>
+
+<p>Serial.println("========================================");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Verificar estado de conexión periódicamente</p>
+<p>if (WiFi.status() == WL_CONNECTED) {</p>
+<p>// Conexión estable - hacer parpadeo lento</p>
+<p>digitalWrite(2, HIGH);</p>
+<p>delay(1000);</p>
+<p>digitalWrite(2, LOW);</p>
+<p>delay(1000);</p>
+<p>} else {</p>
+<p>// Sin conexión - parpadeo rápido de error</p>
+<p>digitalWrite(2, HIGH);</p>
+<p>delay(100);</p>
+<p>digitalWrite(2, LOW);</p>
+<p>delay(100);</p>
+
+<p>// Intentar reconectar</p>
+<p>Serial.println("Perdida de conexión, reintentando...");</p>
+<p>WiFi.reconnect();</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-escanear-redes-disponibles">
+<h2>🔧 Parte 2: Escanear Redes Disponibles</h2>
+
+<p>Antes de conectarse, podemos escanear qué redes están disponibles:</p>
+
+<pre><code>/<em>
+ </em> Lab 5 - Parte 2: Escanear redes WiFi disponibles
+<p>*/</p>
+
+<p>#include "WiFi.h"</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>delay(1000);</p>
+
+<p>// Modo WiFi en Station</p>
+<p>WiFi.mode(WIFI_STA);</p>
+
+<p>// Desconectar si estaba conectado</p>
+<p>WiFi.disconnect();</p>
+
+<p>Serial.println();</p>
+<p>Serial.println("Escaneando redes WiFi...");</p>
+<p>Serial.println("========================================");</p>
+
+<p>// Iniciar escaneo</p>
+<p>int numRedes = WiFi.scanNetworks();</p>
+
+<p>Serial.println();</p>
+<p>Serial.print("Redes encontradas: ");</p>
+<p>Serial.println(numRedes);</p>
+<p>Serial.println("========================================");</p>
+
+<p>if (numRedes == 0) {</p>
+<p>Serial.println("No se encontraron redes");</p>
+<p>} else {</p>
+<p>// Ordenar por señal (RSSI)</p>
+<p>int indices[numRedes];</p>
+<p>for (int i = 0; i < numRedes; i++) {</p>
+<p>indices[i] = i;</p>
+<p>}</p>
+<p>for (int i = 0; i < numRedes; i++) {</p>
+<p>for (int j = i + 1; j < numRedes; j++) {</p>
+<p>if (WiFi.RSSI(indices[j]) > WiFi.RSSI(indices[i])) {</p>
+<p>int temp = indices[i];</p>
+<p>indices[i] = indices[j];</p>
+<p>indices[j] = temp;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+
+<p>// Mostrar redes ordenadas</p>
+<p>Serial.printf("%-3s | %-25s | %-5s | %-6s | %-4s\n",</p>
+<p>"N°", "SSID", "CH", "RSSI", "ENC");</p>
+<p>Serial.println("──────────────────────────────────────────────────────");</p>
+
+<p>for (int i = 0; i < numRedes; i++) {</p>
+<p>int idx = indices[i];</p>
+<p>Serial.printf("%-3d | %-25s | %-5d | %-6d | %-4s\n",</p>
+<p>i + 1,</p>
+<p>WiFi.SSID(idx).c_str(),</p>
+<p>WiFi.channel(idx),</p>
+<p>WiFi.RSSI(idx),</p>
+<p>(WiFi.encryptionType(idx) == WIFI_AUTH_OPEN) ? "Open" : "WPA");</p>
+<p>}</p>
+
+<p>Serial.println("========================================");</p>
+<p>Serial.println("Consejo: Conéctate a la red con mayor RSSI");</p>
+<p>Serial.println("RSSI > -60 = Excelente | RSSI > -70 = Bueno");</p>
+<p>}</p>
+
+<p>Serial.println("\nEscaneo completado. ESP32 se reiniciará en 10s...");</p>
+<p>delay(10000);</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// No se usa - setup hace todo el trabajo</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-servidor-web-en-el-esp32">
+<h2>🔧 Parte 3: Servidor Web en el ESP32</h2>
+
+<p>El ESP32 puede alojar una página web simple:</p>
+
+<pre><code>/<em>
+ </em> Lab 5 - Parte 3: Servidor Web en ESP32
+<p><em> Permite controlar el ESP32 desde un navegador</p>
+ </em>/
+
+<p>#include <WiFi.h></p>
+<p>#include <WebServer.h></p>
+
+<p>// ============================================</p>
+<p>// CONFIGURACIÓN</p>
+<p>// ============================================</p>
+<p>const char<em> ssid = "NOMBRE_DE_TU_RED";</p>
+<p>const char</em> password = "TU_CONTRASENA";</p>
+<p>// ============================================</p>
+
+<p>WebServer server(80);  // Puerto HTTP estándar</p>
+
+<p>const int LED_PIN = 2;</p>
+<p>bool ledEstado = false;</p>
+
+<p>// Página HTML</p>
+<p>String htmlPage = "<!DOCTYPE html>"</p>
+<p>"<html>"</p>
+<p>"<head>"</p>
+<p>"  <meta charset='UTF-8'>"</p>
+<p>"  <meta name='viewport' content='width=device-width, initial-scale=1.0'>"</p>
+<p>"  <title>ESP32 Control</title>"</p>
+<p>"  <style>"</p>
+<p>"    body { font-family: Arial; margin: 40px; text-align: center; }"</p>
+<p>"    h1 { color: #333; }"</p>
+<p>"    .btn { padding: 15px 30px; font-size: 18px; margin: 10px; "</p>
+<p>"           border: none; border-radius: 5px; cursor: pointer; }"</p>
+<p>"    .on { background-color: #4CAF50; color: white; }"</p>
+<p>"    .off { background-color: #f44336; color: white; }"</p>
+<p>"    .status { font-size: 24px; margin: 20px; font-weight: bold; }"</p>
+<p>"  </style>"</p>
+<p>"</head>"</p>
+<p>"<body>"</p>
+<p>"  <h1>🔌 ESP32 Control WiFi</h1>"</p>
+<p>"  <div class='status'>LED: {ESTADO}</div>"</p>
+<p>"  <button class='btn on' onclick=\"fetch('/on')\">ENCENDER</button>"</p>
+<p>"  <button class='btn off' onclick=\"fetch('/off')\">APAGAR</button>"</p>
+<p>"  <hr>"</p>
+<p>"  <p><a href='/status'>Ver estado JSON</a></p>"</p>
+<p>"</body>"</p>
+<p>"</html>";</p>
+
+<p>void handleRoot() {</p>
+<p>String estado = ledEstado ? "ENCENDIDO ✅" : "APAGADO ❌";</p>
+<p>String page = htmlPage;</p>
+<p>page.replace("{ESTADO}", estado);</p>
+<p>server.send(200, "text/html", page);</p>
+<p>}</p>
+
+<p>void handleOn() {</p>
+<p>digitalWrite(LED_PIN, HIGH);</p>
+<p>ledEstado = true;</p>
+<p>Serial.println("LED: ON (vía web)");</p>
+<p>server.sendHeader("Location", "/");</p>
+<p>server.send(303);</p>
+<p>}</p>
+
+<p>void handleOff() {</p>
+<p>digitalWrite(LED_PIN, LOW);</p>
+<p>ledEstado = false;</p>
+<p>Serial.println("LED: OFF (vía web)");</p>
+<p>server.sendHeader("Location", "/");</p>
+<p>server.send(303);</p>
+<p>}</p>
+
+<p>void handleStatus() {</p>
+<p>String json = "{";</p>
+<p>json += "\"led\":" + String(ledEstado ? "true" : "false") + ",";</p>
+<p>json += "\"ip\":\"" + WiFi.localIP().toString() + "\",";</p>
+<p>json += "\"rssi\":" + String(WiFi.RSSI()) + ",";</p>
+<p>json += "\"uptime\":" + String(millis() / 1000);</p>
+<p>json += "}";</p>
+
+<p>server.send(200, "application/json", json);</p>
+<p>}</p>
+
+<p>void handleNotFound() {</p>
+<p>server.send(404, "text/plain", "404: Not found");</p>
+<p>}</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>pinMode(LED_PIN, OUTPUT);</p>
+
+<p>// Conectar a WiFi</p>
+<p>WiFi.mode(WIFI_STA);</p>
+<p>WiFi.begin(ssid, password);</p>
+
+<p>Serial.print("Conectando a WiFi...");</p>
+<p>while (WiFi.status() != WL_CONNECTED) {</p>
+<p>delay(500);</p>
+<p>Serial.print(".");</p>
+<p>}</p>
+<p>Serial.println("✅");</p>
+
+<p>Serial.print("IP del ESP32: ");</p>
+<p>Serial.println(WiFi.localIP());</p>
+
+<p>// Configurar rutas del servidor</p>
+<p>server.on("/", handleRoot);</p>
+<p>server.on("/on", handleOn);</p>
+<p>server.on("/off", handleOff);</p>
+<p>server.on("/status", handleStatus);</p>
+<p>server.onNotFound(handleNotFound);</p>
+
+<p>// Iniciar servidor</p>
+<p>server.begin();</p>
+<p>Serial.println("Servidor HTTP iniciado");</p>
+<p>Serial.println();</p>
+<p>Serial.println("========================================");</p>
+<p>Serial.println("  Abre el navegador en:");</p>
+<p>Serial.print("  http://");</p>
+<p>Serial.println(WiFi.localIP());</p>
+<p>Serial.println("========================================");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>server.handleClient();  // Procesar peticiones HTTP</p>
+<p>delay(2);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-sistema-de-reconexión-automática">
+<h2>🔧 Parte 4: Sistema de Reconexión Automática</h2>
+
+<p>Para un sistema IoT robusto, necesitamos reconexión automática:</p>
+
+<pre><code>/<em>
+ </em> Lab 5 - Parte 4: Sistema con reconexión automática
+<p><em>/</p>
+
+<p>#include <WiFi.h></p>
+
+<p>const char</em> ssid = "NOMBRE_DE_TU_RED";</p>
+<p>const char* password = "TU_CONTRASENA";</p>
+
+<p>const int LED_PIN = 2;</p>
+<p>unsigned long ultimoCheck = 0;</p>
+<p>const unsigned long CHECK_INTERVAL = 30000;  // 30 segundos</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>pinMode(LED_PIN, OUTPUT);</p>
+
+<p>conectarWiFi();</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Verificar conexión cada 30 segundos</p>
+<p>unsigned long ahora = millis();</p>
+<p>if (ahora - ultimoCheck >= CHECK_INTERVAL) {</p>
+<p>ultimoCheck = ahora;</p>
+
+<p>if (WiFi.status() != WL_CONNECTED) {</p>
+<p>Serial.println("⚠️ Conexión perdida! Reconectando...");</p>
+<p>conectarWiFi();</p>
+<p>} else {</p>
+<p>Serial.println("✅ Conexión OK (RSSI: " + String(WiFi.RSSI()) + " dBm)");</p>
+<p>}</p>
+<p>}</p>
+
+<p>// Indicador visual de estado</p>
+<p>if (WiFi.status() == WL_CONNECTED) {</p>
+<p>digitalWrite(LED_PIN, (millis() / 1000) % 2);  // Parpadeo lento</p>
+<p>} else {</p>
+<p>digitalWrite(LED_PIN, (millis() / 200) % 2);  // Parpadeo rápido</p>
+<p>}</p>
+
+<p>delay(10);</p>
+<p>}</p>
+
+<p>void conectarWiFi() {</p>
+<p>Serial.println("Conectando a WiFi...");</p>
+
+<p>WiFi.mode(WIFI_STA);</p>
+<p>WiFi.begin(ssid, password);</p>
+
+<p>int intentos = 0;</p>
+<p>while (WiFi.status() != WL_CONNECTED && intentos < 20) {</p>
+<p>delay(500);</p>
+<p>Serial.print(".");</p>
+<p>intentos++;</p>
+<p>}</p>
+
+<p>if (WiFi.status() == WL_CONNECTED) {</p>
+<p>Serial.println("\n✅ Conectado!");</p>
+<p>Serial.print("  IP: ");</p>
+<p>Serial.println(WiFi.localIP());</p>
+<p>} else {</p>
+<p>Serial.println("\n❌ Falló la conexión");</p>
+<p>Serial.println("  Reintentará en 30 segundos...");</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio 1: Monitor de Conexión (40%)</h3>
+
+<p>Crear un sistema que:</p>
+<ul>
+<li> Se conecte a WiFi al inicio</li>
+<li> Muestre en el Monitor Serial cada 30 segundos:</li>
+<li>Estado de conexión (Conectado/Desconectado)</li>
+<li>IP asignada</li>
+<li>Fuerza de señal (RSSI)</li>
+<li>Tiempo conectado</li>
+<li> Si se pierde la conexión, reconecte automáticamente</li>
+<li> LED integrado indica estado:</li>
+<li>Encendido fijo = Conectado</li>
+<li>Parpadeo rápido = Reconectando</li>
+<li>Apagado = Sin conexión</li>
+</ul>
+
+<p><strong>Entregable:</strong> Código funcionando + capturas del Serial Monitor</p>
+
+<h3>Ejercicio 2: Servidor Web con Sensores (60%)</h3>
+
+<p>Crear un servidor web que:</p>
+<ul>
+<li> Muestre una página web con:</li>
+<li>Estado del LED (ON/OFF)</li>
+<li>Botón para toggle del LED</li>
+<li>Lectura del sensor LDR (Lab 3)</li>
+<li>Lectura de temperatura DHT (Lab 4)</li>
+<li> Actualice los valores cada 5 segundos (sin recargar página completa)</li>
+<li> Tenga un endpoint <code>/api/datos</code> que retorne JSON con todos los valores</li>
+</ul>
+
+<p><strong>Ejemplo de JSON esperado:</strong></p>
+<pre><code>{
+<p>"led": true,</p>
+<p>"luz": 2048,</p>
+<p>"temperatura": 25.5,</p>
+<p>"humedad": 60.0,</p>
+<p>"uptime": 3600,</p>
+<p>"ip": "192.168.1.100"</p>
+<p>}</p>
+</code></pre>
+
+<p><strong>Entregable:</strong> Código + capturas de la página web funcionando</p>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Puntos</th></p>
+<p><th>Descripción</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Conexión WiFi</strong></td></p>
+<p><td>20</td></p>
+<p><td>Conexión exitosa y estable</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Manejo de errores</strong></td></p>
+<p><td>15</td></p>
+<p><td>Reconexión automática implementada</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Servidor web</strong></td></p>
+<p><td>25</td></p>
+<p><td>Página HTML funcional</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Integración sensores</strong></td></p>
+<p><td>20</td></p>
+<p><td>Lectura de LDR y DHT en web</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>JSON API</strong></td></p>
+<p><td>10</td></p>
+<p><td>Endpoint <code>/api/datos</code> correcto</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Código limpio</strong></td></p>
+<p><td>10</td></p>
+<p><td>Comentado y estructurado</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-solución-de-problemas">
+<h2>🔍 Solución de Problemas</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>No conecta</td></p>
+<p><td>SSID/password incorrectos</td></p>
+<p><td>Verificar credenciales</td></p>
+</tr>
+<p><tr></p>
+<p><td>Conecta pero no responde</td></p>
+<p><td>IP duplicada en red</td></p>
+<p><td>Usar IP estática diferente</td></p>
+</tr>
+<p><tr></p>
+<p><td>Se desconecta seguido</td></p>
+<p><td>Señal débil</td></p>
+<p><td>Acercarse al router</td></p>
+</tr>
+<p><tr></p>
+<p><td>Timeout de escaneo</td></p>
+<p><td>Demasiadas redes</td></p>
+<p><td>Filtrar por RSSI > -80</td></p>
+</tr>
+<p><tr></p>
+<p><td>Página web no carga</td></p>
+<p><td>Firewall bloqueando</td></p>
+<p><td>Desactivar firewall temporalmente</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="📚-conceptos-avanzados">
+<h2>📚 Conceptos Avanzados</h2>
+
+<h3>IP Estática (opcional)</h3>
+
+<p>Si DHCP no funciona bien, usar IP estática:</p>
+
+<pre><code>IPAddress local_IP(192, 168, 1, 200);
+<p>IPAddress gateway(192, 168, 1, 1);</p>
+<p>IPAddress subnet(255, 255, 255, 0);</p>
+
+<p>WiFi.config(local_IP, gateway, subnet);</p>
+</code></pre>
+
+<h3>Modo AP (Access Point)</h3>
+
+<p>Para crear una red WiFi desde el ESP32:</p>
+
+<pre><code>WiFi.mode(WIFI_AP);
+<p>WiFi.softAP("ESP32_Config", "12345678");</p>
+<p>Serial.println(WiFi.softAPIP());  // Usually 192.168.4.1</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🎯-relación-con-el-proyecto-final">
+<h2>🎯 Relación con el Proyecto Final</h2>
+
+<p>Este laboratorio es <strong>CRÍTICO</strong> para el proyecto:</p>
+
+<ul>
+<li>✅ <strong>Conectividad WiFi</strong> → Base para enviar datos a la nube</li>
+<li>✅ <strong>Servidor web</strong> → Interfaz para monitoreo local</li>
+<li>✅ <strong>Reconexión automática</strong> → Sistema robusto</li>
+<li>✅ <strong>JSON API</strong> → Formato estándar para IoT</li>
+</ul>
+
+<p><strong>Para el proyecto final:</strong></p>
+<ul>
+<li>El ESP32 enviará datos de sensores a ThingSpeak (Lab 6)</li>
+<li>Podrán monitorear su sistema desde cualquier lugar</li>
+<li>Base para arquitectura IoT completa</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-preparación-para-lab-6">
+<h2>🎯 Preparación para Lab 6</h2>
+
+<p>El <strong>Laboratorio 7</strong> trabajará con:</p>
+<ul>
+<li><strong>ThingSpeak</strong> (plataforma IoT gratuita)</li>
+<li>Envío de datos de sensores a la nube</li>
+<li>Visualización de datos en gráficos</li>
+<li>Almacenamiento histórico de datos</li>
+</ul>
+
+<p><strong>Requerido para Lab 6:</strong></p>
+<ul>
+<li>Cuenta gratuita en ThingSpeak (thingspeak.com)</li>
+<li>WiFi estable y funcionando</li>
+<li>Sensor DHT funcionando (Lab 4)</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="⚠️-notas-de-seguridad">
+<h2>⚠️ Notas de Seguridad</h2>
+
+<ul>
+<li> <strong>No compartir credenciales WiFi</strong> en código público</li>
+<li> <strong>Usar redes de prueba</strong> (hotspot celular) si es posible</li>
+<li> <strong>Cuidado con redes abiertas</strong> (no enviar datos sensibles)</li>
+<li> <strong>Limitar reconexiones</strong> para no saturar el router</li>
+</ul>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

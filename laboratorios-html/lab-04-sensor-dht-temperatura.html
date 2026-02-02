@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Sensores - Temperatura y Humedad (DHT)</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Sensores - Temperatura y Humedad (DHT)</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 6</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-4-sensores---temperatura-y-humedad-(dht)"># Laboratorio 4: Sensores - Temperatura y Humedad (DHT)</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-parte-1-instalación-de-librería-dht">🔧 Parte 1: Instalación de Librería DHT</a></li>
+<li><a href="#🔧-parte-2-código-básico-dht">🔧 Parte 2: Código Básico DHT</a></li>
+<li><a href="#🔧-parte-3-sistema-de-alertas-visual">🔧 Parte 3: Sistema de Alertas Visual</a></li>
+<li><a href="#🔧-parte-4-promedio-de-lecturas">🔧 Parte 4: Promedio de Lecturas</a></li>
+<li><a href="#🔧-parte-5-formato-json-para-iot">🔧 Parte 5: Formato JSON para IoT</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-troubleshooting-dht">🔍 Troubleshooting DHT</a></li>
+<li><a href="#📚-comparación-dht11-vs-dht22">📚 Comparación DHT11 vs DHT22</a></li>
+<li><a href="#🎯-relación-con-evaluación-e2">🎯 Relación con Evaluación E2</a></li>
+<li><a href="#🎯-preparación-para-lab-5">🎯 Preparación para Lab 5</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-4-sensores---temperatura-y-humedad-(dht)">
+<h2># Laboratorio 4: Sensores - Temperatura y Humedad (DHT)</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 6</p>
+<p><strong>Pre-requisitos:</strong> Labs 0-3 completados</p>
+<p><strong>Componentes:</strong> ESP32 + Sensor DHT11/DHT22</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Instalar y usar librerías de Arduino</li>
+<li> Interfazar el sensor DHT11/DHT22 con ESP32</li>
+<li> Leer temperatura y humedad ambiental</li>
+<li> Implementar alertas basadas en umbrales</li>
+<li> Formatear y mostrar datos de sensores</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td>Con cable USB</td></p>
+</tr>
+<p><tr></p>
+<p><td>Sensor DHT11</td></p>
+<p><td>1</td></p>
+<p><td>O DHT22 (más preciso)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Resistencia 10KΩ</td></p>
+<p><td>1</td></p>
+<p><td>Pull-up para DHT</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED opcional</td></p>
+<p><td>2</td></p>
+<p><td>Para alertas visuales</td></p>
+</tr>
+<p><tr></p>
+<p><td>Resistencia 220Ω</td></p>
+<p><td>2</td></p>
+<p><td>Para LEDs</td></p>
+</tr>
+<p><tr></p>
+<p><td>Protoboard</td></p>
+<p><td>1</td></p>
+<p><td></td></p>
+</tr>
+<p><tr></p>
+<p><td>Cables jumper</td></p>
+<p><td>6+</td></p>
+<p><td></td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-instalación-de-librería-dht">
+<h2>🔧 Parte 1: Instalación de Librería DHT</h2>
+
+<h3>Paso 1: Instalar librería</h3>
+<ul>
+<li> Abrir Arduino IDE</li>
+<li> Ir a <strong>Programa → Incluir Librería → Administrar Bibliotecas...</strong></li>
+<li> Buscar: <strong>"DHT sensor library" by Adafruit</strong></li>
+<li> Click en <strong>Instalar</strong></li>
+<li> Instalar también las dependencias si las pide (Adafruit Unified Sensor)</li>
+</ul>
+
+<h3>Paso 2: Conexión del Sensor</h3>
+
+<pre><code>ESP32 GPIO4 ──┬── DHT Data (pin 2)
+<p>│</p>
+<p>[10KΩ]  ← Resistencia pull-up</p>
+<p>│</p>
+<ul>
+<li>3V</li>
+</ul>
+
+<p>DHT VCC (pin 1) ─── 3.3V</p>
+<p>DHT GND (pin 4) ─── GND</p>
+
+<p>Vista frontal del DHT11 (con rejilla hacia ti):</p>
+<p>┌─────────────────┐</p>
+<p>│  1:VCC  2:DATA  │</p>
+<p>│  3:NC   4:GND   │</p>
+<p>└─────────────────┘</p>
+</code></pre>
+
+<p><strong>Nota:</strong> Algunos módulos DHT vienen con resistencia pull-up integrada. Verificar con multímetro.</p>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-código-básico-dht">
+<h2>🔧 Parte 2: Código Básico DHT</h2>
+
+<pre><code>/<em>
+ </em> Lab 4 - Sensor de Temperatura y Humedad DHT
+<p><em> Lee datos del sensor y los muestra en el Monitor Serial</p>
+ </em>/
+
+<p>#include "DHT.h"</p>
+
+<p>// Configuración del sensor</p>
+<p>#define DHTPIN 4        // Pin donde está conectado el DHT</p>
+<p>#define DHTTYPE DHT11   // Tipo de sensor (DHT11 o DHT22)</p>
+
+<p>// Crear objeto DHT</p>
+<p>DHT dht(DHTPIN, DHTTYPE);</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Iniciando sensor DHT...");</p>
+
+<p>// Iniciar el sensor</p>
+<p>dht.begin();</p>
+
+<p>Serial.println("Sistema listo. Leyendo cada 2 segundos...");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Esperar 2 segundos entre lecturas (el DHT es lento)</p>
+<p>delay(2000);</p>
+
+<p>// Leer humedad</p>
+<p>float humedad = dht.readHumidity();</p>
+
+<p>// Leer temperatura en Celsius</p>
+<p>float temperatura = dht.readTemperature();</p>
+
+<p>// Verificar si la lectura fue exitosa</p>
+<p>if (isnan(humedad) || isnan(temperatura)) {</p>
+<p>Serial.println("Error: No se pudo leer del sensor DHT!");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Mostrar datos en Serial</p>
+<p>Serial.println("===================");</p>
+<p>Serial.print("Temperatura: ");</p>
+<p>Serial.print(temperatura);</p>
+<p>Serial.println(" °C");</p>
+
+<p>Serial.print("Humedad: ");</p>
+<p>Serial.print(humedad);</p>
+<p>Serial.println(" %");</p>
+
+<p>// Calcular sensación térmica (heat index)</p>
+<p>// Solo se calcula si hay suficiente humedad</p>
+<p>if (humedad > 40) {</p>
+<p>float sensacion = dht.computeHeatIndex(temperatura, humedad, false);</p>
+<p>Serial.print("Sensación térmica: ");</p>
+<p>Serial.print(sensacion);</p>
+<p>Serial.println(" °C");</p>
+<p>}</p>
+
+<p>Serial.println("===================\n");</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-sistema-de-alertas-visual">
+<h2>🔧 Parte 3: Sistema de Alertas Visual</h2>
+
+<p>Agregamos LEDs para alertas de temperatura:</p>
+
+<pre><code>/<em>
+ </em> Lab 4 - Sistema de Monitoreo con Alertas
+<p><em> LEDs indican estado de temperatura</p>
+ </em>/
+
+<p>#include "DHT.h"</p>
+
+<p>#define DHTPIN 4</p>
+<p>#define DHTTYPE DHT11</p>
+<p>DHT dht(DHTPIN, DHTTYPE);</p>
+
+<p>// Pines de LEDs de alerta</p>
+<p>const int LED_FRIA = 2;    // Azul - Temp < 20°C</p>
+<p>const int LED_NORMAL = 18; // Verde - 20-30°C</p>
+<p>const int LED_CALIENTE = 5; // Rojo - > 30°C</p>
+
+<p>// Umbrales de temperatura</p>
+<p>const float TEMP_MIN = 20.0;</p>
+<p>const float TEMP_MAX = 30.0;</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>dht.begin();</p>
+
+<p>// Configurar LEDs</p>
+<p>pinMode(LED_FRIA, OUTPUT);</p>
+<p>pinMode(LED_NORMAL, OUTPUT);</p>
+<p>pinMode(LED_CALIENTE, OUTPUT);</p>
+
+<p>Serial.println("Sistema de monitoreo iniciado");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>delay(2000);</p>
+
+<p>float temp = dht.readTemperature();</p>
+<p>float hum = dht.readHumidity();</p>
+
+<p>if (isnan(temp) || isnan(hum)) {</p>
+<p>Serial.println("Error de lectura!");</p>
+<p>apagarTodosLEDs();</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Mostrar datos</p>
+<p>Serial.print("Temp: ");</p>
+<p>Serial.print(temp);</p>
+<p>Serial.print("°C | Hum: ");</p>
+<p>Serial.print(hum);</p>
+<p>Serial.println("%");</p>
+
+<p>// Sistema de alertas</p>
+<p>apagarTodosLEDs();</p>
+
+<p>if (temp < TEMP_MIN) {</p>
+<p>// Temperatura baja</p>
+<p>digitalWrite(LED_FRIA, HIGH);</p>
+<p>Serial.println("Estado: FRIO ❄️");</p>
+<p>}</p>
+<p>else if (temp >= TEMP_MIN && temp <= TEMP_MAX) {</p>
+<p>// Temperatura normal</p>
+<p>digitalWrite(LED_NORMAL, HIGH);</p>
+<p>Serial.println("Estado: NORMAL ✅");</p>
+<p>}</p>
+<p>else {</p>
+<p>// Temperatura alta</p>
+<p>digitalWrite(LED_CALIENTE, HIGH);</p>
+<p>Serial.println("Estado: CALOR 🔥");</p>
+<p>}</p>
+
+<p>Serial.println();</p>
+<p>}</p>
+
+<p>void apagarTodosLEDs() {</p>
+<p>digitalWrite(LED_FRIA, LOW);</p>
+<p>digitalWrite(LED_NORMAL, LOW);</p>
+<p>digitalWrite(LED_CALIENTE, LOW);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-promedio-de-lecturas">
+<h2>🔧 Parte 4: Promedio de Lecturas</h2>
+
+<p>Los sensores pueden tener fluctuaciones. Una técnica común es promediar múltiples lecturas.</p>
+
+<pre><code>/<em>
+ </em> Lectura con promedio para mayor estabilidad
+<p>*/</p>
+
+<p>#include "DHT.h"</p>
+<p>#define DHTPIN 4</p>
+<p>#define DHTTYPE DHT11</p>
+<p>DHT dht(DHTPIN, DHTTYPE);</p>
+
+<p>// Para promediar</p>
+<p>const int NUM_LECTURAS = 5;</p>
+<p>float lecturasTemp[NUM_LECTURAS];</p>
+<p>int indiceLectura = 0;</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>dht.begin();</p>
+
+<p>// Inicializar array</p>
+<p>for (int i = 0; i < NUM_LECTURAS; i++) {</p>
+<p>lecturasTemp[i] = 0;</p>
+<p>}</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>delay(2000);</p>
+
+<p>float temp = dht.readTemperature();</p>
+<p>float hum = dht.readHumidity();</p>
+
+<p>if (!isnan(temp)) {</p>
+<p>// Guardar lectura en array circular</p>
+<p>lecturasTemp[indiceLectura] = temp;</p>
+<p>indiceLectura = (indiceLectura + 1) % NUM_LECTURAS;</p>
+
+<p>// Calcular promedio</p>
+<p>float suma = 0;</p>
+<p>for (int i = 0; i < NUM_LECTURAS; i++) {</p>
+<p>suma += lecturasTemp[i];</p>
+<p>}</p>
+<p>float promedio = suma / NUM_LECTURAS;</p>
+
+<p>Serial.print("Lectura actual: ");</p>
+<p>Serial.print(temp);</p>
+<p>Serial.print("°C | Promedio (5 lecturas): ");</p>
+<p>Serial.print(promedio);</p>
+<p>Serial.println("°C");</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-5-formato-json-para-iot">
+<h2>🔧 Parte 5: Formato JSON para IoT</h2>
+
+<p>Preparando datos para enviar a la nube:</p>
+
+<pre><code>/<em>
+ </em> Lab 4 - Formato de datos para IoT
+<p><em> Preparando JSON para enviar a ThingSpeak/MQTT</p>
+ </em>/
+
+<p>#include "DHT.h"</p>
+<p>#define DHTPIN 4</p>
+<p>#define DHTTYPE DHT11</p>
+<p>DHT dht(DHTPIN, DHTTYPE);</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>dht.begin();</p>
+<p>Serial.println("Sistema listo - Enviando JSON cada 5 segundos");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>delay(5000);</p>
+
+<p>float temp = dht.readTemperature();</p>
+<p>float hum = dht.readHumidity();</p>
+
+<p>if (isnan(temp) || isnan(hum)) {</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Crear string en formato JSON manual</p>
+<p>String json = "{";</p>
+<p>json += "\"temperatura\":" + String(temp, 2) + ",";</p>
+<p>json += "\"humedad\":" + String(hum, 2) + ",";</p>
+<p>json += "\"timestamp\":" + String(millis()) + ",";</p>
+<p>json += "\"sensor_id\":\"ESP32_Sala1\"";</p>
+<p>json += "}";</p>
+
+<p>Serial.println(json);</p>
+
+<p>// Salida esperada:</p>
+<p>// {"temperatura":24.50,"humedad":60.00,"timestamp":12456789,"sensor_id":"ESP32_Sala1"}</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio 1: Monitor Ambiental Completo (60%)</h3>
+
+<p>Crear un sistema que muestre:</p>
+<pre><code>============================
+<p>MONITOR AMBIENTAL UNAULA</p>
+<p>============================</p>
+<p>Temperatura: 25.5 °C</p>
+<p>Humedad: 60 %</p>
+<p>Estado: NORMAL ✅</p>
+
+<p>Alertas:</p>
+<ul>
+<li>Temp. OK</li>
+<li>Humedad OK</li>
+</ul>
+
+<p>Recomendación: Ambiente agradable</p>
+<p>============================</p>
+</code></pre>
+
+<p><strong>Requisitos:</strong></p>
+<ul>
+<li>Mostrar datos formateados en Serial</li>
+<li>3 LEDs de estado (frío, normal, caliente)</li>
+<li>Agregar validación de humedad:</li>
+<li>< 30%: Muy seco</li>
+<li>30-70%: Normal</li>
+<li>> 70%: Húmedo</li>
+<li>Buzzer que suene si temperatura > 35°C</li>
+</ul>
+
+<h3>Ejercicio 2: Historial de Lecturas (40%)</h3>
+
+<p>Crear un sistema que:</p>
+<ul>
+<li>Guarde las últimas 10 lecturas de temperatura</li>
+<li>Calcule promedio, mínimo y máximo</li>
+<li>Muestre historial cuando se presione un botón</li>
+</ul>
+
+<p><strong>Ejemplo de salida:</strong></p>
+<pre><code>--- HISTORIAL (últimas 10 lecturas) ---
+<p>Min: 22.5°C | Max: 26.8°C | Prom: 24.2°C</p>
+<p>Lecturas: 22.5, 23.1, 24.0, 25.2, 26.8, ...</p>
+<p>----------------------------------------</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Puntos</th></p>
+<p><th>Descripción</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Conexión DHT</strong></td></p>
+<p><td>15</td></p>
+<p><td>Correctamente conectado con pull-up</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Lectura datos</strong></td></p>
+<p><td>20</td></p>
+<p><td>Lee temp y humedad correctamente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Sistema alertas</strong></td></p>
+<p><td>25</td></p>
+<p><td>LEDs funcionan según umbrales</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Formato salida</strong></td></p>
+<p><td>20</td></p>
+<p><td>Datos presentados claramente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>JSON</strong></td></p>
+<p><td>10</td></p>
+<p><td>Genera formato JSON correcto</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Historial (Ej2)</strong></td></p>
+<p><td>10</td></p>
+<p><td>Guarda y muestra historial</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-troubleshooting-dht">
+<h2>🔍 Troubleshooting DHT</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Lecturas "nan"</td></p>
+<p><td>Sin resistencia pull-up</td></p>
+<p><td>Agregar 10K entre DATA y VCC</td></p>
+</tr>
+<p><tr></p>
+<p><td>Siempre 0°C</td></p>
+<p><td>Conexión incorrecta</td></p>
+<p><td>Verificar pin DATA</td></p>
+</tr>
+<p><tr></p>
+<p><td>Lecturas erráticas</td></p>
+<p><td>Interferencia</td></p>
+<p><td>Alejar de fuentes de calor/frío</td></p>
+</tr>
+<p><tr></p>
+<p><td>No lee nada</td></p>
+<p><td>Sensor dañado</td></p>
+<p><td>Probar con otro DHT</td></p>
+</tr>
+<p><tr></p>
+<p><td>Lecturas con retraso</td></p>
+<p><td>Mala alimentación</td></p>
+<p><td>Usar fuente 3.3V estable</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="📚-comparación-dht11-vs-dht22">
+<h2>📚 Comparación DHT11 vs DHT22</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Característica</th></p>
+<p><th>DHT11</th></p>
+<p><th>DHT22</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Precio</td></p>
+<p><td>$5.000 - $8.000</td></p>
+<p><td>$10.000 - $15.000</td></p>
+</tr>
+<p><tr></p>
+<p><td>Rango temperatura</td></p>
+<p><td>0-50°C</td></p>
+<p><td>-40-80°C</td></p>
+</tr>
+<p><tr></p>
+<p><td>Precisión temperatura</td></p>
+<p><td>±2°C</td></p>
+<p><td>±0.5°C</td></p>
+</tr>
+<p><tr></p>
+<p><td>Rango humedad</td></p>
+<p><td>20-80%</td></p>
+<p><td>0-100%</td></p>
+</tr>
+<p><tr></p>
+<p><td>Precisión humedad</td></p>
+<p><td>±5%</td></p>
+<p><td>±2%</td></p>
+</tr>
+<p><tr></p>
+<p><td>Tiempo entre lecturas</td></p>
+<p><td>2 segundos</td></p>
+<p><td>2 segundos</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🎯-relación-con-evaluación-e2">
+<h2>🎯 Relación con Evaluación E2</h2>
+
+<p>Este laboratorio prepara directamente para la <strong>Opción A</strong> de E2:</p>
+
+<p><strong>E2 - Opción A: Monitor Ambiental</strong></p>
+<ul>
+<li>Sensor DHT22 (más preciso) o DHT11</li>
+<li>LEDs para indicar estado</li>
+<li>Display opcional</li>
+<li>Conexión a plataforma online (opcional)</li>
+</ul>
+
+<p><strong>Lo que ya saben hacer después de este lab:</strong></p>
+<ul>
+<li>✅ Leer DHT</li>
+<li>✅ Mostrar datos</li>
+<li>✅ Alertas con LEDs</li>
+<li>⚠️ Falta: Conectar a ThingSpeak (Lab 8)</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-preparación-para-lab-5">
+<h2>🎯 Preparación para Lab 5</h2>
+
+<p>El <strong>Laboratorio 5</strong> trabajará con:</p>
+<ul>
+<li>Sensor ultrasónico HC-SR04</li>
+<li>Medición de distancia</li>
+<li>Sistema de alertas por proximidad</li>
+</ul>
+
+<p><strong>Directamente prepara para E2 - Opción C</strong></p>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Entradas Digitales - Botones</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Entradas Digitales - Botones</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 4</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-2-entradas-digitales---botones"># Laboratorio 2: Entradas Digitales - Botones</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-conceptos-teóricos">🔧 Conceptos Teóricos</a></li>
+<li><a href="#🔧-parte-1-botón-básico-con-pull-up-interno">🔧 Parte 1: Botón Básico con Pull-up Interno</a></li>
+<li><a href="#🔧-parte-2-toggle-(cambio-de-estado)">🔧 Parte 2: Toggle (Cambio de Estado)</a></li>
+<li><a href="#🔧-parte-3-sistema-de-control-con-múltiples-botones">🔧 Parte 3: Sistema de Control con Múltiples Botones</a></li>
+<li><a href="#🔧-parte-4-anti-rebote-profesional">🔧 Parte 4: Anti-rebote Profesional</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-solución-de-problemas">🔍 Solución de Problemas</a></li>
+<li><a href="#📚-preguntas-de-comprensión">📚 Preguntas de Comprensión</a></li>
+<li><a href="#🎯-preparación-para-lab-3">🎯 Preparación para Lab 3</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-2-entradas-digitales---botones">
+<h2># Laboratorio 2: Entradas Digitales - Botones</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 4</p>
+<p><strong>Pre-requisitos:</strong> Lab 1 completado</p>
+<p><strong>Componentes:</strong> ESP32 + LEDs + Botones + Protoboard</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Leer entradas digitales con digitalRead()</li>
+<li> Usar resistencias pull-up internas del ESP32</li>
+<li> Implementar lógica condicional (if/else)</li>
+<li> Crear anti-rebote básico para botones</li>
+<li> Controlar salidas basadas en entradas</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td>Con cable USB</td></p>
+</tr>
+<p><tr></p>
+<p><td>Protoboard</td></p>
+<p><td>1</td></p>
+<p><td>830 puntos</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED 5mm</td></p>
+<p><td>3</td></p>
+<p><td>Rojo, Verde, Amarillo</td></p>
+</tr>
+<p><tr></p>
+<p><td>Resistencia 220Ω</td></p>
+<p><td>3</td></p>
+<p><td>Para LEDs</td></p>
+</tr>
+<p><tr></p>
+<p><td>Botón pulsador</td></p>
+<p><td>3</td></p>
+<p><td>Push buttons</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cables jumper</td></p>
+<p><td>15+</td></p>
+<p><td>Macho-macho</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔧-conceptos-teóricos">
+<h2>🔧 Conceptos Teóricos</h2>
+
+<h3>Entradas Digitales</h3>
+<p>Una entrada digital solo puede tener dos estados:</p>
+<ul>
+<li><strong>HIGH (1)</strong>: 3.3V (hay voltaje)</li>
+<li><strong>LOW (0)</strong>: 0V (no hay voltaje)</li>
+</ul>
+
+<h3>Botones y el Problema del "Flotante"</h3>
+<p>Cuando un pin no está conectado a nada, su estado es <strong>flotante</strong> (puede ser HIGH o LOW aleatoriamente).</p>
+
+<h3>Solución: Pull-up y Pull-down</h3>
+
+<p><strong>Pull-up (Resistencia a VCC):</strong></p>
+<pre><code>3.3V ──[10KΩ]──┬── GPIO
+<p>│</p>
+<p>[BOTÓN]</p>
+<p>│</p>
+<p>GND</p>
+</code></pre>
+<ul>
+<li>Botón suelto = HIGH (por la resistencia)</li>
+<li>Botón presionado = LOW (conectado a GND)</li>
+</ul>
+
+<p><strong>Pull-down:</strong></p>
+<pre><code>GPIO ──[10KΩ]──┬── GND
+<p>│</p>
+<p>[BOTÓN]</p>
+<p>│</p>
+<ul>
+<li>3V</li>
+</code></pre>
+<li>Botón suelto = LOW</li>
+<li>Botón presionado = HIGH</li>
+</ul>
+
+<h3>Pull-up Interno del ESP32</h3>
+<p>El ESP32 tiene resistencias pull-up internas que se activan con:</p>
+<pre><code>pinMode(PIN_BOTON, INPUT_PULLUP);
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-botón-básico-con-pull-up-interno">
+<h2>🔧 Parte 1: Botón Básico con Pull-up Interno</h2>
+
+<h3>Conexión:</h3>
+<pre><code>ESP32 GPIO15 ──┬── Botón ─── GND
+<p>│</p>
+<p>(Pull-up interno)</p>
+</code></pre>
+
+<h3>Código base:</h3>
+<pre><code>/<em>
+ </em> Lab 2 - Botón básico con INPUT_PULLUP
+<p><em> El LED se enciende mientras se mantiene presionado el botón</p>
+ </em>/
+
+<p>const int LED_PIN = 2;</p>
+<p>const int BOTON_PIN = 15;</p>
+
+<p>void setup() {</p>
+<p>// Configurar LED como salida</p>
+<p>pinMode(LED_PIN, OUTPUT);</p>
+
+<p>// Configurar botón con pull-up interno</p>
+<p>pinMode(BOTON_PIN, INPUT_PULLUP);</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Lab 2: Botones");</p>
+<p>Serial.println("Presione el botón (GPIO15)");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Leer estado del botón</p>
+<p>int estadoBoton = digitalRead(BOTON_PIN);</p>
+
+<p>// Con INPUT_PULLUP:</p>
+<p>// HIGH = botón suelto</p>
+<p>// LOW = botón presionado</p>
+
+<p>if (estadoBoton == LOW) {</p>
+<p>digitalWrite(LED_PIN, HIGH);  // Encender LED</p>
+<p>Serial.println("Botón presionado - LED ON");</p>
+<p>} else {</p>
+<p>digitalWrite(LED_PIN, LOW);   // Apagar LED</p>
+<p>Serial.println("Botón suelto - LED OFF");</p>
+<p>}</p>
+
+<p>delay(100);  // Pequeña pausa para estabilidad</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-toggle-(cambio-de-estado)">
+<h2>🔧 Parte 2: Toggle (Cambio de Estado)</h2>
+
+<p>Muchas veces queremos que el botón <strong>cambie</strong> el estado (toggle), no solo lo mantenga.</p>
+
+<pre><code>/<em>
+ </em> Toggle: Cada vez que presiono el botón, el LED cambia de estado
+<p>*/</p>
+
+<p>const int LED_PIN = 2;</p>
+<p>const int BOTON_PIN = 15;</p>
+
+<p>int estadoLED = LOW;</p>
+<p>int estadoBotonAnterior = HIGH;  // Recuerda el estado anterior</p>
+
+<p>void setup() {</p>
+<p>pinMode(LED_PIN, OUTPUT);</p>
+<p>pinMode(BOTON_PIN, INPUT_PULLUP);</p>
+<p>Serial.begin(115200);</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>int estadoBotonActual = digitalRead(BOTON_PIN);</p>
+
+<p>// Detectar cambio de HIGH a LOW (flanco descendente)</p>
+<p>// Es decir: antes estaba suelto y ahora está presionado</p>
+<p>if (estadoBotonAnterior == HIGH && estadoBotonActual == LOW) {</p>
+<p>// Cambiar estado del LED</p>
+<p>estadoLED = !estadoLED;</p>
+<p>digitalWrite(LED_PIN, estadoLED);</p>
+
+<p>Serial.print("Toggle! LED ahora: ");</p>
+<p>Serial.println(estadoLED == HIGH ? "ON" : "OFF");</p>
+
+<p>delay(200);  // Anti-rebote simple</p>
+<p>}</p>
+
+<p>// Guardar estado para la próxima iteración</p>
+<p>estadoBotonAnterior = estadoBotonActual;</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-sistema-de-control-con-múltiples-botones">
+<h2>🔧 Parte 3: Sistema de Control con Múltiples Botones</h2>
+
+<h3>Objetivo:</h3>
+<p>Crear un sistema con 3 botones y 3 LEDs:</p>
+<ul>
+<li><strong>Botón 1</strong>: Enciende LED verde, apaga otros</li>
+<li><strong>Botón 2</strong>: Enciende LED amarillo, apaga otros</li>
+<li><strong>Botón 3</strong>: Enciende LED rojo, apaga otros</li>
+</ul>
+
+<h3>Conexión:</h3>
+<pre><code>GPIO2  ──[220Ω]── LED Verde ─── GND
+<p>GPIO4  ──[220Ω]── LED Amarillo ─ GND</p>
+<p>GPIO5  ──[220Ω]── LED Rojo ──── GND</p>
+
+<p>GPIO15 ── Botón 1 ─── GND</p>
+<p>GPIO18 ── Botón 2 ─── GND</p>
+<p>GPIO19 ── Botón 3 ─── GND</p>
+</code></pre>
+
+<h3>Código:</h3>
+<pre><code>/<em>
+ </em> Lab 2 - Control de semáforo manual con 3 botones
+<p>*/</p>
+
+<p>// Pines de LEDs</p>
+<p>const int LED_VERDE = 2;</p>
+<p>const int LED_AMARILLO = 4;</p>
+<p>const int LED_ROJO = 5;</p>
+
+<p>// Pines de botones</p>
+<p>const int BTN_VERDE = 15;</p>
+<p>const int BTN_AMARILLO = 18;</p>
+<p>const int BTN_ROJO = 19;</p>
+
+<p>void setup() {</p>
+<p>// Configurar LEDs</p>
+<p>pinMode(LED_VERDE, OUTPUT);</p>
+<p>pinMode(LED_AMARILLO, OUTPUT);</p>
+<p>pinMode(LED_ROJO, OUTPUT);</p>
+
+<p>// Configurar botones con pull-up interno</p>
+<p>pinMode(BTN_VERDE, INPUT_PULLUP);</p>
+<p>pinMode(BTN_AMARILLO, INPUT_PULLUP);</p>
+<p>pinMode(BTN_ROJO, INPUT_PULLUP);</p>
+
+<p>// Apagar todos los LEDs al inicio</p>
+<p>apagarTodos();</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Sistema iniciado");</p>
+<p>Serial.println("Presione un botón para encender su LED");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Leer botones (recuerden: LOW = presionado con INPUT_PULLUP)</p>
+
+<p>if (digitalRead(BTN_VERDE) == LOW) {</p>
+<p>encenderSolo(LED_VERDE);</p>
+<p>Serial.println("Seleccionado: VERDE");</p>
+<p>delay(300);  // Anti-rebote</p>
+<p>}</p>
+
+<p>if (digitalRead(BTN_AMARILLO) == LOW) {</p>
+<p>encenderSolo(LED_AMARILLO);</p>
+<p>Serial.println("Seleccionado: AMARILLO");</p>
+<p>delay(300);</p>
+<p>}</p>
+
+<p>if (digitalRead(BTN_ROJO) == LOW) {</p>
+<p>encenderSolo(LED_ROJO);</p>
+<p>Serial.println("Seleccionado: ROJO");</p>
+<p>delay(300);</p>
+<p>}</p>
+<p>}</p>
+
+<p>// Función para encender solo un LED y apagar los demás</p>
+<p>void encenderSolo(int ledEncender) {</p>
+<p>digitalWrite(LED_VERDE, LOW);</p>
+<p>digitalWrite(LED_AMARILLO, LOW);</p>
+<p>digitalWrite(LED_ROJO, LOW);</p>
+
+<p>digitalWrite(ledEncender, HIGH);</p>
+<p>}</p>
+
+<p>// Función para apagar todos los LEDs</p>
+<p>void apagarTodos() {</p>
+<p>digitalWrite(LED_VERDE, LOW);</p>
+<p>digitalWrite(LED_AMARILLO, LOW);</p>
+<p>digitalWrite(LED_ROJO, LOW);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-anti-rebote-profesional">
+<h2>🔧 Parte 4: Anti-rebote Profesional</h2>
+
+<p>Los botones mecánicos "rebotan" al presionarse, generando múltiples pulsos.</p>
+
+<h3>Solución con millis():</h3>
+<pre><code>const int BOTON_PIN = 15;
+<p>const int LED_PIN = 2;</p>
+
+<p>int estadoLED = LOW;</p>
+<p>int estadoBotonAnterior = HIGH;</p>
+<p>unsigned long ultimoCambio = 0;</p>
+<p>const int TIEMPO_ANTIREBOTE = 50;  // 50ms</p>
+
+<p>void setup() {</p>
+<p>pinMode(LED_PIN, OUTPUT);</p>
+<p>pinMode(BOTON_PIN, INPUT_PULLUP);</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>int estadoBotonActual = digitalRead(BOTON_PIN);</p>
+<p>unsigned long tiempoActual = millis();</p>
+
+<p>// Detectar flanco descendente con anti-rebote</p>
+<p>if (estadoBotonAnterior == HIGH && estadoBotonActual == LOW) {</p>
+<p>// Verificar que hayan pasado al menos 50ms desde el último cambio</p>
+<p>if (tiempoActual - ultimoCambio > TIEMPO_ANTIREBOTE) {</p>
+<p>// Cambiar LED</p>
+<p>estadoLED = !estadoLED;</p>
+<p>digitalWrite(LED_PIN, estadoLED);</p>
+
+<p>// Actualizar tiempo del último cambio válido</p>
+<p>ultimoCambio = tiempoActual;</p>
+<p>}</p>
+<p>}</p>
+
+<p>estadoBotonAnterior = estadoBotonActual;</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio 1: Control de Intensidad con Botones (50%)</h3>
+<p>Crear un sistema donde:</p>
+<ul>
+<li>Botón 1: Aumenta brillo del LED</li>
+<li>Botón 2: Disminuye brillo del LED</li>
+<li>Botón 3: Enciende/apaga LED</li>
+</ul>
+
+<p>Usar PWM (ledcWrite) para controlar intensidad.</p>
+
+<p><strong>Restricciones:</strong></p>
+<ul>
+<li>El brillo debe tener 5 niveles (0%, 25%, 50%, 75%, 100%)</li>
+<li>No puede pasar de 100% ni bajar de 0%</li>
+<li>Mostrar nivel actual en Monitor Serial</li>
+</ul>
+
+<h3>Ejercicio 2: Secuencia Programable (50%)</h3>
+<p>Crear un sistema que:</p>
+<ul>
+<li> Con botón 1: "graba" una secuencia de hasta 5 estados de LEDs</li>
+<li> Con botón 2: reproduce la secuencia grabada</li>
+<li> Con botón 3: borra la secuencia</li>
+</ul>
+
+<p><strong>Ejemplo de uso:</strong></p>
+<ul>
+<li>Presionar botón 1 tres veces: Verde → Amarillo → Rojo</li>
+<li>Presionar botón 2: Se reproduce la secuencia automáticamente</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Puntos</th></p>
+<p><th>Descripción</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Conexiones</strong></td></p>
+<p><td>20</td></p>
+<p><td>Correctas, ordenadas, sin cortocircuitos</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Funcionamiento Ej.1</strong></td></p>
+<p><td>30</td></p>
+<p><td>Control de brillo funciona correctamente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Funcionamiento Ej.2</strong></td></p>
+<p><td>30</td></p>
+<p><td>Secuencia graba y reproduce</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Código</strong></td></p>
+<p><td>10</td></p>
+<p><td>Comentado, estructurado con funciones</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Anti-rebote</strong></td></p>
+<p><td>10</td></p>
+<p><td>Implementado correctamente</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-solución-de-problemas">
+<h2>🔍 Solución de Problemas</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Botón no responde</td></p>
+<p><td>Conexión invertida</td></p>
+<p><td>Verificar que va a GND, no a 3.3V</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED siempre encendido</td></p>
+<p><td>Pin mal configurado</td></p>
+<p><td>Verificar pinMode(pin, OUTPUT)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Detección errática</td></p>
+<p><td>Sin anti-rebote</td></p>
+<p><td>Agregar delay(200) o millis()</td></p>
+</tr>
+<p><tr></p>
+<p><td>Botón 2 no funciona</td></p>
+<p><td>Pin no disponible</td></p>
+<p><td>Cambiar a GPIO 4, 5, 18, 19, 21, 22, 23</td></p>
+</tr>
+<p><tr></p>
+<p><td>Lectura inestable</td></p>
+<p><td>Sin PULLUP</td></p>
+<p><td>Usar INPUT_PULLUP o resistencia externa</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="📚-preguntas-de-comprensión">
+<h2>📚 Preguntas de Comprensión</h2>
+
+<ul>
+<li> ¿Por qué usamos INPUT_PULLUP en lugar de INPUT?</li>
+<li> ¿Qué valor lee digitalRead() cuando el botón está presionado con INPUT_PULLUP?</li>
+<li> ¿Por qué es importante el anti-rebote?</li>
+<li> ¿Cuál es la diferencia entre mantener presionado (Parte 1) y toggle (Parte 2)?</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-preparación-para-lab-3">
+<h2>🎯 Preparación para Lab 3</h2>
+
+<p>El <strong>Laboratorio 3</strong> trabajará con:</p>
+<ul>
+<li>Entradas analógicas (ADC)</li>
+<li>Sensor de luz (LDR)</li>
+<li>PWM avanzado</li>
+</ul>
+
+<p><strong>Revisar antes de clase:</strong></p>
+<ul>
+<li>Diferencia entre digital y analógico</li>
+<li>Concepto de divisor de voltaje</li>
+<li>Función analogRead()</li>
+</ul>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

@@ -1,8 +1,59 @@
+# ============================================
+# ESTUDIANTES: Solo ven HTML de clases y laboratorios
+# ============================================
+
 # Ignorar evaluaciones (contenido confidencial - respuestas, soluciones)
 evaluaciones/
 
 # Documentos internos del docente (notas, seguimiento, tareas pendientes)
 memory-bank/
+
+# ============================================
+# DOCUMENTACIÓN INTERNA DEL CURSO (No visible para estudiantes)
+# ============================================
+
+# Documentos de análisis y planificación
+ANALISIS_CURSO_IOT.md
+RESUMEN_EJECUTIVO.md
+LISTA_DE_COMPRAS.md
+GUIA_DOCENTE_LABORATORIOS.md
+IMPLEMENTACION_LABORATORIOS.md
+PROYECTO_FINAL_GUIA_ESTUDIANTE.md
+
+# Documentos README internos (si hay varios, mantener solo el público)
+# README.md puede ser visible, pero los otros no
+
+# ============================================
+# LABORATORIOS: Solo HTML visible
+# ============================================
+
+# Laboratorios en Markdown (solo se ven los HTML convertidos)
+laboratorios/*.md
+laboratorios/lab-*.md
+
+# Scripts de conversión (no visibles para estudiantes)
+laboratorios-html/*.py
+laboratorios-html/convert_labs.py
+
+# ============================================
+# CLASES: Solo HTML visible
+# ============================================
+
+# Scripts de procesamiento de clases
+clases-html/*.py
+clases-html/add_schedule_info.py
+
+# Archivos de documentación interna
+clases-html/REORGANIZACION_CLASES.md
+clases-html/RESUMEN_AJUSTES_CLASES.md
+
+# Clases HTML no usadas en el cronograma (opcionales para futuro)
+clases-html/clase-00.html
+clases-html/clase-10.html
+
+# ============================================
+# CONFIGURACIÓN Y DESARROLLO
+# ============================================
 
 # Configuración sensible de MCP / Claude
 **/.claude/
@@ -60,3 +111,8 @@ temp*
 .temp-html/
 .playwright-mcp/
 temp*.temp-html/
+
+# Archivos internos y scripts - no visibles para estudiantes
+CONTRIBUTING.md
+scripts/
+.github/workflows/

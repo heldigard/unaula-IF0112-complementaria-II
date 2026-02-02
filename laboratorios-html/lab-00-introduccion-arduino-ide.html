@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Introducción al Arduino IDE</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Introducción al Arduino IDE</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 2</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-0-introducción-al-arduino-ide"># Laboratorio 0: Introducción al Arduino IDE</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-paso-1-instalación-de-arduino-ide">🔧 Paso 1: Instalación de Arduino IDE</a></li>
+<li><a href="#🔧-paso-2-instalación-de-drivers-usb">🔧 Paso 2: Instalación de Drivers USB</a></li>
+<li><a href="#🔧-paso-3-configurar-esp32-en-arduino-ide">🔧 Paso 3: Configurar ESP32 en Arduino IDE</a></li>
+<li><a href="#🔧-paso-4-primer-programa---blink">🔧 Paso 4: Primer Programa - Blink</a></li>
+<li><a href="#🔧-paso-5-cargar-el-programa">🔧 Paso 5: Cargar el Programa</a></li>
+<li><a href="#🔧-paso-6-monitor-serial">🔧 Paso 6: Monitor Serial</a></li>
+<li><a href="#📝-actividad-de-refuerzo">📝 Actividad de Refuerzo</a></li>
+<li><a href="#✅-lista-de-verificación-de-entrega">✅ Lista de Verificación de Entrega</a></li>
+<li><a href="#🔍-solución-de-problemas">🔍 Solución de Problemas</a></li>
+<li><a href="#📚-recursos-adicionales">📚 Recursos Adicionales</a></li>
+<li><a href="#🎯-próximo-laboratorio">🎯 Próximo Laboratorio</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-0-introducción-al-arduino-ide">
+<h2># Laboratorio 0: Introducción al Arduino IDE</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 2</p>
+<p><strong>Pre-requisitos:</strong> Ninguno</p>
+<p><strong>Componentes:</strong> ESP32 DevKit + Cable USB</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Instalar y configurar el Arduino IDE en su computadora</li>
+<li> Configurar el ESP32 como placa de desarrollo en Arduino IDE</li>
+<li> Instalar los drivers necesarios (CP2102 o CH340)</li>
+<li> Cargar un programa básico al ESP32</li>
+<li> Usar el Monitor Serial para depuración</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Especificación</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit V1</td></p>
+<p><td>1</td></p>
+<p><td>Con chip ESP32-WROOM-32</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cable USB - Micro USB</td></p>
+<p><td>1</td></p>
+<p><td>Cable de datos (no solo carga)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Computadora</td></p>
+<p><td>1</td></p>
+<p><td>Windows/Mac/Linux</td></p>
+</tr>
+</tbody></table>
+
+<h3>Software a instalar:</h3>
+<ul>
+<li>Arduino IDE 2.x o 1.8.x</li>
+<li>Drivers USB (CP210x o CH340)</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🔧-paso-1-instalación-de-arduino-ide">
+<h2>🔧 Paso 1: Instalación de Arduino IDE</h2>
+
+<h3>Windows:</h3>
+<ul>
+<li> Ir a https://www.arduino.cc/en/software</li>
+<li> Descargar "Windows Win 7 and newer"</li>
+<li> Ejecutar el instalador (.exe)</li>
+<li> Seguir el asistente de instalación</li>
+<li> Aceptar la instalación de drivers cuando se solicite</li>
+</ul>
+
+<h3>Mac:</h3>
+<ul>
+<li> Ir a https://www.arduino.cc/en/software</li>
+<li> Descargar "macOS Apple Silicon" o "macOS Intel"</li>
+<li> Copiar Arduino.app a la carpeta Aplicaciones</li>
+</ul>
+
+<h3>Linux:</h3>
+<pre><code>sudo apt update
+<p>sudo apt install arduino</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-paso-2-instalación-de-drivers-usb">
+<h2>🔧 Paso 2: Instalación de Drivers USB</h2>
+
+<p>El ESP32 requiere drivers para comunicarse con la computadora. El chip USB-Serial puede ser:</p>
+<ul>
+<li><strong>CP2102</strong> (Silicon Labs) - Más común</li>
+<li><strong>CH340</strong> (WCH) - Alternativa económica</li>
+</ul>
+
+<h3>Instalación Drivers CP2102:</h3>
+<ul>
+<li> Ir a: https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers</li>
+<li> Descargar drivers para su sistema operativo</li>
+<li> Instalar y reiniciar si es necesario</li>
+</ul>
+
+<h3>Verificar instalación (Windows):</h3>
+<ul>
+<li> Conectar el ESP32 al puerto USB</li>
+<li> Abrir Administrador de dispositivos</li>
+<li> Buscar "Puertos (COM y LPT)"</li>
+<li> Debe aparecer: "Silicon Labs CP210x USB to UART Bridge (COMX)"</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🔧-paso-3-configurar-esp32-en-arduino-ide">
+<h2>🔧 Paso 3: Configurar ESP32 en Arduino IDE</h2>
+
+<h3>3.1 Agregar URL del ESP32:</h3>
+<ul>
+<li> Abrir Arduino IDE</li>
+<li> Ir a <strong>Archivo → Preferencias</strong> (o <strong>Arduino → Preferences</strong> en Mac)</li>
+<li> En "Gestor de URLs Adicionales de Tarjetas", agregar:</li>
+   <pre><code>   https://dl.espressif.com/dl/package_esp32_index.json
+   </code></pre>
+<li> Click en "OK"</li>
+</ul>
+
+<h3>3.2 Instalar soporte para ESP32:</h3>
+<ul>
+<li> Ir a <strong>Herramientas → Placa → Gestor de tarjetas...</strong></li>
+<li> En el buscador, escribir: <strong>esp32</strong></li>
+<li> Buscar "ESP32 by Espressif Systems"</li>
+<li> Click en <strong>Instalar</strong></li>
+<li> Esperar a que termine la instalación (puede tardar varios minutos)</li>
+</ul>
+
+<h3>3.3 Seleccionar la placa ESP32:</h3>
+<ul>
+<li> Ir a <strong>Herramientas → Placa → ESP32 Arduino</strong></li>
+<li> Seleccionar <strong>"ESP32 Dev Module"</strong></li>
+</ul>
+
+<h3>3.4 Seleccionar el puerto:</h3>
+<ul>
+<li> Ir a <strong>Herramientas → Puerto</strong></li>
+<li> Seleccionar el puerto COM donde apareció el ESP32 (ej: COM3, COM4)</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🔧-paso-4-primer-programa---blink">
+<h2>🔧 Paso 4: Primer Programa - Blink</h2>
+
+<h3>Conexión física:</h3>
+<p>El ESP32 DevKit tiene un LED integrado conectado al GPIO2. No se necesita conectar nada externo.</p>
+
+<h3>Código:</h3>
+<pre><code>/<em>
+ </em> Lab 0 - Mi primer programa ESP32
+<p><em> Hace parpadear el LED integrado</p>
+ </em>/
+
+<p>// El LED integrado está en el pin GPIO 2</p>
+<p>const int LED_BUILTIN = 2;</p>
+
+<p>// Esta función se ejecuta una vez al inicio</p>
+<p>void setup() {</p>
+<p>// Configurar el pin como salida</p>
+<p>pinMode(LED_BUILTIN, OUTPUT);</p>
+
+<p>// Iniciar comunicación serial</p>
+<p>Serial.begin(115200);</p>
+
+<p>// Enviar mensaje inicial</p>
+<p>Serial.println("¡Hola Mundo! ESP32 iniciado");</p>
+<p>}</p>
+
+<p>// Esta función se repite infinitamente</p>
+<p>void loop() {</p>
+<p>// Encender LED</p>
+<p>digitalWrite(LED_BUILTIN, HIGH);</p>
+<p>Serial.println("LED ENCENDIDO");</p>
+
+<p>// Esperar 1 segundo</p>
+<p>delay(1000);</p>
+
+<p>// Apagar LED</p>
+<p>digitalWrite(LED_BUILTIN, LOW);</p>
+<p>Serial.println("LED APAGADO");</p>
+
+<p>// Esperar 1 segundo</p>
+<p>delay(1000);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-paso-5-cargar-el-programa">
+<h2>🔧 Paso 5: Cargar el Programa</h2>
+
+<h3>5.1 Verificar código:</h3>
+<ul>
+<li> Click en el botón <strong>✓ Verificar</strong> (o Ctrl+R)</li>
+<li> Esperar a que compile sin errores</li>
+<li> Debe aparecer "Compilación terminada" en la consola</li>
+</ul>
+
+<h3>5.2 Subir código:</h3>
+<ul>
+<li> Mantener presionado el botón <strong>BOOT</strong> en el ESP32</li>
+<li> Click en el botón <strong>→ Subir</strong> (o Ctrl+U)</li>
+<li> Cuando aparezca "Conectando..." en la consola, soltar el botón BOOT</li>
+<li> Esperar "Carga terminada"</li>
+</ul>
+
+<h3>Si no funciona:</h3>
+<ul>
+<li>Verificar que se seleccionó el puerto correcto</li>
+<li>Intentar mantener BOOT presionado más tiempo</li>
+<li>Verificar que el cable USB sea de datos (no solo carga)</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🔧-paso-6-monitor-serial">
+<h2>🔧 Paso 6: Monitor Serial</h2>
+
+<h3>Abrir Monitor Serial:</h3>
+<ul>
+<li> Ir a <strong>Herramientas → Monitor Serial</strong> (o Ctrl+Shift+M)</li>
+<li> Configurar velocidad a <strong>115200 baudios</strong></li>
+<li> Ver los mensajes "LED ENCENDIDO" / "LED APAGADO"</li>
+</ul>
+
+<h3>Ejercicio:</h3>
+<p>Modificar el código para que:</p>
+<ul>
+<li> El LED parpadee más rápido (cambiar delay a 200ms)</li>
+<li> Enviar el número de parpadeos por serial</li>
+<li> Mostrar un mensaje diferente cada 5 parpadeos</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📝-actividad-de-refuerzo">
+<h2>📝 Actividad de Refuerzo</h2>
+
+<h3>Ejercicio 1: Patrón de parpadeo</h3>
+<p>Modificar el código para crear este patrón:</p>
+<ul>
+<li>3 parpadeos rápidos (200ms)</li>
+<li>1 pausa larga (2 segundos)</li>
+<li>Repetir</li>
+</ul>
+
+<h3>Ejercicio 2: Contador</h3>
+<p>Modificar el código para que:</p>
+<ul>
+<li>Cuenta cuántas veces ha parpadeado el LED</li>
+<li>Muestra el contador en el Monitor Serial</li>
+<li>Cuando llega a 10, reinicia y muestra "¡Reinicio!"</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="✅-lista-de-verificación-de-entrega">
+<h2>✅ Lista de Verificación de Entrega</h2>
+
+<p>Subir a la plataforma del curso:</p>
+
+<p>☐ <strong>Captura de pantalla 1</strong>: Arduino IDE mostrando código compilado exitosamente</p>
+<p>☐ <strong>Captura de pantalla 2</strong>: Monitor Serial mostrando mensajes del ESP32</p>
+<p>☐ <strong>Video corto</strong> (max 30 segundos): Mostrando el LED del ESP32 parpadeando</p>
+<p>☐ <strong>Código</strong> (.ino): Con nombre <code>Lab0_Apellido.ino</code></p>
+
+<p>---</p>
+
+</section>
+<section id="🔍-solución-de-problemas">
+<h2>🔍 Solución de Problemas</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa posible</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>"No se pudo conectar a ESP32"</td></p>
+<p><td>Puerto incorrecto</td></p>
+<p><td>Verificar en Administrador de dispositivos</td></p>
+</tr>
+<p><tr></p>
+<p><td>"Failed to connect"</td></p>
+<p><td>No se presionó BOOT</td></p>
+<p><td>Mantener BOOT al subir código</td></p>
+</tr>
+<p><tr></p>
+<p><td>Caracteres extraños en Serial</td></p>
+<p><td>Baud rate incorrecto</td></p>
+<p><td>Verificar que sea 115200 en ambos lados</td></p>
+</tr>
+<p><tr></p>
+<p><td>Puerto no aparece</td></p>
+<p><td>Drivers no instalados</td></p>
+<p><td>Instalar CP2102 o CH340</td></p>
+</tr>
+<p><tr></p>
+<p><td>Error de compilación</td></p>
+<p><td>Librería no instalada</td></p>
+<p><td>Verificar que esté seleccionada placa ESP32</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="📚-recursos-adicionales">
+<h2>📚 Recursos Adicionales</h2>
+
+<ul>
+<li>Tutorial oficial ESP32: https://docs.espressif.com/projects/arduino-esp32/</li>
+<li>Foro Arduino: https://forum.arduino.cc/</li>
+<li>Comunidad ESP32: https://esp32.com/</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-próximo-laboratorio">
+<h2>🎯 Próximo Laboratorio</h2>
+
+<p>El <strong>Laboratorio 1</strong> trabajará con LEDs externos y profundizará en la estructura del código Arduino.</p>
+
+<p><strong>Preparación para casa:</strong></p>
+<ul>
+<li>Identificar qué chip USB tiene su ESP32 (CP2102 o CH340)</li>
+<li>Familiarizarse con los pines del ESP32</li>
+<li>Ver video: "Introducción a ESP32" (enlace en plataforma)</li>
+</ul>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

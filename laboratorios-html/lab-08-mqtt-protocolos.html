@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Protocolos IoT - MQTT</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Protocolos IoT - MQTT</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 10</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-8-protocolos-iot---mqtt"># Laboratorio 8: Protocolos IoT - MQTT</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-conceptos-teóricos">🔧 Conceptos Teóricos</a></li>
+<li><a href="#🔧-parte-1-conexión-al-broker-mqtt">🔧 Parte 1: Conexión al Broker MQTT</a></li>
+<li><a href="#🔧-parte-2-publicar-datos-de-sensores">🔧 Parte 2: Publicar Datos de Sensores</a></li>
+<li><a href="#🔧-parte-3-mqtt-explorer-(herramienta-de-monitoreo)">🔧 Parte 3: MQTT Explorer (Herramienta de Monitoreo)</a></li>
+<li><a href="#🔧-parte-4-comparativa-mqtt-vs-http">🔧 Parte 4: Comparativa MQTT vs HTTP</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-solución-de-problemas">🔍 Solución de Problemas</a></li>
+<li><a href="#🎯-relación-con-el-examen-parcial-(e3)">🎯 Relación con el Examen Parcial (E3)</a></li>
+<li><a href="#🎯-relación-con-el-proyecto-final-(e6)">🎯 Relación con el Proyecto Final (E6)</a></li>
+<li><a href="#🎯-preparación-para-el-examen-parcial-(e3)">🎯 Preparación para el Examen Parcial (E3)</a></li>
+<li><a href="#📚-recursos-adicionales">📚 Recursos Adicionales</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-8-protocolos-iot---mqtt">
+<h2># Laboratorio 8: Protocolos IoT - MQTT</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 10</p>
+<p><strong>Pre-requisitos:</strong> Labs 0-7 completados</p>
+<p><strong>Componentes:</strong> ESP32 + WiFi + Sensor (DHT/LDR/HC-SR04)</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Entender el modelo Publish/Subscribe de MQTT</li>
+<li> Conectar ESP32 a un broker MQTT público</li>
+<li> Publicar datos de sensores en topics</li>
+<li> Suscribirse a topics para recibir comandos</li>
+<li> Comparar MQTT vs HTTP para IoT</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td>Con WiFi configurado</td></p>
+</tr>
+<p><tr></p>
+<p><td>Sensor (DHT/LDR/HC-SR04)</td></p>
+<p><td>1</td></p>
+<p><td>Cualquiera de los usados en Labs 3-5</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cuenta HiveMQ</td></p>
+<p><td>-</td></p>
+<p><td>Broker público gratuito</td></p>
+</tr>
+<p><tr></p>
+<p><td>MQTT Explorer</td></p>
+<p><td>-</td></p>
+<p><td>Software en PC (opcional)</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔧-conceptos-teóricos">
+<h2>🔧 Conceptos Teóricos</h2>
+
+<h3>MQTT: Message Queuing Telemetry Transport</h3>
+
+<p>Protocolo diseñado específicamente para IoT - ligero y eficiente.</p>
+
+<h3>Modelo Publish/Subscribe vs Request/Response</h3>
+
+<pre><code>HTTP (Request/Response)          MQTT (Publish/Subscribe)
+
+<p>Cliente ──GET──► Servidor      Publicador ──► Broker ◄── Suscriptor</p>
+<p>◄───200────┘                     ▲            │</p>
+<p>└────────────┘</p>
+
+<p>Cliente debe preguntar              Broker envía datos automáticamente</p>
+<p>(polling)                           cuando hay nuevos (push)</p>
+</code></pre>
+
+<h3>Elementos de MQTT</h3>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Elemento</th></p>
+<p><th>Descripción</th></p>
+<p><th>Ejemplo</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Broker</strong></td></p>
+<p><td>Servidor central que enruta mensajes</td></p>
+<p><td>broker.hivemq.com</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Topic</strong></td></p>
+<p><td>Canal/tema donde se publican mensajes</td></p>
+<p><td><code>casa/sala/temperatura</code></td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Publish</strong></td></p>
+<p><td>Enviar mensaje a un topic</td></p>
+<p><td>Publicar temperatura</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Subscribe</strong></td></p>
+<p><td>Recibir mensajes de un topic</td></p>
+<p><td>Escuchar comandos</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>QoS</strong></td></p>
+<p><td>Nivel de calidad de entrega</td></p>
+<p><td>0, 1, 2</td></p>
+</tr>
+</tbody></table>
+
+<h3>Jerarquía de Topics</h3>
+
+<pre><code>casa/
+<p>├── sala/</p>
+<p>│   ├── temperatura</p>
+<p>│   ├── humedad</p>
+<p>│   └── luz</p>
+<p>├── cocina/</p>
+<p>│   ├── temperatura</p>
+<p>│   └── gas</p>
+<p>└── dormitorio/</p>
+<p>└── temperatura</p>
+
+<p># Wildcards:</p>
+<p>#   + = Un nivel: casa/+/temperatura (todas las temperaturas)</p>
+<p>#   # = Varios niveles: casa/# (todo)</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-conexión-al-broker-mqtt">
+<h2>🔧 Parte 1: Conexión al Broker MQTT</h2>
+
+<h3>Instalar Librería</h3>
+
+<p>Arduino IDE → Librerías → Buscar "PubSubClient" by Nick O'Leary → Instalar</p>
+
+<h3>Código Base:</h3>
+
+<pre><code>/<em>
+ </em> Lab 8 - Parte 1: Conexión MQTT básica
+<p><em>/</p>
+
+<p>#include <WiFi.h></p>
+<p>#include <PubSubClient.h></p>
+
+<p>// ========================================</p>
+<p>// CONFIGURACIÓN WIFI</p>
+<p>// ========================================</p>
+<p>const char</em> ssid = "TU_RED_WIFI";</p>
+<p>const char<em> password = "TU_PASSWORD";</p>
+
+<p>// ========================================</p>
+<p>// CONFIGURACIÓN MQTT</p>
+<p>// ========================================</p>
+<p>const char</em> mqtt_server = "broker.hivemq.com";  // Broker público gratuito</p>
+<p>const int mqtt_port = 1883;</p>
+<p>const char<em> client_id = "esp32_unaula_estudiante01";  // ÚNICO por estudiante</p>
+
+<p>// Topics (usar identificador único para no colisionar con compañeros)</p>
+<p>const char</em> topic_temperatura = "unaula/iot/grupo01/temperatura";</p>
+<p>const char<em> topic_humedad = "unaula/iot/grupo01/humedad";</p>
+<p>const char</em> topic_comando = "unaula/iot/grupo01/comando";</p>
+
+<p>WiFiClient espClient;</p>
+<p>PubSubClient client(espClient);</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>Serial.println("\n========================================");</p>
+<p>Serial.println("  Lab 8: Protocolo MQTT");</p>
+<p>Serial.println("========================================");</p>
+
+<p>setup_wifi();</p>
+<p>client.setServer(mqtt_server, mqtt_port);</p>
+<p>client.setCallback(callback);</p>
+<p>}</p>
+
+<p>void setup_wifi() {</p>
+<p>delay(10);</p>
+<p>Serial.print("Conectando a WiFi: ");</p>
+<p>Serial.println(ssid);</p>
+
+<p>WiFi.mode(WIFI_STA);</p>
+<p>WiFi.begin(ssid, password);</p>
+
+<p>while (WiFi.status() != WL_CONNECTED) {</p>
+<p>delay(500);</p>
+<p>Serial.print(".");</p>
+<p>}</p>
+
+<p>Serial.println("\n✅ WiFi conectado");</p>
+<p>Serial.print("IP: ");</p>
+<p>Serial.println(WiFi.localIP());</p>
+<p>}</p>
+
+<p>void callback(char<em> topic, byte</em> payload, unsigned int length) {</p>
+<p>Serial.print("\n📨 Mensaje recibido [");</p>
+<p>Serial.print(topic);</p>
+<p>Serial.print("]: ");</p>
+
+<p>String mensaje = "";</p>
+<p>for (int i = 0; i < length; i++) {</p>
+<p>mensaje += (char)payload[i];</p>
+<p>}</p>
+<p>Serial.println(mensaje);</p>
+
+<p>// Procesar comando</p>
+<p>if (String(topic) == topic_comando) {</p>
+<p>procesarComando(mensaje);</p>
+<p>}</p>
+<p>}</p>
+
+<p>void procesarComando(String cmd) {</p>
+<p>cmd.toLowerCase();</p>
+
+<p>if (cmd == "on" || cmd == "encender") {</p>
+<p>digitalWrite(2, HIGH);</p>
+<p>Serial.println("💡 LED encendido por MQTT");</p>
+<p>}</p>
+<p>else if (cmd == "off" || cmd == "apagar") {</p>
+<p>digitalWrite(2, LOW);</p>
+<p>Serial.println("💡 LED apagado por MQTT");</p>
+<p>}</p>
+<p>else if (cmd == "estado") {</p>
+<p>String estado = digitalRead(2) == HIGH ? "ON" : "OFF";</p>
+<p>client.publish(topic_temperatura, ("Estado LED: " + estado).c_str());</p>
+<p>}</p>
+<p>}</p>
+
+<p>void reconnect() {</p>
+<p>while (!client.connected()) {</p>
+<p>Serial.print("\n🔌 Intentando conexión MQTT...");</p>
+
+<p>if (client.connect(client_id)) {</p>
+<p>Serial.println("✅ Conectado al broker!");</p>
+
+<p>// Suscribirse a topics</p>
+<p>client.subscribe(topic_comando);</p>
+<p>Serial.print("Suscrito a: ");</p>
+<p>Serial.println(topic_comando);</p>
+
+<p>// Publicar mensaje de bienvenida</p>
+<p>client.publish(topic_temperatura, "ESP32 conectado!");</p>
+<p>} else {</p>
+<p>Serial.print("❌ Falló, rc=");</p>
+<p>Serial.print(client.state());</p>
+<p>Serial.println(" - Reintentando en 5 segundos...");</p>
+<p>delay(5000);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>if (!client.connected()) {</p>
+<p>reconnect();</p>
+<p>}</p>
+<p>client.loop();</p>
+
+<p>// Mantener conexión viva</p>
+<p>delay(100);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-publicar-datos-de-sensores">
+<h2>🔧 Parte 2: Publicar Datos de Sensores</h2>
+
+<pre><code>/<em>
+ </em> Lab 8 - Parte 2: Publicar datos de sensores vía MQTT
+<p><em> Requiere: Sensor DHT conectado (Lab 4)</p>
+ </em>/
+
+<p>#include <WiFi.h></p>
+<p>#include <PubSubClient.h></p>
+<p>#include "DHT.h"</p>
+
+<p>// Configuración</p>
+<p>const char<em> ssid = "TU_RED";</p>
+<p>const char</em> password = "TU_PASS";</p>
+<p>const char<em> mqtt_server = "broker.hivemq.com";</p>
+
+<p>const char</em> topic_temp = "unaula/iot/grupo01/sensor/temperatura";</p>
+<p>const char<em> topic_hum = "unaula/iot/grupo01/sensor/humedad";</p>
+<p>const char</em> topic_status = "unaula/iot/grupo01/status";</p>
+
+<p>#define DHTPIN 4</p>
+<p>#define DHTTYPE DHT11</p>
+<p>DHT dht(DHTPIN, DHTTYPE);</p>
+
+<p>WiFiClient espClient;</p>
+<p>PubSubClient client(espClient);</p>
+
+<p>unsigned long lastMsg = 0;</p>
+<p>const long interval = 10000;  // Publicar cada 10 segundos</p>
+
+<p>void setup() {</p>
+<p>Serial.begin(115200);</p>
+<p>dht.begin();</p>
+<p>pinMode(2, OUTPUT);</p>
+
+<p>setup_wifi();</p>
+<p>client.setServer(mqtt_server, 1883);</p>
+<p>client.setCallback(callback);</p>
+<p>}</p>
+
+<p>void callback(char<em> topic, byte</em> payload, unsigned int length) {</p>
+<p>String mensaje = "";</p>
+<p>for (int i = 0; i < length; i++) {</p>
+<p>mensaje += (char)payload[i];</p>
+<p>}</p>
+
+<p>Serial.print("Comando recibido: ");</p>
+<p>Serial.println(mensaje);</p>
+
+<p>// Controlar LED desde MQTT</p>
+<p>if (mensaje == "ON") {</p>
+<p>digitalWrite(2, HIGH);</p>
+<p>client.publish(topic_status, "LED encendido remotamente");</p>
+<p>}</p>
+<p>else if (mensaje == "OFF") {</p>
+<p>digitalWrite(2, LOW);</p>
+<p>client.publish(topic_status, "LED apagado remotamente");</p>
+<p>}</p>
+<p>}</p>
+
+<p>void reconnect() {</p>
+<p>while (!client.connected()) {</p>
+<p>Serial.print("Conectando MQTT...");</p>
+
+<p>String clientId = "ESP32-" + String(random(0xffff), HEX);</p>
+
+<p>if (client.connect(clientId.c_str())) {</p>
+<p>Serial.println("✅ Conectado");</p>
+<p>client.subscribe("unaula/iot/grupo01/comando");</p>
+<p>} else {</p>
+<p>Serial.print("❌ Error: ");</p>
+<p>Serial.println(client.state());</p>
+<p>delay(5000);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>if (!client.connected()) {</p>
+<p>reconnect();</p>
+<p>}</p>
+<p>client.loop();</p>
+
+<p>unsigned long now = millis();</p>
+<p>if (now - lastMsg > interval) {</p>
+<p>lastMsg = now;</p>
+
+<p>// Leer sensor</p>
+<p>float temp = dht.readTemperature();</p>
+<p>float hum = dht.readHumidity();</p>
+
+<p>if (isnan(temp) || isnan(hum)) {</p>
+<p>Serial.println("Error leyendo DHT");</p>
+<p>return;</p>
+<p>}</p>
+
+<p>// Crear payload JSON</p>
+<p>String json = "{";</p>
+<p>json += "\"temperatura\":" + String(temp, 1) + ",";</p>
+<p>json += "\"humedad\":" + String(hum, 1) + ",";</p>
+<p>json += "\"timestamp\":" + String(now);</p>
+<p>json += "}";</p>
+
+<p>// Publicar a diferentes topics</p>
+<p>char tempStr[8];</p>
+<p>char humStr[8];</p>
+<p>dtostrf(temp, 1, 2, tempStr);</p>
+<p>dtostrf(hum, 1, 2, humStr);</p>
+
+<p>Serial.println("\n📤 Publicando datos:");</p>
+<p>Serial.println(json);</p>
+
+<p>client.publish(topic_temp, tempStr);</p>
+<p>client.publish(topic_hum, humStr);</p>
+<p>client.publish("unaula/iot/grupo01/datos", json.c_str());</p>
+
+<p>Serial.println("✅ Datos publicados exitosamente");</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-mqtt-explorer-(herramienta-de-monitoreo)">
+<h2>🔧 Parte 3: MQTT Explorer (Herramienta de Monitoreo)</h2>
+
+<h3>Instalación:</h3>
+<ul>
+<li> Descargar MQTT Explorer: https://mqtt-explorer.com/</li>
+<li> Instalar en Windows/Mac/Linux</li>
+</ul>
+
+<h3>Configuración:</h3>
+<pre><code>Name: HiveMQ Public
+<p>Host: broker.hivemq.com</p>
+<p>Port: 1883</p>
+</code></pre>
+
+<h3>Uso:</h3>
+<ul>
+<li>Ver todos los topics en tiempo real</li>
+<li>Publicar mensajes de prueba</li>
+<li>Suscribirse a topics específicos</li>
+<li>Ver historial de mensajes</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-comparativa-mqtt-vs-http">
+<h2>🔧 Parte 4: Comparativa MQTT vs HTTP</h2>
+
+<pre><code>/<em>
+ </em> Ejemplo comparativo: Enviar datos por MQTT vs HTTP
+<p>*/</p>
+
+<p>// ============ MQTT (Ligero) ============</p>
+<p>// Payload: ~50 bytes</p>
+<p>// Conexión persistente</p>
+<p>// Push nativo</p>
+<p>void enviarMQTT(float temp) {</p>
+<p>String msg = String(temp);</p>
+<p>client.publish("sensor/temp", msg.c_str());</p>
+<p>// ✓ Rápido</p>
+<p>// ✓ Bajo consumo</p>
+<p>// ✓ Push desde servidor</p>
+<p>}</p>
+
+<p>// ============ HTTP (ThingSpeak) ============</p>
+<p>// Payload: ~200 bytes (headers incluidos)</p>
+<p>// Conexión por request</p>
+<p>// Polling necesario</p>
+<p>void enviarHTTP(float temp) {</p>
+<p>HTTPClient http;</p>
+<p>String url = "http://api.thingspeak.com/update?api_key=XXX&field1=" + String(temp);</p>
+<p>http.begin(url);</p>
+<p>int code = http.GET();</p>
+<p>http.end();</p>
+<p>// ✓ Compatible con web</p>
+<p>// ✓ APIs REST estándar</p>
+<p>// ✗ Más lento</p>
+<p>// ✗ Mayor consumo</p>
+<p>}</p>
+</code></pre>
+
+<h3>Cuándo usar cada uno:</h3>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Escenario</th></p>
+<p><th>Protocolo</th></p>
+<p><th>Razón</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Sensor reportando cada 10s</td></p>
+<p><td>MQTT</td></p>
+<p><td>Eficiencia, push</td></p>
+</tr>
+<p><tr></p>
+<p><td>App consultando historial</td></p>
+<p><td>HTTP</td></p>
+<p><td>Request/response</td></p>
+</tr>
+<p><tr></p>
+<p><td>Control en tiempo real</td></p>
+<p><td>MQTT</td></p>
+<p><td>Baja latencia</td></p>
+</tr>
+<p><tr></p>
+<p><td>Firmware update</td></p>
+<p><td>HTTP</td></p>
+<p><td>Transferencia de archivos</td></p>
+</tr>
+<p><tr></p>
+<p><td>Muchos dispositivos</td></p>
+<p><td>MQTT</td></p>
+<p><td>Escalabilidad</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio 1: Sistema de Comandos MQTT (50%)</h3>
+
+<p>Crear un sistema que:</p>
+<ul>
+<li> Se conecte a broker.hivemq.com</li>
+<li> Se suscriba a <code>unaula/iot/[tu_grupo]/comando</code></li>
+<li> Responda a estos comandos:</li>
+<li><code>"LED_ON"</code> → Enciende LED</li>
+<li><code>"LED_OFF"</code> → Apaga LED</li>
+<li><code>"ESTADO"</code> → Publica estado actual del LED</li>
+<li><code>"TEMP"</code> → Publica temperatura actual (si tiene DHT)</li>
+<li> Envíe heartbeat cada 30 segundos a <code>unaula/iot/[tu_grupo]/status</code></li>
+</ul>
+
+<p><strong>Entregable:</strong> Código + screenshot de MQTT Explorer mostrando los mensajes</p>
+
+<h3>Ejercicio 2: Dashboard MQTT (50%)</h3>
+
+<p>Crear un sistema completo que:</p>
+<ul>
+<li> Publique datos de un sensor (cualquiera de Labs 3-5) cada 5 segundos</li>
+<li> Use formato JSON con: valor, timestamp, tipo_sensor</li>
+<li> Se suscriba a comandos para:</li>
+<li>Cambiar frecuencia de muestreo</li>
+<li>Activar/desactivar envío de datos</li>
+<li> Tenga al menos 3 topics organizados jerárquicamente:</li>
+<li><code>unaula/iot/grupo[X]/datos</code></li>
+<li><code>unaula/iot/grupo[X]/comandos</code></li>
+<li><code>unaula/iot/grupo[X]/config</code></li>
+</ul>
+
+<p><strong>Entregable:</strong> Código + video mostrando funcionamiento con MQTT Explorer</p>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Puntos</th></p>
+<p><th>Descripción</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Conexión MQTT</strong></td></p>
+<p><td>20</td></p>
+<p><td>Conexión exitosa al broker</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Publicación</strong></td></p>
+<p><td>25</td></p>
+<p><td>Datos se publican correctamente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Suscripción</strong></td></p>
+<p><td>20</td></p>
+<p><td>Recibe y procesa comandos</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Organización topics</strong></td></p>
+<p><td>15</td></p>
+<p><td>Jerarquía lógica de topics</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>JSON</strong></td></p>
+<p><td>10</td></p>
+<p><td>Formato correcto</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Documentación</strong></td></p>
+<p><td>10</td></p>
+<p><td>Código comentado</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-solución-de-problemas">
+<h2>🔍 Solución de Problemas</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>No conecta al broker</td></p>
+<p><td>Puerto bloqueado</td></p>
+<p><td>Verificar puerto 1883</td></p>
+</tr>
+<p><tr></p>
+<p><td>Mensajes no llegan</td></p>
+<p><td>Topic incorrecto</td></p>
+<p><td>Verificar string exacto</td></p>
+</tr>
+<p><tr></p>
+<p><td>Cliente desconecta</td></p>
+<p><td>Client ID duplicado</td></p>
+<p><td>Usar ID único por dispositivo</td></p>
+</tr>
+<p><tr></p>
+<p><td>Pérdida de mensajes</td></p>
+<p><td>QoS 0</td></p>
+<p><td>Usar QoS 1 para críticos</td></p>
+</tr>
+<p><tr></p>
+<p><td>No recibe comandos</td></p>
+<p><td>No suscrito</td></p>
+<p><td>Verificar subscribe()</td></p>
+</tr>
+</tbody></table>
+
+<h3>Códigos de Error (client.state()):</h3>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Código</th></p>
+<p><th>Significado</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>-4</td></p>
+<p><td>MQTT_CONNECTION_TIMEOUT</td></p>
+</tr>
+<p><tr></p>
+<p><td>-3</td></p>
+<p><td>MQTT_CONNECTION_LOST</td></p>
+</tr>
+<p><tr></p>
+<p><td>-2</td></p>
+<p><td>MQTT_CONNECT_FAILED</td></p>
+</tr>
+<p><tr></p>
+<p><td>-1</td></p>
+<p><td>MQTT_DISCONNECTED</td></p>
+</tr>
+<p><tr></p>
+<p><td>0</td></p>
+<p><td>MQTT_CONNECTED</td></p>
+</tr>
+<p><tr></p>
+<p><td>1</td></p>
+<p><td>MQTT_CONNECT_BAD_PROTOCOL</td></p>
+</tr>
+<p><tr></p>
+<p><td>2</td></p>
+<p><td>MQTT_CONNECT_BAD_CLIENT_ID</td></p>
+</tr>
+<p><tr></p>
+<p><td>3</td></p>
+<p><td>MQTT_CONNECT_UNAVAILABLE</td></p>
+</tr>
+<p><tr></p>
+<p><td>4</td></p>
+<p><td>MQTT_CONNECT_BAD_CREDENTIALS</td></p>
+</tr>
+<p><tr></p>
+<p><td>5</td></p>
+<p><td>MQTT_CONNECT_UNAUTHORIZED</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🎯-relación-con-el-examen-parcial-(e3)">
+<h2>🎯 Relación con el Examen Parcial (E3)</h2>
+
+<p>Este laboratorio prepara directamente para la <strong>Evaluación 3 (Examen Parcial)</strong>:</p>
+
+<p><strong>Temas de E3 que cubre este lab:</strong></p>
+<ul>
+<li>✅ Protocolo MQTT (preguntas conceptuales)</li>
+<li>✅ Modelo Publish/Subscribe vs Request/Response</li>
+<li>✅ Brokers y topics</li>
+<li>✅ Cuándo usar MQTT vs HTTP</li>
+<li>✅ Arquitectura de sistemas IoT</li>
+</ul>
+
+<p><strong>Preguntas tipo examen que podrán responder:</strong></p>
+<ul>
+<li> ¿Cuál es la diferencia entre MQTT y HTTP?</li>
+<li> Explique el modelo publish/subscribe</li>
+<li> Diseñe una jerarquía de topics para un edificio inteligente</li>
+<li> ¿Por qué MQTT es mejor que HTTP para IoT en tiempo real?</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-relación-con-el-proyecto-final-(e6)">
+<h2>🎯 Relación con el Proyecto Final (E6)</h2>
+
+<p>Este laboratorio habilita:</p>
+
+<ul>
+<li>✅ <strong>Control remoto</strong> del proyecto vía MQTT</li>
+<li>✅ <strong>Comunicación bidireccional</strong> (sensores + comandos)</li>
+<li>✅ <strong>Escalabilidad</strong> (múltiples dispositivos)</li>
+<li>✅ <strong>Integración</strong> con sistemas externos</li>
+</ul>
+
+<p><strong>Para el proyecto final E6:</strong></p>
+<p>El estudiante puede elegir usar:</p>
+<ul>
+<li><strong>ThingSpeak</strong> (Lab 7) → Si quiere gráficos y almacenamiento histórico</li>
+<li><strong>MQTT</strong> (Lab 8) → Si quiere control en tiempo real y flexibilidad</li>
+<li><strong>Ambos</strong> → Lo mejor de los dos mundos</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🎯-preparación-para-el-examen-parcial-(e3)">
+<h2>🎯 Preparación para el Examen Parcial (E3)</h2>
+
+<p>La siguiente semana es el <strong>Examen Parcial (E3 - 20%)</strong>.</p>
+
+<p><strong>Temas a estudiar:</strong></p>
+<ul>
+<li>Arquitectura IoT (4 capas)</li>
+<li>Protocolos: MQTT, HTTP, CoAP</li>
+<li>Hardware: sensores, actuadores, microcontroladores</li>
+<li>Conectividad: WiFi, Bluetooth, LoRa</li>
+<li>Seguridad básica</li>
+<li>Código Arduino (lectura y análisis)</li>
+</ul>
+
+<p><strong>Recursos:</strong></p>
+<ul>
+<li>Revisar Labs 1-8</li>
+<li>Revisar clases teóricas 1-10</li>
+<li>Practicar análisis de código</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📚-recursos-adicionales">
+<h2>📚 Recursos Adicionales</h2>
+
+<h3>Documentación:</h3>
+<ul>
+<li>PubSubClient: https://pubsubclient.knolleary.net/</li>
+<li>HiveMQ: https://www.hivemq.com/public-mqtt-broker/</li>
+<li>MQTT Specification: https://mqtt.org/mqtt-specification/</li>
+</ul>
+
+<h3>Videos:</h3>
+<ul>
+<li>"MQTT Protocol Explained" (YouTube)</li>
+<li>"ESP32 MQTT Tutorial" (Random Nerd Tutorials)</li>
+</ul>
+
+<h3>Simuladores Online:</h3>
+<ul>
+<li>HiveMQ Web Client: http://www.hivemq.com/demos/websocket-client/</li>
+</ul>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>

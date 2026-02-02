@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 0: Bienvenida - IF0112 Complementaria II (IoT)</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            /* Spacing scale */
+            --space-1: 0.25rem;  /* 4px */
+            --space-2: 0.5rem;   /* 8px */
+            --space-3: 0.75rem;  /* 12px */
+            --space-4: 1rem;     /* 16px */
+            --space-5: 1.25rem;  /* 20px */
+            --space-6: 1.5rem;   /* 24px */
+            --space-8: 2rem;     /* 32px */
+            --space-10: 2.5rem;  /* 40px */
+            --space-12: 3rem;    /* 48px */
+
+            /* Typography scale */
+            --text-xs: 0.75rem;    /* 12px */
+            --text-sm: 0.875rem;   /* 14px */
+            --text-base: 1rem;     /* 16px */
+            --text-lg: 1.125rem;   /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;    /* 24px */
+            --text-3xl: 1.875rem;  /* 30px */
+            --text-4xl: 2.25rem;   /* 36px */
+
+            /* Line heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 2;
+
+            /* Colors - improved accessibility */
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            /* Text colors - WCAG AA compliant */
+            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
+            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
+            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
+            --text-inverse: #ffffff;
+
+            /* Background colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            /* Border colors */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: var(--leading-normal);
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container { max-width: 1280px; margin: 0 auto; background: var(--bg-primary); box-shadow: var(--shadow-xl); }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 { font-size: var(--text-4xl); font-weight: 700; margin-bottom: var(--space-2); line-height: var(--leading-tight); position: relative; z-index: 1; }
+        header .subtitle { font-size: var(--text-lg); opacity: 0.95; font-weight: 400; }
+        header .meta { margin-top: var(--space-4); font-size: var(--text-sm); opacity: 0.85; display: inline-flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+        header .meta span { padding: var(--space-1) var(--space-3); background: rgba(255,255,255,0.15); border-radius: var(--radius-lg); }
+
+        nav { background: var(--color-secondary); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-md); }
+        nav ul { list-style: none; display: flex; flex-wrap: wrap; padding: 0 var(--space-4); max-width: 100%; overflow-x: auto; }
+        nav a { display: block; padding: var(--space-3) var(--space-4); color: rgba(255,255,255,0.85); text-decoration: none; transition: all 0.2s ease; font-size: var(--text-sm); font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; }
+        nav a:hover { background: rgba(255,255,255,0.1); color: var(--text-inverse); }
+
+        .progress-bar { height: 3px; background: rgba(255,255,255,0.2); position: absolute; bottom: 0; left: 0; right: 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--color-accent), #fbbf24); width: 0%; transition: width 0.3s ease; }
+
+        main { padding: var(--space-8); max-width: 1024px; margin: 0 auto; }
+        section { margin-bottom: var(--space-12); scroll-margin-top: 80px; scroll-margin-block: 80px; }
+        section h2 { color: var(--color-primary); border-bottom: 3px solid var(--color-primary-light); padding-bottom: var(--space-2); margin-bottom: var(--space-6); font-size: var(--text-3xl); font-weight: 700; line-height: var(--leading-tight); }
+        p { margin-bottom: var(--space-4); text-align: justify; line-height: var(--leading-relaxed); max-width: 75ch; }
+        table { width: 100%; border-collapse: collapse; margin: var(--space-6) 0; font-size: var(--text-sm); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
+        th { background: var(--color-primary); color: var(--text-inverse); padding: var(--space-3) var(--space-4); text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; font-size: var(--text-xs); }
+        td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-light); }
+        ul, ol { margin-left: var(--space-6); margin-bottom: var(--space-4); }
+        .intro-box { background: #eff6ff; border-left: 4px solid var(--color-primary-light); padding: var(--space-5); margin: var(--space-6) 0; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; box-shadow: var(--shadow-sm); }
+
+        .back-to-top { position: fixed; bottom: var(--space-6); right: var(--space-6); background: var(--color-primary); color: var(--text-inverse); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: var(--shadow-lg); border: none; font-size: var(--text-xl); z-index: 99; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+
+        footer { background: var(--color-secondary); color: var(--text-inverse); text-align: center; padding: var(--space-8) var(--space-6); margin-top: var(--space-12); }
+        footer p { margin: var(--space-2) 0; text-align: center; color: rgba(255,255,255,0.85); }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clase 0: Bienvenida</h1>
+            <p class="subtitle">Presentación del curso y objetivos</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre el Curso</a></li>
+                <li><a href="#pregunta">Pregunta</a></li>
+                <li><a href="#que-aprenderas">¿Qué Aprenderás?</a></li>
+                <li><a href="#evaluacion">Sistema de Evaluación</a></li>
+                <li><a href="#herramientas">Herramientas</a></li>
+                <li><a href="#consejos">Consejos</a></li>
+                <li><a href="#metas">Metas del Curso</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="sobre">
+                <h2>Sobre el Curso</h2>
+                <div class="intro-box">
+                    <p><strong>IF0112 - Complementaria II</strong> es un curso de <strong>2 créditos (32 horas)</strong> del <strong>6° semestre</strong> que explora el mundo del <strong>Internet de las Cosas (IoT)</strong> y su aplicación en entornos domóticos, industriales y de ciudades inteligentes.</p>
+                </div>
+            </section>
+
+            <section id="pregunta">
+                <h2>Pregunta Problematizadora</h2>
+                <p>¿Cómo se resuelven problemas cotidianos que parecieran insolubles en un tiempo y triviales con el advenimiento de nuevas tecnologías y métodos desarrollados, usando la IoT?</p>
+            </section>
+
+            <section id="que-aprenderas">
+                <h2>📋 ¿Qué Aprenderás?</h2>
+                <h3>Unidad 1: ¿Qué es IoT?</h3>
+                <ul>
+                    <li>Evolución de Internet hacia la conectividad de todo</li>
+                    <li>Personas, procesos, datos y cosas: los 4 pilares del IoT</li>
+                    <li>Transformación del entorno: hogares, ciudades e industrias</li>
+                    <li>Redes para IoT: LAN, WAN e Internet</li>
+                </ul>
+
+                <h3>Unidad 2: La Piedra Angular de IoT</h3>
+                <ul>
+                    <li>Hardware: microcontroladores (Arduino, ESP32)</li>
+                    <li>Conectividad: WiFi, protocolos IoT</li>
+                    <li>Interacciones M2M, M2P y P2P</li>
+                    <li>Convergencia IT/OT y el futuro de Internet</li>
+                    <li>Marco legal y normativo</li>
+                </ul>
+            </section>
+
+            <section id="evaluacion">
+                <h2>📊 Sistema de Evaluación</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Evaluación</th>
+                            <th>%</th>
+                            <th>Semana</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>E1</strong></td><td>15%</td><td>4</td><td>Ensayo + Quiz</td></tr>
+                        <tr><td><strong>E2</strong></td><td>15%</td><td>7</td><td>Presentación</td></tr>
+                        <tr><td><strong>E3</strong></td><td>20%</td><td>10</td><td>Examen parcial</td></tr>
+                        <tr><td><strong>E4</strong></td><td>15%</td><td>14</td><td>Informe + Sustentación</td></tr>
+                        <tr><td><strong>E5</strong></td><td>15%</td><td>16</td><td>Presentación</td></tr>
+                        <tr><td><strong>EF</strong></td><td>20%</td><td>21</td><td>Examen final</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="herramientas">
+                <h2>🛠️ Herramientas que Usaremos</h2>
+                <h3>Hardware (demostraciones)</h3>
+                <ul>
+                    <li><strong>Arduino Uno</strong> - Microcontrolador de propósito general</li>
+                    <li><strong>ESP32</strong> - Conectividad WiFi integrada</li>
+                    <li><strong>Sensores básicos</strong> - Temperatura, humedad, luz</li>
+                </ul>
+
+                <h3>Software y Simuladores</h3>
+                <ul>
+                    <li><strong>Arduino IDE</strong> - Para programar los microcontroladores</li>
+                    <li><strong>Tinkercad Circuits</strong> - Simulador online gratuito de Arduino</li>
+                    <li><strong>Wokwi</strong> - Simulador ESP32 online</li>
+                </ul>
+            </section>
+
+            <section id="consejos">
+                <h2>💡 Consejos para el Éxito</h2>
+                <ul>
+                    <li>🎯 <strong>Participa activamente</strong> - IoT es un campo en constante evolución</li>
+                    <li>🤝 <strong>Trabaja en equipo</strong> - Los mejores proyectos IoT son colaborativos</li>
+                    <li>💻 <strong>Practica con simuladores</strong> - No necesitas hardware físico para empezar</li>
+                    <li>📖 <strong>Investiga casos reales</strong> - Smart cities, industria 4.0, domótica</li>
+                </ul>
+            </section>
+
+            <section id="metas">
+                <h2>🎯 Metas del Curso</h2>
+                <ol>
+                    <li>Comprender los conceptos fundamentales de IoT</li>
+                    <li>Identificar oportunidades de aplicación de IoT en diferentes contextos</li>
+                    <li>Conocer la arquitectura y componentes de una solución IoT</li>
+                    <li>Analizar casos de estudio reales de implementaciones IoT</li>
+                    <li>Entender el marco legal y normativo aplicable</li>
+                </ol>
+            </section>
+
+            <section id="inicio">
+                <h2>🚀 ¡Comencemos este Viaje!</h2>
+                <p>El Internet de las Cosas está transformando nuestro mundo. Desde hogares inteligentes hasta ciudades completas conectadas, IoT es una de las tecnologías más relevantes del siglo XXI.</p>
+                <p>No necesitas ser experto en electrónica o programación para este curso. Solo necesitas: <strong>Curiosidad</strong>, <strong>Interés</strong>, <strong>Pensamiento analítico</strong> y <strong>Disposición para trabajar en equipo</strong>.</p>
+                <p><strong>¡Nos vemos en la Clase 1!</strong> 🔌✨</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 0: Bienvenida | Última actualización: Febrero 2026</p>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — Eldigardo Camacho — eldigardo.camacho3380@unaula.edu.com</p>
+        </footer>
+    </div>
+
+    <script>
+        // Back to top control and simple progress indicator (reused pattern)
+        (function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html></body>    </script>        })();            backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));            });                progressFill.style.width = pct + '%';                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;                const docHeight = document.documentElement.scrollHeight - window.innerHeight;                if (scrolled > 300) backToTop.classList.add('visible'); else backToTop.classList.remove('visible');                const scrolled = window.scrollY;            window.addEventListener('scroll', () => {            const progressFill = document.getElementById('progressFill');n            const backToTop = document.getElementById('backToTop');

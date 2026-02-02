@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Sensor Ultrasónico - Sistema de Alertas</title>
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Spacing Scale (8px base)
+           ============================================ */
+        :root {
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --color-primary: #1e40af;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--text-inverse);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        header .meta {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        header .meta span {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--color-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 var(--space-4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-inverse);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-8);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: var(--space-12);
+            scroll-margin-top: 80px;
+        }
+
+        /* Typography */
+        section h2 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary-light);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--color-primary);
+            margin: var(--space-6) 0 var(--space-4);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+        }
+
+        section h4 {
+            color: var(--text-secondary);
+            margin: var(--space-4) 0 var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--space-4);
+            line-height: 1.625;
+            max-width: 75ch;
+        }
+
+        /* Callout Boxes */
+        .info-box {
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.success { background: #f0fdf4; border-color: #10b981; }
+        .info-box.warning { background: #fef3c7; border-color: #f59e0b; }
+        .info-box.info { background: #dbeafe; border-color: #3b82f6; }
+        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
+
+        .alert-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: var(--space-5);
+            margin: var(--space-5) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-6) 0;
+            font-size: var(--text-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            font-size: var(--text-xs);
+        }
+
+        td {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover {
+            background: #e0e7ff;
+            transition: background 0.15s ease;
+        }
+
+        /* Code */
+        pre {
+            background: var(--color-secondary);
+            color: #e2e8f0;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            font-size: var(--text-sm);
+            line-height: 1.625;
+            box-shadow: var(--shadow-md);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            color: var(--color-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+            line-height: 1.625;
+        }
+
+        /* Lab specific */
+        .lab-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+            border: 2px solid #0ea5e9;
+        }
+
+        .lab-header h2 {
+            border: none;
+            margin-bottom: var(--space-2);
+        }
+
+        .objectives {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .materials {
+            background: #fef3c7;
+            border-left: 4px solid var(--color-accent);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: var(--space-3);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            margin: var(--space-5) 0;
+            border: 2px solid #60a5fa;
+        }
+
+        .rubric {
+            background: #f8fafc;
+            border: 2px solid var(--border-medium);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-secondary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        footer p {
+            margin: var(--space-2) 0;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--color-primary);
+            color: var(--text-inverse);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            font-size: var(--text-xl);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+            nav a {
+                padding: var(--space-3) var(--space-4);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            main {
+                padding: var(--space-4);
+            }
+            header h1 {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laboratorio: Sensor Ultrasónico - Sistema de Alertas</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT)</p>
+            <p class="meta">
+                <span>⏱️ Duración: 2 horas</span>
+                <span>📅 Semana: 7</span>
+                <span>🎓 IF0112 - Complementaria II (IoT)</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="##-laboratorio-5-sensor-ultrasónico---sistema-de-alertas"># Laboratorio 5: Sensor Ultrasónico - Sistema de Alertas</a></li>
+<li><a href="#if0112---complementaria-ii-(iot)">IF0112 - Complementaria II (IoT)</a></li>
+<li><a href="#🎯-objetivos-de-aprendizaje">🎯 Objetivos de Aprendizaje</a></li>
+<li><a href="#📋-material-necesario">📋 Material Necesario</a></li>
+<li><a href="#🔧-parte-1-funcionamiento-del-hc-sr04">🔧 Parte 1: Funcionamiento del HC-SR04</a></li>
+<li><a href="#🔧-parte-2-código-básico-de-distancia">🔧 Parte 2: Código Básico de Distancia</a></li>
+<li><a href="#🔧-parte-3-sistema-de-alertas-graduales">🔧 Parte 3: Sistema de Alertas Graduales</a></li>
+<li><a href="#🔧-parte-4-sistema-de-estacionamiento-mejorado">🔧 Parte 4: Sistema de Estacionamiento Mejorado</a></li>
+<li><a href="#🔧-parte-5-filtrado-de-lecturas">🔧 Parte 5: Filtrado de Lecturas</a></li>
+<li><a href="#📝-ejercicios-de-entrega">📝 Ejercicios de Entrega</a></li>
+<li><a href="#✅-rúbrica-de-evaluación">✅ Rúbrica de Evaluación</a></li>
+<li><a href="#🔍-troubleshooting-hc-sr04">🔍 Troubleshooting HC-SR04</a></li>
+<li><a href="#🎯-relación-con-evaluación-e2">🎯 Relación con Evaluación E2</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="#-laboratorio-5-sensor-ultrasónico---sistema-de-alertas">
+<h2># Laboratorio 5: Sensor Ultrasónico - Sistema de Alertas</h2>
+</section>
+<section id="if0112---complementaria-ii-(iot)">
+<h2>IF0112 - Complementaria II (IoT)</h2>
+
+<p><strong>Duración:</strong> 2 horas</p>
+<p><strong>Semana:</strong> 7</p>
+<p><strong>Pre-requisitos:</strong> Labs 0-4 completados</p>
+<p><strong>Componentes:</strong> ESP32 + HC-SR04 + LEDs + Buzzer</p>
+
+<p>---</p>
+
+</section>
+<section id="🎯-objetivos-de-aprendizaje">
+<h2>🎯 Objetivos de Aprendizaje</h2>
+
+<p>Al finalizar este laboratorio, el estudiante será capaz de:</p>
+<ul>
+<li> Entender el funcionamiento del sensor ultrasónico HC-SR04</li>
+<li> Medir distancia usando pulsos de ultrasonido</li>
+<li> Implementar un sistema de alertas graduales</li>
+<li> Usar el buzzer con diferentes tonos</li>
+<li> Crear un sistema de estacionamiento/parking</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="📋-material-necesario">
+<h2>📋 Material Necesario</h2>
+
+<h3>Por estudiante:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Componente</th></p>
+<p><th>Cantidad</th></p>
+<p><th>Notas</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>ESP32 DevKit</td></p>
+<p><td>1</td></p>
+<p><td></td></p>
+</tr>
+<p><tr></p>
+<p><td>Sensor HC-SR04</td></p>
+<p><td>1</td></p>
+<p><td>Sensor ultrasónico</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED verde</td></p>
+<p><td>1</td></p>
+<p><td>Distancia segura</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED amarillo</td></p>
+<p><td>1</td></p>
+<p><td>Precaución</td></p>
+</tr>
+<p><tr></p>
+<p><td>LED rojo</td></p>
+<p><td>1</td></p>
+<p><td>Peligro</td></p>
+</tr>
+<p><tr></p>
+<p><td>Resistencias 220Ω</td></p>
+<p><td>3</td></p>
+<p><td>Para LEDs</td></p>
+</tr>
+<p><tr></p>
+<p><td>Buzzer activo</td></p>
+<p><td>1</td></p>
+<p><td>Alerta sonora</td></p>
+</tr>
+<p><tr></p>
+<p><td>Protoboard</td></p>
+<p><td>1</td></p>
+<p><td></td></p>
+</tr>
+<p><tr></p>
+<p><td>Cables jumper</td></p>
+<p><td>10+</td></p>
+<p><td></td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-1-funcionamiento-del-hc-sr04">
+<h2>🔧 Parte 1: Funcionamiento del HC-SR04</h2>
+
+<h3>Principio de funcionamiento:</h3>
+<ul>
+<li> Envía un pulso de ultrasonido (Trigger)</li>
+<li> Espera el rebote (Echo)</li>
+<li> Mide el tiempo del viaje</li>
+<li> Calcula distancia: <strong>Distancia = (Tiempo × VelocidadSonido) / 2</strong></li>
+</ul>
+
+<h3>Pines del HC-SR04:</h3>
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Pin</th></p>
+<p><th>Función</th></p>
+<p><th>Conexión ESP32</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>VCC</td></p>
+<p><td>Alimentación</td></p>
+<p><td>5V o 3.3V</td></p>
+</tr>
+<p><tr></p>
+<p><td>Trig</td></p>
+<p><td>Disparo</td></p>
+<p><td>GPIO (cualquier pin)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Echo</td></p>
+<p><td>Respuesta</td></p>
+<p><td>GPIO (cualquier pin)</td></p>
+</tr>
+<p><tr></p>
+<p><td>GND</td></p>
+<p><td>Tierra</td></p>
+<p><td>GND</td></p>
+</tr>
+</tbody></table>
+
+<h3>Conexión:</h3>
+<pre><code>ESP32 5V    ─── VCC  (HC-SR04)
+<p>ESP32 GND   ─── GND  (HC-SR04)</p>
+<p>ESP32 GPIO5 ─── Trig (HC-SR04)</p>
+<p>ESP32 GPIO18─── Echo (HC-SR04)  ← Nota: usar divisor si el HC-SR04 envía 5V</p>
+</code></pre>
+
+<p><strong>⚠️ Nota importante:</strong> Algunos HC-SR04 envían 5V por el pin Echo. El ESP32 usa 3.3V lógica.</p>
+<p>Opciones:</p>
+<ul>
+<li> Usar un divisor de voltaje (resistencias) entre Echo y GPIO</li>
+<li> Comprar HC-SR04 compatible con 3.3V</li>
+<li> Verificar que el modelo funcione con 3.3V (probar primero)</li>
+</ul>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-2-código-básico-de-distancia">
+<h2>🔧 Parte 2: Código Básico de Distancia</h2>
+
+<pre><code>/<em>
+ </em> Lab 5 - Sensor Ultrasónico HC-SR04
+<p><em> Mide distancia y la muestra en cm</p>
+ </em>/
+
+<p>// Pines del sensor</p>
+<p>const int TRIG_PIN = 5;</p>
+<p>const int ECHO_PIN = 18;</p>
+
+<p>// Velocidad del sonido en cm/us</p>
+<p>const float VELOCIDAD_SONIDO = 0.034;</p>
+
+<p>void setup() {</p>
+<p>// Configurar pines</p>
+<p>pinMode(TRIG_PIN, OUTPUT);</p>
+<p>pinMode(ECHO_PIN, INPUT);</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Sensor ultrasónico iniciado");</p>
+<p>Serial.println("Acerque un objeto para medir distancia...");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// 1. Enviar pulso de TRIGGER</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+<p>delayMicroseconds(2);</p>
+<p>digitalWrite(TRIG_PIN, HIGH);</p>
+<p>delayMicroseconds(10);</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+
+<p>// 2. Leer duración del pulso ECHO (en microsegundos)</p>
+<p>long duracion = pulseIn(ECHO_PIN, HIGH);</p>
+
+<p>// 3. Calcular distancia en cm</p>
+<p>// Distancia = (tiempo <em> velocidad) / 2 (ida y vuelta)</p>
+<p>float distancia = (duracion </em> VELOCIDAD_SONIDO) / 2;</p>
+
+<p>// 4. Mostrar resultado</p>
+<p>if (duracion == 0) {</p>
+<p>Serial.println("Fuera de rango (muy lejos o muy cerca)");</p>
+<p>} else {</p>
+<p>Serial.print("Distancia: ");</p>
+<p>Serial.print(distancia);</p>
+<p>Serial.println(" cm");</p>
+<p>}</p>
+
+<p>// Esperar antes de la siguiente lectura</p>
+<p>delay(500);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-3-sistema-de-alertas-graduales">
+<h2>🔧 Parte 3: Sistema de Alertas Graduales</h2>
+
+<pre><code>/<em>
+ </em> Lab 5 - Sistema de Alertas de Proximidad
+<p><em> Similar a sensores de reversa de carro</p>
+ </em>/
+
+<p>// Pines del sensor</p>
+<p>const int TRIG_PIN = 5;</p>
+<p>const int ECHO_PIN = 18;</p>
+
+<p>// Pines de LEDs</p>
+<p>const int LED_VERDE = 2;</p>
+<p>const int LED_AMARILLO = 4;</p>
+<p>const int LED_ROJO = 19;</p>
+
+<p>// Pin del buzzer</p>
+<p>const int BUZZER = 21;</p>
+
+<p>// Umbrales de distancia (en cm)</p>
+<p>const float DIST_SEGURA = 50.0;    // > 50cm: verde</p>
+<p>const float DIST_PRECAUCION = 20.0; // 20-50cm: amarillo</p>
+<p>// < 20cm: rojo</p>
+
+<p>// Constantes</p>
+<p>const float VELOCIDAD_SONIDO = 0.034;</p>
+
+<p>void setup() {</p>
+<p>// Configurar pines</p>
+<p>pinMode(TRIG_PIN, OUTPUT);</p>
+<p>pinMode(ECHO_PIN, INPUT);</p>
+<p>pinMode(LED_VERDE, OUTPUT);</p>
+<p>pinMode(LED_AMARILLO, OUTPUT);</p>
+<p>pinMode(LED_ROJO, OUTPUT);</p>
+<p>pinMode(BUZZER, OUTPUT);</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Sistema de alertas iniciado");</p>
+<p>Serial.println("Zonas: >50cm verde | 20-50cm amarillo | <20cm rojo");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>float distancia = medirDistancia();</p>
+
+<p>Serial.print("Distancia: ");</p>
+<p>Serial.print(distancia);</p>
+<p>Serial.println(" cm");</p>
+
+<p>// Apagar todos los LEDs</p>
+<p>apagarLEDs();</p>
+<p>noTone(BUZZER);</p>
+
+<p>// Determinar estado según distancia</p>
+<p>if (distancia > DIST_SEGURA || distancia == 0) {</p>
+<p>// Zona segura</p>
+<p>digitalWrite(LED_VERDE, HIGH);</p>
+<p>Serial.println("Estado: SEGURO ✅");</p>
+<p>}</p>
+<p>else if (distancia > DIST_PRECAUCION) {</p>
+<p>// Zona de precaución</p>
+<p>digitalWrite(LED_AMARILLO, HIGH);</p>
+<p>Serial.println("Estado: PRECAUCIÓN ⚠️");</p>
+
+<p>// Buzzer lento</p>
+<p>tone(BUZZER, 1000, 200);  // 1000Hz por 200ms</p>
+<p>}</p>
+<p>else {</p>
+<p>// Zona de peligro</p>
+<p>digitalWrite(LED_ROJO, HIGH);</p>
+<p>Serial.println("Estado: PELIGRO 🚨");</p>
+
+<p>// Buzzer rápido y agudo</p>
+<p>tone(BUZZER, 2000, 100);</p>
+<p>delay(100);</p>
+<p>tone(BUZZER, 2000, 100);</p>
+<p>}</p>
+
+<p>Serial.println();</p>
+<p>delay(300);</p>
+<p>}</p>
+
+<p>// Función para medir distancia</p>
+<p>float medirDistancia() {</p>
+<p>// Enviar pulso</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+<p>delayMicroseconds(2);</p>
+<p>digitalWrite(TRIG_PIN, HIGH);</p>
+<p>delayMicroseconds(10);</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+
+<p>// Leer duración</p>
+<p>long duracion = pulseIn(ECHO_PIN, HIGH);</p>
+
+<p>// Calcular distancia</p>
+<p>float distancia = (duracion * VELOCIDAD_SONIDO) / 2;</p>
+
+<p>return distancia;</p>
+<p>}</p>
+
+<p>void apagarLEDs() {</p>
+<p>digitalWrite(LED_VERDE, LOW);</p>
+<p>digitalWrite(LED_AMARILLO, LOW);</p>
+<p>digitalWrite(LED_ROJO, LOW);</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-4-sistema-de-estacionamiento-mejorado">
+<h2>🔧 Parte 4: Sistema de Estacionamiento Mejorado</h2>
+
+<pre><code>/<em>
+ </em> Sistema de estacionamiento con intensidad de alerta
+<p><em> El buzzer suena más rápido cuando está más cerca</p>
+ </em>/
+
+<p>const int TRIG_PIN = 5;</p>
+<p>const int ECHO_PIN = 18;</p>
+<p>const int LED_ROJO = 19;</p>
+<p>const int BUZZER = 21;</p>
+
+<p>const float VELOCIDAD_SONIDO = 0.034;</p>
+
+<p>void setup() {</p>
+<p>pinMode(TRIG_PIN, OUTPUT);</p>
+<p>pinMode(ECHO_PIN, INPUT);</p>
+<p>pinMode(LED_ROJO, OUTPUT);</p>
+<p>pinMode(BUZZER, OUTPUT);</p>
+
+<p>Serial.begin(115200);</p>
+<p>Serial.println("Sistema de estacionamiento");</p>
+<p>Serial.println("Acérquese al sensor...");</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>float distancia = medirDistancia();</p>
+
+<p>Serial.print(distancia);</p>
+<p>Serial.println(" cm");</p>
+
+<p>if (distancia < 10 || distancia > 400) {</p>
+<p>// Fuera de rango</p>
+<p>digitalWrite(LED_ROJO, LOW);</p>
+<p>noTone(BUZZER);</p>
+<p>}</p>
+<p>else if (distancia < 10) {</p>
+<p>// Muy cerca - sonido continuo</p>
+<p>digitalWrite(LED_ROJO, HIGH);</p>
+<p>tone(BUZZER, 2500);</p>
+<p>}</p>
+<p>else {</p>
+<p>// Entre 10 y 100 cm - intermitente según distancia</p>
+<p>digitalWrite(LED_ROJO, HIGH);</p>
+
+<p>// Calcular intervalo: más cerca = más rápido</p>
+<p>// Distancia 100cm = 1000ms entre pitidos</p>
+<p>// Distancia 10cm = 100ms entre pitidos</p>
+<p>int intervalo = map(distancia, 10, 100, 100, 1000);</p>
+
+<p>tone(BUZZER, 2000, 100);</p>
+<p>delay(intervalo);</p>
+<p>digitalWrite(LED_ROJO, LOW);</p>
+<p>}</p>
+
+<p>delay(100);</p>
+<p>}</p>
+
+<p>float medirDistancia() {</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+<p>delayMicroseconds(2);</p>
+<p>digitalWrite(TRIG_PIN, HIGH);</p>
+<p>delayMicroseconds(10);</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+
+<p>long duracion = pulseIn(ECHO_PIN, HIGH);</p>
+<p>return (duracion * VELOCIDAD_SONIDO) / 2;</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="🔧-parte-5-filtrado-de-lecturas">
+<h2>🔧 Parte 5: Filtrado de Lecturas</h2>
+
+<p>Los sensores ultrasónicos pueden dar lecturas erráticas. Usar promedio:</p>
+
+<pre><code>/<em>
+ </em> Lectura con promedio móvil para suavizar datos
+<p><em>/</p>
+
+<p>const int TRIG_PIN = 5;</p>
+<p>const int ECHO_PIN = 18;</p>
+<p>const float VELOCIDAD_SONIDO = 0.034;</p>
+
+<p>// Para promedio móvil</p>
+<p>const int NUM_MUESTRAS = 5;</p>
+<p>float muestras[NUM_MUESTRAS];</p>
+<p>int indice = 0;</p>
+
+<p>void setup() {</p>
+<p>pinMode(TRIG_PIN, OUTPUT);</p>
+<p>pinMode(ECHO_PIN, INPUT);</p>
+<p>Serial.begin(115200);</p>
+<p>}</p>
+
+<p>void loop() {</p>
+<p>// Tomar nueva muestra</p>
+<p>float distancia = medirDistancia();</p>
+
+<p>// Ignorar lecturas inválidas (0 o >400)</p>
+<p>if (distancia > 0 && distancia < 400) {</p>
+<p>muestras[indice] = distancia;</p>
+<p>indice = (indice + 1) % NUM_MUESTRAS;</p>
+<p>}</p>
+
+<p>// Calcular promedio</p>
+<p>float suma = 0;</p>
+<p>for (int i = 0; i < NUM_MUESTRAS; i++) {</p>
+<p>suma += muestras[i];</p>
+<p>}</p>
+<p>float promedio = suma / NUM_MUESTRAS;</p>
+
+<p>Serial.print("Actual: ");</p>
+<p>Serial.print(distancia);</p>
+<p>Serial.print(" cm | Promedio: ");</p>
+<p>Serial.print(promedio);</p>
+<p>Serial.println(" cm");</p>
+
+<p>delay(200);</p>
+<p>}</p>
+
+<p>float medirDistancia() {</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+<p>delayMicroseconds(2);</p>
+<p>digitalWrite(TRIG_PIN, HIGH);</p>
+<p>delayMicroseconds(10);</p>
+<p>digitalWrite(TRIG_PIN, LOW);</p>
+
+<p>long duracion = pulseIn(ECHO_PIN, HIGH, 30000);  // Timeout 30ms</p>
+<p>return (duracion </em> VELOCIDAD_SONIDO) / 2;</p>
+<p>}</p>
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="📝-ejercicios-de-entrega">
+<h2>📝 Ejercicios de Entrega</h2>
+
+<h3>Ejercicio 1: Sistema de Estacionamiento Completo (60%)</h3>
+
+<p>Crear un sistema que simule el sensor de reversa de un carro:</p>
+
+<p><strong>Requisitos:</strong></p>
+<ul>
+<li><strong>Zona segura</strong> (> 100 cm): LED verde fijo, sin sonido</li>
+<li><strong>Zona atención</strong> (50-100 cm): LED verde parpadeando, sonido lento</li>
+<li><strong>Zona precaución</strong> (20-50 cm): LED amarillo, sonido medio</li>
+<li><strong>Zona peligro</strong> (< 20 cm): LED rojo, sonido rápido</li>
+<li><strong>Zona crítica</strong> (< 10 cm): LED rojo + buzzer continuo</li>
+</ul>
+
+<p><strong>Mostrar en Serial:</strong></p>
+<pre><code>[####------] 45 cm | PRECAUCION
+</code></pre>
+<p>(Barra de progreso visual)</p>
+
+<h3>Ejercicio 2: Contador de Objetos (40%)</h3>
+
+<p>Crear un sistema que cuente cuántos objetos pasan frente al sensor:</p>
+
+<p><strong>Funcionamiento:</strong></p>
+<ul>
+<li>Detecta cuando un objeto se acerca (< 30 cm)</li>
+<li>Espera a que el objeto se aleje</li>
+<li>Incrementa contador</li>
+<li>Muestra conteo en Serial y en LEDs (binario)</li>
+</ul>
+
+<p><strong>Ejemplo:</strong></p>
+<pre><code>Objetos detectados: 5
+</code></pre>
+
+<p>---</p>
+
+</section>
+<section id="✅-rúbrica-de-evaluación">
+<h2>✅ Rúbrica de Evaluación</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Criterio</th></p>
+<p><th>Puntos</th></p>
+<p><th>Descripción</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td><strong>Conexión HC-SR04</strong></td></p>
+<p><td>15</td></p>
+<p><td>Pines correctamente conectados</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Medición básica</strong></td></p>
+<p><td>20</td></p>
+<p><td>Lee distancia correctamente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Sistema de alertas</strong></td></p>
+<p><td>25</td></p>
+<p><td>Zonas funcionan correctamente</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Buzzer dinámico</strong></td></p>
+<p><td>20</td></p>
+<p><td>Velocidad según distancia</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Visualización Serial</strong></td></p>
+<p><td>10</td></p>
+<p><td>Datos claros y formateados</td></p>
+</tr>
+<p><tr></p>
+<p><td><strong>Contador (Ej2)</strong></td></p>
+<p><td>10</td></p>
+<p><td>Cuenta objetos correctamente</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🔍-troubleshooting-hc-sr04">
+<h2>🔍 Troubleshooting HC-SR04</h2>
+
+<p><table></p>
+<p><thead><tr></p>
+<p><th>Problema</th></p>
+<p><th>Causa</th></p>
+<p><th>Solución</th></p>
+</tr></thead><tbody>
+<p><tr></p>
+<p><td>Siempre 0 cm</td></p>
+<p><td>Echo no conectado</td></p>
+<p><td>Verificar cable Echo</td></p>
+</tr>
+<p><tr></p>
+<p><td>Lecturas erráticas</td></p>
+<p><td>Obstáculos cerca</td></p>
+<p><td>Limpiar área, usar promedio</td></p>
+</tr>
+<p><tr></p>
+<p><td>No detecta lejos</td></p>
+<p><td>Superficie no reflectiva</td></p>
+<p><td>Usar objeto plano (pared, libro)</td></p>
+</tr>
+<p><tr></p>
+<p><td>Valores negativos</td></p>
+<p><td>Conexión incorrecta</td></p>
+<p><td>Verificar Trig y Echo</td></p>
+</tr>
+<p><tr></p>
+<p><td>Echo no responde</td></p>
+<p><td>Necesita 5V</td></p>
+<p><td>Alimentar con 5V en lugar de 3.3V</td></p>
+</tr>
+</tbody></table>
+
+<p>---</p>
+
+</section>
+<section id="🎯-relación-con-evaluación-e2">
+<h2>🎯 Relación con Evaluación E2</h2>
+
+<p>Este laboratorio prepara directamente para la <strong>Opción C</strong> de E2:</p>
+
+<p><strong>E2 - Opción C: Sistema de Alerta de Proximidad</strong></p>
+<ul>
+<li>Sensor ultrasónico HC-SR04</li>
+<li>LEDs indicadores</li>
+<li>Display LCD opcional</li>
+<li>Diferentes alertas según distancia</li>
+</ul>
+
+<p><strong>Lo que ya saben hacer:</strong></p>
+<ul>
+<li>✅ Conectar HC-SR04</li>
+<li>✅ Medir distancia</li>
+<li>✅ Sistema de alertas visual</li>
+<li>✅ Buzzer con patrones</li>
+</ul>
+
+<p><strong>Preparación completa para E2</strong></p>
+
+<p>---</p>
+
+<p><strong>UNAULA - Ingeniería Informática - Complementaria II (IoT)</strong></p>
+</section>
+
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Laboratorio HTML | Última actualización: 2026-02-02</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+            updateProgress();
+        })();
+    </script>
+</body>
+</html>
