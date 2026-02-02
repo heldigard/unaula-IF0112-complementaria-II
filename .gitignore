@@ -47,9 +47,25 @@ clases-html/add_schedule_info.py
 clases-html/REORGANIZACION_CLASES.md
 clases-html/RESUMEN_AJUSTES_CLASES.md
 
+# ============================================
+# CLASES: Solo HTML visible
+# ============================================
+
+# Scripts de procesamiento de clases
+clases-html/*.py
+clases-html/add_schedule_info.py
+
+# Archivos de documentación interna
+clases-html/REORGANIZACION_CLASES.md
+clases-html/RESUMEN_AJUSTES_CLASES.md
+
 # Clases HTML no usadas en el cronograma (opcionales para futuro)
 clases-html/clase-00.html
 clases-html/clase-10.html
+
+# Archivos internos (glosario, herramientas)
+clases-html/_glossary.html
+clases-html/_terms_audit.md
 
 # ============================================
 # CONFIGURACIÓN Y DESARROLLO

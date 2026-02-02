@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentación del Docente | IF0112 - Complementaria II (IoT)</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #1f2933;
+      --muted: #52606d;
+      --brand: #1e3a8a;
+      --accent: #3b82f6;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --iot-green: #10b981;
+      --iot-orange: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    header {
+      background: linear-gradient(135deg, #0b2d6b, #1e40af);
+      color: #fff;
+      padding: 36px 20px 28px;
+    }
+    header .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header h1 {
+      font-family: "Merriweather", Georgia, serif;
+      margin: 8px 0 10px;
+      font-size: 2.2rem;
+    }
+    header .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 16px;
+      border-radius: 12px;
+    }
+    header ul {
+      margin: 8px 0 0 18px;
+    }
+    nav {
+      max-width: 1100px;
+      margin: 18px auto 0;
+      padding: 14px 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px 14px;
+    }
+    nav a {
+      color: var(--brand);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #eef2ff;
+      display: block;
+    }
+    nav a:hover { background: #dbeafe; }
+    main {
+      max-width: 1100px;
+      margin: 18px auto 60px;
+      padding: 0 20px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px;
+      margin: 18px 0;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--brand);
+      font-size: 1.6rem;
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 6px;
+    }
+    h3 { color: #0b2d6b; margin-top: 20px; }
+    h4 { color: #2f4b7c; margin-top: 16px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid var(--accent);
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+    }
+    .warning-box {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #991b1b;
+    }
+    .success-box {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #166534;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+    th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    th { background: #f1f5f9; }
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.6rem; }
+      header .meta { grid-template-columns: 1fr; }
+      nav ul { grid-template-columns: 1fr; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      section { padding: 16px; }
+    }
+    /* Print styles */
+    @media print {
+      header, nav, footer { background: white !important; color: black !important; }
+      a[href]:after { content: " (" attr(href) ")"; font-size: 0.8em; }
+    }
+
+    /* Tech badges */
+    .tech-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin: 4px 4px 4px 0;
+      font-weight: 600;
+    }
+
+    .iot-green-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .iot-orange-badge {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #3b82f6, #1e3a8a);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px #3b82f6;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .highlight-box h3 {
+      margin-top: 0;
+      color: var(--brand);
+    }
+
+    /* Profile section */
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .profile-info {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    /* IoT devices illustration */
+    .iot-devices {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .iot-device {
+      font-size: 2rem;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div>IF0112 - Complementaria II | Internet de las Cosas (IoT)</div>
+      <h1>Presentación del Docente</h1>
+      <div>Universidad Autónoma Latinoamericana - UNAULA | Semestre 2026-I</div>
+      <div class="meta">
+        <div>
+          <strong>Docente</strong>
+          <ul>
+            <li><strong>Nombre:</strong> Eldigardo Camacho</li>
+            <li><strong>Correo:</strong> eldigardo.camacho3380@unaula.edu.com</li>
+            <li><strong>Horario:</strong> Lunes 06:00 - 08:00</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Información del Curso</strong>
+          <ul>
+            <li><strong>Código:</strong> IF0112</li>
+            <li><strong>Créditos:</strong> 2</li>
+            <li><strong>Semestre:</strong> 6° (2026-I)</li>
+            <li><strong>Prerrequisito:</strong> Fundamentos de Programación</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#sobre-mi">Sobre el Docente</a></li>
+      <li><a href="#curso">Sobre el Curso</a></li>
+      <li><a href="#metodologia">Metodología</a></li>
+      <li><a href="#evaluacion">Evaluaciones</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#recursos">Recursos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="sobre-mi">
+      <h2>Sobre el Docente</h2>
+
+      <div class="profile-section">
+        <div class="profile-avatar">👨‍🏫</div>
+        <div class="profile-info">
+          <h3>Eldigardo Camacho</h3>
+          <p>Docente del área de Ingeniería Aplicada con experiencia en desarrollo de sistemas embebidos, programación de microcontroladores y prototipado de soluciones IoT.</p>
+          <p><strong>Horario de atención:</strong> Coordine con el docente por correo electrónico.</p>
+        </div>
+      </div>
+
+      <div class="iot-devices">
+        <div class="iot-device">🌡️</div>
+        <div class="iot-device">💡</div>
+        <div class="iot-device">📡</div>
+        <div class="iot-device">🔌</div>
+        <div class="iot-device">🏠</div>
+        <div class="iot-device">🚗</div>
+        <div class="iot-device">🏭</div>
+        <div class="iot-device">🌾</div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Mi Filosofía de Enseñanza</h3>
+        <div class="grid-2">
+          <div>
+            <h4>Aprender Haciendo</h4>
+            <p>IoT se aprende conectando cosas. <strong>Construiremos proyectos reales</strong> con Arduino y ESP32, desdeLEDs parpadeantes hasta sistemas completos de monitoreo ambiental.</p>
+          </div>
+          <div>
+            <h4>De la Idea al Prototipo</h4>
+            <p>No basta con teoría. <strong>Cada concepto se refuerza con práctica</strong>: escribes código, conectas sensores, visualizas datos en la nube.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Áreas de Especialización</h3>
+      <div class="grid-3">
+        <div>
+          <h4>🔌 Hardware IoT</h4>
+          <p>
+            <span class="tech-badge">Arduino</span>
+            <span class="tech-badge">ESP32</span>
+            <span class="tech-badge">Raspberry Pi</span>
+            <span class="tech-badge">Sensores</span>
+          </p>
+        </div>
+        <div>
+          <h4>💻 Programación</h4>
+          <p>
+            <span class="tech-badge">C/C++</span>
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Arduino IDE</span>
+            <span class="tech-badge">PlatformIO</span>
+          </p>
+        </div>
+        <div>
+          <h4>🌐 Conectividad</h4>
+          <p>
+            <span class="tech-badge">WiFi</span>
+            <span class="tech-badge">MQTT</span>
+            <span class="tech-badge">HTTP/REST</span>
+            <span class="tech-badge">ThingSpeak</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="curso">
+      <h2>Sobre el Curso</h2>
+
+      <h3>Descripción</h3>
+      <p><strong>IF0112 - Complementaria II</strong> es un curso de <strong>2 créditos</strong> del <strong>6° semestre</strong> que introduce los fundamentos del <strong>Internet de las Cosas (IoT)</strong>, desde la evolución de Internet hasta la implementación práctica de soluciones conectadas.</p>
+
+      <div class="note">
+        <strong>Objetivo principal:</strong> Comprender cómo funcionan las arquitecturas IoT, dominar la programación de microcontroladores (Arduino/ESP32), y desarrollar proyectos completos desde sensores hasta la nube.
+      </div>
+
+      <h3>¿Qué aprenderás?</h3>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>Fase 1: Fundamentos IoT</h4>
+          <p>Evolución de Internet hacia IoT, los 4 pilares (Personas, Procesos, Datos, Cosas), transformación del entorno, redes para IoT.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Fase 2: Hardware y Microcontroladores</h4>
+          <p>Arduino, ESP32, sensores (temperatura, humedad, luz), actuadores (LEDs, relés), programación en C++.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Fase 3: Conectividad y Protocolos</h4>
+          <p>WiFi, HTTP vs MQTT, ThingSpeak, envío de datos a la nube, visualización en tiempo real.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Fase 4: Proyecto Integrador</h4>
+          <p>Monitor Ambiental IoT completo: sensores, microcontrolador, conectividad WiFi, nube, interfaz web.</p>
+        </div>
+      </div>
+
+      <h3>Tecnologías que Usaremos</h3>
+      <div class="grid-2">
+        <div>
+          <h4>🔧 Hardware</h4>
+          <table>
+            <tr><td><strong>Microcontroladores</strong></td><td>Arduino Uno, ESP32 DevKit</td></tr>
+            <tr><td><strong>Sensores</strong></td><td>DHT11/22, LDR, movimiento, distancia</td></tr>
+            <tr><td><strong>Actuadores</strong></td><td>LEDs, relés, motores, servos</td></tr>
+            <tr><td><strong>Comunicación</strong></td><td>Módulos WiFi, Bluetooth, LoRa</td></tr>
+          </table>
+        </div>
+        <div>
+          <h4>💻 Software y Plataformas</h4>
+          <table>
+            <tr><td><strong>IDE</strong></td><td>Arduino IDE, PlatformIO (VS Code)</td></tr>
+            <tr><td><strong>Lenguajes</strong></td><td>C/C++ (Arduino), Python</td></tr>
+            <tr><td><strong>Cloud IoT</strong></td><td>ThingSpeak, Node-RED, Blynk</td></tr>
+            <tr><td><strong>Simulación</strong></td><td>Tinkercad Circuits</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodologia">
+      <h2>Metodología de Enseñanza</h2>
+
+      <div class="grid-2">
+        <div>
+          <h3>Estrategias Pedagógicas</h3>
+          <table>
+            <thead>
+              <tr><th>Componente</th><th>Descripción</th><th>% Tiempo</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Clases teóricas</td><td>Exposición de conceptos IoT</td><td>30%</td></tr>
+              <tr><td>Laboratorios</td><td>Práctica con hardware real</td><td>50%</td></tr>
+              <tr><td>Proyectos</td><td>Prototipos IoT completos</td><td>20%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Proyecto Progresivo</h3>
+          <div class="note">
+            <strong>🎯 Enfoque único:</strong>
+            Construiremos gradualmente un <strong>Monitor Ambiental IoT completo</strong>. Cada laboratorio desarrolla habilidades específicas que se integran en el proyecto final.
+          </div>
+          <ul>
+            <li><strong>Fase 1:</strong> Hardware básico, LEDs, botones</li>
+            <li><strong>Fase 2:</strong> Sensores analógicos y digitales</li>
+            <li><strong>Fase 3:</strong> Conectividad WiFi y nube</li>
+            <li><strong>Fase 4:</strong> Integración y proyecto final</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Expectativas y Normas</h3>
+      <div class="grid-2">
+        <div>
+          <h4>✅ Lo que espero de ti</h4>
+          <ul>
+            <li><strong>Asistencia mínima:</strong> 80% de las clases</li>
+            <li><strong>Participación activa:</strong> Preguntas, experimentos</li>
+            <li><strong>Cuidado del equipo:</strong> Responsabilidad sobre hardware</li>
+            <li><strong>Entregas puntuales:</strong> Respetar cronograma</li>
+            <li><strong>Curiosidad:</strong> No tengas miedo de "romper" cosas</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🤝 Lo que puedes esperar de mí</h4>
+          <ul>
+            <li><strong>Clases preparadas:</strong> Teoría + demos en vivo</li>
+            <li><strong>Kits disponibles:</strong> Hardware para laboratorios</li>
+            <li><strong>Feedback código:</strong> Code reviews constructivos</li>
+            <li><strong>Apoyo proyectos:</strong> Guía técnica</li>
+            <li><strong>Compromiso:</strong> Con tu aprendizaje</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="evaluacion">
+      <h2>Sistema de Evaluación</h2>
+
+      <div class="warning-box">
+        <strong>Nota importante:</strong> Este curso tiene un fuerte componente práctico. Las evaluaciones incluyen quizzes teóricos, laboratorios con hardware real, y proyectos integradores que se acumulan en un prototipo final.
+      </div>
+
+      <h3>Cronograma de Evaluaciones</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Evaluación</th>
+            <th>Peso</th>
+            <th>Semana</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>E1</strong></td>
+            <td>15%</td>
+            <td>4</td>
+            <td>Quiz + Taller</td>
+            <td>Fundamentos IoT: Evolución, 4 pilares, redes</td>
+          </tr>
+          <tr>
+            <td><strong>E2</strong></td>
+            <td>15%</td>
+            <td>7</td>
+            <td>Lab + Sustentación</td>
+            <td>Programación Arduino: LEDs, botones, sensores</td>
+          </tr>
+          <tr>
+            <td><strong>E3</strong></td>
+            <td>20%</td>
+            <td>10</td>
+            <td>Parcial</td>
+            <td>Conectividad WiFi + Protocolos IoT (HTTP/MQTT)</td>
+          </tr>
+          <tr>
+            <td><strong>E4</strong></td>
+            <td>15%</td>
+            <td>14</td>
+            <td>Lab + Sustentación</td>
+            <td>ThingSpeak + Visualización de datos</td>
+          </tr>
+          <tr>
+            <td><strong>E5</strong></td>
+            <td>15%</td>
+            <td>16</td>
+            <td>Proyecto</td>
+            <td>Integración: Almacenamiento local + Nube</td>
+          </tr>
+          <tr>
+            <td><strong>E6 (Final)</strong></td>
+            <td>20%</td>
+            <td>19</td>
+            <td>Examen Final</td>
+            <td>Proyecto integrador + sustentación oral</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Seguimientos Universitarios</h3>
+      <div class="grid-3">
+        <div class="success-box">
+          <h4>Primer Seguimiento</h4>
+          <p><strong>50% del curso</strong></p>
+          <p>E1 (15%) + E2 (15%) + E3 (20%)</p>
+          <p><strong>Fecha límite:</strong> 27 de marzo, 2026</p>
+        </div>
+        <div class="success-box">
+          <h4>Segundo Seguimiento</h4>
+          <p><strong>80% del curso</strong></p>
+          <p>E4 (15%) + E5 (15%)</p>
+          <p><strong>Fecha límite:</strong> 15 de mayo, 2026</p>
+        </div>
+        <div class="success-box">
+          <h4>Tercer Seguimiento</h4>
+          <p><strong>100% del curso</strong></p>
+          <p>Proyecto Final (20%)</p>
+          <p><strong>Fecha límite:</strong> 28 de mayo, 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <h2>Proyectos del Curso</h2>
+
+      <div class="highlight-box">
+        <h3>🎯 Proyecto Progresivo: Monitor Ambiental IoT</h3>
+        <p>A lo largo del semestre construirás gradualmente un <strong>sistema de monitoreo ambiental completo</strong>. Cada laboratorio desarrolla habilidades específicas que se integran en el proyecto final.</p>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3>💡 Fase 1: Fundamentos (Semanas 1-6)</h3>
+          <p><strong>Labs 0-4: Bases del Hardware</strong></p>
+          <ul>
+            <li>Lab 0: Arduino IDE y estructura básica</li>
+            <li>Lab 1: LEDs y estructura de código</li>
+            <li>Lab 2: Botones y entradas digitales</li>
+            <li>Lab 3: Sensores analógicos (LDR)</li>
+            <li>Lab 4: Sensor DHT temperatura</li>
+          </ul>
+          <p><strong>Resultado:</strong> Lectura de sensores básica</p>
+        </div>
+
+        <div>
+          <h3>🌐 Fase 2: Conectividad (Semanas 7-9)</h3>
+          <p><strong>Labs 5-6: WiFi y Nube</strong></p>
+          <ul>
+            <li>Lab 5: Conexión WiFi con ESP32</li>
+            <li>Lab 6: ThingSpeak IoT Cloud</li>
+            <li>Envío de datos a la nube</li>
+            <li>Visualización en tiempo real</li>
+          </ul>
+          <p><strong>Resultado:</strong> Datos en la nube</p>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <h3>🚀 Fase 3: Proyecto Integrador (Semanas 10-16)</h3>
+          <div class="grid-2">
+            <div>
+              <h4>Características del Proyecto Final</h4>
+              <ul>
+                <li><strong>Sensores:</strong> Temperatura, humedad, luz ambiental</li>
+                <li><strong>Almacenamiento:</strong> Base de datos local (SPIFFS)</li>
+                <li><strong>Nube:</strong> Envío de datos a ThingSpeak</li>
+                <li><strong>Interfaz Web:</strong> Página de monitoreo en tiempo real</li>
+                <li><strong>Alertas:</strong> Sistema visual con LEDs</li>
+                <li><strong>WiFi:</strong> Conexión automática y reconexión</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Entregables</h4>
+              <ul>
+                <li>Código fuente completo</li>
+                <li>Diagrama de conexiones</li>
+                <li>Documentación técnica</li>
+                <li>Demo funcional</li>
+                <li>Sustentación oral</li>
+              </ul>
+              <div class="note">
+                <strong>Este es tu prototipo IoT funcional.</strong> Demuestra que puedes conectar el mundo físico con el digital.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos">
+      <h2>Recursos y Herramientas</h2>
+
+      <h3>Software Necesario</h3>
+      <div class="grid-2">
+        <div>
+          <h4>💻 Entorno de Desarrollo</h4>
+          <ul>
+            <li><strong>Arduino IDE</strong> - Gratuito y multiplataforma</li>
+            <li><strong>PlatformIO (VS Code)</strong> - Desarrollo avanzado</li>
+            <li><strong>Drivers:</strong> CH340/CP2102 para ESP32</li>
+            <li><strong>Simulador:</strong> Tinkercad Circuits (opcional)</li>
+          </ul>
+          <div class="note">
+            <strong>Requisitos:</strong> Windows 10/11, macOS, o Linux. Puerto USB disponible.
+          </div>
+        </div>
+        <div>
+          <h4>🌡️ Kit IoT Recomendado</h4>
+          <ul>
+            <li>1x ESP32 DevKit (con WiFi)</li>
+            <li>1x Sensor DHT11 o DHT22</li>
+            <li>1x LDR (fotorresistencia)</li>
+            <li>3x LEDs (rojo, amarillo, verde)</li>
+            <li>Resistencias (220Ω, 1KΩ, 10KΩ)</li>
+            <li>1x Protoboard</li>
+            <li>Cables jumper</li>
+          </ul>
+          <div class="note">
+            <strong>Costo aproximado:</strong> $60.000 - $80.000 COP<br>
+            <strong>Dónde comprar:</strong> Electrónica JNC, San Alejo, MercadoLibre
+          </div>
+        </div>
+      </div>
+
+      <h3>Bibliografía Recomendada</h3>
+      <div class="grid-3">
+        <div>
+          <h4>📖 Libros Principales</h4>
+          <ul>
+            <li><em>Internet of Things: A Hands-On Approach</em> - Arshdeep Bahga</li>
+            <li><em>Building the Web of Things</em> - Dominique Guinard</li>
+            <li><em>Programming Arduino</em> - Simon Monk</li>
+            <li><em>The ESP32 Book</em> - Dogan Ibrahim</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🌐 Documentación</h4>
+          <ul>
+            <li><a href="https://www.arduino.cc/reference/en/" target="_blank">Arduino Reference</a></li>
+            <li><a href="https://docs.espressif.com/projects/esp-idf/" target="_blank">ESP32 Docs</a></li>
+            <li><a href="https://mqtt.org/mqtt-specification/" target="_blank">MQTT Specification</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>🎓 Comunidades</h4>
+          <ul>
+            <li><a href="https://forum.arduino.cc/" target="_blank">Arduino Forum</a></li>
+            <li><a href="https://www.reddit.com/r/arduino/" target="_blank">r/arduino</a></li>
+            <li><a href="https://www.reddit.com/r/esp32/" target="_blank">r/esp32</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Consejos para el Éxito</h3>
+      <div class="grid-2">
+        <div>
+          <h4>💡 Durante el semestre</h4>
+          <ul>
+            <li><strong>Practica con simuladores:</strong> Tinkercad para probar sin hardware</li>
+            <li><strong>Investiga casos reales:</strong> Smart cities, industria 4.0, domótica</li>
+            <li><strong>Pregunta todo:</strong> No hay preguntas tontas</li>
+            <li><strong>Documenta tu código:</strong> Comentarlo ayuda a aprender</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🚀 Para tu carrera</h4>
+          <ul>
+            <li><strong>IoT es el futuro:</strong> Dominarlo es un superpoder</li>
+            <li><strong>Prototipado rápido:</strong> Valida ideas en días, no meses</li>
+            <li><strong>Emprendimiento:</strong> Crea productos IoT reales</li>
+            <li><strong>Industria 4.0:</strong> Base para automatización</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="mensaje-final">
+      <h2>Mensaje Final</h2>
+
+      <div class="highlight-box" style="text-align: center;">
+        <h3>¡Bienvenidos al Mundo de IoT!</h3>
+        <p style="font-size: 1.1rem; margin: 20px 0;">
+          El Internet de las Cosas está transformando nuestro mundo. Desde hogares inteligentes hasta ciudades completas conectadas, <strong>IoT es una de las tecnologías más relevantes del siglo XXI</strong>.
+        </p>
+        <p style="font-size: 1.1rem; margin: 20px 0;">
+          Este semestre no solo aprenderás teoría. <strong>Construirás cosas reales que se conectan a internet</strong>. Desde un LED parpadeante hasta un sistema de monitoreo ambiental completo.
+        </p>
+        <p style="font-size: 1.1rem; margin: 20px 0;">
+          Mi compromiso es guiarte en este viaje. Tu compromiso es <strong>programar, experimentar, cometer errores, aprender y construir</strong>.
+        </p>
+        <div style="margin-top: 30px;">
+          <p style="font-size: 1.2rem; font-weight: 600; color: var(--brand);">
+            ¡Nos vemos en la Clase 1! 🔌✨
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 30px;">
+        <div class="note">
+          <h4>📧 Contacto</h4>
+          <p><strong>Email:</strong> eldigardo.camacho3380@unaula.edu.com</p>
+          <p><strong>Horario de atención:</strong> Coordine por correo</p>
+        </div>
+        <div class="note">
+          <h4>🔌 Recurso Útil</h4>
+          <p><strong>Laboratorios:</strong> Disponibles en la sección laboratorios-html/</p>
+          <p>Guías paso a paso para construir tu proyecto IoT</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:#1e293b;color:#fff;text-align:center;padding:24px;margin-top:40px;">
+    <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+    <p>UNAULA - Ingeniería Informática - 2026-I</p>
+    <p style="margin-top: 10px; font-size: 0.9rem; color: #94a3b8;">Docente: Eldigardo Camacho | eldigardo.camacho3380@unaula.edu.com</p>
+  </footer>
+</body>
+</html>
