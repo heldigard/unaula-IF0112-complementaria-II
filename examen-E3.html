@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Parcial E3 - IF0112 Complementaria II (IoT)</title>
+    <style>
+        :root {
+            --color-primary: #dc2626;
+            --color-primary-light: #ef4444;
+            --color-secondary: #0f172a;
+            --color-accent: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fef2f2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+        }
+
+        .exam-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .exam-info-item {
+            background: rgba(255,255,255,0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        main {
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary-light);
+        }
+
+        h2 {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--color-primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .topic-card {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .topic-card h4 {
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .format-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .format-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .format-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--color-secondary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+
+            .exam-info {
+                gap: 1rem;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Examen Parcial E3</h1>
+            <p class="subtitle">IF0112 - Complementaria II (Internet de las Cosas)</p>
+            <div class="exam-info">
+                <div class="exam-info-item">📅 Fecha: Lunes 23 de Marzo de 2026</div>
+                <div class="exam-info-item">⏱️ Duración: 90 minutos</div>
+                <div class="exam-info-item">📊 Peso: 20% del curso</div>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <h2>📋 Información General</h2>
+                <p>El examen parcial E3 evalúa la comprensión de los conceptos fundamentales de IoT vistos en las Fases 1 y 2 del curso. El examen es <strong>presencial</strong> y <strong>escrito</strong>.</p>
+
+                <div class="warning-box">
+                    <h4>⚠️ Indicaciones Importantes</h4>
+                    <ul>
+                        <li>Presentar puntualidad: el examen inicia a las 6:00 AM</li>
+                        <li>No se permite uso de celular durante el examen</li>
+                        <li>Puede usarse apuntes de clase (formato físico)</li>
+                        <li>Respondir con lapicero azul o negro</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>📚 Temas a Evaluar</h2>
+                <div class="topics-grid">
+                    <div class="topic-card">
+                        <h4>🔷 Fase 1: Fundamentos IoT</h4>
+                        <ul>
+                            <li>Evolución del Internet (Web 1.0 → IoT)</li>
+                            <li>Pilares de IoT: Personas, Procesos, Datos, Cosas</li>
+                            <li>Transformación del entorno (Smart Cities, Industria 4.0)</li>
+                            <li>Redes IoT: PAN, LAN, LPWAN, 6LoWPAN</li>
+                            <li>Hardware ESP32 y sensores</li>
+                            <li>Programación ESP32 + WiFi</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <h4>🔷 Fase 2: Conectividad Cloud</h4>
+                        <ul>
+                            <li>ThingSpeak y envío de datos</li>
+                            <li>Protocolos IoT (MQTT, HTTP)</li>
+                            <li>Arquitectura IT/OT</li>
+                            <li>Edge, Cloud y Fog Computing</li>
+                            <li>Protocolos de transporte (TCP/UDP)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>📝 Estructura del Examen</h2>
+                <div class="format-box">
+                    <div class="format-row">
+                        <span><strong>Parte A: Preguntas de Selección Múltiple</strong></span>
+                        <span>5 preguntas × 2 puntos = 10%</span>
+                    </div>
+                    <div class="format-row">
+                        <span><strong>Parte B: Falso/Verdadero con Justificación</strong></span>
+                        <span>5 preguntas × 2 puntos = 10%</span>
+                    </div>
+                    <div class="format-row">
+                        <span><strong>Parte C: Preguntas de Desarrollo</strong></span>
+                        <span>3 preguntas × 6 puntos = 18%</span>
+                    </div>
+                    <div class="format-row">
+                        <span><strong>Parte D: Caso Práctico</strong></span>
+                        <span>1 caso × 12 puntos = 12%</span>
+                    </div>
+                    <div class="format-row" style="background: #dcfce7; font-weight: 700;">
+                        <span><strong>TOTAL</strong></span>
+                        <span><strong>50 puntos = 20% del curso</strong></span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>💡 Tips de Preparación</h2>
+                <ul>
+                    <li>Revisar las clases 1-6 del módulo</li>
+                    <li>Estudiar los conceptos de protocolos IoT (MQTT vs HTTP)</li>
+                    <li>Conocer la arquitectura del ESP32 y sus periféricos</li>
+                    <li>Repasar casos de Smart Cities y transformación digital</li>
+                    <li>Practicar con preguntas de selección múltiple</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>📖 Recursos de Estudio</h2>
+                <ul>
+                    <li><a href="clase-01.html">Clase 1: Evolución del Internet</a></li>
+                    <li><a href="clase-02.html">Clase 2: Personas, Procesos, Datos, Cosas</a></li>
+                    <li><a href="clase-03.html">Clase 3: Transformación del Entorno</a></li>
+                    <li><a href="clase-04.html">Clase 4: Redes IoT</a></li>
+                    <li><a href="clase-05.html">Clase 5: Hardware ESP32 + Sensores</a></li>
+                    <li><a href="clase-06.html">Clase 6: Programación ESP32 + WiFi</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA)</p>
+            <p>2026-I</p>
+        </footer>
+    </div>
+</body>
+</html>

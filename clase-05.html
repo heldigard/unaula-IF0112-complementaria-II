@@ -791,24 +791,43 @@
         <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 5 - Interconexión de Objetos (Hardware)</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 02 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Teórica + Wokwi</p>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 5 - Laboratorio 2: Hardware ESP32 + Sensores</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 09 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Laboratorio</p>
                 </div>
                 <div style="text-align: right;">
-                    <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
+                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">🔬 LAB 2 + E2 DEMO (15%)</span>
                 </div>
             </div>
-            
-            <!-- Próxima evaluación -->
+
+            <!-- Laboratorio 2 -->
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
+                    🔬 LAB 2: Sensores DHT22 + LDR + DHT11
+                </h4>
+                <ul style="margin: 0; padding-left: var(--space-6); color: #92400e; font-size: var(--text-sm);">
+                    <li><strong>Objetivo:</strong> Leer temperatura, humedad y luz con múltiples sensores</li>
+                    <li><strong>Tiempo:</strong> 90 minutos en laboratorio</li>
+                    <li><strong>Evaluación:</strong> E2 Demo (11%) + Video (4%)</li>
+                </ul>
+            </div>
+
+            <!-- Próxima evaluación E2 -->
             <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">⚠️ Próxima Evaluación: E2 (Semana 6)</h4>
-                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>E2 (15%):</strong> Demo interacción físico-virtual en clase. Preparar circuito funcional (físico o simulado). Revisar rúbrica E2 en el aula virtual.</p>
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
+                    📝 E2 DEMO (15%) - Video 60-90 segundos
+                </h4>
+                <ul style="margin: 0; padding-left: var(--space-6); color: #991b1b; font-size: var(--text-sm);">
+                    <li><strong>Fecha de entrega:</strong> DOMINGO 08/MAR/2026 antes 23:59 PM</li>
+                    <li><strong>Peso:</strong> 15% del total (11% en clase + 4% documentación)</li>
+                    <li><strong>Formato:</strong> Video cortado en Canvas</li>
+                    <li><strong>Tema:</strong> Interacción físico-virtual con ESP32</li>
+                </ul>
             </div>
 
             <!-- Preparación -->
             <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación para casa</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Revisar código de LAB 2. Comenzar a diseñar circuito para E2 (sensor + actuador + lógica). Documentación técnica se entrega domingo 08/03.</p>
+                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación antes del LAB 2</h4>
+                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Traer kit completo de sensores (DHT22, DHT11, LDR). Revisar código de lectura de temperatura, humedad y luz. Comenzar a diseñar demo E2.</p>
             </div>
 
         </section>
@@ -838,7 +857,16 @@
 
         <main>
             <!-- Objetivos -->
-            <section id="objetivos">
+            <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+<h2>⏱️ Agenda de 90 Minutos</h2>
+<ul>
+<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
+<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
+<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
+<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
+</ul>
+</section>
+<section id="objetivos">
                 <h2>Objetivos de la Clase</h2>
 
                 <div class="grid-2">
@@ -3222,7 +3250,7 @@ void loop() {
                         Introducción Arduino IDE
                     </h4>
                     <p style="margin-bottom: 1rem; font-size: 0.9rem;">Instalación y configuración de Arduino IDE para ESP32. Primer programa con el LED integrado.</p>
-                    <a href="../laboratorios-html/lab-00-introduccion-arduino-ide.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                    <a href="../laboratorios-html/lab-oficial-01-fundamentos-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
                         Ver Laboratorio →
                     </a>
                 </div>
@@ -3233,7 +3261,7 @@ void loop() {
                         LED Blink y Estructura
                     </h4>
                     <p style="margin-bottom: 1rem; font-size: 0.9rem;">Control de LEDs externos, estructuras de código, delay vs millis, y PWM.</p>
-                    <a href="../laboratorios-html/lab-01-led-blink-estructura.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                    <a href="../laboratorios-html/lab-oficial-01-fundamentos-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
                         Ver Laboratorio →
                     </a>
                 </div>
@@ -3244,7 +3272,7 @@ void loop() {
                         Entradas Digitales (Botones)
                     </h4>
                     <p style="margin-bottom: 1rem; font-size: 0.9rem;">Uso de botones con INPUT_PULLUP, anti-rebote, y lógica de control.</p>
-                    <a href="../laboratorios-html/lab-02-entradas-digitales-botones.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                    <a href="../laboratorios-html/lab-oficial-01-fundamentos-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
                         Ver Laboratorio →
                     </a>
                 </div>
@@ -3271,6 +3299,84 @@ void loop() {
                     <li>I2C Specification - NXP Semiconductors</li>
                     <li>SPI Interface Guide - Motorola/Intel</li>
                 </ul>
+            </section>
+
+            <!-- Wokwi Simulator Exercises (CALIFICADOS) -->
+            <section id="ejercicios-wokwi" style="margin-bottom: var(--space-12);">
+                <h2>🔌 Ejercicios del Simulador Wokwi</h2>
+
+                <section class="actividad" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-left: 4px solid #10b981; padding: var(--space-4); border-radius: var(--radius-md); margin: var(--space-6) 0;">
+                    <h4>🔌 Ejercicios del Simulador Wokwi (CALIFICADOS)</h4>
+                    <p><strong>Tipo:</strong> <span style="color: #065f46; font-weight: 600;">OBLIGATORIO - PRÁCTICA CALIFICADA</span></p>
+                    <p><strong>Peso:</strong> Parte de la nota de participación práctica</p>
+                    <p><strong>Entregable:</strong> Pantallazo (screenshot) de cada ejercicio funcionando en el simulador</p>
+                    <p><strong>Fecha límite:</strong> Antes de la próxima clase</p>
+
+                    <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-top: var(--space-3);">
+                        <h5 style="color: #059669; margin-bottom: var(--space-2);">📋 Instrucciones:</h5>
+                        <ol style="margin-left: var(--space-4);">
+                            <li>Abre el <a href="../ejercicios-simulador/index.html" target="_blank" style="color: #059669; font-weight: 600;">Índice de Ejercicios del Simulador</a></li>
+                            <li>Completa los Ejercicios 4, 5, 6 y 7 (Botones, PWM, LDR Lectura, LDR Automático)</li>
+                            <li>Revisa cada ejercicio para entender conceptos de entrada/salida, PWM y sensores</li>
+                            <li>Copia el código proporcionado en el simulador Wokwi</li>
+                            <li>Ejecuta la simulación y verifica que funcione correctamente</li>
+                            <li>Toma un pantallazo que muestre: el circuito funcionando + el código + resultados</li>
+                            <li>Sube los 4 pantallazos a la tarea "Ejercicios Simulador - Clase 5" en Canvas</li>
+                        </ol>
+
+                        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
+                            <p style="margin: 0; color: #92400e;"><strong>💡 Importante:</strong> Estos ejercicios preparan la base para LAB 2 (Sensores DHT22 + LDR). La práctica en Wokwi facilitará el trabajo con hardware físico.</p>
+                        </div>
+
+                        <h5 style="color: #059669; margin: var(--space-3) 0 var(--space-2) 0;">🏆 Ejercicios a Completar:</h5>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: var(--space-2);">
+                            <thead>
+                                <tr style="background: #d1fae5;">
+                                    <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Ejercicio</th>
+                                    <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Tema</th>
+                                    <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Duración</th>
+                                    <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Puntos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="../ejercicios-simulador/ejercicio-04-botones.html" target="_blank" style="color: #059669;">Ejercicio 4</a></td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Botones y Entradas Digitales</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20 min</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="../ejercicios-simulador/ejercicio-05-pwm-dimmer.html" target="_blank" style="color: #059669;">Ejercicio 5</a></td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">PWM - Control de Brillo</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20 min</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="../ejercicios-simulador/ejercicio-06-ldr-lectura.html" target="_blank" style="color: #059669;">Ejercicio 6</a></td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">LDR - Lectura Analógica</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20 min</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="../ejercicios-simulador/ejercicio-07-ldr-automatico.html" target="_blank" style="color: #059669;">Ejercicio 7</a></td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">LDR - Automatización</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25 min</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr style="background: #d1fae5; font-weight: bold;">
+                                    <td colspan="3" style="padding: 0.5rem; border: 1px solid #10b981;">TOTAL</td>
+                                    <td style="padding: 0.5rem; border: 1px solid #10b981;">12 pts</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <p style="margin-top: var(--space-3); font-size: 0.9rem; color: #64748b;">
+                            <strong>🔗 Enlace directo:</strong> <a href="../ejercicios-simulador/index.html" target="_blank" style="color: #059669;">abrir ejercicios del simulador</a>
+                        </p>
+                    </div>
+                </section>
             </section>
 
             <section id="📚-recursos-curados" class="info-box">
@@ -3357,3 +3463,5 @@ void loop() {
     </script>
 </body>
 </html>
+
+

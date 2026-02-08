@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 8: Protocolos IoT | IF0112</title>
+    <title>Clase 8: Conectividad WiFi | IF0112</title>
     <style>
 
         /* ============================================
@@ -753,7 +753,7 @@
 </head>
 <body>
     <header>
-        <h1>Clase 8: Protocolos IoT</h1>
+        <h1>Clase 8: Conectividad WiFi</h1>
         <p class="subtitle">MQTT, HTTP y Comunicación en la Nube</p>
         <p class="meta">
             IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
@@ -765,8 +765,8 @@
         <section class="schedule-info" style="background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #ef4444;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #991b1b; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 8 - Protocolos IoT + E3</h3>
-                    <p style="margin: 0; color: #991b1b; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 23 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>E3:</strong> Examen 60 min</p>
+                    <h3 style="color: #991b1b; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 8 - Conectividad WiFi</h3>
+                    <p style="margin: 0; color: #991b1b; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 06 de Abril 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Teórica</p>
                 </div>
                 <div style="text-align: right;">
                     <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📝 E3 (20%)</span>
@@ -825,7 +825,16 @@
 
     <main>
             <!-- Objetivos -->
-            <section id="objetivos">
+            <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+<h2>⏱️ Agenda de 90 Minutos</h2>
+<ul>
+<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
+<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
+<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
+<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
+</ul>
+</section>
+<section id="objetivos">
                 <h2>Objetivos de la Clase</h2>
 
                 <div class="grid-2">
@@ -889,26 +898,19 @@
             <!-- Conexión con Evaluación E3 -->
             <section id="conexion-evaluacion" class="info-box info">
                 <h2>📝 Conexión con Evaluación</h2>
-                <div class="evaluacion-activa">
-                    <p><strong>📌 Esta semana tenemos evaluación:</strong></p>
+                <div class="evaluacion-pasiva">
+                    <p><strong>📌 Esta clase es teórica:</strong></p>
                     <ul>
-                        <li><strong>Evaluación:</strong> E3 - Examen Parcial (Arquitectura, Hardware, Conectividad y Protocolos)</li>
-                        <li><strong>Peso:</strong> 20% (peso significativo)</li>
-                        <li><strong>Fecha:</strong> Lunes 23 de Marzo 2026 (hoy)</li>
-                        <li><strong>Formato:</strong>
-                            <ul>
-                                <li><strong>Examen escrito (90 min):</strong> Preguntas de concepto, análisis de casos, selección de tecnologías, diseño de arquitecturas.</li>
-                                <li><strong>Temas:</strong> Clases 1-7: Evolución IoT, 4 pilares, DIKW, redes IoT (PAN/LAN/WAN), tecnologías (BLE, Zigbee, WiFi, LoRaWAN), protocolos (HTTP, MQTT, CoAP), seguridad, Ley 1581.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Preparación:</strong> Repasar TODAS las clases 1-7, estudiar casos Nutresa/EPM, revisar labs completados, entender trade-offs tecnológicos.</li>
+                        <li><strong>Contenido:</strong> Conectividad WiFi - fundamentos para LAB 4 (Dashboard Grafana)</li>
+                        <li><strong>Preparación:</strong> Entender modos STA/AP de ESP32 para próxima sesión de laboratorio</li>
+                        <li><strong>Próxima evaluación:</strong> E4 Caso (19-abr-2026) - 3-5 páginas sobre caso de visualización IoT</li>
                     </ul>
                 </div>
                 <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
-                    <p style="margin: 0; color: #1e40af;"><strong>🔗 Conexión:</strong> E3 evalúa la comprensión profunda de IoT, desde la arquitectura hasta los protocolos. El examen requerirá analizar casos y seleccionar tecnologías apropiadas, justo como harán en su proyecto integrador.</p>
+                    <p style="margin: 0; color: #1e40af;"><strong>🔗 Conexión:</strong> Esta clase establece los fundamentos de conectividad necesarios para LAB 4, donde configurarán ThingSpeak y visualizarán datos en Grafana.</p>
                 </div>
                 <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
-                    <p style="margin: 0; color: #92400e;"><strong>⚠️ IMPORTANTE:</strong> E3 vale 20% y es el examen más pesado del semestre. ¡Prepárense bien! Es el punto medio del curso y evalía TODO lo aprendido hasta ahora.</p>
+                    <p style="margin: 0; color: #92400e;"><strong>📌 Recuerde:</strong> E3 Examen (20%) fue en Clase 7 (23-mar-2026). La siguiente evaluación es E4 Caso el 19-abr.</p>
                 </div>
             </section>
 
@@ -1441,12 +1443,12 @@ void publicarJSON(float temp, float hum) {
             </div>
         </section>
 
-        <!-- Evaluación 3 -->
-        <section id="evaluacion-3" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
-            <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Evaluación Programada</h3>
-            <p style="margin: 0;"><strong>Eval 3 (20%):</strong> Examen Parcial - Fecha: 2026-03-23</p>
+        <!-- Próxima Evaluación -->
+        <section id="proxima-evaluacion" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
+            <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Próxima Evaluación</h3>
+            <p style="margin: 0;"><strong>E4 Caso (15%):</strong> Caso de Estudio IoT - Fecha: 2026-04-19</p>
             <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
-                Consulte la plataforma educativa para el detalle completo de la evaluación.
+                Esta clase prepara los fundamentos de conectividad para LAB 4 (Dashboard Grafana).
             </p>
         </section>
         
@@ -1474,18 +1476,18 @@ void publicarJSON(float temp, float hum) {
                         ThingSpeak IoT Cloud
                     </h4>
                     <p style="margin-bottom: 1rem; font-size: 0.9rem;">Envío de datos a ThingSpeak, visualización en gráficos, y almacenamiento en la nube.</p>
-                    <a href="../laboratorios-html/lab-07-thingspeak-iot-cloud.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                    <a href="../laboratorios-html/lab-oficial-04-dashboard-grafana.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
                         Ver Laboratorio →
                     </a>
                 </div>
 
                 <div class="card" style="border-left: 4px solid var(--color-primary);">
                     <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 08-A</span>
-                        MQTT y Protocolos IoT
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">LAB 4</span>
+                        Dashboard Grafana + Visualización
                     </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Protocolo MQTT para IoT, comunicación pub/sub, y comparación con HTTP.</p>
-                    <a href="../laboratorios-html/lab-08-mqtt-protocolos.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Configuración de ThingSpeak, dashboard en Grafana, visualización de datos IoT.</p>
+                    <a href="../laboratorios-html/lab-oficial-04-dashboard-grafana.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
                         Ver Laboratorio →
                     </a>
                 </div>
@@ -1511,6 +1513,72 @@ void publicarJSON(float temp, float hum) {
                 <li>Eclipse Mosquitto Broker - mosquitto.org</li>
                 <li>ThingSpeak MQTT API - mathworks.com</li>
             </ul>
+        </section>
+
+        <!-- Wokwi Simulator Exercises (CALIFICADOS) -->
+        <section id="ejercicios-wokwi" style="margin-bottom: var(--space-12);">
+            <h2>🔌 Ejercicios del Simulador Wokwi</h2>
+
+            <section class="actividad" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-left: 4px solid #10b981; padding: var(--space-4); border-radius: var(--radius-md); margin: var(--space-6) 0;">
+                <h4>🔌 Ejercicios del Simulador Wokwi (CALIFICADOS)</h4>
+                <p><strong>Tipo:</strong> <span style="color: #065f46; font-weight: 600;">OBLIGATORIO - PRÁCTICA CALIFICADA</span></p>
+                <p><strong>Peso:</strong> Parte de la nota de participación práctica</p>
+                <p><strong>Entregable:</strong> Pantallazo (screenshot) de cada ejercicio funcionando en el simulador</p>
+                <p><strong>Fecha límite:</strong> Antes de la próxima clase</p>
+
+                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-top: var(--space-3);">
+                    <h5 style="color: #059669; margin-bottom: var(--space-2);">📋 Instrucciones:</h5>
+                    <ol style="margin-left: var(--space-4);">
+                        <li>Abre el <a href="../ejercicios-simulador/index.html" target="_blank" style="color: #059669; font-weight: 600;">Índice de Ejercicios del Simulador</a></li>
+                        <li>Completa los Ejercicios 9 y 10 (WiFi Scan + WiFi HTTP Server)</li>
+                        <li>Revisa cada ejercicio para entender conceptos de conectividad WiFi del ESP32</li>
+                        <li>Copia el código proporcionado en el simulador Wokwi</li>
+                        <li>Ejecuta la simulación y verifica que funcione correctamente</li>
+                        <li>Toma un pantallazo que muestre: el circuito funcionando + el código + resultados</li>
+                        <li>Sube los 2 pantallazos a la tarea "Ejercicios Simulador - Clase 8" en Canvas</li>
+                    </ol>
+
+                    <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
+                        <p style="margin: 0; color: #92400e;"><strong>💡 Importante:</strong> Estos ejercicios preparan la base para LAB 3 (WiFi HTTP). La práctica en Wokwi facilitará el trabajo con ESP32 real conectado a WiFi.</p>
+                    </div>
+
+                    <h5 style="color: #059669; margin: var(--space-3) 0 var(--space-2) 0;">🏆 Ejercicios a Completar:</h5>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: var(--space-2);">
+                        <thead>
+                            <tr style="background: #d1fae5;">
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Ejercicio</th>
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Tema</th>
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Duración</th>
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="../ejercicios-simulador/ejercicio-09-wifi-scan.html" target="_blank" style="color: #059669;">Ejercicio 9</a></td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">WiFi Scan - Detectar Redes</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20 min</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="../ejercicios-simulador/ejercicio-10-wifi-connect.html" target="_blank" style="color: #059669;">Ejercicio 10</a></td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">WiFi - Conexión a Red</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25 min</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">4 pts</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background: #d1fae5; font-weight: bold;">
+                                <td colspan="3" style="padding: 0.5rem; border: 1px solid #10b981;">TOTAL</td>
+                                <td style="padding: 0.5rem; border: 1px solid #10b981;">7 pts</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <p style="margin-top: var(--space-3); font-size: 0.9rem; color: #64748b;">
+                        <strong>🔗 Enlace directo:</strong> <a href="../ejercicios-simulador/index.html" target="_blank" style="color: #059669;">abrir ejercicios del simulador</a>
+                    </p>
+                </div>
+            </section>
         </section>
 
         <section id="📚-recursos-curados" class="info-box">
@@ -1619,3 +1687,5 @@ void publicarJSON(float temp, float hum) {
     </script>
 </body>
 </html>
+
+

@@ -766,26 +766,38 @@
         <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 7 - Conectividad WiFi</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 16 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Teórica + Wokwi</p>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 7 - Laboratorio 3: Conectividad WiFi + HTTP</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 23 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Laboratorio</p>
                 </div>
                 <div style="text-align: right;">
-                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">🔬 LAB 3 ESTA SEMANA</span>
+                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">🔬 LAB 3 + E3 EXAMEN (20%)</span>
                 </div>
             </div>
-            
-            <!-- Laboratorio -->
+
+            <!-- Laboratorio 3 -->
             <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
                 <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
                     🔬 LAB 3: Conectividad WiFi + HTTP
                 </h4>
-                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Fecha:</strong> Miércoles 18/03 o Sábado 21/03 | <strong>Duración:</strong> 2.5 horas | <strong>Entregable:</strong> ESP32 conectado a WiFi enviando datos</p>
+                <ul style="margin: 0; padding-left: var(--space-6); color: #92400e; font-size: var(--text-sm);">
+                    <li><strong>Objetivo:</strong> ESP32 conectado a WiFi enviando datos</li>
+                    <li><strong>Tiempo:</strong> 90 minutos en laboratorio</li>
+                    <li><strong>Temas:</strong> WiFi, modo STA/AP, servidor web, API REST, ThingSpeak</li>
+                </ul>
             </div>
 
-            <!-- Próxima evaluación -->
+            <!-- Evaluación E3 Examen -->
             <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">⚠️ Próxima Evaluación: E3 (Semana 8)</h4>
-                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>E3 (20%):</strong> Examen Parcial. Temas: Unidades 1-2 (Clases 1-7). Estudiar casos, redes, hardware, WiFi.</p>
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
+                    📝 E3 EXAMEN (20%) - Presencial 90 minutos
+                </h4>
+                <ul style="margin: 0; padding-left: var(--space-6); color: #991b1b; font-size: var(--text-sm);">
+                    <li><strong>Fecha:</strong> Lunes 23/MAR/2026</li>
+                    <li><strong>Peso:</strong> 20% del total del curso</li>
+                    <li><strong>Formato:</strong> Examen presencial (caja cerrada)</li>
+                    <li><strong>Temas:</strong> Unidades 1-2 (Clases 1-7) - Evolución IoT, pilares DIKW, redes, hardware, WiFi, protocolos</li>
+                    <li><strong>Casos:</strong> Nutresa, EPM, SIATA, Smart Cities</li>
+                </ul>
             </div>
 
             <!-- Preparación -->
@@ -808,7 +820,7 @@
                 <li><a href="#servidor">Servidor Web</a></li>
                 <li><a href="#api">API REST</a></li>
                 <li><a href="#nube">ThingSpeak</a></li>
-                <li><a href="#proyecto">Proyecto</a></li>
+                <li><a href="#avance-proyecto">Proyecto</a></li>
                 <li><a href="#seguridad">Seguridad</a></li>
                 <li><a href="#energia">Ahorro Energía</a></li>
                 <li><a href="#referencias">Referencias</a></li>
@@ -823,7 +835,16 @@
 
         <main>
             <!-- Objetivos -->
-            <section id="objetivos">
+            <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+<h2>⏱️ Agenda de 90 Minutos</h2>
+<ul>
+<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
+<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
+<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
+<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
+</ul>
+</section>
+<section id="objetivos">
                 <h2>Objetivos de la Clase</h2>
 
                 <div class="grid-2">
@@ -884,7 +905,7 @@
                     <ul>
                         <li><strong>Evaluación:</strong> E3 - Examen Parcial (Unidades 1-2)</li>
                         <li><strong>Peso:</strong> 20%</li>
-                        <li><strong>Fecha:</strong> Semana 8 (Lunes 23 de Marzo 2026)</li>
+                        <li><strong>Fecha:</strong> Esta misma semana (Lunes 23 de Marzo 2026) - E3 Examen (20%)</li>
                         <li><strong>Conexión:</strong> E3 cubre WiFi, modos de operación, servidor web, API REST y envío de datos a la nube. Esta clase integra todos estos conceptos en el proyecto integrador.</li>
                     </ul>
                 </div>
@@ -1242,7 +1263,7 @@ void enviarAThingSpeak(float temp, float hum) {
         </section>
         
         <!-- Proyecto -->
-        <section id="proyecto">
+        <section id="avance-proyecto">
             <h2>🌤️ Proyecto Integrador: Estación Meteorológica Web</h2>
 
             <div class="learning-key">
@@ -1514,7 +1535,7 @@ esp_deep_sleep_start();
                         Conectividad WiFi + Servidor Web
                     </h4>
                     <p style="margin-bottom: 1rem; font-size: 0.9rem;">Configuración WiFi, modo Station/AP, servidor web, y reconexión automática.</p>
-                    <a href="../laboratorios-html/lab-06-conectividad-wifi-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                    <a href="../laboratorios-html/lab-oficial-03-wifi-http.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
                         Ver Laboratorio →
                     </a>
                 </div>
@@ -1646,3 +1667,5 @@ esp_deep_sleep_start();
     </script>
 </body>
 </html>
+
+
