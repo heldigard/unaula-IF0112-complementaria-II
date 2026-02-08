@@ -752,30 +752,28 @@
         </header>
 
 
-        <!-- Info Cronograma -->
+        <!-- Info Cronograma 2026-I -->
         <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Clase 12 - Conexiones M2M/M2P/P2P</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-lg);"><strong>Fecha:</strong> 27-04-2026 | <strong>Horario:</strong> Lunes 06:00-08:00</p>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 13 - Conexiones M2M/M2P/P2P</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 27 de Abril 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min)</p>
                 </div>
                 <div style="text-align: right;">
-                    <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📅 PRÓXIMA CLASE</span>
+                    <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
                 </div>
             </div>
             
-            
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
-                    🔬 Laboratorio Taller: Integración Proyecto Final
-                </h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);"><em>Integrar Fase 1 + Fase 2</em></p>
+            <!-- Próxima evaluación -->
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">⚠️ Próxima Evaluación: E5 (Semana 14)</h4>
+                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>E5 (15%):</strong> Presentación estándares + Debate regulatorio. Documento de posición individual entrega domingo 03/05.</p>
             </div>
 
-            
-            <div style="background: white; border-left: 4px solid #8b5cf6; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #6d28d9; margin: 0 0 var(--space-2) 0;">🎯 Progreso del Proyecto Final</h4>
-                <p style="margin: 0; color: #64748b; font-size: var(--text-sm);">Fase 3: Integración del proyecto. Combina sensores + WiFi + nube.</p>
+            <!-- Proyecto -->
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">🎯 Proyecto Final - Fase 3</h4>
+                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Integración completa: sensores + WiFi + dashboard. Quedan 3 semanas para E6.</p>
             </div>
 
         </section>
@@ -784,6 +782,8 @@
         <nav>
             <ul>
                 <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
+                <li><a href="#conexion-evaluacion">📝 Conexión Evaluación</a></li>
                 <li><a href="#contexto">Contexto</a></li>
                 <li><a href="#clasificacion">Clasificacion</a></li>
                 <li><a href="#p2m">P2M</a></li>
@@ -815,6 +815,28 @@
                 <li>Relacionar patrones de comunicación con casos reales.</li>
                 <li>Diseñar un flujo IoT según el tipo de conexión.</li>
             </ul>
+        </section>
+
+        <!-- Avance del Proyecto Integrador -->
+        <section id="avance-proyecto" class="info-box success">
+            <h2>🏗️ Avance del Proyecto Integrador</h2>
+            <p><strong>Proyecto:</strong> <em>Sistema de Monitoreo Ambiental IoT</em></p>
+            <p><strong>Qué construimos esta semana:</strong> Aprendemos sobre patrones de comunicación M2M (máquina a máquina) que son fundamentales para el proyecto. El sistema de monitoreo ambiental requiere que los sensores se comuniquen automáticamente con actuadores sin intervención humana.</p>
+            <p><strong>Evidencia esperada:</strong> Comprensión de cómo implementar comunicación M2M en el proyecto: sensores que detectan condiciones críticas (temperatura alta, humedad baja) y activan automáticamente actuadores (alertas, riego).</p>
+            <p><strong>Conexión con el proyecto final:</strong> Los patrones M2M/M2P aprendidos se aplican directamente en el proyecto: sensores → MQTT → Actuadores, y notificaciones M2P al usuario cuando se detecten alertas.</p>
+        </section>
+
+        <!-- Conexión con Evaluación -->
+        <section id="conexion-evaluacion" class="info-box info">
+            <h2>📝 Conexión con Evaluación</h2>
+            <div class="evaluacion-preparacion">
+                <p><strong>🔜 Esta semana nos preparamos para:</strong></p>
+                <ul>
+                    <li><strong>Evaluación:</strong> E5 (Estándares + Debate regulatorio, 15%)</li>
+                    <li><strong>Semana:</strong> Semana 14 (Lunes 04 de Mayo 2026)</li>
+                    <li><strong>Conexión:</strong> E5 evaluará conocimientos de estándares y marcos legales. Los patrones de comunicación M2M/M2P que aprendemos esta semana son relevantes para entender cómo los estándares de seguridad se aplican a las comunicaciones IoT.</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Contexto -->
@@ -1169,8 +1191,39 @@ Sensor humo -> Sirena,M2M,Sub-segundo,Alta</code></pre>
             <section id="referencias">
                 <h2>Referencias</h2>
                 <ul>
-                    <li>Material complementario interno: tipos.md (clase 12).</li>
+                    <li>Material complementario interno disponible en el aula virtual de la clase.</li>
                 </ul>
+            </section>
+
+            <section id="📚-recursos-curados" class="info-box">
+                <h2>📚 Recursos Curados</h2>
+                <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
+
+                <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
+                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Tutorial para solución E2E con ESP32 y AWS IoT</h4>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Telefónica Tech</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 35 minutos</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Tutorial end-to-end para implementar una solución IoT completa con ESP32 y AWS IoT, demostrando conexiones M2M en la nube.</p>
+                        <a href="https://telefonicatech.com/blog/esp32-y-aws-tutorial-from-scratch-de-solucion-iot-cloud" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Como construir un proyecto de IoT</h4>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Projects</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 28 minutos</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Guía paso a paso para construir un proyecto de IoT completo, integrando conexiones M2M entre dispositivos y M2P para la interfaz humana.</p>
+                        <a href="https://www.youtube.com/watch?v=8XPcGuEXMuk" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 IoT: Usos prácticos del Internet de las Cosas</h4>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Applications</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 22 minutos</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Ejemplos reales de proyectos IoT con experiencias prácticas, demostrando diferentes patrones de conexión M2M, M2P y P2P.</p>
+                        <a href="https://www.youtube.com/watch?v=pux40QVOjVM" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                    </div>
+                </div>
             </section>
         </main>
 
