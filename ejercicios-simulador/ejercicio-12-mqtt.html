@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 12: MQTT - Publicar y Suscribir | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .tip { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .steps { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .diagram { background: #f8fafc; border: 2px dashed #94a3b8; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; text-align: center; }
+        .diagram img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📨 Ejercicio 12: MQTT - Protocolo de Mensajería</h1>
+            <p>⏱️ 50 min | 📶 ESP32 + MQTT Library | 🟠 Medio-Alto</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Entender y utilizar <strong>MQTT</strong> (Message Queuing Telemetry Transport), el protocolo más utilizado en IoT. Publicar y suscribirse a mensajes en tiempo real.</p>
+            <div class="tip">
+                <strong>💡 Concepto:</strong> MQTT es un protocolo ligero, simple y eficiente diseñado específicamente para conexiones no confiables en entornos IoT.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Conceptos Clave de MQTT</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #f1f5f9;">
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Concepto</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Descripción</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Broker</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Servidor central que recibe y distribuye mensajes</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Topic</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">"Ruta" o categoría a la que se envían/reciben mensajes</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Publish</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Enviar mensajes a un topic específico</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Subscribe</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Recibir mensajes de un topic específico</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>🔄 Diagrama de Flujo MQTT</h2>
+            <div class="diagram">
+                <pre style="text-align: left; font-size: 14px; background: #fff; border: none;">
+┌─────────────────────────────────────────────────────────────────┐
+│                         ARQUITECTURA MQTT                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│    ┌─────────┐    ┌──────────────┐    ┌──────────────┐          │
+│    │ Sensor  │───▶│              │───▶│              │          │
+│    │ ESP32   │    │   BROKER     │    │  Subscriptor │          │
+│    │ Publish │    │  (mosquitto) │    │  ESP32/PC    │          │
+│    └─────────┘    │  MQTT Server │    │  Subscribe   │          │
+│                   │              │    └──────────────┘          │
+│                   └──────────────┘                              │
+│                                                                  │
+│    Topics:                                                       │
+│    • /laboratorio/temperatura                                   │
+│    • /laboratorio/humedad                                       │
+│    • /control/led ON/OFF                                        │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+                </pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Paso 1: Instalar MQTT Library</h2>
+            <div class="steps">
+                <ol>
+                    <li>En Arduino IDE, ve a <strong>Sketch → Include Library → Manage Libraries</strong></li>
+                    <li>Busca "PubSubClient"</li>
+                    <li>Instala la versión más reciente</li>
+                    <li>Reinicia Arduino IDE</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código - Publicador (ESP32)</h2>
+            <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+// Credenciales WiFi
+const char* ssid = "TU_RED_WIFI";
+const char* password = "TU_CONTRASENA";
+
+// Configuración MQTT
+const char* mqttServer = "broker.emqx.io";  // Broker público MQTT
+const int mqttPort = 1883;
+const char* mqttTopic = "laboratorio/temperatura";
+
+// Cliente MQTT
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+
+  // Conectar WiFi
+  Serial.println("Conectando WiFi...");
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\n✅ WiFi Conectado!");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+
+  // Configurar cliente MQTT
+  client.setServer(mqttServer, mqttPort);
+}
+
+void loop() {
+  // Reconectar MQTT si se perdió conexión
+  if (!client.connected()) {
+    connectMQTT();
+  }
+
+  // Publicar mensaje cada 5 segundos
+  client.publish(mqttTopic, "Hola desde ESP32 MQTT!");
+
+  Serial.println("✅ Mensaje publicado: " + String(mqttTopic));
+
+  delay(5000);
+}
+
+void connectMQTT() {
+  // Intentar conectar
+  while (!client.connected()) {
+    Serial.print("Conectando a MQTT...");
+    String clientId = "ESP32_" + String(random(10000, 99999));
+
+    if (client.connect(clientId.c_str())) {
+      Serial.println(" ✅ Conectado!");
+      Serial.print("Suscrito al topic: ");
+      Serial.println(mqttTopic);
+    } else {
+      Serial.print(" ❌ Falló, rc=");
+      Serial.print(client.state());
+      Serial.println(" - Reintentando en 5 segundos...");
+      delay(5000);
+    }
+  }
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código - Suscriptor (ESP32 - Opcional)</h2>
+            <p>Este código permite recibir mensajes MQTT:</p>
+            <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+const char* ssid = "TU_RED_WIFI";
+const char* password = "TU_CONTRASENA";
+
+const char* mqttServer = "broker.emqx.io";
+const int mqttPort = 1883;
+const char* mqttTopic = "laboratorio/temperatura";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\n✅ WiFi Conectado!");
+
+  client.setServer(mqttServer, mqttPort);
+  client.setCallback(callback);
+
+  Serial.println("Suscrito a: " + String(mqttTopic));
+}
+
+void loop() {
+  if (!client.connected()) {
+    connectMQTT();
+  }
+
+  client.loop();
+}
+
+void connectMQTT() {
+  while (!client.connected()) {
+    Serial.print("Conectando MQTT...");
+    String clientId = "ESP32_" + String(random(10000, 99999));
+
+    if (client.connect(clientId.c_str())) {
+      Serial.println(" ✅ Conectado!");
+      client.subscribe(mqttTopic);
+    } else {
+      Serial.println(" ❌ Falló, reintentando en 5s");
+      delay(5000);
+    }
+  }
+}
+
+// Callback cuando llega mensaje
+void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("📨 Mensaje recibido [");
+  Serial.print(topic);
+  Serial.print("]: ");
+  Serial.write(payload, length);
+  Serial.println();
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Cómo Probar MQTT</h2>
+            <ol>
+                <li>Sube el código de <strong>Publicador</strong> al ESP32</li>
+                <li>Abre el Monitor Serial (115200 baudios)</li>
+                <li>Verás mensajes publicados cada 5 segundos</li>
+                <li>Para probar suscripción, usa el código de <strong>Suscriptor</strong> o una herramienta como:
+                    <ul>
+                        <li><strong>MQTT Explorer</strong>: https://mqtt-explorer.com/ (gratis)</li>
+                        <li><strong>MQTT.fx</strong>: https://mqttfx.jensd.de/ (gratis)</li>
+                        <li><strong>HiveMQ Web Client</strong>: https://www.hivemq.com/demos/websocket-client/</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>📊 Salida Esperada (Publicador)</h2>
+            <pre>Conectando WiFi.......
+✅ WiFi Conectado!
+IP: 192.168.1.100
+Conectando a MQTT... ✅ Conectado!
+Suscrito al topic: laboratorio/temperatura
+✅ Mensaje publicado: laboratorio/temperatura
+✅ Mensaje publicado: laboratorio/temperatura
+...</pre>
+        </div>
+
+        <div class="section">
+            <h2>📊 Salida Esperada (Suscriptor)</h2>
+            <pre>Conectando WiFi.......
+✅ WiFi Conectado!
+Suscrito a: laboratorio/temperatura
+📨 Mensaje recibido [laboratorio/temperatura]: Hola desde ESP32 MQTT!
+📨 Mensaje recibido [laboratorio/temperatura]: Hola desde ESP32 MQTT!
+...</pre>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Broker MQTT Público - broker.emqx.io</h2>
+            <ul>
+                <li><strong>Broker:</strong> broker.emqx.io</li>
+                <li><strong>Port:</strong> 1883 (sin SSL)</li>
+                <li><strong>Websocket:</strong> wss://broker.emqx.io:8084/mqtt</li>
+                <li><strong>TLS:</strong> 8883</li>
+            </ul>
+            <div class="warning">
+                <strong>⚠️ Nota:</strong> broker.emqx.io es un broker público para pruebas. En producción, usa tu propio broker (mosquitto, HiveMQ, AWS IoT, etc.).
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏢 Topic Comunes en IoT</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background: #f1f5f9;">
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Sector</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Ejemplo de Topic</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Agricultura</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">/agricultura/soja/sensor-01/humedad</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Sector Industrial</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">/industria/mi-empresa/maquina-01/status</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Sector Doméstico</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">/domestico/casa-cero/temperatura</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Transporte</strong></td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">/transporte/vehiculo-123/gps</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>✅ Entrega Requerida</h2>
+            <ul>
+                <li>Código del Publicador funcionando en ESP32</li>
+                <li>Screenshot del Monitor Serial mostrando mensajes publicados</li>
+                <li>Screenshot de MQTT Explorer mostrando el topic recibiendo mensajes</li>
+                <li>Explicación escrita:
+                    <ul>
+                        <li>Diferencia entre Publish y Subscribe</li>
+                        <li>¿Por qué MQTT es ideal para IoT?</li>
+                        <li>¿Qué pasa si el Broker se cae?</li>
+                    </ul>
+                </li>
+                <li>Desafío: Crear 3 topics diferentes para temperatura, humedad y presión</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

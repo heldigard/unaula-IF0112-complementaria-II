@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAB 1 Oficial - Fundamentos ESP32</title>
+  <style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:0 auto;padding:24px;line-height:1.55;color:#0f172a}h1,h2{color:#1e40af}section{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin:16px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}</style>
+</head>
+<body>
+  <h1>LAB 1 Oficial: Fundamentos ESP32 (LED + Botón)</h1>
+  <p><strong>Sesión:</strong> 3 | <strong>Fecha:</strong> 16-feb-2026 | <strong>Duración:</strong> 90 minutos | <strong>Objetivo:</strong> montar circuito base, programar entradas/salidas digitales y validar flujo de trabajo en Arduino IDE.</p>
+
+  <section>
+    <h2>Checklist Pre-Lab</h2>
+    <ul>
+      <li>☐ ESP32 detectado por Arduino IDE.</li>
+      <li>☐ Cable USB de datos funcional.</li>
+      <li>☐ Protoboard, LEDs, resistencias y botón disponibles.</li>
+      <li>☐ Driver de puerto serial instalado.</li>
+      <li>☐ Proyecto de prueba compilado sin errores.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Actividades</h2>
+    <ol>
+      <li>Configurar board y puerto para ESP32.</li>
+      <li>Implementar blink no bloqueante con <code>millis()</code>.</li>
+      <li>Leer botón con <code>INPUT_PULLUP</code>.</li>
+      <li>Controlar LED desde estado del botón.</li>
+      <li>Registrar evidencia en video corto.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Troubleshooting Común</h2>
+    <table>
+      <thead><tr><th>Síntoma</th><th>Causa probable</th><th>Solución</th></tr></thead>
+      <tbody>
+        <tr><td>No compila</td><td>Board ESP32 no instalado</td><td>Instalar paquete ESP32 en Boards Manager</td></tr>
+        <tr><td>No sube sketch</td><td>Puerto incorrecto</td><td>Seleccionar COM correcto y reiniciar IDE</td></tr>
+        <tr><td>LED no enciende</td><td>Polaridad invertida</td><td>Revisar ánodo/cátodo y resistencia</td></tr>
+        <tr><td>Botón errático</td><td>Rebote y cableado</td><td>Usar INPUT_PULLUP y antirrebote por software</td></tr>
+        <tr><td>Reinicios del ESP32</td><td>Cable/energía inestable</td><td>Cambiar cable USB y puerto de alimentación</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Entregable Verificable</h2>
+    <p><strong>Formato:</strong> video de 60-90 segundos + archivo <code>.ino</code>.</p>
+    <p><strong>Criterios:</strong> compilación correcta, LED controlado por botón, explicación breve del circuito.</p>
+    <p><strong>Deadline:</strong> domingo posterior al laboratorio, 23:59.</p>
+  </section>
+
+  <section>
+    <h2>Conexión con Evaluación</h2>
+    <p>Este laboratorio prepara la base práctica para <strong>E1 Quiz (10%)</strong> realizada en clase el 16-feb-2026, evaluando conceptos fundamentales y primera implementación funcional con ESP32.</p>
+  </section>
+</body>
+</html>

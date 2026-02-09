@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Simulador Wokwi | IF0112 IoT 2026-I</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-muted: #64748b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.95; }
+        .intro {
+            background: #dbeafe;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .intro h2 { color: var(--primary); margin-bottom: 0.5rem; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .exercise-card {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .exercise-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(30, 64, 175, 0.15);
+            transform: translateY(-4px);
+        }
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .badge.completed { background: var(--success); }
+        .badge.pending { background: var(--accent); }
+        .exercise-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--text); }
+        .exercise-card p { color: var(--text-muted); font-size: 0.9rem; }
+        .meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .meta span { display: flex; align-items: center; gap: 0.25rem; }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 2px solid var(--border);
+            margin-top: 3rem;
+            color: var(--text-muted);
+        }
+        .wokwi-link {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .wokwi-link:hover { background: #d97706; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔌 Ejercicios Simulador Wokwi</h1>
+            <p>IF0112 - Complementaria II (IoT) | 2026-I</p>
+        </header>
+
+        <div class="intro">
+            <h2>📝 Instrucciones Generales</h2>
+            <p><strong>¿Qué es Wokwi?</strong> Es un simulador online de ESP32 y Arduino que nos permite practicar sin hardware físico.</p>
+            <p><strong>¿Cómo funciona?</strong> Cada ejercicio tiene instrucciones paso a paso, código listo para copiar, y capturas de pantalla.</p>
+            <p><strong>📤 Entrega:</strong> Al finalizar cada ejercicio, toma un <strong>pantallazo (screenshot)</strong> de tu simulación funcionando y súbelo al Canvas.</p>
+            <a href="https://wokwi.com/esp32" target="_blank" class="wokwi-link">🚀 Abrir Wokwi ESP32 Simulator</a>
+        </div>
+
+        <div class="grid">
+            <a href="ejercicio-simulador-01.html" class="exercise-card">
+                <span class="badge" style="background: #8b5cf6;">SEMANA 1</span>
+                <h3>LED Interactivo</h3>
+                <p>Ejercicio especial Clase 2: Intro a IoT - Personas, Procesos, Datos y Cosas con LED y boton.</p>
+                <div class="meta">
+                    <span>⏱️ 25 min</span>
+                    <span>📦 ESP32 + LED + Boton</span>
+                    <span>🟢 Introductorio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-01-led-blink.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 1</span>
+                <h3>LED Parpadeante (Blink)</h3>
+                <p>Tu primer programa: hacer que un LED parpadee. Fundamentos de programación ESP32.</p>
+                <div class="meta">
+                    <span>⏱️ 15 min</span>
+                    <span>📦 1 LED</span>
+                    <span>🟢 Básico</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-02-led-serial.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 2</span>
+                <h3>LED + Monitor Serial</h3>
+                <p>Aprende a depurar tus programas usando el Monitor Serial para ver mensajes.</p>
+                <div class="meta">
+                    <span>⏱️ 20 min</span>
+                    <span>📦 1 LED</span>
+                    <span>🟡 Fácil</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-03-multiple-leds.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 3</span>
+                <h3>Múltiples LEDs</h3>
+                <p>Controla varios LEDs simultáneamente. Fundamentos de arrays y bucles.</p>
+                <div class="meta">
+                    <span>⏱️ 25 min</span>
+                    <span>📦 3 LEDs</span>
+                    <span>🟡 Fácil</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-04-botones.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 4</span>
+                <h3>Botón y LED</h3>
+                <p>Entradas digitales: controla un LED con un botón. Lógica de estado.</p>
+                <div class="meta">
+                    <span>⏱️ 30 min</span>
+                    <span>📦 1 LED + 1 Botón</span>
+                    <span>🟠 Medio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-05-pwm-dimmer.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 5</span>
+                <h3>PWM - Dimmer de LED</h3>
+                <p>Salida analógica PWM: controla el brillo del LED progresivamente.</p>
+                <div class="meta">
+                    <span>⏱️ 25 min</span>
+                    <span>📦 1 LED</span>
+                    <span>🟠 Medio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-06-ldr-lectura.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 6</span>
+                <h3>LDR - Sensor de Luz</h3>
+                <p>Entrada analógica: lee un sensor de luz (LDR) y muestra valores.</p>
+                <div class="meta">
+                    <span>⏱️ 30 min</span>
+                    <span>📦 1 LDR + 1 LED</span>
+                    <span>🟠 Medio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-07-ldr-automatico.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 7</span>
+                <h3>LDR - Control Automático</h3>
+                <p>Sistema automático: LED se enciende cuando hay poca luz.</p>
+                <div class="meta">
+                    <span>⏱️ 35 min</span>
+                    <span>📦 1 LDR + 1 LED</span>
+                    <span>🟡 Fácil</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-08-timer-interrupt.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 8</span>
+                <h3>Timer - LED sin delay()</h3>
+                <p>Usa timers del ESP32 para multitarea real. Reemplaza delay() por código eficiente.</p>
+                <div class="meta">
+                    <span>⏱️ 40 min</span>
+                    <span>📦 2 LEDs</span>
+                    <span>🔴 Avanzado</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-09-wifi-scan.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 9</span>
+                <h3>WiFi - Escanear Redes</h3>
+                <p>Primer ejercicio de conectividad: escanea y muestra redes WiFi disponibles.</p>
+                <div class="meta">
+                    <span>⏱️ 30 min</span>
+                    <span>📶 Solo ESP32</span>
+                    <span>🟠 Medio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-10-wifi-connect.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 10</span>
+                <h3>WiFi - Conexión a Red</h3>
+                <p>Conecta el ESP32 a tu red WiFi y muestra tu dirección IP.</p>
+                <div class="meta">
+                    <span>⏱️ 35 min</span>
+                    <span>📶 Solo ESP32</span>
+                    <span>🟠 Medio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-11-thingspeak.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 11</span>
+                <h3>ThingSpeak - Envío de Datos</h3>
+                <p>Envía datos IoT a la nube. Plataforma gratuita de monitoreo y visualización.</p>
+                <div class="meta">
+                    <span>⏱️ 45 min</span>
+                    <span>📡 IoT Cloud</span>
+                    <span>🟠 Medio</span>
+                </div>
+            </a>
+
+            <a href="ejercicio-12-mqtt.html" class="exercise-card">
+                <span class="badge pending">EJERCICIO 12</span>
+                <h3>MQTT - Publicar y Suscribir</h3>
+                <p>Protocolo de mensajería IoT. Publica y suscríbete a mensajes en tiempo real.</p>
+                <div class="meta">
+                    <span>⏱️ 50 min</span>
+                    <span>📡 IoT Cloud</span>
+                    <span>🟠 Medio-Alto</span>
+                </div>
+            </a>
+        </div>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) · 2026-I</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem;">
+                💡 <strong>Tip:</strong> Resuelve los ejercicios en orden. Cada uno construye sobre el anterior.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

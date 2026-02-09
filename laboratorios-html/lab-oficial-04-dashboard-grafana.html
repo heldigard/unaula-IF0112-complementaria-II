@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAB 4 Oficial - Dashboard Grafana</title>
+  <style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:0 auto;padding:24px;line-height:1.55;color:#0f172a}h1,h2{color:#1e40af}section{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin:16px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}</style>
+</head>
+<body>
+  <h1>LAB 4 Oficial: Dashboard + Visualización (Grafana)</h1>
+  <p><strong>Sesión:</strong> 10 | <strong>Fecha:</strong> 20-abr-2026 | <strong>Duración:</strong> 90 minutos | <strong>Objetivo:</strong> visualizar datos IoT en paneles de Grafana para análisis técnico y toma de decisiones.</p>
+
+  <section><h2>Checklist Pre-Lab</h2><ul>
+    <li>☐ Sistema IoT con sensores funcional (LAB 2 base).</li>
+    <li>☐ Acceso a instancia de Grafana.</li>
+    <li>☐ Fuente de datos configurada (BD/API).</li>
+    <li>☐ Campos de tiempo y métricas identificados.</li>
+    <li>☐ Plantilla de dashboard base preparada.</li>
+  </ul></section>
+
+  <section><h2>Actividades</h2><ol>
+    <li>Conectar Grafana a la fuente de datos.</li>
+    <li>Crear paneles de temperatura, humedad y luz.</li>
+    <li>Aplicar filtros temporales y umbrales.</li>
+    <li>Configurar alertas básicas por rango.</li>
+    <li>Publicar dashboard con nomenclatura del equipo.</li>
+  </ol></section>
+
+  <section><h2>Troubleshooting Común</h2>
+    <table><thead><tr><th>Síntoma</th><th>Causa probable</th><th>Solución</th></tr></thead><tbody>
+      <tr><td>No aparecen datos</td><td>Fuente mal configurada</td><td>Revisar conexión, credenciales y consulta</td></tr>
+      <tr><td>Tiempos desplazados</td><td>Zona horaria incorrecta</td><td>Ajustar timezone en datasource/panel</td></tr>
+      <tr><td>Panel vacío intermitente</td><td>Query sin rango correcto</td><td>Verificar filtro temporal y agregación</td></tr>
+      <tr><td>Alertas no disparan</td><td>Umbral o evaluación mal definidos</td><td>Validar reglas y frecuencia de evaluación</td></tr>
+      <tr><td>Dashboard lento</td><td>Consultas pesadas</td><td>Reducir ventana temporal e indexar campos</td></tr>
+    </tbody></table>
+  </section>
+
+  <section><h2>Entregable Verificable</h2>
+    <p><strong>Formato:</strong> enlace/capturas del dashboard + breve nota técnica.</p>
+    <p><strong>Criterios:</strong> mínimo 3 paneles funcionales, umbrales configurados, lectura clara.</p>
+    <p><strong>Deadline:</strong> domingo posterior al laboratorio, 23:59.</p>
+  </section>
+
+  <section><h2>Conexión con Evaluación</h2>
+    <p>Este laboratorio soporta directamente la sustentación de <strong>E4 Caso (15%)</strong> presentada el 19-abr-2026 (caso de estudio + visualización con evidencia).</p>
+  </section>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 5: PWM Dimmer LED | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌅 Ejercicio 5: PWM - Dimmer LED</h1>
+            <p>⏱️ 25 min | 📦 1 LED | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Aprender a usar PWM (Pulse Width Modulation) para controlar el brillo de un LED progresivamente.</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+
+            <h3>Componentes Necesarios:</h3>
+            <ul>
+                <li>1 x LED (cualquier color)</li>
+                <li>1 x Resistencia 220Ω o 330Ω</li>
+                <li>Cables de conexión</li>
+            </ul>
+
+            <h3>Conexiones:</h3>
+            <ul>
+                <li><strong>Ánodo (+) del LED</strong> → Pin <strong>D18</strong> del ESP32 (a través del resistor)</li>
+                <li><strong>Cátodo (-) del LED</strong> → Pin <strong>GND</strong> del ESP32</li>
+            </ul>
+
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> El pin D18 del ESP32 soporta PWM (modulación por ancho de pulso).
+                Si usas otro pin, verifica que soporte PWM o el LED solo se encenderá/apagará sin variación de brillo.
+            </div>
+
+            <h3>Diagrama ASCII:</h3>
+            <pre style="background: #f0f9ff; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+    ESP32 D18 ───[220Ω]──[LED+]──[LED-]── GND
+         │
+         └── PWM controla el brillo
+    </pre>
+
+            <p><strong>💡 Nota:</strong> Este circuito es igual al del Ejercicio 1. La diferencia está en el código,
+            que usa PWM en lugar de digitalWrite() para variar el brillo.</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>// Ejercicio 5: PWM - Dimmer de LED
+const int ledPin = 18;  // Debe ser un pin que soporte PWM
+
+int brillo = 0;
+int incremento = 5;
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("=== Ejercicio 5: PWM Dimmer ===");
+}
+
+void loop() {
+  analogWrite(ledPin, brillo);
+
+  Serial.print("Brillo: ");
+  Serial.print(brillo);
+  Serial.print(" / 255 = ");
+  Serial.print((brillo * 100) / 255);
+  Serial.println("%");
+
+  brillo += incremento;
+
+  // Cambiar dirección en los límites
+  if (brillo <= 0 || brillo >= 255) {
+    incremento = -incremento;
+  }
+
+  delay(30);  // Pequeño delay para suavizar la animación
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 ¿Qué es PWM?</h2>
+            <p><strong>PWM (Pulse Width Modulation)</strong> modula el ancho del pulso para simular voltajes intermedios:</p>
+            <ul>
+                <li><code>analogWrite(pin, 0)</code> = 0% de voltaje (LED apagado)</li>
+                <li><code>analogWrite(pin, 127)</code> = 50% de voltaje (LED al medio brillo)</li>
+                <li><code>analogWrite(pin, 255)</code> = 100% de voltaje (LED al máximo brillo)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación y observa el LED cambiar de brillo suavemente</li>
+                <li>Verifica el Monitor Serial mostrando el porcentaje de brillo</li>
+                <li>Toma un pantallazo del LED en diferentes niveles de brillo</li>
+                <li>Sube a Canvas</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

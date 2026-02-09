@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 8: Timer - LED sin delay() | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .tip { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏱️ Ejercicio 8: Timer - Multitarea Real</h1>
+            <p>⏱️ 40 min | 📦 2 LEDs | 🔴 Avanzado</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Aprender a usar timers del ESP32 para hacer multitarea real sin usar <code>delay()</code>. Los dos LEDs parpadearán a velocidades diferentes simultáneamente.</p>
+            <div class="tip">
+                <strong>💡 ¿Por qué evitar delay()?</strong> <code>delay()</code> bloquea el procesador. Con timers, el ESP32 puede hacer múltiples cosas al mismo tiempo.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+
+            <h3>Componentes Necesarios:</h3>
+            <ul>
+                <li>2 x LEDs (pueden ser colores diferentes)</li>
+                <li>2 x Resistencias 220Ω o 330Ω</li>
+                <li>Cables de conexión</li>
+            </ul>
+
+            <h3>Conexiones:</h3>
+            <h4>LED 1 (Parpadeo Rápido - 0.5s):</h4>
+            <ul>
+                <li><strong>Ánodo (+)</strong> → Pin <strong>D18</strong> (vía resistor 220Ω)</li>
+                <li><strong>Cátodo (-)</strong> → Pin <strong>GND</strong></li>
+            </ul>
+
+            <h4>LED 2 (Parpadeo Lento - 1.5s):</h4>
+            <ul>
+                <li><strong>Ánodo (+)</strong> → Pin <strong>D19</strong> (vía resistor 220Ω)</li>
+                <li><strong>Cátodo (-)</strong> → Pin <strong>GND</strong></li>
+            </ul>
+
+            <h3>Diagrama ASCII:</h3>
+            <pre style="background: #f0f9ff; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+LED 1 (rápido):          LED 2 (lento):
+ESP32 D18 ──[220Ω]──[LED]─┐
+                            │
+                           GND
+ESP32 D19 ──[220Ω]──[LED]─┘
+            </pre>
+
+            <div class="tip">
+                <strong>💡 Nota Importante:</strong> El circuito es simple (dos LEDs independientes).
+                La complejidad de este ejercicio está en el <strong>código</strong>, que usa timers
+                del ESP32 para hacer multitarea real sin usar delay().
+            </div>
+
+            <h3>Verificación de Conexión:</h3>
+            <p>Antes de cargar el código del timer, verifica que ambos LEDs funcionen correctamente
+            con un código simple de prueba:</p>
+            <pre style="background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+void setup() {
+  pinMode(18, OUTPUT);
+  pinMode(19, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(18, HIGH);
+  digitalWrite(19, HIGH);
+  delay(500);
+  digitalWrite(18, LOW);
+  digitalWrite(19, LOW);
+  delay(500);
+}
+            </pre>
+            <p>Si ambos LEDs parpadean al mismo tiempo, las conexiones son correctas.</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>// Ejercicio 8: Timers - Multitarea sin delay()
+#include &lt;WiFi.h&gt;  // Para hw_timer_t
+
+const int led1Pin = 18;  // LED rápido
+const int led2Pin = 19;  // LED lento
+
+volatile bool cambiarLed1 = false;
+volatile bool cambiarLed2 = false;
+
+hw_timer_t *timer1 = NULL;
+hw_timer_t *timer2 = NULL;
+
+// Función de interrupción para Timer 1
+void IRAM_ATTR timer1ISR() {
+  cambiarLed1 = true;
+}
+
+// Función de interrupción para Timer 2
+void IRAM_ATTR timer2ISR() {
+  cambiarLed2 = true;
+}
+
+void setup() {
+  pinMode(led1Pin, OUTPUT);
+  pinMode(led2Pin, OUTPUT);
+
+  Serial.begin(115200);
+  Serial.println("=== Ejercicio 8: Multitarea con Timers ===");
+
+  // Timer 1: LED rápido (cada 500ms)
+  timer1 = timerBegin(0, 80, true);  // Prescaler 80
+  timerAttachInterrupt(timer1, &timer1ISR);
+  timerAlarmWrite(timer1, 500000, true);  // 500ms en microsegundos
+  timerAlarmEnable(timer1);
+
+  // Timer 2: LED lento (cada 1500ms)
+  timer2 = timerBegin(1, 80, true);
+  timerAttachInterrupt(timer2, &timer2ISR);
+  timerAlarmWrite(timer2, 1500000, true);  // 1500ms
+  timerAlarmEnable(timer2);
+
+  Serial.println("Timers iniciados!");
+  Serial.println("LED 1 parpadea cada 0.5s");
+  Serial.println("LED 2 parpadea cada 1.5s");
+}
+
+void loop() {
+  if (cambiarLed1) {
+    cambiarLed1 = false;
+    digitalWrite(led1Pin, !digitalRead(led1Pin));
+    Serial.println("LED 1 cambió");
+  }
+
+  if (cambiarLed2) {
+    cambiarLed2 = false;
+    digitalWrite(led2Pin, !digitalRead(led2Pin));
+    Serial.println("LED 2 cambió");
+  }
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Conceptos Avanzados</h2>
+            <h3>Interrupciones</h3>
+            <p>Una interrupción es un evento que pausa el programa normal para ejecutar código específico. Los timers generan interrupciones automáticamente.</p>
+            <ul>
+                <li><code>timerBegin()</code>: Inicia un timer hardware</li>
+                <li><code>timerAttachInterrupt()</code>: Conecta una función al timer</li>
+                <li><code>timerAlarmWrite()</code>: Configura cuándo disparar</li>
+                <li><code>IRAM_ATTR</code>: Pone código en RAM (más rápido)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📸 Entrega</h2>
+            <p>Los dos LEDs deben parpadear independientemente. Toma pantallazo y sube a Canvas.</p>
+        </div>
+    </div>
+</body>
+</html>

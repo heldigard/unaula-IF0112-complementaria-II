@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Wokwi 01: LED Interactivo | IF0112 IoT 2026-I</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(30, 64, 175, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-top: 0.5rem;
+        }
+
+        header .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        header .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .section p { margin-bottom: 0.75rem; }
+
+        .section ul, .section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li { margin-bottom: 0.5rem; }
+
+        /* Info boxes */
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .info-box.success {
+            background: #d1fae5;
+            border-color: var(--success);
+        }
+
+        .info-box.warning {
+            background: #fef3c7;
+            border-color: var(--accent);
+        }
+
+        .info-box.tip {
+            background: #f0fdf4;
+            border-color: var(--success);
+        }
+
+        /* Code block */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+
+        code {
+            background: #e2e8f0;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.85em;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        /* Component table */
+        .component-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .component-table th,
+        .component-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .component-table th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .component-table tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Step indicator */
+        .step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .step-content h4 {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* Wokwi diagram placeholder */
+        .wokwi-diagram {
+            background: #f1f5f9;
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .wokwi-diagram p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .wokwi-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .wokwi-button:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        /* Delivery box */
+        .delivery-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .delivery-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delivery-box ol {
+            margin-left: 1.25rem;
+        }
+
+        .delivery-box li { margin-bottom: 0.5rem; }
+
+        /* Footer navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .nav a {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* IoT concept cards */
+        .iot-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .iot-card {
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .iot-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(30, 64, 175, 0.1);
+        }
+
+        .iot-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .iot-card h4 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .iot-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Code explanation */
+        .code-explanation {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .code-explanation .line {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-explanation .line:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .code-explanation .line-number {
+            flex-shrink: 0;
+            width: 30px;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .code-explanation .line-code {
+            color: var(--primary);
+            font-family: monospace;
+        }
+
+        .code-explanation .line-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💡 Ejercicio Wokwi 01: LED Interactivo</h1>
+            <p class="subtitle">Tu primera conexion entre el mundo fisico y digital en IoT</p>
+            <div class="meta-info">
+                <span>📅 Semana 1 - Clase 2</span>
+                <span>⏱️ Duracion: 20-25 minutos</span>
+                <span>📦 Componentes: ESP32 + LED + Resistencia + Boton</span>
+                <span>🟢 Nivel: Introductorio</span>
+            </div>
+        </header>
+
+        <!-- Objetivos de Aprendizaje -->
+        <div class="section">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
+            <p>Al completar este ejercicio, seras capaz de:</p>
+            <ul>
+                <li>Comprender la relacion entre <strong>Personas, Procesos, Datos y Cosas</strong> en un sistema IoT</li>
+                <li>Configurar un microcontrolador ESP32 en el simulador Wokwi</li>
+                <li>Conectar y controlar un LED mediante programacion</li>
+                <li>Implementar un boton como entrada digital para interactuar con el sistema</li>
+                <li>Entender el flujo de informacion: sensor (boton) → procesamiento (ESP32) → actuador (LED)</li>
+            </ul>
+
+            <div class="iot-concepts">
+                <div class="iot-card">
+                    <div class="icon">👤</div>
+                    <h4>Personas</h4>
+                    <p>Tu, el usuario que presiona el boton</p>
+                </div>
+                <div class="iot-card">
+                    <div class="icon">⚙️</div>
+                    <h4>Procesos</h4>
+                    <p>El codigo que lee el boton y enciende el LED</p>
+                </div>
+                <div class="iot-card">
+                    <div class="icon">📊</div>
+                    <h4>Datos</h4>
+                    <p>El estado del boton (HIGH/LOW) que se procesa</p>
+                </div>
+                <div class="iot-card">
+                    <div class="icon">🔌</div>
+                    <h4>Cosas</h4>
+                    <p>El ESP32, LED y boton fisicos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materiales Necesarios -->
+        <div class="section">
+            <h2>📦 Materiales Necesarios</h2>
+            <p>En Wokwi, necesitaremos los siguientes componentes virtuales:</p>
+
+            <table class="component-table">
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Pin en ESP32</th>
+                        <th>Funcion en IoT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ESP32</strong></td>
+                        <td>-</td>
+                        <td>El "cerebro" que procesa datos y ejecuta el codigo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LED ( Rojo )</strong></td>
+                        <td>Pin D2</td>
+                        <td>Actuador: convierte datos electricos en luz visible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resistencia 220Ω</strong></td>
+                        <td>Entre LED y GND</td>
+                        <td>Protege el LED de corriente excesiva</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Boton (Push Button)</strong></td>
+                        <td>Pin D4</td>
+                        <td>Sensor: convierte tu interaccion en datos electricos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resistencia 10kΩ</strong></td>
+                        <td>Entre boton y GND</td>
+                        <td>Resistencia pull-down para lectura estable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cables de conexion</strong></td>
+                        <td>-</td>
+                        <td>Conectan todos los componentes electricamente</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pasos del Ejercicio -->
+        <div class="section">
+            <h2>📋 Pasos del Ejercicio</h2>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Abrir Wokwi y crear nuevo proyecto</h4>
+                    <p>Ve a <a href="https://wokwi.com/esp32" target="_blank">wokwi.com/esp32</a> y haz clic en "New Project". Selecciona "ESP32" como placa base.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Agregar los componentes</h4>
+                    <p>En el panel izquierdo, busca y agrega estos componentes uno por uno: LED, Resistencia (220ohm), Boton, Resistencia (10kohm).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Conectar el LED</h4>
+                    <p>Conecta el anodo (+) del LED al <strong>Pin D2</strong> del ESP32. Conecta el catodo (-) del LED a una resistencia de 220Ω, y la resistencia a <strong>GND</strong> del ESP32.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Conectar el botón (4 terminales)</h4>
+                    <p>El botón tiene <strong>4 terminales</strong> etiquetadas como <strong>1.l</strong>, <strong>1.r</strong>, <strong>2.l</strong> y <strong>2.r</strong>. En Wokwi las verás al pasar el mouse sobre el botón:</p>
+                    
+                    <div class="info-box" style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1rem 0; border-radius: 6px;">
+                        <strong style="color: #0369a1;">🔍 Entendiendo las 4 terminales:</strong>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                            <li><strong>1.l y 2.l</strong> = Terminales del lado LEFT (IZQUIERDO) → conectadas internamente</li>
+                            <li><strong>1.r y 2.r</strong> = Terminales del lado RIGHT (DERECHO) → conectadas internamente</li>
+                            <li><strong>1.l y 1.r</strong> = Terminales en diagonal (NO conectadas)</li>
+                            <li><strong>2.l y 2.r</strong> = Terminales en diagonal (NO conectadas)</li>
+                        </ul>
+                    </div>
+
+                    <h5 style="color: #5b21b6; margin: 1.5rem 0 0.5rem 0;">Conexión paso a paso:</h5>
+                    <ol style="margin-left: 1.5rem;">
+                        <li><strong>Pin D4</strong> del ESP32 → Conecta a terminal <strong>1.l</strong> (lado izquierdo)</li>
+                        <li>Terminal <strong>1.r</strong> (lado derecho, diagonal a 1.l) → Conecta a un extremo de la <strong>resistencia 10kΩ</strong></li>
+                        <li>Otro extremo de 10kΩ → Conecta a <strong>GND</strong> del ESP32</li>
+                        <li>Terminal <strong>2.l</strong> (lado izquierdo, debajo de 1.l) → Conecta a <strong>3.3V</strong> del ESP32</li>
+                    </ol>
+
+                    <div class="warning" style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px;">
+                        <strong style="color: #991b1b;">⚠️ Importante:</strong> NO conectes 1.l con 2.l (mismo lado) ni 1.r con 2.r (mismo lado). Siempre usa UNA del lado izquierdo y UNA del lado derecho.
+                    </div>
+
+                    <div class="tip" style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 6px;">
+                        <strong style="color: #065f46;">💡 Configuración correcta:</strong> 1.l (D4) + 1.r (10kΩ→GND) + 2.l (3.3V). La terminal 2.r queda libre.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Copiar el codigo</h4>
+                    <p>Copia el codigo completo de la siguiente seccion y pegalo en el editor de Wokwi (reemplazando cualquier codigo existente).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h4>Ejecutar la simulacion</h4>
+                    <p>Haz clic en el boton verde ▶ "Start Simulation" para cargar el codigo en el ESP32 virtual y ver el LED responder al boton.</p>
+                </div>
+            </div>
+
+            <div class="wokwi-diagram">
+                <p><strong>Diagrama de conexion esperado en Wokwi:</strong></p>
+
+                <!-- SVG Diagrama Ultra Limpio -->
+                <svg viewBox="0 0 750 440" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 1.5rem 0; background: white; border-radius: 8px;">
+                    <!-- Fondo -->
+                    <rect width="750" height="440" fill="white"/>
+
+                    <!-- Título -->
+                    <text x="375" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e40af">Conexiones ESP32 - LED + Botón</text>
+
+                    <!-- === ESP32 (Centro) === -->
+                    <rect x="320" y="80" width="110" height="80" rx="6" fill="#1e40af"/>
+                    <text x="375" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">ESP32</text>
+
+                    <!-- Pines -->
+                    <circle cx="320" cy="100" r="5" fill="#fbbf24"/>
+                    <text x="308" y="104" text-anchor="end" font-family="monospace" font-size="11" fill="#1e40af">D2</text>
+
+                    <circle cx="320" cy="140" r="5" fill="#fbbf24"/>
+                    <text x="308" y="144" text-anchor="end" font-family="monospace" font-size="11" fill="#1e40af">D4</text>
+
+                    <circle cx="430" cy="100" r="5" fill="#ef4444"/>
+                    <text x="442" y="104" text-anchor="start" font-family="monospace" font-size="11" fill="#ef4444">3.3V</text>
+
+                    <circle cx="430" cy="140" r="5" fill="#475569"/>
+                    <text x="442" y="144" text-anchor="start" font-family="monospace" font-size="11" fill="#475569">GND</text>
+
+                    <!-- === CIRCUITO LED (Arriba-Izquierda) === -->
+                    <!-- Línea D2 hacia arriba -->
+                    <path d="M 320 100 L 140 100" stroke="#f59e0b" stroke-width="3" fill="none"/>
+                    <polygon points="145,100 135,96 135,104" fill="#f59e0b"/>
+
+                    <!-- Resistencia 220Ω -->
+                    <rect x="100" y="85" width="40" height="30" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="120" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#92400e">220Ω</text>
+
+                    <!-- LED -->
+                    <circle cx="50" cy="100" r="22" fill="#ef4444"/>
+                    <line x1="50" y1="85" x2="50" y2="115" stroke="white" stroke-width="2"/>
+                    <line x1="38" y1="93" x2="62" y2="93" stroke="white" stroke-width="2"/>
+                    <line x1="38" y1="107" x2="62" y2="107" stroke="white" stroke-width="2"/>
+                    <polygon points="45,75 55,75 50,65" fill="white"/>
+
+                    <text x="50" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#dc2626" font-weight="bold">LED</text>
+                    <text x="75" y="95" font-family="Arial" font-size="9" fill="#f59e0b">+</text>
+
+                    <!-- LED a GND -->
+                    <path d="M 50 122 L 50 300 L 430 300 L 430 145" stroke="#475569" stroke-width="2" fill="none"/>
+
+                    <!-- === CIRCUITO BOTÓN (Abajo-Izquierda) === -->
+                    <!-- Línea D4 hacia abajo -->
+                    <path d="M 320 140 L 200 140 L 200 320" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+                    <polygon points="200,315 196,325 204,325" fill="#8b5cf6"/>
+
+                    <!-- Resistencia 10kΩ -->
+                    <rect x="180" y="325" width="40" height="25" rx="3" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+                    <text x="200" y="343" text-anchor="middle" font-family="monospace" font-size="9" fill="#5b21b6">10kΩ</text>
+
+                    <!-- Botón -->
+                    <rect x="90" y="310" width="60" height="50" rx="6" fill="#64748b" stroke="#475569" stroke-width="2"/>
+                    <circle cx="120" cy="335" r="12" fill="#94a3b8"/>
+                    <circle cx="120" cy="335" r="7" fill="#64748b"/>
+
+                    <text x="120" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569" font-weight="bold">BOTÓN</text>
+
+                    <!-- Conexiones botón -->
+                    <path d="M 150 335 L 180 335" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+                    <path d="M 200 350 L 200 380 L 430 380 L 430 145" stroke="#475569" stroke-width="2" fill="none"/>
+
+                    <!-- Botón a 3.3V -->
+                    <path d="M 90 335 L 70 335 L 70 260 L 430 260 L 430 105" stroke="#ef4444" stroke-width="2" fill="none"/>
+
+                    <!-- === PANEL INFO (Derecha) === -->
+                    <!-- Caja LED -->
+                    <rect x="540" y="60" width="190" height="110" rx="8" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+                    <text x="635" y="85" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Circuito LED</text>
+                    <text x="555" y="110" font-family="Arial" font-size="10" fill="#78350f">D2 → 220Ω → LED(+) </text>
+                    <text x="555" y="130" font-family="Arial" font-size="10" fill="#78350f">LED(-) → GND</text>
+                    <text x="555" y="155" font-family="Arial" font-size="9" fill="#64748b">Patilla larga = (+)</text>
+
+                    <!-- Caja Botón -->
+                    <rect x="540" y="190" width="190" height="150" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.5"/>
+                    <text x="635" y="215" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#5b21b6">Circuito Botón (4 terminales)</text>
+                    <text x="555" y="240" font-family="Arial" font-size="10" fill="#5b21b6">.l = LEFT (lado izquierdo)</text>
+                    <text x="555" y="255" font-family="Arial" font-size="10" fill="#5b21b6">.r = RIGHT (lado derecho)</text>
+                    <text x="555" y="275" font-family="Arial" font-size="10" fill="#5b21b6">1.l ─ 2.l (IZQ) = conectadas</text>
+                    <text x="555" y="295" font-family="Arial" font-size="10" fill="#5b21b6">1.r ─ 2.r (DER) = conectadas</text>
+                    <text x="555" y="320" font-family="Arial" font-size="10" fill="#5b21b6"><strong>D4</strong> → 1.r | <strong>10kΩ</strong> → 2.r</text>
+                    <text x="555" y="335" font-family="Arial" font-size="10" fill="#ef4444"><strong>3.3V</strong> → 1.l | <strong>GND</strong> → 2.l</text>
+
+                    <!-- Leyenda colores -->
+                    <rect x="540" y="340" width="190" height="85" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <text x="635" y="365" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1e40af">Leyenda</text>
+
+                    <rect x="555" y="378" width="12" height="12" rx="2" fill="#f59e0b"/>
+                    <text x="572" y="388" font-family="Arial" font-size="9" fill="#475569">D2→LED</text>
+
+                    <rect x="555" y="395" width="12" height="12" rx="2" fill="#8b5cf6"/>
+                    <text x="572" y="405" font-family="Arial" font-size="9" fill="#475569">D4→Botón</text>
+
+                    <rect x="640" y="378" width="12" height="12" rx="2" fill="#ef4444"/>
+                    <text x="657" y="388" font-family="Arial" font-size="9" fill="#475569">3.3V</text>
+
+                    <rect x="640" y="395" width="12" height="12" rx="2" fill="#475569"/>
+                    <text x="657" y="405" font-family="Arial" font-size="9" fill="#475569">GND</text>
+                </svg>
+
+                <a href="https://wokwi.com/esp32" target="_blank" class="wokwi-button">
+                    🚀 Abrir Wokwi Simulator
+                </a>
+            </div>
+        </div>
+
+        <!-- Codigo Completo -->
+        <div class="section">
+            <h2>💻 Codigo Completo</h2>
+            <p>Copia y pega este codigo directamente en el editor de Wokwi:</p>
+
+            <pre><code>// ============================================
+// EJERCICIO WOKWI 01: LED INTERACTIVO
+// Semana 1 - Clase 2: Personas, Procesos, Datos y Cosas en IoT
+// ============================================
+
+// Definicion de pines - "COSAS" del sistema IoT
+#define LED_PIN    2    // Pin donde esta conectado el LED (D2)
+#define BUTTON_PIN 4    // Pin donde esta conectado el boton (D4)
+
+void setup() {
+  // Configuracion inicial - "PROCESOS" del sistema
+  // El LED es una SALIDA: el ESP32 enviara senales al LED
+  pinMode(LED_PIN, OUTPUT);
+
+  // El boton es una ENTRADA: el ESP32 leera senales del boton
+  pinMode(BUTTON_PIN, INPUT);
+}
+
+void loop() {
+  // "DATOS": Lectura del estado del boton
+  // digitalRead() lee el valor actual del pin (HIGH = 3.3V, LOW = 0V)
+  int estadoBoton = digitalRead(BUTTON_PIN);
+
+  // "PROCESO": Logica de decision
+  // Si el boton esta presionado (HIGH), enciende el LED
+  // Si el boton no esta presionado (LOW), apaga el LED
+  if (estadoBoton == HIGH) {
+    digitalWrite(LED_PIN, HIGH);   // Enciende el LED (envia 3.3V)
+  } else {
+    digitalWrite(LED_PIN, LOW);    // Apaga el LED (envia 0V)
+  }
+
+  // Pequena pausa para estabilidad
+  delay(100);
+}</code></pre>
+
+            <div class="info-box tip">
+                <strong>💡 Tip:</strong> Puedes copiar el codigo haciendo clic en el boton de copiar en la esquina superior derecha del bloque de codigo, o seleccionando todo el texto manualmente.
+            </div>
+        </div>
+
+        <!-- Explicacion del Codigo -->
+        <div class="section">
+            <h2>🔍 Explicacion Detallada del Codigo</h2>
+            <p>Vamos a analizar cada parte del codigo para entender como funciona el sistema IoT:</p>
+
+            <div class="code-explanation">
+                <h3 style="margin-bottom: 1rem;">Linea 7-8: Definicion de Pines</h3>
+
+                <div class="line">
+                    <span class="line-number">1</span>
+                    <span class="line-code">#define LED_PIN 2</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Asigna un nombre facil de recordar al pin fisico D2.<br>
+                    <strong>IoT:</strong> Esta linea "etiqueta" la COSA fisica (el LED) para que el codigo pueda comunicarse con ella.<br>
+                    <strong>Analogia:</strong> Es como guardar un numero telefonico bajo un nombre en tu lista de contactos.
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">Lineas 13-17: Funcion setup()</h3>
+
+                <div class="line">
+                    <span class="line-number">2</span>
+                    <span class="line-code">pinMode(LED_PIN, OUTPUT);</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Configura el pin D2 como SALIDA (OUTPUT).<br>
+                    <strong>IoT:</strong> Le dice al ESP32 que envie datos hacia el LED (energia electrica).<br>
+                    <strong>Importante:</strong> Un pin configurado como OUTPUT puede enviar senales electricas para controlar dispositivos.
+                </div>
+
+                <div class="line">
+                    <span class="line-number">3</span>
+                    <span class="line-code">pinMode(BUTTON_PIN, INPUT);</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Configura el pin D4 como ENTRADA (INPUT).<br>
+                    <strong>IoT:</strong> Le dice al ESP32 que espere recibir datos del boton.<br>
+                    <strong>Analogia:</strong> Es como poner tu telefono en modo "recibir llamada" en lugar de "hacer llamada".
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">Lineas 20-30: Funcion loop()</h3>
+
+                <div class="line">
+                    <span class="line-number">4</span>
+                    <span class="line-code">int estadoBoton = digitalRead(BUTTON_PIN);</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Lee el estado actual del boton y lo guarda en una variable.<br>
+                    <strong>IoT:</strong> Esta es la etapa de "CAPTURA DE DATOS". El ESP32 esta leyendo informacion del sensor (el boton).<br>
+                    <strong>Valores posibles:</strong> HIGH (3.3V = boton presionado) o LOW (0V = boton no presionado).
+                </div>
+
+                <div class="line">
+                    <span class="line-number">5</span>
+                    <span class="line-code">if (estadoBoton == HIGH) { digitalWrite(LED_PIN, HIGH); }</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Si el boton esta presionado, envia senal al LED para que se encienda.<br>
+                    <strong>IoT:</strong> Esta es la etapa de "PROCESAMIENTO" y "ACTUACION". Se toma una decision basada en los datos capturados.<br>
+                    <strong>Efecto:</strong> El pin D2 recibe 3.3V, corriente fluye por el LED, y este emite luz.
+                </div>
+
+                <div class="line">
+                    <span class="line-number">6</span>
+                    <span class="line-code">else { digitalWrite(LED_PIN, LOW); }</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Si el boton NO esta presionado, apaga el LED.<br>
+                    <strong>IoT:</strong> El sistema "regresa al estado de reposo" cuando no hay interaccion.<br>
+                    <strong>Efecto:</strong> El pin D2 recibe 0V, no hay corriente, el LED permanece apagado.
+                </div>
+
+                <div class="line">
+                    <span class="line-number">7</span>
+                    <span class="line-code">delay(100);</span>
+                </div>
+                <div class="line-desc">
+                    <strong>Proposito:</strong> Espera 100 milisegundos antes de repetir el ciclo.<br>
+                    <strong>IoT:</strong> Controla la frecuencia de actualizacion del sistema. Un delay muy pequeno puede causar lecturas erraticas.<br>
+                    <strong>Nota:</strong> En sistemas IoT avanzados, usariamos "interrupciones" en lugar de delay para mayor eficiencia.
+                </div>
+            </div>
+        </div>
+
+        <!-- Flujo de Datos IoT -->
+        <div class="section">
+            <h2>🔄 Flujo de Datos en el Sistema IoT</h2>
+            <p>Este ejercicio demuestra el flujo basico de datos en cualquier sistema IoT:</p>
+
+            <div style="background: #f1f5f9; border-radius: 10px; padding: 2rem; margin: 1.5rem 0;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1rem;">
+
+                    <div style="background: white; border: 2px solid #1e40af; border-radius: 10px; padding: 1.25rem; text-align: center; min-width: 140px;">
+                        <div style="font-size: 2rem;">👤</div>
+                        <strong>PERSONA</strong>
+                        <p style="font-size: 0.85rem; margin: 0.5rem 0 0;">Presiona el boton</p>
+                    </div>
+
+                    <div style="font-size: 1.5rem; color: #1e40af;">→</div>
+
+                    <div style="background: white; border: 2px solid #10b981; border-radius: 10px; padding: 1.25rem; text-align: center; min-width: 140px;">
+                        <div style="font-size: 2rem;">🔘</div>
+                        <strong>SENSOR</strong>
+                        <p style="font-size: 0.85rem; margin: 0.5rem 0 0;">Detecta presion</p>
+                    </div>
+
+                    <div style="font-size: 1.5rem; color: #10b981;">→</div>
+
+                    <div style="background: white; border: 2px solid #f59e0b; border-radius: 10px; padding: 1.25rem; text-align: center; min-width: 140px;">
+                        <div style="font-size: 2rem;">📡</div>
+                        <strong>DATOS</strong>
+                        <p style="font-size: 0.85rem; margin: 0.5rem 0 0;">Cambio de voltaje</p>
+                    </div>
+
+                    <div style="font-size: 1.5rem; color: #f59e0b;">→</div>
+
+                    <div style="background: white; border: 2px solid #ef4444; border-radius: 10px; padding: 1.25rem; text-align: center; min-width: 140px;">
+                        <div style="font-size: 2rem;">🧠</div>
+                        <strong>PROCESO</strong>
+                        <p style="font-size: 0.85rem; margin: 0.5rem 0 0;">Evaluacion del codigo</p>
+                    </div>
+
+                    <div style="font-size: 1.5rem; color: #ef4444;">→</div>
+
+                    <div style="background: white; border: 2px solid #10b981; border-radius: 10px; padding: 1.25rem; text-align: center; min-width: 140px;">
+                        <div style="font-size: 2rem;">💡</div>
+                        <strong>ACTUADOR</strong>
+                        <p style="font-size: 0.85rem; margin: 0.5rem 0 0;">LED se enciende</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-box success">
+                <strong>💡 Reflexion:</strong> Este simple circuito es la base de sistemas IoT mucho mas complejos. Tu casa inteligente, el control de una fabrica, o un sistema de monitoreo ambiental funcionan con los mismos principios: Sensor → Datos → Procesamiento → Actuacion.
+            </div>
+        </div>
+
+        <!-- Como Verificar que Funciona -->
+        <div class="section">
+            <h2>✅ Como Verificar que Funciona</h2>
+            <p>Sigue esta lista de verificacion para confirmar que tu sistema IoT funciona correctamente:</p>
+
+            <ul class="checklist">
+                <li><strong>Compilacion exitosa:</strong> No aparecen errores rojos en la consola de Wokwi al cargar el codigo</li>
+                <li><strong>LED apagado inicialmente:</strong> El LED permanece apagado cuando inicias la simulacion</li>
+                <li><strong>LED se enciende al presionar:</strong> Haz clic en el boton en la simulacion y verifica que el LED se ilumine</li>
+                <li><strong>LED se apaga al soltar:</strong> Suelta el boton y confirma que el LED se apague</li>
+                <li><strong>Respuesta rapida:</strong> El LED reacciona inmediatamente (maximo 100ms de delay)</li>
+            </ul>
+
+            <div class="info-box warning">
+                <strong>⚠️ Solucion de problemas comunes:</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Si el LED no enciende: Verifica que la resistencia este conectada correctamente (220Ω)</li>
+                    <li>Si el LED siempre esta encendido: Revisa la conexion del boton a GND</li>
+                    <li>Si el LED parpadea erraticamente: Verifica las conexiones del boton</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Entregable -->
+        <div class="delivery-box">
+            <h3>📤 Entregable: Pantallazo del Ejercicio</h3>
+            <p>Para completar este ejercicio y recibir tu nota de practica, sigue estos pasos:</p>
+            <ol>
+                <li>Abre Wokwi y carga el codigo del ejercicio</li>
+                <li>Presiona el boton <strong>Start Simulation</strong> (triangulo verde)</li>
+                <li>Haz clic en el boton del circuito para verificar que el LED responde</li>
+                <li><strong>Toma un pantallazo (screenshot)</strong> que muestre:
+                    <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+                        <li>El circuito completo con LED y boton conectados al ESP32</li>
+                        <li>El panel de codigo con el programa cargado</li>
+                        <li>El LED ENCENDIDO (presionando el boton)</li>
+                    </ul>
+                </li>
+                <li>Sube el pantallazo a <strong>Canvas</strong> en la tarea correspondiente de la Semana 1</li>
+            </ol>
+
+            <div class="info-box" style="background: rgba(255,255,255,0.2); border-color: white; margin-top: 1rem;">
+                <strong>📸 Ejemplo de captura valida:</strong> La imagen debe mostrar claramente el circuito conectado, el codigo visible, y el LED encendido cuando se interactua con el boton.
+            </div>
+        </div>
+
+        <!-- Preguntas de Reflexion -->
+        <div class="section">
+            <h2>🤔 Preguntas de Reflexion</h2>
+            <p>Responde estas preguntas en tu cuaderno para profundizar tu comprension del IoT:</p>
+
+            <ol>
+                <li><strong>En este ejercicio, cuales son las "Cosas" del sistema IoT?</strong> (Sugerencia: Hay 4 elementos fisicos)</li>
+                <li><strong>Cual es el "Proceso" que convierte la accion de presionar el boton en luz del LED?</strong></li>
+                <li><strong>Que "Datos" se transmiten entre el boton y el ESP32?</strong></li>
+                <li><strong>Como cambiarias el codigo si quisieras que el LED se quedara ENCENDIDO despues de presionar el boton?</strong></li>
+                <li><strong>En tu vida diaria, donde has visto sistemas IoT similares (un sensor detecta algo y activa otra cosa)?</strong></li>
+            </ol>
+        </div>
+
+        <!-- Navegacion -->
+        <div class="nav">
+            <a href="index.html">← Volver a Ejercicios</a>
+            <a href="ejercicio-01-led-blink.html">Siguiente: LED Blink →</a>
+        </div>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autonoma Latinoamericana (UNAULA) | 2026-I</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Basado en el simulador <a href="https://wokwi.com" target="_blank">Wokwi</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 7: LDR - Control Automático | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌙 Ejercicio 7: LDR - Sistema Automático</h1>
+            <p>⏱️ 35 min | 📦 1 LDR + 1 LED | 🟡 Fácil</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Crear un sistema automático que enciende un LED cuando oscurece y lo apaga cuando hay luz. ¡Como una lámpara automática!</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+
+            <h3>Componentes Necesarios:</h3>
+            <ul>
+                <li>1 x LDR (fotorresistencia)</li>
+                <li>1 x Resistencia 10kΩ (para pull-down del LDR)</li>
+                <li>1 x LED (opcional, para visualización)</li>
+                <li>1 x Resistencia 220Ω (para el LED)</li>
+                <li>Cables de conexión</li>
+            </ul>
+
+            <h3>Conexiones del LDR (Sensor de Luz):</h3>
+            <p>El LDR se conecta como un <strong>divisor de tensión</strong>:</p>
+            <ul>
+                <li><strong>LDR</strong> → Un lado a <strong>3.3V</strong></li>
+                <li><strong>LDR</strong> → Otro lado a <strong>D34</strong> (ADC1_CH6) y a <strong>resistencia 10kΩ</strong></li>
+                <li><strong>Resistencia 10kΩ</strong> → Otro lado a <strong>GND</strong></li>
+            </ul>
+
+            <h3>Conexión del LED (Opcional - para visualización):</h3>
+            <ul>
+                <li><strong>Ánodo (+) del LED</strong> → Pin <strong>D18</strong> (a través del resistor 220Ω)</li>
+                <li><strong>Cátodo (-) del LED</strong> → Pin <strong>GND</strong></li>
+            </ul>
+
+            <h3>Diagrama ASCII del Circuito LDR:</h3>
+            <pre style="background: #f0f9ff; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+         3.3V
+          │
+          ├──[LDR]──┬── D34 (ADC1_CH6)
+          │         │
+          │        [10kΩ]
+          │         │
+         GND       GND
+    </pre>
+
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> El GPIO 34 (D34) es <strong>Solo Entrada</strong> en el ESP32.
+                No puede usarse como salida. El LDR varía su resistencia según la luz:
+                más luz = menos resistencia, menos luz = más resistencia.
+            </div>
+
+            <h3>Cómo Funciona el Divisor de Tensión:</h3>
+            <p>El LDR y la resistencia de 10kΩ forman un <strong>divisor de tensión</strong>.
+            Cuando hay mucha luz, el LDR tiene baja resistencia y el voltaje en D34 es alto.
+            Cuando hay poca luz, el LDR tiene alta resistencia y el voltaje en D34 es bajo.</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>// Ejercicio 7: Sistema Automático con LDR
+const int ldrPin = 34;
+const int ledPin = 18;
+
+// Umbral para encender LED (ajustar según ambiente)
+const int umbral = 2000;  // Menor de 2000 = oscuro
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(115200);
+
+  Serial.println("=== Sistema de Iluminación Automática ===");
+  Serial.println("LED se enciende cuando hay poca luz");
+  Serial.print("Umbral configurado: ");
+  Serial.println(umbral);
+}
+
+void loop() {
+  int valorLdr = analogRead(ldrPin);
+
+  Serial.print("Luz: ");
+  Serial.print(valorLdr);
+
+  // Lógica de control automático
+  if (valorLdr < umbral) {
+    digitalWrite(ledPin, HIGH);
+    Serial.println(" -> OSCURO, LED encendido 💡");
+  } else {
+    digitalWrite(ledPin, LOW);
+    Serial.println(" -> CLARO, LED apagado");
+  }
+
+  delay(1000);
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Ajuste del Umbral</h2>
+            <p>El valor del umbral depende del ambiente. Puedes ajustarlo:</p>
+            <ul>
+                <li><strong>2000</strong>: Valor medio (aproximadamente 50% de luz)</li>
+                <li><strong>1000</strong>: Más sensible (se enciende con más luz)</li>
+                <li><strong>3000</strong>: Menos sensible (solo en oscuro)</li>
+            </ul>
+            <p><em>En Wokwi, haz clic derecho en el LDR para simular diferentes niveles de luz.</em></p>
+        </div>
+    </div>
+</body>
+</html>

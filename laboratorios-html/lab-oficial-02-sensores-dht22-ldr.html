@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAB 2 Oficial - Sensores DHT22 + LDR</title>
+  <style>body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:0 auto;padding:24px;line-height:1.55;color:#0f172a}h1,h2{color:#1e40af}section{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin:16px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}</style>
+</head>
+<body>
+  <h1>LAB 2 Oficial: Sensores DHT22 + LDR</h1>
+  <p><strong>Sesión:</strong> 5 | <strong>Fecha:</strong> 09-mar-2026 | <strong>Duración:</strong> 90 minutos | <strong>Objetivo:</strong> integrar lectura de temperatura, humedad e intensidad de luz en un solo flujo de adquisición.</p>
+
+  <section><h2>Checklist Pre-Lab</h2><ul>
+    <li>☐ ESP32 y cableado base de LAB 1 funcionales.</li>
+    <li>☐ Sensor DHT22 operativo con librería instalada.</li>
+    <li>☐ LDR con divisor de voltaje (10kΩ) montado.</li>
+    <li>☐ Monitor serial validado a 115200 baudios.</li>
+    <li>☐ Plantilla de sketch inicial preparada.</li>
+  </ul></section>
+
+  <section><h2>Actividades</h2><ol>
+    <li>Leer DHT22 y validar control de errores (<code>isnan</code>).</li>
+    <li>Leer LDR por ADC y normalizar valor de luz.</li>
+    <li>Consolidar salida en formato JSON simple.</li>
+    <li>Definir umbrales de alerta por variable.</li>
+    <li>Registrar captura de resultados en monitor serial.</li>
+  </ol></section>
+
+  <section>
+    <h2>Troubleshooting Común</h2>
+    <table><thead><tr><th>Síntoma</th><th>Causa probable</th><th>Solución</th></tr></thead><tbody>
+      <tr><td>DHT devuelve NaN</td><td>Pin o alimentación incorrecta</td><td>Revisar VCC/GND/DATA y pin declarado</td></tr>
+      <tr><td>LDR siempre 0/4095</td><td>Divisor mal cableado</td><td>Verificar resistencia 10k y pin ADC</td></tr>
+      <tr><td>Lecturas inestables</td><td>Ruido eléctrico</td><td>Promediar muestras y estabilizar conexiones</td></tr>
+      <tr><td>Sketch lento</td><td>Delay excesivo</td><td>Reducir bloqueos y usar temporización por millis</td></tr>
+      <tr><td>Valores absurdos</td><td>Unidades/formato incorrecto</td><td>Validar conversión y rangos esperados</td></tr>
+    </tbody></table>
+  </section>
+
+  <section>
+    <h2>Entregable Verificable</h2>
+    <p><strong>Formato:</strong> código + evidencia (captura serial o video corto).</p>
+    <p><strong>Criterios:</strong> lectura válida de DHT22 y LDR, salida integrada y umbrales documentados.</p>
+    <p><strong>Deadline:</strong> domingo posterior al laboratorio, 23:59.</p>
+  </section>
+
+  <section>
+    <h2>Conexión con Evaluación</h2>
+    <p>Consolida habilidades técnicas para <strong>E1 Quiz (10%)</strong> y deja base directa para la demo de <strong>E2 Demo (15%)</strong> presentada el 08-mar-2026.</p>
+  </section>
+</body>
+</html>

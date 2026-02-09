@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1: LED Parpadeante | Wokwi Simulator</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--secondary);
+            background: var(--bg);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        header .meta { opacity: 0.9; font-size: 0.95rem; }
+
+        .section {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        .step {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        code { font-family: 'Consolas', 'Monaco', monospace; }
+
+        .copy-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+        .copy-btn:hover { background: #d97706; }
+
+        .tip {
+            background: #fef3c7;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+        .tip strong { color: #92400e; }
+
+        .warning {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+        .warning strong { color: #991b1b; }
+
+        .success {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+        .success strong { color: #065f46; }
+
+        .component-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .component {
+            background: #f0f9ff;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .component-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .component-name { font-weight: 600; color: var(--primary); }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        .nav a {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        .nav a:hover { background: #1e3a8a; }
+
+        .screenshot-guide {
+            background: #dbeafe;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .screenshot-guide h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .wokwi-link {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        .wokwi-link:hover { background: #059669; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💡 Ejercicio 1: LED Parpadeante</h1>
+            <div class="meta">
+                ⏱️ Duración: 15 minutos | 📦 Componentes: 1 LED | 🟢 Nivel: Básico
+            </div>
+        </header>
+
+        <!-- Objetivo -->
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Aprenderás los fundamentos de la programación del ESP32 haciendo que un LED parpadee. Este es el "Hola Mundo" de la electrónica y te introducirá en:</p>
+            <ul>
+                <li>Estructura básica de un programa Arduino</li>
+                <li>Funciones <code>setup()</code> y <code>loop()</code></li>
+                <li>Configuración de pines digitales</li>
+                <li>Control de tiempo con <code>delay()</code></li>
+            </ul>
+        </div>
+
+        <!-- Componentes -->
+        <div class="section">
+            <h2>📦 Componentes Necesarios</h2>
+            <p>En el simulador Wokwi, agregarás estos componentes:</p>
+            <div class="component-list">
+                <div class="component">
+                    <div class="component-icon">💡</div>
+                    <div class="component-name">1 x LED (Cualquier color)</div>
+                </div>
+                <div class="component">
+                    <div class="component-icon">⚡</div>
+                    <div class="component-name">1 x Resistor 220Ω</div>
+                </div>
+                <div class="component">
+                    <div class="component-icon">🔌</div>
+                    <div class="component-name">Cables de conexión</div>
+                </div>
+            </div>
+            <a href="https://wokwi.com/esp32" target="_blank" class="wokwi-link">🚀 Abrir Wokwi ESP32 Simulator</a>
+        </div>
+
+        <!-- Paso a Paso -->
+        <div class="section">
+            <h2>📋 Instrucciones Paso a Paso</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Abrir el Simulador</strong>
+                <p>Abre <a href="https://wokwi.com/esp32" target="_blank">wokwi.com/esp32</a> en una nueva pestaña. Verás el ESP32 ya colocado en el área de trabajo.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Agregar el LED</strong>
+                <p>En el panel izquierdo, haz clic en <strong>+</strong> junto a "LED" o arrastra un LED desde la lista de componentes al área de trabajo.</p>
+                <div class="tip">
+                    <strong>💡 Tip:</strong> También puedes escribir "+led" en el código y aparecerá el LED automáticamente.
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Conectar el LED al ESP32</strong>
+
+                <!-- Diagrama SVG del circuito LED -->
+                <svg viewBox="0 0 700 350" style="width:100%; max-width:700px; display:block; margin:1rem auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                    <!-- Fondo -->
+                    <rect x="0" y="0" width="700" height="350" fill="#fafafa"/>
+
+                    <!-- ESP32 DevKit V1 -->
+                    <rect x="250" y="80" width="200" height="190" rx="8" fill="#1e40af" stroke="#0f172a" stroke-width="3"/>
+                    <text x="350" y="105" text-anchor="middle" fill="white" font-size="14" font-weight="bold">ESP32 DevKit V1</text>
+
+                    <!-- Pin D18 -->
+                    <circle cx="280" cy="150" r="12" fill="#f59e0b" stroke="#0f172a" stroke-width="2"/>
+                    <text x="280" y="154" text-anchor="middle" fill="white" font-size="10" font-weight="bold">D18</text>
+
+                    <!-- GND -->
+                    <circle cx="280" cy="220" r="12" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+                    <text x="280" y="224" text-anchor="middle" fill="white" font-size="10" font-weight="bold">GND</text>
+
+                    <!-- LED -->
+                    <circle cx="100" cy="150" r="30" fill="#fbbf24" stroke="#d97706" stroke-width="3"/>
+                    <text x="100" y="155" text-anchor="middle" fill="#78350f" font-size="16" font-weight="bold">LED</text>
+                    <!-- Símbolo LED -->
+                    <path d="M 85 150 L 115 150 M 100 135 L 100 165" stroke="#78350f" stroke-width="3" fill="none"/>
+                    <path d="M 92 135 L 108 155 M 108 135 L 92 155" stroke="#78350f" stroke-width="2" fill="none"/>
+                    <!-- Flecha de luz -->
+                    <path d="M 115 130 L 125 120 M 120 125 L 130 115" stroke="#f59e0b" stroke-width="2" fill="none"/>
+
+                    <!-- Polaridad -->
+                    <text x="70" y="145" text-anchor="middle" fill="#dc2626" font-size="14" font-weight="bold">+</text>
+                    <text x="70" y="165" text-anchor="middle" fill="#166534" font-size="14" font-weight="bold">−</text>
+
+                    <!-- Resistor 220Ω -->
+                    <rect x="160" y="140" width="60" height="20" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                    <text x="190" y="154" text-anchor="middle" fill="#7f1d1d" font-size="11" font-weight="bold">220Ω</text>
+
+                    <!-- Conexiones -->
+                    <!-- LED (+) → Resistor -->
+                    <line x1="130" y1="150" x2="160" y2="150" stroke="#dc2626" stroke-width="3"/>
+                    <!-- Resistor → D18 -->
+                    <line x1="220" y1="150" x2="268" y2="150" stroke="#dc2626" stroke-width="3"/>
+                    <polygon points="260,146 268,150 260,154" fill="#dc2626"/>
+
+                    <!-- LED (-) → GND -->
+                    <path d="M 70 150 L 50 150 L 50 220 L 268 220" stroke="#166534" stroke-width="3" fill="none"/>
+                    <polygon points="260,216 268,220 260,224" fill="#166534"/>
+
+                    <!-- Panel informativo -->
+                    <rect x="480" y="60" width="200" height="230" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="580" y="90" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Conexiones</text>
+                    <text x="495" y="120" fill="#1e3a8a" font-size="12">• Ánodo (+) → Resistor</text>
+                    <text x="495" y="145" fill="#1e3a8a" font-size="12">• Resistor → Pin D18</text>
+                    <text x="495" y="170" fill="#1e3a8a" font-size="12">• Cátodo (−) → GND</text>
+
+                    <text x="495" y="205" fill="#1e3a8a" font-size="11" font-weight="bold">Identificar polaridad:</text>
+                    <text x="495" y="225" fill="#1e3a8a" font-size="11">• Patilla larga = (+)</text>
+                    <text x="495" y="245" fill="#1e3a8a" font-size="11">• Patilla corta = (−)</text>
+                    <text x="495" y="265" fill="#1e3a8a" font-size="11">• Lado plano = (−)</text>
+
+                    <!-- Nota del resistor -->
+                    <rect x="480" y="300" width="200" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+                    <text x="580" y="325" text-anchor="middle" fill="#92400e" font-size="11">⚠️ Resistor protege el LED</text>
+                </svg>
+
+                <p>Conecta los componentes siguiendo el diagrama:</p>
+                <ul>
+                    <li><strong>Ánodo (+) del LED</strong> (patilla larga) → Resistor 220Ω → Pin <strong>D18</strong></li>
+                    <li><strong>Cátodo (-) del LED</strong> (patilla corta/lado plano) → Pin <strong>GND</strong></li>
+                </ul>
+                <div class="warning">
+                    <strong>⚠️ Importante:</strong> Siempre usa un resistor (220Ω o 330Ω) entre el LED y el ESP32 para evitar dañar el LED o el pin del microcontrolador. El resistor limita la corriente que pasa por el LED.
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Escribir el Código</strong>
+                <p>Copia y pega este código en el editor de Wokwi:</p>
+                <pre><code>// Ejercicio 1: LED Parpadeante
+// IF0112 - Complementaria II (IoT)
+
+// Pin donde conectamos el LED
+const int ledPin = 18;  // D18 en el ESP32
+
+void setup() {
+  // Configurar el pin del LED como SALIDA
+  pinMode(ledPin, OUTPUT);
+
+  // Inicializar el monitor serial (para ver mensajes)
+  Serial.begin(115200);
+  Serial.println("Ejercicio 1: LED Parpadeante iniciado");
+}
+
+void loop() {
+  // Encender el LED
+  digitalWrite(ledPin, HIGH);
+  Serial.println("LED encendido 💡");
+
+  // Esperar 1 segundo (1000 milisegundos)
+  delay(1000);
+
+  // Apagar el LED
+  digitalWrite(ledPin, LOW);
+  Serial.println("LED apagado");
+
+  // Esperar 1 segundo
+  delay(1000);
+}</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText(`// Ejercicio 1: LED Parpadeante
+// IF0112 - Complementaria II (IoT)
+
+// Pin donde conectamos el LED
+const int ledPin = 18;  // D18 en el ESP32
+
+void setup() {
+  // Configurar el pin del LED como SALIDA
+  pinMode(ledPin, OUTPUT);
+
+  // Inicializar el monitor serial (para ver mensajes)
+  Serial.begin(115200);
+  Serial.println("Ejercicio 1: LED Parpadeante iniciado");
+}
+
+void loop() {
+  // Encender el LED
+  digitalWrite(ledPin, HIGH);
+  Serial.println("LED encendido 💡");
+
+  // Esperar 1 segundo (1000 milisegundos)
+  delay(1000);
+
+  // Apagar el LED
+  digitalWrite(ledPin, LOW);
+  Serial.println("LED apagado");
+
+  // Esperar 1 segundo
+  delay(1000);
+}`)">📋 Copiar Código</button>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Ejecutar la Simulación</strong>
+                <p>Haz clic en el botón <strong>▶ Run Simulation</strong> (o presiona F8) en la parte superior derecha.</p>
+                <div class="success">
+                    <strong>✅ ¡Si funciona!</strong> Verás el LED parpadeando cada 1 segundo (1 segundo encendido, 1 segundo apagado).
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Ver el Monitor Serial</strong>
+                <p>Abre el Monitor Serial haciendo clic en el botón <strong>Serial Monitor</strong> en la parte inferior. Verás los mensajes que el programa envía:</p>
+                <pre>Ejercicio 1: LED Parpadeante iniciado
+LED encendido 💡
+LED apagado
+LED encendido 💡
+LED apagado
+...</pre>
+            </div>
+        </div>
+
+        <!-- Explicación del Código -->
+        <div class="section">
+            <h2>📖 Explicación del Código</h2>
+
+            <h3>Estructura Básica</h3>
+            <p>Todo programa Arduino tiene dos funciones obligatorias:</p>
+            <ul>
+                <li><code>setup()</code>: Se ejecuta UNA vez al iniciar. Aquí configuramos los pines y inicializamos componentes.</li>
+                <li><code>loop()</code>: Se ejecuta repetidamente en un ciclo infinito. Aquí va la lógica principal.</li>
+            </ul>
+
+            <h3>Funciones Usadas</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #f0f9ff;">
+                    <th style="padding: 0.75rem; text-align: left;">Función</th>
+                    <th style="padding: 0.75rem; text-align: left;">Descripción</th>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><code>pinMode(pin, modo)</code></td>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Configura un pin como ENTRADA o SALIDA</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><code>digitalWrite(pin, valor)</code></td>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Escribe HIGH (5V/3.3V) o LOW (0V) en un pin</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><code>delay(milisegundos)</code></td>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Pausa el programa por X milisegundos</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;"><code>Serial.begin(baudios)</code></td>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0;">Inicia comunicación serial a X baudios</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem;"><code>Serial.print(valor)</code></td>
+                    <td style="padding: 0.75rem;">Envía texto al monitor serial</td>
+                </tr>
+            </table>
+
+            <h3>Constantes</h3>
+            <p><code>const int ledPin = 18;</code> define una constante para el pin. Usar constantes hace el código más legible y fácil de modificar.</p>
+        </div>
+
+        <!-- Reto -->
+        <div class="section">
+            <h2>🏆 Retos Adicionales</h2>
+            <p>Una vez que funcione el código básico, intenta estos retos:</p>
+            <ol>
+                <li><strong>Cambiar la velocidad:</strong> Modifica el <code>delay()</code> para que el LED parpadee más rápido (500 ms) o más lento (2000 ms).</li>
+                <li><strong>Diferentes tiempos:</strong> Haz que el LED esté encendido 2 segundos y apagado solo 0.5 segundos.</li>
+                <li><strong>Mensaje personalizado:</strong> Cambia los mensajes en el Serial Monitor por tus propios textos.</li>
+                <li><strong>Múltiples LEDs:</strong> Agrega otro LED en el pin D19 y haz que parpadeen alternadamente.</li>
+            </ol>
+        </div>
+
+        <!-- Entrega -->
+        <div class="screenshot-guide">
+            <h3>📸 Instrucciones de Entrega</h3>
+            <ol>
+                <li>Asegúrate de que tu LED esté parpadeando correctamente en el simulador.</li>
+                <li>Toma un <strong>pantallazo (screenshot)</strong> que muestre:
+                    <ul>
+                        <li>El circuito con el LED parpadeando</li>
+                        <li>El código que escribiste</li>
+                        <li>El Monitor Serial mostrando los mensajes</li>
+                    </ul>
+                </li>
+                <li>Sube el pantallazo a la tarea correspondiente en Canvas antes de la fecha límite.</li>
+            </ol>
+            <div class="tip">
+                <strong>💡 Tip para pantallazo:</strong> En Windows, presiona <code>Win + Shift + S</code> y selecciona el área. En Mac, presiona <code>Cmd + Shift + 4</code>.
+            </div>
+        </div>
+
+        <!-- Solución -->
+        <div class="section">
+            <h2>✅ Solución del Reto 4 (LEDs Alternantes)</h2>
+            <p>Si intentaste el reto 4 y quieres verificar tu solución, aquí está el código:</p>
+            <pre><code>// Reto: LEDs Alternantes
+const int led1Pin = 18;
+const int led2Pin = 19;
+
+void setup() {
+  pinMode(led1Pin, OUTPUT);
+  pinMode(led2Pin, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+  // LED 1 encendido, LED 2 apagado
+  digitalWrite(led1Pin, HIGH);
+  digitalWrite(led2Pin, LOW);
+  Serial.println("LED1 ON, LED2 OFF");
+  delay(500);
+
+  // LED 1 apagado, LED 2 encendido
+  digitalWrite(led1Pin, LOW);
+  digitalWrite(led2Pin, HIGH);
+  Serial.println("LED1 OFF, LED2 ON");
+  delay(500);
+}</code></pre>
+        </div>
+
+        <!-- Navegación -->
+        <div class="nav">
+            <a href="index.html">← Volver al Índice</a>
+            <a href="ejercicio-02-led-serial.html">Siguiente Ejercicio →</a>
+        </div>
+
+        <footer>
+            <p style="text-align: center; color: #64748b; margin-top: 2rem;">
+                <strong>IF0112 - Complementaria II (IoT)</strong><br>
+                Universidad Autónoma Latinoamericana (UNAULA) · 2026-I
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
