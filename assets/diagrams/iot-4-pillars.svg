@@ -1,0 +1,96 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Los 4 Pilares de IoT: Personas, Procesos, Datos y Cosas">
+  <defs>
+    <linearGradient id="grad-people" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-process" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-data" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-things" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#db2777;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#1e40af">
+    Los 4 Pilares de IoT
+  </text>
+
+  <!-- Central Connection Circle -->
+  <circle cx="400" cy="270" r="60" fill="white" stroke="#1e40af" stroke-width="3" filter="url(#shadow)"/>
+  <text x="400" y="265" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#1e40af">IoT</text>
+  <text x="400" y="285" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Integración</text>
+
+  <!-- Pillar 1: Personas -->
+  <g transform="translate(100, 100)">
+    <rect x="0" y="0" width="180" height="120" rx="12" fill="url(#grad-people)" filter="url(#shadow)"/>
+    <text x="90" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="48">👤</text>
+    <text x="90" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="white">PERSONAS</text>
+    <text x="90" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Deciden y operan</text>
+  </g>
+
+  <!-- Pillar 2: Procesos -->
+  <g transform="translate(520, 100)">
+    <rect x="0" y="0" width="180" height="120" rx="12" fill="url(#grad-process)" filter="url(#shadow)"/>
+    <text x="90" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="48">⚙️</text>
+    <text x="90" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="white">PROCESOS</text>
+    <text x="90" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Automatizan</text>
+  </g>
+
+  <!-- Pillar 3: Datos -->
+  <g transform="translate(100, 320)">
+    <rect x="0" y="0" width="180" height="120" rx="12" fill="url(#grad-data)" filter="url(#shadow)"/>
+    <text x="90" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="48">📊</text>
+    <text x="90" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="white">DATOS</text>
+    <text x="90" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Alimentan e informan</text>
+  </g>
+
+  <!-- Pillar 4: Cosas -->
+  <g transform="translate(520, 320)">
+    <rect x="0" y="0" width="180" height="120" rx="12" fill="url(#grad-things)" filter="url(#shadow)"/>
+    <text x="90" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="48">📱</text>
+    <text x="90" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="white">COSAS</text>
+    <text x="90" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Capturan y actúan</text>
+  </g>
+
+  <!-- Connection Arrows -->
+  <g stroke-width="2" fill="none" opacity="0.6">
+    <!-- Personas to IoT -->
+    <path d="M280 160 Q340 200 360 240" stroke="#3b82f6" marker-end="url(#arrow-blue)"/>
+    <!-- Procesos to IoT -->
+    <path d="M520 160 Q460 200 440 240" stroke="#f59e0b" marker-end="url(#arrow-orange)"/>
+    <!-- Datos to IoT -->
+    <path d="M280 340 Q340 300 360 270" stroke="#10b981" marker-end="url(#arrow-green)"/>
+    <!-- Things to IoT -->
+    <path d="M520 340 Q460 300 440 270" stroke="#ec4899" marker-end="url(#arrow-pink)"/>
+  </g>
+
+  <!-- Arrow Markers -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ec4899"/>
+    </marker>
+  </defs>
+</svg>

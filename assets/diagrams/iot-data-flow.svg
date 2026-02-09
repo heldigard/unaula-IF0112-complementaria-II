@@ -1,0 +1,144 @@
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flujo de Datos en Sistema IoT Completo">
+  <defs>
+    <linearGradient id="grad-sensor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-gateway" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-cloud" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-app" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6d28d9;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="500" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="500" y="40" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" font-weight="700" fill="#1e40af">
+    Flujo de Datos en Sistema IoT
+  </text>
+  <text x="500" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">
+    Monitoreo Ambiental: Sensor → Nube → Dashboard
+  </text>
+
+  <!-- Stage 1: Sensor -->
+  <g transform="translate(50, 150)">
+    <rect x="0" y="0" width="160" height="200" rx="12" fill="url(#grad-sensor)" filter="url(#shadow)"/>
+    <text x="80" y="40" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white">1. SENSOR</text>
+    <text x="80" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Percepción</text>
+
+    <text x="80" y="110" text-anchor="middle" font-size="36">🌡️</text>
+
+    <g transform="translate(20, 130)" font-family="monospace" font-size="11" fill="white">
+      <text x="0" y="0">• DHT22: 25°C</text>
+      <text x="0" y="20">• LDR: 450 lux</text>
+      <text x="0" y="40">• ADC: digital</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g transform="translate(220, 240)">
+    <rect x="0" y="0" width="80" height="30" rx="15" fill="#64748b"/>
+    <text x="40" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="white">GPIO/ADC</text>
+    <path d="M80 15 L100 15" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Stage 2: ESP32/Gateway -->
+  <g transform="translate(330, 150)">
+    <rect x="0" y="0" width="160" height="200" rx="12" fill="url(#grad-gateway)" filter="url(#shadow)"/>
+    <text x="80" y="40" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white">2. ESP32</text>
+    <text x="80" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Gateway/Edge</text>
+
+    <text x="80" y="110" text-anchor="middle" font-size="36">📡</text>
+
+    <g transform="translate(20, 130)" font-family="monospace" font-size="11" fill="white">
+      <text x="0" y="0">• Lee datos</text>
+      <text x="0" y="20">• JSON format</text>
+      <text x="0" y="40">• WiFi connect</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g transform="translate(500, 240)">
+    <rect x="0" y="0" width="80" height="30" rx="15" fill="#64748b"/>
+    <text x="40" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="white">HTTP/MQTT</text>
+    <path d="M80 15 L100 15" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Stage 3: Cloud -->
+  <g transform="translate(610, 150)">
+    <rect x="0" y="0" width="160" height="200" rx="12" fill="url(#grad-cloud)" filter="url(#shadow)"/>
+    <text x="80" y="40" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white">3. CLOUD</text>
+    <text x="80" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="rgba(255,255,255,0.9)">Procesamiento</text>
+
+    <text x="80" y="110" text-anchor="middle" font-size="36">☁️</text>
+
+    <g transform="translate(20, 130)" font-family="monospace" font-size="11" fill="white">
+      <text x="0" y="0">• ThingSpeak</text>
+      <text x="0" y="20">• Almacena</text>
+      <text x="0" y="40">• API REST</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3 -->
+  <g transform="translate(780, 240)">
+    <rect x="0" y="0" width="60" height="30" rx="15" fill="#64748b"/>
+    <text x="30" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="white">API</text>
+    <path d="M60 15 L80 15" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Stage 4: Dashboard -->
+  <g transform="translate(870, 150)">
+    <rect x="0" y="0" width="90" height="200" rx="12" fill="url(#grad-app)" filter="url(#shadow)"/>
+    <text x="45" y="40" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="white">4. APP</text>
+    <text x="45" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)">Dashboard</text>
+
+    <text x="45" y="110" text-anchor="middle" font-size="28">📊</text>
+
+    <g transform="translate(15, 130)" font-family="monospace" font-size="9" fill="white">
+      <text x="0" y="0">• Grafana</text>
+      <text x="0" y="15">• Web App</text>
+      <text x="0" y="30">• Mobile</text>
+    </g>
+  </g>
+
+  <!-- Data Flow Animation -->
+  <g transform="translate(50, 400)">
+    <rect x="0" y="0" width="900" height="60" rx="8" fill="#1e40af" opacity="0.1"/>
+
+    <!-- Animated Dots -->
+    <circle r="8" fill="#3b82f6">
+      <animateMotion dur="4s" repeatCount="indefinite" path="M50 30 L200 30 L350 30 L500 30 L650 30 L800 30 L910 30"/>
+    </circle>
+
+    <text x="450" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1e40af">FLUJO DE DATOS EN TIEMPO REAL</text>
+    <text x="450" y="50" text-anchor="middle" font-family="monospace" font-size="11" fill="#3b82f6">
+      {"temp": 25.5, "hum": 65, "lux": 450} → 2 bytes/s → WiFi → Cloud API → Dashboard actualizado
+    </text>
+  </g>
+
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Timing Info -->
+  <g transform="translate(50, 470)">
+    <text font-family="monospace" font-size="10" fill="#64748b">
+      ⏱️ Tiempo total: &lt;1s | Frecuencia: cada 5-60 seg | Protocolo: HTTP/MQTT
+    </text>
+  </g>
+</svg>

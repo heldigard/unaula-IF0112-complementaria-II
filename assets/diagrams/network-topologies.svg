@@ -1,0 +1,187 @@
+<svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Topologías de Red IoT: Star, Mesh y Tree">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+    <linearGradient id="grad-gateway" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-node" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="400" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="#1e40af">
+    Topologías de Red IoT
+  </text>
+
+  <!-- STAR Topology -->
+  <g transform="translate(50, 60)">
+    <rect x="0" y="0" width="280" height="280" rx="12" fill="white" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
+    <text x="140" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#1e40af">STAR (Estrella)</text>
+
+    <!-- Gateway -->
+    <g transform="translate(100, 100)">
+      <circle r="25" fill="url(#grad-gateway)"/>
+      <text x="0" y="5" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="white">GW</text>
+    </g>
+
+    <!-- Nodes -->
+    <g>
+      <circle cx="40" cy="40" r="15" fill="url(#grad-node)"/>
+      <circle cx="140" cy="40" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="40" r="15" fill="url(#grad-node)"/>
+      <circle cx="40" cy="140" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="140" r="15" fill="url(#grad-node)"/>
+      <circle cx="40" cy="240" r="15" fill="url(#grad-node)"/>
+      <circle cx="140" cy="240" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="240" r="15" fill="url(#grad-node)"/>
+    </g>
+
+    <!-- Lines -->
+    <g stroke="#cbd5e1" stroke-width="2">
+      <line x1="40" y1="40" x2="100" y2="100"/>
+      <line x1="140" y1="40" x2="100" y2="100"/>
+      <line x1="240" y1="40" x2="100" y2="100"/>
+      <line x1="40" y1="140" x2="100" y2="100"/>
+      <line x1="240" y1="140" x2="100" y2="100"/>
+      <line x1="40" y1="240" x2="100" y2="100"/>
+      <line x1="140" y1="240" x2="100" y2="100"/>
+      <line x1="240" y1="240" x2="100" y2="100"/>
+    </g>
+
+    <!-- Info -->
+    <g transform="translate(20, 255)" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">
+      <text x="0" y="0">✅ Fácil de implementar</text>
+      <text x="0" y="12">❌ Gateway = SPOF</text>
+      <text x="0" y="24">📶 Rango: ~10-100m</text>
+    </g>
+  </g>
+
+  <!-- MESH Topology -->
+  <g transform="translate(360, 60)">
+    <rect x="0" y="0" width="280" height="280" rx="12" fill="white" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
+    <text x="140" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#1e40af">MESH (Malla)</text>
+
+    <!-- Gateway -->
+    <g transform="translate(120, 120)">
+      <circle r="25" fill="url(#grad-gateway)"/>
+      <text x="0" y="5" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="white">GW</text>
+    </g>
+
+    <!-- Nodes -->
+    <g>
+      <circle cx="40" cy="40" r="15" fill="url(#grad-node)"/>
+      <circle cx="140" cy="40" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="40" r="15" fill="url(#grad-node)"/>
+      <circle cx="40" cy="140" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="140" r="15" fill="url(#grad-node)"/>
+      <circle cx="40" cy="240" r="15" fill="url(#grad-node)"/>
+      <circle cx="140" cy="240" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="240" r="15" fill="url(#grad-node)"/>
+    </g>
+
+    <!-- Lines (interconnected) -->
+    <g stroke="#10b981" stroke-width="1.5" opacity="0.6">
+      <!-- Row 1 connections -->
+      <line x1="40" y1="40" x2="140" y2="40"/>
+      <line x1="140" y1="40" x2="240" y2="40"/>
+      <line x1="40" y1="40" x2="120" y2="120"/>
+      <line x1="140" y1="40" x2="120" y2="120"/>
+      <line x1="240" y1="40" x2="120" y2="120"/>
+      <!-- Row 2 connections -->
+      <line x1="40" y1="140" x2="120" y2="120"/>
+      <line x1="240" y1="140" x2="120" y2="120"/>
+      <line x1="40" y1="140" x2="140" y2="240"/>
+      <line x1="240" y1="140" x2="140" y2="240"/>
+      <!-- Row 3 connections -->
+      <line x1="40" y1="240" x2="140" y2="240"/>
+      <line x1="140" y1="240" x2="240" y2="240"/>
+      <line x1="40" y1="240" x2="120" y2="120"/>
+      <line x1="140" y1="240" x2="120" y2="120"/>
+      <line x1="240" y1="240" x2="120" y2="120"/>
+    </g>
+
+    <!-- Info -->
+    <g transform="translate(20, 255)" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">
+      <text x="0" y="0">✅ Auto-recuperación</text>
+      <text x="0" y="12">✅ Mayor cobertura</text>
+      <text x="0" y="24">⚠️ Mayor latencia</text>
+    </g>
+  </g>
+
+  <!-- TREE Topology -->
+  <g transform="translate(670, 60)">
+    <rect x="0" y="0" width="280" height="280" rx="12" fill="white" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
+    <text x="140" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#1e40af">TREE (Árbol)</text>
+
+    <!-- Root Gateway -->
+    <g transform="translate(120, 50)">
+      <circle r="22" fill="url(#grad-gateway)"/>
+      <text x="0" y="5" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="white">ROOT</text>
+    </g>
+
+    <!-- Level 1 Routers -->
+    <g>
+      <circle cx="40" cy="120" r="18" fill="#f59e0b"/>
+      <circle cx="140" cy="120" r="18" fill="#f59e0b"/>
+      <circle cx="240" cy="120" r="18" fill="#f59e0b"/>
+    </g>
+
+    <!-- Level 2 Nodes -->
+    <g>
+      <circle cx="40" cy="200" r="15" fill="url(#grad-node)"/>
+      <circle cx="80" cy="200" r="15" fill="url(#grad-node)"/>
+      <circle cx="140" cy="200" r="15" fill="url(#grad-node)"/>
+      <circle cx="180" cy="200" r="15" fill="url(#grad-node)"/>
+      <circle cx="240" cy="200" r="15" fill="url(#grad-node)"/>
+      <circle cx="200" cy="200" r="15" fill="url(#grad-node)"/>
+    </g>
+
+    <!-- Lines -->
+    <g stroke="#f59e0b" stroke-width="2">
+      <!-- Root to Level 1 -->
+      <line x1="120" y1="72" x2="40" y2="102"/>
+      <line x1="120" y1="72" x2="140" y2="102"/>
+      <line x1="120" y1="72" x2="240" y2="102"/>
+
+      <!-- Level 1 to Level 2 -->
+      <line x1="40" y1="138" x2="40" y2="185"/>
+      <line x1="40" y1="138" x2="80" y2="185"/>
+      <line x1="140" y1="138" x2="140" y2="185"/>
+      <line x1="140" y1="138" x2="180" y2="185"/>
+      <line x1="240" y1="138" x2="240" y2="185"/>
+      <line x1="240" y1="138" x2="200" y2="185"/>
+    </g>
+
+    <!-- Info -->
+    <g transform="translate(20, 255)" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">
+      <text x="0" y="0">✅ Escalable</text>
+      <text x0" y="12">❌ Router = SPOF local</text>
+      <text x="0" y="24">📡 Zigbee, Z-Wave</text>
+    </g>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(50, 360)">
+    <circle cx="0" cy="0" r="12" fill="url(#grad-gateway)"/>
+    <text x="20" y="4" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">Gateway/Router</text>
+
+    <circle cx="150" cy="0" r="10" fill="url(#grad-node)"/>
+    <text x="170" y="4" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">Sensor/End Node</text>
+
+    <circle cx="320" cy="0" r="10" fill="#f59e0b"/>
+    <text x="340" y="4" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">Router Intermedio</text>
+  </g>
+
+  <!-- Note -->
+  <text x="950" y="390" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+    SPOF = Single Point of Failure (Punto Único de Falla)
+  </text>
+</svg>
