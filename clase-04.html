@@ -1171,8 +1171,10 @@
                 </div>
 
                 <!-- Diagrama SVG: Topologías de Red -->
-                <figure>
-                    <img src="assets/diagrams/network-topologies.svg" alt="Diagrama SVG: Topologías de Red IoT - Star, Mesh y Tree">
+                <figure style="margin: 2rem 0; background: white; padding: 1rem; border-radius: 8px;">
+                    <object type="image/svg+xml" data="../diagrams/network-topologies.svg" width="100%" height="380" style="max-width: 900px;">
+                        <img src="../diagrams/network-topologies.svg" alt="Diagrama SVG: Topologías de Red IoT - Star, Mesh y Tree">
+                    </object>
                     <figcaption>Figura 1: Topologías de red IoT - Estrella, Malla y Árbol con sus características, ventajas y desventajas</figcaption>
                 </figure>
 
@@ -1881,7 +1883,20 @@ WiFi,2,1,4,5,12</code></pre>
             </section>
         </main>
 
-        <footer>
+        <!-- Navegación entre clases -->
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-03.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Clase Anterior
+                </a>                <a href="clase-05.html" class="class-nav-btn">
+                    Clase Siguiente <span class="arrow">→</span>
+                </a>            </div>
+        </nav>
+
+    <footer>
             <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
             <p>Universidad Autónoma Latinoamericana (UNAULA) | Ingeniería Informática | 2026-I</p>
             <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Clase 04: Redes IoT</p>
@@ -1955,4 +1970,5 @@ WiFi,2,1,4,5,12</code></pre>
     </script>
 </body>
 </html>
+
 

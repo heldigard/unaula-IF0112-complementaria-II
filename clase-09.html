@@ -579,6 +579,60 @@
         }
 
         /* ============================================
+           NAVIGATION BETWEEN CLASSES
+           ============================================ */
+        .class-nav {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: var(--space-6);
+            margin-top: var(--space-12);
+            border-radius: var(--radius-lg);
+        }
+
+        .class-nav-title {
+            color: white;
+            font-size: var(--text-sm);
+            text-align: center;
+            margin-bottom: var(--space-4);
+            opacity: 0.9;
+        }
+
+        .class-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+
+        .class-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-5);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .class-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .class-nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .class-nav-btn .arrow {
+            font-size: var(--text-lg);
+        }
+
+        /* ============================================
            BACK TO TOP BUTTON
            ============================================ */
         .back-to-top {
@@ -2325,4 +2379,5 @@ def calcular_resumen(datos):
     </script>
 </body>
 </html>
+
 

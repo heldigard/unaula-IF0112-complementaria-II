@@ -2173,6 +2173,24 @@ void loop() {
                     </tr>
                 </table>
 
+                <!-- Diagrama de conexiones DHT22 + LDR -->
+                <figure style="margin: 2rem 0; background: white; padding: 1rem; border-radius: 8px;">
+                    <object type="image/svg+xml" data="../diagrams/dht22-ldr-connections.svg" width="100%" height="420" style="max-width: 900px;">
+                        <img src="../diagrams/dht22-ldr-connections.svg" alt="Diagrama de conexiones DHT22 y LDR con ESP32">
+                    </object>
+                    <figcaption>Conexión de sensores DHT22 (temperatura/humedad) y LDR (luz) al ESP32 con divisor de voltaje</figcaption>
+                </figure>
+
+                <div class="info-box warning">
+                    <h4>⚠️ Conexiones Seguras</h4>
+                    <ul>
+                        <li>Siempre verificar polaridad del DHT22 (VCC/DATA/GND)</li>
+                        <li>El LDR requiere una resistencia pull-down de 10KΩ</li>
+                        <li>Usar ADC (GPIO34-39) para el LDR</li>
+                        <li>Alimentar sensores con 3.3V (no 5V para proteger el ESP32)</li>
+                    </ul>
+                </div>
+
                 <h4>🔊 SONIDO</h4>
                 <table>
                     <tr>
@@ -3411,7 +3429,20 @@ void loop() {
             </section>
         </main>
 
-        <footer>
+        <!-- Navegación entre clases -->
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-04.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Clase Anterior
+                </a>                <a href="clase-06.html" class="class-nav-btn">
+                    Clase Siguiente <span class="arrow">→</span>
+                </a>            </div>
+        </nav>
+
+    <footer>
             <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
             <p>Universidad Autónoma Latinoamericana (UNAULA) | Ingeniería Informática | 2026-I</p>
             <p style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;">
@@ -3463,5 +3494,6 @@ void loop() {
     </script>
 </body>
 </html>
+
 
 

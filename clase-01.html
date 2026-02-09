@@ -656,6 +656,60 @@
         }
 
         /* ============================================
+           NAVIGATION BETWEEN CLASSES
+           ============================================ */
+        .class-nav {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: var(--space-6);
+            margin-top: var(--space-12);
+            border-radius: var(--radius-lg);
+        }
+
+        .class-nav-title {
+            color: white;
+            font-size: var(--text-sm);
+            text-align: center;
+            margin-bottom: var(--space-4);
+            opacity: 0.9;
+        }
+
+        .class-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+
+        .class-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-5);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .class-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .class-nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .class-nav-btn .arrow {
+            font-size: var(--text-lg);
+        }
+
+        /* ============================================
            BACK TO TOP BUTTON
            ============================================ */
         .back-to-top {
@@ -1043,6 +1097,14 @@
                 </div>
 
                 <p class="intro-box"><strong>💡 Insight:</strong> IoT convierte objetos cotidianos en dispositivos inteligentes que <strong>actúan automáticamente</strong></p>
+
+                <!-- Diagrama Arquitectura IoT -->
+                <figure style="margin: 2rem 0; background: white; padding: 1rem; border-radius: 8px;">
+                    <object type="image/svg+xml" data="../diagrams/iot-architecture-layers.svg" width="100%" height="320" style="max-width: 900px;">
+                        <img src="../diagrams/iot-architecture-layers.svg" alt="Arquitectura IoT en 4 capas">
+                    </object>
+                    <figcaption>Arquitectura de un sistema IoT: Capas de Percepción, Red, Procesamiento y Aplicación</figcaption>
+                </figure>
             </section>
 
             <!-- Componentes -->
@@ -1214,13 +1276,22 @@
                 </table>
             </section>
 
-            <!-- Evolución - Infografía -->
+            <!-- Evolución - Infografía + Diagrama SVG -->
             <section id="evolucion">
                 <h2>Línea del Tiempo de Internet</h2>
 
+                <!-- Diagrama SVG -->
+                <figure style="margin: 2rem 0;">
+                    <object type="image/svg+xml" data="../diagrams/web-evolution-timeline.svg" width="100%" height="400" style="max-width: 900px;">
+                        <img src="../diagrams/web-evolution-timeline.svg" alt="Diagrama de evolución de Internet hacia IoT">
+                    </object>
+                    <figcaption>Figura 1: Evolución de Internet hacia IoT - Web 1.0, 2.0, 3.0 e IoT</figcaption>
+                </figure>
+
+                <!-- Infografía original -->
                 <figure>
                     <img src="assets/infografias/clase-01-evolucion-internet.png" alt="Infografía: Evolución de Internet desde ARPANET hasta IoT">
-                    <figcaption>Figura 1: Evolución de Internet - Desde ARPANET (1969) hasta el Internet de las Cosas (2025+)</figcaption>
+                    <figcaption>Figura 2: Detalle de eras de conectividad digital</figcaption>
                 </figure>
 
                 <h3>Las 4 Eras de la Conectividad Digital</h3>
@@ -2709,6 +2780,22 @@
                 </div>
             </section>
         </main>
+
+        <!-- Navegación entre clases -->
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>
+                <a href="clase-00.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Clase Anterior
+                </a>
+                <a href="clase-02.html" class="class-nav-btn">
+                    Clase Siguiente <span class="arrow">→</span>
+                </a>
+            </div>
+        </nav>
 
         <footer>
             <p><strong>IF0112 - Complementaria II (IoT)</strong></p>

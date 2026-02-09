@@ -142,6 +142,54 @@
             .no-print { display: none; }
             body { padding: 0; }
         }
+
+        /* ============================================
+           NAVIGATION BETWEEN CLASSES
+           ============================================ */
+        .class-nav {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 24px;
+            margin-top: 48px;
+            border-radius: 12px;
+        }
+        .class-nav-title {
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+        .class-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .class-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .class-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        .class-nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .class-nav-btn .arrow {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -390,6 +438,23 @@
                 <strong>Email:</strong> [email@unaula.edu.co]
             </p>
         </div>
+
+        <!-- Navegación entre clases -->
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>
+                <a href="clase-02.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Clase Anterior
+                </a>
+                <a href="clase-03.html" class="class-nav-btn">
+                    Clase Siguiente <span class="arrow">→</span>
+                </a>
+            </div>
+        </nav>
     </div>
 </body>
 </html>
+
