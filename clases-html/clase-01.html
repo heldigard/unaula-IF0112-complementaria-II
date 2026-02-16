@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 1: Evolución de Internet - IF0112 Complementaria II (IoT)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 1: Evolución de Internet</h1>
+            <p class="subtitle">De ARPANET al Internet de las Cosas</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 02-feb-2026</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#que-es-iot">¿Qué es IoT?</a></li>
+                <li><a href="#componentes">Componentes</a></li>
+                <li><a href="#evolucion">Evolución</a></li>
+                <li><a href="#drivers">Drivers</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="agenda-120" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> ¿Qué es <abbr title="Internet of Things">IoT</abbr>? Componentes básicos (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> "Mapea tu día con <abbr title="Internet of Things">IoT</abbr>" (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Evolución de Internet (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de dispositivos y drivers (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <p>Al finalizar esta sesión, podrás:</p>
+                <ul>
+                    <li><strong>Definir</strong> qué es <abbr title="Internet of Things">IoT</abbr></li>
+                    <li><strong>Identificar</strong> los 4 componentes de un sistema <abbr title="Internet of Things">IoT</abbr></li>
+                    <li><strong>Describir</strong> la evolución de Internet hacia <abbr title="Internet of Things">IoT</abbr></li>
+                    <li><strong>Reconocer</strong> los drivers tecnológicos que habilitan <abbr title="Internet of Things">IoT</abbr></li>
+                </ul>
+            </section>
+
+            <section id="que-es-iot">
+                <h2>¿Qué es Internet de las Cosas?</h2>
+                
+                <div class="intro-box">
+                    <strong><abbr title="Internet of Things: Red de objetos físicos con sensores y conectividad">IoT</abbr></strong> es la interconexión de objetos físicos cotidianos con Internet, permitiéndoles enviar y recibir datos sin intervención humana directa.
+                </div>
+
+                <p><strong>Ejemplo cotidiano:</strong> Un smartwatch que mide tu ritmo cardíaco, cuenta pasos y te notifica si detecta una frecuencia cardíaca irregular, todo automáticamente.</p>
+
+                <h3>El Valor de IoT</h3>
+                <ul>
+                    <li><strong>Automatización:</strong> Procesos que ocurren sin intervención humana</li>
+                    <li><strong>Optimización:</strong> Uso eficiente de recursos (energía, agua, tiempo)</li>
+                    <li><strong>Nuevos modelos de negocio:</strong> Servicios basados en datos</li>
+                </ul>
+            </section>
+
+            <section id="componentes">
+                <h2>Componentes de un Sistema IoT</h2>
+                
+                <p>Un sistema IoT requiere 4 componentes fundamentales:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Función</th>
+                            <th>Ejemplo Cotidiano</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>📡 <strong>Sensores</strong></td>
+                            <td>Capturan datos del mundo físico</td>
+                            <td>Termostato que mide temperatura</td>
+                        </tr>
+                        <tr>
+                            <td>📶 <strong>Conectividad</strong></td>
+                            <td>Transmiten datos a la nube</td>
+                            <td>WiFi que envía datos al servidor</td>
+                        </tr>
+                        <tr>
+                            <td>🧠 <strong>Procesamiento</strong></td>
+                            <td>Analizan y toman decisiones</td>
+                            <td>IA que ajusta la temperatura</td>
+                        </tr>
+                        <tr>
+                            <td>⚡ <strong>Actuadores</strong></td>
+                            <td>Ejecutan acciones físicas</td>
+                            <td>Aire acondicionado se enciende</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>💡 Insight:</strong> El valor de IoT surge cuando estos 4 componentes trabajan juntos en un ciclo: <strong>Sensor → Conectividad → Procesamiento → Actuador</strong>
+                </div>
+
+                <h3>Flujo Básico</h3>
+                <div class="basic-flow" style="display: flex; align-items: center; gap: 10px; background: linear-gradient(90deg,#0b1220,#0f172a); color: white; padding: 15px; border-radius: 999px; justify-content: center; flex-wrap: wrap; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.06); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">Sensor</div>
+                    <span style="color: rgba(255,255,255,0.6); font-size: 1.2rem;">→</span>
+                    <div style="background: rgba(255,255,255,0.06); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">Gateway</div>
+                    <span style="color: rgba(255,255,255,0.6); font-size: 1.2rem;">→</span>
+                    <div style="background: rgba(255,255,255,0.06); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">Nube</div>
+                    <span style="color: rgba(255,255,255,0.6); font-size: 1.2rem;">→</span>
+                    <div style="background: rgba(255,255,255,0.06); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">Acción</div>
+                </div>
+            </section>
+
+            <section id="evolucion">
+                <h2>Evolución de Internet</h2>
+
+                <h3>Las 4 Eras de la Conectividad Digital</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Era</th>
+                            <th>Período</th>
+                            <th>Hito Tecnológico</th>
+                            <th>Característica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ARPANET</strong></td>
+                            <td>1969</td>
+                            <td>Primer mensaje entre 4 universidades</td>
+                            <td>Nace Internet (red de computadoras)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WWW</strong></td>
+                            <td>1991</td>
+                            <td>HTML y navegadores</td>
+                            <td>Internet accesible para todos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web 2.0</strong></td>
+                            <td>2004-2007</td>
+                            <td>Facebook, iPhone</td>
+                            <td>Todos producen contenido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT</strong></td>
+                            <td>2015+</td>
+                            <td>AWS IoT, sensores masivos</td>
+                            <td>Todo inteligente conectado</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>Colombia en la historia:</strong> En 1991, Colombia fue uno de los primeros 5 países latinoamericanos en conectarse a Internet, mediante Uniandes con una conexión de 64 Kbps.
+                </div>
+
+                <h3>Crecimiento de Dispositivos Conectados</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Dispositivos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2015</td>
+                            <td>15 mil millones</td>
+                        </tr>
+                        <tr>
+                            <td>2020</td>
+                            <td>30 mil millones</td>
+                        </tr>
+                        <tr>
+                            <td>2025</td>
+                            <td>75+ mil millones</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="drivers">
+                <h2>Drivers Tecnológicos de IoT</h2>
+
+                <p>El crecimiento explosivo de IoT se debe a 5 factores convergentes:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Driver</th>
+                            <th>Evolución</th>
+                            <th>Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>💰 Hardware</strong></td>
+                            <td>Sensores de $5 → $0.50</td>
+                            <td>Barato conectar cualquier cosa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📡 Conectividad</strong></td>
+                            <td>WiFi, 4G, LoRa, NB-IoT</td>
+                            <td>Cobertura universal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>☁️ Cloud</strong></td>
+                            <td>AWS, Azure, GCP IoT</td>
+                            <td>Procesamiento accesible</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🧠 IA</strong></td>
+                            <td>Machine Learning accesible</td>
+                            <td>Decisiones automáticas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🔋 Baterías</strong></td>
+                            <td>1 mes → 10 años de duración</td>
+                            <td>Sensores sin cables</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>El ESP32:</strong> Un microcontrolador con WiFi y Bluetooth por solo $3-5, que hace posible IoT masivo.
+                </div>
+
+                <h3>Internet de Todo (IoE)</h3>
+                <p><strong>IoE</strong> = IoT + Personas + Procesos + Datos</p>
+                <p>Mientras IoT se enfoca en conectar dispositivos, IoE representa el ecosistema completo donde personas, procesos, datos y cosas se interconectan para crear valor de negocio.</p>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicio de Aplicación</h2>
+
+                <div class="actividad" style="background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <h4>🔍 Identifica IoT en tu entorno</h4>
+                    <p><strong>Tipo:</strong> Ejercicio práctico en sesión</p>
+                    <p><strong>Duración:</strong> 15 minutos</p>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol>
+                        <li>Lista 5 dispositivos <abbr title="Internet of Things">IoT</abbr> que uses o veas diariamente</li>
+                        <li>Para cada uno, identifica: ¿Qué sensor tiene? ¿Qué conectividad usa? ¿Qué acción realiza?</li>
+                    </ol>
+                    <p><strong>Ejemplo:</strong> Smartwatch → Sensor: acelerómetro + ritmo cardíaco → Conectividad: Bluetooth + WiFi → Acción: Notifica si hay anomalía cardíaca</p>
+                </div>
+
+                <h3>Para la próxima sesión</h3>
+                <ul>
+                    <li>Revisa los 4 pilares de <abbr title="Internet of Things">IoT</abbr> (Personas, Procesos, Datos, Cosas)</li>
+                    <li>Trae tu kit <abbr title="Microcontrolador con WiFi y Bluetooth">ESP32</abbr> para el Laboratorio 1</li>
+                    <li>Instala Arduino IDE en tu computador</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong><abbr title="Internet of Things">IoT</abbr></strong> conecta objetos físicos a Internet para automatizar procesos</li>
+                    <li><strong>4 Componentes:</strong> Sensores, Conectividad, Procesamiento, Actuadores</li>
+                    <li><strong>Evolución:</strong> ARPANET → WWW → Web 2.0 → <abbr title="Internet of Things">IoT</abbr></li>
+                    <li><strong>Drivers:</strong> Hardware barato, conectividad universal, cloud, IA, baterías</li>
+                </ul>
+                
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Personas, Procesos, Datos y Cosas</h4>
+                    <p>Los 4 pilares que hacen funcionar cualquier sistema <abbr title="Internet of Things">IoT</abbr></p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn"><span class="arrow">🏠</span> Índice</a>
+                <a href="clase-00.html" class="class-nav-btn"><span class="arrow">←</span> Anterior<br><small style="font-size:0.75em;opacity:0.8;">Presentación</small></a>
+                <a href="clase-02.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">09-feb →</small> <span class="arrow">→</span></a>
+            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 1 - 02-feb-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const backToTop = document.getElementById('backToTop');
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        })();
+    </script>
+</body>
+</html>

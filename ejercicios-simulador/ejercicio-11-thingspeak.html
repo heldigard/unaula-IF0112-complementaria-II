@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 11: ThingSpeak - Envío de Datos | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .tip { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .steps { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Ejercicio 11: ThingSpeak - Envío de Datos a la Nube</h1>
+            <p>⏱️ 45 min | 📶 ESP32 + Sensor DHT22 | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Crear un sistema IoT que envía datos de temperatura y humedad a <strong>ThingSpeak</strong>, una plataforma gratuita de monitoreo IoT.</p>
+            <div class="tip">
+                <strong>💡 Concepto:</strong> ThingSpeak es una plataforma de análisis y visualización de datos. Es ideal para proyectos IoT simples, experimentos y prototipos.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Requisitos Previos</h2>
+            <ul>
+                <li>ESP32 con sensor DHT22 conectado</li>
+                <li>Cuenta de ThingSpeak gratuita: <a href="https://thingspeak.com/signup" target="_blank">https://thingspeak.com/signup</a></li>
+                <li>Write API Key de tu canal (se crea al hacer signup)</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ CONFIGURACIÓN OBLIGATORIA ANTES DE EJECUTAR:</strong>
+            <p>El código tiene <strong>3 placeholders</strong> que DEBES reemplazar:</p>
+            <ol style="margin-top: 0.5rem;">
+                <li><code>TU_RED_WIFI</code> → Nombre de tu red WiFi</li>
+                <li><code>TU_CONTRASEÑA</code> → Contraseña de tu WiFi</li>
+                <li><code>TU_WRITE_API_KEY</code> → Tu API Key de ThingSpeak</li>
+            </ol>
+            <p style="margin-bottom: 0;">El programa se detendrá si no configuras estos valores.</p>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Paso 1: Crear Canal en ThingSpeak</h2>
+            <div class="steps">
+                <ol>
+                    <li>Regístrate en <a href="https://thingspeak.com/signup" target="_blank">https://thingspeak.com/signup</a></li>
+                    <li>Ve a <strong>Channels → My Channels</strong></li>
+                    <li>Crea un nuevo canal (Create New Channel)</li>
+                    <li>Nombra el canal (ej: "Mi Laboratorio IoT")</li>
+                    <li>Agrega campos:
+                        <ul>
+                            <li>Field 1: Temperatura (°C)</li>
+                            <li>Field 2: Humedad (%)</li>
+                        </ul>
+                    </li>
+                    <li>Guarda el canal</li>
+                    <li>Copia tu <strong>Write API Key</strong> (en la pestaña API Keys)</li>
+                </ol>
+            </div>
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> Reemplaza <code>TU_WRITE_API_KEY</code> con tu API Key real. Esta es la única parte que debes cambiar para que funcione con tu cuenta.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;DHT.h&gt;
+#include &lt;HTTPClient.h&gt;
+
+// Credenciales WiFi
+const char* ssid = "TU_RED_WIFI";
+const char* password = "TU_CONTRASENA";
+
+// Configuración ThingSpeak
+const char* thingSpeakChannel = "TU_CHANEL_ID";
+const char* writeAPIKey = "TU_WRITE_API_KEY";
+
+// Configuración DHT22
+#define DHTPIN 4
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+
+  // Iniciar DHT22
+  dht.begin();
+  delay(2000);
+
+  Serial.println("=== Iniciando IoT con ThingSpeak ===");
+
+  // Conectar WiFi
+  WiFi.begin(ssid, password);
+  Serial.print("Conectando WiFi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\n✅ WiFi Conectado!");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  // ⚠️ VALIDACIÓN DE SEGURIDAD: Verificar que se reemplazaron los placeholders
+  if (String(ssid) == "TU_RED_WIFI" || String(password) == "TU_CONTRASENA") {
+    Serial.println("❌ ERROR: Debes configurar tu WiFi antes de ejecutar");
+    Serial.println("   Reemplaza TU_RED_WIFI y TU_CONTRASENA con tus datos reales");
+    while(true);  // Detener ejecución
+  }
+  
+  if (String(writeAPIKey) == "TU_WRITE_API_KEY") {
+    Serial.println("❌ ERROR: Debes configurar tu API Key de ThingSpeak");
+    Serial.println("   Ve a https://thingspeak.com y crea un canal");
+    Serial.println("   Copia tu Write API Key en el código");
+    while(true);  // Detener ejecución
+  }
+
+  // Verificar que hay conexión WiFi
+  if (WiFi.status() == WL_CONNECTED) {
+    // Leer datos del sensor
+    float temperatura = dht.readTemperature();
+    float humedad = dht.readHumidity();
+
+    // Verificar si lectura es válida
+    if (isnan(temperatura) || isnan(humedad)) {
+      Serial.println("❌ Error al leer DHT22");
+      return;
+    }
+
+    Serial.println("=== Datos Leídos ===");
+    Serial.print("Temperatura: ");
+    Serial.print(temperatura);
+    Serial.print(" °C | Humedad: ");
+    Serial.print(humedad);
+    Serial.println(" %");
+
+    // Crear URL para enviar datos a ThingSpeak
+    String url = "http://api.thingspeak.com/update?api_key=";
+    url += writeAPIKey;
+    url += "&field1=";
+    url += String(temperatura);
+    url += "&field2=";
+    url += String(humedad);
+
+    Serial.print("Enviando a ThingSpeak: ");
+    Serial.println(url);
+
+    // Enviar datos
+    HTTPClient http;
+    http.begin(url);
+
+    int httpResponseCode = http.GET();
+
+    if (httpResponseCode > 0) {
+      Serial.print("✅ Datos enviados. Response: ");
+      Serial.println(httpResponseCode);
+
+      if (httpResponseCode == 200) {
+        Serial.println("✅ Recepción confirmada por ThingSpeak");
+      }
+    } else {
+      Serial.print("❌ Error: ");
+      Serial.println(httpResponseCode);
+    }
+
+    http.end();
+
+    // Esperar 15 minutos para ThingSpeak (limitación gratuita)
+    // ThingSpeak permite máximo 3 envíos por minuto
+    Serial.println("\n⏳ Esperando 15 minutos...");
+    delay(900000);  // 15 minutos = 900000 ms
+  } else {
+    Serial.println("❌ WiFi no conectado. Reconectando...");
+    WiFi.reconnect();
+    delay(5000);
+  }
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Cómo Conectar el Hardware</h2>
+
+            <!-- Diagrama SVG DHT22 -->
+            <svg viewBox="0 0 750 380" style="width:100%; max-width:750px; display:block; margin:1rem auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                <!-- Fondo -->
+                <rect x="0" y="0" width="750" height="380" fill="#fafafa"/>
+
+                <!-- ESP32 -->
+                <rect x="400" y="80" width="190" height="220" rx="8" fill="#1e40af" stroke="#0f172a" stroke-width="3"/>
+                <text x="495" y="105" text-anchor="middle" fill="white" font-size="14" font-weight="bold">ESP32 DevKit V1</text>
+
+                <!-- Pin D4 -->
+                <circle cx="430" cy="180" r="12" fill="#8b5cf6" stroke="#0f172a" stroke-width="2"/>
+                <text x="430" y="184" text-anchor="middle" fill="white" font-size="10" font-weight="bold">D4</text>
+
+                <!-- 3.3V -->
+                <circle cx="430" cy="230" r="12" fill="#ef4444" stroke="#0f172a" stroke-width="2"/>
+                <text x="430" y="234" text-anchor="middle" fill="white" font-size="9" font-weight="bold">3.3V</text>
+
+                <!-- GND -->
+                <circle cx="430" cy="270" r="12" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+                <text x="430" y="274" text-anchor="middle" fill="white" font-size="10" font-weight="bold">GND</text>
+
+                <!-- DHT22 Sensor -->
+                <rect x="100" y="120" width="140" height="140" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/>
+                <text x="170" y="150" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">DHT22</text>
+                <text x="170" y="170" text-anchor="middle" fill="#1e40af" font-size="11">Sensor Temp/Hum</text>
+
+                <!-- Pines DHT22 -->
+                <rect x="115" y="190" width="25" height="30" rx="3" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+                <text x="127" y="210" text-anchor="middle" fill="white" font-size="9" font-weight="bold">1</text>
+
+                <rect x="147" y="190" width="25" height="30" rx="3" fill="#22c55e" stroke="#15803d" stroke-width="2"/>
+                <text x="159" y="210" text-anchor="middle" fill="white" font-size="9" font-weight="bold">2</text>
+
+                <rect x="179" y="190" width="25" height="30" rx="3" fill="#9ca3af" stroke="#4b5563" stroke-width="2"/>
+                <text x="191" y="210" text-anchor="middle" fill="white" font-size="9" font-weight="bold">3</text>
+
+                <rect x="211" y="190" width="25" height="30" rx="3" fill="#64748b" stroke="#1f2937" stroke-width="2"/>
+                <text x="223" y="210" text-anchor="middle" fill="white" font-size="9" font-weight="bold">4</text>
+
+                <!-- Conexiones -->
+                <!-- Pin 2 (Data) a D4 -->
+                <path d="M 172 220 L 172 280 L 418 280 L 418 190" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+                <polygon points="410,186 418,190 410,194" fill="#8b5cf6"/>
+
+                <!-- Pin 1 (VCC) a 3.3V -->
+                <path d="M 127 220 L 127 300 L 418 300 L 418 242" stroke="#ef4444" stroke-width="3" fill="none"/>
+                <polygon points="410,238 418,242 410,246" fill="#ef4444"/>
+
+                <!-- Pin 4 (GND) a GND -->
+                <path d="M 223 220 L 223 340 L 418 340 L 418 282" stroke="#64748b" stroke-width="3" fill="none"/>
+                <polygon points="410,278 418,282 410,286" fill="#64748b"/>
+
+                <!-- Panel informativo -->
+                <rect x="520" y="60" width="210" height="260" rx="8" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2"/>
+                <text x="625" y="90" text-anchor="middle" fill="#0369a1" font-size="14" font-weight="bold">Pines DHT22</text>
+
+                <text x="535" y="120" fill="#0369a1" font-size="12" font-weight="bold">Pin 1 (VCC):</text>
+                <text x="535" y="140" fill="#0369a1" font-size="11">→ 3.3V del ESP32</text>
+
+                <text x="535" y="175" fill="#0369a1" font-size="12" font-weight="bold">Pin 2 (Data):</text>
+                <text x="535" y="195" fill="#0369a1" font-size="11">→ D4 (GPIO 4)</text>
+                <text x="535" y="215" fill="#0369a1" font-size="11">Transmite datos</text>
+
+                <text x="535" y="250" fill="#0369a1" font-size="12" font-weight="bold">Pin 3 (NC):</text>
+                <text x="535" y="270" fill="#0369a1" font-size="11">→ No conectar</text>
+                <text x="535" y="290" fill="#0369a1" font-size="11">(Not Connected)</text>
+
+                <text x="535" y="325" fill="#0369a1" font-size="12" font-weight="bold">Pin 4 (GND):</text>
+                <text x="535" y="345" fill="#0369a1" font-size="11">→ GND del ESP32</text>
+            </svg>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+                <strong>💡 Conexiones del DHT22:</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li><strong>Pin 1 (VCC):</strong> Conecta a <strong>3.3V</strong> del ESP32</li>
+                    <li><strong>Pin 2 (Data):</strong> Conecta a <strong>D4</strong> (GPIO 4) - aquí se transmiten los datos</li>
+                    <li><strong>Pin 3 (NC):</strong> <strong>No conectar</strong> (Not Connected)</li>
+                    <li><strong>Pin 4 (GND):</strong> Conecta a <strong>GND</strong> del ESP32</li>
+                </ul>
+            </div>
+
+            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+                <strong>🔧 Tip:</strong> El DHT22 tiene un orden específico de pines. Si los conectas al revés, el sensor no funcionará y podría dañarse. Observa la orientación: el pin 1 (VCC) está del lado izquierdo cuando miras el sensor de frente con la rejilla hacia arriba.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Salida Esperada</h2>
+            <pre>Iniciando IoT con ThingSpeak
+Conectando WiFi.......
+✅ WiFi Conectado!
+IP: 192.168.1.100
+
+=== Datos Leídos ===
+Temperatura: 24.50 °C | Humedad: 65.00 %
+Enviando a ThingSpeak: http://api.thingspeak.com/update?api_key=ABC123&field1=24.50&field2=65.00
+✅ Datos enviados. Response: 200
+✅ Recepción confirmada por ThingSpeak
+
+⏳ Esperando 15 minutos...</pre>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Verificar Datos en ThingSpeak</h2>
+            <ol>
+                <li>Ingresa a tu cuenta en <a href="https://thingspeak.com" target="_blank">https://thingspeak.com</a></li>
+                <li>Ve a tu canal creado</li>
+                <li>En la pestaña <strong>Charts</strong> verás los gráficos de temperatura y humedad</li>
+                <li>En <strong>API Keys</strong> puedes ver tu Write API Key</li>
+                <li>En <strong>Feed</strong> verás los datos enviados en tiempo real</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>✅ Entrega Requerida</h2>
+            <ul>
+                <li>Código completo con tu Write API Key reemplazado</li>
+                <li>Screenshot del canal en ThingSpeak con al menos 3 registros</li>
+                <li>Screenshot de los gráficos (Chart) mostrando tendencia</li>
+                <li>Desafío adicional: Agregar 2 campos más (ej: presión atmosférica)</li>
+            </ul>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-10-wifi-connect.html">← Ejercicio 10</a>
+            <a href="ejercicio-12-mqtt.html">Ejercicio 12 →</a>
+        </nav>
+    </div>
+</body>
+</html>

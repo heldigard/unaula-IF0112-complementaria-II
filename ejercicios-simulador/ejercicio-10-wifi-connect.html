@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 10: WiFi - Conexión a Red | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Ejercicio 10: WiFi - Conexión a Red</h1>
+            <p>⏱️ 35 min | 📶 Solo ESP32 | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Conectar el ESP32 a una red WiFi y mostrar la dirección IP asignada.</p>
+            <div class="warning">
+                <strong>⚠️ Nota Importante:</strong> Este código funciona en hardware real. En Wokwi, la conexión está "simulada" - el ESP32 mostrará que se "conectó" pero no hay red real. Con hardware real, debes cambiar SSID y contraseña.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>#include &lt;WiFi.h&gt;
+
+// Credenciales WiFi (CAMBIAR en hardware real)
+const char* ssid = "TU_RED_WIFI";
+const char* password = "TU_CONTRASENA";
+
+void setup() {
+  Serial.begin(115200);
+
+  Serial.println("=== Conexión WiFi ===");
+
+  // Iniciar conexión
+  WiFi.begin(ssid, password);
+
+  Serial.print("Conectando a ");
+  Serial.println(ssid);
+
+  // Esperar conexión
+  int intentos = 0;
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    delay(500);
+    Serial.print(".");
+    intentos++;
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n✅ Conectado!");
+    Serial.print("Dirección IP: ");
+    Serial.println(WiFi.localIP());
+    Serial.print("Fuerza de señal: ");
+    Serial.print(WiFi.RSSI());
+    Serial.println(" dBm");
+  } else {
+    Serial.println("\n❌ No se pudo conectar");
+    Serial.println("Verifica SSID y contraseña");
+  }
+}
+
+void loop() {
+  // Verificar estado de conexión
+  if (WiFi.status() == WL_CONNECTED) {
+    // Mantener conexión viva
+    delay(5000);
+  } else {
+    Serial.println("Conexión perdida. Reconectando...");
+    WiFi.reconnect();
+  }
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Para Usar en Hardware Real</h2>
+            <ol>
+                <li>Cambia <code>TU_RED_WIFI</code> por el nombre de tu red</li>
+                <li>Cambia <code>TU_CONTRASENA</code> por tu contraseña WiFi</li>
+                <li>Sube el código a tu ESP32 físico</li>
+                <li>Abre el Monitor Serial a 115200 baudios</li>
+                <li>Verás tu dirección IP (ej: 192.168.1.100)</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>📊 Salida Esperada</h2>
+            <pre>Conexión WiFi ===
+Conectando a TU_RED_WIFI
+.....
+✅ Conectado!
+Dirección IP: 192.168.1.100
+Fuerza de señal: -45 dBm</pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Cómo Probar en Wokwi</h2>
+            <ol>
+                <li>Copia el código en Wokwi</li>
+                <li>Ejecuta la simulación</li>
+                <li>Abre el <strong>Monitor Serial</strong></li>
+                <li>Espera a que muestre "Conectando..."</li>
+                <li>Observa la dirección IP asignada (Wokwi simula la conexión)</li>
+                <li>El código de reconexión automática funciona si se pierde la conexión</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación en Wokwi</li>
+                <li>Espera a que el ESP32 se "conecte" a WiFi</li>
+                <li>Toma pantallazo del Monitor Serial mostrando la IP asignada</li>
+                <li>En tu informe, explica qué cambia en el código para hardware real</li>
+                <li>Sube el pantallazo y la explicación a Canvas</li>
+            </ol>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-09-wifi-scan.html">← Ejercicio 9</a>
+            <a href="ejercicio-11-thingspeak.html">Ejercicio 11 →</a>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" aria-labelledby="title desc">
+  <title id="title">Evolución de Internet hacia IoT</title>
+  <desc id="desc">Línea de tiempo de la evolución de Internet desde Web 1.0 hasta IoT</desc>
+
+  <!-- Fondo -->
+  <rect width="900" height="420" fill="#f8fafc"/>
+
+  <!-- Título -->
+  <text x="450" y="30" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#1e40af">
+    Evolución de Internet hacia IoT
+  </text>
+  <text x="450" y="55" font-family="system-ui, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">De las primeras redes a la Internet de las Cosas</text>
+
+  <!-- Línea de tiempo -->
+  <line x1="50" y1="85" x2="850" y2="85" stroke="#3b82f6" stroke-width="3"/>
+
+  <!-- Web 1.0 -->
+  <g transform="translate(50, 85)">
+    <circle cx="0" cy="0" r="15" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="0" y="5" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">1</text>
+  </g>
+  <g transform="translate(50, 120)">
+    <rect x="0" y="0" width="160" height="130" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <text x="80" y="25" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1e40af" text-anchor="middle">Web 1.0</text>
+    <text x="80" y="45" font-family="system-ui, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">1990-2000</text>
+    <text x="80" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Solo lectura</text>
+    <text x="80" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Sitios estáticos</text>
+    <text x="80" y="95" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">HTML básico</text>
+    <text x="80" y="115" font-family="system-ui, sans-serif" font-size="8" fill="#1e40af" font-weight="bold" text-anchor="middle">Periódicos, Blogs</text>
+  </g>
+
+  <!-- Web 2.0 -->
+  <g transform="translate(260, 85)">
+    <circle cx="0" cy="0" r="15" fill="#10b981" stroke="#059669" stroke-width="2"/>
+    <text x="0" y="5" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">2</text>
+  </g>
+  <g transform="translate(220, 120)">
+    <rect x="0" y="0" width="160" height="130" rx="8" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+    <text x="80" y="25" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">Web 2.0</text>
+    <text x="80" y="45" font-family="system-ui, sans-serif" font-size="11" fill="#065f46" text-anchor="middle">2000-2010</text>
+    <text x="80" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Lectura/Escritura</text>
+    <text x="80" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Redes sociales</text>
+    <text x="80" y="95" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">AJAX, Web 2.0</text>
+    <text x="80" y="115" font-family="system-ui, sans-serif" font-size="8" fill="#065f46" font-weight="bold" text-anchor="middle">Facebook, YouTube</text>
+  </g>
+
+  <!-- Web 3.0 -->
+  <g transform="translate(450, 85)">
+    <circle cx="0" cy="0" r="15" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+    <text x="0" y="5" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">3</text>
+  </g>
+  <g transform="translate(420, 120)">
+    <rect x="0" y="0" width="160" height="130" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="80" y="25" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">Web 3.0</text>
+    <text x="80" y="45" font-family="system-ui, sans-serif" font-size="11" fill="#92400e" text-anchor="middle">2010-2020</text>
+    <text x="80" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Semantic Web</text>
+    <text x="80" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">IA, Big Data</text>
+    <text x="80" y="95" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Personalización</text>
+    <text x="80" y="115" font-family="system-ui, sans-serif" font-size="8" fill="#92400e" font-weight="bold" text-anchor="middle">Google, Netflix</text>
+  </g>
+
+  <!-- IoT -->
+  <g transform="translate(680, 85)">
+    <circle cx="0" cy="0" r="15" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+    <text x="0" y="5" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">4</text>
+  </g>
+  <g transform="translate(620, 120)">
+    <rect x="0" y="0" width="160" height="130" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+    <text x="80" y="25" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#991b1b" text-anchor="middle">IoT</text>
+    <text x="80" y="45" font-family="system-ui, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle">2020+</text>
+    <text x="80" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Todo conectado</text>
+    <text x="80" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Mundo físico↔digital</text>
+    <text x="80" y="95" font-family="system-ui, sans-serif" font-size="9" fill="#374151" text-anchor="middle">Sensores, Cloud</text>
+    <text x="80" y="115" font-family="system-ui, sans-serif" font-size="8" fill="#991b1b" font-weight="bold" text-anchor="middle">Smart Home, SIATA</text>
+  </g>
+
+  <!-- Comparativa -->
+  <g transform="translate(50, 280)">
+    <rect x="0" y="0" width="800" height="130" rx="12" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="400" y="25" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#374151" text-anchor="middle">Evolución de la Conectividad</text>
+
+    <g transform="translate(20, 45)">
+      <!-- Headers -->
+      <rect x="0" y="0" width="150" height="25" rx="4" fill="#f1f5f9"/>
+      <text x="75" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#374151" text-anchor="middle">Era</text>
+
+      <rect x="160" y="0" width="150" height="25" rx="4" fill="#f1f5f9"/>
+      <text x="235" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#374151" text-anchor="middle">Protagonista</text>
+
+      <rect x="320" y="0" width="150" height="25" rx="4" fill="#f1f5f9"/>
+      <text x="395" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#374151" text-anchor="middle">Dispositivos</text>
+
+      <rect x="480" y="0" width="150" height="25" rx="4" fill="#f1f5f9"/>
+      <text x="555" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#374151" text-anchor="middle">Datos</text>
+
+      <rect x="640" y="0" width="140" height="25" rx="4" fill="#f1f5f9"/>
+      <text x="710" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#374151" text-anchor="middle">Impacto</text>
+
+      <!-- Fila 1 -->
+      <rect x="0" y="30" width="150" height="25" rx="4" fill="#dbeafe"/>
+      <text x="75" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle">Web 1.0</text>
+      <rect x="160" y="30" width="150" height="25" rx="4" fill="#dbeafe"/>
+      <text x="235" y="48" font-family="system-ui, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">Empresas, Gob.</text>
+      <rect x="320" y="30" width="150" height="25" rx="4" fill="#dbeafe"/>
+      <text x="395" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle">Computadoras</text>
+      <rect x="480" y="30" width="150" height="25" rx="4" fill="#dbeafe"/>
+      <text x="555" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle">Estáticos</text>
+      <rect x="640" y="30" width="140" height="25" rx="4" fill="#dbeafe"/>
+      <text x="710" y="48" font-family="system-ui, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">Info accesible</text>
+
+      <!-- Fila 2 -->
+      <rect x="0" y="60" width="150" height="25" rx="4" fill="#d1fae5"/>
+      <text x="75" y="78" font-family="system-ui, sans-serif" font-size="10" fill="#065f46" text-anchor="middle">Web 2.0</text>
+      <rect x="160" y="60" width="150" height="25" rx="4" fill="#d1fae5"/>
+      <text x="235" y="78" font-family="system-ui, sans-serif" font-size="9" fill="#065f46" text-anchor="middle">Usuarios</text>
+      <rect x="320" y="60" width="150" height="25" rx="4" fill="#d1fae5"/>
+      <text x="395" y="78" font-family="system-ui, sans-serif" font-size="10" fill="#065f46" text-anchor="middle">PC + Móviles</text>
+      <rect x="480" y="60" width="150" height="25" rx="4" fill="#d1fae5"/>
+      <text x="555" y="78" font-family="system-ui, sans-serif" font-size="10" fill="#065f46" text-anchor="middle">User-generated</text>
+      <rect x="640" y="60" width="140" height="25" rx="4" fill="#d1fae5"/>
+      <text x="710" y="78" font-family="system-ui, sans-serif" font-size="9" fill="#065f46" text-anchor="middle">Conexión social</text>
+
+      <!-- Fila 3 -->
+      <rect x="0" y="90" width="150" height="25" rx="4" fill="#fef3c7"/>
+      <text x="75" y="108" font-family="system-ui, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">IoT</text>
+      <rect x="160" y="90" width="150" height="25" rx="4" fill="#fef3c7"/>
+      <text x="235" y="108" font-family="system-ui, sans-serif" font-size="9" fill="#92400e" text-anchor="middle">Cosas + Personas</text>
+      <rect x="320" y="90" width="150" height="25" rx="4" fill="#fef3c7"/>
+      <text x="395" y="108" font-family="system-ui, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">Miles de millones</text>
+      <rect x="480" y="90" width="150" height="25" rx="4" fill="#fef3c7"/>
+      <text x="555" y="108" font-family="system-ui, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">Sensores, Tiempo real</text>
+      <rect x="640" y="90" width="140" height="25" rx="4" fill="#fef3c7"/>
+      <text x="710" y="108" font-family="system-ui, sans-serif" font-size="9" fill="#92400e" text-anchor="middle">Smart World</text>
+    </g>
+  </g>
+</svg>

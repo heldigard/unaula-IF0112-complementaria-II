@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3: Múltiples LEDs | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .nav a { background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔴🟢🟡 Ejercicio 3: Múltiples LEDs</h1>
+            <p>⏱️ 25 min | 📦 3 LEDs | 🟡 Fácil</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Controlar múltiples LEDs simultáneamente usando arrays y bucles for.</p>
+        </div>
+
+        <div class="section">
+            <h2>🔌 Diagrama de Conexión</h2>
+
+            <h3>Componentes Necesarios</h3>
+            <ul>
+                <li>3x LEDs (rojo, verde, amarillo o colores diferentes)</li>
+                <li>3x Resistencias de 220Ω (una por LED)</li>
+                <li>ESP32</li>
+            </ul>
+
+            <h3>Conexiones</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #f0f9ff;">
+                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left;">LED</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left;">Ánodo (+) → Pin ESP32</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left;">Cátodo (-) → Resistencia → GND</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">LED 1</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">GPIO 18</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">Resistencia 220Ω → GND</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">LED 2</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">GPIO 19</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">Resistencia 220Ω → GND</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">LED 3</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">GPIO 21</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 8px;">Resistencia 220Ω → GND</td>
+                </tr>
+            </table>
+
+            <h3>Diagrama del Circuito</h3>
+
+            <!-- Diagrama SVG de 3 LEDs -->
+            <svg viewBox="0 0 750 420" style="width:100%; max-width:750px; display:block; margin:1rem auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                <!-- Fondo -->
+                <rect x="0" y="0" width="750" height="420" fill="#fafafa"/>
+
+                <!-- ESP32 -->
+                <rect x="280" y="100" width="190" height="220" rx="8" fill="#1e40af" stroke="#0f172a" stroke-width="3"/>
+                <text x="375" y="125" text-anchor="middle" fill="white" font-size="14" font-weight="bold">ESP32 DevKit V1</text>
+
+                <!-- Pines -->
+                <circle cx="310" cy="170" r="12" fill="#ef4444" stroke="#0f172a" stroke-width="2"/>
+                <text x="310" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="bold">D18</text>
+
+                <circle cx="310" cy="210" r="12" fill="#22c55e" stroke="#0f172a" stroke-width="2"/>
+                <text x="310" y="214" text-anchor="middle" fill="white" font-size="10" font-weight="bold">D19</text>
+
+                <circle cx="310" cy="250" r="12" fill="#eab308" stroke="#0f172a" stroke-width="2"/>
+                <text x="310" y="254" text-anchor="middle" fill="white" font-size="10" font-weight="bold">D21</text>
+
+                <circle cx="310" cy="300" r="12" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+                <text x="310" y="304" text-anchor="middle" fill="white" font-size="10" font-weight="bold">GND</text>
+
+                <!-- LED 1 - Rojo -->
+                <circle cx="100" cy="170" r="28" fill="#fca5a5" stroke="#dc2626" stroke-width="3"/>
+                <text x="100" y="175" text-anchor="middle" fill="#7f1d1d" font-size="14" font-weight="bold">LED 1</text>
+                <text x="100" y="215" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="bold">ROJO</text>
+
+                <!-- LED 2 - Verde -->
+                <circle cx="100" cy="260" r="28" fill="#86efac" stroke="#16a34a" stroke-width="3"/>
+                <text x="100" y="265" text-anchor="middle" fill="#14532d" font-size="14" font-weight="bold">LED 2</text>
+                <text x="100" y="305" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="bold">VERDE</text>
+
+                <!-- LED 3 - Amarillo -->
+                <circle cx="190" cy="215" r="28" fill="#fde047" stroke="#ca8a04" stroke-width="3"/>
+                <text x="190" y="220" text-anchor="middle" fill="#713f12" font-size="13" font-weight="bold">LED 3</text>
+                <text x="190" y="260" text-anchor="middle" fill="#ca8a04" font-size="10" font-weight="bold">AMARILLO</text>
+
+                <!-- Resistencias -->
+                <rect x="180" y="162" width="40" height="16" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+                <text x="200" y="174" text-anchor="middle" fill="#7f1d1d" font-size="9" font-weight="bold">220Ω</text>
+
+                <rect x="180" y="252" width="40" height="16" fill="#bbf7d0" stroke="#16a34a" stroke-width="2"/>
+                <text x="200" y="264" text-anchor="middle" fill="#14532d" font-size="9" font-weight="bold">220Ω</text>
+
+                <rect x="240" y="207" width="16" height="40" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+                <text x="248" y="231" text-anchor="middle" fill="#713f12" font-size="8" font-weight="bold" transform="rotate(-90, 248, 231)">220Ω</text>
+
+                <!-- Conexiones LED 1 -->
+                <line x1="128" y1="170" x2="180" y2="170" stroke="#dc2626" stroke-width="3"/>
+                <line x1="220" y1="170" x2="298" y2="170" stroke="#dc2626" stroke-width="3"/>
+                <polygon points="290,166 298,170 290,174" fill="#dc2626"/>
+
+                <!-- LED 1 a GND -->
+                <path d="M 72 170 L 50 170 L 50 360 L 298 360 L 298 312" stroke="#64748b" stroke-width="3" fill="none"/>
+                <polygon points="290,308 298,312 290,316" fill="#64748b"/>
+
+                <!-- Conexiones LED 2 -->
+                <line x1="128" y1="260" x2="180" y2="260" stroke="#16a34a" stroke-width="3"/>
+                <line x1="220" y1="260" x2="298" y2="260" stroke="#16a34a" stroke-width="3"/>
+                <polygon points="290,256 298,260 290,264" fill="#16a34a"/>
+                <!-- LED 2 a GND (comparte línea) -->
+                <line x1="72" y1="260" x2="50" y2="260" stroke="#64748b" stroke-width="3"/>
+
+                <!-- Conexiones LED 3 -->
+                <line x1="218" y1="215" x2="248" y2="215" stroke="#ca8a04" stroke-width="3"/>
+                <line x1="256" y1="215" x2="298" y2="215" stroke="#ca8a04" stroke-width="3"/>
+                <polygon points="290,211 298,215 290,219" fill="#ca8a04"/>
+
+                <!-- LED 3 a GND -->
+                <path d="M 190 187 L 190 170 L 50 170" stroke="#64748b" stroke-width="3" fill="none"/>
+
+                <!-- Panel informativo -->
+                <rect x="520" y="80" width="210" height="260" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="625" y="110" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Conexiones</text>
+
+                <text x="535" y="145" fill="#1e3a8a" font-size="12" font-weight="bold">LED 1 (Rojo):</text>
+                <text x="535" y="165" fill="#1e3a8a" font-size="11">D18 → R220Ω → LED+ → GND</text>
+
+                <text x="535" y="200" fill="#1e3a8a" font-size="12" font-weight="bold">LED 2 (Verde):</text>
+                <text x="535" y="220" fill="#1e3a8a" font-size="11">D19 → R220Ω → LED+ → GND</text>
+
+                <text x="535" y="255" fill="#1e3a8a" font-size="12" font-weight="bold">LED 3 (Amarillo):</text>
+                <text x="535" y="275" fill="#1e3a8a" font-size="11">D21 → R220Ω → LED+ → GND</text>
+
+                <text x="535" y="315" fill="#dc2626" font-size="11" font-weight="bold">⚠️ Cada LED necesita</text>
+                <text x="535" y="332" fill="#dc2626" font-size="11" font-weight="bold">su propia resistencia</text>
+            </svg>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+                <strong>💡 Notas Importantes:</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li><strong>Cada LED</strong> necesita su <strong>propia resistencia</strong> de 220Ω</li>
+                    <li>NUNCA conectes múltiples LEDs en paralelo con una sola resistencia</li>
+                    <li>El <strong>ánodo</strong> (pata larga) SIEMPRE va hacia el pin del ESP32</li>
+                    <li>El <strong>cátodo</strong> (pata corta) SIEMPRE va hacia GND (tierra)</li>
+                    <li>Los GPIO 18, 19 y 21 son pines de salida digital del ESP32</li>
+                    <li>Puedes usar cualquier color de LED: rojo, verde, amarillo, azul, etc.</li>
+                </ul>
+            </div>
+
+            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+                <strong>🔧 Tip de Práctica:</strong>
+                <p style="margin: 0.5rem 0 0 0;">Usa LEDs de <strong>colores diferentes</strong> (rojo, verde, amarillo) para visualizar mejor las secuencias del programa. Esto hace más fácil identificar qué LED está encendido en cada momento.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>// Ejercicio 3: Múltiples LEDs con Arrays
+const int numLeds = 3;
+const int leds[numLeds] = {18, 19, 21};  // Pines para los 3 LEDs
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("=== Ejercicio 3: Múltiples LEDs ===");
+
+  // Configurar todos los LEDs como salida usando un bucle
+  for (int i = 0; i < numLeds; i++) {
+    pinMode(leds[i], OUTPUT);
+  }
+
+  Serial.println("LEDs configurados. Iniciando secuencia...");
+}
+
+void loop() {
+  // Secuencia 1: Encender uno por uno
+  Serial.println("Secuencia: Encendiendo uno por uno");
+  for (int i = 0; i < numLeds; i++) {
+    digitalWrite(leds[i], HIGH);
+    Serial.print("LED ");
+    Serial.print(i + 1);
+    Serial.println(" encendido");
+    delay(500);
+  }
+
+  delay(500);
+
+  // Secuencia 2: Apagar uno por uno (en reversa)
+  Serial.println("Secuencia: Apagando en reversa");
+  for (int i = numLeds - 1; i >= 0; i--) {
+    digitalWrite(leds[i], LOW);
+    Serial.print("LED ");
+    Serial.print(i + 1);
+    Serial.println(" apagado");
+    delay(500);
+  }
+
+  Serial.println("---");
+  delay(1000);
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Conceptos Clave</h2>
+            <h3>Arrays en Arduino</h3>
+            <pre><code>const int leds[3] = {18, 19, 21};</code></pre>
+            <ul>
+                <li>Un array es una colección de valores del mismo tipo</li>
+                <li>Los índices comienzan en 0: <code>leds[0]</code> = 18, <code>leds[1]</code> = 19, etc.</li>
+            </ul>
+
+            <h3>Bucles For</h3>
+            <pre><code>for (int i = 0; i < 3; i++) {
+  // Este código se repite 3 veces
+  // i vale 0, luego 1, luego 2
+}</code></pre>
+        </div>
+
+        <div class="nav">
+            <a href="ejercicio-02-led-serial.html">← Anterior</a>
+            <a href="ejercicio-04-botones.html">Siguiente →</a>
+        </div>
+    </div>
+</body>
+</html>

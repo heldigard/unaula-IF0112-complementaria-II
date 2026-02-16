@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 9: WiFi - Escanear Redes | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📶 Ejercicio 9: WiFi - Escanear Redes</h1>
+            <p>⏱️ 30 min | 📶 Solo ESP32 | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Aprender a usar el WiFi del ESP32 para escanear y mostrar las redes WiFi disponibles.</p>
+            <div class="warning">
+                <strong>⚠️ Nota Importante:</strong> En Wokwi, el WiFi está simulado. El escáner mostrará redes "falsas" generadas por el simulador, pero el código es el mismo que usarías con hardware real.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code>#include &lt;WiFi.h&gt;
+
+void setup() {
+  Serial.begin(115200);
+
+  // Configurar WiFi en modo estación
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+
+  Serial.println("=== Escaneo de Redes WiFi ===");
+  Serial.println("Escaneando...");
+
+  // Iniciar escaneo
+  int n = WiFi.scanNetworks();
+
+  if (n == 0) {
+    Serial.println("No se encontraron redes");
+  } else {
+    Serial.print(n);
+    Serial.println(" redes encontradas:");
+
+    for (int i = 0; i < n; ++i) {
+      // Mostrar información de cada red
+      Serial.print(i + 1);
+      Serial.print(": ");
+      Serial.print(WiFi.SSID(i));
+      Serial.print(" (");
+      Serial.print(WiFi.RSSI(i));
+      Serial.print("dBm)");
+      Serial.println(")");
+
+      // Pequeño delay entre redes
+      delay(10);
+    }
+  }
+
+  Serial.println("\nEscaneo completado!");
+}
+
+void loop() {
+  // No hacemos nada en el loop
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Funciones WiFi</h2>
+            <ul>
+                <li><code>WiFi.mode(WIFI_STA)</code>: Configura como Estación (cliente WiFi)</li>
+                <li><code>WiFi.scanNetworks()</code>: Escanea redes disponibles</li>
+                <li><code>WiFi.SSID(i)</code>: Nombre de la red i</li>
+                <li><code>WiFi.RSSI(i)</code>: Potencia de señal en dBm</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta el escaneo en el simulador</li>
+                <li>Observa las redes "falsas" que muestra Wokwi</li>
+                <li>Toma pantallazo del Monitor Serial</li>
+                <li>Sube a Canvas</li>
+            </ol>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-08-timer-interrupt.html">← Ejercicio 8</a>
+            <a href="ejercicio-10-wifi-connect.html">Ejercicio 10 →</a>
+        </nav>
+    </div>
+</body>
+</html>

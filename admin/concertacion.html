@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concertación Académica 2026-I - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --muted: #64748b;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 2rem; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+        header { 
+            background: linear-gradient(135deg, #0b2d6b, #1e40af);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { color: white; margin: 0; font-size: 1.75rem; }
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 { color: var(--primary); margin-top: 1.5rem; }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 1rem 0;
+        }
+        th, td { 
+            border: 1px solid var(--border); 
+            padding: 12px; 
+            text-align: left; 
+        }
+        th { 
+            background: #f1f5f9; 
+            font-weight: 600;
+            color: var(--primary);
+        }
+        tr:nth-child(even) { background: #f8fafc; }
+        .highlight { 
+            background: #eff6ff; 
+            border-left: 4px solid var(--primary-light); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .eval-box {
+            background: #f0f9ff;
+            border: 2px solid var(--primary-light);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .footer { 
+            text-align: center; 
+            margin-top: 3rem; 
+            color: var(--muted); 
+            font-size: 0.875rem; 
+        }
+        .nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .nav a {
+            background: var(--primary-light); 
+            color: #fff; 
+            padding: 10px 16px; 
+            border-radius: 8px;
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        .nav a:hover { background: var(--primary); }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IF0112 - Complementaria II (IoT)</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Concertación Académica 2026-I</p>
+        </header>
+
+        <nav class="nav">
+            <a href="../clases-html/index.html">🏠 Inicio</a>
+            <a href="../evaluaciones/index.html">📋 Evaluaciones</a>
+            <a href="../planificacion/cronograma.html">📅 Cronograma</a>
+            <a href="../planificacion/syllabus.html">📚 Syllabus</a>
+        </nav>
+
+        <section>
+            <h2>Información del Curso</h2>
+            <table>
+                <tr><th>Campo</th><th>Valor</th></tr>
+                <tr><td><strong>Código</strong></td><td>IF0112</td></tr>
+                <tr><td><strong>Nombre</strong></td><td>Complementaria II</td></tr>
+                <tr><td><strong>Tema</strong></td><td>Internet de las Cosas (IoT)</td></tr>
+                <tr><td><strong>Programa</strong></td><td>Ingeniería Informática</td></tr>
+                <tr><td><strong>Semestre</strong></td><td>6°</td></tr>
+                <tr><td><strong>Créditos</strong></td><td>2</td></tr>
+                <tr><td><strong>Horas</strong></td><td>32 presenciales + 64 autónomas</td></tr>
+                <tr><td><strong>Horario</strong></td><td>Lunes 06:00-08:00</td></tr>
+                <tr><td><strong>Prerrequisito</strong></td><td>IF0103 Complementaria I</td></tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Sistema de Evaluación</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Evaluación</th>
+                        <th>%</th>
+                        <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Resultado de Aprendizaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>E1</strong></td>
+                        <td>15%</td>
+                        <td>Investigación</td>
+                        <td>23-feb-2026</td>
+                        <td>Brinda conceptos de telecomunicaciones, Internet y conectividad como base para comprender la evolución de la domótica y el Internet de las Cosas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E2</strong></td>
+                        <td>15%</td>
+                        <td>Prototipo</td>
+                        <td>09-mar-2026</td>
+                        <td>Comprende la interacción entre el mundo físico y el mundo virtual</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E3</strong></td>
+                        <td>20%</td>
+                        <td>Software</td>
+                        <td>16-mar-2026</td>
+                        <td>Comprende la interacción de los dispositivos IoT a través de las redes e Internet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E4</strong></td>
+                        <td>15%</td>
+                        <td>Informe</td>
+                        <td>20-abr-2026</td>
+                        <td>Relaciona las funciones propias de la gestión de la domótica y IoT en el cual se desarrollará su labor profesional</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E5</strong></td>
+                        <td>15%</td>
+                        <td>Escrito</td>
+                        <td>04-may-2026</td>
+                        <td>Comprende y aplica el marco metodológico y legal regulatorio del sector de la informática</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E6</strong></td>
+                        <td>20%</td>
+                        <td>Proyecto</td>
+                        <td>25-may-2026</td>
+                        <td>Normaliza y estandariza las funciones nacionales e internacionales vigentes que le permitan la participación en el desarrollo de sistemas informáticos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="text-align: center; font-weight: bold; font-size: 1.2rem;">TOTAL: 100%</p>
+        </section>
+
+        <section>
+            <h2>Descripción Detallada de Evaluaciones</h2>
+            
+            <div class="eval-box">
+                <h3>E1 - Investigación Técnica: Arquitectura del Proyecto SMAI (15%)</h3>
+                <p><strong>Fecha:</strong> 23 de febrero de 2026</p>
+                <p><strong>Tipo:</strong> Investigación</p>
+                <p><strong>Actividad Práctica:</strong> Diseño técnico del Sistema de Monitoreo Ambiental Inteligente (SMAI)</p>
+                <p><strong>Entregable:</strong> Documento PDF con diagramas de arquitectura IoT, selección de hardware (ESP32, sensores) y justificación técnica</p>
+                <p><strong>Construye:</strong> Base conceptual y planificación del proyecto final</p>
+                <p><a href="../evaluaciones/guia-E1.html" class="nav a">Ver Guía Completa →</a></p>
+            </div>
+
+            <div class="eval-box">
+                <h3>E2 - Prototipo Sensórico: Demo Prototipo Físico/Virtual (15%)</h3>
+                <p><strong>Fecha:</strong> 9 de marzo de 2026</p>
+                <p><strong>Tipo:</strong> Prototipo</p>
+                <p><strong>Actividad Práctica:</strong> Exposición con demostración en vivo del circuito físico/virtual funcionando</p>
+                <p><strong>Entregable:</strong> Pitch (5-7 min) + Prototipo funcional ESP32 + DHT22 + LDR + Monitor Serial</p>
+                <p><strong>Construye:</strong> Capa de percepción física del SMAI (lectura de sensores)</p>
+                <p><a href="../evaluaciones/guia-E2.html" class="nav a">Ver Guía Completa →</a></p>
+            </div>
+
+            <div class="eval-box">
+                <h3>E3 - Software IoT: Conectividad y Cloud (20%)</h3>
+                <p><strong>Fecha:</strong> 16 de marzo de 2026</p>
+                <p><strong>Tipo:</strong> Software</p>
+                <p><strong>Actividad Práctica:</strong> Desarrollo de código con conexión WiFi y envío de datos a la nube</p>
+                <p><strong>Entregable:</strong> Código .ino funcional + Dashboard IoT en vivo (Ubidots STEM, ThingSpeak, Arduino Cloud o similar gratuita)</p>
+                <p><strong>Construye:</strong> Capa de red y aplicación del SMAI (conectividad cloud)</p>
+                <p><a href="../evaluaciones/guia-E3.html" class="nav a">Ver Guía Completa →</a></p>
+            </div>
+
+            <div class="eval-box">
+                <h3>E4 - Informe de Gestión: Lógica de Control SMAI (15%)</h3>
+                <p><strong>Fecha:</strong> 20 de abril de 2026</p>
+                <p><strong>Tipo:</strong> Informe</p>
+                <p><strong>Actividad Práctica:</strong> Documentación técnica de la lógica de automatización implementada en código</p>
+                <p><strong>Entregable:</strong> Informe técnico con diagramas de flujo + Código mejorado con estados de alerta y control automático</p>
+                <p><strong>Construye:</strong> Inteligencia y automatización del SMAI (gestión de alertas y actuadores)</p>
+                <p><a href="../evaluaciones/guia-E4.html" class="nav a">Ver Guía Completa →</a></p>
+            </div>
+
+            <div class="eval-box">
+                <h3>E5 - Trabajo Escrito Normativo: Marco Legal y Ficha Técnica (15%)</h3>
+                <p><strong>Fecha:</strong> 4 de mayo de 2026</p>
+                <p><strong>Tipo:</strong> Escrito</p>
+                <p><strong>Actividad Práctica:</strong> Exposición del cumplimiento legal y técnico del proyecto SMAI</p>
+                <p><strong>Entregable:</strong> Pitch (7-10 min) + Documentación RETIE + Ley 1581 + Ficha técnica del dispositivo</p>
+                <p><strong>Construye:</strong> Validación legal y documentación técnica profesional del SMAI</p>
+                <p><a href="../evaluaciones/guia-E5.html" class="nav a">Ver Guía Completa →</a></p>
+            </div>
+
+            <div class="eval-box">
+                <h3>E6 - Proyecto Final: Sustentación del Producto SMAI (20%)</h3>
+                <p><strong>Fecha:</strong> 25 de mayo de 2026</p>
+                <p><strong>Tipo:</strong> Proyecto</p>
+                <p><strong>Actividad Práctica:</strong> Demostración en vivo del producto IoT terminado y encapsulado</p>
+                <p><strong>Entregable:</strong> Prototipo encapsulado funcionando + Sustentación tipo pitch de ingeniería (10-15 min) + Demo en vivo</p>
+                <p><strong>Construye:</strong> Producto final integrado: Hardware + Software + Cloud + Documentación completa</p>
+                <p><a href="../evaluaciones/guia-E6.html" class="nav a">Ver Guía Completa →</a></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Seguimientos Universitarios (FTGCU010)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Seguimiento</th>
+                        <th>Porcentaje</th>
+                        <th>Evaluaciones Acumuladas</th>
+                        <th>Fecha Límite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Primer Seguimiento</td>
+                        <td>50%</td>
+                        <td>E1(15%) + E2(15%) + E3(20%)</td>
+                        <td>27-mar-2026</td>
+                    </tr>
+                    <tr>
+                        <td>Segundo Seguimiento</td>
+                        <td>80%</td>
+                        <td>+ E4(15%) + E5(15%)</td>
+                        <td>15-may-2026</td>
+                    </tr>
+                    <tr>
+                        <td>Tercer Seguimiento</td>
+                        <td>100%</td>
+                        <td>+ E6(20%)</td>
+                        <td>28-may-2026</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Fechas Importantes del Semestre</h2>
+            <table>
+                <tr><th>Fecha</th><th>Evento</th></tr>
+                <tr><td>02-feb-2026</td><td>Inicio de clases</td></tr>
+                <tr style="background: #dbeafe;"><td><strong>23-feb-2026</strong></td><td><strong>E1 - Investigación (15%)</strong></td></tr>
+                <tr style="background: #dcfce7;"><td><strong>09-mar-2026</strong></td><td><strong>E2 - Prototipo (15%)</strong></td></tr>
+                <tr style="background: #fee2e2;"><td><strong>16-mar-2026</strong></td><td><strong>E3 - Software (20%)</strong></td></tr>
+                <tr style="background: #fee2e2;"><td>23-mar-2026</td><td>Festivo: San José (NO HAY CLASE)</td></tr>
+                <tr><td>27-mar-2026</td><td>Primer Seguimiento (50%)</td></tr>
+                <tr style="background: #fee2e2;"><td>30-mar-2026</td><td>Semana Santa (NO HAY CLASE)</td></tr>
+                <tr style="background: #fef3c7;"><td><strong>20-abr-2026</strong></td><td><strong>E4 - Informe (15%)</strong></td></tr>
+                <tr style="background: #f3e8ff;"><td><strong>04-may-2026</strong></td><td><strong>E5 - Escrito (15%)</strong></td></tr>
+                <tr><td>15-may-2026</td><td>Segundo Seguimiento (80%)</td></tr>
+                <tr style="background: #fee2e2;"><td>18-may-2026</td><td>Festivo: Ascensión del Señor (NO HAY CLASE)</td></tr>
+                <tr style="background: #fce7f3;"><td><strong>25-may-2026</strong></td><td><strong>E6 - Proyecto Final (20%)</strong></td></tr>
+                <tr><td>28-may-2026</td><td>Tercer Seguimiento (100%)</td></tr>
+            </table>
+        </section>
+
+        <section class="highlight" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6;">
+            <h2>🎯 Filosofía del Curso: Proceso Incremental del Proyecto SMAI</h2>
+            <p><strong>Este curso está diseñado como un proceso constructivo donde cada evaluación representa una etapa del desarrollo del Sistema de Monitoreo Ambiental Inteligente (SMAI).</strong></p>
+            
+            <p style="margin-top: 1rem;"><strong>📊 Distribución del Proyecto por Evaluaciones:</strong></p>
+            <table style="margin-top: 0.5rem;">
+                <thead>
+                    <tr>
+                        <th>Etapa</th>
+                        <th>Eval</th>
+                        <th>%</th>
+                        <th>Entregable del Proyecto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fase 1: Diseño</strong></td>
+                        <td>E1</td>
+                        <td>15%</td>
+                        <td>Arquitectura técnica documentada</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 2: Hardware</strong></td>
+                        <td>E2</td>
+                        <td>15%</td>
+                        <td>Prototipo físico con sensores funcionando</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 3: Conectividad</strong></td>
+                        <td>E3</td>
+                        <td>20%</td>
+                        <td>Software + Dashboard IoT en la nube</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 4: Inteligencia</strong></td>
+                        <td>E4</td>
+                        <td>15%</td>
+                        <td>Lógica de control y automatización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 5: Validación</strong></td>
+                        <td>E5</td>
+                        <td>15%</td>
+                        <td>Documentación legal y ficha técnica</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td><strong>Fase 6: Producto Final</strong></td>
+                        <td>E6</td>
+                        <td>20%</td>
+                        <td>SMAI encapsulado y sustentado</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="margin-top: 1rem;"><strong>💡 Metodología:</strong> Las notas se obtienen progresivamente a medida que el estudiante construye el proyecto. Cada evaluación acumula avances hacia el producto final. <strong>No hay exámenes teóricos tradicionionales ni ensayos académicos abstractos</strong>; todas las evaluaciones son entregables concretos del proyecto SMAI.</p>
+        </section>
+
+        <section class="highlight">
+            <h2>Política de Evaluación</h2>
+            <ol>
+                <li><strong>Todas las evaluaciones son obligatorias</strong></li>
+                <li><strong>No se aceptan entregas tardías</strong> sin justificación válida</li>
+                <li><strong>Las entregas técnicas</strong> se validan en el laboratorio físico o simulador</li>
+                <li><strong>Los prototipos</strong> requieren funcionamiento del hardware real o virtual</li>
+                <li><strong>Los informes técnicos</strong> deben ser originales (política anti-plagio)</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Recursos del Curso</h2>
+            <ul>
+                <li><strong>Clases:</strong> Portal de clases (14 sesiones) - <a href="../clases-html/index.html">Ver clases</a></li>
+                <li><strong>Laboratorios:</strong> 5 laboratorios prácticos - <a href="../laboratorios-html/index.html">Ver laboratorios</a></li>
+                <li><strong>Simulador:</strong> <a href="https://wokwi.com" target="_blank">Wokwi (ESP32)</a></li>
+                <li><strong>Evaluaciones:</strong> <a href="../evaluaciones/index.html">Guías y rúbricas E1-E6</a></li>
+                <li><strong>Bibliografía:</strong> The Wireless Embedded Internet (Zach Shelby), Learning IoT (Peter Waher)</li>
+            </ul>
+        </section>
+
+        <div class="footer">
+            <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+            <p>UNAULA — 2026-I | Concertación Académica</p>
+            <p><a href="../clases-html/index.html">Volver al portal de clases</a></p>
+        </div>
+    </div>
+</body>
+</html>

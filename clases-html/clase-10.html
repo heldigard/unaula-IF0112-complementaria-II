@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sesión 10: Dashboard Grafana + E4 Caso | IF0112 - Complementaria II (IoT)</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos de esta clase (si los hay) */
+    </style>
+</head>
+<body>
+  <!-- Progress bar -->
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+  <div class="container">
+    <header>
+      <h1>Sesión 10: Dashboard Grafana + E4 Caso</h1>
+      <p class="subtitle">IF0112 Complementaria II (IoT) · UNAULA 2026-I · Fecha: 20-abr-2026 (E4)</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#objetivo-aprendizaje">Objetivo</a></li>
+        <li><a href="#agenda-90">Agenda</a></li>
+        <li><a href="#contenido-teorico">Contenido</a></li>
+        <li><a href="#actividades-practicas">Actividades</a></li>
+        <li><a href="#avance-proyecto">Proyecto</a></li>
+        <li><a href="#conexion-evaluacion">Evaluación</a></li>
+        <li><a href="#recursos-curados">Recursos</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Info Cronograma 2026-I -->
+      <section style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius); margin-bottom: var(--space-6); border: 2px solid #3b82f6;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+          <div>
+            <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: 1.25rem;">📅 Sesión 10 - Dashboard y Visualización</h3>
+            <p style="margin: 0; color: #1e3a8a;"><strong>Fecha:</strong> Lunes 20 de Abril 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min) | <strong>Modalidad:</strong> Teórico-Práctica</p>
+          </div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #f59e0b; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius); font-weight: 600; font-size: 0.85rem;">📝 E4 (15%)</span>
+          </div>
+        </div>
+
+        <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 E4 Informe (15%): Entrega HOY 20-abr</h4>
+          <p style="margin: 0; color: #991b1b; font-size: 0.9rem;"><strong>Tema:</strong> Lógica de Control y Reglas Domóticas del SMAI.</p>
+          <p><a href="../evaluaciones/guia-E4.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Informe E4 →</a></p>
+        </div>
+
+        <!-- Preparación LAB -->
+        <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación para E4</h4>
+          <p style="margin: 0; color: #065f46; font-size: 0.9rem;">Revisar ejercicios del simulador Wokwi sobre ThingSpeak y MQTT para aplicar en el informe.</p>
+        </div>
+      </section>
+
+      <div class="meta">
+        <strong>Fecha:</strong> Lunes 20 de Abril 2026 |
+        <strong>Horario:</strong> 06:00-08:00 (120 min) |
+        <strong>Semana:</strong> 12 |
+        <strong>Modalidad:</strong> Teórico-Práctica: Dashboard Grafana
+      </div>
+
+      <section id="objetivo-aprendizaje">
+        <h2>Objetivo de la Sesión</h2>
+        <p>Comparar y seleccionar protocolos de transporte y aplicación para escenarios IoT, justificando decisiones con criterios de latencia, confiabilidad, consumo energético y costo operativo.</p>
+      </section>
+
+      <section id="agenda-90">
+        <h2>Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+        <ul>
+          <li><strong>0-10 min:</strong> Repaso de conectividad y contexto (10 min)</li>
+          <li><strong>10-40 min:</strong> Visualización: <abbr title="Tableros de control">Dashboards</abbr> y Grafana (30 min teoría)</li>
+          <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Configuración de fuentes de datos (30 min práctica)</li>
+          <li><strong>70-95 min:</strong> Diseño de paneles y métricas (25 min teoría)</li>
+          <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Laboratorio 4 Dashboard y cierre (25 min práctica)</li>
+        </ul>
+        <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+            <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+        </div>
+      </section>
+
+      <section id="contenido-teorico">
+        <h2>Contenido Teórico</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Capa de Transporte</h3>
+            <ul>
+              <li>TCP: confiabilidad, control de congestión, mayor overhead.</li>
+              <li>UDP: baja latencia y menor costo, sin garantía de entrega.</li>
+              <li>TLS sobre TCP: confidencialidad e integridad para datos sensibles.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Protocolos IoT</h3>
+            <ul>
+              <li>HTTP/REST: interoperabilidad y simplicidad para APIs.</li>
+              <li>MQTT: pub/sub eficiente en ancho de banda y batería.</li>
+              <li>CoAP: alternativa liviana para dispositivos con recursos limitados.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Criterios de Selección</h3>
+            <ul>
+              <li>Frecuencia de envío y tamaño de payload.</li>
+              <li>Necesidad de tiempo real y tolerancia a pérdida.</li>
+              <li>Escalabilidad del backend y monitoreo.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Buenas Prácticas</h3>
+            <ul>
+              <li>Diseñar reintentos y backoff exponencial.</li>
+              <li>Versionar payloads JSON para evitar rupturas.</li>
+              <li>Registrar métricas de latencia y errores por dispositivo.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="actividades-practicas">
+        <h2>Actividades Prácticas</h2>
+        <div class="card">
+          <p><strong>Actividad 1 (20 min):</strong> Matriz de decisión de protocolo para 3 escenarios (monitor ambiental urbano, invernadero rural y monitoreo industrial).</p>
+          <p><strong>Actividad 2 (15 min):</strong> Diseñar payload mínimo en JSON y política de reintentos.</p>
+          <p><strong>Actividad 3 (10 min):</strong> Socialización y retroalimentación cruzada.</p>
+        </div>
+      </section>
+
+      <!-- Wokwi Simulator Exercises (CALIFICADOS) -->
+      <section id="ejercicios-wokwi" style="margin-bottom: var(--space-12);">
+        <h2>🔌 Ejercicios del Simulador Wokwi</h2>
+
+        <section class="actividad" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-left: 4px solid #10b981; padding: var(--space-4); border-radius: var(--radius-md); margin: var(--space-6) 0;">
+          <h4>🔌 Ejercicios del Simulador Wokwi (CALIFICADOS)</h4>
+          <p><strong>Tipo:</strong> <span style="color: #065f46; font-weight: 600;">OBLIGATORIO - PRÁCTICA CALIFICADA</span></p>
+          <p><strong>Peso:</strong> Parte de la nota de participación práctica</p>
+          <p><strong>Entregable:</strong> Pantallazo (screenshot) de cada ejercicio funcionando en el simulador</p>
+          <p><strong>Fecha límite:</strong> Antes de la próxima clase</p>
+
+          <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-top: var(--space-3);">
+            <h5 style="color: #059669; margin-bottom: var(--space-2);">📋 Instrucciones:</h5>
+            <ol style="margin-left: var(--space-4);">
+              <li>Abre el <a href="ejercicios-simulador/index.html" target="_blank" style="color: #059669; font-weight: 600;">Índice de Ejercicios del Simulador</a></li>
+              <li>Completa los Ejercicios 11 y 12 (ThingSpeak Publish + ThingSpeak Dashboard)</li>
+              <li>Revisa cada ejercicio para entender conceptos de IoT Cloud</li>
+              <li>Copia el código proporcionado en el simulador Wokwi</li>
+              <li>Ejecuta la simulación y verifica que funcione correctamente</li>
+              <li>Toma un pantallazo que muestre: el circuito funcionando + el código + resultados</li>
+              <li>Sube los 2 pantallazos a la tarea "Ejercicios Simulador - Clase 10" en Canvas</li>
+            </ol>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
+              <p style="margin: 0; color: #92400e;"><strong>💡 Importante:</strong> Estos ejercicios preparan la base para LAB 4 (Dashboard Grafana). La práctica en Wokwi facilitará el trabajo con ThingSpeak y Grafana.</p>
+            </div>
+
+            <h5 style="color: #059669; margin: var(--space-3) 0 var(--space-2) 0;">🏆 Ejercicios a Completar:</h5>
+            <table style="width: 100%; border-collapse: collapse; margin-top: var(--space-2);">
+              <thead>
+                <tr style="background: #d1fae5;">
+                  <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Ejercicio</th>
+                  <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Tema</th>
+                  <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Duración</th>
+                  <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Puntos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="ejercicios-simulador/ejercicio-11-thingspeak.html" target="_blank" style="color: #059669;">Ejercicio 11</a></td>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">ThingSpeak Publish - Cloud IoT</td>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20 min</td>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="ejercicios-simulador/ejercicio-12-mqtt.html" target="_blank" style="color: #059669;">Ejercicio 12</a></td>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">MQTT - Basic Publish/Subscribe</td>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25 min</td>
+                  <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">4 pts</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr style="background: #d1fae5; font-weight: bold;">
+                  <td colspan="3" style="padding: 0.5rem; border: 1px solid #10b981;">TOTAL</td>
+                  <td style="padding: 0.5rem; border: 1px solid #10b981;">7 pts</td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <p style="margin-top: var(--space-3); font-size: 0.9rem; color: #64748b;">
+              <strong>🔗 Enlace directo:</strong> <a href="ejercicios-simulador/index.html" target="_blank" style="color: #059669;">abrir ejercicios del simulador</a>
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <section id="avance-proyecto" class="ok">
+        <h2>Avance del Proyecto Integrador</h2>
+        <p><strong>Qué construimos esta semana:</strong> Definimos el contrato de comunicación del sistema de monitoreo ambiental (formato de datos, frecuencia, transporte y estrategia de recuperación ante fallos).</p>
+        <p><strong>Evidencia esperada:</strong> Documento corto con protocolo elegido, justificación técnica y ejemplo de payload.</p>
+        <p><strong>Conexión con entrega final:</strong> Esta definición reduce errores de integración en LAB 4 y en la sustentación E6.</p>
+      </section>
+
+      <section id="conexion-evaluacion" class="alert">
+        <h2>Conexión con Evaluación</h2>
+        <ul>
+          <li><strong>Evaluación actual:</strong> E4 Caso de Estudio (15%) - Documento y Sustentación, entrega 20-abr-2026 23:59</li>
+          <li><strong>LAB 4 hoy:</strong> Dashboard Grafana + visualización de datos del proyecto (120 min)</li>
+          <li><strong>Evidencias esperadas:</strong> Dashboard funcional con datos del proyecto + informe E4</li>
+        </ul>
+      </section>
+
+      <section id="recursos-curados">
+        <h2>Recursos para LAB 4: Dashboard Grafana</h2>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-bottom: var(--space-4); border-radius: var(--radius-md);">
+          <p style="margin: 0; color: #92400e;"><strong>💡 Nota sobre idioma:</strong> Los siguientes videos de Grafana Labs están en inglés. Son la fuente oficial y más actualizada de aprendizaje de Grafana. Si prefieres contenido en español, busca alternativas como "Grafana tutorial español" en YouTube.</p>
+        </div>
+
+        <h3>📺 Tutoriales Oficiales (en inglés)</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Grafana Essentials: Getting Started</h3>
+            <p><strong>Canal:</strong> Grafana Labs · <strong>Duración:</strong> ~25 min</p>
+            <p><strong>Propósito:</strong> Introducción completa a Grafana, panels y visualizaciones.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
+            <p><a href="https://www.youtube.com/watch?v=P7inlVTl6a4" target="_blank">Ver en YouTube</a></p>
+          </div>
+          <div class="card">
+            <h3>Dashboard Examples for IoT</h3>
+            <p><strong>Canal:</strong> Grafana Learning Library · <strong>Duración:</strong> ~30 min</p>
+            <p><strong>Propósito:</strong> Ejemplos de dashboards IoT con datos reales.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
+            <p><a href="https://www.youtube.com/watch?v=9q2DnV_88R8" target="_blank">Ver en YouTube</a></p>
+          </div>
+          <div class="card">
+            <h3>Building Dashboards with Grafana & Prometheus</h3>
+            <p><strong>Canal:</strong> Grafana Labs · <strong>Duración:</strong> ~20 min</p>
+            <p><strong>Propósito:</strong> Connect ESP32 to Prometheus to Grafana dashboard.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
+            <p><a href="https://www.youtube.com/watch?v=992KDW1cEIA" target="_blank">Ver en YouTube</a></p>
+          </div>
+          <div class="card">
+            <h3>Grafana + Data Sources</h3>
+            <p><strong>Canal:</strong> Grafana Learning Library · <strong>Duración:</strong> ~15 min</p>
+            <p><strong>Propósito:</strong> Configuración de sources de datos para dashboards.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
+            <p><a href="https://www.youtube.com/watch?v=n5nWSnwF6-o" target="_blank">Ver en YouTube</a></p>
+          </div>
+        </div>
+
+        <h3>🇪🇸 Alternativas en Español (búsqueda sugerida)</h3>
+        <div class="card" style="background: #f0fdf4; border-left: 4px solid #22c55e;">
+          <p style="margin: 0 0 var(--space-2) 0;"><strong>Busca en YouTube:</strong></p>
+          <ul style="margin: 0; padding-left: var(--space-4);">
+            <li>"Grafana tutorial español"</li>
+            <li>"Grafana dashboards en español"</li>
+            <li>"Introducción a Grafana español"</li>
+            <li>"Grafana con ThingSpeak tutorial"</li>
+          </ul>
+          <p style="margin: var(--space-2) 0 0 0;"><strong>Canales recomendados para buscar:</strong></p>
+          <ul style="margin: 0; padding-left: var(--space-4);">
+            <li>Código IoT</li>
+            <li>Teckknow</li>
+            <li>Píldoras Informáticas</li>
+            <li>Telluric</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-09.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Sesión Anterior
+                </a>                <a href="clase-11.html" class="class-nav-btn">
+                    Sesión Siguiente <span class="arrow">→</span>
+                </a>            </div>
+        </nav>
+
+    <footer>
+      <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 10</p>
+    </footer>
+  </div>
+
+  <script>
+    // Progress bar and back-to-top functionality
+    (function() {
+      const progressFill = document.getElementById('progressFill');
+      const backToTop = document.getElementById('backToTop');
+
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressFill.style.width = Math.min(progress, 100) + '%';
+
+        // Show/hide back-to-top button
+        if (scrollTop > window.innerHeight * 0.3) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+
+      // Throttle scroll events for performance
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            updateProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      // Event listeners
+      window.addEventListener('scroll', onScroll, { passive: true });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Initial call
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
+

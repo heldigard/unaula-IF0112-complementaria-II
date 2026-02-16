@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Emulador Wokwi - IF0112 IoT 2026-I</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --dark: #065f46;
+            --bg: #f0fdf4;
+            --text: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .header p { opacity: 0.95; }
+        .card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .card h2 { color: var(--dark); margin-bottom: 15px; }
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 5px 0 0;
+        }
+        .btn:hover { background: var(--dark); }
+        .code-block {
+            background: #1e293b;
+            color: #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+        .step-num {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-content { margin-left: 15px; flex: 1; }
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .comparison { margin: 20px 0; }
+        .comparison table { width: 100%; border-collapse: collapse; }
+        .comparison th, .comparison td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison th { background: var(--bg); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔌 Guía de Emulador Wokwi</h1>
+            <p>ESP32 Simulator - Practica sin hardware físico</p>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ IMPORTANTE:</strong> Wokwi es excelente para aprender y practicar, pero para el proyecto final necesitarás hardware físico para la demostración completa.
+        </div>
+
+        <div class="card">
+            <h2>¿Qué es Wokwi?</h2>
+            <p><strong>Wokwi</strong> es un simulador online gratuito que permite diseñar, codificar y simular proyectos de electrónica y IoT directamente en tu navegador. Soporta:</p>
+            <ul>
+                <li>✅ ESP32 (con WiFi simulado)</li>
+                <li>✅ Arduino, Raspberry Pi Pico, STM32</li>
+                <li>✅ Sensores: DHT22, LDR, ultrasonido, etc.</li>
+                <li>✅ Actuadores: LEDs, displays, motores</li>
+                <li>✅ Comunicación: MQTT, JSON (simulados)</li>
+            </ul>
+            <p><strong>URL:</strong> <a href="https://wokwi.com/esp32" target="_blank">https://wokwi.com/esp32</a></p>
+        </div>
+
+        <div class="card">
+            <h2>Ventajas y Limitaciones</h2>
+            <div class="comparison">
+                <table>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Ventaja ✅</th>
+                        <th>Limitación ⚠️</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Costo</strong></td>
+                        <td>100% gratuito</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instalación</strong></td>
+                        <td>Sin instalación, funciona en navegador</td>
+                        <td>Requiere conexión a internet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WiFi</strong></td>
+                        <td>Simulado (comportamiento como real)</td>
+                        <td>NO se conecta a redes reales</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sensores</strong></td>
+                        <td>DHT22, LDR y muchos más disponibles</td>
+                        <td>No todos los sensores están disponibles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tiempo real</strong></td>
+                        <td>Ejecución en tiempo real</td>
+                        <td>Sin tiempo real (no hay delays reales)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hardware</strong></td>
+                        <td>Sin riesgo de dañar componentes</td>
+                        <td>No hay experiencia física real</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Cómo Usar Wokwi para el Curso</h2>
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <strong>Ir a Wokwi ESP32</strong>
+                    <p>Abre <a href="https://wokwi.com/esp32" target="_blank">https://wokwi.com/esp32</a> y haz clic en "New project"</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <strong>Agregar Componentes</strong>
+                    <p>En el panel izquierdo, busca y arrastra los componentes al área de trabajo:</p>
+                    <ul>
+                        <li>ESP32 (el microcontrolador principal)</li>
+                        <li>DHT22 (sensor temperatura/humedad)</li>
+                        <li>LED + Resistencia (para indicación)</li>
+                        <li>Push Button (opcional, para interacción)</li>
+                        <li>Resistencias según se necesiten</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <strong>Conectar los Componentes</strong>
+                    <p>Arrastra los cables desde los pines del ESP32 a los pines de los componentes. Wokwi te guiará con líneas verdes cuando la conexión es válida.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <strong>Escribir el Código</strong>
+                    <p>En el editor de código a la derecha, escribe o pega tu código ESP32. Wokwi compila automáticamente mientras escribes.</p>
+                    <a href="https://wokwi.com/esp32/projects/new" target="_blank" class="btn">🚀 Abrir Proyecto en Blanco</a>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <strong>Ejecutar y Depurar</strong>
+                    <p>Presiona "Run" para iniciar la simulación. Podrás ver:</p>
+                    <ul>
+                        <li>✅ El LED parpadeando</li>
+                        <li>✅ Salida serial en la consola inferior</li>
+                        <li>✅ Los valores de los sensores cambiando en tiempo real</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Proyecto Ejemplo: LED + Botón</h2>
+            <p>Copia y pega este código en un proyecto nuevo de Wokwi:</p>
+            <div class="code-block">
+// Control de LED con Botón
+#define LED_PIN 2
+#define BUTTON_PIN 4
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+}
+
+void loop() {
+  if (digitalRead(BUTTON_PIN) == HIGH) {
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    digitalWrite(LED_PIN, LOW);
+  }
+  delay(100);
+}
+            </div>
+            <a href="https://wokwi.com/projects/new/esp32" target="_blank" class="btn">🚀 Probar en Wokwi</a>
+        </div>
+
+        <div class="card">
+            <h2>Proyecto para el Curso: Monitor Ambiental</h2>
+            <p>Para simular el proyecto del curso (DHT22 + LDR + WiFi):</p>
+            <ol>
+                <li>Agregar ESP32 al área de trabajo</li>
+                <li>Agregar DHT22 (sensor temperatura/humedad)</li>
+                <li>Agregar LDR (sensor de luz)</li>
+                <li>Conectar según diagrama (ver clase-02-materiales.html)</li>
+                <li>Usar código ThingSpeak del curso</li>
+            </ol>
+            <p><strong>Nota:</strong> El WiFi en Wokwi es simulado - NO se conectará a internet real, pero puedes probar el código de conexión.</p>
+        </div>
+
+        <div class="card">
+            <h2>Compartir tu Proyecto</h2>
+            <p><strong>1. Guardar:</strong> Wokwi guarda automáticamente tu proyecto</p>
+            <p><strong>2. Compartir:</strong> Copia la URL del navegador y envíala a compañeros/docente</p>
+            <p><strong>3. Exportar:</strong> Puedes descargar el código como archivo .ino</p>
+        </div>
+
+        <div class="card">
+            <h2>Ejercicios Recomendados</h2>
+            <table>
+                <tr>
+                    <th>Semana</th>
+                    <th>Ejercicio Wokwi</th>
+                    <th>Objetivo</th>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>LED + Botón</td>
+                    <td>Aprender GPIO básico</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>LED + DHT22 (serial print)</td>
+                    <td>Leer sensor y mostrar en consola</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>LED + DHT22 + LDR</td>
+                    <td>Leer múltiples sensores</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Conexión WiFi (simulado)</td>
+                    <td>Entender estructura WiFi.begin()</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>HTTP POST (simulado)</td>
+                    <td>Preparar para ThingSpeak</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Limitaciones Importantes</h2>
+            <ul>
+                <li>❌ <strong>WiFi NO es real:</strong> Wokwi simula la conexión pero no se conecta a redes reales</li>
+                <li>❌ <strong>ThingSpeak NO funcionará:</strong> El código puede ser correcto pero no se enviarán datos reales</li>
+                <li>❌ <strong>Sensores limitados:</strong> No todos los sensores reales están disponibles</li>
+                <li>❌ <strong>Timing es diferente:</strong> Los delays no son exactos como en hardware real</li>
+            </ul>
+            <p><strong>Recomendación:</strong> Usa Wokwi para aprender y practicar código. Luego prueba en hardware real para verificar funcionamiento completo.</p>
+        </div>
+
+        <div class="card">
+            <h2>Recursos Adicionales</h2>
+            <ul>
+                <li><a href="https://wokwi.com/docs/esp32/" target="_blank">Documentación oficial Wokwi ESP32</a></li>
+                <li><a href="https://wokwi.com/examples/" target="_blank">Ejemplos oficiales</a></li>
+                <li><a href="https://forum.wokwi.com/" target="_blank">Foro Wokwi (dudas y problemas)</a></li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; border-top: 2px solid #e5e7eb;">
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) · 2026-I</p>
+            <p style="margin-top: 10px;">
+                <a href="index.html" style="color: var(--primary);">Volver a Clases</a> |
+                <a href="index.html" style="color: var(--primary);">Laboratorios</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

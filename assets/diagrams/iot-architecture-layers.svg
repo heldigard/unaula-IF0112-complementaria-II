@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" aria-labelledby="title desc">
+  <title id="title">Diagrama de Arquitectura IoT - 4 Capas</title>
+  <desc id="desc">Arquitectura IoT en 4 capas: Percepción, Red, Procesamiento, Aplicación</desc>
+
+  <!-- Fondo -->
+  <rect width="800" height="500" fill="#f8fafc"/>
+
+  <!-- Título -->
+  <text x="400" y="35" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#1e40af">
+    Arquitectura IoT - 4 Capas
+  </text>
+
+  <!-- Capas -->
+  <!-- Capa 4: Aplicación -->
+  <g transform="translate(50, 380)">
+    <rect x="0" y="0" width="700" height="90" rx="12" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="2"/>
+    <rect x="20" y="15" width="660" height="60" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
+    <text x="370" y="45" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#065f46">
+      Capa 4: Aplicación
+    </text>
+    <text x="370" y="65" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#047857">
+      Dashboards, Apps Móviles, Alertas
+    </text>
+  </g>
+
+  <!-- Flecha -->
+  <g transform="translate(400, 340)">
+    <polygon points="0,-10 -15,15 0,5 15,15" fill="#64748b"/>
+  </g>
+
+  <!-- Capa 3: Procesamiento -->
+  <g transform="translate(50, 260)">
+    <rect x="0" y="0" width="700" height="90" rx="12" fill="#3b82f6" opacity="0.2" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="20" y="15" width="660" height="60" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+    <text x="370" y="45" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e40af">
+      Capa 3: Procesamiento
+    </text>
+    <text x="370" y="65" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#1d4ed8">
+      Edge Computing, Cloud, Base de Datos, Análisis
+    </text>
+  </g>
+
+  <!-- Flecha -->
+  <g transform="translate(400, 220)">
+    <polygon points="0,-10 -15,15 0,5 15,15" fill="#64748b"/>
+  </g>
+
+  <!-- Capa 2: Red -->
+  <g transform="translate(50, 140)">
+    <rect x="0" y="0" width="700" height="90" rx="12" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="20" y="15" width="660" height="60" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+    <text x="370" y="45" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#92400e">
+      Capa 2: Red
+    </text>
+    <text x="370" y="65" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#d97706">
+      WiFi, MQTT, HTTP, 4G/5G, LoRa, Gateway
+    </text>
+  </g>
+
+  <!-- Flecha -->
+  <g transform="translate(400, 100)">
+    <polygon points="0,-10 -15,15 0,5 15,15" fill="#64748b"/>
+  </g>
+
+  <!-- Capa 1: Percepción -->
+  <g transform="translate(50, 60)">
+    <rect x="0" y="0" width="700" height="90" rx="12" fill="#ef4444" opacity="0.2" stroke="#ef4444" stroke-width="2"/>
+    <rect x="20" y="15" width="660" height="60" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+    <text x="370" y="45" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#991b1b">
+      Capa 1: Percepción
+    </text>
+    <text x="370" y="65" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#dc2626">
+      Sensores (DHT22, LDR), Actuadores, Microcontroladores (ESP32)
+    </text>
+  </g>
+
+  <!-- Leyenda -->
+  <g transform="translate(50, 490)">
+    <text x="0" y="0" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">
+      ✓ Datos fluyen de sensores → cloud → aplicaciones
+    </text>
+  </g>
+</svg>

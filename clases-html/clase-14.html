@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 14: E6 - Sustentación Proyecto Final | IF0112</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 14: E6 - Sustentación Proyecto Final SMAI</h1>
+            <p class="subtitle">Evaluación Final - Entrega Producto Integrado</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 25-may-2026</p>
+        </header>
+
+        <section class="schedule-info" style="background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #ef4444;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+                <div>
+                    <h3 style="color: #991b1b; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 14 - <abbr title="Evaluación 6">E6</abbr> (20%)</h3>
+                    <p style="margin: 0; color: #991b1b; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 25 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">🎓 SUSTENTACIÓN FINAL</span>
+                </div>
+            </div>
+
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 ESTRUCTURA <abbr title="Evaluación 6">E6</abbr></h4>
+                <ul style="margin: 0; color: #991b1b; font-size: var(--text-sm);">
+                    <li><strong>Proyecto Final (20%):</strong> Entrega del SMAI encapsulado y funcionando.</li>
+                    <li><a href="../evaluaciones/guia-E6.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Proyecto Final E6 →</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <nav>
+            <ul>
+                <li><a href="#sustentacion">Sustentación</a></li>
+                <li><a href="#rubrica">Rúbrica</a></li>
+                <li><a href="#checklist">Checklist</a></li>
+                <li><a href="#consejos">Consejos</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="sustentacion">
+                <h2>🎤 Proyecto Final y Sustentación (20%)</h2>
+                
+                <div class="info-box info">
+                    <h4>⏱️ Estructura de la Presentación (15 min)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tiempo</th>
+                                <th>Actividad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>3 min</td>
+                                <td><strong>Pitch:</strong> El problema que resuelve el SMAI</td>
+                            </tr>
+                            <tr>
+                                <td>5 min</td>
+                                <td><strong>Demo Técnica:</strong> Datos en tiempo real en Grafana</td>
+                            </tr>
+                            <tr>
+                                <td>4 min</td>
+                                <td><strong>Arquitectura:</strong> Justificación de hardware y estándares</td>
+                            </tr>
+                            <tr>
+                                <td>3 min</td>
+                                <td><strong>Preguntas:</strong> Defensa del proyecto</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Requisitos del SMAI Final</h3>
+                <ul>
+                    <li><strong>Hardware:</strong> ESP32 montado firmemente con sus sensores (DHT22/LDR)</li>
+                    <li><strong>Encapsulado:</strong> El dispositivo no debe tener cables sueltos (usar caja/soporte)</li>
+                    <li><strong>Conectividad:</strong> WiFi estable reportando a ThingSpeak</li>
+                    <li><strong>Visualización:</strong> Dashboard profesional en Grafana</li>
+                </ul>
+            </section>
+
+            <section id="rubrica">
+                <h2>📊 Rúbrica de Evaluación Final</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Peso</th>
+                            <th>Excelente (100%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Funcionalidad</strong></td>
+                            <td>30%</td>
+                            <td>Sistema completo y estable</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Demo en vivo</strong></td>
+                            <td>25%</td>
+                            <td>Presentación clara, demuestra todas las funciones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Documentación</strong></td>
+                            <td>20%</td>
+                            <td>Completa, clara, bien organizada</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estándares/Arquitectura</strong></td>
+                            <td>15%</td>
+                            <td>Identifica y explica estándares usados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Participación equipo</strong></td>
+                            <td>10%</td>
+                            <td>Todos participan equitativamente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="checklist">
+                <h2>✅ Checklist Final</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📦 Entregables (Canvas)</h3>
+                        <ul>
+                            <li>☐ Documentación técnica (PDF)</li>
+                            <li>☐ Manual de usuario</li>
+                            <li>☐ Video demo (máx 5 min)</li>
+                            <li>☐ Código en GitHub (link)</li>
+                            <li>☐ Todo antes: Dom 24/05 11:59 PM</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔧 Para la Presentación</h3>
+                        <ul>
+                            <li>☐ Hardware funcionando</li>
+                            <li>☐ Circuito estable/protegido</li>
+                            <li>☐ Laptop con dashboard listo</li>
+                            <li>☐ Plan B (video grabado)</li>
+                            <li>☐ Todos los integrantes presentes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="consejos">
+                <h2>💡 Consejos para el Proyecto Final</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🛠️ Preparación Técnica</h3>
+                        <ul>
+                            <li>Verificar el encapsulado y aislamiento</li>
+                            <li>Asegurar que los cables no se suelten al mover el dispositivo</li>
+                            <li>Tener una fuente de alimentación externa (USB)</li>
+                            <li>Probar el dashboard en modo incógnito</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎤 Para la Sustentación</h3>
+                        <ul>
+                            <li>Practicar la demo varias veces</li>
+                            <li>Preparar respuestas a preguntas típicas</li>
+                            <li>Tener todo listo la noche anterior</li>
+                            <li>Mostrar confianza y dominio del proyecto</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box success" style="margin-top: 2rem; text-align: center;">
+                    <h4>🎉 ¡Ha sido un placer!</h4>
+                    <p>Gracias por su dedicación durante el curso. ¡Mucho éxito en la evaluación final!</p>
+                </div>
+            </section>
+
+            <section class="summary-table" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
+                <h2 style="color: #065f46;">🎓 Resumen del Curso IF0112</h2>
+                
+                <h3>Evaluaciones Realizadas</h3>
+                <ul>
+                    <li>✅ <strong>E1 Investigación (15%):</strong> Arquitectura SMAI</li>
+                    <li>✅ <strong>E2 Prototipo (15%):</strong> Interacción Sensórica</li>
+                    <li>✅ <strong>E3 Software (20%):</strong> Conectividad Cloud</li>
+                    <li>✅ <strong>E4 Informe (15%):</strong> Lógica de Control</li>
+                    <li>✅ <strong>E5 Trabajo Escrito (15%):</strong> Normativa y Ficha Técnica</li>
+                    <li>🎯 <strong>E6 Proyecto Final (20%):</strong> Entrega SMAI Funcionando</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem;">Competencias Desarrolladas</h3>
+                <ul>
+                    <li>✅ Comprender arquitectura IoT y sus pilares</li>
+                    <li>✅ Diseñar sistemas con sensores y conectividad</li>
+                    <li>✅ Implementar soluciones usando protocolos IoT</li>
+                    <li>✅ Aplicar estándares y normativas de privacidad</li>
+                    <li>✅ Desarrollar proyecto IoT funcional de principio a fin</li>
+                </ul>
+
+                <p style="margin-top: 2rem; padding: 1.5rem; background: #ecfdf5; border-radius: 6px; text-align: center; font-size: 1.2rem; font-weight: bold; color: #065f46;">
+                    ¡Felicitaciones por llegar al final del curso! 🚀
+                </p>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-13.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Sesión Anterior
+                </a>            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 14</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

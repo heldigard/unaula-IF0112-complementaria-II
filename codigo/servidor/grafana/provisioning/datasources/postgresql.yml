@@ -1,0 +1,19 @@
+# Configuración automática de DataSource PostgreSQL para Grafana
+# Se carga automáticamente al iniciar Grafana
+
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: postgres:5432
+    database: iot_unaula
+    user: unaula
+    jsonData:
+      sslmode: disable
+      postgresVersion: 1500
+      timescaledb: false
+    secureJsonData:
+      password: unaula2026
+    editable: false

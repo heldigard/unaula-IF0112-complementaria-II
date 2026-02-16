@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 4: Redes IoT - IF0112 Complementaria II (IoT)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 4: Redes IoT</h1>
+            <p class="subtitle">Tecnologías de Conexión para el Internet de las Cosas</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 23-feb-2026 (E1: Investig.)</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#clasificacion">Clasificación</a></li>
+                <li><a href="#protocolos">Protocolos</a></li>
+                <li><a href="#comparacion">Comparación</a></li>
+                <li><a href="#practica">Práctica</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <!-- Info E1 -->
+            <section class="info-box warning" style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>📝 Evaluación E1 - Recordatorio</h3>
+                <p><strong>Investigación E1:</strong> Entregar LUNES 23/02/2026 antes de 11:59 PM</p>
+                <p><strong>Tema:</strong> Arquitectura y Diseño de la Solución IoT (SMAI)</p>
+                <p><a href="../evaluaciones/guia-E1.html" style="color: #92400e; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Entrega Detallada E1 →</a></p>
+                <p><strong>Peso:</strong> 15% de la nota final</p>
+            </section>
+
+            <section id="agenda-120" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> Contexto y clasificación <abbr title="Personal/Local/Wide Area Network">PAN/LAN/WAN</abbr> (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Identificar tipos de redes (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Protocolos <abbr title="Message Queuing Telemetry Transport">MQTT</abbr>/<abbr title="Constrained Application Protocol">CoAP</abbr> (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Matriz de decisión y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <p>Al finalizar esta sesión, podrás:</p>
+                <ul>
+                    <li><strong>Clasificar</strong> redes <abbr title="Internet of Things">IoT</abbr> por alcance (<abbr title="Personal Area Network">PAN</abbr>, <abbr title="Local Area Network">LAN</abbr>, <abbr title="Wide Area Network">WAN</abbr>)</li>
+                    <li><strong>Comparar</strong> tecnologías (<abbr title="Bluetooth Low Energy">BLE</abbr>, Zigbee, WiFi, LoRaWAN, NB-IoT)</li>
+                    <li><strong>Evaluar</strong> protocolos de aplicación (<abbr title="Message Queuing Telemetry Transport">MQTT</abbr>, <abbr title="Constrained Application Protocol">CoAP</abbr>)</li>
+                    <li><strong>Aplicar</strong> una matriz de decisión para casos reales</li>
+                </ul>
+                
+                <div class="highlight" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>Pregunta clave:</strong> ¿Qué tecnología de red es más adecuada para cada caso de uso?
+                </div>
+            </section>
+
+            <section id="contexto">
+                <h2>Contexto y Motivación</h2>
+                <p>En IoT, la red es el puente entre sensores, actuadores y la nube. Elegir una tecnología incorrecta puede:</p>
+                <ul>
+                    <li>Duplicar costos</li>
+                    <li>Agotar baterías rápidamente</li>
+                    <li>Crear puntos ciegos de cobertura</li>
+                </ul>
+                
+                <div class="note" style="background: #f0fdfa; border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>Idea clave:</strong> No existe "la mejor red" universal. Existe la red adecuada para cada caso de uso.
+                </div>
+
+                <h3>Variables de Decisión</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Pregunta Clave</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alcance</strong></td>
+                            <td>¿Qué tan lejos debe llegar la señal?</td>
+                            <td>10m (casa) vs 10km (campo)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consumo</strong></td>
+                            <td>¿Cuánto debe durar la batería?</td>
+                            <td>1 año vs 10 años</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ancho de banda</strong></td>
+                            <td>¿Cuántos datos se transmiten?</td>
+                            <td>1 KB/día vs 1 GB/día</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Densidad</strong></td>
+                            <td>¿Cuántos dispositivos por área?</td>
+                            <td>10 vs 10,000 dispositivos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="clasificacion">
+                <h2>Clasificación de Redes por Alcance</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Alcance</th>
+                            <th>Velocidad</th>
+                            <th>Consumo</th>
+                            <th>Tecnologías</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PAN</strong><br>Personal Area Network</td>
+                            <td>&lt; 10 m</td>
+                            <td>1-100 Mbps</td>
+                            <td>Bajo-Medio</td>
+                            <td>Bluetooth, NFC, Zigbee</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LAN</strong><br>Local Area Network</td>
+                            <td>&lt; 1 km</td>
+                            <td>100 Mbps-10 Gbps</td>
+                            <td>Alto</td>
+                            <td>WiFi, Ethernet</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WAN</strong><br>Wide Area Network</td>
+                            <td>&gt; 1 km</td>
+                            <td>10 Kbps-100 Mbps</td>
+                            <td>Bajo</td>
+                            <td>LoRaWAN, NB-IoT, 4G/5G</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Tecnologías Principales</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tecnología</th>
+                            <th>Tipo</th>
+                            <th>Alcance</th>
+                            <th>Velocidad</th>
+                            <th>Caso Típico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BLE</strong></td>
+                            <td>PAN</td>
+                            <td>50 m</td>
+                            <td>1 Mbps</td>
+                            <td>Wearables, beacons</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zigbee</strong></td>
+                            <td>PAN</td>
+                            <td>100 m</td>
+                            <td>250 Kbps</td>
+                            <td>Smart home, sensores</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WiFi</strong></td>
+                            <td>LAN</td>
+                            <td>50 m</td>
+                            <td>100+ Mbps</td>
+                            <td>Cámaras IP, streaming</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LoRaWAN</strong></td>
+                            <td>WAN</td>
+                            <td>15 km</td>
+                            <td>50 Kbps</td>
+                            <td>Agricultura, ciudades</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NB-IoT</strong></td>
+                            <td>WAN</td>
+                            <td>10+ km</td>
+                            <td>250 Kbps</td>
+                            <td>Medidores, parking</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="protocolos">
+                <h2>Protocolos de Aplicación IoT</h2>
+
+                <p>Los protocolos definen cómo se comunican los dispositivos:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protocolo</th>
+                            <th>Transporte</th>
+                            <th>Características</th>
+                            <th>Casos de Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MQTT</strong></td>
+                            <td>TCP</td>
+                            <td>Pub/Sub, ligero, 3 niveles QoS</td>
+                            <td>Sensores, telemetría, IoT general</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CoAP</strong></td>
+                            <td>UDP</td>
+                            <td>REST-like, muy bajo consumo</td>
+                            <td>Dispositivos restringidos, LPWAN</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTTP/REST</strong></td>
+                            <td>TCP</td>
+                            <td>Universal, on-demand</td>
+                            <td>APIs web, integración cloud</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>MQTT vs CoAP: ¿Cuándo usar cada uno?</h3>
+                <div class="grid-2">
+                    <div class="card" style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px;">
+                        <h4>MQTT</h4>
+                        <ul>
+                            <li>✅ Necesitas garantía de entrega (QoS)</li>
+                            <li>✅ Múltiples suscriptores por topic</li>
+                            <li>✅ Conexión persistente TCP</li>
+                            <li>📍 Ejemplo: Monitoreo industrial</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 20px; border-radius: 8px;">
+                        <h4>CoAP</h4>
+                        <ul>
+                            <li>✅ Redes con ancho de banda limitado</li>
+                            <li>✅ Dispositivos muy restringidos</li>
+                            <li>✅ Consulta/respuesta simple</li>
+                            <li>📍 Ejemplo: Sensores en LoRaWAN</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="comparacion">
+                <h2>Matriz Comparativa de Tecnologías</h2>
+
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tecnología</th>
+                                <th>Alcance</th>
+                                <th>Velocidad</th>
+                                <th>Consumo</th>
+                                <th>Costo</th>
+                                <th>Caso Ideal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>BLE</strong></td>
+                                <td>⭐⭐<br>Corto</td>
+                                <td>⭐⭐⭐<br>Media</td>
+                                <td>⭐⭐⭐⭐<br>Muy bajo</td>
+                                <td>⭐⭐⭐⭐<br>Bajo</td>
+                                <td>Wearables</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Zigbee</strong></td>
+                                <td>⭐⭐<br>Corto</td>
+                                <td>⭐⭐<br>Baja</td>
+                                <td>⭐⭐⭐⭐<br>Muy bajo</td>
+                                <td>⭐⭐⭐<br>Medio</td>
+                                <td>Smart home</td>
+                            </tr>
+                            <tr>
+                                <td><strong>WiFi</strong></td>
+                                <td>⭐⭐<br>Corto</td>
+                                <td>⭐⭐⭐⭐⭐<br>Muy alta</td>
+                                <td>⭐⭐<br>Alto</td>
+                                <td>⭐⭐⭐<br>Medio</td>
+                                <td>Cámaras, streaming</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LoRaWAN</strong></td>
+                                <td>⭐⭐⭐⭐⭐<br>Muy largo</td>
+                                <td>⭐<br>Muy baja</td>
+                                <td>⭐⭐⭐⭐⭐<br>Ultra bajo</td>
+                                <td>⭐⭐<br>Bajo-Medio</td>
+                                <td>Agricultura</td>
+                            </tr>
+                            <tr>
+                                <td><strong>NB-IoT</strong></td>
+                                <td>⭐⭐⭐⭐<br>Largo</td>
+                                <td>⭐⭐<br>Baja</td>
+                                <td>⭐⭐⭐⭐<br>Muy bajo</td>
+                                <td>⭐⭐⭐<br>Medio</td>
+                                <td>Medidores inteligentes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Errores Comunes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Error</th>
+                            <th>Consecuencia</th>
+                            <th>Solución</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Usar WiFi para todo</td>
+                            <td>Baterías duran días</td>
+                            <td>Usar Zigbee/LoRa para sensores</td>
+                        </tr>
+                        <tr>
+                            <td>Ignorar topología</td>
+                            <td>Puntos ciegos</td>
+                            <td>Mapear cobertura primero</td>
+                        </tr>
+                        <tr>
+                            <td>Subestimar consumo</td>
+                            <td>Reemplazo frecuente</td>
+                            <td>Calcular vida de batería</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="glosario">
+                <h2>📚 Glosario de Abreviaturas y Términos</h2>
+                <p>Es importante conocer el significado de las abreviaturas técnicas utilizadas en IoT:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abreviatura</th>
+                            <th>Significado Completo</th>
+                            <th>Descripción Rápida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><abbr title="Personal Area Network: Red de Área Personal">PAN</abbr></strong></td>
+                            <td>Personal Area Network</td>
+                            <td>Red personal, corto alcance (hasta 10m)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Local Area Network: Red de Área Local">LAN</abbr></strong></td>
+                            <td>Local Area Network</td>
+                            <td>Red local, alcance medio (hasta 1km)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Wide Area Network: Red de Área Amplia">WAN</abbr></strong></td>
+                            <td>Wide Area Network</td>
+                            <td>Red amplia, largo alcance (más de 1km)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Low Power Wide Area Network: Red de Área Amplia de Bajo Consumo">LPWAN</abbr></strong></td>
+                            <td>Low Power Wide Area Network</td>
+                            <td>Red de bajo consumo y largo alcance</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Bluetooth Low Energy: Bluetooth de Bajo Consumo">BLE</abbr></strong></td>
+                            <td>Bluetooth Low Energy</td>
+                            <td>Bluetooth de bajo consumo energético</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Message Queuing Telemetry Transport: Protocolo de mensajería ligero para IoT">MQTT</abbr></strong></td>
+                            <td>Message Queuing Telemetry Transport</td>
+                            <td>Protocolo de mensajería ligero para IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Constrained Application Protocol: Protocolo para dispositivos restringidos">CoAP</abbr></strong></td>
+                            <td>Constrained Application Protocol</td>
+                            <td>Protocolo para dispositivos con recursos limitados</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Hypertext Transfer Protocol: Protocolo de transferencia de hipertexto">HTTP</abbr></strong></td>
+                            <td>Hypertext Transfer Protocol</td>
+                            <td>Protocolo de transferencia de hipertexto (web)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Representational State Transfer: Estilo de arquitectura para APIs web">REST</abbr></strong></td>
+                            <td>Representational State Transfer</td>
+                            <td>Estilo de arquitectura para APIs web</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Application Programming Interface: Interfaz para comunicación entre aplicaciones">API</abbr></strong></td>
+                            <td>Application Programming Interface</td>
+                            <td>Interfaz para comunicación entre aplicaciones</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Transmission Control Protocol: Protocolo de control de transmisión">TCP</abbr></strong></td>
+                            <td>Transmission Control Protocol</td>
+                            <td>Protocolo de control de transmisión (confiable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="User Datagram Protocol: Protocolo de datagramas de usuario">UDP</abbr></strong></td>
+                            <td>User Datagram Protocol</td>
+                            <td>Protocolo de datagramas de usuario (rápido)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Quality of Service: Calidad de servicio">QoS</abbr></strong></td>
+                            <td>Quality of Service</td>
+                            <td>Calidad de servicio en comunicaciones</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="note" style="background: #f0fdfa; border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>💡 Tip de estudio:</strong> Guarda esta tabla para referencia rápida durante el curso. Estas abreviaturas se usarán frecuentemente en las siguientes clases.
+                </div>
+            </section>
+
+            <section id="practica">
+                <h2>Práctica: Matriz de Decisión</h2>
+
+                <!-- Ejercicio del Simulador Propuesto -->
+                <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                    <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
+                    <p>Este ejercicio introduce el protocolo de comunicación más básico en sistemas embebidos:</p>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                        <h4 style="margin-top: 0;">📡 Ejercicio 13: Comunicación Serial UART</h4>
+                        <p><strong>Concepto:</strong> Protocolo UART, envío/recepción de datos seriales</p>
+                        <p><strong>Tiempo:</strong> 25 min | <strong>Dificultad:</strong> 🟢 Básico</p>
+                        <p><strong>Objetivo:</strong> Aprender a enviar y recibir comandos a través del puerto serial del ESP32.</p>
+                        <p><a href="../ejercicios-simulador/ejercicio-13-serial-uart.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                    </div>
+
+                    <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                        <strong>💡 Conexión con la clase:</strong> UART es la base de muchos protocolos de comunicación en IoT. Lo usas cada vez que ves el Monitor Serial.
+                    </div>
+                </div>
+
+                <div class="actividad" style="background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <h4>📊 Ejercicio: Selecciona la Tecnología Adecuada</h4>
+                    <p><strong>Tipo:</strong> Práctica guiada en sesión</p>
+                    <p><strong>Duración:</strong> 20 minutos</p>
+
+                    <h5>Casos a evaluar:</h5>
+                    <ol>
+                        <li><strong>Smart Home:</strong> 50 sensores de temperatura/humedad en una casa</li>
+                        <li><strong>Agricultura:</strong> Sensores de humedad de suelo en 100 hectáreas</li>
+                        <li><strong>Industria:</strong> Monitoreo en tiempo real de 20 máquinas</li>
+                    </ol>
+                </div>
+
+                <h3>Preparación LAB 2</h3>
+                <div class="info-box" style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h4>🔬 Laboratorio 2: Sensores DHT22 + LDR</h4>
+                    <p><strong>Fecha:</strong> Lunes 02 de marzo</p>
+                    <p><strong>Objetivo:</strong> Leer temperatura, humedad y luz con <abbr title="Microcontrolador con WiFi">ESP32</abbr></p>
+                    <p><strong>Entregable:</strong> Código + video demostrativo</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong><abbr title="Personal Area Network">PAN</abbr>:</strong> Bluetooth, Zigbee - corto alcance, bajo consumo</li>
+                    <li><strong><abbr title="Local Area Network">LAN</abbr>:</strong> WiFi - alto ancho de banda, alto consumo</li>
+                    <li><strong><abbr title="Wide Area Network">WAN</abbr>:</strong> LoRaWAN, NB-IoT - largo alcance, muy bajo consumo</li>
+                    <li><strong><abbr title="Message Queuing Telemetry Transport">MQTT</abbr>:</strong> Protocolo Pub/Sub para <abbr title="Internet of Things">IoT</abbr> general</li>
+                    <li><strong><abbr title="Constrained Application Protocol">CoAP</abbr>:</strong> Protocolo ligero para dispositivos restringidos</li>
+                </ul>
+                
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Interconexión de Objetos</h4>
+                    <p>Hardware <abbr title="Internet of Things">IoT</abbr>: <abbr title="Microcontrolador WiFi">ESP32</abbr>, Arduino, sensores y actuadores</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn"><span class="arrow">🏠</span> Índice</a>
+                <a href="clase-03.html" class="class-nav-btn"><span class="arrow">←</span> Anterior<br><small style="font-size:0.75em;opacity:0.8;">16-feb</small></a>
+                <a href="clase-05.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">02-mar →</small> <span class="arrow">→</span></a>
+            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 4 - 23-feb-2026 (E1)</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const backToTop = document.getElementById('backToTop');
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        })();
+    </script>
+</body>
+</html>

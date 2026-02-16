@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 9: Convergencia IT/OT | IF0112</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 9: Convergencia IT/OT</h1>
+            <p class="subtitle">Edge Computing y Arquitecturas Híbridas</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 13-abr-2026</p>
+        </header>
+
+        <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+                <div>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 9 - Convergencia IT/OT</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 13 de Abril 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
+                </div>
+            </div>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 PRÓXIMA SEMANA: Clase 10 - 20-abr</h4>
+                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Sesión 10:</strong> Dashboard Grafana. Entrega de <strong>E4 Informe de Gestión (15%)</strong>.</p>
+            </div>
+        </section>
+
+        <nav>
+            <ul>
+                <li><a href="#agenda">Agenda</a></li>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#it-ot">IT vs OT</a></li>
+                <li><a href="#edge">Edge Computing</a></li>
+                <li><a href="#cloud">Cloud Computing</a></li>
+                <li><a href="#comparacion">Comparación</a></li>
+                <li><a href="#arquitectura">Arquitectura</a></li>
+                <li><a href="#actividad">Actividad</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="agenda" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y diferencias IT/OT</li>
+                    <li><strong>10-40 min:</strong> Edge vs Cloud Computing (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de latencia y arquitectura (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Arquitectura de 3 capas (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Diseño arquitectónico y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <ul>
+                    <li><strong>Diferenciar</strong> tecnología de información (IT) y tecnología operacional (OT)</li>
+                    <li><strong>Comparar</strong> Edge Computing vs Cloud Computing</li>
+                    <li><strong>Identificar</strong> cuándo usar cada arquitectura</li>
+                    <li><strong>Diseñar</strong> arquitectura híbrida para proyecto IoT</li>
+                </ul>
+            </section>
+
+            <section id="it-ot">
+                <h2>🔄 <abbr title="Information Technology">IT</abbr> vs <abbr title="Operational Technology">OT</abbr>: Dos Mundos Convergentes</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <td><strong>Aspecto</strong></td>
+                            <td>💻 <strong><abbr title="Information Technology">IT</abbr></strong></td>
+                            <td>⚙️ <strong><abbr title="Operational Technology">OT</abbr></strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enfoque</strong></td>
+                            <td>Procesamiento de datos, software</td>
+                            <td>Control de equipos físicos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prioridad</strong></td>
+                            <td>Seguridad de datos, confidencialidad</td>
+                            <td>Disponibilidad, seguridad física</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Latencia</strong></td>
+                            <td>Tolerante (ms-seg)</td>
+                            <td>Crítica (&lt;10ms)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ejemplos</strong></td>
+                            <td>Servidores, ERP, CRM</td>
+                            <td>PLC, SCADA, sensores industriales</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box success">
+                    <h4>🎯 Convergencia IT/OT</h4>
+                    <p>El <strong>IoT</strong> une ambos mundos: datos de sensores OT se procesan con tecnologías IT (cloud, analytics) para generar valor de negocio.</p>
+                </div>
+            </section>
+
+            <section id="edge">
+                <h2>⚡ <abbr title="Edge Computing: Procesamiento en el borde">Edge Computing</abbr></h2>
+                
+                <div class="info-box info">
+                    <h4>📝 Definición</h4>
+                    <p>Procesamiento de datos <strong>cerca de la fuente</strong> (dispositivos), reduciendo latencia y ancho de banda.</p>
+                </div>
+
+                <h3>Ventajas del Edge</h3>
+                <ul>
+                    <li><strong>Baja latencia:</strong> 1-10 ms (vs 100-500 ms en cloud).</li>
+                    <li><strong>Independencia de red:</strong> Funciona offline.</li>
+                    <li><strong>Privacidad:</strong> Datos sensibles no salen del sitio.</li>
+                    <li><strong>Ancho de banda:</strong> Solo envía datos filtrados a la nube.</li>
+                </ul>
+
+                <h3>Casos de Uso Edge</h3>
+                <ul>
+                    <li><strong>Vehículos autónomos:</strong> Decisiones de frenado en &lt;10ms.</li>
+                    <li><strong>Control industrial:</strong> Respuesta inmediata en producción.</li>
+                    <li><strong>Monitoreo médico:</strong> Alertas instantáneas sin depender de internet.</li>
+                </ul>
+            </section>
+
+            <section id="cloud">
+                <h2>☁️ <abbr title="Cloud Computing: Procesamiento y almacenamiento en la nube">Cloud Computing</abbr></h2>
+                
+                <div class="info-box info">
+                    <h4>📝 Definición</h4>
+                    <p>Procesamiento y almacenamiento en <strong>servidores remotos</strong> accesibles por internet.</p>
+                </div>
+
+                <h3>Ventajas del Cloud</h3>
+                <ul>
+                    <li><strong>Escalabilidad:</strong> Recursos bajo demanda.</li>
+                    <li><strong>Costos:</strong> Pago por uso, sin inversión inicial.</li>
+                    <li><strong>Machine Learning:</strong> Entrenamiento de modelos con grandes datasets.</li>
+                    <li><strong>Acceso global:</strong> Dashboards desde cualquier lugar.</li>
+                </ul>
+
+                <h3>Proveedores Cloud IoT</h3>
+                <ul>
+                    <li>AWS IoT Core</li>
+                    <li>Microsoft Azure IoT Hub</li>
+                    <li>Google Cloud IoT</li>
+                </ul>
+            </section>
+
+            <section id="comparacion">
+                <h2>📊 Edge vs Cloud: Comparación</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>⚡ Edge</th>
+                            <th>☁️ Cloud</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Latencia</strong></td>
+                            <td>1-10 ms</td>
+                            <td>100-500 ms</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Costo</strong></td>
+                            <td>Alto inicial (hardware)</td>
+                            <td>Bajo inicial, variable mensual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Procesamiento</strong></td>
+                            <td>Local, limitado</td>
+                            <td>Ilimitado (escalable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conectividad</strong></td>
+                            <td>No requerida</td>
+                            <td>Requerida</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mejor para</strong></td>
+                            <td>Control en tiempo real</td>
+                            <td>Análisis histórico, ML</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box warning">
+                    <h4>💡 Regla Práctica</h4>
+                    <p><strong>Edge</strong> para control en tiempo real.<br>
+                    <strong>Cloud</strong> para análisis, almacenamiento y ML.<br>
+                    <strong>Híbrida</strong> para la mayoría de proyectos IoT.</p>
+                </div>
+            </section>
+
+            <section id="arquitectura">
+                <h2>🏗️ Arquitectura IoT de 3 Capas</h2>
+                
+                <div style="background: #eff6ff; border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #1e40af; margin-top: 0;">☁️ CAPA 3: <abbr title="Servicios de cómputo remoto">Cloud</abbr></h4>
+                    <p><strong>Funciones:</strong> Análisis histórico, ML, dashboards empresariales.</p>
+                    <p><strong>Ejemplos:</strong> AWS IoT, ThingSpeak, Blynk</p>
+                </div>
+
+                <div style="background: #f0fdf4; border: 2px solid #10b981; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #065f46; margin-top: 0;">⚡ CAPA 2: <abbr title="Procesamiento en el borde">Edge</abbr></h4>
+                    <p><strong>Funciones:</strong> Filtrado, agregación, decisiones locales.</p>
+                    <p><strong>Ejemplos:</strong> Raspberry Pi, Gateway IoT</p>
+                </div>
+
+                <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #92400e; margin-top: 0;">🔧 CAPA 1: <abbr title="Microcontroladores y Sensores">Dispositivos</abbr></h4>
+                    <p><strong>Funciones:</strong> Sensores, actuadores, control básico.</p>
+                    <p><strong>Ejemplos:</strong> ESP32, Arduino, sensores</p>
+                </div>
+
+                <h3>Flujo de Datos</h3>
+                <p style="text-align: center; font-size: 1.2rem; background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                    🔧 <strong>Dispositivos</strong> → ⚡ <strong>Edge</strong> (filtra) → ☁️ <strong>Cloud</strong> (analiza)
+                </p>
+            </section>
+
+            <section id="actividad">
+                <h2>📝 Actividad: Diseño Arquitectónico</h2>
+                
+                <div class="info-box info">
+                    <h4>🎯 Instrucciones</h4>
+                    <p>En equipos, diseñen la arquitectura para su proyecto de <strong>monitoreo ambiental</strong>:</p>
+                    <ol>
+                        <li>¿Qué procesamiento harán en el Edge (ESP32)?</li>
+                        <li>¿Qué datos enviarán al Cloud?</li>
+                        <li>¿Qué decisiones tomarán localmente vs remotamente?</li>
+                        <li>Dibujen el flujo de datos entre capas.</li>
+                    </ol>
+                </div>
+
+                <h3>Ejemplo de Respuesta</h3>
+                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1rem 0;">
+                    <p><strong>Edge (ESP32):</strong> Leer sensor cada segundo, calcular promedio cada minuto, alertar si temperatura &gt;30°C.</p>
+                    <p><strong>Cloud (ThingSpeak):</strong> Recibir promedios cada minuto, mostrar gráficos históricos, alertas por email.</p>
+                </div>
+            </section>
+
+            <!-- Ejercicio del Simulador Propuesto -->
+            <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
+                <p>Este ejercicio demuestra la diferencia entre procesamiento Edge vs Cloud:</p>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">⚡ Ejercicio 15: Edge Computing</h4>
+                    <p><strong>Concepto:</strong> Procesamiento local, filtrado de datos, ahorro de ancho de banda</p>
+                    <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                    <p><strong>Objetivo:</strong> Implementar procesamiento local para filtrar y validar datos de un sensor antes de "enviarlos a la nube".</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-15-edge-computing.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                </div>
+
+                <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                    <strong>💡 Conexión con la clase:</strong> El ejercicio muestra cómo el procesamiento Edge reduce latencia y ahorra ancho de banda, conceptos clave de esta sesión.
+                </div>
+            </div>
+
+            <section class="summary-table" style="background: #f0fdf4; border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
+                <h2 style="color: #065f46;">📝 Resumen de Conceptos Clave</h2>
+                <ul>
+                    <li><strong><abbr title="Information Technology: Tecnologías de la Información">IT</abbr>:</strong> Tecnología de información (datos)</li>
+                    <li><strong><abbr title="Operational Technology: Tecnologías de Operación">OT</abbr>:</strong> Tecnología operacional (control físico)</li>
+                    <li><strong><abbr title="Edge Computing: Procesamiento en el borde">Edge</abbr>:</strong> Procesamiento local, baja latencia</li>
+                    <li><strong><abbr title="Cloud Computing: Procesamiento en la nube">Cloud</abbr>:</strong> Procesamiento remoto, escalable</li>
+                    <li><strong>Arquitectura 3 capas:</strong> Dispositivos → Edge → Cloud</li>
+                </ul>
+                <p style="margin-top: 1rem; padding: 1rem; background: #ecfdf5; border-radius: 6px; text-align: center;">
+                    <strong>Próxima Sesión:</strong> LAB 4 - Dashboard Grafana (20-abr) | <strong>E4 entrega:</strong> 20-abr
+                </p>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-08.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Sesión Anterior
+                </a>                <a href="clase-10.html" class="class-nav-btn">
+                    Sesión Siguiente <span class="arrow">→</span>
+                </a>            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 9</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

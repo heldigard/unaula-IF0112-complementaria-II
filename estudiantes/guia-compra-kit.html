@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Compra Kit IoT - IF0112</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --muted: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 2rem; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+        header { 
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { color: white; margin: 0; font-size: 1.75rem; }
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 { color: var(--primary); margin-top: 1.5rem; }
+        .nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .nav a {
+            background: var(--primary-light); 
+            color: #fff; 
+            padding: 10px 16px; 
+            border-radius: 8px;
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        .nav a:hover { background: var(--primary); }
+        .highlight { 
+            background: #d1fae5; 
+            border-left: 4px solid var(--success); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .warning { 
+            background: #fef3c7; 
+            border-left: 4px solid var(--warning); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .store-card {
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .store-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .footer { 
+            text-align: center; 
+            margin-top: 3rem; 
+            color: var(--muted); 
+            font-size: 0.875rem; 
+        }
+        .price-tag {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía de Compra del Kit IoT</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">IF0112 - Complementaria II - 2026-I</p>
+        </header>
+
+        <nav class="nav">
+            <a href="../clases-html/index.html">🏠 Inicio</a>
+            <a href="guia-rapida-esp32.html">📋 Guía Rápida</a>
+            <a href="instalacion-arduino-ide.html">⚙️ Instalación IDE</a>
+            <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
+        </nav>
+
+        <div class="highlight">
+            <p><strong>💰 Inversión Total:</strong> <span class="price-tag">~$50.000 - $55.000 COP</span></p>
+            <p>Esta inversión es de <strong>UNA SOLA VEZ</strong> y el kit es tuyo para siempre.</p>
+        </div>
+
+        <h2>✅ ¿Vale la pena?</h2>
+        
+        <ul>
+            <li>☑️ Lo usarás TODO el semestre</li>
+            <li>☑️ Es tuyo, lo puedes llevar</li>
+            <li>☑️ Útil para otros cursos/proyectos</li>
+            <li>☑️ Excelente para portafolio profesional</li>
+            <li>☑️ Puedes venderlo al final si quieres</li>
+        </ul>
+
+        <h2>📋 Lista de Componentes</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Componente</th>
+                    <th>Especificación</th>
+                    <th>Cantidad</th>
+                    <th>Precio Aprox.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>ESP32 DevKit</strong></td>
+                    <td>DevKit V1, 30 pines</td>
+                    <td>1</td>
+                    <td>$20.000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>Protoboard</strong></td>
+                    <td>830 puntos, breadboard</td>
+                    <td>1</td>
+                    <td>$5.000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>Cables jumper</strong></td>
+                    <td>Macho-macho, 40 pines</td>
+                    <td>1 pack</td>
+                    <td>$5.000</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>Sensor DHT22</strong></td>
+                    <td>Temp -40~125°C, Hum 0-100%</td>
+                    <td>1</td>
+                    <td>$12.000</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>LDR</strong></td>
+                    <td>Fotorresistencia 5mm</td>
+                    <td>1</td>
+                    <td>$1.000</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>Resistencias</strong></td>
+                    <td>10KΩ 1/4W (pack de 10)</td>
+                    <td>1</td>
+                    <td>$1.000</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><strong>Resistencias</strong></td>
+                    <td>220Ω 1/4W (pack de 10)</td>
+                    <td>1</td>
+                    <td>$1.000</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><strong>LEDs</strong></td>
+                    <td>5mm varios colores (pack de 10)</td>
+                    <td>1</td>
+                    <td>$2.000</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td><strong>Cable USB</strong></td>
+                    <td>MicroUSB o USB-C (1m)</td>
+                    <td>1</td>
+                    <td>$5.000</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td><strong>Botones</strong></td>
+                    <td>Pulsador 6x6mm (pack de 5)</td>
+                    <td>1</td>
+                    <td>$2.000</td>
+                </tr>
+                <tr style="background: #d1fae5; font-weight: bold;">
+                    <td colspan="4">TOTAL</td>
+                    <td>~$54.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🛒 Dónde Comprar en Medellín</h2>
+
+        <div class="store-card" style="border-color: #10b981;">
+            <h3>🏆 Opción 1: Electrónica JNC (Recomendado)</h3>
+            
+            <p><strong>Ubicación:</strong> Centro de Medellín, Calle 54 #49-39</p>
+            <p><strong>Contacto:</strong> WhatsApp 304 XXX XXXX</p>
+            <p><strong>Horario:</strong> Lunes-Viernes 8am-6pm, Sábados 8am-1pm</p>
+
+            <p><strong>Ventajas:</strong></p>
+            <ul>
+                <li>✅ Precios justos</li>
+                <li>✅ Tienen todo en un solo lugar</li>
+                <li>✅ Personal conoce el proyecto</li>
+                <li>✅ Pueden armar el kit completo</li>
+            </ul>
+
+            <div class="highlight">
+                <p><strong>💡 Kit completo ensamblado:</strong></p>
+                <ul>
+                    <li>Preguntar por "Kit IoT UNAULA"</li>
+                    <li>Incluye todos los componentes</li>
+                    <li>Precio: ~$55.000</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="store-card">
+            <h3>Opción 2: DI.P Mecatrónica</h3>
+            
+            <p><strong>Ubicación:</strong> Calle 33 #65-23, Centro</p>
+            <p><strong>Sitio web:</strong> dipmecatronica.com</p>
+            <p><strong>WhatsApp:</strong> 300 XXX XXXX</p>
+
+            <p><strong>Ventajas:</strong></p>
+            <ul>
+                <li>✅ Gran variedad</li>
+                <li>✅ Tienda online (envíos)</li>
+                <li>✅ Catálogo organizado</li>
+            </ul>
+        </div>
+
+        <div class="store-card">
+            <h3>Opción 3: Suconel Colombia</h3>
+            
+            <p><strong>Sitio web:</strong> suconel.com</p>
+            <p><strong>Modalidad:</strong> Online con envíos a todo Colombia</p>
+
+            <p><strong>Ventajas:</strong></p>
+            <ul>
+                <li>✅ Comprar desde casa</li>
+                <li>✅ Envíos rápidos</li>
+                <li>✅ Pago en línea</li>
+            </ul>
+        </div>
+
+        <div class="store-card">
+            <h3>Opción 4: MercadoLibre</h3>
+            
+            <p><strong>Buscar:</strong></p>
+            <ul>
+                <li>"ESP32 DevKit V1"</li>
+                <li>"Kit Arduino básico"</li>
+                <li>"DHT22 sensor"</li>
+                <li>"Protoboard 400 puntos"</li>
+            </ul>
+
+            <div class="warning">
+                <p><strong>Recomendaciones:</strong></p>
+                <ul>
+                    <li>✅ Comprar con calificación >4.5</li>
+                    <li>✅ Revisar comentarios</li>
+                    <li>⚠️ Cuidado con envíos lentos</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>💡 Consejos de Ahorro</h2>
+
+        <h3>Compras Grupales (Recomendado)</h3>
+
+        <p><strong>Ventajas:</strong></p>
+        <ul>
+            <li>Descuento por cantidad</li>
+            <li>Envío compartido</li>
+            <li>Menor tiempo de espera</li>
+        </ul>
+
+        <p><strong>Cómo organizar:</strong></p>
+        <ol>
+            <li>Crear grupo de WhatsApp con compañeros</li>
+            <li>Asignar un coordinador</li>
+            <li>Hacer pedido único para 10+ personas</li>
+            <li>Repartir en clase</li>
+        </ol>
+
+        <h3>Compra Inteligente</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Estrategia</th>
+                    <th>Ahorro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Comprar kit ensamblado</td>
+                    <td>Ahorras tiempo y errores</td>
+                </tr>
+                <tr>
+                    <td>Compra grupal (10+)</td>
+                    <td>~10-15% descuento</td>
+                </tr>
+                <tr>
+                    <td>Compra en JNC</td>
+                    <td>Evitas envíos</td>
+                </tr>
+                <tr>
+                    <td>Compartir cable USB</td>
+                    <td>1 cable cada 2 estudiantes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🚨 Precauciones</h2>
+
+        <div class="warning">
+            <h3>Evitar Estafas</h3>
+            
+            <p><strong>❌ NO comprar:</strong></p>
+            <ul>
+                <li>"Super kit Arduino" con componentes de mala calidad</li>
+                <li>Componentes sin especificaciones técnicas</li>
+                <li>Vendedores sin calificación en MercadoLibre</li>
+                <li>Componentes usados (a menos que estés seguro)</li>
+            </ul>
+        </div>
+
+        <h3>Verificar al Recibir</h3>
+
+        <p>Al recibir tu kit, verifica:</p>
+
+        <p><strong>ESP32:</strong></p>
+        <ul>
+            <li>☑️ Llegó sin daños</li>
+            <li>☑️ Los pines están rectos</li>
+            <li>☑️ Tiene antena metálica o en PCB</li>
+        </ul>
+
+        <p><strong>DHT22:</strong></p>
+        <ul>
+            <li>☑️ Tiene 4 pines (o 3 pines en módulo)</li>
+            <li>☑️ Nombre "DHT22" visible</li>
+            <li>☑️ Sello de fábrica intacto</li>
+        </ul>
+
+        <h2>✅ Checklist de Compra</h2>
+
+        <p>Antes de pagar:</p>
+
+        <ul>
+            <li><input type="checkbox"> He verificado que el ESP32 es DevKit V1</li>
+            <li><input type="checkbox"> El DHT22 es DHT22 (no DHT11)</li>
+            <li><input type="checkbox"> Tengo suficientes cables jumper (40+)</li>
+            <li><input type="checkbox"> Las resistencias son 10K y 220 ohmios</li>
+            <li><input type="checkbox"> Tengo LEDs (al menos 2)</li>
+            <li><input type="checkbox"> Tengo protoboard</li>
+            <li><input type="checkbox"> Tengo cable USB compatible</li>
+        </ul>
+
+        <div class="highlight">
+            <p><strong>🎯 Conclusión:</strong></p>
+            <p style="font-size: 1.1rem; margin: 0;"><strong>Inversión:</strong> $50.000 - $55.000 COP | 
+            <strong>Durabilidad:</strong> Para siempre | 
+            <strong>Utilidad:</strong> Este curso + otros proyectos + portafolio profesional</p>
+            
+            <p style="font-style: italic; margin-top: 1rem;">"Es mejor invertir una vez en un kit bueno que gastar dos veces en componentes de mala calidad"</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>¡Felicidades por dar el primer paso! 🔧⚡</strong></p>
+            <p>Curso: IF0112 - Complementaria II | Institución: UNAULA | Semestre: 2026-I</p>
+            <p><a href="../clases-html/index.html">← Volver al portal de clases</a></p>
+        </div>
+    </div>
+</body>
+</html>

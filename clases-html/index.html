@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IF0112 - Complementaria II (IoT)</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --ink: #0f172a;
+            --ink-secondary: #334155;
+            --muted: #64748b;
+            --accent: #3b82f6;
+            --accent-light: #dbeafe;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.06);
+            --shadow-hover: rgba(59, 130, 246, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segeo UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
+        }
+
+        header p {
+            color: var(--ink-secondary);
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.5rem 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid var(--accent-light);
+            box-shadow: 0 4px 12px var(--shadow);
+            min-width: 140px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--ink-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .unit {
+            margin-bottom: 3rem;
+        }
+
+        .unit h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .unit-badge {
+            background: linear-gradient(135deg, var(--accent) 0%, #1d4ed8 100%);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .class-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .class-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px var(--shadow-hover);
+        }
+
+        .class-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .class-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+
+        .class-desc {
+            color: var(--ink-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .eval-card {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+        }
+
+        .eval-card:hover {
+            border-color: #dc2626;
+        }
+
+        .eval-badge {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-top: 2px solid var(--border);
+            margin-top: 4rem;
+            color: var(--ink-secondary);
+            background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.05));
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .festive-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .festive-box h3 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .festive-box p {
+            color: #78716c;
+            margin: 0;
+        }
+
+        .lab-badge {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 0.75rem;
+            }
+
+            .stat-card {
+                padding: 1rem 1.5rem;
+                min-width: 100px;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IF0112 - Complementaria II</h1>
+            <p>Internet of Things (IoT) · 2026-I · Lunes 06:00-08:00 (120 min) · Modelo Híbrido</p>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">Sesiones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Laboratorios</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Evaluaciones</div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid #3b82f6; text-align: center;">
+                <h2 style="color: #1e40af; margin: 0 0 1rem 0; font-size: 1.75rem;">Monitor Ambiental IoT</h2>
+                <p style="color: #1e3a8a; margin: 0 0 0.5rem 0; max-width: 60ch; margin-left: auto; margin-right: auto;">
+                    Proyecto progresivo: <strong>ESP32 + DHT22 + LDR → WiFi → ThingSpeak → Grafana</strong>
+                </p>
+                <p style="color: #1e40af; margin: 0 0 1.5rem 0; font-weight: 600;">
+                    ✅ <strong>14 sesiones</strong> (13 teóricas + 1 sustentación) | ⚠️ Sin clase: 23-mar, 30-mar y 18-may | 📅 Seguimientos: 27-mar (50%), 15-may (80%), 28-may (100%)
+                </p>
+            </div>
+        </header>
+
+        <main>
+            <!-- Recursos Generales -->
+            <section class="unit">
+                <div class="grid">
+                    <a href="presentacion-docente.html" class="class-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #3b82f6;">
+                        <span class="class-number" style="background: #3b82f6;">DOCENTE</span>
+                        <div class="class-title">Presentación del Docente</div>
+                        <div class="class-desc">Metodología, evaluaciones y recursos del curso</div>
+                    </a>
+                    <a href="../planificacion/cronograma.html" class="class-card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #f59e0b;">
+                        <span class="class-number" style="background: #f59e0b;">📅 CRONOGRAMA</span>
+                        <div class="class-title">Cronograma y Evaluaciones</div>
+                        <div class="class-desc">Fechas de evaluaciones E1-E6 + seguimientos</div>
+                    </a>
+                    <a href="../planificacion/syllabus.html" class="class-card" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-color: #059669;">
+                        <span class="class-number" style="background: #059669;">📚 SYLLABUS</span>
+                        <div class="class-title">Programa Oficial del Curso</div>
+                        <div class="class-desc">Competencias, resultados de aprendizaje y contenido</div>
+                    </a>
+                    <a href="../admin/concertacion.html" class="class-card" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-color: #0284c7;">
+                        <span class="class-number" style="background: #0284c7;">📋 CONCERTACIÓN</span>
+                        <div class="class-title">Concertación Académica 2026-I</div>
+                        <div class="class-desc">Acuerdos pedagógicos y criterios de evaluación</div>
+                    </a>
+                    <a href="../ejercicios-simulador/index.html" class="class-card" style="background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-color: #a855f7;">
+                        <span class="class-number" style="background: linear-gradient(135deg, #a855f7, #9333ea);">🚀 SIMULADOR</span>
+                        <div class="class-title">Ejercicios de Simulador</div>
+                        <div class="class-desc">Práctica guiada con Wokwi (<abbr title="Microcontrolador WiFi">ESP32</abbr>)</div>
+                    </a>
+                    <a href="../laboratorios-html/index.html" class="class-card" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-color: #10b981;">
+                        <span class="class-number lab-badge">LABS</span>
+                        <div class="class-title">Laboratorios Oficiales</div>
+                        <div class="class-desc">5 guías para el proyecto Monitor Ambiental</div>
+                    </a>
+                    <a href="../evaluaciones/index.html" class="class-card" style="background: linear-gradient(135deg, #fef2f2, #fecaca); border-color: #ef4444;">
+                        <span class="class-number" style="background: linear-gradient(135deg, #ef4444, #dc2626);">📋 EVALUACIONES</span>
+                        <div class="class-title">Guías de Evaluación</div>
+                        <div class="class-desc">Instrucciones detalladas y rúbricas E1-E6</div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- FASE 1: Fundamentos -->
+            <section class="unit">
+                <h2><span class="unit-badge">FASE 1</span> Fundamentos IoT <small style="font-size: 0.7em; color: var(--muted);">(Feb 02 - Mar 16)</small></h2>
+                <div class="grid">
+                    <a href="clase-01.html" class="class-card" style="border-color: #10b981;">
+                        <span class="class-number" style="background: #10b981;">✅ SESIÓN 1</span>
+                        <div class="class-title">Evolución de Internet</div>
+                        <div class="class-desc">02-feb | <abbr title="World Wide Web">WWW</abbr> 1.0 → 2.0 → 3.0 → <abbr title="Internet of Things">IoT</abbr></div>
+                    </a>
+                    <a href="clase-02.html" class="class-card">
+                        <span class="class-number">SESIÓN 2</span>
+                        <div class="class-title">Personas, Procesos, Datos, Cosas</div>
+                        <div class="class-desc">09-feb | Los 4 pilares del <abbr title="Internet of Things">IoT</abbr></div>
+                    </a>
+                    <a href="clase-02-materiales.html" class="class-card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #f59e0b;">
+                        <span class="class-number" style="background: #f59e0b;">🛠️ MATERIALES</span>
+                        <div class="class-title">Kit de Hardware</div>
+                        <div class="class-desc">Lista completa + Tiendas Medellín</div>
+                    </a>
+                    <a href="clase-03.html" class="class-card" style="border-color: #f59e0b;">
+                        <span class="class-number" style="background: #f59e0b;">SESIÓN 3 ⚡</span>
+                        <div class="class-title">Transformación del Entorno</div>
+                        <div class="class-desc">16-feb | Smart Cities y <abbr title="Sector Industrial 4.0">Empresas 4.0</abbr></div>
+                    </a>
+                    <a href="clase-04.html" class="class-card">
+                        <span class="class-number">SESIÓN 4</span>
+                        <div class="class-title">Redes <abbr title="Internet of Things">IoT</abbr></div>
+                        <div class="class-desc">23-feb | <abbr title="Personal Area Network">PAN</abbr>, <abbr title="Local Area Network">LAN</abbr>, <abbr title="Wide Area Network">WAN</abbr> + <abbr title="Evaluación 1">E1 Investig.</abbr></div>
+                    </a>
+                    <a href="clase-05.html" class="class-card" style="border-color: #f59e0b;">
+                        <span class="class-number" style="background: #f59e0b;">SESIÓN 5 ⚡</span>
+                        <div class="class-title">Interconexión de Objetos</div>
+                        <div class="class-desc">02-mar | Hardware <abbr title="Internet of Things">IoT</abbr> + <abbr title="Laboratorio 2">LAB 2 Prototipo</abbr></div>
+                    </a>
+                    <a href="clase-06.html" class="class-card" style="border-color: #f59e0b;">
+                        <span class="class-number" style="background: #f59e0b;">SESIÓN 6 ⚡</span>
+                        <div class="class-title">Programación <abbr title="Microcontrolador WiFi">ESP32</abbr></div>
+                        <div class="class-desc">09-mar | Arduino IDE + <abbr title="Evaluación 2">E2 Demo Física</abbr></div>
+                    </a>
+                    <a href="clase-07.html" class="class-card" style="border-color: #ef4444;">
+                        <span class="class-number" style="background: #ef4444;">SESIÓN 7 📝</span>
+                        <div class="class-title"><abbr title="Laboratorio 3">LAB 3</abbr>: Conectividad WiFi</div>
+                        <div class="class-desc">16-mar | WiFi STA/AP + <abbr title="Evaluación 3">E3 Software</abbr> (20%)</div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Recesos -->
+            <div class="festive-box">
+                <h3>📅 Receso Académico Marzo 2026</h3>
+                <p><strong>23-mar al 30-mar</strong>: Festivo San José + Semana Santa (Sin clase)</p>
+            </div>
+
+            <!-- FASE 2: Conectividad Cloud -->
+            <section class="unit">
+                <h2><span class="unit-badge" style="background: #059669;">FASE 2</span> Conectividad y Datos <small style="font-size: 0.7em; color: var(--muted);">(Abr 06 - Abr 27)</small></h2>
+                <div class="grid">
+                    <a href="clase-08.html" class="class-card">
+                        <span class="class-number">SESIÓN 8</span>
+                        <div class="class-title">Protocolos <abbr title="Internet of Things">IoT</abbr> (<abbr title="Message Queuing Telemetry Transport">MQTT</abbr>/<abbr title="Hypertext Transfer Protocol">HTTP</abbr>)</div>
+                        <div class="class-desc">06-abr | Mensajería ligera para dispositivos</div>
+                    </a>
+                    <a href="clase-09.html" class="class-card">
+                        <span class="class-number">SESIÓN 9</span>
+                        <div class="class-title">Convergencia <abbr title="Information Technology / Operational Technology">IT/OT</abbr></div>
+                        <div class="class-desc">13-abr | Edge vs Cloud Computing</div>
+                    </a>
+                    <a href="clase-10.html" class="class-card" style="border-color: #f59e0b;">
+                        <span class="class-number" style="background: #f59e0b;">SESIÓN 10 ⚡</span>
+                        <div class="class-title"><abbr title="Laboratorio 4">LAB 4</abbr>: <abbr title="Dashboard en la Nube">Grafana</abbr></div>
+                        <div class="class-desc">20-abr | Visualización + <abbr title="Evaluación 4">E4 Informe de Gestión</abbr></div>
+                    </a>
+                    <a href="clase-11.html" class="class-card" style="border-color: #7c3aed;">
+                        <span class="class-number" style="background: #7c3aed;">SESIÓN 11 📝</span>
+                        <div class="class-title"><abbr title="Machine-to-Machine / Machine-to-Person / Person-to-Person">M2M/M2P/P2P</abbr> + Marco Legal</div>
+                        <div class="class-desc">27-abr | Patrones + Ley 1581 | <abbr title="Evaluación 5">E5 Trabajo Escrito</abbr></div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- FASE 3: Proyecto Final -->
+            <section class="unit">
+                <h2><span class="unit-badge" style="background: #7c3aed;">FASE 3</span> Cierre y Futuro <small style="font-size: 0.7em; color: var(--muted);">(May 04 - May 25)</small></h2>
+                <div class="grid">
+                    <a href="clase-12.html" class="class-card" style="border-color: #0891b2;">
+                        <span class="class-number" style="background: #0891b2;">SESIÓN 12 🎤</span>
+                        <div class="class-title">Caso <abbr title="Sistema de Alerta Temprana">SIATA</abbr> Medellín</div>
+                        <div class="class-desc">04-may | IoT Urbano + <abbr title="Evaluación 5">E5 Entrega</abbr></div>
+                    </a>
+                    <a href="clase-13.html" class="class-card">
+                        <span class="class-number">SESIÓN 13</span>
+                        <div class="class-title">El Futuro de Internet (<abbr title="Artificial Intelligence of Things">AIoT</abbr>)</div>
+                        <div class="class-desc">11-may | 5G, AIoT y TinyML</div>
+                    </a>
+                    <div class="festive-box" style="background: linear-gradient(135deg, #fee2e2, #fecaca); border: 2px solid #ef4444; margin-top: 1rem;">
+                        <h3>📅 18-may: Receso Festivo</h3>
+                        <p><strong>Ascensión del Señor</strong> (Sin clase)</p>
+                    </div>
+                    <a href="clase-14.html" class="class-card eval-card">
+                        <span class="class-number eval-badge">🎓 SESIÓN 14</span>
+                        <div class="class-title">Sustentación Final (<abbr title="Evaluación 6">E6</abbr>)</div>
+                        <div class="class-desc">25-may | Demo Proyecto SMAI (20%)</div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Resumen de Evaluaciones -->
+            <section class="unit">
+                <h2>📊 Calendario de Evaluaciones</h2>
+                <div class="grid">
+                    <div class="eval-card class-card">
+                        <span class="class-number eval-badge">E1 (15%)</span>
+                        <div class="class-title">Investigación Técnica</div>
+                        <div class="class-desc">23-feb | Arquitectura y Diseño SMAI</div>
+                    </div>
+                    <div class="eval-card class-card">
+                        <span class="class-number eval-badge">E2 (15%)</span>
+                        <div class="class-title">Prototipo Físico/Virtual</div>
+                        <div class="class-desc">09-mar | Interacción Sensórica Local</div>
+                    </div>
+                    <div class="eval-card class-card">
+                        <span class="class-number eval-badge">E3 (20%)</span>
+                        <div class="class-title">Software IoT</div>
+                        <div class="class-desc">16-mar | Conectividad Cloud MQTT</div>
+                    </div>
+                    <div class="eval-card class-card">
+                        <span class="class-number eval-badge">E4 (15%)</span>
+                        <div class="class-title">Informe de Gestión</div>
+                        <div class="class-desc">20-abr | Lógica y Control Automático</div>
+                    </div>
+                    <div class="eval-card class-card">
+                        <span class="class-number eval-badge">E5 (15%)</span>
+                        <div class="class-title">Trabajo Escrito</div>
+                        <div class="class-desc">04-may | Normativa y Seguridad IoT</div>
+                    </div>
+                    <div class="eval-card class-card">
+                        <span class="class-number eval-badge">E6 (20%)</span>
+                        <div class="class-title">Proyecto Final</div>
+                        <div class="class-desc">25-may | Entrega SMAI Funcionando</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) · 2026-I | Portal de Sesiones</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem;">
+                ⚠️ <strong>Recesos:</strong> 23-mar, 30-mar y 18-may | 📅 <strong>Seguimientos:</strong> 27-mar (50%), 15-may (80%), 28-may (100%)
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

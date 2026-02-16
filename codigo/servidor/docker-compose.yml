@@ -1,0 +1,89 @@
+# Docker Compose para Servidor IoT UNAULA
+# IF0112 - Complementaria II - 2026-I
+#
+# Este archivo levanta todos los servicios necesarios:
+# - PostgreSQL: Base de datos para almacenar datos de sensores
+# - API Flask: Servidor web para recibir datos de ESP32
+# - Grafana: Dashboard para visualizar datos
+#
+# USO:
+#   docker-compose up -d
+#   docker-compose down
+#   docker-compose logs -f
+
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: iot-postgres
+    environment:
+      POSTGRES_DB: iot_unaula
+      POSTGRES_USER: unaula
+      POSTGRES_PASSWORD: unaula2026
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - iot-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U unaula"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API Flask para recibir datos de ESP32
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: iot-api
+    environment:
+      DATABASE_URL: postgresql://unaula:unaula2026@postgres:5432/iot_unaula
+      FLASK_ENV: production
+      FLASK_APP: app.py
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - iot-network
+    volumes:
+      - ./api:/app
+    restart: unless-stopped
+
+  # Grafana para dashboards
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: iot-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: unaula2026
+      GF_INSTALL_PLUGINS: grafana-clock-panel
+      GF_SERVER_ROOT_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - iot-network
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  iot-network:
+    driver: bridge

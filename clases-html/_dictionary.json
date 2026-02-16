@@ -1,0 +1,469 @@
+{
+  "terminos_iot": {
+    "IoT": {
+      "nombre_completo": "Internet of Things",
+      "nombre_espanol": "Internet de las Cosas",
+      "definicion": "Red de objetos físicos ('cosas') incrustados con sensores, software y conectividad que les permite recolectar e intercambiar datos sin intervención humana directa."
+    },
+    "M2M": {
+      "nombre_completo": "Machine-to-Machine",
+      "nombre_espanol": "Máquina a Máquina",
+      "definicion": "Comunicación directa entre dispositivos sin intervención humana, base fundamental de IoT para automatización."
+    },
+    "M2P": {
+      "nombre_completo": "Machine-to-Person",
+      "nombre_espanol": "Máquina a Persona",
+      "definicion": "Comunicación desde un dispositivo hacia una persona, típicamente mediante notificaciones o alertas."
+    },
+    "P2P": {
+      "nombre_completo": "Person-to-Person",
+      "nombre_espanol": "Persona a Persona",
+      "definicion": "Comunicación entre personas mediada por dispositivos IoT, como en sistemas de teleasistencia."
+    },
+    "DIKW": {
+      "nombre_completo": "Data-Information-Knowledge-Wisdom",
+      "nombre_espanol": "Datos-Información-Conocimiento-Sabiduría",
+      "definicion": "Jerarquía que representa la transformación progresiva de datos brutos en sabiduría actionable."
+    },
+    "P-P-D-C": {
+      "nombre_completo": "Plan-Do-Check-Act",
+      "nombre_espanol": "Planificar-Hacer-Verificar-Actuar",
+      "definicion": "Ciclo de mejora continua (también conocido como PDCA) utilizado para gestión de proyectos y procesos IoT."
+    },
+    "MQTT": {
+      "nombre_completo": "Message Queuing Telemetry Transport",
+      "nombre_espanol": "Protocolo de Cola de Mensajes para Telemetría",
+      "definicion": "Protocolo de mensajería ligero publish/subscribe diseñado para dispositivos IoT con recursos limitados."
+    },
+    "HTTP": {
+      "nombre_completo": "Hypertext Transfer Protocol",
+      "nombre_espanol": "Protocolo de Transferencia de Hipertexto",
+      "definicion": "Protocolo de comunicación request-response para transferencia de datos en la World Wide Web."
+    },
+    "HTTPS": {
+      "nombre_completo": "HTTP Secure",
+      "nombre_espanol": "HTTP Seguro",
+      "definicion": "Versión cifrada de HTTP que utiliza TLS/SSL para comunicaciones seguras."
+    },
+    "REST": {
+      "nombre_completo": "Representational State Transfer",
+      "nombre_espanol": "Transferencia de Estado Representacional",
+      "definicion": "Estilo arquitectónico para sistemas distribuidos que utiliza operaciones HTTP estándar (GET, POST, PUT, DELETE)."
+    },
+    "API": {
+      "nombre_completo": "Application Programming Interface",
+      "nombre_espanol": "Interfaz de Programación de Aplicaciones",
+      "definicion": "Conjunto de reglas y protocolos que permite que diferentes aplicaciones de software se comuniquen entre sí."
+    },
+    "JSON": {
+      "nombre_completo": "JavaScript Object Notation",
+      "nombre_espanol": "Notación de Objetos de JavaScript",
+      "definicion": "Formato ligero de intercambio de datos, fácil de leer y escribir para humanos, y de parsear para máquinas."
+    },
+    "XML": {
+      "nombre_completo": "eXtensible Markup Language",
+      "nombre_espanol": "Lenguaje de Marcado Extensible",
+      "definicion": "Lenguaje de marcado diseñado para almacenar y transportar datos de forma estructurada."
+    },
+    "WiFi": {
+      "nombre_completo": "Wireless Fidelity",
+      "nombre_espanol": "Fidelidad Inalámbrica",
+      "definicion": "Tecnología de redes inalámbricas basada en estándares IEEE 802.11 para conectividad de área local."
+    },
+    "LAN": {
+      "nombre_completo": "Local Area Network",
+      "nombre_espanol": "Red de Área Local",
+      "definicion": "Red de computadoras que conecta dispositivos en un área geográfica limitada como una casa, escuela o edificio."
+    },
+    "WAN": {
+      "nombre_completo": "Wide Area Network",
+      "nombre_espanol": "Red de Área Amplia",
+      "definicion": "Red de telecomunicaciones que se extiende sobre un área geográfica grande, como ciudades o países."
+    },
+    "PAN": {
+      "nombre_completo": "Personal Area Network",
+      "nombre_espanol": "Red de Área Personal",
+      "definicion": "Red de computadoras utilizada para comunicación entre dispositivos cercanos a una persona (alcance de ~10 metros)."
+    },
+    "MAN": {
+      "nombre_completo": "Metropolitan Area Network",
+      "nombre_espanol": "Red de Área Metropolitana",
+      "definicion": "Red que conecta una área urbana mayor que LAN pero menor que WAN, típicamente una ciudad."
+    },
+    "VPN": {
+      "nombre_completo": "Virtual Private Network",
+      "nombre_espanol": "Red Privada Virtual",
+      "definicion": "Tecnología que crea una conexión segura y cifrada sobre una red pública menos segura como Internet."
+    },
+    "IP": {
+      "nombre_completo": "Internet Protocol",
+      "nombre_espanol": "Protocolo de Internet",
+      "definicion": "Protocolo de comunicaciones que enruta paquetes de datos a través de fronteras de red hacia su destino."
+    },
+    "TCP": {
+      "nombre_completo": "Transmission Control Protocol",
+      "nombre_espanol": "Protocolo de Control de Transmisión",
+      "definicion": "Protocolo de transporte orientado a conexión que garantiza entrega ordenada y confiable de datos."
+    },
+    "UDP": {
+      "nombre_completo": "User Datagram Protocol",
+      "nombre_espanol": "Protocolo de Datagramas de Usuario",
+      "definicion": "Protocolo de transporte sin conexión, rápido pero sin garantías de entrega, usado para streaming y juegos."
+    },
+    "DHCP": {
+      "nombre_completo": "Dynamic Host Configuration Protocol",
+      "nombre_espanol": "Protocolo de Configuración Dinámica de Host",
+      "definicion": "Protocolo de red que asigna automáticamente direcciones IP y otros parámetros de configuración a dispositivos."
+    },
+    "DNS": {
+      "nombre_completo": "Domain Name System",
+      "nombre_espanol": "Sistema de Nombres de Dominio",
+      "definicion": "Sistema jerárquico y distribuido que traduce nombres de dominio legibles por humanos a direcciones IP."
+    },
+    "SSID": {
+      "nombre_completo": "Service Set Identifier",
+      "nombre_espanol": "Identificador de Conjunto de Servicio",
+      "definicion": "Nombre que identifica una red WiFi visible para los usuarios."
+    },
+    "MAC": {
+      "nombre_completo": "Media Access Control",
+      "nombre_espanol": "Control de Acceso al Medio",
+      "definicion": "Dirección física única asignada a la tarjeta de red de un dispositivo para identificación en la red."
+    },
+    "URL": {
+      "nombre_completo": "Uniform Resource Locator",
+      "nombre_espanol": "Localizador Uniforme de Recursos",
+      "definicion": "Dirección que especifica la ubicación de un recurso en Internet y el protocolo para recuperarlo."
+    },
+    "URI": {
+      "nombre_completo": "Uniform Resource Identifier",
+      "nombre_espanol": "Identificador Uniforme de Recursos",
+      "definicion": "Cadena de caracteres que identifica un recurso particular en una red, más general que URL."
+    },
+    "ASCII": {
+      "nombre_completo": "American Standard Code for Information Interchange",
+      "nombre_espanol": "Código Estándar Americano para Intercambio de Información",
+      "definicion": "Codificación de caracteres basada en el alfabeto inglés que utiliza 7 bits para representar texto."
+    },
+    "ESP32": {
+      "nombre_completo": "Espressif Systems Programmable 32-bit",
+      "nombre_espanol": "Microcontrolador Espressif de 32 bits",
+      "definicion": "Sistema en un chip (SoC) con WiFi y Bluetooth integrados, muy popular para proyectos IoT por su bajo costo y comunidad activa."
+    },
+    "ESP8266": {
+      "nombre_completo": "Espressif Systems Programmable 8-bit/26-bit",
+      "nombre_espanol": "Microcontrolador Espressif con WiFi",
+      "definicion": "Predecesor del ESP32, chip de bajo costo con WiFi integrado que popularizó IoT para makers."
+    },
+    "GPIO": {
+      "nombre_completo": "General-Purpose Input/Output",
+      "nombre_espanol": "Entrada/Salida de Propósito General",
+      "definicion": "Pines de un microcontrolador configurables como entrada o salida para conectar sensores, actuadores y otros periféricos."
+    },
+    "PWM": {
+      "nombre_completo": "Pulse-Width Modulation",
+      "nombre_espanol": "Modulación por Ancho de Pulso",
+      "definicion": "Técnica para controlar el voltaje analógico promedio usando señales digitales de pulsos rápidos."
+    },
+    "I2C": {
+      "nombre_completo": "Inter-Integrated Circuit",
+      "nombre_espanol": "Inter-Circuito Integrado",
+      "definicion": "Protocolo de comunicación serial sincrónica para conectar circuitos integrados de baja velocidad."
+    },
+    "SPI": {
+      "nombre_completo": "Serial Peripheral Interface",
+      "nombre_espanol": "Interfaz Periférica Serial",
+      "definicion": "Protocolo de comunicación serial de alta velocidad para conectar microcontroladores y periféricos."
+    },
+    "UART": {
+      "nombre_completo": "Universal Asynchronous Receiver-Transmitter",
+      "nombre_espanol": "Receptor-Transmisor Asincrónico Universal",
+      "definicion": "Circuito de comunicación serial asíncrona para transmitir y recibir datos entre dispositivos."
+    },
+    "USB": {
+      "nombre_completo": "Universal Serial Bus",
+      "nombre_espanol": "Bus Serial Universal",
+      "definicion": "Estándar industrial para cables, conectores y protocolos de comunicación para conexión de periféricos."
+    },
+    "BLE": {
+      "nombre_completo": "Bluetooth Low Energy",
+      "nombre_espanol": "Bluetooth de Baja Energía",
+      "definicion": "Versión de Bluetooth optimizada para consumo de energía muy bajo, ideal para dispositivos IoT y wearables."
+    },
+    "RFID": {
+      "nombre_completo": "Radio-Frequency Identification",
+      "nombre_espanol": "Identificación por Radiofrecuencia",
+      "definicion": "Tecnología de identificación inalámbrica que usa etiquetas o tarjetas con chips para transmitir datos."
+    },
+    "NFC": {
+      "nombre_completo": "Near Field Communication",
+      "nombre_espanol": "Comunicación de Campo Cercano",
+      "definicion": "Tecnología de comunicación inalámbrica de corto alcance (~4cm) usada en pagos y transferencia de datos."
+    },
+    "GPS": {
+      "nombre_completo": "Global Positioning System",
+      "nombre_espanol": "Sistema de Posicionamiento Global",
+      "definicion": "Sistema de navegación por satélite que proporciona ubicación y tiempo en cualquier condición climática."
+    },
+    "LiDAR": {
+      "nombre_completo": "Light Detection and Ranging",
+      "nombre_espanol": "Detección y Medición por Luz",
+      "definicion": "Tecnología de detección remota que usa luz láser para medir distancias y crear mapas 3D."
+    },
+    "OLED": {
+      "nombre_completo": "Organic Light-Emitting Diode",
+      "nombre_espanol": "Diodo Emisor de Luz Orgánico",
+      "definicion": "Tipo de pantalla donde cada píxel es un LED orgánico que emite su propia luz, permitiendo pantallas más delgadas y oscuras."
+    },
+    "LCD": {
+      "nombre_completo": "Liquid Crystal Display",
+      "nombre_espanol": "Pantalla de Cristal Líquido",
+      "definicion": "Pantalla plana que usa cristales líquidos modulados para mostrar imágenes y texto."
+    },
+    "LED": {
+      "nombre_completo": "Light-Emitting Diode",
+      "nombre_espanol": "Diodo Emisor de Luz",
+      "definicion": "Dispositivo semiconductor que emite luz cuando corriente eléctrica fluye a través de él."
+    },
+    "IC": {
+      "nombre_completo": "Integrated Circuit",
+      "nombre_espanol": "Circuito Integrado",
+      "definicion": "Conjunto de circuitos electrónicos miniaturizados en un chip de material semiconductor."
+    },
+    "CPU": {
+      "nombre_completo": "Central Processing Unit",
+      "nombre_espanol": "Unidad Central de Procesamiento",
+      "definicion": "Componente de computadora que ejecuta instrucciones de programas de computadora."
+    },
+    "RAM": {
+      "nombre_completo": "Random Access Memory",
+      "nombre_espanol": "Memoria de Acceso Aleatorio",
+      "definicion": "Memoria volátil que almacena datos temporalmente mientras el procesador los necesita."
+    },
+    "ROM": {
+      "nombre_completo": "Read-Only Memory",
+      "nombre_espanol": "Memoria de Solo Lectura",
+      "definicion": "Memoria no volátil que almacena datos permanentes que no pueden ser modificados después de la fabricación."
+    },
+    "EEPROM": {
+      "nombre_completo": "Electrically Erasable Programmable Read-Only Memory",
+      "nombre_espanol": "Memoria Programable y Borrable Eléctricamente",
+      "definicion": "Memoria no volátil que puede ser borrada y reescrita eléctricamente, usada para guardar configuraciones."
+    },
+    "Flash": {
+      "nombre_completo": "Flash Memory",
+      "nombre_espanol": "Memoria Flash",
+      "definicion": "Tipo de memoria no volátil que puede ser borrada y reprogramada en bloques, usada para almacenamiento."
+    },
+    "Cloud": {
+      "nombre_completo": "Cloud Computing",
+      "nombre_espanol": "Computación en la Nube",
+      "definicion": "Entrega de servicios de computación (servidores, almacenamiento, bases de datos) a través de Internet."
+    },
+    "Edge": {
+      "nombre_completo": "Edge Computing",
+      "nombre_espanol": "Computación en el Borde",
+      "definicion": "Procesamiento de datos cerca de la fuente de datos (en el 'borde' de la red) en lugar de en la nube centralizada."
+    },
+    "Fog": {
+      "nombre_completo": "Fog Computing",
+      "nombre_espanol": "Computación en la Niebla",
+      "definicion": "Arquitectura descentralizada que procesa datos entre el edge y la nube, reduciendo latencia."
+    },
+    "middleware": {
+      "nombre_completo": "Middleware",
+      "nombre_espanol": "Middleware",
+      "definicion": "Software que conecta aplicaciones y componentes de software, permitiendo comunicación entre sistemas diferentes."
+    },
+    "framework": {
+      "nombre_completo": "Software Framework",
+      "nombre_espanol": "Marco de Trabajo de Software",
+      "definicion": "Estructura de soporte estandarizada que facilita el desarrollo de aplicaciones."
+    },
+    "SDK": {
+      "nombre_completo": "Software Development Kit",
+      "nombre_espanol": "Kit de Desarrollo de Software",
+      "definicion": "Conjunto de herramientas de desarrollo para crear aplicaciones para una plataforma específica."
+    },
+    "IDE": {
+      "nombre_completo": "Integrated Development Environment",
+      "nombre_espanol": "Entorno de Desarrollo Integrado",
+      "definicion": "Aplicación de software que proporciona herramientas completas para programación (editor, compilador, debugger)."
+    },
+    "firmware": {
+      "nombre_completo": "Firmware",
+      "nombre_espanol": "Firmware",
+      "definicion": "Software de bajo nivel que controla el hardware de un dispositivo directamente."
+    },
+    "OTA": {
+      "nombre_completo": "Over-The-Air",
+      "nombre_espanol": "Por el Aire",
+      "definicion": "Método de distribución de actualizaciones de software a dispositivos de forma inalámbrica sin conexión física."
+    },
+    "LoRa": {
+      "nombre_completo": "Long Range",
+      "nombre_espanol": "Largo Alcance",
+      "definicion": "Tecnología de comunicación inalámbrica de bajo consumo y largo alcance (hasta 15 km) para IoT."
+    },
+    "LoRaWAN": {
+      "nombre_completo": "Long Range Wide Area Network",
+      "nombre_espanol": "Red de Área Amplia de Largo Alcance",
+      "definicion": "Protocolo de comunicación de bajo consumo para redes inalámbricas de largo alcance basado en LoRa."
+    },
+    "NB-IoT": {
+      "nombre_completo": "Narrowband Internet of Things",
+      "nombre_espanol": "IoT de Banda Estrecha",
+      "definicion": "Estándar de comunicación celular de bajo ancho de banda y bajo consumo diseñado específicamente para IoT."
+    },
+    "Sigfox": {
+      "nombre_completo": "Sigfox",
+      "nombre_espanol": "Sigfox",
+      "definicion": "Tecnología de red de área amplia de bajo consumo para comunicaciones pequeñas y esporádicas entre dispositivos IoT."
+    },
+    "Zigbee": {
+      "nombre_completo": "Zigbee",
+      "nombre_espanol": "Zigbee",
+      "definicion": "Especificación de redes de área personal de alto nivel basada en IEEE 802.15.4 para bajo consumo."
+    },
+    "Z-Wave": {
+      "nombre_completo": "Z-Wave",
+      "nombre_espanol": "Z-Wave",
+      "definicion": "Protocolo de comunicación inalámbrico de bajo consumo usado principalmente en domótica."
+    },
+    "Thread": {
+      "nombre_completo": "Thread",
+      "nombre_espanol": "Thread",
+      "definicion": "Protocolo de red mesh inalámbrico de bajo consumo basado en IPv6 para productos IoT del hogar."
+    },
+    "5G": {
+      "nombre_completo": "Fifth Generation",
+      "nombre_espanol": "Quinta Generación",
+      "definicion": "Tecnología de red móvil de quinta generación con velocidades hasta 20 Gbps y latencia de 1ms."
+    },
+    "4G": {
+      "nombre_completo": "Fourth Generation",
+      "nombre_espanol": "Cuarta Generación",
+      "definicion": "Tecnología de red móvil de cuarta generación con velocidades hasta 1 Gbps."
+    },
+    "LTE": {
+      "nombre_completo": "Long-Term Evolution",
+      "nombre_espanol": "Evolución a Largo Plazo",
+      "definicion": "Estándar de comunicación móvil inalámbrica de alta velocidad para datos y telefonía móvil."
+    },
+    "GSM": {
+      "nombre_completo": "Global System for Mobile Communications",
+      "nombre_espanol": "Sistema Global para Comunicaciones Móviles",
+      "definicion": "Estándar desarrollado por ETSI para redes de telefonía móvil digital."
+    },
+    "GPRS": {
+      "nombre_completo": "General Packet Radio Service",
+      "nombre_espanol": "Servicio General de Paquetes por Radio",
+      "definicion": "Servicio de datos móviles de conmutación por paquetes en redes GSM."
+    },
+    "Arduino": {
+      "nombre_completo": "Arduino",
+      "nombre_espanol": "Arduino",
+      "definicion": "Plataforma de electrónica abierta basada en hardware y software fáciles de usar, popular para prototipado IoT."
+    },
+    "Raspberry Pi": {
+      "nombre_completo": "Raspberry Pi",
+      "nombre_espanol": "Raspberry Pi",
+      "definicion": "Computadora de placa reducida (single-board computer) de bajo costo, usada para proyectos IoT y educación."
+    },
+    "PlatformIO": {
+      "nombre_completo": "PlatformIO",
+      "nombre_espanol": "PlatformIO",
+      "definicion": "Herramienta profesional de desarrollo embebido multiplataforma con soporte para múltiples plataformas."
+    },
+    "Wokwi": {
+      "nombre_completo": "Wokwi",
+      "nombre_espanol": "Wokwi",
+      "definicion": "Simulador online de electronics que permite probar código Arduino y ESP32 sin hardware físico."
+    },
+    "Tinkercad": {
+      "nombre_completo": "Tinkercad",
+      "nombre_espanol": "Tinkercad",
+      "definicion": "Plataforma online gratuita de Autodesk para diseño 3D, circuitos y código, usada en educación."
+    },
+    "ThingSpeak": {
+      "nombre_completo": "ThingSpeak",
+      "nombre_espanol": "ThingSpeak",
+      "definicion": "Plataforma IoT de código abierto para almacenar y recuperar datos de dispositivos mediante HTTP."
+    },
+    "Grafana": {
+      "nombre_completo": "Grafana",
+      "nombre_espanol": "Grafana",
+      "definicion": "Plataforma de visualización de código abierto para crear dashboards interactivos de datos de series temporales."
+    },
+    "HiveMQ": {
+      "nombre_completo": "HiveMQ",
+      "nombre_espanol": "HiveMQ",
+      "definicion": "Broker MQTT empresarial escalable basado en Java para comunicaciones IoT."
+    },
+    "Mosquitto": {
+      "nombre_completo": "Eclipse Mosquitto",
+      "nombre_espanol": "Eclipse Mosquitto",
+      "definicion": "Broker MQTT open source ligero que implementa protocolo MQTT versions 3.1 y 3.1.1."
+    },
+    "TensorFlow": {
+      "nombre_completo": "TensorFlow",
+      "nombre_espanol": "TensorFlow",
+      "definicion": "Biblioteca open source de machine learning desarrollada por Google para realizar ML y Deep Learning."
+    },
+    "TinyML": {
+      "nombre_completo": "Tiny Machine Learning",
+      "nombre_espanol": "Aprendizaje Automático Tiny",
+      "definicion": "Campo del ML que permite ejecutar modelos de IA en microcontroladores con recursos muy limitados."
+    },
+    "AWS": {
+      "nombre_completo": "Amazon Web Services",
+      "nombre_espanol": "Servicios Web de Amazon",
+      "definicion": "Plataforma de computación en la nube de Amazon que ofrece servicios de computación, almacenamiento y bases de datos."
+    },
+    "Azure": {
+      "nombre_completo": "Microsoft Azure",
+      "nombre_espanol": "Microsoft Azure",
+      "definicion": "Plataforma de computación en la nube de Microsoft con servicios de IA, IoT y análisis de datos."
+    },
+    "GCP": {
+      "nombre_completo": "Google Cloud Platform",
+      "nombre_espanol": "Plataforma de Nube de Google",
+      "definicion": "Plataforma de computación en la nube de Google con servicios de ML, datos y analytics."
+    },
+    "CoAP": {
+      "nombre_completo": "Constrained Application Protocol",
+      "nombre_espanol": "Protocolo de Aplicaciones Restringidas",
+      "definicion": "Protocolo de aplicación web especializado para dispositivos IoT con recursos limitados."
+    },
+    "eMBB": {
+      "nombre_completo": "enhanced Mobile Broadband",
+      "nombre_espanol": "Banda Ancha Móvil Mejorada",
+      "definicion": "Pilar de 5G que ofrece velocidades de datos mejoradas hasta 20 Gbps."
+    },
+    "URLLC": {
+      "nombre_completo": "Ultra-Reliable Low Latency Communications",
+      "nombre_espanol": "Comunicaciones Ultra Confiables de Baja Latencia",
+      "definicion": "Pilar de 5G que garantiza latencia de 1ms para aplicaciones críticas como vehículos autónomos."
+    },
+    "mMTC": {
+      "nombre_completo": "massive Machine Type Communications",
+      "nombre_espanol": "Comunicaciones Masivas Tipo Máquina",
+      "definicion": "Pilar de 5G que soporta hasta 1 millón de dispositivos por km² para IoT masivo."
+    },
+    "LLM": {
+      "nombre_completo": "Large Language Model",
+      "nombre_espanol": "Modelo de Lenguaje Grande",
+      "definicion": "Modelo de IA entrenado con grandes cantidades de texto para comprender y generar lenguaje natural."
+    },
+    "IoE": {
+      "nombre_completo": "Internet of Everything",
+      "nombre_espanol": "Internet de Todo",
+      "definicion": "Concepto de Cisco que expande IoT para incluir personas, procesos y datos además de cosas."
+    },
+    "ROI": {
+      "nombre_completo": "Return on Investment",
+      "nombre_espanol": "Retorno sobre Inversión",
+      "definicion": "Métrica financiera que mide la rentabilidad de una inversión comparando ganancia con costo inicial."
+    }
+  }
+}

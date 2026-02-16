@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Instalación Arduino IDE - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --muted: #64748b;
+            --code-bg: #f1f5f9;
+            --success: #10b981;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 2rem; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+        header { 
+            background: linear-gradient(135deg, #0b2d6b, #1e40af);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { color: white; margin: 0; font-size: 1.75rem; }
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 { color: var(--primary); margin-top: 1.5rem; }
+        .nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .nav a {
+            background: var(--primary-light); 
+            color: #fff; 
+            padding: 10px 16px; 
+            border-radius: 8px;
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        .nav a:hover { background: var(--primary); }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .highlight { 
+            background: #eff6ff; 
+            border-left: 4px solid var(--primary-light); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .success { 
+            background: #d1fae5; 
+            border-left: 4px solid var(--success); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .warning { 
+            background: #fef3c7; 
+            border-left: 4px solid #f59e0b; 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .footer { 
+            text-align: center; 
+            margin-top: 3rem; 
+            color: var(--muted); 
+            font-size: 0.875rem; 
+        }
+        .step {
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía de Instalación Arduino IDE + ESP32</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">IF0112 - Complementaria II | Paso a Paso</p>
+        </header>
+
+        <nav class="nav">
+            <a href="../clases-html/index.html">🏠 Inicio</a>
+            <a href="guia-rapida-esp32.html">📋 Guía Rápida</a>
+            <a href="guia-compra-kit.html">🛒 Guía de Compra</a>
+            <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
+        </nav>
+
+        <div class="highlight">
+            <p><strong>🎯 Objetivo:</strong> Instalar y configurar Arduino IDE en tu computadora para programar el ESP32.</p>
+            <p><strong>⏱️ Tiempo estimado:</strong> 20-30 minutos | <strong>Dificultad:</strong> Principiante</p>
+        </div>
+
+        <h2>📋 Requisitos Previos</h2>
+
+        <h3>Hardware</h3>
+        <ul>
+            <li>Computadora con Windows 10/11, macOS, o Linux</li>
+            <li>4GB de RAM mínimo (8GB recomendado)</li>
+            <li>500MB de espacio libre</li>
+        </ul>
+
+        <h3>Software</h3>
+        <ul>
+            <li>Conexión a internet</li>
+            <li>Permisos de administrador</li>
+        </ul>
+
+        <h2>🪟 Paso 1: Instalar Arduino IDE (10 min)</h2>
+
+        <div class="step">
+            <h3>Para Windows 10/11</h3>
+            
+            <p><strong>1. Descargar Arduino IDE</strong></p>
+            <ul>
+                <li>Ir a: <a href="https://www.arduino.cc/en/software" target="_blank">https://www.arduino.cc/en/software</a></li>
+                <li>Click en "Download" para Windows</li>
+                <li>Elegir "Win 10 or later" (64 bits)</li>
+            </ul>
+
+            <p><strong>2. Ejecutar instalador</strong></p>
+            <ul>
+                <li>Abrir archivo descargado (<code>arduino-ide_xxx.exe</code>)</li>
+                <li>Click "Sí" cuando pida permisos</li>
+                <li>Aceptar términos de licencia</li>
+            </ul>
+
+            <p><strong>3. Opciones recomendadas</strong></p>
+            <ul>
+                <li>☑️ Crear acceso directo en escritorio</li>
+                <li>☑️ Asociar archivos .ino</li>
+                <li>☑️ Resetear configuraciones previas (si pregunta)</li>
+            </ul>
+
+            <p><strong>4. Completar instalación</strong></p>
+            <ul>
+                <li>Esperar a que termine</li>
+                <li>Click "Close" al finalizar</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Para macOS</h3>
+            
+            <p><strong>1. Descargar Arduino IDE</strong></p>
+            <ul>
+                <li>Ir a: <a href="https://www.arduino.cc/en/software" target="_blank">https://www.arduino.cc/en/software</a></li>
+                <li>Click en "Download" para macOS</li>
+                <li>Descargar archivo <code>.dmg</code></li>
+            </ul>
+
+            <p><strong>2. Instalar</strong></p>
+            <ul>
+                <li>Abrir archivo <code>.dmg</code> descargado</li>
+                <li>Arrastrar "Arduino IDE" a "Aplicaciones"</li>
+                <li>Esperar copia</li>
+            </ul>
+
+            <p><strong>3. Abrir primera vez</strong></p>
+            <ul>
+                <li>Click derecho > Abrir</li>
+                <li>Aceptar advertencia de seguridad</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Para Linux (Ubuntu/Debian)</h3>
+            
+            <pre><code># Descargar y agregar clave GPG
+wget https://www.arduino.cc/software/signing-keys/arduino-keyring.asc
+sudo gpg --dearmor -o /usr/share/keyrings/arduino-keyring.gpg arduino-keyring.asc
+
+# Agregar repositorio
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/arduino-keyring.gpg] https://downloads.arduino.cc/arduino-ide stable main" | sudo tee /etc/apt/sources.list.d/arduino-ide.list
+
+# Actualizar e instalar
+sudo apt update
+sudo apt install arduino-ide
+</code></pre>
+        </div>
+
+        <h2>🔌 Paso 2: Instalar Drivers ESP32 (10 min)</h2>
+
+        <div class="highlight">
+            <p>El ESP32 necesita drivers USB para comunicarse con tu computadora.</p>
+        </div>
+
+        <h3>Identificar tu ESP32</h3>
+        <p>Conecta el ESP32 y verifica en el Administrador de Dispositivos:</p>
+        <ul>
+            <li><strong>Windows:</strong> Buscar "Administrador de dispositivos"</li>
+            <li><strong>macOS:</strong> Acerca de este Mac > Informe del sistema</li>
+            <li><strong>Linux:</strong> <code>lsusb</code></li>
+        </ul>
+
+        <h3>Driver CP2102 (Común)</h3>
+        <p><strong>Necesario si:</strong> Tu ESP32 tiene chip CP2102</p>
+
+        <p><strong>Windows:</strong></p>
+        <ol>
+            <li>Descargar: <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers</a></li>
+            <li>Ejecutar instalador</li>
+            <li>Reiniciar computadora</li>
+        </ol>
+
+        <p><strong>macOS:</strong></p>
+        <ol>
+            <li>Descargar versión para macOS</li>
+            <li>Abrir paquete <code>.pkg</code></li>
+            <li>Seguir instrucciones</li>
+        </ol>
+
+        <p><strong>Linux:</strong></p>
+        <pre><code>sudo apt install linux-modules-extra-raspi-generic
+</code></pre>
+
+        <h3>Driver CH340 (Alternativa)</h3>
+        <p><strong>Necesario si:</strong> Tu ESP32 tiene chip CH340</p>
+
+        <p><strong>Windows:</strong></p>
+        <ol>
+            <li>Descargar: <a href="http://www.wch.cn/download/CH341SER_EXE.html" target="_blank">http://www.wch.cn/download/CH341SER_EXE.html</a></li>
+            <li>Ejecutar y reiniciar</li>
+        </ol>
+
+        <p><strong>macOS:</strong></p>
+        <ol>
+            <li>Permitir apps de desarrolladores identificados</li>
+            <li>Descargar e instalar driver</li>
+            <li>Reiniciar</li>
+        </ol>
+
+        <h2>⚙️ Paso 3: Configurar Arduino IDE para ESP32 (10 min)</h2>
+
+        <h3>3.1 Abrir Arduino IDE</h3>
+        <ul>
+            <li>Doble click en ícono de Arduino IDE</li>
+            <li>Esperar a que cargue completamente</li>
+        </ul>
+
+        <h3>3.2 Agregar URL de ESP32</h3>
+        
+        <p><strong>1. Abrir Preferencias</strong></p>
+        <ul>
+            <li>Windows/Linux: <code>Ctrl + ,</code></li>
+            <li>macOS: <code>Arduino IDE > Preferences</code></li>
+        </ul>
+
+        <p><strong>2. Encontrar "Additional Boards Manager URLs"</strong></p>
+        <p>Campo: "Gestor de tarjetas adicionales"</p>
+
+        <p><strong>3. Agregar esta URL:</strong></p>
+        <pre><code>https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+</code></pre>
+
+        <p><strong>4. Click OK</strong></p>
+
+        <h3>3.3 Instalar Paquete ESP32</h3>
+
+        <p><strong>1. Abre el Gestor de Tarjetas</strong></p>
+        <p>Herramientas > Placa > Gestor de tarjetas...</p>
+
+        <p><strong>2. Buscar "ESP32"</strong></p>
+        <ul>
+            <li>En el campo de búsqueda escribir "esp32"</li>
+            <li>Esperar resultados</li>
+        </ul>
+
+        <p><strong>3. Instalar</strong></p>
+        <ul>
+            <li>Buscar "esp32 by Espressif Systems"</li>
+            <li>Click en "Instalar"</li>
+            <li><strong>Esperar</strong> (puede tardar 5-10 minutos)</li>
+            <li>Click "Cerrar" cuando termine</li>
+        </ul>
+
+        <h2>✅ Paso 4: Verificar Instalación</h2>
+
+        <h3>4.1 Seleccionar Placa</h3>
+        <ol>
+            <li>Herramientas > Placa > esp32</li>
+            <li>Seleccionar "ESP32 Dev Module"</li>
+        </ol>
+
+        <h3>4.2 Conectar ESP32</h3>
+        <ol>
+            <li>Conectar ESP32 con cable USB</li>
+            <li>Herramientas > Puerto</li>
+            <li>Seleccionar el puerto que aparece:</li>
+        </ol>
+
+        <p><strong>Windows:</strong> <code>COM3</code>, <code>COM4</code>, <code>COM5</code> (el número puede variar)</p>
+        <p><strong>macOS:</strong> <code>/dev/cu.usbserial-...</code> o <code>/dev/cu.SLAB_USBtoUART...</code></p>
+        <p><strong>Linux:</strong> <code>/dev/ttyUSB0</code> o <code>/dev/ttyUSB1</code></p>
+
+        <h3>4.3 Probar con Ejemplo Blink</h3>
+        <ol>
+            <li>Archivos > Ejemplos > 01.Basics > Blink</li>
+            <li><strong>Modificar para ESP32:</strong> Cambiar <code>LED_BUILTIN</code> por <code>2</code></li>
+            <li>Click en "Subir" (flecha →)</li>
+            <li><strong>Si falla:</strong> Mantener presionado botón "BOOT" en ESP32 mientras sube</li>
+        </ol>
+
+        <h3>4.4 Verificar</h3>
+
+        <div class="success">
+            <p><strong>✅ Éxito:</strong></p>
+            <ul>
+                <li>Mensaje "Subido exitosamente"</li>
+                <li>LED azul en ESP32 parpadeando</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <p><strong>❌ Error:</strong> Ver sección de Troubleshooting</p>
+        </div>
+
+        <h2>🚨 Troubleshooting</h2>
+
+        <h3>Problema: "No se encuentra el puerto"</h3>
+        <p><strong>Solución:</strong></p>
+        <ol>
+            <li>Verificar cable USB (algunos solo cargan, no transmiten)</li>
+            <li>Reinstalar drivers</li>
+            <li>Probar otro puerto USB</li>
+            <li>Probar otra computadora (para descartar problema de ESP32)</li>
+        </ol>
+
+        <h3>Problema: "Failed to connect"</h3>
+        <p><strong>Solución:</strong></p>
+        <ol>
+            <li>Mantener presionado botón "BOOT" al subir</li>
+            <li>Presionar botón "RESET" antes de subir</li>
+            <li>Verificar puerto correcto seleccionado</li>
+            <li>Cambiar cable USB</li>
+        </ol>
+
+        <h3>Problema: "Permission denied" (Linux)</h3>
+        <pre><code># Agregar usuario al grupo dialout
+sudo usermod -aG dialout $USER
+
+# Cerrar sesión y volver a entrar
+</code></pre>
+
+        <h3>Problema: Arduino IDE no abre (macOS)</h3>
+        <ol>
+            <li>Click derecho sobre Arduino IDE</li>
+            <li>Mantener presionada tecla <code>Option</code></li>
+            <li>Click "Abrir"</li>
+            <li>Aceptar en advertencia</li>
+        </ol>
+
+        <h2>✅ Checklist Final</h2>
+
+        <p>Antes del primer laboratorio:</p>
+
+        <ul>
+            <li><input type="checkbox"> Arduino IDE instalado y abre correctamente</li>
+            <li><input type="checkbox"> Drivers de ESP32 instalados</li>
+            <li><input type="checkbox"> Puerto COM detectado al conectar ESP32</li>
+            <li><input type="checkbox"> Placa "ESP32 Dev Module" seleccionada</li>
+            <li><input type="checkbox"> Ejemplo Blink subido exitosamente</li>
+            <li><input type="checkbox"> LED parpadeando en ESP32</li>
+        </ul>
+
+        <div class="footer">
+            <p><strong>¡Listo para programar! 🚀</strong></p>
+            <p>Guía preparada para: IF0112 - Complementaria II</p>
+            <p>Institución: UNAULA | Febrero 2026</p>
+            <p><a href="../clases-html/index.html">← Volver al portal de clases</a></p>
+        </div>
+    </div>
+</body>
+</html>

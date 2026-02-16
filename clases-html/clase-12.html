@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 12: Caso Medellín Smart City | IF0112</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 12: Caso de Estudio - Medellín Smart City</h1>
+            <p class="subtitle">Sistema de Alerta Temprana (SIATA) - Lecciones para IoT</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 04-may-2026 (E5)</p>
+        </header>
+
+        <section class="schedule-info" style="background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #ef4444;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+                <div>
+                    <h3 style="color: #991b1b; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 12 - E5 Trabajo Escrito (15%)</h3>
+                    <p style="margin: 0; color: #991b1b; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 04 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📝 E5 (15%)</span>
+                </div>
+            </div>
+
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 EVALUACIÓN E5 (15%)</h4>
+                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>Trabajo Escrito:</strong> Entrega hoy. Tema: Normativa IoT + Marco Legal aplicado al proyecto Monitor Ambiental. <a href="../evaluaciones/guia-E5.html">Ver Guía E5</a>.</p>
+            </div>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 PRÓXIMA SEMANA: Clase 13 - 11-may</h4>
+                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Sesión 13:</strong> El futuro de Internet (5G, AIoT, TinyML).</p>
+            </div>
+        </section>
+
+        <nav>
+            <ul>
+                <li><a href="#agenda">Agenda</a></li>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#siata">SIATA</a></li>
+                <li><a href="#arquitectura">Arquitectura</a></li>
+                <li><a href="#lecciones">Lecciones</a></li>
+                <li><a href="#actividad">Actividad</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="agenda" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> Arquitectura <abbr title="Sistema de Alerta Temprana">SIATA</abbr> Medellín (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de caso aplicado al proyecto (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Lecciones de escalabilidad y fiabilidad (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Sustentaciones <abbr title="Evaluación 5">E5</abbr> y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <ul>
+                    <li><strong>Analizar</strong> el caso SIATA como ejemplo de IoT urbano</li>
+                    <li><strong>Identificar</strong> componentes de una arquitectura IoT a gran escala</li>
+                    <li><strong>Extraer</strong> lecciones aplicables al proyecto Monitor Ambiental</li>
+                    <li><strong>Preparar</strong> fundamentos para E5</li>
+                </ul>
+            </section>
+
+            <section id="siata">
+                <h2>🌧️ SIATA: Sistema de Alerta Temprana de Medellín</h2>
+                
+                <div class="info-box info">
+                    <h4>📝 Contexto</h4>
+                    <p>Medellín está en una zona de alta vulnerabilidad a inundaciones. SIATA es un sistema IoT que monitorea <strong>+100 estaciones</strong> en tiempo real para prevenir desastres.</p>
+                </div>
+
+                <h3>Datos del Sistema</h3>
+                <ul>
+                    <li><strong>Estaciones:</strong> +100 sensores distribuidos en el Valle de Aburrá</li>
+                    <li><strong>Datos:</strong> 1.5 millones de registros diarios</li>
+                    <li><strong>Tiempo real:</strong> Alertas en menos de 5 minutos</li>
+                    <li><strong>Ahorro:</strong> USD 10M/año en prevención de daños</li>
+                </ul>
+            </section>
+
+            <section id="arquitectura">
+                <h2>🏗️ Arquitectura SIATA</h2>
+                
+                <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #92400e; margin-top: 0;">🔧 CAPA 1: Sensores (Edge)</h4>
+                    <ul>
+                        <li><strong>Pluviómetros:</strong> Medición de lluvia en tiempo real</li>
+                        <li><strong>Higrómetros:</strong> Humedad del suelo</li>
+                        <li><strong>RADAR meteorológico:</strong> Precipitación a 120km</li>
+                        <li><strong>Cámaras:</strong> Monitoreo visual de quebradas</li>
+                    </ul>
+                </div>
+
+                <div style="background: #dbeafe; border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #1e40af; margin-top: 0;">⚡ CAPA 2: Comunicación</h4>
+                    <ul>
+                        <li><strong>Red propia:</strong> Fibra óptica + radiofrecuencia</li>
+                        <li><strong>Protocolos:</strong> MQTT para alertas, HTTP para datos históricos</li>
+                        <li><strong>Gateways:</strong> Recolectan datos de múltiples sensores</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f0fdf4; border: 2px solid #10b981; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #065f46; margin-top: 0;">☁️ CAPA 3: Cloud + Analytics</h4>
+                    <ul>
+                        <li><strong>Almacenamiento:</strong> Bases de datos históricas</li>
+                        <li><strong>Modelos ML:</strong> Predicción de inundaciones</li>
+                        <li><strong>Dashboards:</strong> Centros de comando, app móvil</li>
+                        <li><strong>Alertas:</strong> SMS, sirenas, notificaciones push</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="lecciones">
+                <h2>💡 Lecciones para su Proyecto</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>✅ Lo que SIATA hace bien</h3>
+                        <ul>
+                            <li><strong>Red propia:</strong> No depende de internet público</li>
+                            <li><strong>Multi-sensor:</strong> Diferentes tipos de datos</li>
+                            <li><strong>Edge processing:</strong> Decisiones locales rápidas</li>
+                            <li><strong>ML predictivo:</strong> Anticipa, no solo reacciona</li>
+                            <li><strong>Multi-canal:</strong> Alertas por SMS, app, sirenas</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Aplicable a su proyecto</h3>
+                        <ul>
+                            <li><strong>Diversidad de sensores:</strong> Temperatura + humedad + luz</li>
+                            <li><strong>Edge:</strong> Procesamiento en ESP32 (promedios)</li>
+                            <li><strong>Cloud:</strong> ThingSpeak para almacenamiento</li>
+                            <li><strong>Alertas:</strong> Umbrales configurables</li>
+                            <li><strong>Visualización:</strong> Dashboard Grafana</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box warning">
+                    <h4>⚠️ Diferencias Clave</h4>
+                    <ul>
+                        <li><strong>SIATA:</strong> Sistema crítico, redundancia, red propia, 24/7</li>
+                        <li><strong>Su proyecto:</strong> Prototipo educativo, WiFi público, alcance limitado</li>
+                    </ul>
+                    <p><strong>Meta:</strong> Aplicar los <em>principios</em> de SIATA a escala de su proyecto.</p>
+                </div>
+            </section>
+
+            <section id="actividad">
+                <h2>📝 Actividad: Análisis de Caso</h2>
+                
+                <div class="info-box info">
+                    <h4>🎯 Instrucciones</h4>
+                    <p>En equipos, analicen el caso SIATA y respondan:</p>
+                    <ol>
+                        <li>¿Qué estándares cree que usa SIATA? (IEEE 802.11, MQTT, etc.)</li>
+                        <li>¿Qué medidas de seguridad serán críticas?</li>
+                        <li>¿Qué lección de SIATA aplicarán a su proyecto?</li>
+                        <li>¿Qué limitación de su proyecto vs SIATA es aceptable para fines educativos?</li>
+                    </ol>
+                </div>
+
+                <h3>Ejemplo de Respuesta</h3>
+                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1rem 0;">
+                    <p><strong>Estándares:</strong> IEEE 802.11 (WiFi), MQTT para alertas, HTTP/REST para datos.</p>
+                    <p><strong>Seguridad:</strong> Encriptación, autenticación, red privada.</p>
+                    <p><strong>Lección aplicable:</strong> Usar múltiples sensores y visualización en dashboard.</p>
+                    <p><strong>Limitación aceptable:</strong> Depender de WiFi público (vs red propia).</p>
+                </div>
+            </section>
+
+            <section class="summary-table" style="background: #f0fdf4; border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
+                <h2 style="color: #065f46;">📝 Resumen: SIATA</h2>
+                <ul>
+                    <li><strong>+100 estaciones</strong> monitoreando el Valle de Aburrá</li>
+                    <li><strong>Arquitectura 3 capas:</strong> Sensores → Comunicación → Cloud</li>
+                    <li><strong>Datos:</strong> 1.5M registros diarios, alertas &lt;5 min</li>
+                    <li><strong>Lecciones clave:</strong> Multi-sensor, edge processing, ML predictivo</li>
+                    <li><strong>Aplicable:</strong> Principios de arquitectura y procesamiento</li>
+                </ul>
+                <p style="margin-top: 1rem; padding: 1rem; background: #ecfdf5; border-radius: 6px; text-align: center;">
+                    <strong>Próxima Sesión:</strong> El Futuro de Internet (11-may) | <strong>E5 completada hoy</strong>
+                </p>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-11.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Sesión Anterior
+                </a>                <a href="clase-13.html" class="class-nav-btn">
+                    Sesión Siguiente <span class="arrow">→</span>
+                </a>            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 12</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

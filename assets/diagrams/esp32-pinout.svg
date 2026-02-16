@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" aria-labelledby="title desc">
+  <title id="title">Pinout ESP32 DevKit V1</title>
+  <desc id="desc">Diagrama del pinout del microcontrolador ESP32 DevKit V1</desc>
+
+  <!-- Fondo -->
+  <rect width="900" height="400" fill="#f8fafc"/>
+
+  <!-- Título -->
+  <text x="450" y="30" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1e40af">
+    ESP32 DevKit V1 - Pinout Completo
+  </text>
+
+  <!-- Board rectangular -->
+  <rect x="100" y="55" width="700" height="290" rx="15" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+
+  <!-- Pines laterales -->
+  <!-- Izquierda -->
+  <g transform="translate(100, 75)">
+    <!-- GPIO numbers -->
+    <text x="15" y="22" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">GND</text>
+    <text x="15" y="47" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">23</text>
+    <text x="15" y="72" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">22</text>
+    <text x="15" y="97" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">1</text>
+    <text x="15" y="122" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">3</text>
+    <text x="15" y="147" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">21</text>
+    <text x="15" y="172" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">19</text>
+    <text x="15" y="197" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">18</text>
+    <text x="15" y="222" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">5</text>
+    <text x="15" y="247" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">17</text>
+    <text x="15" y="272" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">16</text>
+    <text x="15" y="297" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">4</text>
+    <text x="15" y="322" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">0</text>
+
+    <!-- Pin headers -->
+    <rect x="25" y="12" width="50" height="20" rx="3" fill="#334155" stroke="#64748b"/>
+    <rect x="25" y="37" width="50" height="20" rx="3" fill="#ef4444" stroke="#dc2626"/>
+    <rect x="25" y="62" width="50" height="20" rx="3" fill="#ef4444" stroke="#dc2626"/>
+    <rect x="25" y="87" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="112" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="137" width="50" height="20" rx="3" fill="#10b981" stroke="#059669"/>
+    <rect x="25" y="162" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="187" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="212" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="237" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="262" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="287" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="25" y="312" width="50" height="20" rx="3" fill="#f59e0b" stroke="#d97706"/>
+
+    <!-- Pin labels -->
+    <text x="80" y="27" font-family="monospace" font-size="11" fill="#e2e8f0">GND</text>
+    <text x="80" y="52" font-family="monospace" font-size="11" fill="#fca5a5">GPIO23</text>
+    <text x="80" y="77" font-family="monospace" font-size="11" fill="#fca5a5">GPIO22</text>
+    <text x="80" y="102" font-family="monospace" font-size="11" fill="#93c5fd">U0TXD</text>
+    <text x="80" y="127" font-family="monospace" font-size="11" fill="#93c5fd">U0RXD</text>
+    <text x="80" y="152" font-family="monospace" font-size="11" fill="#6ee7b7">GPIO21</text>
+    <text x="80" y="177" font-family="monospace" font-size="11" fill="#93c5fd">GPIO19</text>
+    <text x="80" y="202" font-family="monospace" font-size="11" fill="#93c5fd">GPIO18</text>
+    <text x="80" y="227" font-family="monospace" font-size="11" fill="#93c5fd">GPIO5</text>
+    <text x="80" y="252" font-family="monospace" font-size="11" fill="#93c5fd">GPIO17</text>
+    <text x="80" y="277" font-family="monospace" font-size="11" fill="#93c5fd">GPIO16</text>
+    <text x="80" y="302" font-family="monospace" font-size="11" fill="#93c5fd">GPIO4</text>
+    <text x="80" y="327" font-family="monospace" font-size="11" fill="#fde68a">GPIO0</text>
+  </g>
+
+  <!-- Puerto USB -->
+  <g transform="translate(380, 330)">
+    <rect x="0" y="0" width="140" height="40" rx="5" fill="#0f172a" stroke="#334155"/>
+    <text x="70" y="25" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">USB → UART</text>
+  </g>
+
+  <!-- Pines laterales derechos -->
+  <g transform="translate(750, 75)">
+    <!-- GPIO numbers -->
+    <text x="65" y="22" font-family="monospace" font-size="12" fill="#94a3b8">2</text>
+    <text x="65" y="47" font-family="monospace" font-size="12" fill="#94a3b8">4</text>
+    <text x="65" y="72" font-family="monospace" font-size="12" fill="#94a3b8">NP</text>
+    <text x="65" y="97" font-family="monospace" font-size="12" fill="#94a3b8">17</text>
+    <text x="65" y="122" font-family="monospace" font-size="12" fill="#94a3b8">16</text>
+    <text x="65" y="147" font-family="monospace" font-size="12" fill="#94a3b8">25</text>
+    <text x="65" y="172" font-family="monospace" font-size="12" fill="#94a3b8">26</text>
+    <text x="65" y="197" font-family="monospace" font-size="12" fill="#94a3b8">27</text>
+    <text x="65" y="222" font-family="monospace" font-size="12" fill="#94a3b8">14</text>
+    <text x="65" y="247" font-family="monospace" font-size="12" fill="#94a3b8">12</text>
+    <text x="65" y="272" font-family="monospace" font-size="12" fill="#94a3b8">13</text>
+    <text x="65" y="297" font-family="monospace" font-size="12" fill="#94a3b8">GND</text>
+    <text x="65" y="322" font-family="monospace" font-size="12" fill="#94a3b8">VIN</text>
+
+    <!-- Pin headers -->
+    <rect x="15" y="12" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="37" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="62" width="50" height="20" rx="3" fill="#94a3b8" stroke="#64748b"/>
+    <rect x="15" y="87" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="112" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="137" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="162" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="187" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="212" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="237" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="262" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
+    <rect x="15" y="287" width="50" height="20" rx="3" fill="#0f172a" stroke="#64748b"/>
+    <rect x="15" y="312" width="50" height="20" rx="3" fill="#dc2626" stroke="#b91c1c"/>
+
+    <!-- Pin labels -->
+    <text x="15" y="27" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO2</text>
+    <text x="15" y="52" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO4</text>
+    <text x="15" y="77" font-family="monospace" font-size="11" fill="#94a3b8">3V3</text>
+    <text x="15" y="102" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO17</text>
+    <text x="15" y="127" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO16</text>
+    <text x="15" y="152" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO25</text>
+    <text x="15" y="177" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO26</text>
+    <text x="15" y="202" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO27</text>
+    <text x="15" y="227" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO14</text>
+    <text x="15" y="252" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO12</text>
+    <text x="15" y="277" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO13</text>
+    <text x="15" y="302" font-family="monospace" font-size="11" fill="#e2e8f0">GND</text>
+    <text x="15" y="327" font-family="monospace" font-size="11" fill="#fca5a5">5V</text>
+  </g>
+
+  <!-- Chip central -->
+  <rect x="350" y="130" width="200" height="80" rx="8" fill="#1e3a8a" stroke="#1e40af"/>
+  <text x="450" y="175" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#60a5fa" text-anchor="middle">ESP32</text>
+  <text x="450" y="195" font-family="system-ui, sans-serif" font-size="12" fill="#93c5fd" text-anchor="middle">ESP32-WROOM-32</text>
+
+  <!-- Leyenda de colores -->
+  <g transform="translate(200, 375)">
+    <rect x="0" y="0" width="20" height="15" rx="2" fill="#3b82f6"/>
+    <text x="25" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">GPIO Digital</text>
+
+    <rect x="100" y="0" width="20" height="15" rx="2" fill="#10b981"/>
+    <text x="125" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">I2C/TWI</text>
+
+    <rect x="200" y="0" width="20" height="15" rx="2" fill="#f59e0b"/>
+    <text x="225" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">Boot/ADC</text>
+
+    <rect x="310" y="0" width="20" height="15" rx="2" fill="#ef4444"/>
+    <text x="335" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">SPI</text>
+
+    <rect x="420" y="0" width="20" height="15" rx="2" fill="#dc2626"/>
+    <text x="445" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">Alimentación</text>
+
+    <rect x="530" y="0" width="20" height="15" rx="2" fill="#64748b"/>
+    <text x="555" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">No conectar</text>
+  </g>
+</svg>

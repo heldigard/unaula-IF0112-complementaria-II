@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 8: Protocolos IoT | IF0112</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos de esta clase (si los hay) */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sesión 8: Protocolos de Comunicación IoT</h1>
+        <p class="subtitle">MQTT, HTTP y Comunicación en la Nube</p>
+        <p class="meta">
+            IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 06-abr-2026
+        </p>
+    </header>
+
+
+        <!-- Info Cronograma 2026-I -->
+        <section class="schedule-info" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #a855f7;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+                <div>
+                    <h3 style="color: #7c3aed; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 8 - Protocolos IoT</h3>
+                    <p style="margin: 0; color: #6b21a8; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 06 de Abril 2026 | <strong>Tema:</strong> MQTT, HTTP, Protocolos de Comunicación</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="display: inline-block; background: #10b981; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">✅ E3 COMPLETADO</span>
+                </div>
+            </div>
+
+            <!-- E3 Completado -->
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ E3 Software IoT - COMPLETADO (16-mar-2026)</h4>
+                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">La entrega del firmware de conectividad se realizó el lunes 16 de marzo. Esta semana iniciamos la Fase 2 del curso.</p>
+            </div>
+
+            <!-- Próxima evaluación -->
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-lg);">
+                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 Próxima Evaluación: E4 Informe de Gestión (15%)</h4>
+                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Fecha:</strong> 20-abr-2026 | Lógica de Control SMAI - Sesión 10</p>
+            </div>
+
+        </section>
+
+
+    <nav>
+        <ul>                <li><a href="#laboratorios">Laboratorios</a></li>
+
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
+            <li><a href="#conexion-evaluacion">📝 Conexión E3</a></li>
+            <li><a href="#desafios">Desafíos IoT</a></li>
+            <li><a href="#http">HTTP</a></li>
+            <li><a href="#mqtt">MQTT</a></li>
+            <li><a href="#topics">Topics</a></li>
+            <li><a href="#qos">QoS</a></li>
+            <li><a href="#comparacion">Comparación</a></li>
+            <li><a href="#brokers">Brokers</a></li>
+            <li><a href="#implementacion">Implementación</a></li>
+            <li><a href="#coap">CoAP</a></li>
+            <li><a href="#referencias">Referencias</a></li>
+        </ul>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </nav>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+    <main>
+            <!-- Objetivos -->
+            <section id="agenda-120" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> Protocolos <abbr title="Hypertext Transfer Protocol">HTTP</abbr> y <abbr title="Message Queuing Telemetry Transport">MQTT</abbr> (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de topics y brokers (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> <abbr title="Quality of Service">QoS</abbr> y mensajería eficiente (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Implementación <abbr title="Message Queuing Telemetry Transport">MQTT</abbr> y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Competencias a Desarrollar</h3>
+                        <p>Al finalizar esta sesión, podrá:</p>
+                        <ul>
+                            <li><strong>Comparar</strong> protocolos HTTP vs MQTT</li>
+                            <li><strong>Implementar</strong> MQTT publish/subscribe</li>
+                            <li><strong>Diseñar</strong> topics jerárquicos</li>
+                            <li><strong>Seleccionar</strong> protocolo adecuado según caso de uso</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Estructura de la Clase</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bloque</th>
+                                    <th>Tema</th>
+                                    <th>Duración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1️⃣</td>
+                                    <td>Desafíos de comunicación IoT</td>
+                                    <td>15 min</td>
+                                </tr>
+                                <tr>
+                                    <td>2️⃣</td>
+                                    <td>HTTP: Request-Response</td>
+                                    <td>25 min</td>
+                                </tr>
+                                <tr>
+                                    <td>3️⃣</td>
+                                    <td>MQTT: Pub/Sub + Topics</td>
+                                    <td>40 min</td>
+                                </tr>
+                                <tr>
+                                    <td>4️⃣</td>
+                                    <td>QoS, Brokers, CoAP y Comparación</td>
+                                    <td>40 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué protocolo elegir para mi caso de uso IoT?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Avance del Proyecto Integrador -->
+            <section id="avance-proyecto" class="info-box success">
+                <h2>🏗️ Avance del Proyecto Integrador</h2>
+                <p><strong>Proyecto:</strong> <em>Sistema de Monitoreo Ambiental IoT</em></p>
+                <p><strong>Qué construimos esta semana:</strong> Entendemos los protocolos de comunicación (HTTP vs MQTT) que nuestro proyecto usará para enviar datos desde el ESP32 hasta una plataforma en la nube. MQTT es el protocolo estándar para IoT debido a su ligereza y eficiencia.</p>
+                <p><strong>Evidencia esperada:</strong> Diagrama de arquitectura mostrando cómo los datos fluyen desde: Sensor → ESP32 → MQTT Broker → Plataforma Cloud → Dashboard. Justificación del protocolo seleccionado.</p>
+                <p><strong>Conexión con el proyecto final:</strong> Esta semana definimos el "sistema nervioso" del proyecto IoT. Sin MQTT (o HTTP), los datos de los sensores no pueden llegar a la nube para ser visualizados. Es el último bloque técnico antes de la entrega de Software E3.</p>
+            </section>
+
+            <!-- Conexión con Evaluación -->
+            <section id="conexion-evaluacion" class="info-box info">
+                <h2>📝 Conexión con Evaluación</h2>
+                <div class="evaluacion-pasiva">
+                    <p><strong>📌 E3 Completado:</strong> La entrega de Software (20%) se realizó el 16-mar-2026</p>
+                    <p>Los temas de esta clase (MQTT, HTTP, Protocolos) se evaluarán en E4 (Informe de Gestión) y E6 (Proyecto Final).</p>
+                </div>
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
+                    <p style="margin: 0; color: #92400e;"><strong>📌 Próxima evaluación:</strong> E4 Informe (15%) - 20-abr-2026. <a href="../evaluaciones/guia-E4.html">Ver Guía E4</a>.</p>
+                </div>
+            </section>
+
+        <!-- Desafíos -->
+        <section id="desafios">
+            <h2>🎯 Desafíos de Comunicación en IoT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p><abbr title="Internet of Things">IoT</abbr> enfrenta desafíos únicos: redes inestables, dispositivos con batería limitada, escalabilidad masiva y recursos computacionales restringidos. Los protocolos <abbr title="Internet of Things">IoT</abbr> como <abbr title="Message Queuing Telemetry Transport">MQTT</abbr> están diseñados específicamente para superar estas limitaciones.</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>📡 Conectividad</h4>
+                    <ul>
+                        <li>Redes inestables → QoS</li>
+                        <li>Ancho de banda limitado</li>
+                        <li>Alta latencia</li>
+                        <li>Conexiones intermitentes</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>🔋 Energía</h4>
+                    <ul>
+                        <li>Batería limitada</li>
+                        <li>Mínimo tiempo de transmisión</li>
+                        <li>Wake-up frecuentes</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>📊 Escala</h4>
+                    <ul>
+                        <li>Miles a millones de dispositivos</li>
+                        <li>Mensajes frecuentes</li>
+                        <li>Muchos a muchos</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>🔒 Seguridad</h4>
+                    <ul>
+                        <li>Recursos computacionales limitados</li>
+                        <li>Memoria reducida</li>
+                        <li>CPU lenta</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- HTTP -->
+        <section id="http">
+            <h2>🌐 <abbr title="Hypertext Transfer Protocol: Protocolo de Transferencia de Hipertexto - Protocolo de comunicación request-response para transferencia de datos">HTTP</abbr>: El Protocolo de la Web</h2>
+            
+            <h3>Modelo Request-Response</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #3b82f6; background: #dbeafe;">
+                    <h4>📤 CLIENTE (ESP32)</h4>
+                    <ul>
+                        <li>Inicia la comunicación</li>
+                        <li>Envía GET /api/temperatura</li>
+                        <li>Espera respuesta</li>
+                    </ul>
+                </div>
+                <div class="comparison-card" style="border-color: #10b981; background: #d1fae5;">
+                    <h4>📥 SERVIDOR (API)</h4>
+                    <ul>
+                        <li>Recibe petición HTTP</li>
+                        <li>Procesa la lógica</li>
+                        <li>Responde HTTP 200 OK</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p><strong>Flujo:</strong> Cliente → Request → Servidor → Response → Cliente</p>
+            
+            <h3>Características Clave</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Iniciador</td><td>Siempre el cliente</td></tr>
+                    <tr><td>Conexión</td><td>Una por petición (HTTP/1.1)</td></tr>
+                    <tr><td>Modelo</td><td>Síncrono (espera respuesta)</td></tr>
+                    <tr><td>Push server</td><td>No (requiere polling)</td></tr>
+                    <tr><td>Overhead</td><td>Alto (~800 bytes headers)</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>✅ Ventajas HTTP</h4>
+                <ul>
+                    <li>Familiar y universalmente soportado</li>
+                    <li>Debugging fácil (Postman, curl, navegador)</li>
+                    <li>HTTPS integrado para seguridad</li>
+                    <li>Infraestructura madura</li>
+                </ul>
+            </div>
+            
+            <div class="info-box warning">
+                <h4>❌ Desventajas para IoT</h4>
+                <ul>
+                    <li>Overhead considerable</li>
+                    <li>No soporta push del servidor</li>
+                    <li>Polling consume batería</li>
+                    <li>No ideal para tiempo real</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- MQTT -->
+        <section id="mqtt">
+            <h2>📨 MQTT: El Protocolo Estrella de IoT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p><abbr title="Message Queuing Telemetry Transport">MQTT</abbr> usa el modelo publish/subscribe con un broker intermediario. Esto permite <strong>desacoplamiento total</strong>: el publicador no necesita saber quién escucha, y el suscriptor no necesita saber quién publica. El broker enruta mensajes eficientemente.</p>
+            </div>
+            
+            <p><strong><abbr title="Message Queuing Telemetry Transport: Protocolo de mensajería ligero para IoT">MQTT</abbr></strong> - Protocolo diseñado específicamente para <abbr title="Internet of Things">IoT</abbr> por IBM en 1999.</p>
+            
+            <h3>Modelo Publish/Subscribe</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #f59e0b; background: #fef3c7;">
+                    <h4>🔄 BROKER MQTT</h4>
+                    <p style="text-align: center; font-size: 2rem; margin: 1rem 0;">🔄</p>
+                    <p style="text-align: center;">Centro de mensajes que enruta entre publicadores y suscriptores</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="comparison-card" style="border-color: #3b82f6; background: #dbeafe;">
+                        <h4>📤 PUBLICADOR</h4>
+                        <p>Envía mensajes a topics<br><code>publish("casa/temp", "25.5")</code></p>
+                    </div>
+                    <div class="comparison-card" style="border-color: #10b981; background: #d1fae5;">
+                        <h4>📥 SUSCRIPTOR</h4>
+                        <p>Recibe mensajes de topics<br><code>subscribe("casa/temp")</code></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box success">
+                <h4>✅ ¿Por qué MQTT para IoT?</h4>
+                <ul>
+                    <li>Overhead mínimo (ahorro energía)</li>
+                    <li>Push nativo (tiempo real)</li>
+                    <li>Desacoplamiento (pub/sub)</li>
+                    <li>Escalable (millones de dispositivos)</li>
+                    <li>QoS garantizado</li>
+                    <li>Retained messages</li>
+                    <li>Last Will and Testament</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Topics -->
+        <section id="topics">
+            <h2>🏷️ Topics (Temas) en MQTT</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>Los topics usan jerarquía con <code>/</code> como separador. Los wildcards <code>+</code> (un nivel) y <code>#</code> (múltiples niveles) permiten suscripciones flexibles. Esto es esencial para escalar sistemas <abbr title="Internet of Things">IoT</abbr> con muchos dispositivos.</p>
+            </div>
+            
+            <h3>Estructura Jerárquica</h3>
+            <p>Usa <code>/</code> como separador para crear jerarquías:</p>
+            <pre>casa/sala/temperatura
+casa/sala/humedad
+casa/sala/luz/estado
+casa/cocina/temperatura
+casa/cocina/luz
+casa/dormitorio/temperatura
+
+oficina/piso1/sala1/temperatura
+oficina/piso1/sala1/humedad
+oficina/piso2/servidor/cpu
+
+edificio/sectorA/piso3/oficina12/aire</pre>
+            
+            <h3>Wildcards (Comodines)</h3>
+            <table>
+                <thead>
+                    <tr><th>Símbolo</th><th>Significado</th><th>Ejemplo</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>+</code></td><td>Un solo nivel</td><td><code>casa/+/temperatura</code></td></tr>
+                    <tr><td><code>#</code></td><td>Múltiples niveles</td><td><code>casa/#</code></td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>Ejemplo de Wildcard <code>+</code></h4>
+                <p><code>casa/+/temperatura</code> captura:</p>
+                <ul>
+                    <li><code>casa/sala/temperatura</code></li>
+                    <li><code>casa/cocina/temperatura</code></li>
+                    <li><code>casa/dormitorio/temperatura</code></li>
+                </ul>
+            </div>
+            
+            <h3>Propiedades de Mensajes</h3>
+            <table>
+                <thead>
+                    <tr><th>Propiedad</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Payload</strong></td><td>Contenido del mensaje (string, JSON, binario)</td></tr>
+                    <tr><td><strong>Retain</strong></td><td>Último mensaje guardado para nuevos suscriptores</td></tr>
+                    <tr><td><strong>QoS</strong></td><td>Quality of Service (calidad de entrega)</td></tr>
+                    <tr><td><strong>Client ID</strong></td><td>Identificador único del cliente</td></tr>
+                    <tr><td><strong>LWT</strong></td><td>Last Will and Testament (mensaje si se desconecta)</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- QoS -->
+        <section id="qos">
+            <h2>🎯 Niveles de QoS (Quality of Service)</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p><abbr title="Quality of Service">QoS</abbr> 0 (fire & forget) para datos frecuentes como temperatura. <abbr title="Quality of Service">QoS</abbr> 1 (at least once) para comandos importantes. <abbr title="Quality of Service">QoS</abbr> 2 (exactly once) para transacciones críticas como pagos. Mayor <abbr title="Quality of Service">QoS</abbr> = más overhead y latencia.</p>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr><th>QoS</th><th>Nombre</th><th>Confirmación</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>QoS 0</strong></td>
+                        <td>At Most Once<br>(Fire and Forget)</td>
+                        <td>❌ Sin ACK</td>
+                        <td>Datos frecuentes, temperatura en tiempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QoS 1</strong></td>
+                        <td>At Least Once</td>
+                        <td>✅ ACK (PUBACK)<br>⚠️ Posibles duplicados</td>
+                        <td>Comandos importantes, alarmas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QoS 2</strong></td>
+                        <td>Exactly Once</td>
+                        <td>✅ 4-way handshake<br>❌ Sin duplicados</td>
+                        <td>Transacciones críticas, pagos</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⚠️ Trade-off</h4>
+                <p>Mayor QoS = Mayor confiabilidad pero también mayor overhead y latencia.</p>
+            </div>
+        </section>
+        
+        <!-- Comparación -->
+        <section id="comparacion">
+            <h2>⚖️ HTTP vs MQTT: Comparación Detallada</h2>
+            
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>HTTP</th><th>MQTT</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Modelo</strong></td><td>Request-Response</td><td>Publish-Subscribe</td></tr>
+                    <tr><td><strong>Iniciador</strong></td><td>Cliente</td><td>Bidireccional</td></tr>
+                    <tr><td><strong>Overhead</strong></td><td>Alto (~800 bytes)</td><td>Bajo (~2 bytes)</td></tr>
+                    <tr><td><strong>Conexión</strong></td><td>Por petición</td><td>Persistente</td></tr>
+                    <tr><td><strong>Push server</strong></td><td>No (polling)</td><td>Sí (nativo)</td></tr>
+                    <tr><td><strong>QoS</strong></td><td>No</td><td>3 niveles</td></tr>
+                    <tr><td><strong>Tiempo real</strong></td><td>Difícil</td><td>Fácil</td></tr>
+                    <tr><td><strong>Escalabilidad</strong></td><td>Media</td><td>Alta</td></tr>
+                    <tr><td><strong>Batería</strong></td><td>Alto consumo</td><td>Bajo consumo</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>¿Cuándo usar cada uno?</h3>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>Usar HTTP cuando:</h4>
+                    <ul>
+                        <li>Integración con APIs web existentes</li>
+                        <li>Comunicación ocasional</li>
+                        <li>Actualizaciones de firmware (OTA)</li>
+                        <li>Infraestructura HTTP ya existe</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Usar MQTT cuando:</h4>
+                    <ul>
+                        <li>Muchos dispositivos (escala)</li>
+                        <li>Comunicación tiempo real</li>
+                        <li>Push desde servidor necesario</li>
+                        <li>Dispositivos con batería</li>
+                        <li>Alta frecuencia de mensajes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Brokers -->
+        <section id="brokers">
+            <h2>🖥️ Brokers MQTT: Opciones Disponibles</h2>
+            
+            <h3>Gratuitos / Open Source</h3>
+            <table>
+                <thead>
+                    <tr><th>Broker</th><th>Características</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Mosquitto</strong></td><td>Ligero, muy popular</td><td>Self-hosted, Raspberry Pi</td></tr>
+                    <tr><td><strong>HiveMQ CE</strong></td><td>Java, alta disponibilidad</td><td>Empresas, clusters</td></tr>
+                    <tr><td><strong>EMQX</strong></td><td>Escalable, cloud native</td><td>Grandes despliegues</td></tr>
+                    <tr><td><strong>RabbitMQ</strong></td><td>Multi-protocolo</td><td>Enterprise</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Servicios Cloud</h3>
+            <table>
+                <thead>
+                    <tr><th>Servicio</th><th>Plan Gratuito</th><th>Características</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>HiveMQ Cloud</strong></td><td>100 conexiones</td><td>Fácil setup, TLS gratis</td></tr>
+                    <tr><td><strong>CloudMQTT</strong></td><td>5 conexiones</td><td>SSL incluido</td></tr>
+                    <tr><td><strong>AWS IoT Core</strong></td><td>12 meses free</td><td>Integración AWS</td></tr>
+                    <tr><td><strong>Adafruit IO</strong></td><td>10 feeds</td><td>Maker-friendly</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box info">
+                <h4>🌐 Broker Público para Pruebas</h4>
+                <p><strong>broker.hivemq.com</strong></p>
+                <ul>
+                    <li>Puerto: 1883 (sin TLS)</li>
+                    <li>Puerto: 8883 (con TLS)</li>
+                    <li>WebSocket: 8000</li>
+                </ul>
+                <p><strong>⚠️ Solo para pruebas/educación - No usar en producción</strong></p>
+            </div>
+        </section>
+        
+        <!-- Implementación -->
+        <section id="implementacion">
+            <h2>⚙️ Implementación MQTT en ESP32</h2>
+
+            <div class="learning-key">
+                <h4>Aprendizaje clave</h4>
+                <p>La librería <code>PubSubClient</code> de Arduino es el estándar para <abbr title="Message Queuing Telemetry Transport">MQTT</abbr> en <abbr title="Microcontrolador WiFi">ESP32</abbr>/Arduino. Implementa reconexión automática, callbacks para mensajes recibidos y soporta <abbr title="Quality of Service">QoS</abbr> 0 y 1. Los brokers públicos como HiveMQ permiten pruebas sin servidor propio.</p>
+            </div>
+
+            <div class="hardware-notice">
+                <strong>💻 Factibilidad Windows:</strong> Arduino IDE es completamente compatible con Windows. Puedes compilar y cargar código en ESP32 desde Windows sin problemas.
+                <br><br>
+                <strong>🔧 Hardware:</strong> Si no tienes ESP32 físico, puedes usar simuladores gratuitos como <a href="https://wokwi.com" target="_blank">Wokwi</a> para probar MQTT con ESP32 virtual. El docente también puede hacer demostraciones en vivo con hardware físico.
+            </div>
+            
+            <h3>Librería PubSubClient</h3>
+            <p>Arduino IDE → Sketch → Include Library → Manage Libraries → Buscar "PubSubClient"</p>
+            
+            <h3>Código: Publicador MQTT</h3>
+            <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/06_enviar_datos_http.ino" class="btn">📥 Descargar .ino (Ejemplo HTTP/MQTT)</a></p>
+            <pre>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+const char* ssid = "TU_RED";
+const char* password = "TU_PASS";
+const char* mqtt_server = "broker.hivemq.com";
+const char* topic_temp = "unaula/sala/temperatura";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  client.setServer(mqtt_server, 1883);
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  // Publicar cada 5s
+  static unsigned long lastMsg = 0;
+  if (millis() - lastMsg > 5000) {
+    lastMsg = millis();
+    float temp = 25.5;
+    char msg[50];
+    snprintf(msg, 50, "%.1f", temp);
+    client.publish(topic_temp, msg);
+  }
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    if (client.connect("ESP32Client")) {
+      Serial.println("Conectado a MQTT");
+    } else {
+      delay(5000);
+    }
+  }
+}</pre>
+            
+            <h3>Suscriptor con Callback</h3>
+            <pre>void callback(char* topic, byte* payload, unsigned int length) {
+  String mensaje = "";
+  for (int i = 0; i &lt; length; i++) {
+    mensaje += (char)payload[i];
+  }
+
+  if (String(topic) == "unaula/sala/luz") {
+    if (mensaje == "ON") {
+      digitalWrite(LED_PIN, HIGH);
+    } else if (mensaje == "OFF") {
+      digitalWrite(LED_PIN, LOW);
+    }
+  }
+}
+
+void setup() {
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+}
+
+void reconnect() {
+  if (client.connect("ESP32-Sub")) {
+    client.subscribe("unaula/sala/luz");
+  }
+}</pre>
+            
+            <h3>JSON en MQTT</h3>
+            <pre>#include &lt;ArduinoJson.h&gt;
+
+void publicar<abbr title="JavaScript Object Notation">JSON</abbr>(float temp, float hum) {
+  StaticJsonDocument&lt;256&gt; doc;
+  doc["temperatura"] = temp;
+  doc["humedad"] = hum;
+  doc["timestamp"] = millis();
+
+  char buffer[256];
+  serializeJson(doc, buffer);
+  client.publish("unaula/sala/datos", buffer);
+}</pre>
+        </section>
+        
+        <!-- CoAP -->
+        <section id="coap">
+            <h2>📡 CoAP: Protocolo para Dispositivos Restringidos</h2>
+            
+            <h3>CoAP vs HTTP</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspecto</th><th>HTTP</th><th>CoAP</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Transporte</td><td>TCP</td><td>UDP</td></tr>
+                    <tr><td>Overhead</td><td>~800 bytes</td><td>~10 bytes</td></tr>
+                    <tr><td>Formato</td><td>Texto</td><td>Binario</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Ventajas CoAP</h3>
+            <ul>
+                <li>Overhead mínimo (~10 bytes)</li>
+                <li>UDP más ligero</li>
+                <li>Métodos similares a HTTP (GET, POST, PUT, DELETE)</li>
+                <li>Diseñado para IoT restringido</li>
+            </ul>
+            
+            <h3>Métodos CoAP</h3>
+            <table>
+                <thead>
+                    <tr><th>Método</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GET</td><td>Obtener recurso</td></tr>
+                    <tr><td>POST</td><td>Crear recurso</td></tr>
+                    <tr><td>PUT</td><td>Actualizar recurso</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box warning">
+                <h4>⚠️ ¿Cuándo usar CoAP?</h4>
+                <ul>
+                    <li>Dispositivo &lt; 100 KB RAM</li>
+                    <li>Red limitada (6LoWPAN, ZigBee)</li>
+                    <li>Overhead mínimo crítico</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Resumen -->
+        <section>
+            <h2>📋 Resumen de la Sesión</h2>
+            
+            <table>
+                <thead>
+                    <tr><th>Concepto</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong><abbr title="Hypertext Transfer Protocol: Protocolo de transferencia de datos en la Web">HTTP</abbr></strong></td><td>Protocolo web request-response, alto overhead</td></tr>
+                    <tr><td><strong><abbr title="Message Queuing Telemetry Transport: Protocolo de mensajería ligero para IoT">MQTT</abbr></strong></td><td>Protocolo IoT pub/sub, ligero, tiempo real</td></tr>
+                    <tr><td><strong>Broker</strong></td><td>Servidor que enruta mensajes <abbr title="Message Queuing Telemetry Transport">MQTT</abbr></td></tr>
+                    <tr><td><strong>Topic</strong></td><td>Canal de comunicación jerárquico</td></tr>
+                    <tr><td><strong>Publish</strong></td><td>Enviar mensaje a un topic</td></tr>
+                    <tr><td><strong>Subscribe</strong></td><td>Recibir mensajes de un topic</td></tr>
+                    <tr><td><strong><abbr title="Quality of Service: Nivel de garantía de entrega de mensajes">QoS 0</abbr></strong></td><td>At most once (mejor esfuerzo)</td></tr>
+                    <tr><td><strong><abbr title="Quality of Service: Nivel de garantía de entrega de mensajes">QoS 1</abbr></strong></td><td>At least once (confirmado)</td></tr>
+                    <tr><td><strong><abbr title="Quality of Service: Nivel de garantía de entrega de mensajes">QoS 2</abbr></strong></td><td>Exactly once (transaccional)</td></tr>
+                    <tr><td><strong><abbr title="Constrained Application Protocol: Protocolo para dispositivos muy restringidos">CoAP</abbr></strong></td><td>Para dispositivos muy limitados</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box success">
+                <h4>➡️ Próxima Sesión: Convergencia IT/OT</h4>
+                <ul>
+                    <li>🖥️ Edge Computing vs Cloud Computing</li>
+                    <li>🏭 Tecnologías Operacionales (OT)</li>
+                    <li>🔗 Integración IT/OT</li>
+                    <li>⚡ Arquitecturas híbridas</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="proxima-evaluacion" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
+            <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Próxima Evaluación</h3>
+            <p style="margin: 0;"><strong>E4 Informe (15%):</strong> Lógica de Gestión SMAI - Fecha: 2026-04-20</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
+                Esta sesión prepara los fundamentos de conectividad para LAB 4 (Dashboard Grafana). <a href="../evaluaciones/guia-E4.html">Ver Guía E4</a>.
+            </p>
+        </section>
+        
+        <!-- Laboratorios Relacionados -->
+        <section id="laboratorios">
+            <h2>🔬 Laboratorios Relacionados</h2>
+
+            <div class="info-box info">
+                <h4>💡 Aprendizaje Práctico</h4>
+                <p>Los siguientes laboratorios refuerzan los conceptos teóricos de esta clase con práctica hands-on. Completa estos laboratorios para construir las habilidades necesarias para el proyecto final.</p>
+            </div>
+
+            
+            <div class="lab-header" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: var(--color-accent);">
+                <h3 style="color: #92400e; margin: 0 0 0.5rem 0; font-size: 1.5rem;">🎯 FASE 2: Conectividad IoT (Continuación)</h3>
+                <p style="margin: 0; color: #78716c;">Los laboratorios 07 y 08 enseñan cómo enviar datos a plataformas IoT y usar protocolos de comunicación eficientes.</p>
+            </div>
+
+
+            <div class="grid-2" style="margin-top: 2rem;">
+                
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 07-A</span>
+                        ThingSpeak IoT Cloud
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Envío de datos a ThingSpeak, visualización en gráficos, y almacenamiento en la nube.</p>
+                    <a href="laboratorios-html/lab-oficial-04-dashboard-grafana.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--color-primary);">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">LAB 4</span>
+                        Dashboard Grafana + Visualización
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Configuración de ThingSpeak, dashboard en Grafana, visualización de datos IoT.</p>
+                    <a href="laboratorios-html/lab-oficial-04-dashboard-grafana.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
+                        Ver Laboratorio →
+                    </a>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="laboratorios-html/index.html" style="display: inline-block; background: var(--color-primary); color: var(--text-inverse); padding: 0.75rem 1.5rem; border-radius: var(--radius-lg); text-decoration: none; font-weight: 600;">
+                    Ver Todos los Laboratorios →
+                </a>
+            </div>
+        </section>
+
+
+<section id="referencias">
+            <h2>Referencias</h2>
+            <ul>
+                <li>MQTT Specification v3.1.1 - OASIS Standard</li>
+                <li>MQTT Essentials - Packt Publishing</li>
+                <li>HiveMQ MQTT Guide - hivemq.com/mqtt-essentials</li>
+                <li>CoAP Specification - RFC 7252</li>
+                <li>HTTP/1.1 vs MQTT - IoT For All</li>
+                <li>Eclipse Mosquitto Broker - mosquitto.org</li>
+                <li>ThingSpeak MQTT API - mathworks.com</li>
+            </ul>
+        </section>
+
+        <!-- Wokwi Simulator Exercises -->
+        <section id="ejercicios-wokwi" style="margin-bottom: var(--space-12);">
+            <h2>🔌 Ejercicios del Simulador Wokwi</h2>
+
+            <section class="actividad" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-left: 4px solid #10b981; padding: var(--space-4); border-radius: var(--radius-md); margin: var(--space-6) 0;">
+                <h4>🔌 Ejercicios del Simulador Wokwi</h4>
+                <p><strong>Tipo:</strong> <span style="color: #065f46; font-weight: 600;">OBLIGATORIO - PRÁCTICA CALIFICADA</span></p>
+                <p><strong>Peso:</strong> Parte de la nota de participación práctica</p>
+                <p><strong>Entregable:</strong> Pantallazo (screenshot) de cada ejercicio funcionando en el simulador</p>
+                <p><strong>Fecha límite:</strong> Antes de la próxima clase</p>
+
+                <div style="background: white; padding: var(--space-4); border-radius: var(--radius-md); margin-top: var(--space-3);">
+                    <h5 style="color: #059669; margin-bottom: var(--space-2);">📋 Instrucciones:</h5>
+                    <ol style="margin-left: var(--space-4);">
+                        <li>Abre el <a href="ejercicios-simulador/index.html" target="_blank" style="color: #059669; font-weight: 600;">Índice de Ejercicios del Simulador</a></li>
+                        <li>Completa los Ejercicios 9 y 10 (WiFi Scan + WiFi HTTP Server)</li>
+                        <li>Revisa cada ejercicio para entender conceptos de conectividad WiFi del ESP32</li>
+                        <li>Copia el código proporcionado en el simulador Wokwi</li>
+                        <li>Ejecuta la simulación y verifica que funcione correctamente</li>
+                        <li>Toma un pantallazo que muestre: el circuito funcionando + el código + resultados</li>
+                        <li>Sube los 2 pantallazos a la tarea "Ejercicios Simulador - Clase 8" en Canvas</li>
+                    </ol>
+
+                    <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
+                        <p style="margin: 0; color: #92400e;"><strong>💡 Importante:</strong> Estos ejercicios preparan la base para LAB 3 (WiFi HTTP). La práctica en Wokwi facilitará el trabajo con ESP32 real conectado a WiFi.</p>
+                    </div>
+
+                    <h5 style="color: #059669; margin: var(--space-3) 0 var(--space-2) 0;">🏆 Ejercicios a Completar:</h5>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: var(--space-2);">
+                        <thead>
+                            <tr style="background: #d1fae5;">
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Ejercicio</th>
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Tema</th>
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Duración</th>
+                                <th style="padding: 0.5rem; text-align: left; border: 1px solid #10b981;">Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="ejercicios-simulador/ejercicio-09-wifi-scan.html" target="_blank" style="color: #059669;">Ejercicio 9</a></td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">WiFi Scan - Detectar Redes</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20 min</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">3 pts</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><a href="ejercicios-simulador/ejercicio-10-wifi-connect.html" target="_blank" style="color: #059669;">Ejercicio 10</a></td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">WiFi - Conexión a Red</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25 min</td>
+                                <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">4 pts</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background: #d1fae5; font-weight: bold;">
+                                <td colspan="3" style="padding: 0.5rem; border: 1px solid #10b981;">TOTAL</td>
+                                <td style="padding: 0.5rem; border: 1px solid #10b981;">7 pts</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <p style="margin-top: var(--space-3); font-size: 0.9rem; color: #64748b;">
+                        <strong>🔗 Enlace directo:</strong> <a href="ejercicios-simulador/index.html" target="_blank" style="color: #059669;">abrir ejercicios del simulador</a>
+                    </p>
+                </div>
+            </section>
+        </section>
+
+        <section id="📚-recursos-curados" class="info-box">
+            <h2>📚 Recursos Curados</h2>
+            <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
+
+            <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
+                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 ¿QUÉ ES MQTT? Fundamental para IoT</h4>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Protocolos</p>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 15 minutos</p>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Explica todo lo que necesitas saber sobre MQTT y por qué es la mejor herramienta para trabajar con IoT, el protocolo más usado en la industria.</p>
+                    <a href="https://www.youtube.com/watch?v=DN1LbkR_iOg" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                </div>
+
+                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Protocolos de Comunicación IoT</h4>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Redes IoT</p>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 35 minutos</p>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Explica los modelos OSI y TCP/IP, las diferencias entre PAN, LAN y WAN, y los desafíos de comunicación en redes IoT con protocolos como MQTT, AMQP y WAMP.</p>
+                    <a href="https://www.youtube.com/watch?v=Ntz76uV_di4" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                </div>
+
+                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Thingspeak & MQTT Protocol | Webserver connections</h4>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Projects</p>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 20 minutos</p>
+                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Demuestra cómo enviar datos a internet o leer datos de internet usando ESP8266 con el protocolo MQTT y ThingSpeak.</p>
+                    <a href="https://www.youtube.com/watch?v=WJvE2PEWJ-4" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <nav class="class-nav">
+        <div class="class-nav-title">Navegación del Curso</div>
+        <div class="class-nav-links">
+            <a href="index.html" class="class-nav-btn">
+                <span class="arrow">🏠</span> Inicio
+            </a>
+            <a href="clase-07.html" class="class-nav-btn">
+                <span class="arrow">←</span> Sesión Anterior
+            </a>
+            <a href="clase-09.html" class="class-nav-btn">
+                Sesión Siguiente <span class="arrow">→</span>
+            </a>
+        </div>
+    </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 8</p>
+        </footer>
+
+    <script>
+
+        // ============================================
+        // SCROLL PROGRESS & BACK TO TOP
+        // ============================================
+        (function() {
+            'use strict';
+
+            const progressFill = document.getElementById('progressFill');
+            const backToTop = document.getElementById('backToTop');
+
+            if (!progressFill || !backToTop) return;
+
+            // Update progress bar and back-to-top visibility
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+
+                progressFill.style.width = Math.min(progress, 100) + '%';
+
+                // Show/hide back-to-top button
+                if (scrolled > windowHeight * 0.5) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Throttle scroll events for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Keyboard accessibility for back-to-top
+            backToTop.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToTop();
+                }
+            });
+
+            // Initial call
+            updateProgress();
+        })();
+    
+    </script>
+</body>
+</html>
+
+

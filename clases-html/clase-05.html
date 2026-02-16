@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 5: Interconexión de Objetos - Hardware IoT</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 5: Interconexión de Objetos</h1>
+            <p class="subtitle">Hardware para IoT: Microcontroladores</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 02-mar-2026</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#microcontroladores">Microcontroladores</a></li>
+                <li><a href="#arduino">Arduino</a></li>
+                <li><a href="#esp32">ESP32</a></li>
+                <li><a href="#sensores">Sensores</a></li>
+                <li><a href="#protocolos">Protocolos</a></li>
+                <li><a href="#practica">Práctica</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop">↑</button>
+
+        <main>
+            <!-- Info LAB 2 -->
+            <section class="info-box warning">
+                <h3>🔬 LAB 2: Sensores DHT22 + LDR</h3>
+                <p><strong>Fecha:</strong> Lunes 02 de Marzo 2026</p>
+                <p><strong>Objetivo:</strong> Leer temperatura, humedad y luz con ESP32</p>
+                <p><strong>Preparación E2:</strong> Esta práctica prepara para el E2 Prototipo Sensórico</p>
+            </section>
+
+            <section id="agenda-120" class="info-box">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> Microcontroladores - Arduino vs ESP32 vs RPi (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Identificación de componentes en kits (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Sensores y Actuadores - tipos y protocolos (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Lectura de datasheets y protocolos (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <ul>
+                    <li><strong>Identificar</strong> componentes hardware para <abbr title="Internet of Things">IoT</abbr></li>
+                    <li><strong>Comparar</strong> microcontroladores populares (Arduino, <abbr title="Microcontrolador WiFi">ESP32</abbr>, Raspberry Pi)</li>
+                    <li><strong>Describir</strong> sensores y actuadores comunes</li>
+                    <li><strong>Entender</strong> protocolos de comunicación básicos</li>
+                </ul>
+            </section>
+
+            <section id="microcontroladores">
+                <h2>¿Qué es un Microcontrolador (MCU)?</h2>
+                
+                <div class="intro-box">
+                    Una <strong>computadora completa en un solo chip</strong> que integra CPU, memoria, puertos de entrada/salida y periféricos.
+                </div>
+
+                <h3>Componentes Principales</h3>
+                <table>
+                    <tr><th>Componente</th><th>Función</th><th>Ejemplo</th></tr>
+                    <tr><td><strong>CPU</strong></td><td>Ejecuta instrucciones</td><td>16-240 MHz</td></tr>
+                    <tr><td><strong>Flash</strong></td><td>Almacena programa</td><td>32 KB - 4 MB</td></tr>
+                    <tr><td><strong>RAM</strong></td><td>Memoria temporal</td><td>2 KB - 520 KB</td></tr>
+                    <tr><td><strong>GPIO</strong></td><td>Pines digitales</td><td>14-34 pines</td></tr>
+                    <tr><td><strong>ADC</strong></td><td>Lectura analógica</td><td>10-12 bits</td></tr>
+                </table>
+            </section>
+
+            <section id="arduino">
+                <h2>Arduino: La Revolución del Hardware Libre</h2>
+                
+                <h3>Ventajas</h3>
+                <ul>
+                    <li>Curva de aprendizaje suave</li>
+                    <li>Documentación extensa</li>
+                    <li>Costo: $5-25 USD</li>
+                    <li>Miles de bibliotecas disponibles</li>
+                </ul>
+
+                <h3>Limitaciones</h3>
+                <ul>
+                    <li>Sin WiFi nativo (requiere shields)</li>
+                    <li>Memoria limitada (2 KB RAM)</li>
+                    <li>Velocidad: 16 MHz</li>
+                </ul>
+
+                <h3>Arduino UNO - Especificaciones</h3>
+                <table>
+                    <tr><th>Parámetro</th><th>Valor</th></tr>
+                    <tr><td>Procesador</td><td>ATmega328P @ 16 MHz</td></tr>
+                    <tr><td>Memoria Flash</td><td>32 KB</td></tr>
+                    <tr><td>SRAM</td><td>2 KB</td></tr>
+                    <tr><td>Pines Digitales</td><td>14 (6 PWM)</td></tr>
+                    <tr><td>Pines Analógicos</td><td>6 (10-bit)</td></tr>
+                </table>
+            </section>
+
+            <section id="esp32">
+                <h2>ESP32: El Estándar de Facto para IoT</h2>
+
+                <div class="highlight">
+                    <strong>¿Por qué ESP32 domina IoT?</strong> Combina potencia, conectividad (WiFi + Bluetooth) y bajo costo ($3-5 USD).
+                </div>
+
+                <h3>Especificaciones</h3>
+                <table>
+                    <tr><th>Característica</th><th>Especificación</th></tr>
+                    <tr><td>CPU</td><td>Xtensa dual-core @ 240 MHz</td></tr>
+                    <tr><td>RAM</td><td>520 KB</td></tr>
+                    <tr><td>Flash</td><td>4 MB</td></tr>
+                    <tr><td>WiFi</td><td>802.11 b/g/n</td></tr>
+                    <tr><td>Bluetooth</td><td>Classic + BLE</td></tr>
+                    <tr><td>GPIO</td><td>34 pines programables</td></tr>
+                    <tr><td>ADC</td><td>18 canales (12-bit)</td></tr>
+                </table>
+
+                <h3>Comparación</h3>
+                <table>
+                    <tr><th>Plataforma</th><th>Precio</th><th>WiFi</th><th>Uso Ideal</th></tr>
+                    <tr><td>Arduino UNO</td><td>$25</td><td>No</td><td>Aprendizaje básico</td></tr>
+                    <tr><td>Arduino + WiFi Shield</td><td>$45</td><td>Sí</td><td>Costo alto</td></tr>
+                    <tr><td><strong>ESP32</strong></td><td><strong>$5</strong></td><td><strong>Sí</strong></td><td><strong>IoT conectado</strong></td></tr>
+                    <tr><td>Raspberry Pi Zero W</td><td>$15</td><td>Sí</td><td>Linux completo</td></tr>
+                </table>
+            </section>
+
+            <section id="sensores">
+                <h2>Sensores y Actuadores Comunes</h2>
+
+                <h3>Sensores Digitales</h3>
+                <table>
+                    <tr><th>Sensor</th><th>Mide</th><th>Protocolo</th><th>Precio</th></tr>
+                    <tr><td>DHT11</td><td>Temp/Humedad</td><td>Digital (1-wire)</td><td>$2-3</td></tr>
+                    <tr><td>DHT22</td><td>Temp/Humedad</td><td>Digital (1-wire)</td><td>$4-5</td></tr>
+                    <tr><td>HC-SR04</td><td>Distancia</td><td>Digital</td><td>$3-4</td></tr>
+                    <tr><td>PIR</td><td>Movimiento</td><td>Digital</td><td>$2-3</td></tr>
+                </table>
+
+                <h3>Sensores Analógicos</h3>
+                <table>
+                    <tr><th>Sensor</th><th>Mide</th><th>Salida</th></tr>
+                    <tr><td>LDR</td><td>Luz</td><td>Resistencia variable</td></tr>
+                    <tr><td>LM35</td><td>Temperatura</td><td>Voltaje proporcional</td></tr>
+                    <tr><td>Potenciómetro</td><td>Posición</td><td>Voltaje 0-3.3V</td></tr>
+                </table>
+
+                <h3>Actuadores</h3>
+                <ul>
+                    <li><strong>LEDs:</strong> Indicadores visuales</li>
+                    <li><strong>Relés:</strong> Control de dispositivos AC</li>
+                    <li><strong>Servomotores:</strong> Posicionamiento preciso</li>
+                    <li><strong>Buzzers:</strong> Alertas sonoras</li>
+                </ul>
+            </section>
+
+            <section id="protocolos">
+                <h2>Protocolos de Comunicación</h2>
+
+                <table>
+                    <tr><th>Protocolo</th><th>Uso</th><th>Características</th></tr>
+                    <tr><td><strong>UART</strong></td><td>Serial (TX/RX)</td><td>2 cables, asíncrono</td></tr>
+                    <tr><td><strong>I2C</strong></td><td>Multiples sensores</td><td>2 cables (SDA/SCL)</td></tr>
+                    <tr><td><strong>SPI</strong></td><td>Alta velocidad</td><td>4 cables, rápido</td></tr>
+                </table>
+
+                <h3>Conexión Básica: DHT22 al ESP32</h3>
+                <pre><code>VCC (DHT22)  → 3.3V (ESP32)
+GND (DHT22)  → GND (ESP32)
+DATA (DHT22) → GPIO4 (ESP32)
+
+Nota: Resistencia pull-up 10KΩ entre DATA y VCC</code></pre>
+            </section>
+
+            <section id="glosario">
+                <h2>📚 Glosario de Términos de Hardware</h2>
+                <p>Conceptos clave que debes conocer para trabajar con microcontroladores:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término</th>
+                            <th>Significado</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><abbr title="General Purpose Input/Output: Pines de propósito general configurables como entrada o salida">GPIO</abbr></strong></td>
+                            <td>General Purpose Input/Output</td>
+                            <td>Pines de entrada/salida de propósito general</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Analog-to-Digital Converter: Convierte voltajes analógicos en números digitales">ADC</abbr></strong></td>
+                            <td>Analog-to-Digital Converter</td>
+                            <td>Conversor de señal analógica a digital</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Pulse Width Modulation: Técnica para simular salidas analógicas mediante pulsos digitales">PWM</abbr></strong></td>
+                            <td>Pulse Width Modulation</td>
+                            <td>Modulación por ancho de pulso (control intensidad)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Inter-Integrated Circuit: Protocolo de comunicación serial de 2 hilos para sensores">I2C</abbr></strong></td>
+                            <td>Inter-Integrated Circuit</td>
+                            <td>Protocolo de comunicación entre circuitos integrados</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Serial Peripheral Interface: Protocolo de comunicación serial de 4 hilos de alta velocidad">SPI</abbr></strong></td>
+                            <td>Serial Peripheral Interface</td>
+                            <td>Interfaz serie para periféricos (alta velocidad)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Universal Asynchronous Receiver-Transmitter: Comunicación serial asíncrona estándar">UART</abbr></strong></td>
+                            <td>Universal Asynchronous Receiver-Transmitter</td>
+                            <td>Transmisor-receptor asíncrono universal</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Digital-to-Analog Converter: Convierte números digitales en voltajes analógicos">DAC</abbr></strong></td>
+                            <td>Digital-to-Analog Converter</td>
+                            <td>Conversor de señal digital a analógica</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Static Random Access Memory: Memoria volátil rápida">SRAM</abbr></strong></td>
+                            <td>Static Random Access Memory</td>
+                            <td>Memoria RAM estática (rápida, volátil)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flash</strong></td>
+                            <td>Flash Memory</td>
+                            <td>Memoria flash (almacena programa, no volátil)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="note" style="background: #f0fdfa; border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>💡 Nota importante:</strong> En el <abbr title="Microcontrolador WiFi">ESP32</abbr>, los pines <abbr title="General Purpose Input/Output">GPIO</abbr> pueden configurarse como entrada o salida usando <code>pinMode()</code>. El <abbr title="Analog-to-Digital Converter">ADC</abbr> convierte voltajes (0-3.3V) en números digitales (0-4095 en <abbr title="Microcontrolador WiFi">ESP32</abbr>).
+                </div>
+            </section>
+
+            <section id="practica">
+                <h2>Práctica: Preparación E2 Demo</h2>
+
+                <!-- Ejercicios del Simulador Propuestos -->
+                <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                    <h3>🛠️ Ejercicios en Simulador Wokwi (Práctica Individual)</h3>
+                    <p>Continuación de los ejercicios de la <strong>Clase 03</strong>. Estos ejercicios introducen sensores analógicos:</p>
+
+                    <div style="display: grid; gap: 15px; margin-top: 15px;">
+                        <!-- Ejercicio 6: LDR -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0;">☀️ Ejercicio 6: LDR - Sensor de Luz</h4>
+                            <p><strong>Concepto:</strong> Lectura analógica (ADC) + divisor de voltaje</p>
+                            <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                            <p><strong>Objetivo:</strong> Leer valores de un sensor LDR (fotorresistencia) y mostrarlos en el Monitor Serial.</p>
+                            <p><a href="../ejercicios-simulador/ejercicio-06-ldr-lectura.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                        </div>
+
+                        <!-- Ejercicio 7: LDR Automático -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0;">💡 Ejercicio 7: LDR - Control Automático de LED</h4>
+                            <p><strong>Concepto:</strong> Sensor + Actuador (lógica condicional)</p>
+                            <p><strong>Tiempo:</strong> 25 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                            <p><strong>Objetivo:</strong> Usar el LDR para encender automáticamente un LED cuando hay poca luz.</p>
+                            <p><a href="../ejercicios-simulador/ejercicio-07-ldr-automatico.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                        <strong>💡 Recomendación:</strong> Completa los ejercicios 6 y 7 como preparación para el LAB 2 (Sensores DHT22 + LDR).
+                    </div>
+                </div>
+
+                <div class="actividad">
+                    <h4>Requisitos E2 Demo (15%)</h4>
+                    <p><strong>Fecha:</strong> Lunes 09 de Marzo (próxima clase)</p>
+                    <p><strong>Formato:</strong> Video 60-90 segundos</p>
+                    <p><strong>Contenido:</strong></p>
+                    <ul>
+                        <li>Circuito físico funcionando (sensor + actuador)</li>
+                        <li>Código en pantalla</li>
+                        <li>Explicación breve de la interacción físico-virtual</li>
+                    </ul>
+                    <p><strong>Entrega:</strong> Subir a Canvas antes del domingo 08/03 a las 23:59</p>
+                </div>
+
+                <h3>Ideas para E2</h3>
+                <ul>
+                    <li>Sensor de temperatura que enciende LED cuando pasa umbral</li>
+                    <li>Botón que controla LED RGB (cambia colores)</li>
+                    <li>LDR que activa buzzer cuando hay poca luz</li>
+                    <li>Combinación sensor + actuador con lógica</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>💡 Tip:</strong> Manténlo simple. Lo importante es demostrar que entiendes la interacción entre hardware (sensor) y software (código que reacciona).
+                </div>
+            </section>
+
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong>Microcontroladores:</strong> CPU + memoria + <abbr title="General Purpose Input/Output: Entrada/Salida de Propósito General">GPIO</abbr> en un chip</li>
+                    <li><strong>Arduino:</strong> Fácil de usar, pero sin WiFi nativo</li>
+                    <li><strong><abbr title="Microcontrolador con WiFi y Bluetooth">ESP32</abbr>:</strong> Mejor opción para <abbr title="Internet of Things">IoT</abbr> (WiFi + BLE + potencia)</li>
+                    <li><strong>Sensores:</strong> <abbr title="Sensor de Temperatura y Humedad">DHT22</abbr>, <abbr title="Light Dependent Resistor: Sensor de Luz">LDR</abbr>, <abbr title="Passive Infrared: Sensor de Movimiento">PIR</abbr> para detectar el ambiente</li>
+                    <li><strong>Protocolos:</strong> <abbr title="Universal Asynchronous Receiver-Transmitter">UART</abbr>, <abbr title="Inter-Integrated Circuit">I2C</abbr>, <abbr title="Serial Peripheral Interface">SPI</abbr> para comunicación</li>
+                    <li><strong>E2:</strong> Demo físico-virtual con video corto</li>
+                </ul>
+                
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Programación ESP32</h4>
+                    <p>Arduino IDE, primeros programas, lectura de sensores</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">🏠 Índice</a>
+                <a href="clase-04.html" class="class-nav-btn">← Anterior<br><small style="font-size:0.75em;opacity:0.8;">23-feb</small></a>
+                <a href="clase-06.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">09-mar (E2) →</small></a>
+            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 5 - 02-mar-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const backToTop = document.getElementById('backToTop');
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        })();
+    </script>
+</body>
+</html>

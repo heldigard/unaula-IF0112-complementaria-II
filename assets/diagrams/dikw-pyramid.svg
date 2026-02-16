@@ -1,0 +1,108 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pirámide DIKW: Data, Information, Knowledge, Wisdom">
+  <defs>
+    <linearGradient id="grad-wisdom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-knowledge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-information" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-data" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f472b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#1e40af">
+    Pirámide DIKW
+  </text>
+  <text x="400" y="75" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">
+    Data → Information → Knowledge → Wisdom
+  </text>
+
+  <!-- Pyramid -->
+  <g transform="translate(100, 100)">
+    <!-- Wisdom (Top) -->
+    <g filter="url(#shadow)">
+      <polygon points="300,0 600,0 600,80 300,80" fill="url(#grad-wisdom)" rx="4"/>
+      <text x="450" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="white">WISDOM</text>
+      <text x="450" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="rgba(255,255,255,0.9)">Sabiduría (Decisiones estratégicas)</text>
+    </g>
+
+    <!-- Knowledge -->
+    <g transform="translate(0, 90)" filter="url(#shadow)">
+      <polygon points="250,0 650,0 650,100 250,100" fill="url(#grad-knowledge)" rx="4"/>
+      <text x="450" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="white">KNOWLEDGE</text>
+      <text x="450" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="rgba(255,255,255,0.9)">Conocimiento (Información aplicada)</text>
+      <text x="450" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">"Sé QUÉ hacer con esta información"</text>
+    </g>
+
+    <!-- Information -->
+    <g transform="translate(0, 200)" filter="url(#shadow)">
+      <polygon points="200,0 700,0 700,120 200,120" fill="url(#grad-information)" rx="4"/>
+      <text x="450" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="white">INFORMATION</text>
+      <text x="450" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="rgba(255,255,255,0.9)">Información (Datos con contexto)</text>
+      <text x="450" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">"Entiendo QUÉ significan estos datos"</text>
+      <text x="450" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.7)">25°C + lugar + tiempo = "Está haciendo calor en Medellín ahora"</text>
+    </g>
+
+    <!-- Data (Bottom) -->
+    <g transform="translate(0, 330)" filter="url(#shadow)">
+      <polygon points="150,0 750,0 750,140 150,140" fill="url(#grad-data)" rx="4"/>
+      <text x="450" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="white">DATA</text>
+      <text x="450" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="rgba(255,255,255,0.9)">Datos (Registros brutos)</text>
+      <text x="450" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">"Valores sin procesar o contexto"</text>
+      <text x="450" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.7)">{"temp": 25, "hum": 65, "time": "14:30"}</text>
+      <text x="450" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.7)">Sensor #1 → 25°C</text>
+    </g>
+  </g>
+
+  <!-- Side Notes -->
+  <g transform="translate(100, 520)">
+    <text font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1e40af">EJEMPLO PRÁCTICO - MONITOREO AMBIENTAL:</text>
+
+    <g transform="translate(0, 20)" font-family="system-ui, sans-serif" font-size="11">
+      <text x="0" y="0" fill="#ec4899">DATA:</text>
+      <text x="80" y="0" fill="#64748b">Sensor envía "25, 65, 2024-02-09 14:30:00"</text>
+
+      <text x="0" y="20" fill="#3b82f6">INFORMATION:</text>
+      <text x="130" y="20" fill="#64748b">"Temperatura 25°C, humedad 65% en laboratorio IoT"</text>
+
+      <text x="0" y="40" fill="#10b981">KNOWLEDGE:</text>
+      <text x="130" y="40" fill="#64748b">"La temperatura subió 3°C en la última hora"</text>
+
+      <text x="0" y="60" fill="#f59e0b">WISDOM:</text>
+      <text x="100" y="60" fill="#64748b">"Activar A/C porque hará más calor今晚, optimizar energía"</text>
+    </g>
+  </g>
+
+  <!-- Value Arrow -->
+  <g transform="translate(620, 150)">
+    <text x="0" y="0" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1e40af" transform="rotate(-90)">VALOR</text>
+    <path d="M40 0 L40 350" stroke="#1e40af" stroke-width="4" marker-end="url(#arrow-up)"/>
+  </g>
+
+  <!-- Arrow Up Marker -->
+  <defs>
+    <marker id="arrow-up" markerWidth="12" markerHeight="12" refX="6" refY="10" orient="auto">
+      <path d="M0,12 L6,0 L12,12 z" fill="#1e40af"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom Note -->
+  <text x="400" y="585" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">
+    ↑ A mayor nivel, mayor valor de negocio para decisiones estratégicas
+  </text>
+</svg>

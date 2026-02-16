@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 3: Transformación del Entorno - IF0112 Complementaria II (IoT)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 3: Transformación del Entorno</h1>
+            <p class="subtitle">Empresas y Ciudades Inteligentes</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 16-feb-2026</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#empresas">Empresas Inteligentes</a></li>
+                <li><a href="#industria4">Industria 4.0</a></li>
+                <li><a href="#smart-cities">Smart Cities</a></li>
+                <li><a href="#casos">Casos Colombia</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <!-- Info Evaluación -->
+            <section class="info-box warning" style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>📝 Preparación para E1 - Investigación Técnica</h3>
+                <p><strong>E1 (15%):</strong> Diseño de arquitectura IoT para el SMAI</p>
+                <p><strong>Fecha de entrega:</strong> Domingo 22 de Febrero antes de 11:59 PM</p>
+                <p><strong>Tema:</strong> Definición de componentes y arquitectura del proyecto integrador</p>
+            </section>
+
+            <section id="agenda-120" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> Empresas Inteligentes e Industria 4.0 (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Brainstorming <abbr title="Internet of Things">IoT</abbr> empresarial (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Smart Cities y <abbr title="Sistema de Alerta Temprana de Medellín">SIATA</abbr> (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de casos Colombia (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <p>Al finalizar esta sesión, podrás:</p>
+                <ul>
+                    <li><strong>Definir</strong> empresas inteligentes e Industria 4.0</li>
+                    <li><strong>Describir</strong> los componentes de Smart Cities</li>
+                    <li><strong>Analizar</strong> casos de estudio reales en Colombia</li>
+                    <li><strong>Evaluar</strong> el impacto de <abbr title="Internet of Things">IoT</abbr> en sectores clave</li>
+                </ul>
+                
+                <div class="highlight" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>Pregunta clave:</strong> ¿Cómo <abbr title="Internet of Things">IoT</abbr> transforma empresas y ciudades para hacerlas más eficientes y sostenibles?
+                </div>
+            </section>
+
+            <section id="empresas">
+                <h2>Empresa Inteligente</h2>
+                
+                <div class="intro-box">
+                    Una <strong>empresa inteligente</strong> utiliza tecnologías IoT, análisis de datos e inteligencia artificial para optimizar operaciones, mejorar la toma de decisiones y crear valor.
+                </div>
+
+                <h3>Características Clave</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Descripción</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Conectada</strong></td>
+                            <td>Dispositivos y sistemas integrados</td>
+                            <td>Visión 360° de operaciones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automatizada</strong></td>
+                            <td>Procesos sin intervención manual</td>
+                            <td>Menos errores, más velocidad</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Predictiva</strong></td>
+                            <td>Anticipa problemas y oportunidades</td>
+                            <td>Menos downtime</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Basada en datos</strong></td>
+                            <td>Decisiones con evidencia</td>
+                            <td>Mejores resultados</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Transformación Digital: Antes vs Después</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Antes</th>
+                            <th>Después (IoT)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Procesos</td>
+                            <td>Manuales</td>
+                            <td>Inteligentes y automatizados</td>
+                        </tr>
+                        <tr>
+                            <td>Mantenimiento</td>
+                            <td>Correctivo (reparar cuando falla)</td>
+                            <td>Predictivo (anticipar fallas)</td>
+                        </tr>
+                        <tr>
+                            <td>Decisiones</td>
+                            <td>Basadas en intuición</td>
+                            <td>Basadas en datos en tiempo real</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="industria4">
+                <h2>Industria 4.0: La Cuarta Revolución Industrial</h2>
+
+                <h3>Las 4 Revoluciones Industriales</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Revolución</th>
+                            <th>Período</th>
+                            <th>Tecnología Clave</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1.0</strong></td>
+                            <td>1784</td>
+                            <td>Máquina de vapor → Mecanización</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2.0</strong></td>
+                            <td>1870</td>
+                            <td>Electricidad → Producción en masa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3.0</strong></td>
+                            <td>1969</td>
+                            <td>Electrónica + TI → Automatización</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4.0</strong></td>
+                            <td>2011+</td>
+                            <td>IoT + IA + Big Data → Sistemas ciberfísicos</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Los 9 Pilares Tecnológicos</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div class="card" style="background: #eff6ff; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4>🌐 IoT</h4>
+                        <p style="font-size: 0.9em;">Sensores conectados</p>
+                    </div>
+                    <div class="card" style="background: #f0fdf4; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4>🤖 Robótica</h4>
+                        <p style="font-size: 0.9em;">Cobots colaborativos</p>
+                    </div>
+                    <div class="card" style="background: #fef3c7; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4>📊 Big Data</h4>
+                        <p style="font-size: 0.9em;">Análisis masivo</p>
+                    </div>
+                    <div class="card" style="background: #fdf2f8; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4>🔮 IA</h4>
+                        <p style="font-size: 0.9em;">Machine Learning</p>
+                    </div>
+                    <div class="card" style="background: #f0f9ff; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4>☁️ Cloud</h4>
+                        <p style="font-size: 0.9em;">Infraestructura escalable</p>
+                    </div>
+                    <div class="card" style="background: #f0fdf4; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4>🛡️ Ciberseguridad</h4>
+                        <p style="font-size: 0.9em;">Protección de sistemas</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="smart-cities">
+                <h2>Smart Cities: Ciudades Inteligentes</h2>
+
+                <div class="intro-box">
+                    Una <strong>Smart City</strong> usa tecnología IoT para mejorar la eficiencia de servicios urbanos, la calidad de vida y la sostenibilidad ambiental.
+                </div>
+
+                <h3>Componentes Principales</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Aplicaciones IoT</th>
+                            <th>Beneficio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🚗 <strong>Movilidad</strong></td>
+                            <td>Semáforos adaptativos, parking inteligente</td>
+                            <td>-30% congestión</td>
+                        </tr>
+                        <tr>
+                            <td>💡 <strong>Energía</strong></td>
+                            <td>Smart grid, medidores inteligentes</td>
+                            <td>-20% consumo</td>
+                        </tr>
+                        <tr>
+                            <td>🌳 <strong>Ambiente</strong></td>
+                            <td>Calidad del aire, ruido, clima</td>
+                            <td>Alertas tempranas</td>
+                        </tr>
+                        <tr>
+                            <td>🔒 <strong>Seguridad</strong></td>
+                            <td>Cámaras inteligentes, botones de pánico</td>
+                            <td>-25% criminalidad</td>
+                        </tr>
+                        <tr>
+                            <td>🚰 <strong>Agua</strong></td>
+                            <td>Detección de fugas, calidad</td>
+                            <td>-30% pérdidas</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Arquitectura IoT de 3 Capas</h3>
+                <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 30px; border-radius: 12px; text-align: center; margin: 20px 0;">
+                    <div style="background: #dbeafe; border: 2px solid #3b82f6; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                        <h4>☁️ Capa 3: Aplicación</h4>
+                        <p>Dashboards, Apps, Alertas</p>
+                    </div>
+                    <div style="font-size: 2em; color: #3b82f6;">↓</div>
+                    <div style="background: #fef3c7; border: 2px solid #f59e0b; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                        <h4>📡 Capa 2: Red</h4>
+                        <p>Gateway, Edge, Protocolos</p>
+                    </div>
+                    <div style="font-size: 2em; color: #f59e0b;">↓</div>
+                    <div style="background: #d1fae5; border: 2px solid #10b981; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                        <h4>🔌 Capa 1: Percepción</h4>
+                        <p>Sensores, Actuadores</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="casos">
+                <h2>Casos de Estudio: Colombia</h2>
+
+                <h3>🏭 Grupo Nutresa - Planta 4.0 Tocancipá</h3>
+                <div class="highlight" style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px;">
+                    Primera planta de alimentos 100% conectada en LATAM. Inversión: $25M USD (2018-2022).
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Métrica</th>
+                            <th>Mejora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Eficiencia operativa</td>
+                            <td>+18%</td>
+                        </tr>
+                        <tr>
+                            <td>Desperdicio</td>
+                            <td>-25%</td>
+                        </tr>
+                        <tr>
+                            <td>Consumo energético</td>
+                            <td>-30%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>💡 EPM - Smart Grid</h3>
+                <div class="highlight" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 8px;">
+                    Red eléctrica inteligente con 2.7M medidores AMI desplegados (80% cobertura).
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicador</th>
+                            <th>Antes</th>
+                            <th>Después</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pérdidas técnicas</td>
+                            <td>22%</td>
+                            <td>18%</td>
+                        </tr>
+                        <tr>
+                            <td>Detección fraudes</td>
+                            <td>2,500/mes</td>
+                            <td>6,200/mes</td>
+                        </tr>
+                        <tr>
+                            <td>Satisfacción usuario</td>
+                            <td>72%</td>
+                            <td>95%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🌧️ Medellín - <abbr title="Sistema de Alerta Temprana de Medellín y el Valle de Aburrá">SIATA</abbr></h3>
+                <p><abbr title="Sistema de Alerta Temprana">SIATA</abbr> es un Sistema de Alerta Temprana con 50+ estaciones meteorológicas que protegen 2.5M habitantes.</p>
+                <ul>
+                    <li><strong>Radar:</strong> Predicción 48h con alertas 2-4h antes</li>
+                    <li><strong>App:</strong> 500K usuarios activos</li>
+                    <li><strong>Impacto:</strong> $8M USD/año evitados en daños</li>
+                </ul>
+
+                <div class="intro-box" style="margin-top: 30px;">
+                    <strong>🏆 Medellín:</strong> "Ciudad del Año" según Wall Street Journal (2013) - Referente Smart City en LATAM
+                </div>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios de Aplicación</h2>
+
+                <!-- Ejercicios del Simulador Propuestos -->
+                <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                    <h3>🛠️ Ejercicios en Simulador Wokwi (Práctica Individual)</h3>
+                    <p>Continuación de los ejercicios de la <strong>Clase 02</strong>. Estos ejercicios introducen entradas digitales y control de brillo:</p>
+
+                    <div style="display: grid; gap: 15px; margin-top: 15px;">
+                        <!-- Ejercicio 4: Botones -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0;">🔘 Ejercicio 4: Botón Controla LED</h4>
+                            <p><strong>Concepto:</strong> Entradas digitales + Resistencia pull-up</p>
+                            <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                            <p><strong>Objetivo:</strong> Aprender a usar botones con <code>INPUT_PULLUP</code> y debounce para controlar un LED.</p>
+                            <p><a href="../ejercicios-simulador/ejercicio-04-botones.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                        </div>
+
+                        <!-- Ejercicio 5: PWM -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0;">🌅 Ejercicio 5: PWM - Dimmer LED</h4>
+                            <p><strong>Concepto:</strong> Modulación por ancho de pulso (PWM)</p>
+                            <p><strong>Tiempo:</strong> 25 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                            <p><strong>Objetivo:</strong> Controlar el brillo de un LED usando <code>analogWrite()</code> y PWM.</p>
+                            <p><a href="../ejercicios-simulador/ejercicio-05-pwm-dimmer.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                        <strong>💡 Recomendación:</strong> Completa los ejercicios 1-5 antes de la próxima clase. Los ejercicios 6+ (sensores y WiFi) se trabajarán en clases posteriores.
+                    </div>
+                </div>
+
+                <!-- Ejercicio Conceptual Grupal -->
+                <div class="actividad" style="background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h4>🏙️ Diseña una Smart City Local</h4>
+                    <p><strong>Tipo:</strong> Ejercicio práctico en grupos</p>
+                    <p><strong>Duración:</strong> 15 minutos (en clase)</p>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol>
+                        <li>Elige un problema urbano de tu ciudad: tráfico, seguridad, energía, agua</li>
+                        <li>Propón una solución IoT usando los 4 pilares</li>
+                        <li>Identifica: sensores necesarios, conectividad, procesos IF-THEN</li>
+                        <li>Presenta tu propuesta (2 minutos)</li>
+                    </ol>
+                </div>
+
+                <h3>Preparación E1 - Investigación Técnica (15%)</h3>
+                <div class="alert-box" style="background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; border-radius: 8px;">
+                    <h4>📋 E1: Guía de Arquitectura</h4>
+                    <ul>
+                        <li><strong>Peso:</strong> 15% de la nota final</li>
+                        <li><strong>Entrega:</strong> Domingo 22/02 antes de 11:59 PM por plataforma</li>
+                        <li><strong>Tema:</strong> Diseño técnico del Monitor Ambiental (SMAI)</li>
+                        <li><strong>Formato:</strong> Documento PDF con diagramas de bloques</li>
+                        <li><a href="../evaluaciones/guia-E1.html" style="color: #ef4444; font-weight: 700;">Ver instrucciones detalladas →</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong>Empresa Inteligente:</strong> Usa <abbr title="Internet of Things">IoT</abbr> + IA para optimizar operaciones</li>
+                    <li><strong>Industria 4.0:</strong> Cuarta revolución industrial (<abbr title="Internet of Things">IoT</abbr> + IA + Big Data)</li>
+                    <li><strong>Smart City:</strong> Integra múltiples sistemas <abbr title="Internet of Things">IoT</abbr> para mejorar calidad de vida</li>
+                    <li><strong>Arquitectura:</strong> 3 capas (Percepción → Red → Aplicación)</li>
+                    <li><strong>Casos Colombia:</strong> Nutresa, EPM, Medellín - referentes LATAM</li>
+                </ul>
+                
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Redes IoT</h4>
+                    <p>Tecnologías de conexión: WiFi, LoRaWAN, MQTT</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn"><span class="arrow">🏠</span> Índice</a>
+                <a href="clase-02.html" class="class-nav-btn"><span class="arrow">←</span> Anterior<br><small style="font-size:0.75em;opacity:0.8;">09-feb</small></a>
+                <a href="clase-04.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">23-feb (E1) →</small> <span class="arrow">→</span></a>
+            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 3 - 16-feb-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const backToTop = document.getElementById('backToTop');
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        })();
+    </script>
+</body>
+</html>

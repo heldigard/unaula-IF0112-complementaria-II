@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" aria-labelledby="title desc">
+  <title id="title">Conexión DHT22 y LDR con ESP32</title>
+  <desc id="desc">Diagrama de conexión de sensores DHT22 y LDR al microcontrolador ESP32</desc>
+
+  <!-- Fondo -->
+  <rect width="800" height="450" fill="#f8fafc"/>
+
+  <!-- Título -->
+  <text x="400" y="30" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1e40af">
+    Sensores Ambientales: DHT22 + LDR con ESP32
+  </text>
+
+  <!-- ESP32 Central -->
+  <g transform="translate(300, 60)">
+    <rect x="0" y="0" width="200" height="90" rx="10" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    <text x="100" y="35" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#60a5fa" text-anchor="middle">ESP32</text>
+    <text x="100" y="55" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">DevKit V1</text>
+
+    <!-- Pines GPIO -->
+    <g transform="translate(20, 65)">
+      <!-- GPIO 4 (DHT22) -->
+      <circle cx="20" cy="15" r="8" fill="#3b82f6" stroke="#1d4ed8"/>
+      <text x="20" y="19" font-family="monospace" font-size="8" fill="white" text-anchor="middle">4</text>
+      <text x="20" y="40" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">GPIO4</text>
+
+      <!-- GPIO 34 (LDR - ADC) -->
+      <circle cx="60" cy="15" r="8" fill="#10b981" stroke="#059669"/>
+      <text x="60" y="19" font-family="monospace" font-size="8" fill="white" text-anchor="middle">34</text>
+      <text x="60" y="40" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">GPIO34</text>
+
+      <!-- GND -->
+      <circle cx="100" cy="15" r="8" fill="#0f172a" stroke="#334155"/>
+      <text x="100" y="19" font-family="monospace" font-size="8" fill="#94a3b8" text-anchor="middle">G</text>
+      <text x="100" y="40" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">GND</text>
+
+      <!-- 3V3 -->
+      <circle cx="140" cy="15" r="8" fill="#ef4444" stroke="#dc2626"/>
+      <text x="140" y="19" font-family="monospace" font-size="8" fill="white" text-anchor="middle">3V</text>
+      <text x="140" y="40" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">3.3V</text>
+    </g>
+  </g>
+
+  <!-- DHT22 Sensor -->
+  <g transform="translate(50, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="10" y="10" width="160" height="80" rx="5" fill="#e2e8f0" stroke="#94a3b8"/>
+    <text x="90" y="55" font-family="system-ui, sans-serif" font-size="24" fill="#64748b" text-anchor="middle">DHT22</text>
+    <text x="90" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Temp + Humedad</text>
+
+    <!-- Pines DHT22 -->
+    <g transform="translate(20, 100)">
+      <rect x="0" y="0" width="30" height="8" fill="#ef4444" rx="2"/>
+      <text x="15" y="18" font-family="system-ui, sans-serif" font-size="8" fill="#374151" text-anchor="middle">VCC</text>
+
+      <rect x="40" y="0" width="30" height="8" fill="#3b82f6" rx="2"/>
+      <text x="55" y="18" font-family="system-ui, sans-serif" font-size="8" fill="#374151" text-anchor="middle">DATA</text>
+
+      <rect x="80" y="0" width="30" height="8" fill="#0f172a" rx="2"/>
+      <text x="95" y="18" font-family="system-ui, sans-serif" font-size="8" fill="#374151" text-anchor="middle">GND</text>
+
+      <rect x="120" y="0" width="30" height="8" fill="#e2e8f0" rx="2"/>
+      <text x="135" y="18" font-family="system-ui, sans-serif" font-size="8" fill="#374151" text-anchor="middle">NC</text>
+    </g>
+  </g>
+
+  <!-- LDR + Divisor de Voltaje -->
+  <g transform="translate(520, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
+    <text x="90" y="35" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">LDR</text>
+    <text x="90" y="55" font-family="system-ui, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">+ Divisor de Voltaje</text>
+
+    <!-- Divisor visual -->
+    <g transform="translate(40, 65)">
+      <!-- Resistencia superior -->
+      <rect x="0" y="0" width="100" height="20" rx="3" fill="#6366f1"/>
+      <text x="50" y="14" font-family="system-ui, sans-serif" font-size="8" fill="white" text-anchor="middle">10KΩ</text>
+
+      <!-- LDR -->
+      <circle cx="50" cy="50" r="20" fill="#fcd34d" stroke="#f59e0b"/>
+      <text x="50" y="55" font-family="system-ui, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">LDR</text>
+
+      <!-- Línea a GND -->
+      <line x1="50" y1="70" x2="50" y2="95" stroke="#0f172a" stroke-width="2"/>
+      <text x="50" y="108" font-family="system-ui, sans-serif" font-size="8" fill="#374151" text-anchor="middle">GND</text>
+    </g>
+
+    <!-- Salida a GPIO34 -->
+    <g transform="translate(70, 120)">
+      <rect x="0" y="0" width="40" height="12" fill="#10b981" rx="3"/>
+      <text x="20" y="9" font-family="monospace" font-size="7" fill="white" text-anchor="middle">OUT → GPIO34</text>
+    </g>
+  </g>
+
+  <!-- Cableado -->
+  <!-- DHT22 VCC → 3V3 -->
+  <g stroke="#ef4444" stroke-width="2" fill="none">
+    <path d="M 230 280 C 260 280, 260 100, 440 100"/>
+    <polygon points="440,95 445,105 435,105" fill="#ef4444"/>
+  </g>
+
+  <!-- DHT22 GND → GND -->
+  <g stroke="#0f172a" stroke-width="2" fill="none">
+    <path d="M 180 310 C 200 310, 200 140, 400 140"/>
+    <polygon points="400,135 405,145 395,145" fill="#0f172a"/>
+  </g>
+
+  <!-- DHT22 DATA → GPIO4 -->
+  <g stroke="#3b82f6" stroke-width="2" fill="none">
+    <path d="M 190 280 C 210 280, 210 125, 320 125"/>
+    <polygon points="320,120 325,130 315,130" fill="#3b82f6"/>
+  </g>
+
+  <!-- LDR VCC → 3V3 -->
+  <g stroke="#ef4444" stroke-width="2" fill="none">
+    <path d="M 520 265 C 540 265, 540 100, 440 100"/>
+    <polygon points="440,95 435,105 445,105" fill="#ef4444"/>
+  </g>
+
+  <!-- LDR OUT → GPIO34 -->
+  <g stroke="#10b981" stroke-width="2" fill="none">
+    <path d="M 590 320 C 610 320, 610 155, 360 155"/>
+    <polygon points="360,150 355,160 365,160" fill="#10b981"/>
+  </g>
+
+  <!-- Código ejemplo -->
+  <g transform="translate(200, 360)">
+    <rect x="0" y="0" width="400" height="80" rx="8" fill="#1e293b" stroke="#334155"/>
+    <text x="200" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#60a5fa" text-anchor="middle">Código Ejemplo Arduino</text>
+    <text x="15" y="50" font-family="monospace" font-size="10" fill="#e2e8f0">#include &lt;DHT.h&gt;</text>
+    <text x="15" y="65" font-family="monospace" font-size="10" fill="#e2e8f0">#define DHTPIN 4</text>
+    <text x="200" y="50" font-family="monospace" font-size="10" fill="#e2e8f0">int ldrPin = 34;</text>
+    <text x="200" y="65" font-family="monospace" font-size="10" fill="#e2e8f0">int ldrValue = analogRead(ldrPin);</text>
+  </g>
+
+  <!-- Leyenda -->
+  <g transform="translate(30, 420)">
+    <rect x="0" y="0" width="740" height="25" rx="5" fill="#f1f5f9" stroke="#e2e8f0"/>
+    <circle cx="15" cy="12" r="5" fill="#ef4444"/>
+    <text x="25" y="17" font-family="system-ui, sans-serif" font-size="10" fill="#374151">Alimentación 3.3V</text>
+
+    <circle cx="120" cy="12" r="5" fill="#0f172a"/>
+    <text x="130" y="17" font-family="system-ui, sans-serif" font-size="10" fill="#374151">GND</text>
+
+    <circle cx="180" cy="12" r="5" fill="#3b82f6"/>
+    <text x="190" y="17" font-family="system-ui, sans-serif" font-size="10" fill="#374151">DATA (GPIO)</text>
+
+    <circle cx="260" cy="12" r="5" fill="#10b981"/>
+    <text x="270" y="17" font-family="system-ui, sans-serif" font-size="10" fill="#374151">ADC (LDR)</text>
+
+    <circle cx="340" cy="12" r="5" fill="#6366f1"/>
+    <text x="350" y="17" font-family="system-ui, sans-serif" font-size="10" fill="#374151">Resistencia 10KΩ</text>
+  </g>
+</svg>

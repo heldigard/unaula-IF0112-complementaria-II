@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Materiales - IF0112 IoT 2026-I</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --accent: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .header p { opacity: 0.95; font-size: 1.1rem; }
+        .alert {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .alert strong { color: #92400e; }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+        .kit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .kit-table th {
+            background: var(--accent);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .kit-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .kit-table tr:hover { background: #f8fafc; }
+        .price { text-align: right; font-weight: 600; color: var(--success); }
+        .qty { text-align: center; }
+        .store-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .store-card {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .store-card h3 { color: var(--primary); margin-bottom: 10px; }
+        .store-card p { margin-bottom: 8px; font-size: 0.95rem; }
+        .total {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .total h3 { color: #065f46; font-size: 1.5rem; }
+        .total .price { font-size: 2.5rem; color: var(--success); font-weight: 800; }
+        .wokwi-section {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .wokwi-section h3 { color: #92400e; margin-bottom: 15px; }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .timeline {
+            margin-top: 20px;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-week {
+            background: var(--accent);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 15px;
+            min-width: 100px;
+            text-align: center;
+        }
+        @media print {
+            .no-print { display: none; }
+            body { padding: 0; }
+        }
+
+        /* ============================================
+           NAVIGATION BETWEEN CLASSES
+           ============================================ */
+        .class-nav {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 24px;
+            margin-top: 48px;
+            border-radius: 12px;
+        }
+        .class-nav-title {
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+        .class-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .class-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .class-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        .class-nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .class-nav-btn .arrow {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛠️ Lista de Materiales - IoT 2026-I</h1>
+            <p>IF0112 Complementaria II | Proyecto: Monitor Ambiental IoT | Fecha: 09-feb-2026</p>
+        </div>
+
+        <div class="alert">
+            <strong>⚠️ IMPORTANTE:</strong> Adquiere los materiales antes del <strong>Lunes 09 de Febrero</strong>
+            para poder participar en los laboratorios. Tienes 2 opciones: Kit físico o emulador gratuito Wokwi.
+        </div>
+
+        <!-- Kit Físico -->
+        <div class="card">
+            <h2>📦 Kit Individual Físico (Recomendado)</h2>
+            <p style="margin-bottom: 20px;">Costo estimado: <strong>COP $50.000 - $65.000</strong> por estudiante</p>
+
+            <table class="kit-table">
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th class="qty">Cantidad</th>
+                        <th class="price">Precio aprox.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ESP32 Development Board</strong> (ESP32-WROOM-32)</td>
+                        <td class="qty">1</td>
+                        <td class="price">$25.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DHT22</strong> (Sensor Temperatura y Humedad)</td>
+                        <td class="qty">1</td>
+                        <td class="price">$8.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LDR</strong> (Sensor de Luz)</td>
+                        <td class="qty">1</td>
+                        <td class="price">$1.500</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LEDs</strong> (rojo, verde, amarillo, azul, blanco)</td>
+                        <td class="qty">5</td>
+                        <td class="price">$2.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Push Button</strong> (pulsador)</td>
+                        <td class="qty">1</td>
+                        <td class="price">$500</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resistencias</strong> (330Ω y 10kΩ)</td>
+                        <td class="qty">12</td>
+                        <td class="price">$2.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Protoboard</strong> (400 puntos mínimo)</td>
+                        <td class="qty">1</td>
+                        <td class="price">$8.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cables Jumper</strong> (macho-macho, macho-hembra)</td>
+                        <td class="qty">1 set</td>
+                        <td class="price">$5.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cable USB</strong> (micro-USB o USB-C)</td>
+                        <td class="qty">1</td>
+                        <td class="price">$5.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total">
+                <h3>Total Estimado</h3>
+                <div class="price">$56.500 - $65.000 COP</div>
+            </div>
+        </div>
+
+        <!-- Tiendas -->
+        <div class="card">
+            <h2>🏪 Tiendas en Medellín</h2>
+            <div class="store-section">
+                <div class="store-card">
+                    <h3>🔌 Electrónica Maicá</h3>
+                    <p><strong>Ubicación:</strong> San Ignacio, Medellín</p>
+                    <p><strong>Especialidad:</strong> Componentes electrónicos</p>
+                    <p><strong>Recomendado:</strong> Tiene todo el kit</p>
+                </div>
+                <div class="store-card">
+                    <h3>💡 Hevodata</h3>
+                    <p><strong>Ubicación:</strong> San Diego, Medellín</p>
+                    <p><strong>Especialidad:</strong> IoT y automatización</p>
+                    <p><strong>Nota:</strong> Buenos precios en ESP32</p>
+                </div>
+                <div class="store-card">
+                    <h3>⚡ NeoElectronics</h3>
+                    <p><strong>Ubicación:</strong> El Poblado, Medellín</p>
+                    <p><strong>Especialidad:</strong> Sensores y módulos</p>
+                    <p><strong>Nota:</strong> DHT22 original</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Online -->
+        <div class="card">
+            <h2>🌐 Opciones Online</h2>
+            <table class="kit-table">
+                <tr>
+                    <td><strong>MercadoLibre Colombia</strong></td>
+                    <td>Buscar: "Kit ESP32 Colombia" o "ESP32 con sensores"</td>
+                    <td class="price">$45.000-70.000</td>
+                </tr>
+                <tr>
+                    <td><strong>AliExpress</strong></td>
+                    <td>Más económico, pero demora 2-4 semanas</td>
+                    <td class="price">$25.000-40.000</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon</strong></td>
+                    <td>Envío internacional, más rápido</td>
+                    <td class="price">$80.000-120.000</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Emulador Wokwi -->
+        <div class="wokwi-section">
+            <h3>🆓 Alternativa GRATUITA: Emulador Wokwi</h3>
+            <p><strong>¿Qué es?</strong> Simulador online de ESP32 que funciona directamente en tu navegador.</p>
+            <p><strong>Ventajas:</strong> Gratis, sin instalación, funciona en cualquier computadora.</p>
+            <p><strong>Limitaciones:</strong> No tiene todos los componentes, WiFi es simulado (no real).</p>
+            <p><strong>Ideal para:</strong> Practicar código, aprender lógica, hacer tareas sin hardware físico.</p>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="https://wokwi.com/esp32" target="_blank" class="btn">🚀 Abrir Wokwi ESP32 Simulator</a>
+                <p style="margin-top: 10px; font-size: 0.9rem;">
+                    Proyecto ejemplo: <a href="https://wokwi.com/projects/new/esp32" target="_blank">wokwi.com/projects/new/esp32</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Cronograma de Uso -->
+        <div class="card">
+            <h2>📅 Cuándo Usar Cada Componente</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-week">Sesión 2</div>
+                    <div><strong>LED + Botón</strong> - Primeros programas básicos</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Sesión 4</div>
+                    <div><strong>DHT22 + LDR</strong> - Sensores de temperatura y luz</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Sesión 7</div>
+                    <div><strong>WiFi</strong> - Conexión a internet y envío de datos</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Sesiones 9-12</div>
+                    <div><strong>ThingSpeak</strong> - Plataforma cloud para IoT (gratis)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Sesiones 12-14</div>
+                    <div><strong>Grafana</strong> - Dashboard de visualización de datos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Herramientas Necesarias -->
+        <div class="card">
+            <h2>🔧 Software Necesario (TODO GRATIS)</h2>
+            <table class="kit-table">
+                <tr>
+                    <td><strong>Arduino IDE 2.0</strong></td>
+                    <td>Para programar el ESP32</td>
+                    <td><a href="https://www.arduino.cc/en/software" target="_blank">arduino.cc/en/software</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Drivers USB-CH340</strong></td>
+                    <td>Si tu ESP32 usa芯片 CH340</td>
+                    <td><a href="https://www.wch.cn/download/CH341SER_EXE.html" target="_blank">wch.cn</a></td>
+                </tr>
+                <tr>
+                    <td><strong>ThingSpeak Account</strong></td>
+                    <td>Plataforma IoT cloud gratuita</td>
+                    <td><a href="https://thingspeak.com/" target="_blank">thingspeak.com</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Grafana</strong></td>
+                    <td>Dashboard de visualización</td>
+                    <td><a href="https://grafana.com/grafana/download" target="_blank">grafana.com/download</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Recomendaciones -->
+        <div class="card">
+            <h2>💡 Recomendaciones</h2>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>Compra en grupo:</strong> Reúnete con 3-4 compañeros para comprar al mayoreo (mejor precio)</li>
+                <li><strong>Verifica compatibilidad:</strong> Asegúrate que el ESP32 sea compatible con Arduino IDE</li>
+                <li><strong>Cable USB:</strong> Algunos ESP32 necesitan cable micro-USB, otros USB-C</li>
+                <li><strong>DHT22 vs DHT11:</strong> Preferible DHT22 (mayor precisión, mismo precio)</li>
+                <li><strong>Protoboard:</strong> Mínimo 400 puntos, preferible 800+ puntos</li>
+                <li><strong>Emulador + Kit físico:</strong> Ideal: practicar en Wokwi, luego probar en hardware real</li>
+            </ul>
+        </div>
+
+        <!-- Preguntas Frecuentes -->
+        <div class="card">
+            <h2>❓ Preguntas Frecuentes</h2>
+            <table class="kit-table">
+                <tr>
+                    <td><strong>¿Puedo usar Arduino UNO en lugar de ESP32?</strong></td>
+                    <td>No, el curso requiere ESP32 por WiFi (Arduino UNO no tiene WiFi)</td>
+                </tr>
+                <tr>
+                    <td><strong>¿Es obligatorio comprar el kit?</strong></td>
+                    <td>Puedes usar Wokwi gratis, pero para proyectos finales necesitarás hardware</td>
+                </tr>
+                <tr>
+                    <td><strong>¿Hay préstamo de equipos en la universidad?</strong></td>
+                    <td>Consultar con el docente - limitado y solo para laboratorios presenciales</td>
+                </tr>
+                <tr>
+                    <td><strong>¿Cuánto tiempo tengo para comprar?</strong></td>
+                    <td>Antes del lunes 16 de febrero (Sesión 2)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="alert" style="background: #ecfdf5; border-left-color: #10b981;">
+            <strong style="color: #065f46;">✅ ¡No te preocupes si no tienes experiencia!</strong>
+            Empezaremos desde cero. Lo único que necesitas es el kit (físico o Wokwi) y ganas de aprender.
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border);">
+            <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
+            <p>Universidad Autónoma Latinoamericana (UNAULA) · 2026-I</p>
+            <p style="margin-top: 10px;">
+                <strong>Docente:</strong> [Nombre del Docente] |
+                <strong>Email:</strong> [email@unaula.edu.co]
+            </p>
+        </div>
+
+        <!-- Navegación entre clases -->
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>
+                <a href="clase-02.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Clase Anterior
+                </a>
+                <a href="clase-03.html" class="class-nav-btn">
+                    Clase Siguiente <span class="arrow">→</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
+

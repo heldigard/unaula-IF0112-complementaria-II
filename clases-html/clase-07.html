@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 7: Conectividad WiFi - ESP32</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 7: Conectividad WiFi</h1>
+            <p class="subtitle">ESP32 como Dispositivo Conectado</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 16-mar-2026 (E3: Software IoT)</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#modos">Modos WiFi</a></li>
+                <li><a href="#conexion">Conexión</a></li>
+                <li><a href="#servidor">Servidor Web</a></li>
+                <li><a href="#nube">ThingSpeak</a></li>
+                <li><a href="#e3">E3 Software IoT</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop">↑</button>
+
+        <main>
+            <section class="info-box warning">
+                <h3>📝 E3 SOFTWARE IoT (20%)</h3>
+                <p><strong>Fecha:</strong> Lunes 16 de Marzo 2026</p>
+                <p><strong>Tema:</strong> Conectividad WiFi y envío de datos a la Nube</p>
+                <p><a href="../evaluaciones/guia-E3.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Software E3 →</a></p>
+                <p><strong>Resultado de Aprendizaje:</strong> Comprender la interacción de los dispositivos IoT a través de las redes e Internet</p>
+            </section>
+
+            <section id="agenda-120" class="info-box">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos</li>
+                    <li><strong>10-40 min:</strong> Modos WiFi y conexión (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Servidor web básico (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> ThingSpeak y nube (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Repaso E3 y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <ul>
+                    <li><strong>Conectar</strong> ESP32 a red WiFi existente (modo STA)</li>
+                    <li><strong>Crear</strong> punto de acceso con ESP32 (modo AP)</li>
+                    <li><strong>Desarrollar</strong> servidor web básico</li>
+                    <li><strong>Enviar</strong> datos a <abbr title="Plataforma IoT Cloud">ThingSpeak</abbr></li>
+                    <li><strong>Implementar</strong> reconexión automática</li>
+                </ul>
+            </section>
+
+            <section id="modos">
+                <h2>Modos de Operación WiFi</h2>
+
+                <table>
+                    <tr><th>Modo</th><th>Descripción</th><th>Uso</th></tr>
+                    <tr><td><strong>STA</strong> (Station)</td><td>Se conecta a red existente</td><td>Conectar a router/internet</td></tr>
+                    <tr><td><strong>AP</strong> (Access Point)</td><td>Crea su propia red</td><td>Configuración inicial</td></tr>
+                    <tr><td><strong>STA+AP</strong></td><td>Ambos simultáneamente</td><td>Configuración avanzada</td></tr>
+                </table>
+
+                <pre><code>WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>);      // Modo estación
+WiFi.mode(<abbr title="Access Point Mode">WIFI_AP</abbr>);       // Modo access point
+WiFi.mode(<abbr title="Dual Mode">WIFI_AP_STA</abbr>);   // Modo dual</code></pre>
+            </section>
+
+            <section id="conexion">
+                <h2>Conexión WiFi (Modo STA)</h2>
+
+                <h3>Código Básico</h3>
+                <pre><code>#include &lt;WiFi.h&gt;
+
+const char* ssid = "NombreDeTuRed";
+const char* password = "Contrasena";
+
+void setup() {
+    Serial.begin(115200);
+    WiFi.begin(ssid, password);
+    
+    Serial.print("Conectando");
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    
+    Serial.println("\nConectado!");
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
+}
+
+void loop() {}</code></pre>
+
+                <h3>Estados WiFi</h3>
+                <table>
+                    <tr><th>Estado</th><th>Significado</th></tr>
+                    <tr><td><code>WL_CONNECTED</code></td><td>Conectado</td></tr>
+                    <tr><td><code>WL_NO_SSID_AVAIL</code></td><td>Red no encontrada</td></tr>
+                    <tr><td><code>WL_CONNECT_FAILED</code></td><td>Contraseña incorrecta</td></tr>
+                </table>
+
+                <h3>Información de Red</h3>
+                <table>
+                    <tr><th>Función</th><th>Retorna</th></tr>
+                    <tr><td><code>WiFi.localIP()</code></td><td>IP local</td></tr>
+                    <tr><td><code>WiFi.RSSI()</code></td><td>Intensidad señal (<abbr title="Decibel-milliwatts: Unidad de potencia de señal">dBm</abbr>)</td></tr>
+                    <tr><td><code>WiFi.macAddress()</code></td><td>Dirección <abbr title="Media Access Control: Identificador único de hardware de red">MAC</abbr></td></tr>
+                </table>
+            </section>
+
+            <section id="servidor">
+                <h2>Servidor Web en ESP32</h2>
+
+                <h3>Código Básico</h3>
+                <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+const char* ssid = "TU_RED";
+const char* password = "TU_PASS";
+
+WebServer server(80);  // Puerto 80 (HTTP)
+
+void handleRoot() {
+    String html = "<html><body>";
+    html += "<h1>Hola desde ESP32!</h1>";
+    html += "<p>Temperatura: 25°C</p>";
+    html += "</body></html>";
+    server.send(200, "text/html", html);
+}
+
+void setup() {
+    Serial.begin(115200);
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) delay(500);
+    
+    Serial.println(WiFi.localIP());
+    
+    server.on("/", handleRoot);
+    server.begin();
+}
+
+void loop() {
+    server.handleClient();
+}</code></pre>
+
+                <div class="highlight">
+                    <strong>Acceder:</strong> En navegador, ir a la IP mostrada en el Serial Monitor (ej: 192.168.1.100)
+                </div>
+            </section>
+
+            <section id="nube">
+                <h2>ThingSpeak: Plataforma IoT Gratuita</h2>
+
+                <h3>¿Qué es ThingSpeak?</h3>
+                <ul>
+                    <li>Almacenar datos de sensores en la nube</li>
+                    <li>Visualizar en gráficos automáticos</li>
+                    <li>API simple basada en HTTP</li>
+                    <li>Gratuito (con limitaciones)</li>
+                </ul>
+
+                <h3>Configuración</h3>
+                <ol>
+                    <li>Crear cuenta en thingspeak.com</li>
+                    <li>Crear nuevo "Channel"</li>
+                    <li>Configurar Field 1: Temperatura, Field 2: Humedad</li>
+                    <li>Obtener Write API Key</li>
+                </ol>
+
+                <h3>Código para ThingSpeak</h3>
+                <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;HTTPClient.h&gt;
+
+const char* apiKey = "TU_API_KEY";
+
+void enviarAThingSpeak(float temp, float hum) {
+    if (WiFi.status() != WL_CONNECTED) return;
+    
+    HTTPClient http;
+    String url = "http://api.thingspeak.com/update?api_key=";
+    url += apiKey;
+    url += "&field1=" + String(temp);
+    url += "&field2=" + String(hum);
+    
+    http.begin(url);
+    int httpCode = http.GET();
+    
+    if (httpCode == 200) {
+        Serial.println("Datos enviados!");
+    }
+    http.end();
+}
+
+// En loop(), llamar cada 15 segundos mínimo:
+// enviarAThingSpeak(temperatura, humedad);</code></pre>
+
+                <div class="note">
+                    <strong>Límite:</strong> Cuenta gratuita permite enviar datos cada 15 segundos.
+                </div>
+            </section>
+
+            <section id="e3">
+                <h2>Preparación E3 - Software IoT</h2>
+
+                <div class="info-box info">
+                    <h4>📝 Guía de Entrega</h4>
+                    <p>La evaluación consiste en el desarrollo del **Firmware de Conectividad** del SMAI. Consulta la <strong><a href="../evaluaciones/guia-E3.html">Guía Detallada E3</a></strong> para conocer los requisitos técnicos y entregables.</p>
+                </div>
+
+                <div class="actividad">
+                    <h4>Requisitos Técnicos</h4>
+                    <ul>
+                        <li><strong>Conectividad:</strong> Uso de WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>)</li>
+                        <li><strong>Protocolo:</strong> Implementación de HTTP GET para ThingSpeak</li>
+                        <li><strong>Dashboard:</strong> Canal de ThingSpeak configurado con al menos 3 campos</li>
+                        <li><strong>Código:</strong> Estructurado, con comentarios y manejo de reconexión</li>
+                    </ul>
+                </div>
+            </section>
+
+                <h3>Tipo de Preguntas</h3>
+                <ul>
+                    <li>Conceptos teóricos (definiciones, diferencias)</li>
+                    <li>Análisis de casos (aplicar conocimiento)</li>
+                    <li>Identificación de tecnologías</li>
+                    <li>Diagramas de arquitectura</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>Después de E3:</strong> Receso por Semana Santa. No hay clase el 30-mar. Retomamos el 06-abr.
+                </div>
+            </section>
+
+            <!-- Ejercicio del Simulador Propuesto -->
+            <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
+                <p>Este ejercicio complementa los conceptos de servidor web vistos en esta clase:</p>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">🌐 Ejercicio 14: Web Server ESP32</h4>
+                    <p><strong>Concepto:</strong> Servidor web embebido, control remoto por HTTP</p>
+                    <p><strong>Tiempo:</strong> 35 min | <strong>Dificultad:</strong> 🔴 Avanzado</p>
+                    <p><strong>Objetivo:</strong> Crear un servidor web en el ESP32 que permita controlar un LED desde el navegador.</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-14-web-server.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                </div>
+
+                <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                    <strong>💡 Conexión con la clase:</strong> El ejercicio implementa un servidor web básico que puedes controlar desde un navegador, aplicando los conceptos de modos WiFi y HTTP.
+                </div>
+            </div>
+
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong>Modos WiFi:</strong> <abbr title="Station Mode: El ESP32 se conecta a un router como cliente">STA</abbr>, <abbr title="Access Point Mode: El ESP32 crea su propia red inalámbrica">AP</abbr></li>
+                    <li><strong>Conexión:</strong> WiFi.begin(), verificar WiFi.status()</li>
+                    <li><strong>Servidor Web:</strong> WebServer, definir rutas, handleClient()</li>
+                    <li><strong><abbr title="Plataforma IoT Cloud de MathWorks">ThingSpeak</abbr>:</strong> Enviar datos vía <abbr title="Hypertext Transfer Protocol">HTTP</abbr> GET</li>
+                    <li><strong>E3:</strong> Entrega de Software IoT el lunes 16-mar</li>
+                </ul>
+                
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Protocolos IoT (Después del Receso)</h4>
+                    <p><abbr title="Message Queuing Telemetry Transport: Protocolo de mensajería ligero para IoT">MQTT</abbr>, <abbr title="Hypertext Transfer Protocol: Protocolo base de la Web">HTTP</abbr>, comparación de protocolos</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">🏠 Índice</a>
+                <a href="clase-06.html" class="class-nav-btn">← Anterior<br><small style="font-size:0.75em;opacity:0.8;">09-mar</small></a>
+                <a href="clase-08.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">06-abr →</small></a>
+            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 7 - 16-mar-2026 (E3)</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const backToTop = document.getElementById('backToTop');
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        })();
+    </script>
+</body>
+</html>

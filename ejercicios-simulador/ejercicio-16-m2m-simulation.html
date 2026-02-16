@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 16: M2M Simulation | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .tip { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.75rem; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f1f5f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤝 Ejercicio 16: M2M Simulation</h1>
+            <p>⏱️ 30 min | 📦 ESP32 + 2 LEDs | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Simular comunicación Machine-to-Machine (M2M) donde un dispositivo (sensor) envía datos a otro dispositivo (actuador) de forma autónoma, sin intervención humana.</p>
+            <div class="tip">
+                <strong>💡 Contexto:</strong> M2M es la base del IoT industrial. Permite que máquinas se comuniquen directamente: un sensor de temperatura puede activar un ventilador automáticamente.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Tipos de Comunicación IoT</h2>
+            <table>
+                <tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr>
+                <tr><td><strong>M2M</strong></td><td>Máquina a Máquina</td><td>Sensor → Actuador</td></tr>
+                <tr><td><strong>M2P</strong></td><td>Máquina a Persona</td><td>Alerta → Smartphone</td></tr>
+                <tr><td><strong>P2M</strong></td><td>Persona a Máquina</td><td>App → Encender luz</td></tr>
+                <tr><td><strong>P2P</strong></td><td>Persona a Persona (vía IoT)</td><td>Compartir datos de salud</td></tr>
+            </table>
+
+            <p>En este ejercicio simulamos <strong>M2M</strong>: un módulo sensor detecta luz y envía comandos a un módulo actuador que controla un LED.</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+            <h3>Componentes:</h3>
+            <ul>
+                <li>1 x ESP32 DevKit V1</li>
+                <li>1 x LDR (fotorresistencia) + Resistencia 10kΩ</li>
+                <li>2 x LEDs (uno representa "sensor", otro "actuador")</li>
+                <li>2 x Resistencias 220Ω</li>
+            </ul>
+
+            <h3>Conexiones:</h3>
+            <pre style="background: #f0f9ff; padding: 1rem; border-radius: 8px;">
+LDR (Sensor):
+  Un lado → 3.3V
+  Otro lado → GPIO34 + Resistencia 10kΩ
+  Resistencia 10kΩ → GND
+
+LED Sensor (indicador de estado):
+  GPIO2 → 220Ω → LED → GND
+
+LED Actuador (responde a comandos):
+  GPIO18 → 220Ω → LED → GND
+            </pre>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código: Simulación M2M</h2>
+            <pre><code>// Ejercicio 16: M2M Simulation - Comunicación Machine-to-Machine
+// Simula dos módulos comunicándose: SENSOR → ACTUADOR
+
+const int ldrPin = 34;
+const int ledSensorPin = 2;   // LED del módulo sensor
+const int ledActuadorPin = 18; // LED del módulo actuador
+
+// Simulación de cola de mensajes M2M
+#define MAX_MESSAGES 5
+String messageQueue[MAX_MESSAGES];
+int queueHead = 0;
+int queueTail = 0;
+
+// Umbrales
+const int UMBRAL_OSCURO = 30;   // % luz para considerar oscuro
+const int UMBRAL_BRILLANTE = 70; // % luz para considerar brillante
+
+// Estados
+enum EstadoLuz { DESCONOCIDO, OSCURO, NORMAL, BRILLANTE };
+EstadoLuz estadoActual = DESCONOCIDO;
+EstadoLuz estadoAnterior = DESCONOCIDO;
+
+unsigned long ultimoMensaje = 0;
+const long INTERVALO_MENSAJE = 2000; // 2 segundos
+
+// Función para simular envío de mensaje M2M
+void enviarMensajeM2M(String mensaje) {
+  if ((queueTail + 1) % MAX_MESSAGES != queueHead) {
+    messageQueue[queueTail] = mensaje;
+    queueTail = (queueTail + 1) % MAX_MESSAGES;
+    Serial.print("📤 M2M TX: ");
+    Serial.println(mensaje);
+  }
+}
+
+// Función para simular recepción de mensaje M2M
+String recibirMensajeM2M() {
+  if (queueHead != queueTail) {
+    String mensaje = messageQueue[queueHead];
+    queueHead = (queueHead + 1) % MAX_MESSAGES;
+    return mensaje;
+  }
+  return "";
+}
+
+// Función del Módulo Sensor
+void moduloSensor() {
+  int lectura = analogRead(ldrPin);
+  int lux = map(lectura, 0, 4095, 0, 100);
+
+  // Determinar estado
+  EstadoLuz nuevoEstado;
+  if (lux < UMBRAL_OSCURO) {
+    nuevoEstado = OSCURO;
+    digitalWrite(ledSensorPin, HIGH);  // LED sensor on = oscuro
+  } else if (lux > UMBRAL_BRILLANTE) {
+    nuevoEstado = BRILLANTE;
+    digitalWrite(ledSensorPin, LOW);
+  } else {
+    nuevoEstado = NORMAL;
+    digitalWrite(ledSensorPin, LOW);
+  }
+
+  // Si cambió el estado, enviar mensaje M2M
+  if (nuevoEstado != estadoAnterior) {
+    String mensaje = "";
+    switch (nuevoEstado) {
+      case OSCURO:
+        mensaje = "CMD:LED_ON|RZN:LOW_LIGHT";
+        break;
+      case BRILLANTE:
+        mensaje = "CMD:LED_OFF|RZN:HIGH_LIGHT";
+        break;
+      case NORMAL:
+        mensaje = "CMD:LED_OFF|RZN:NORMAL";
+        break;
+    }
+    enviarMensajeM2M(mensaje);
+    estadoAnterior = nuevoEstado;
+  }
+
+  estadoActual = nuevoEstado;
+}
+
+// Función del Módulo Actuador
+void moduloActuador() {
+  String mensaje = recibirMensajeM2M();
+
+  if (mensaje != "") {
+    Serial.print("📥 M2M RX: ");
+    Serial.println(mensaje);
+
+    // Parsear comando M2M
+    if (mensaje.indexOf("CMD:LED_ON") >= 0) {
+      digitalWrite(ledActuadorPin, HIGH);
+      Serial.println("💡 ACTUADOR: LED encendido (comando M2M)");
+    }
+    else if (mensaje.indexOf("CMD:LED_OFF") >= 0) {
+      digitalWrite(ledActuadorPin, LOW);
+      Serial.println("💡 ACTUADOR: LED apagado (comando M2M)");
+    }
+  }
+}
+
+void setup() {
+  pinMode(ledSensorPin, OUTPUT);
+  pinMode(ledActuadorPin, OUTPUT);
+  Serial.begin(115200);
+
+  Serial.println("=== M2M Simulation ===");
+  Serial.println("Módulo 1: SENSOR (LDR + LED indicador)");
+  Serial.println("Módulo 2: ACTUADOR (LED controlado)");
+  Serial.println("----------------------------------------");
+}
+
+void loop() {
+  // Ejecutar módulos (simulan dispositivos separados)
+  moduloSensor();
+  moduloActuador();
+
+  // Status periódico
+  if (millis() - ultimoMensaje > INTERVALO_MENSAJE) {
+    Serial.print("📊 Estado: ");
+    switch (estadoActual) {
+      case OSCURO: Serial.print("🌙 OSCURO"); break;
+      case NORMAL: Serial.print("🌤️ NORMAL"); break;
+      case BRILLANTE: Serial.print("☀️ BRILLANTE"); break;
+      default: Serial.print("❓ DESCONOCIDO");
+    }
+    Serial.println(" | M2M activo");
+    ultimoMensaje = millis();
+  }
+
+  delay(100);
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Cómo Funciona la Simulación</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px;">
+                    <h4 style="margin-top: 0;">📡 Módulo Sensor</h4>
+                    <ul style="margin: 0;">
+                        <li>Lee LDR continuamente</li>
+                        <li>Detecta cambios de luz</li>
+                        <li>Envía comandos M2M</li>
+                        <li>LED indica estado local</li>
+                    </ul>
+                </div>
+                <div style="background: #dbeafe; padding: 15px; border-radius: 8px;">
+                    <h4 style="margin-top: 0;">💡 Módulo Actuador</h4>
+                    <ul style="margin: 0;">
+                        <li>Recibe mensajes M2M</li>
+                        <li>Parsea comandos</li>
+                        <li>Ejecuta acciones</li>
+                        <li>LED responde a comandos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning" style="margin-top: 20px;">
+                <strong>💡 Observa:</strong> Ambos "módulos" se ejecutan en el mismo ESP32, pero la arquitectura simula dos dispositivos separados comunicándose por una cola de mensajes. En un caso real, serían dos ESP32 diferentes conectados por WiFi, MQTT o Serial.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación</li>
+                <li>Tapa el LDR (simula oscuridad)</li>
+                <li>Observa el Monitor Serial mostrando mensajes M2M</li>
+                <li>Verifica que el LED actuador responde a los comandos</li>
+                <li>Toma pantallazo del Monitor Serial con mensajes M2M</li>
+                <li>Sube a Canvas</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Retos Adicionales</h2>
+            <ul>
+                <li>Agrega un tercer "módulo" que registre logs de todos los mensajes</li>
+                <li>Implementa acknowledgment (ACK) para confirmar recepción</li>
+                <li>Simula una alarma que se activa después de 3 lecturas de oscuridad</li>
+            </ul>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-15-edge-computing.html">← Ejercicio 15</a>
+            <a href="ejercicio-01-led-blink.html">Volver al inicio →</a>
+        </nav>
+    </div>
+</body>
+</html>

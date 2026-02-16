@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 2: Personas, Procesos, Datos y Cosas - IF0112 Complementaria II (IoT)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sesión 2: Personas, Procesos, Datos y Cosas</h1>
+            <p class="subtitle">Los Cuatro Pilares del Internet de las Cosas</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 09-feb-2026</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#pilares">Los 4 Pilares</a></li>
+                <li><a href="#dikw">Modelo DIKW</a></li>
+                <li><a href="#interacciones">Interacciones</a></li>
+                <li><a href="#seguridad">Seguridad</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+            </ul>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </nav>
+
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+            <section id="agenda-120" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+                    <li><strong>10-40 min:</strong> Los 4 pilares <abbr title="Internet of Things">IoT</abbr> (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de smartwatch con <abbr title="Personas-Procesos-Datos-Cosas">P-P-D-C</abbr> (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Modelo <abbr title="Data-Information-Knowledge-Wisdom">DIKW</abbr> + Interacciones (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Mapeo de interacciones del proyecto (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <p>Al finalizar esta sesión, podrás:</p>
+                <ul>
+                    <li><strong>Identificar</strong> los 4 pilares de <abbr title="Internet of Things">IoT</abbr> (Personas, Procesos, Datos, Cosas)</li>
+                    <li><strong>Explicar</strong> las interacciones entre pilares (P2M, M2M, M2P)</li>
+                    <li><strong>Aplicar</strong> el modelo <abbr title="Data-Information-Knowledge-Wisdom">DIKW</abbr> para transformar datos en valor</li>
+                    <li><strong>Conocer</strong> la importancia de la seguridad en sistemas conectados</li>
+                </ul>
+            </section>
+
+            <section id="pilares">
+                <h2>Modelo de los Cuatro Pilares</h2>
+                
+                <div class="intro-box">
+                    Los cuatro pilares son los componentes esenciales de cualquier solución IoT. Cada pilar se conecta con los demás para crear valor.
+                </div>
+
+                <div class="grid-2">
+                    <div class="card" style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px;">
+                        <h3>👤 PERSONAS</h3>
+                        <p><strong>Deciden y operan</strong></p>
+                        <p style="font-size: 0.9em;">Usuarios, operadores, tomadores de decisiones</p>
+                    </div>
+                    <div class="card" style="background: #fef3c7; border: 1px solid #fde68a; padding: 20px; border-radius: 8px;">
+                        <h3>⚙️ PROCESOS</h3>
+                        <p><strong>Automatizan</strong></p>
+                        <p style="font-size: 0.9em;">Reglas, flujos, IF-THEN</p>
+                    </div>
+                    <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 20px; border-radius: 8px;">
+                        <h3>📊 DATOS</h3>
+                        <p><strong>Alimentan e informan</strong></p>
+                        <p style="font-size: 0.9em;">Información capturada y procesada</p>
+                    </div>
+                    <div class="card" style="background: #fdf2f8; border: 1px solid #fbcfe8; padding: 20px; border-radius: 8px;">
+                        <h3>📱 COSAS</h3>
+                        <p><strong>Capturan y actúan</strong></p>
+                        <p style="font-size: 0.9em;">Sensores y actuadores físicos</p>
+                    </div>
+                </div>
+
+                <h3>Ejemplo: Smart Home</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pilar</th>
+                            <th>Elemento</th>
+                            <th>Función</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>👤 Personas</td>
+                            <td>Dueño de casa</td>
+                            <td>Configura horario de luces</td>
+                        </tr>
+                        <tr>
+                            <td>⚙️ Procesos</td>
+                            <td>IF temp{'>'}30°C THEN encender AC</td>
+                            <td>Automatización</td>
+                        </tr>
+                        <tr>
+                            <td>📊 Datos</td>
+                            <td>Temperatura, hora, ocupación</td>
+                            <td>Información para decisiones</td>
+                        </tr>
+                        <tr>
+                            <td>📱 Cosas</td>
+                            <td>Termostato, AC, sensores</td>
+                            <td>Capturan y ejecutan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="dikw">
+                <h2>Flujo de Datos: La Pirámide DIKW</h2>
+                
+                <p>La Pirámide <strong><abbr title="Data-Information-Knowledge-Wisdom: Datos-Información-Conocimiento-Sabiduría">DIKW</abbr></strong> (Data-Information-Knowledge-Wisdom) explica cómo los datos crudos se transforman en valor:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nivel</th>
+                            <th>Definición</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🔢 <strong>Datos</strong></td>
+                            <td>Hechos brutos sin procesar</td>
+                            <td>"32, 31, 33, 32..." (números del sensor)</td>
+                        </tr>
+                        <tr>
+                            <td>📋 <strong>Información</strong></td>
+                            <td>Datos con contexto</td>
+                            <td>"32°C es alta → encender A/C"</td>
+                        </tr>
+                        <tr>
+                            <td>📚 <strong>Conocimiento</strong></td>
+                            <td>Patrones y relaciones</td>
+                            <td>"La temperatura sube entre 2-6 PM"</td>
+                        </tr>
+                        <tr>
+                            <td>🧠 <strong>Sabiduría</strong></td>
+                            <td>Decisiones óptimas</td>
+                            <td>"Optimizar riego según patrones de 10 años"</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>💡 Clave:</strong> Los datos sin procesar no tienen valor. El valor se crea al transformarlos en información, conocimiento y finalmente sabiduría para tomar mejores decisiones.
+                </div>
+            </section>
+
+            <section id="interacciones">
+                <h2>Interacciones entre Pilares</h2>
+
+                <h3>Tipos de Comunicación</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>P2M</strong><br>(Persona → Máquina)</td>
+                            <td>Humano controla dispositivo</td>
+                            <td>App móvil enciende luz</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2M</strong><br>(Máquina → Máquina)</td>
+                            <td>Dispositivos se comunican</td>
+                            <td>Sensor temp → A/C enfría</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M2P</strong><br>(Máquina → Persona)</td>
+                            <td>Dispositivo notifica humano</td>
+                            <td>Alerta "puerta abierta"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="seguridad">
+                <h2>Seguridad en IoT: Conceptos Básicos</h2>
+
+                <h3>¿Por qué es importante?</h3>
+                <p>Los dispositivos IoT están expuestos a riesgos únicos porque:</p>
+                <ul>
+                    <li>Conectan el mundo físico con el digital</li>
+                    <li>Generan datos sensibles (ubicación, hábitos, salud)</li>
+                    <li>A menudo tienen recursos limitados de procesamiento</li>
+                </ul>
+
+                <h3>Principios Fundamentales</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Principio</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Confidencialidad</strong></td>
+                            <td>Solo autorizados acceden a datos</td>
+                            <td>Encriptar comunicación WiFi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integridad</strong></td>
+                            <td>Datos no modificados sin autorización</td>
+                            <td>Firmas digitales en sensores</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disponibilidad</strong></td>
+                            <td>Sistema accesible cuando se necesita</td>
+                            <td>Redundancia en servidores</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="intro-box">
+                    <strong>💡 Recuerda:</strong> El marco legal regulatorio (Ley 1581, derechos ARCO) se tratará en la Unidad 2, específicamente en la evaluación E5 sobre normatividad.
+                </div>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios de Aplicación</h2>
+
+                <div class="actividad" style="background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <h4>🎨 Diseña tu Solución IoT</h4>
+                    <p><strong>Tipo:</strong> Ejercicio práctico en sesión</p>
+                    <p><strong>Duración:</strong> 20 minutos</p>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol>
+                        <li>Elige un escenario: estacionamiento inteligente, biblioteca con aforo, o riego automático</li>
+                        <li>Identifica los 4 pilares para tu solución</li>
+                        <li>Define 2 procesos IF-THEN</li>
+                        <li>Identifica qué datos recolectarías</li>
+                    </ol>
+                </div>
+
+                <h3>Ejercicios del Simulador</h3>
+                <p>Para practicar antes del Laboratorio 1, puedes completar los ejercicios en el simulador Wokwi:</p>
+                <ul>
+                    <li><a href="../ejercicios-simulador/ejercicio-01-led-blink.html">Ejercicio 1: LED Parpadeante</a></li>
+                    <li><a href="../ejercicios-simulador/ejercicio-02-led-serial.html">Ejercicio 2: LED + Monitor Serial</a></li>
+                    <li><a href="../ejercicios-simulador/ejercicio-03-multiple-leds.html">Ejercicio 3: Múltiples LEDs</a></li>
+                </ul>
+                
+                <h3>Preparación para Laboratorio 1</h3>
+                <ul>
+                    <li>✅ Instalar Arduino IDE 2.0</li>
+                    <li>✅ Configurar placa ESP32</li>
+                    <li>✅ Traer kit de materiales completo</li>
+                    <li>✅ Revisar datasheet del ESP32</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong>4 Pilares:</strong> Personas, Procesos, Datos, Cosas</li>
+                    <li><strong><abbr title="Data-Information-Knowledge-Wisdom">DIKW</abbr>:</strong> Datos → Información → Conocimiento → Sabiduría</li>
+                    <li><strong>Interacciones:</strong> P2M, M2M, M2P</li>
+                    <li><strong>Seguridad:</strong> Encriptación, autenticación, autorización</li>
+                    <li><strong>Marco Legal:</strong> Normatividad de protección de datos (Unidad 2)</li>
+                </ul>
+                
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Transformación del Entorno</h4>
+                    <p>Smart Cities, Empresas Inteligentes y casos de estudio</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn"><span class="arrow">🏠</span> Índice</a>
+                <a href="clase-01.html" class="class-nav-btn"><span class="arrow">←</span> Anterior<br><small style="font-size:0.75em;opacity:0.8;">02-feb</small></a>
+                <a href="clase-03.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">16-feb →</small> <span class="arrow">→</span></a>
+            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 2 - 09-feb-2026</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const backToTop = document.getElementById('backToTop');
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        })();
+    </script>
+</body>
+</html>

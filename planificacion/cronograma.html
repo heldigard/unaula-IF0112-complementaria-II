@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronograma - IF0112 Complementaria II (IoT)</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #1f2933;
+      --muted: #52606d;
+      --brand: #1e3a8a;
+      --accent: #3b82f6;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --iot-green: #10b981;
+      --iot-orange: #f59e0b;
+      --iot-red: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    header {
+      background: linear-gradient(135deg, #0b2d6b, #1e40af);
+      color: #fff;
+      padding: 32px 20px;
+    }
+    header h1 { margin: 0 0 8px; font-size: 2rem; }
+    header p { margin: 0; opacity: 0.9; }
+    main { max-width: 1100px; margin: 24px auto; padding: 0 20px; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    h2 { margin-top: 0; color: var(--brand); border-bottom: 3px solid var(--accent); padding-bottom: 8px; }
+    h3 { color: var(--brand); margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+    th { background: #f1f5f9; }
+    .eval-e1 { background: #dbeafe; border-left: 4px solid #3b82f6; }
+    .eval-e2 { background: #dcfce7; border-left: 4px solid #22c55e; }
+    .eval-e3 { background: #fee2e2; border-left: 4px solid #ef4444; }
+    .eval-e4 { background: #fef3c7; border-left: 4px solid #f59e0b; }
+    .eval-e5 { background: #f3e8ff; border-left: 4px solid #a855f7; }
+    .eval-e6 { background: #fce7f3; border-left: 4px solid #ec4899; }
+    .festivo { background: #f1f5f9; color: var(--muted); font-style: italic; }
+    .receso { background: #fff7ed; color: #9a3412; font-style: italic; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .badge-eval { background: var(--brand); color: #fff; }
+    .badge-lab { background: var(--iot-green); color: #fff; }
+    .note { background: #f0f4ff; border-left: 4px solid var(--accent); padding: 12px; border-radius: 8px; margin: 16px 0; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .summary-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+    .summary-card h3 { margin-top: 0; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+    .nav-links a {
+      background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 8px;
+      text-decoration: none; font-weight: 500;
+    }
+    .nav-links a:hover { background: var(--brand); }
+    footer { text-align: center; padding: 24px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cronograma del Curso</h1>
+    <p>IF0112 - Complementaria II (Internet de las Cosas) | 2026-I | Lunes 06:00-08:00</p>
+  </header>
+
+  <main>
+    <!-- Navegación -->
+    <nav class="nav-links">
+      <a href="../clases-html/index.html">🏠 Inicio Clases</a>
+      <a href="../admin/concertacion.html">📋 Concertación</a>
+      <a href="syllabus.html">📚 Syllabus</a>
+      <a href="../evaluaciones/index.html">📊 Evaluaciones</a>
+      <a href="../evaluaciones/rubricas-evaluacion.html">📋 Rúbricas</a>
+      <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
+    </nav>
+
+    <!-- Información General -->
+    <section>
+      <h2>📋 Información General</h2>
+      <table>
+        <tr><th>Campo</th><th>Valor</th></tr>
+        <tr><td><strong>Curso</strong></td><td>IF0112 - Complementaria II (Internet de las Cosas)</td></tr>
+        <tr><td><strong>Pensum</strong></td><td>302 Pensum 2023-2</td></tr>
+        <tr><td><strong>Créditos</strong></td><td>2 (32 horas presenciales)</td></tr>
+        <tr><td><strong>Semestre</strong></td><td>2026-I</td></tr>
+        <tr><td><strong>Horario</strong></td><td><strong>Lunes 06:00-08:00</strong> (2 horas)</td></tr>
+        <tr><td><strong>Aula</strong></td><td>01SC5</td></tr>
+        <tr><td><strong>Total Clases</strong></td><td>14 lunes × 2 horas = 28 horas (4h compensadas con trabajo autónomo)</td></tr>
+        <tr><td><strong>Prerrequisito</strong></td><td>IF0103 Complementaria I</td></tr>
+      </table>
+    </section>
+
+    <!-- Resumen de Evaluaciones -->
+    <section>
+      <h2>📅 Resumen de Evaluaciones</h2>
+      <div class="grid-2">
+        <div class="summary-card eval-e1">
+          <h3>E1 - Investigación (15%)</h3>
+          <p><strong>Fecha:</strong> 23 de febrero de 2026</p>
+          <p><strong>Tipo:</strong> Investigación Técnica</p>
+          <p><strong>Actividad:</strong> Arquitectura y Diseño SMAI</p>
+          <p><a href="../evaluaciones/guia-E1.html">Ver Guía de Entrega E1 →</a></p>
+        </div>
+        <div class="summary-card eval-e2">
+          <h3>E2 - Prototipo (15%)</h3>
+          <p><strong>Fecha:</strong> 9 de marzo de 2026</p>
+          <p><strong>Tipo:</strong> Prototipo con Demo</p>
+          <p><strong>Actividad:</strong> Interacción mundo físico-virtual</p>
+          <p><a href="../evaluaciones/guia-E2.html">Ver Guía de Entrega E2 →</a></p>
+        </div>
+        <div class="summary-card eval-e3">
+          <h3>E3 - Software (20%)</h3>
+          <p><strong>Fecha:</strong> 16 de marzo de 2026</p>
+          <p><strong>Tipo:</strong> Desarrollo de Software</p>
+          <p><strong>Actividad:</strong> Conectividad Cloud (WiFi/MQTT)</p>
+          <p><a href="../evaluaciones/guia-E3.html">Ver Guía de Entrega E3 →</a></p>
+        </div>
+        <div class="summary-card eval-e4">
+          <h3>E4 - Informe (15%)</h3>
+          <p><strong>Fecha:</strong> 20 de abril de 2026</p>
+          <p><strong>Tipo:</strong> Informe de Gestión</p>
+          <p><strong>Actividad:</strong> Lógica de Control y Automatización</p>
+          <p><a href="../evaluaciones/guia-E4.html">Ver Guía de Entrega E4 →</a></p>
+        </div>
+        <div class="summary-card eval-e5">
+          <h3>E5 - Escrito (15%)</h3>
+          <p><strong>Fecha:</strong> 4 de mayo de 2026</p>
+          <p><strong>Tipo:</strong> Trabajo Escrito Normativo</p>
+          <p><strong>Actividad:</strong> Marco legal y Estándares IoT</p>
+          <p><a href="../evaluaciones/guia-E5.html">Ver Guía de Entrega E5 →</a></p>
+        </div>
+        <div class="summary-card eval-e6">
+          <h3>E6 - Proyecto (20%)</h3>
+          <p><strong>Fecha:</strong> 25 de mayo de 2026</p>
+          <p><strong>Tipo:</strong> Proyecto Final</p>
+          <p><strong>Actividad:</strong> Sustentación Producto SMAI</p>
+          <p><a href="../evaluaciones/guia-E6.html">Ver Guía de Entrega E6 →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendario Completo -->
+    <section>
+      <h2>📆 Calendario Completo de Clases</h2>
+      <p><strong>Todas las clases:</strong> Lunes 06:00-08:00</p>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Unidad</th>
+            <th>Tema Principal</th>
+            <th>Evaluación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>02-feb-2026</td>
+            <td>U1</td>
+            <td>Evolución de Internet hacia IoT</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>09-feb-2026</td>
+            <td>U1</td>
+            <td>Personas, procesos, datos y cosas</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>16-feb-2026</td>
+            <td>U1</td>
+            <td>Transformación del entorno</td>
+            <td>-</td>
+          </tr>
+          <tr class="eval-e1">
+            <td>4</td>
+            <td>23-feb-2026</td>
+            <td>U1</td>
+            <td>Empresas y ciudades inteligentes</td>
+            <td><span class="badge badge-eval">E1 Investigación (15%)</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>02-mar-2026</td>
+            <td>U1</td>
+            <td>LAN, WAN e Internet</td>
+            <td>-</td>
+          </tr>
+          <tr class="eval-e2">
+            <td>6</td>
+            <td>09-mar-2026</td>
+            <td>U1</td>
+            <td>Predecir el futuro es crearlo</td>
+            <td><span class="badge badge-eval">E2 Prototipo (15%)</span></td>
+          </tr>
+          <tr class="eval-e3">
+            <td>7</td>
+            <td>16-mar-2026</td>
+            <td>U2</td>
+            <td>Interconexión de computadoras</td>
+            <td><span class="badge badge-eval">E3 Software (20%)</span></td>
+          </tr>
+          <tr class="festivo">
+            <td>-</td>
+            <td>23-mar-2026</td>
+            <td colspan="2">🎉 Festivo: San José (Ley Emiliani) - NO HAY CLASE</td>
+            <td>-</td>
+          </tr>
+          <tr class="receso">
+            <td>-</td>
+            <td>30-mar-2026</td>
+            <td colspan="2">✝️ Semana Santa - Receso Académico - NO HAY CLASE</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>06-abr-2026</td>
+            <td>U2</td>
+            <td>Hardware y software IoT</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>13-abr-2026</td>
+            <td>U2</td>
+            <td>Microcontroladores (Arduino, ESP32)</td>
+            <td>-</td>
+          </tr>
+          <tr class="eval-e4">
+            <td>10</td>
+            <td>20-abr-2026</td>
+            <td>U2</td>
+            <td>Sistemas operativos para IoT</td>
+            <td><span class="badge badge-eval">E4 Informe (15%)</span></td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>27-abr-2026</td>
+            <td>U2</td>
+            <td>Conexiones M2M/M2P/P2P + Marco Legal (Ley 1581)</td>
+            <td>-</td>
+          </tr>
+          <tr class="eval-e5">
+            <td>12</td>
+            <td>04-may-2026</td>
+            <td>U2</td>
+            <td>Caso SIATA Smart City</td>
+            <td><span class="badge badge-eval">E5 Escrito (15%)</span></td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>11-may-2026</td>
+            <td>U2</td>
+            <td>El futuro de Internet (5G, AIoT, TinyML)</td>
+            <td>-</td>
+          </tr>
+          <tr class="festivo">
+            <td>-</td>
+            <td>18-may-2026</td>
+            <td colspan="2">🎉 Festivo: Ascensión del Señor - NO HAY CLASE</td>
+            <td>-</td>
+          </tr>
+          <tr class="eval-e6">
+            <td>14</td>
+            <td>25-may-2026</td>
+            <td>U1-U2</td>
+            <td><strong>Integración Final SMAI</strong></td>
+            <td><span class="badge badge-eval">E6 Proyecto (20%)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Seguimientos -->
+    <section>
+      <h2>📊 Seguimientos Universitarios</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Seguimiento</th>
+            <th>Porcentaje</th>
+            <th>Evaluaciones Acumuladas</th>
+            <th>Fecha Límite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Primer Seguimiento</td>
+            <td>50%</td>
+            <td>E1(15%) + E2(15%) + E3(20%)</td>
+            <td>27-mar-2026</td>
+          </tr>
+          <tr>
+            <td>Segundo Seguimiento</td>
+            <td>80%</td>
+            <td>+ E4(15%) + E5(15%)</td>
+            <td>15-may-2026</td>
+          </tr>
+          <tr>
+            <td>Tercer Seguimiento</td>
+            <td>100%</td>
+            <td>+ E6(20%)</td>
+            <td>28-may-2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Distribución por Unidades -->
+    <section>
+      <h2>📚 Distribución de Contenido por Unidad</h2>
+      <div class="grid-2">
+        <div class="summary-card">
+          <h3>Unidad 1: ¿Qué es IoT? (Clases 1-6)</h3>
+          <p><strong>Período:</strong> Feb 02 - Mar 09</p>
+          <ul>
+            <li>La evolución de Internet</li>
+            <li>Personas, procesos, datos y cosas</li>
+            <li>La transformación del entorno</li>
+            <li>Empresas y ciudades inteligentes</li>
+            <li>LAN, WAN e Internet</li>
+            <li>La mejor forma de predecir el futuro es crearlo</li>
+          </ul>
+          <p><strong>Evaluaciones:</strong> E1 (15%), E2 (15%)</p>
+        </div>
+        <div class="summary-card">
+          <h3>Unidad 2: La piedra angular de IoT (Clases 7-14)</h3>
+          <p><strong>Período:</strong> Mar 16 - May 25</p>
+          <ul>
+            <li>Interconexión de computadoras</li>
+            <li>Hardware y software IoT</li>
+            <li>Microcontroladores (Arduino, ESP32)</li>
+            <li>Sistemas operativos para IoT</li>
+            <li>Protocolos (MQTT, HTTP)</li>
+            <li>M2M/M2P/P2P + Marco Legal</li>
+            <li>Caso SIATA</li>
+            <li>El futuro de Internet (5G, AIoT)</li>
+          </ul>
+          <p><strong>Evaluaciones:</strong> E3 (20%), E4 (15%), E5 (15%), E6 (20%)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nota importante -->
+    <div class="note">
+      <strong>📌 Notas Importantes:</strong>
+      <ul>
+        <li><strong>Festivos:</strong> 23-mar (San José), 30-mar (Semana Santa), 18-may (Ascensión)</li>
+        <li><strong>Total clases:</strong> 14 lunes × 2 horas = 28 horas presenciales</li>
+        <li><strong>Horario:</strong> Lunes 06:00-08:00 (Aula 01SC5)</li>
+        <li><strong>4 horas</strong> de déficit se compensan con trabajo autónomo (simulador Wokwi, lecturas, proyecto)</li>
+        <li><strong>Laboratorio:</strong> Acceso a sala con equipos para IoT</li>
+        <li><strong>Material:</strong> Kit de sensores y microcontroladores (préstamo o compra)</li>
+      </ul>
+    </div>
+
+    <!-- Estrategia Pedagógica -->
+    <section>
+      <h2>🎓 Estrategia Pedagógica (2 horas por clase)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tiempo</th>
+            <th>Actividad</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Min 1-30</td>
+            <td><strong>Teoría Fundamental</strong></td>
+            <td>Exposición del docente, conceptos clave, ejemplos del mundo real</td>
+          </tr>
+          <tr>
+            <td>Min 31-60</td>
+            <td><strong>Casos Prácticos</strong></td>
+            <td>Análisis de casos de estudio, demostración de tecnologías, videos</td>
+          </tr>
+          <tr>
+            <td>Min 61-90</td>
+            <td><strong>Trabajo Práctico</strong></td>
+            <td>Laboratorio con hardware IoT, configuración de sensores/actuadores</td>
+          </tr>
+          <tr>
+            <td>Min 91-120</td>
+            <td><strong>Cierre y Asignación</strong></td>
+            <td>Discusión grupal, resolución de dudas, trabajo autónomo</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Tecnologías -->
+    <section>
+      <h2>🛠️ Tecnologías y Herramientas</h2>
+      <div class="grid-2">
+        <div class="summary-card">
+          <h3>Hardware</h3>
+          <ul>
+            <li><strong>Arduino Uno/Nano</strong> (prototipado rápido)</li>
+            <li><strong>ESP32/ESP8266</strong> (WiFi integrado)</li>
+            <li><strong>Sensores:</strong> DHT22, PIR, Ultrasónico, LDR</li>
+            <li><strong>Actuadores:</strong> Relés, LEDs, Servomotores</li>
+          </ul>
+        </div>
+        <div class="summary-card">
+          <h3>Software</h3>
+          <ul>
+            <li><strong>Arduino IDE</strong> (programación)</li>
+            <li><strong>PlatformIO</strong> (IDE avanzado)</li>
+            <li><strong>Node-RED</strong> (programación visual)</li>
+            <li><strong>Wokwi</strong> (simulador online)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+    <p>UNAULA — 2026-I | Cronograma Oficial</p>
+    <p><a href="../clases-html/index.html">← Volver al portal de clases</a> | 
+       <a href="../admin/concertacion.html">📋 Ver Concertación Académica</a></p>
+  </footer>
+</body>
+</html>
