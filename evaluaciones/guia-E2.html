@@ -96,13 +96,41 @@
             </ul>
         </section>
 
+        <section class="highlight" style="background: #ecfdf5; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>✅ Lista de Verificación Pre-Entrega</h2>
+            <p>Antes de presentar tu E2, verifica que:</p>
+            <ul style="margin-top: 0.5rem;">
+                <li>☐ El código compila sin errores en Arduino IDE</li>
+                <li>☐ El Monitor Serial muestra valores de temperatura, humedad y luz cada 2 segundos</li>
+                <li>☐ Los LEDs se encienden cuando se cumplen las condiciones (temp ≥ 30°C, luz ≤ 20%)</li>
+                <li>☐ Los valores tienen sentido (temperatura entre 15-35°C, humedad entre 30-90%, luz entre 0-100%)</li>
+                <li>☐ Si usas Wokwi: el proyecto está público y el link funciona</li>
+                <li>☐ Si usas hardware real: tienes todo el circuito montado y funcionando</li>
+                <li>☐ El archivo se llama <code>E2_Apellido_Nombre.ino</code></li>
+            </ul>
+        </section>
+
         <section>
             <h2>Entregables</h2>
             <ul>
-                <li>Código fuente (<code>.ino</code>) subido a la plataforma.</li>
-                <li>Captura de pantalla o Link de Wokwi.</li>
-                <li>Video de máximo 60 segundos demostrando el funcionamiento (si no se presenta en vivo).</li>
+                <li><strong>Código fuente:</strong> Archivo <code>E2_Apellido_Nombre.ino</code> subido a Canvas</li>
+                <li><strong>Evidencia visual:</strong> Captura de pantalla del Monitor Serial mostrando datos, o link de Wokwi</li>
+                <li><strong>Video (opcional para presencial, obligatorio para remoto):</strong> Máximo 60 segundos demostrando el funcionamiento</li>
             </ul>
+            
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
+                <strong>💡 Tip:</strong> Si presentas en persona, trae tu laptop con el código listo para compilar y demostrar. Si usas hardware real, verifica que todos los cables estén bien conectidos antes de la clase.
+            </div>
+        </section>
+
+        <section style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>🔗 Conexión con E3 (Próxima Evaluación)</h2>
+            <p>El circuito y código que funcione en E2 serán la base para E3:</p>
+            <ul>
+                <li><strong>E2:</strong> Lectura de sensores + LEDs locales</li>
+                <li><strong>E3:</strong> Mismo hardware + conectividad WiFi + envío a la nube</li>
+            </ul>
+            <p><strong>No cambies los pines ni el hardware entre E2 y E3.</strong> Solo agregarás código de WiFi al sketch existente.</p>
         </section>
 
         <div style="text-align: center; margin-top: 2rem;">
