@@ -33,6 +33,7 @@ jobs:
         run: |
           cp -r ejercicios-simulador output/ 2>/dev/null || true
           cp -r laboratorios-html output/ 2>/dev/null || true
+          cp -r planificacion output/ 2>/dev/null || true
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
