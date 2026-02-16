@@ -39,6 +39,7 @@ jobs:
           cp -r evaluaciones output/ 2>/dev/null || true
           cp -r estudiantes output/ 2>/dev/null || true
           cp -r wokwi output/ 2>/dev/null || true
+          cp -r docs output/ 2>/dev/null || true
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3

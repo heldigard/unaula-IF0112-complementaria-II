@@ -7,7 +7,7 @@
 
 # Documentos internos del docente (notas, seguimiento, tareas pendientes)
 memory-bank/
-docs/
+# docs/  # Necesario para GitHub Pages (plataformas-iot-gratuitas.html)
 
 # ============================================
 # DOCUMENTACIÓN INTERNA DEL CURSO (No visible para estudiantes)

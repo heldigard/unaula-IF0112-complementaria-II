@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataformas IoT Cloud Gratuitas - IF0112</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #1f2933;
+      --muted: #52606d;
+      --brand: #1e3a8a;
+      --accent: #3b82f6;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    header {
+      background: linear-gradient(135deg, #0b2d6b, #1e40af);
+      color: #fff;
+      padding: 32px 20px;
+    }
+    header h1 { margin: 0 0 8px; font-size: 2rem; }
+    header p { margin: 0; opacity: 0.9; }
+    main { max-width: 1000px; margin: 24px auto; padding: 0 20px; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    h2 { margin-top: 0; color: var(--brand); border-bottom: 3px solid var(--accent); padding-bottom: 8px; }
+    h3 { color: var(--brand); margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+    th { background: #f1f5f9; font-weight: 600; color: var(--brand); }
+    tr:nth-child(even) { background: #f8fafc; }
+    .platform-card {
+      background: #f8fafc;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    .platform-card h3 { margin-top: 0; }
+    .recommended {
+      border-color: var(--success);
+      background: #ecfdf5;
+    }
+    .recommended h3 { color: var(--success); }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: white;
+    }
+    .badge-recommended {
+      background: var(--success);
+    }
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+    .nav-links a {
+      background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 8px;
+      text-decoration: none; font-weight: 500;
+    }
+    .nav-links a:hover { background: var(--brand); }
+    footer { text-align: center; padding: 24px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; }
+    ul { margin: 0.5rem 0; }
+    li { margin: 0.25rem 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Plataformas IoT Cloud Gratuitas</h1>
+    <p>Opciones recomendadas para el curso IF0112 - Todas gratuitas para educación</p>
+  </header>
+
+  <main>
+    <!-- Navegación -->
+    <nav class="nav-links">
+      <a href="clases-html/index.html">🏠 Inicio Clases</a>
+      <a href="evaluaciones/index.html">📋 Evaluaciones</a>
+      <a href="laboratorios-html/index.html">🔬 Laboratorios</a>
+    </nav>
+
+    <!-- Ubidots STEM -->
+    <section class="platform-card recommended">
+      <h3>1. Ubidots STEM <span class="badge badge-recommended">⭐ RECOMENDADA</span></h3>
+      <p><strong>URL:</strong> <a href="https://stem.ubidots.com" target="_blank">https://stem.ubidots.com</a></p>
+      
+      <p><strong>Características:</strong></p>
+      <ul>
+        <li>✅ Gratis para siempre (plan STEM)</li>
+        <li>✅ 3 dispositivos gratuitos</li>
+        <li>✅ 4,000 datos/hora por dispositivo</li>
+        <li>✅ Dashboards profesionales y widgets personalizables</li>
+        <li>✅ Alertas por correo electrónico</li>
+        <li>✅ API HTTP y MQTT</li>
+        <li>✅ Excelente para educación e investigación</li>
+      </ul>
+
+      <p><strong>Registro:</strong></p>
+      <ol>
+        <li>Usar correo institucional (@unaula.edu.co)</li>
+        <li>Seleccionar "Student or Teacher" al registrarse</li>
+        <li>Verificar correo</li>
+      </ol>
+
+      <p><strong>URL de la API:</strong></p>
+      <pre><code>http://things.ubidots.com/api/v1.6/devices/esp32/?token=TU_TOKEN</code></pre>
+    </section>
+
+    <!-- ThingSpeak -->
+    <section class="platform-card">
+      <h3>2. ThingSpeak (MathWorks)</h3>
+      <p><strong>URL:</strong> <a href="https://thingspeak.com" target="_blank">https://thingspeak.com</a></p>
+      
+      <p><strong>Características:</strong></p>
+      <ul>
+        <li>✅ Gratuito con limitaciones</li>
+        <li>✅ 3 millones de mensajes/año</li>
+        <li>✅ Hasta 4 canales</li>
+        <li>✅ Máximo 8 campos por canal</li>
+        <li>✅ Actualización máxima cada 15 segundos</li>
+        <li>✅ Integración con MATLAB</li>
+      </ul>
+
+      <p><strong>Limitaciones del plan gratuito:</strong></p>
+      <ul>
+        <li>Rate limit: 1 mensaje cada 15 segundos</li>
+        <li>No permite mensajes privados ilimitados</li>
+        <li>Análisis MATLAB básico</li>
+      </ul>
+
+      <p><strong>URL de la API:</strong></p>
+      <pre><code>http://api.thingspeak.com/update?api_key=TU_KEY&field1=valor1&field2=valor2</code></pre>
+    </section>
+
+    <!-- Arduino IoT Cloud -->
+    <section class="platform-card">
+      <h3>3. Arduino IoT Cloud</h3>
+      <p><strong>URL:</strong> <a href="https://cloud.arduino.cc" target="_blank">https://cloud.arduino.cc</a></p>
+      
+      <p><strong>Características:</strong></p>
+      <ul>
+        <li>✅ Gratis para uso personal</li>
+        <li>✅ Integración nativa con ESP32</li>
+        <li>✅ Dashboard simple y elegante</li>
+        <li>✅ OTA (Over-The-Air) updates</li>
+        <li>✅ 25 días de retención de datos</li>
+      </ul>
+
+      <p><strong>Limitaciones:</strong></p>
+      <ul>
+        <li>Requiere autenticación Arduino</li>
+        <li>Retención de datos limitada</li>
+        <li>Menos flexible que otras opciones</li>
+      </ul>
+    </section>
+
+    <!-- Blynk -->
+    <section class="platform-card">
+      <h3>4. Blynk</h3>
+      <p><strong>URL:</strong> <a href="https://blynk.io" target="_blank">https://blynk.io</a></p>
+      
+      <p><strong>Características:</strong></p>
+      <ul>
+        <li>✅ Plan gratuito disponible</li>
+        <li>✅ Dashboard móvil y web</li>
+        <li>✅ App para Android/iOS</li>
+        <li>✅ Notificaciones push</li>
+      </ul>
+
+      <p><strong>Limitaciones del plan gratuito:</strong></p>
+      <ul>
+        <li>10 dispositivos</li>
+        <li>5 usuarios</li>
+        <li>Datos se borran después de 30 días de inactividad</li>
+      </ul>
+    </section>
+
+    <!-- ThingsBoard -->
+    <section class="platform-card">
+      <h3>5. ThingsBoard (Open Source)</h3>
+      <p><strong>URL:</strong> <a href="https://thingsboard.io" target="_blank">https://thingsboard.io</a></p>
+      
+      <p><strong>Características:</strong></p>
+      <ul>
+        <li>✅ 100% open source</li>
+        <li>✅ Cloud gratuito disponible</li>
+        <li>✅ Auto-hospedaje posible</li>
+        <li>✅ Dashboards avanzados</li>
+        <li>✅ Soporte MQTT, HTTP, CoAP</li>
+      </ul>
+
+      <p><strong>Opciones:</strong></p>
+      <ul>
+        <li><strong>Live Demo:</strong> <a href="https://demo.thingsboard.io" target="_blank">https://demo.thingsboard.io</a> (gratis con límites)</li>
+        <li><strong>Instalación local:</strong> Descargar y ejecutar en tu computadora</li>
+      </ul>
+    </section>
+
+    <!-- Comparación -->
+    <section>
+      <h2>📊 Comparación Rápida</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Plataforma</th>
+            <th>Gratis Permanente</th>
+            <th>Límite Datos</th>
+            <th>Dashboard</th>
+            <th>Facilidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: #ecfdf5;">
+            <td><strong>Ubidots STEM</strong></td>
+            <td>✅ Sí</td>
+            <td>4k/hora</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td><strong>ThingSpeak</strong></td>
+            <td>✅ Limitado</td>
+            <td>3M/año</td>
+            <td>⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td><strong>Arduino Cloud</strong></td>
+            <td>✅ Sí</td>
+            <td>Ilimitado*</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td><strong>Blynk</strong></td>
+            <td>✅ Limitado</td>
+            <td>Variable</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td><strong>ThingsBoard</strong></td>
+            <td>✅ Sí</td>
+            <td>Ilimitado**</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>⭐⭐</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><small>*Con retención de 25 días | **Si auto-hospedado</small></p>
+    </section>
+
+    <!-- Recomendación -->
+    <section style="background: #eff6ff; border-color: #3b82f6;">
+      <h2>💡 Recomendación para el Curso</h2>
+      
+      <p><strong>Para estudiantes principiantes:</strong></p>
+      <p>→ Usar <strong>Ubidots STEM</strong> (más estable y gratuito permanente)</p>
+      
+      <p><strong>Para integración MATLAB:</strong></p>
+      <p>→ Usar <strong>ThingSpeak</strong> (si se necesita análisis avanzado)</p>
+      
+      <p><strong>Para auto-hospedaje:</strong></p>
+      <p>→ Usar <strong>ThingsBoard</strong> (si quieren aprender administración de servidores)</p>
+    </section>
+
+    <!-- Notas Importantes -->
+    <section>
+      <h2>📝 Notas Importantes</h2>
+      <ol>
+        <li><strong>Todas las opciones listadas son gratuitas</strong> para uso educativo/personal</li>
+        <li><strong>Ubidots STEM</strong> es la opción más estable y permanente</li>
+        <li><strong>ThingSpeak</strong> funciona bien pero tiene rate limits estrictos</li>
+        <li>Se puede cambiar de plataforma en cualquier momento (cambiar solo la URL y token en el código)</li>
+        <li>El protocolo HTTP GET funciona igual en todas las plataformas</li>
+      </ol>
+    </section>
+
+    <!-- Enlaces Rápidos -->
+    <section>
+      <h2>🔗 Enlaces Rápidos</h2>
+      <ul>
+        <li><strong>Ubidots STEM:</strong> <a href="https://stem.ubidots.com" target="_blank">https://stem.ubidots.com</a></li>
+        <li><strong>ThingSpeak:</strong> <a href="https://thingspeak.com" target="_blank">https://thingspeak.com</a></li>
+        <li><strong>Arduino IoT Cloud:</strong> <a href="https://cloud.arduino.cc" target="_blank">https://cloud.arduino.cc</a></li>
+        <li><strong>Blynk:</strong> <a href="https://blynk.io" target="_blank">https://blynk.io</a></li>
+        <li><strong>ThingsBoard Demo:</strong> <a href="https://demo.thingsboard.io" target="_blank">https://demo.thingsboard.io</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+    <p>UNAULA — 2026-I | Guía de Plataformas IoT</p>
+    <p><a href="clases-html/index.html">← Volver al portal de clases</a> | 
+       <a href="evaluaciones/index.html">📋 Ver Evaluaciones</a></p>
+  </footer>
+</body>
+</html>
