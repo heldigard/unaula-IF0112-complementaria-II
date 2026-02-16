@@ -20,7 +20,7 @@ El curso está organizado para construir de forma progresiva un proyecto único 
 - **Procesamiento:** API + almacenamiento de datos
 - **Aplicación:** Dashboard de visualización (Ubidots STEM, ThingSpeak, Arduino Cloud, Blynk)
 
-**Nota sobre plataformas:** El curso soporta múltiples plataformas IoT gratuitas. Ver [Guía de Plataformas](docs/plataformas-iot-gratuitas.md).
+**Nota sobre plataformas:** El curso soporta múltiples plataformas IoT gratuitas. Ver [Guía de Plataformas](docs/plataformas-iot-gratuitas.html).
 
 ---
 
@@ -30,7 +30,7 @@ El curso está organizado para construir de forma progresiva un proyecto único 
 - `laboratorios-html/`: guías oficiales de laboratorios (5 laboratorios)
 - `ejercicios-simulador/`: ejercicios interactivos para Wokwi
 - `evaluaciones/`: rúbricas detalladas E1-E6
-- `planificacion/cronograma-actualizado-2026.md`: calendario y evaluaciones oficiales
+- `planificacion/cronograma.html`: calendario y evaluaciones oficiales
 - `memory-bank/`: memoria del proyecto con contexto actualizado
 
 ---
@@ -104,8 +104,8 @@ El curso está organizado para construir de forma progresiva un proyecto único 
 - **Clases:** `clases-html/index.html` (14 clases efectivas)
 - **Laboratorios:** `laboratorios-html/index.html` (5 laboratorios)
 - **Ejercicios Simulador:** `ejercicios-simulador/index.html` (13 ejercicios Wokwi)
-- **Evaluaciones:** `evaluaciones/rubrica-E*.md` (rúbricas E1-E6)
-- **Cronograma:** `cronograma-oficial-2026-I.md`
+- **Evaluaciones:** `evaluaciones/rubricas-evaluacion.html` (rúbricas E1-E6)
+- **Cronograma:** `planificacion/cronograma.html`
 - **Materiales:** `clases-html/clase-02-materiales.html`
 
 > **💡 Emulador Wokwi:** [https://wokwi.com/esp32](https://wokwi.com/esp32) - Gratis, sin registro necesario
