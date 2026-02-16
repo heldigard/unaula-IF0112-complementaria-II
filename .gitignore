@@ -132,4 +132,4 @@ temp*.temp-html/
 # Archivos internos y scripts - no visibles para estudiantes
 CONTRIBUTING.md
 scripts/
-.github/workflows/
+# .github/workflows/  # NO ignorar - necesario para GitHub Pages
