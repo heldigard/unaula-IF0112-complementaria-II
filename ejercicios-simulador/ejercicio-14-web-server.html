@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 14: Web Server ESP32 | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fee2e2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .tip { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Ejercicio 14: Web Server ESP32</h1>
+            <p>⏱️ 35 min | 📦 ESP32 + LED | 🔴 Avanzado</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Crear un servidor web básico en el ESP32 que permita controlar un LED desde el navegador usando WiFi.</p>
+            <div class="tip">
+                <strong>💡 Contexto:</strong> Un Web Server embebido permite controlar dispositivos IoT desde cualquier navegador, sin necesidad de apps adicionales. Es la base de muchos sistemas de domótica.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+            <h3>Componentes:</h3>
+            <ul>
+                <li>1 x ESP32 DevKit V1</li>
+                <li>1 x LED (o usa el LED integrado en GPIO 2)</li>
+                <li>1 x Resistencia 220Ω (si usas LED externo)</li>
+            </ul>
+
+            <h3>Conexión:</h3>
+            <pre style="background: #f0f9ff; padding: 1rem; border-radius: 8px;">
+LED externo:
+  GPIO 2 → 220Ω → Ánodo LED → Cátodo LED → GND
+
+O usa el LED integrado del ESP32 (GPIO 2)
+            </pre>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código: Web Server Básico</h2>
+            <pre><code>// Ejercicio 14: Web Server ESP32 - Control LED por WiFi
+#include &lt;WiFi.h&gt;
+
+// Credenciales WiFi (Wokwi usa estas por defecto)
+const char* ssid = "Wokwi-GUEST";
+const char* password = "";
+
+// Configuración del servidor
+WiFiServer server(80);
+
+// Variables
+const int ledPin = 2;
+String header;
+String ledState = "off";
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+
+  // Conectar a WiFi
+  Serial.print("Conectando a ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi conectado!");
+  Serial.print("IP del servidor: ");
+  Serial.println(WiFi.localIP());
+
+  // Iniciar servidor
+  server.begin();
+}
+
+void loop() {
+  WiFiClient client = server.available();
+
+  if (client) {
+    Serial.println("Nuevo cliente conectado");
+    String currentLine = "";
+
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        header += c;
+
+        if (c == '\n') {
+          if (currentLine.length() == 0) {
+            // Enviar respuesta HTTP
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println("Connection: close");
+            client.println();
+
+            // Procesar comandos
+            if (header.indexOf("GET /on") >= 0) {
+              Serial.println("GPIO 2 ON");
+              ledState = "on";
+              digitalWrite(ledPin, HIGH);
+            }
+            else if (header.indexOf("GET /off") >= 0) {
+              Serial.println("GPIO 2 OFF");
+              ledState = "off";
+              digitalWrite(ledPin, LOW);
+            }
+
+            // Enviar página HTML
+            client.println("&lt;!DOCTYPE html&gt;");
+            client.println("&lt;html&gt;");
+            client.println("&lt;head&gt;");
+            client.println("&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;");
+            client.println("&lt;title&gt;ESP32 Web Server&lt;/title&gt;");
+            client.println("&lt;style&gt;");
+            client.println("body { font-family: Arial; text-align: center; margin: 50px; }");
+            client.println("h1 { color: #333; }");
+            client.println(".button { padding: 15px 30px; font-size: 18px; margin: 10px; border: none; border-radius: 8px; cursor: pointer; }");
+            client.println(".on { background: #10b981; color: white; }");
+            client.println(".off { background: #ef4444; color: white; }");
+            client.println("&lt;/style&gt;");
+            client.println("&lt;/head&gt;");
+            client.println("&lt;body&gt;");
+            client.println("&lt;h1&gt;🌐 ESP32 Web Server&lt;/h1&gt;");
+            client.println("&lt;p&gt;Estado del LED: &lt;strong&gt;" + ledState + "&lt;/strong&gt;&lt;/p&gt;");
+
+            if (ledState == "off") {
+              client.println("&lt;a href=\"/on\"&gt;&lt;button class=\"button on\"&gt;ENCENDER&lt;/button&gt;&lt;/a&gt;");
+            } else {
+              client.println("&lt;a href=\"/off\"&gt;&lt;button class=\"button off\"&gt;APAGAR&lt;/button&gt;&lt;/a&gt;");
+            }
+
+            client.println("&lt;/body&gt;");
+            client.println("&lt;/html&gt;");
+            client.println();
+            break;
+          } else {
+            currentLine = "";
+          }
+        } else if (c != '\r') {
+          currentLine += c;
+        }
+      }
+    }
+
+    header = "";
+    client.stop();
+    Serial.println("Cliente desconectado");
+  }
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Cómo Probar en Wokwi</h2>
+            <ol>
+                <li>Copia el código en Wokwi</li>
+                <li>Ejecuta la simulación</li>
+                <li>Espera a que muestre la IP (ej: <code>192.168.1.100</code>)</li>
+                <li>En Wokwi, haz clic en el <strong>icono de globo</strong> o busca el <strong>embedded browser</strong></li>
+                <li>Accede a la IP mostrada desde el navegador integrado</li>
+                <li>Haz clic en los botones para encender/apagar el LED</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ Nota Importante:</strong> En Wokwi, el Web Server funciona en una red simulada. La IP que aparece es interna del simulador. Usa el navegador embebido de Wokwi para acceder.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación y espera la IP</li>
+                <li>Accede al web server desde el navegador de Wokwi</li>
+                <li>Toma pantallazo de la página web funcionando</li>
+                <li>Toma pantallazo del Monitor Serial mostrando las conexiones</li>
+                <li>Sube ambos a Canvas</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Retos Adicionales</h2>
+            <ul>
+                <li>Agrega un segundo LED y controla ambos desde la página</li>
+                <li>Muestra el estado del LED con un ícono (bombilla encendida/apagada)</li>
+                <li>Agrega un slider para controlar el brillo con PWM</li>
+            </ul>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-13-serial-uart.html">← Ejercicio 13</a>
+            <a href="ejercicio-15-edge-computing.html">Ejercicio 15 →</a>
+        </nav>
+    </div>
+</body>
+</html>

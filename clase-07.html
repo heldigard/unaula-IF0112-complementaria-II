@@ -3,1794 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 7: Conectividad WiFi | IF0112</title>
-    <style>
-
-        /* ============================================
-           DESIGN SYSTEM - Spacing Scale (8px base)
-           ============================================ */
-        :root {
-            /* Spacing scale */
-            --space-1: 0.25rem;  /* 4px */
-            --space-2: 0.5rem;   /* 8px */
-            --space-3: 0.75rem;  /* 12px */
-            --space-4: 1rem;     /* 16px */
-            --space-5: 1.25rem;  /* 20px */
-            --space-6: 1.5rem;   /* 24px */
-            --space-8: 2rem;     /* 32px */
-            --space-10: 2.5rem;  /* 40px */
-            --space-12: 3rem;    /* 48px */
-
-            /* Typography scale */
-            --text-xs: 0.75rem;    /* 12px */
-            --text-sm: 0.875rem;   /* 14px */
-            --text-base: 1rem;     /* 16px */
-            --text-lg: 1.125rem;   /* 18px */
-            --text-xl: 1.25rem;    /* 20px */
-            --text-2xl: 1.5rem;    /* 24px */
-            --text-3xl: 1.875rem;  /* 30px */
-            --text-4xl: 2.25rem;   /* 36px */
-
-            /* Line heights */
-            --leading-tight: 1.25;
-            --leading-snug: 1.375;
-            --leading-normal: 1.5;
-            --leading-relaxed: 1.625;
-            --leading-loose: 2;
-
-            /* Colors - improved accessibility */
-            --color-primary: #1e40af;
-            --color-primary-light: #3b82f6;
-            --color-secondary: #0f172a;
-            --color-accent: #f59e0b;
-
-            /* Text colors - WCAG AA compliant */
-            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
-            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
-            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
-            --text-inverse: #ffffff;
-
-            /* Background colors */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-
-            /* Border colors */
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
-
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-
-            /* Border radius */
-            --radius-sm: 0.25rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-        }
-
-        /* ============================================
-           RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: var(--leading-normal);
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ============================================
-           LAYOUT
-           ============================================ */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            background: var(--bg-primary);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* ============================================
-           HEADER
-           ============================================ */
-        header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            color: var(--text-inverse);
-            padding: var(--space-8) var(--space-6);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        header h1 {
-            font-size: var(--text-4xl);
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-tight);
-            position: relative;
-            z-index: 1;
-        }
-
-        header .subtitle {
-            font-size: var(--text-lg);
-            opacity: 0.95;
-            font-weight: 400;
-        }
-
-        header .meta {
-            margin-top: var(--space-4);
-            font-size: var(--text-sm);
-            opacity: 0.85;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        header .meta span {
-            padding: var(--space-1) var(--space-3);
-            background: rgba(255,255,255,0.15);
-            border-radius: var(--radius-lg);
-        }
-
-        /* ============================================
-           NAVIGATION - Enhanced
-           ============================================ */
-        nav {
-            background: var(--color-secondary);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-md);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 var(--space-4);
-            max-width: 100%;
-            overflow-x: auto;
-        }
-
-        nav li {
-            margin: 0;
-        }
-
-        nav a {
-            display: block;
-            padding: var(--space-3) var(--space-4);
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: var(--text-sm);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-inverse);
-        }
-
-        nav a:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: -2px;
-        }
-
-        /* Progress indicator */
-        .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.2);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* ============================================
-           MAIN CONTENT
-           ============================================ */
-        main {
-            padding: var(--space-8);
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: var(--space-12);
-            scroll-margin-top: 80px;
-            scroll-margin-block: 80px;
-        }
-
-        /* ============================================
-           TYPOGRAPHY HIERARCHY
-           ============================================ */
-        section h2 {
-            color: var(--color-primary);
-            border-bottom: 3px solid var(--color-primary-light);
-            padding-bottom: var(--space-2);
-            margin-bottom: var(--space-6);
-            font-size: var(--text-3xl);
-            font-weight: 700;
-            line-height: var(--leading-tight);
-        }
-
-        section h3 {
-            color: var(--color-primary);
-            margin: var(--space-6) 0 var(--space-4);
-            font-size: var(--text-2xl);
-            font-weight: 600;
-            line-height: var(--leading-snug);
-        }
-
-        section h4 {
-            color: var(--text-secondary);
-            margin: var(--space-4) 0 var(--space-2);
-            font-size: var(--text-lg);
-            font-weight: 600;
-        }
-
-        section h5 {
-            color: var(--text-secondary);
-            margin: var(--space-3) 0 var(--space-2);
-            font-size: var(--text-base);
-            font-weight: 600;
-        }
-
-        p {
-            margin-bottom: var(--space-4);
-            text-align: justify;
-            line-height: var(--leading-relaxed);
-            max-width: 75ch;
-        }
-
-        /* ============================================
-           CALLOUT BOXES
-           ============================================ */
-        .intro-box {
-            background: #eff6ff;
-            border-left: 4px solid var(--color-primary-light);
-            padding: var(--space-5);
-            margin: var(--space-6) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .intro-box strong {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .example-box {
-            background: #fef3c7;
-            border-left: 4px solid var(--color-accent);
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert-box {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================
-           TABLES - Enhanced
-           ============================================ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-6) 0;
-            font-size: var(--text-sm);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        th {
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            font-size: var(--text-xs);
-        }
-
-        td {
-            padding: var(--space-3) var(--space-4);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--bg-secondary);
-        }
-
-        tbody tr:hover {
-            background: #e0e7ff;
-            transition: background 0.15s ease;
-        }
-
-        /* Responsive tables */
-        @media (max-width: 768px) {
-            table {
-                font-size: var(--text-xs);
-            }
-            th, td {
-                padding: var(--space-2) var(--space-3);
-            }
-        }
-
-        /* ============================================
-           GRIDS
-           ============================================ */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-6);
-            margin: var(--space-6) 0;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: var(--space-5);
-            margin: var(--space-6) 0;
-        }
-
-        /* ============================================
-           CARDS - Enhanced
-           ============================================ */
-        .card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .card h4 {
-            color: var(--color-primary);
-            margin-bottom: var(--space-2);
-            font-size: var(--text-lg);
-        }
-
-        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
-        .card-yellow { background: #fef3c7; border-color: #fde68a; }
-        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
-
-        /* ============================================
-           FLOW DIAGRAM
-           ============================================ */
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3);
-            align-items: center;
-            margin: var(--space-8) 0;
-            justify-content: center;
-        }
-
-        .flow-step {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: var(--space-4) var(--space-5);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            flex: 0 0 auto;
-            min-width: 150px;
-            font-size: var(--text-base);
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid #1d4ed8;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .flow-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .flow-step strong {
-            display: block;
-            font-size: var(--text-lg);
-            margin-bottom: var(--space-1);
-        }
-
-        .flow-step small {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: var(--text-sm);
-        }
-
-        .flow-arrow {
-            font-size: var(--text-3xl);
-            color: #1d4ed8;
-            font-weight: bold;
-            flex: 0 0 auto;
-        }
-
-        /* ============================================
-           TIMELINE
-           ============================================ */
-        .timeline {
-            position: relative;
-            padding-left: var(--space-8);
-            margin: var(--space-6) 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: var(--space-2);
-            bottom: var(--space-2);
-            width: 3px;
-            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            margin-bottom: var(--space-6);
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: calc(-1 * var(--space-8) - 5px);
-            top: var(--space-2);
-            width: 14px;
-            height: 14px;
-            background: var(--color-primary-light);
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-light);
-        }
-
-        /* ============================================
-           CODE BLOCKS
-           ============================================ */
-        pre {
-            background: var(--color-secondary);
-            color: #e2e8f0;
-            padding: var(--space-4);
-            border-radius: var(--radius-lg);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-            font-size: var(--text-sm);
-            line-height: var(--leading-relaxed);
-            box-shadow: var(--shadow-md);
-        }
-
-        code {
-            background: var(--bg-tertiary);
-            color: var(--color-primary);
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-md);
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
-
-        /* ============================================
-           FIGURES
-           ============================================ */
-        figure {
-            margin: var(--space-8) 0;
-            text-align: center;
-        }
-
-        figure img {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        figcaption {
-            margin-top: var(--space-3);
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           LISTS
-           ============================================ */
-        ul, ol {
-            margin-left: var(--space-6);
-            margin-bottom: var(--space-4);
-        }
-
-        li {
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           SPECIAL TABLES
-           ============================================ */
-        .competencies-table th:first-child,
-        .competencies-table td:first-child {
-            width: 20%;
-            text-align: center;
-            font-size: var(--text-3xl);
-        }
-
-        .eras-table td:first-child {
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        /* ============================================
-           NAVIGATION BETWEEN CLASSES
-           ============================================ */
-        .class-nav {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            padding: var(--space-6);
-            margin-top: var(--space-12);
-            border-radius: var(--radius-lg);
-        }
-
-        .class-nav-title {
-            color: white;
-            font-size: var(--text-sm);
-            text-align: center;
-            margin-bottom: var(--space-4);
-            opacity: 0.9;
-        }
-
-        .class-nav-links {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-4);
-            flex-wrap: wrap;
-        }
-
-        .class-nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-3) var(--space-5);
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-size: var(--text-sm);
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .class-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .class-nav-btn.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .class-nav-btn .arrow {
-            font-size: var(--text-lg);
-        }
-
-        /* ============================================
-           BACK TO TOP BUTTON
-           ============================================ */
-        .back-to-top {
-            position: fixed;
-            bottom: var(--space-6);
-            right: var(--space-6);
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            border: none;
-            font-size: var(--text-xl);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
-        }
-
-        .back-to-top:focus {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer {
-            background: var(--color-secondary);
-            color: var(--text-inverse);
-            text-align: center;
-            padding: var(--space-8) var(--space-6);
-            margin-top: var(--space-12);
-        }
-
-        footer p {
-            margin: var(--space-2) 0;
-            text-align: center;
-            color: rgba(255,255,255,0.85);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            main { padding: var(--space-6); }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: var(--space-6) var(--space-4);
-            }
-            header h1 {
-                font-size: var(--text-3xl);
-            }
-            header .subtitle {
-                font-size: var(--text-base);
-            }
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                position: relative;
-            }
-            nav ul {
-                flex-direction: column;
-                padding: 0;
-            }
-            nav a {
-                padding: var(--space-3) var(--space-4);
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            main {
-                padding: var(--space-4);
-            }
-            section {
-                margin-bottom: var(--space-10);
-            }
-            section h2 {
-                font-size: var(--text-2xl);
-            }
-            .back-to-top {
-                bottom: var(--space-4);
-                right: var(--space-4);
-                width: 44px;
-                height: 44px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            header h1 {
-                font-size: var(--text-2xl);
-            }
-            .flow-step {
-                min-width: 120px;
-                font-size: var(--text-sm);
-                padding: var(--space-3) var(--space-4);
-            }
-            .flow-step strong {
-                font-size: var(--text-base);
-            }
-            .flow-arrow {
-                font-size: var(--text-2xl);
-            }
-        }
-
-        /* ============================================
-           ACCESSIBILITY ENHANCEMENTS
-           ============================================ */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* Skip link for keyboard users */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-2) var(--space-4);
-            z-index: 999;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* Print styles */
-        @media print {
-            nav, .back-to-top, .progress-bar {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
-    
-    </style>
+    <title>Sesión 7: Conectividad WiFi - ESP32</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Clase 7: Conectividad WiFi</h1>
+            <h1>Sesión 7: Conectividad WiFi</h1>
             <p class="subtitle">ESP32 como Dispositivo Conectado</p>
-            <p class="meta">
-                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
-            </p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 16-mar-2026 (E3: Software IoT)</p>
         </header>
 
-
-        <!-- Info Cronograma 2026-I -->
-        <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
-                <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 7 - Laboratorio 3: Conectividad WiFi + HTTP</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 23 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Laboratorio</p>
-                </div>
-                <div style="text-align: right;">
-                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">🔬 LAB 3 + E3 EXAMEN (20%)</span>
-                </div>
-            </div>
-
-            <!-- Laboratorio 3 -->
-            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
-                    🔬 LAB 3: Conectividad WiFi + HTTP
-                </h4>
-                <ul style="margin: 0; padding-left: var(--space-6); color: #92400e; font-size: var(--text-sm);">
-                    <li><strong>Objetivo:</strong> ESP32 conectado a WiFi enviando datos</li>
-                    <li><strong>Tiempo:</strong> 90 minutos en laboratorio</li>
-                    <li><strong>Temas:</strong> WiFi, modo STA/AP, servidor web, API REST, ThingSpeak</li>
-                </ul>
-            </div>
-
-            <!-- Evaluación E3 Examen -->
-            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
-                    📝 E3 EXAMEN (20%) - Presencial 90 minutos
-                </h4>
-                <ul style="margin: 0; padding-left: var(--space-6); color: #991b1b; font-size: var(--text-sm);">
-                    <li><strong>Fecha:</strong> Lunes 23/MAR/2026</li>
-                    <li><strong>Peso:</strong> 20% del total del curso</li>
-                    <li><strong>Formato:</strong> Examen presencial (caja cerrada)</li>
-                    <li><strong>Temas:</strong> Unidades 1-2 (Clases 1-7) - Evolución IoT, pilares DIKW, redes, hardware, WiFi, protocolos</li>
-                    <li><strong>Casos:</strong> Nutresa, EPM, SIATA, Smart Cities</li>
-                </ul>
-            </div>
-
-            <!-- Preparación -->
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Revisar código de conexión WiFi. Traer credenciales de red al laboratorio. Estudiar para E3.</p>
-            </div>
-
-        </section>
-
-
         <nav>
-            <ul>                <li><a href="#laboratorios">Laboratorios</a></li>
-
+            <ul>
                 <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#conexion-evaluacion">📝 Conexión Evaluación</a></li>
                 <li><a href="#modos">Modos WiFi</a></li>
-                <li><a href="#conexion">Conexión STA</a></li>
-                <li><a href="#reconexion">Reconexión</a></li>
+                <li><a href="#conexion">Conexión</a></li>
                 <li><a href="#servidor">Servidor Web</a></li>
-                <li><a href="#api">API REST</a></li>
                 <li><a href="#nube">ThingSpeak</a></li>
-                <li><a href="#avance-proyecto">Proyecto</a></li>
-                <li><a href="#seguridad">Seguridad</a></li>
-                <li><a href="#energia">Ahorro Energía</a></li>
-                <li><a href="#referencias">Referencias</a></li>
+                <li><a href="#e3">E3 Software IoT</a></li>
             </ul>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         </nav>
 
-        <!-- Back to top button -->
-        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+        <button class="back-to-top" id="backToTop">↑</button>
 
         <main>
-            <!-- Objetivos -->
-            <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-<h2>⏱️ Agenda de 90 Minutos</h2>
-<ul>
-<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
-<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
-<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
-<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
-</ul>
-</section>
-<section id="objetivos">
-                <h2>Objetivos de la Clase</h2>
+            <section class="info-box warning">
+                <h3>📝 E3 SOFTWARE IoT (20%)</h3>
+                <p><strong>Fecha:</strong> Lunes 16 de Marzo 2026</p>
+                <p><strong>Tema:</strong> Conectividad WiFi y envío de datos a la Nube</p>
+                <p><a href="../evaluaciones/guia-E3.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Software E3 →</a></p>
+                <p><strong>Resultado de Aprendizaje:</strong> Comprender la interacción de los dispositivos IoT a través de las redes e Internet</p>
+            </section>
 
-                <div class="grid-2">
-                    <div>
-                        <h3>Competencias a Desarrollar</h3>
-                        <p>Al finalizar esta clase, podrá:</p>
-                        <ul>
-                            <li><strong>Conectar</strong> ESP32 a red WiFi existente (modo STA)</li>
-                            <li><strong>Crear</strong> punto de acceso (AP) con ESP32</li>
-                            <li><strong>Desarrollar</strong> servidor web básico</li>
-                            <li><strong>Enviar</strong> datos a servicios en la nube</li>
-                            <li><strong>Implementar</strong> reconexión automática</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Estructura de la Clase</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Bloque</th>
-                                    <th>Tema</th>
-                                    <th>Duración</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1️⃣</td>
-                                    <td>Modos WiFi (STA, AP, Ambos)</td>
-                                    <td>25 min</td>
-                                </tr>
-                                <tr>
-                                    <td>2️⃣</td>
-                                    <td>Conexión y reconexión automática</td>
-                                    <td>30 min</td>
-                                </tr>
-                                <tr>
-                                    <td>3️⃣</td>
-                                    <td>Servidor Web y API REST</td>
-                                    <td>35 min</td>
-                                </tr>
-                                <tr>
-                                    <td>4️⃣</td>
-                                    <td>ThingSpeak y Proyecto</td>
-                                    <td>30 min</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cómo hacer que un ESP32 sea un ciudadano IoT de primera clase?</p>
-                    </div>
+            <section id="agenda-120" class="info-box">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y objetivos</li>
+                    <li><strong>10-40 min:</strong> Modos WiFi y conexión (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Servidor web básico (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> ThingSpeak y nube (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Repaso E3 y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
                 </div>
             </section>
 
-            <!-- Conexión con Evaluación -->
-            <section id="conexion-evaluacion" class="intro-box">
-                <h2>📝 Conexión con Evaluación</h2>
-                <div class="evaluacion-preparacion">
-                    <p><strong>🔜 Esta semana nos preparamos para:</strong></p>
-                    <ul>
-                        <li><strong>Evaluación:</strong> E3 - Examen Parcial (Unidades 1-2)</li>
-                        <li><strong>Peso:</strong> 20%</li>
-                        <li><strong>Fecha:</strong> Esta misma semana (Lunes 23 de Marzo 2026) - E3 Examen (20%)</li>
-                        <li><strong>Conexión:</strong> E3 cubre WiFi, modos de operación, servidor web, API REST y envío de datos a la nube. Esta clase integra todos estos conceptos en el proyecto integrador.</li>
-                    </ul>
-                </div>
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <ul>
+                    <li><strong>Conectar</strong> ESP32 a red WiFi existente (modo STA)</li>
+                    <li><strong>Crear</strong> punto de acceso con ESP32 (modo AP)</li>
+                    <li><strong>Desarrollar</strong> servidor web básico</li>
+                    <li><strong>Enviar</strong> datos a <abbr title="Plataforma IoT Cloud">ThingSpeak</abbr></li>
+                    <li><strong>Implementar</strong> reconexión automática</li>
+                </ul>
             </section>
 
-            <!-- Modos WiFi -->
             <section id="modos">
-            <h2>📶 Modos de Operación WiFi</h2>
+                <h2>Modos de Operación WiFi</h2>
 
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El ESP32 puede operar en <strong>modo STA</strong> (conectarse a red existente), <strong>modo AP</strong> (crear su propia red), o <strong>ambos simultáneamente</strong>. La elección depende del caso de uso.</p>
-            </div>
-
-            <div class="hardware-notice">
-                <h4>💻 Nota sobre Factibilidad Windows</h4>
-                <p><strong>Todo el código puede probarse en simuladores gratuitos</strong> como Wokwi.com, sin necesidad de hardware físico. El curso IF0112 no obliga compras de equipos.</p>
-            </div>
-            
-            <p>El ESP32 puede operar en diferentes modos WiFi según las necesidades del proyecto:</p>
-            
-            <table>
-                <thead>
+                <table>
                     <tr><th>Modo</th><th>Descripción</th><th>Uso</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>STA</strong> (Station)</td><td>Se conecta a una red WiFi existente</td><td>Conectar a router/internet</td></tr>
-                    <tr><td><strong>AP</strong> (Access Point)</td><td>Crea su propia red WiFi</td><td>Configuración inicial, red local</td></tr>
-                    <tr><td><strong>STA+AP</strong> (Dual)</td><td>Ambos modos simultáneamente</td><td>Configuración avanzada</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Funciones para Configurar Modos</h3>
-            <pre>WiFi.mode(WIFI_STA);      // Modo estación
-WiFi.mode(WIFI_AP);       // Modo access point
-WiFi.mode(WIFI_AP_STA);   // Modo dual
+                    <tr><td><strong>STA</strong> (Station)</td><td>Se conecta a red existente</td><td>Conectar a router/internet</td></tr>
+                    <tr><td><strong>AP</strong> (Access Point)</td><td>Crea su propia red</td><td>Configuración inicial</td></tr>
+                    <tr><td><strong>STA+AP</strong></td><td>Ambos simultáneamente</td><td>Configuración avanzada</td></tr>
+                </table>
 
-WiFi.softAP(ssid, pass);  // Crear red WiFi
-WiFi.softAPIP();          // IP del AP</pre>
-        </section>
-        
-        <!-- Conexión STA -->
-        <section id="conexion">
-            <h2>🔗 Conexión WiFi: Modo Estación (STA)</h2>
+                <pre><code>WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>);      // Modo estación
+WiFi.mode(<abbr title="Access Point Mode">WIFI_AP</abbr>);       // Modo access point
+WiFi.mode(<abbr title="Dual Mode">WIFI_AP_STA</abbr>);   // Modo dual</code></pre>
+            </section>
 
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>La conexión WiFi requiere <code>WiFi.begin()</code> con credenciales, verificación del estado con <code>WiFi.status()</code>, y manejo de la IP asignada mediante <code>WiFi.localIP()</code>.</p>
-            </div>
-            
-            <h3>Código Básico</h3>
-            <pre>#include &lt;WiFi.h&gt;
+            <section id="conexion">
+                <h2>Conexión WiFi (Modo STA)</h2>
+
+                <h3>Código Básico</h3>
+                <pre><code>#include &lt;WiFi.h&gt;
 
 const char* ssid = "NombreDeTuRed";
-const char* password = "ContrasenaDeRed";
-
-void setup() {
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("✓ Conectado!");
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
-}
-
-void loop() {}</pre>
-            
-            <h3>Estados WiFi</h3>
-            <table>
-                <thead>
-                    <tr><th>Estado</th><th>Significado</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>WL_CONNECTED</code></td><td>Conectado</td></tr>
-                    <tr><td><code>WL_NO_SSID_AVAIL</code></td><td>Red no encontrada</td></tr>
-                    <tr><td><code>WL_CONNECT_FAILED</code></td><td>Contraseña incorrecta</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Información de Red</h3>
-            <table>
-                <thead>
-                    <tr><th>Función</th><th>Retorna</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>WiFi.localIP()</code></td><td>IP local asignada</td></tr>
-                    <tr><td><code>WiFi.subnetMask()</code></td><td>Máscara de subred</td></tr>
-                    <tr><td><code>WiFi.gatewayIP()</code></td><td>Gateway</td></tr>
-                    <tr><td><code>WiFi.RSSI()</code></td><td>Señal en dBm</td></tr>
-                    <tr><td><code>WiFi.macAddress()</code></td><td>Dirección MAC</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Reconexión -->
-        <section id="reconexion">
-            <h2>🔄 Reconexión Automática WiFi</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Las redes WiFi pueden fallar. Implementar <strong>reconexión automática</strong> con <code>millis()</code> es esencial para sistemas IoT robustos que operan 24/7 sin intervención humana.</p>
-            </div>
-            
-            <div class="info-box warning">
-                <h4>⚠️ El Problema</h4>
-                <p>Las redes WiFi pueden perder señal temporalmente, reiniciarse por apagones o mantenimiento, o saturarse y desconectar dispositivos. <strong>Sin reconexión automática:</strong> El ESP32 queda "colgado" sin conexión hasta reiniciarlo manualmente.</p>
-            </div>
-            
-            <h3>Solución: Verificación Periódica</h3>
-            <pre>#include &lt;WiFi.h&gt;
-
-const char* ssid = "MiRed";
-const char* password = "MiClave";
-
-unsigned long ultimoIntento = 0;
-const long INTERVALO_RECONEXION = 30000; // 30s
+const char* password = "Contrasena";
 
 void setup() {
     Serial.begin(115200);
-    conectarWiFi();
-}
-
-void loop() {
-    // Verificar conexión periódicamente
-    if (WiFi.status() != WL_CONNECTED) {
-        unsigned long ahora = millis();
-        
-        if (ahora - ultimoIntento >= INTERVALO_RECONEXION) {
-            Serial.println("⚠️ Conexión perdida. Reconectando...");
-            conectarWiFi();
-            ultimoIntento = ahora;
-        }
-    }
-    
-    // Tu código principal aquí
-}
-
-void conectarWiFi() {
     WiFi.begin(ssid, password);
     
-    int intentos = 0;
-    while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    Serial.print("Conectando");
+    while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
-        intentos++;
     }
     
-    if (WiFi.status() == WL_CONNECTED) {
-        Serial.println("\n✓ WiFi conectado!");
-    } else {
-        Serial.println("\n✗ Fallo de conexión");
-    }
-}</pre>
-        </section>
-        
-        <!-- Servidor Web -->
-        <section id="servidor">
-            <h2>🌐 Crear un Servidor Web en ESP32</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Un servidor web en ESP32 permite <strong>controlar hardware desde cualquier navegador</strong>. Se configuran rutas (endpoints) con <code>server.on()</code> y se atienden peticiones con <code>server.handleClient()</code>.</p>
-            </div>
-            
-            <h3>Conceptos Básicos</h3>
-            <p>Un <strong>servidor web</strong> en el ESP32 permite mostrar páginas HTML desde el microcontrolador, recibir comandos mediante URLs, exponer una API REST, y controlar hardware desde el navegador.</p>
-            
-            <h3>Librerías Necesarias</h3>
-            <pre>#include &lt;WiFi.h&gt;
-#include &lt;WebServer.h&gt;  // Servidor web
-
-// Crear servidor en puerto 80 (HTTP)
-WebServer server(80);</pre>
-            
-            <h3>Configuración del Servidor</h3>
-            <pre>void setup() {
-    // Conectar WiFi...
-    
-    // Definir rutas (endpoints)
-    server.on("/", handleRoot);
-    server.on("/led/on", handleLedOn);
-    server.on("/led/off", handleLedOff);
-
-    // Iniciar servidor
-    server.begin();
-    Serial.println("Servidor iniciado");
+    Serial.println("\nConectado!");
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
 }
 
-void loop() {
-    // Atender peticiones de clientes
-    server.handleClient();
-}</pre>
-            
-            <h3>Manejadores de Rutas</h3>
-            <pre>const int LED_PIN = 2;
+void loop() {}</code></pre>
 
-// Página principal
+                <h3>Estados WiFi</h3>
+                <table>
+                    <tr><th>Estado</th><th>Significado</th></tr>
+                    <tr><td><code>WL_CONNECTED</code></td><td>Conectado</td></tr>
+                    <tr><td><code>WL_NO_SSID_AVAIL</code></td><td>Red no encontrada</td></tr>
+                    <tr><td><code>WL_CONNECT_FAILED</code></td><td>Contraseña incorrecta</td></tr>
+                </table>
+
+                <h3>Información de Red</h3>
+                <table>
+                    <tr><th>Función</th><th>Retorna</th></tr>
+                    <tr><td><code>WiFi.localIP()</code></td><td>IP local</td></tr>
+                    <tr><td><code>WiFi.RSSI()</code></td><td>Intensidad señal (<abbr title="Decibel-milliwatts: Unidad de potencia de señal">dBm</abbr>)</td></tr>
+                    <tr><td><code>WiFi.macAddress()</code></td><td>Dirección <abbr title="Media Access Control: Identificador único de hardware de red">MAC</abbr></td></tr>
+                </table>
+            </section>
+
+            <section id="servidor">
+                <h2>Servidor Web en ESP32</h2>
+
+                <h3>Código Básico</h3>
+                <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+const char* ssid = "TU_RED";
+const char* password = "TU_PASS";
+
+WebServer server(80);  // Puerto 80 (HTTP)
+
 void handleRoot() {
-    String html = "&lt;html&gt;&lt;body&gt;";
-    html += "&lt;h1&gt;Control ESP32&lt;/h1&gt;";
-    html += "&lt;a href='/led/on'&gt;Encender LED&lt;/a&gt;&lt;br&gt;";
-    html += "&lt;a href='/led/off'&gt;Apagar LED&lt;/a&gt;";
-    html += "&lt;/body&gt;&lt;/html&gt;";
-
+    String html = "<html><body>";
+    html += "<h1>Hola desde ESP32!</h1>";
+    html += "<p>Temperatura: 25°C</p>";
+    html += "</body></html>";
     server.send(200, "text/html", html);
 }
 
-// Encender LED
-void handleLedOn() {
-    digitalWrite(LED_PIN, HIGH);
-    server.sendHeader("Location", "/");
-    server.send(303);  // Redirect
+void setup() {
+    Serial.begin(115200);
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) delay(500);
+    
+    Serial.println(WiFi.localIP());
+    
+    server.on("/", handleRoot);
+    server.begin();
 }
 
-// Apagar LED
-void handleLedOff() {
-    digitalWrite(LED_PIN, LOW);
-    server.sendHeader("Location", "/");
-    server.send(303);
-}</pre>
-        </section>
-        
-        <!-- API REST -->
-        <section id="api">
-            <h2>📊 API REST con JSON</h2>
+void loop() {
+    server.handleClient();
+}</code></pre>
 
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Las APIs REST permiten que <strong>máquinas se comuniquen entre sí</strong> usando HTTP y JSON. El ESP32 puede exponer datos de sensores mediante endpoints que devuelven JSON.</p>
-            </div>
-            
-            <h3>¿Qué es una API REST?</h3>
-            <p><strong>API</strong> (Application Programming Interface): Interfaz para que programas se comuniquen.<br>
-            <strong>REST</strong> (Representational State Transfer): Estilo de arquitectura usando HTTP.</p>
-            
-            <h3>Métodos HTTP Comunes</h3>
-            <table>
-                <thead>
-                    <tr><th>Método</th><th>Acción</th><th>Ejemplo</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>GET</td><td>Obtener datos</td><td><code>/api/sensores</code></td></tr>
-                    <tr><td>POST</td><td>Crear/enviar datos</td><td><code>/api/datos</code></td></tr>
-                    <tr><td>PUT</td><td>Actualizar datos</td><td><code>/api/config</code></td></tr>
-                    <tr><td>DELETE</td><td>Eliminar datos</td><td><code>/api/alarma</code></td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Código: API REST en ESP32</h3>
-            <pre>#include &lt;ArduinoJson.h&gt;  // Librería JSON
-
-void handleSensorData() {
-    // Leer sensores reales
-    float temperatura = dht.readTemperature();
-    float humedad = dht.readHumidity();
-    
-    // Crear documento JSON
-    StaticJsonDocument&lt;200&gt; doc;
-    doc["temperatura"] = temperatura;
-    doc["humedad"] = humedad;
-    doc["timestamp"] = millis();
-    doc["dispositivo"] = "ESP32-Sala";
-    
-    // Serializar a String
-    String jsonResponse;
-    serializeJson(doc, jsonResponse);
-    
-    // Enviar respuesta
-    server.send(200, "application/json", jsonResponse);
-}</pre>
-            
-            <h3>Respuesta JSON</h3>
-            <pre>{
-  "temperatura": 24.5,
-  "humedad": 60,
-  "timestamp": 12456789,
-  "dispositivo": "ESP32-Sala"
-}</pre>
-        </section>
-        
-        <!-- Nube -->
-        <section id="nube">
-            <h2>☁️ ThingSpeak: Plataforma IoT Gratuita</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>ThingSpeak es una plataforma gratuita para <strong>almacenar y visualizar datos IoT</strong>. Usa HTTP GET simple, permitiendo enviar datos desde ESP32 sin librerías complejas.</p>
-            </div>
-            
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>¿Qué es ThingSpeak?</h4>
-                    <ul>
-                        <li>Almacenar datos de sensores</li>
-                        <li>Visualizar datos en gráficos</li>
-                        <li>Analizar datos con MATLAB</li>
-                        <li>Activar alertas</li>
-                        <li>API simple basada en HTTP</li>
-                    </ul>
+                <div class="highlight">
+                    <strong>Acceder:</strong> En navegador, ir a la IP mostrada en el Serial Monitor (ej: 192.168.1.100)
                 </div>
-                <div class="tech-card">
-                    <h4>Configuración</h4>
-                    <ol>
-                        <li>Crear cuenta en thingspeak.com</li>
-                        <li>Crear un nuevo "Channel"</li>
-                        <li>Configurar campos:
-                            <ul>
-                                <li>Field 1: Temperatura</li>
-                                <li>Field 2: Humedad</li>
-                            </ul>
-                        </li>
-                        <li>Obtener Write API Key</li>
-                    </ol>
-                </div>
-            </div>
-            
-            <h3>Código para ThingSpeak</h3>
-            <pre>#include &lt;HTTPClient.h&gt;
+            </section>
 
-const char* apiKey = "TU_API_KEY_AQUI";  // Write API Key
+            <section id="nube">
+                <h2>ThingSpeak: Plataforma IoT Gratuita</h2>
+
+                <h3>¿Qué es ThingSpeak?</h3>
+                <ul>
+                    <li>Almacenar datos de sensores en la nube</li>
+                    <li>Visualizar en gráficos automáticos</li>
+                    <li>API simple basada en HTTP</li>
+                    <li>Gratuito (con limitaciones)</li>
+                </ul>
+
+                <h3>Configuración</h3>
+                <ol>
+                    <li>Crear cuenta en thingspeak.com</li>
+                    <li>Crear nuevo "Channel"</li>
+                    <li>Configurar Field 1: Temperatura, Field 2: Humedad</li>
+                    <li>Obtener Write API Key</li>
+                </ol>
+
+                <h3>Código para ThingSpeak</h3>
+                <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;HTTPClient.h&gt;
+
+const char* apiKey = "TU_API_KEY";
 
 void enviarAThingSpeak(float temp, float hum) {
-    if (WiFi.status() != WL_CONNECTED) {
-        Serial.println("Sin WiFi");
-        return;
-    }
+    if (WiFi.status() != WL_CONNECTED) return;
     
     HTTPClient http;
-    
-    // Construir URL
     String url = "http://api.thingspeak.com/update?api_key=";
     url += apiKey;
-    url += "&field1=" + String(temp);   // Temperatura
-    url += "&field2=" + String(hum);    // Humedad
+    url += "&field1=" + String(temp);
+    url += "&field2=" + String(hum);
     
     http.begin(url);
     int httpCode = http.GET();
     
     if (httpCode == 200) {
-        String respuesta = http.getString();
-        Serial.println("✓ Datos enviados. Entry: " + respuesta);
-    } else {
-        Serial.println("✗ Error: " + String(httpCode));
+        Serial.println("Datos enviados!");
     }
-    
     http.end();
 }
 
-// IMPORTANTE: ThingSpeak permite enviar datos cada 15 segundos (mínimo en cuenta gratuita)</pre>
-        </section>
-        
-        <!-- Proyecto -->
-        <section id="avance-proyecto">
-            <h2>🌤️ Proyecto Integrador: Estación Meteorológica Web</h2>
+// En loop(), llamar cada 15 segundos mínimo:
+// enviarAThingSpeak(temperatura, humedad);</code></pre>
 
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Integrar WiFi + servidor web + sensores crea un <strong>sistema IoT completo</strong>. El ESP32 lee datos, sirve una página HTML, y actualiza información en tiempo real.</p>
-            </div>
-
-            <div class="hardware-notice">
-                <h4>🔧 Opciones para Realizar el Proyecto</h4>
-                <p><strong>Opción A (Simulador - Recomendado):</strong> Wokwi.com permite simular ESP32 con WiFi, DHT11 y servidor web completo. Gratuito.<br><br>
-                <strong>Opción B (Demo Docente):</strong> El profesor demuestra el sistema en clase.<br><br>
-                <strong>Opción C:</strong> Usar hardware solo si ya se dispone de él.</p>
-            </div>
-            
-            <h3>Descripción</h3>
-            <p>Estación meteorológica con sensor DHT11, servidor web integrado, dashboard visual y actualización automática.</p>
-            
-            <h3>Componentes</h3>
-            <table>
-                <thead>
-                    <tr><th>Componente</th><th>Pin ESP32</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>DHT11</td><td>GPIO4</td></tr>
-                    <tr><td>LED Status</td><td>GPIO2</td></tr>
-                </tbody>
-            </table>
-            
-            <div class="arch-diagram">
-                <h4>Arquitectura del Sistema</h4>
-                <div class="arch-layer">
-                    <div class="arch-layer-title">📥 CAPA DE SENSORES</div>
-                    <p>DHT11 lee temperatura y humedad → GPIO4</p>
+                <div class="note">
+                    <strong>Límite:</strong> Cuenta gratuita permite enviar datos cada 15 segundos.
                 </div>
-                <div class="arch-layer">
-                    <div class="arch-layer-title">⚙️ CAPA DE PROCESAMIENTO</div>
-                    <p>ESP32: Lee datos + Servidor web en puerto 80</p>
+            </section>
+
+            <section id="e3">
+                <h2>Preparación E3 - Software IoT</h2>
+
+                <div class="info-box info">
+                    <h4>📝 Guía de Entrega</h4>
+                    <p>La evaluación consiste en el desarrollo del **Firmware de Conectividad** del SMAI. Consulta la <strong><a href="../evaluaciones/guia-E3.html">Guía Detallada E3</a></strong> para conocer los requisitos técnicos y entregables.</p>
                 </div>
-                <div class="arch-layer">
-                    <div class="arch-layer-title">📡 CAPA DE CONECTIVIDAD</div>
-                    <p>WiFi conexión a red local, IP asignada por DHCP</p>
-                </div>
-                <div class="arch-layer">
-                    <div class="arch-layer-title">🖥️ CAPA DE USUARIO</div>
-                    <p>Navegador web con dashboard y auto-refresh cada 5s</p>
-                </div>
-            </div>
-            
-            <h3>Código Completo</h3>
-            <pre>#include &lt;WiFi.h&gt;
-#include &lt;WebServer.h&gt;
-#include "DHT.h"
 
-const char* ssid = "TU_RED_WIFI";
-const char* password = "TU_PASSWORD";
-
-const int DHT_PIN = 4;
-DHT dht(DHT_PIN, DHT11);
-WebServer server(80);
-
-float temperatura = 0;
-float humedad = 0;
-unsigned long ultimaLectura = 0;
-
-void setup() {
-  Serial.begin(115200);
-  dht.begin();
-
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println(WiFi.localIP());
-
-  server.on("/", handleRoot);
-  server.on("/api/datos", handleApiDatos);
-  server.begin();
-}
-
-void loop() {
-  // Leer cada 2s
-  if (millis() - ultimaLectura > 2000) {
-    temperatura = dht.readTemperature();
-    humedad = dht.readHumidity();
-    ultimaLectura = millis();
-  }
-  server.handleClient();
-}
-
-void handleRoot() {
-  String html = "&lt;html&gt;&lt;head&gt;";
-  html += "&lt;meta charset='UTF-8'&gt;";
-  html += "&lt;style&gt;body{font-family:Arial;text-align:center;padding:20px;}";
-  html += ".temp{color:#e74c3c;font-size:48px;}";
-  html += ".hum{color:#3498db;font-size:48px;}&lt;/style&gt;";
-  html += "&lt;/head&gt;&lt;body&gt;";
-  html += "&lt;h1&gt;🌤️ Estación Meteorológica&lt;/h1&gt;";
-  html += "&lt;div class='temp'&gt;🌡️ " + String(temperatura, 1) + "°C&lt;/div&gt;";
-  html += "&lt;div class='hum'&gt;💧 " + String(humedad, 1) + "%&lt;/div&gt;";
-  html += "&lt;script&gt;setTimeout(()=&gt;location.reload(),5000);&lt;/script&gt;";
-  html += "&lt;/body&gt;&lt;/html&gt;";
-  server.send(200, "text/html", html);
-}
-
-void handleApiDatos() {
-  String json = "{\"temp\":" + String(temperatura, 2) + ",\"hum\":" + String(humedad, 2) + "}";
-  server.send(200, "application/json", json);
-}</pre>
-        </section>
-        
-        <!-- Seguridad -->
-        <section id="seguridad">
-            <h2>🔐 Seguridad en WiFi IoT</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>La seguridad en IoT requiere <strong>no hardcodear credenciales</strong>, usar WPA2 como mínimo, y preferir HTTPS sobre HTTP. Las credenciales deben estar en archivos separados no versionados.</p>
-            </div>
-            
-            <h3>❌ Prácticas Inseguras</h3>
-            <pre>// Credenciales hardcodeadas
-const char* ssid = "MiRedCasa";
-const char* password = "ClaveSecreta123";
-
-// HTTP sin cifrar
-http.begin("http://api.ejemplo.com/datos");
-
-// API Keys visibles
-String url = "?api_key=ABC123XYZ";</pre>
-            
-            <h3>Niveles de Seguridad WiFi</h3>
-            <table>
-                <thead>
-                    <tr><th>Protocolo</th><th>Seguridad</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Abierto</td><td>❌ Nunca usar</td></tr>
-                    <tr><td>WEP</td><td>❌ Obsoleto</td></tr>
-                    <tr><td>WPA</td><td>⚠️ Vulnerable</td></tr>
-                    <tr><td>WPA2</td><td>✅ Seguro</td></tr>
-                    <tr><td>WPA3</td><td>✅✅ Más seguro</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>✅ Mejores Prácticas</h3>
-            <ul>
-                <li><strong>Credenciales en archivo separado:</strong> config.h (no subir a git)</li>
-                <li><strong>Usar HTTPS:</strong> cuando sea posible</li>
-                <li><strong>API Key en variables de entorno</strong></li>
-                <li><strong>WPA2 mínimo:</strong> Configurar router con WPA2 o superior</li>
-                <li><strong>Portal de configuración:</strong> Crear AP temporal para configurar WiFi sin hardcodear</li>
-            </ul>
-        </section>
-        
-        <!-- Energía -->
-        <section id="energia">
-            <h2>🔋 Modos de Ahorro de Energía</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El <strong>Deep Sleep</strong> reduce el consumo de 260mA a ~10µA, extendiendo la vida de baterías por meses. Ideal para sensores que reportan datos periódicamente.</p>
-            </div>
-            
-            <table>
-                <thead>
-                    <tr><th>Modo</th><th>Consumo</th><th>Uso Típico</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Activo (transmitiendo)</td><td>160-260 mA</td><td>Streaming de datos</td></tr>
-                    <tr><td>Activo (idle)</td><td>80-120 mA</td><td>Servidor web activo</td></tr>
-                    <tr><td>Light Sleep</td><td>0.8 mA</td><td>Lecturas periódicas</td></tr>
-                    <tr><td>Deep Sleep</td><td>0.01 mA (10µA)</td><td>Reportes horarios</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Ejemplo: Deep Sleep</h3>
-            <pre>// Dormir 60 segundos
-esp_sleep_enable_timer_wakeup(60 * 1000000);  // 60 segundos en microsegundos
-esp_deep_sleep_start();
-
-// Al despertar: reboot completo
-// Consumo: ~10 µA durante el sueño</pre>
-            
-            <h3>Calidad de Señal (RSSI)</h3>
-            <table>
-                <thead>
-                    <tr><th>RSSI (dBm)</th><th>Calidad</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>-30 a -60</td><td>Excelente/Muy buena</td></tr>
-                    <tr><td>-60 a -70</td><td>Buena</td></tr>
-                    <tr><td>-70 a -80</td><td>Regular</td></tr>
-                    <tr><td>&lt; -80</td><td>Mala - cambiar ubicación</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Resumen -->
-        <section>
-            <h2>📋 Resumen: Funciones Clave WiFi</h2>
-            
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>Conexión y Estado</h4>
+                <div class="actividad">
+                    <h4>Requisitos Técnicos</h4>
                     <ul>
-                        <li><code>WiFi.begin(ssid, pass)</code> - Iniciar conexión</li>
-                        <li><code>WiFi.status()</code> - Estado de conexión</li>
-                        <li><code>WiFi.localIP()</code> - IP asignada</li>
-                        <li><code>WiFi.RSSI()</code> - Intensidad de señal</li>
-                        <li><code>WiFi.macAddress()</code> - Dirección MAC</li>
+                        <li><strong>Conectividad:</strong> Uso de WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>)</li>
+                        <li><strong>Protocolo:</strong> Implementación de HTTP GET para ThingSpeak</li>
+                        <li><strong>Dashboard:</strong> Canal de ThingSpeak configurado con al menos 3 campos</li>
+                        <li><strong>Código:</strong> Estructurado, con comentarios y manejo de reconexión</li>
                     </ul>
                 </div>
-                <div class="tech-card">
-                    <h4>Servidor Web</h4>
-                    <ul>
-                        <li><code>WebServer server(80)</code> - Crear servidor</li>
-                        <li><code>server.on("/", handler)</code> - Definir ruta</li>
-                        <li><code>server.send(code, type, content)</code> - Enviar respuesta</li>
-                        <li><code>server.handleClient()</code> - Atender peticiones</li>
-                        <li><code>server.begin()</code> - Iniciar servidor</li>
-                    </ul>
-                </div>
-                <div class="tech-card">
-                    <h4>Cliente HTTP</h4>
-                    <ul>
-                        <li><code>HTTPClient http</code> - Crear cliente</li>
-                        <li><code>http.begin(url)</code> - Configurar URL</li>
-                        <li><code>http.GET()</code> - Enviar GET</li>
-                        <li><code>http.POST(data)</code> - Enviar POST</li>
-                        <li><code>http.getString()</code> - Obtener respuesta</li>
-                        <li><code>http.end()</code> - Cerrar conexión</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="info-box info">
-                <h4>➡️ Próxima Clase: Protocolos IoT</h4>
+            </section>
+
+                <h3>Tipo de Preguntas</h3>
                 <ul>
-                    <li>📡 MQTT: Protocolo publish/subscribe</li>
-                    <li>🌐 HTTP REST APIs</li>
-                    <li>📊 Comparación de protocolos IoT</li>
-                    <li>🔧 Hands-on: MQTT con ESP32</li>
+                    <li>Conceptos teóricos (definiciones, diferencias)</li>
+                    <li>Análisis de casos (aplicar conocimiento)</li>
+                    <li>Identificación de tecnologías</li>
+                    <li>Diagramas de arquitectura</li>
                 </ul>
-            </div>
-        </section>
 
-        <!-- Diagrama comparativo HTTP vs MQTT -->
-        <section id="protocolos-comparacion">
-            <h2>HTTP vs MQTT: ¿Cuál elegir para IoT?</h2>
-
-            <figure style="margin: 2rem 0; background: white; padding: 1rem; border-radius: 8px;">
-                <object type="image/svg+xml" data="../diagrams/http-vs-mqtt.svg" width="100%" height="380" style="max-width: 900px;">
-                    <img src="../diagrams/http-vs-mqtt.svg" alt="Comparación HTTP vs MQTT para IoT">
-                </object>
-                <figcaption>Comparación visual: HTTP Request-Response vs MQTT Publish-Subscribe</figcaption>
-            </figure>
-
-            <div class="grid-2">
-                <div class="card card-blue">
-                    <h4>Usar HTTP cuando:</h4>
-                    <ul>
-                        <li>Integración con APIs web existentes</li>
-                        <li>Comunicación ocasional</li>
-                        <li>Actualizaciones de firmware (OTA)</li>
-                        <li>Infraestructura HTTP ya existe</li>
-                    </ul>
+                <div class="highlight">
+                    <strong>Después de E3:</strong> Receso por Semana Santa. No hay clase el 30-mar. Retomamos el 06-abr.
                 </div>
-                <div class="card card-yellow">
-                    <h4>Usar MQTT cuando:</h4>
-                    <ul>
-                        <li>Muchos dispositivos (escala)</li>
-                        <li>Comunicación tiempo real</li>
-                        <li>Push desde servidor necesario</li>
-                        <li>Dispositivos con batería</li>
-                    </ul>
+            </section>
+
+            <!-- Ejercicio del Simulador Propuesto -->
+            <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
+                <p>Este ejercicio complementa los conceptos de servidor web vistos en esta clase:</p>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">🌐 Ejercicio 14: Web Server ESP32</h4>
+                    <p><strong>Concepto:</strong> Servidor web embebido, control remoto por HTTP</p>
+                    <p><strong>Tiempo:</strong> 35 min | <strong>Dificultad:</strong> 🔴 Avanzado</p>
+                    <p><strong>Objetivo:</strong> Crear un servidor web en el ESP32 que permita controlar un LED desde el navegador.</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-14-web-server.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                </div>
+
+                <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                    <strong>💡 Conexión con la clase:</strong> El ejercicio implementa un servidor web básico que puedes controlar desde un navegador, aplicando los conceptos de modos WiFi y HTTP.
                 </div>
             </div>
-        </section>
 
-        <!-- Laboratorios Relacionados -->
-        <section id="laboratorios">
-            <h2>🔬 Laboratorios Relacionados</h2>
-
-            <div class="info-box info">
-                <h4>💡 Aprendizaje Práctico</h4>
-                <p>Los siguientes laboratorios refuerzan los conceptos teóricos de esta clase con práctica hands-on. Completa estos laboratorios para construir las habilidades necesarias para el proyecto final.</p>
-            </div>
-
-            
-            <div class="lab-header" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: var(--color-accent);">
-                <h3 style="color: #92400e; margin: 0 0 0.5rem 0; font-size: 1.5rem;">🎯 FASE 2: Conectividad IoT</h3>
-                <p style="margin: 0; color: #78716c;">En esta fase aprendes a conectar el ESP32 a internet. El laboratorio 06 es fundamental para enviar datos del proyecto a la nube.</p>
-            </div>
-
-
-            <div class="grid-2" style="margin-top: 2rem;">
+            <section>
+                <h2>Resumen</h2>
+                <ul>
+                    <li><strong>Modos WiFi:</strong> <abbr title="Station Mode: El ESP32 se conecta a un router como cliente">STA</abbr>, <abbr title="Access Point Mode: El ESP32 crea su propia red inalámbrica">AP</abbr></li>
+                    <li><strong>Conexión:</strong> WiFi.begin(), verificar WiFi.status()</li>
+                    <li><strong>Servidor Web:</strong> WebServer, definir rutas, handleClient()</li>
+                    <li><strong><abbr title="Plataforma IoT Cloud de MathWorks">ThingSpeak</abbr>:</strong> Enviar datos vía <abbr title="Hypertext Transfer Protocol">HTTP</abbr> GET</li>
+                    <li><strong>E3:</strong> Entrega de Software IoT el lunes 16-mar</li>
+                </ul>
                 
-                <div class="card" style="border-left: 4px solid var(--color-primary);">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Sim 10</span>
-                        WiFi Connect (Simulador)
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Conecta el ESP32 a una red WiFi. Muestra IP asignada, estado de conexión y manejo de errores.</p>
-                    <a href="ejercicios-simulador/ejercicio-10-wifi-connect.html" style="display: inline-block; background: var(--color-primary-light); color: white; padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Practicar en Simulador →
-                    </a>
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Protocolos IoT (Después del Receso)</h4>
+                    <p><abbr title="Message Queuing Telemetry Transport: Protocolo de mensajería ligero para IoT">MQTT</abbr>, <abbr title="Hypertext Transfer Protocol: Protocolo base de la Web">HTTP</abbr>, comparación de protocolos</p>
                 </div>
+            </section>
+        </main>
 
-                <div class="card" style="border-left: 4px solid #f59e0b;">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: #f59e0b; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Sim 09</span>
-                        WiFi Scan (Simulador)
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Escanea redes WiFi disponibles usando el ESP32. Visualiza SSID, RSSI (señal) y tipo de encriptación.</p>
-                    <a href="ejercicios-simulador/ejercicio-09-wifi-scan.html" style="display: inline-block; background: #f59e0b; color: white; padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Practicar en Simulador →
-                    </a>
-                </div>
-
-                <div class="card" style="border-left: 4px solid #f59e0b;">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: #f59e0b; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Sim 10</span>
-                        WiFi Connect (Simulador)
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Conecta el ESP32 a una red WiFi. Muestra IP asignada, estado de conexión y manejo de errores.</p>
-                    <a href="ejercicios-simulador/ejercicio-10-wifi-connect.html" style="display: inline-block; background: #f59e0b; color: white; padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Practicar en Simulador →
-                    </a>
-                </div>
-
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">🏠 Índice</a>
+                <a href="clase-06.html" class="class-nav-btn">← Anterior<br><small style="font-size:0.75em;opacity:0.8;">09-mar</small></a>
+                <a href="clase-08.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">06-abr →</small></a>
             </div>
+        </nav>
 
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="laboratorios-html/index.html" style="display: inline-block; background: var(--color-primary); color: var(--text-inverse); padding: 0.75rem 1.5rem; border-radius: var(--radius-lg); text-decoration: none; font-weight: 600;">
-                    Ver Todos los Laboratorios →
-                </a>
-            </div>
-        </section>
-
-
-<section id="referencias">
-            <h2>Referencias</h2>
-            <ul>
-                <li>Espressif ESP32 WiFi Documentation - docs.espressif.com</li>
-                <li>Arduino WiFi Library - arduino.cc/en/Reference/WiFi</li>
-                <li>ThingSpeak API Documentation - mathworks.com/help/thingspeak</li>
-                <li>HTTP/1.1 Specification - RFC 2616</li>
-                <li>RESTful API Design Guide - restfulapi.net</li>
-                <li>WiFi Security Best Practices - wifi-security.org</li>
-                <li>Low Power WiFi Techniques - IEEE 802.11 Standards</li>
-            </ul>
-        </section>
-
-        <section id="📚-recursos-curados" class="info-box">
-            <h2>📚 Recursos Curados</h2>
-            <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
-
-            <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Visualizar datos en cualquier Web gratis con Thingspeak</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Tutorials</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 20 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Aprende a programar gráficamente el ESP32 en Arduino IDE 2 y publicar datos gratis en la web usando WiFi y ThingSpeak.</p>
-                    <a href="https://www.youtube.com/watch?v=v2jgvMkQ1Zg" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Cómo Graficar Sensores con ESP32 y ThingSpeak</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Projects</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 25 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Tutorial completo para graficar datos de sensores usando ESP32 y ThingSpeak directamente en una página web con conectividad WiFi.</p>
-                    <a href="https://www.youtube.com/watch?v=dTNB-fnbl3A" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 El ESP32 y Plataformas en la Nube</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Cloud</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 30 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Discusión sobre el ESP32 en el contexto de IoT y las diversas plataformas en la nube para crear proyectos con conectividad WiFi.</p>
-                    <a href="https://www.youtube.com/watch?v=QcozTDW-Ut4" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Navegación entre clases -->
-    <nav class="class-nav">
-        <div class="class-nav-title">Navegación del Curso</div>
-        <div class="class-nav-links">
-            <a href="index.html" class="class-nav-btn">
-                <span class="arrow">🏠</span> Inicio
-            </a>
-            <a href="clase-06.html" class="class-nav-btn">
-                <span class="arrow">←</span> Clase Anterior
-            </a>
-            <a href="clase-08.html" class="class-nav-btn">
-                Clase Siguiente <span class="arrow">→</span>
-            </a>
-        </div>
-    </nav>
-
-    <footer>
-        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
-        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
-    </footer>
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 7 - 16-mar-2026 (E3)</p>
+        </footer>
+    </div>
 
     <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
-
-            const progressFill = document.getElementById('progressFill');
+        (function(){
             const backToTop = document.getElementById('backToTop');
-
-            if (!progressFill || !backToTop) return;
-
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
                 const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
-                }
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
             });
-
-            // Initial call
-            updateProgress();
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
         })();
     </script>
 </body>
 </html>
-
-

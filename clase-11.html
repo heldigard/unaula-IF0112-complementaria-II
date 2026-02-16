@@ -3,2589 +3,716 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 11: Futuro de Internet y Tecnologías Emergentes | IF0112</title>
+    <title>Sesión 11: M2M/M2P/P2P + Marco Legal IoT - IF0112 Complementaria II</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* ============================================
-           DESIGN SYSTEM - Spacing Scale (8px base)
-           ============================================ */
-        :root {
-            /* Spacing scale */
-            --space-1: 0.25rem;  /* 4px */
-            --space-2: 0.5rem;   /* 8px */
-            --space-3: 0.75rem;  /* 12px */
-            --space-4: 1rem;     /* 16px */
-            --space-5: 1.25rem;  /* 20px */
-            --space-6: 1.5rem;   /* 24px */
-            --space-8: 2rem;     /* 32px */
-            --space-10: 2.5rem;  /* 40px */
-            --space-12: 3rem;    /* 48px */
-
-            /* Typography scale */
-            --text-xs: 0.75rem;    /* 12px */
-            --text-sm: 0.875rem;   /* 14px */
-            --text-base: 1rem;     /* 16px */
-            --text-lg: 1.125rem;   /* 18px */
-            --text-xl: 1.25rem;    /* 20px */
-            --text-2xl: 1.5rem;    /* 24px */
-            --text-3xl: 1.875rem;  /* 30px */
-            --text-4xl: 2.25rem;   /* 36px */
-
-            /* Line heights */
-            --leading-tight: 1.25;
-            --leading-snug: 1.375;
-            --leading-normal: 1.5;
-            --leading-relaxed: 1.625;
-            --leading-loose: 2;
-
-            /* Colors - improved accessibility */
-            --color-primary: #1e40af;
-            --color-primary-light: #3b82f6;
-            --color-secondary: #0f172a;
-            --color-accent: #f59e0b;
-            --color-purple: #8b5cf6;
-            --color-pink: #ec4899;
-            --color-success: #10b981;
-            --color-danger: #ef4444;
-
-            /* Text colors - WCAG AA compliant */
-            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
-            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
-            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
-            --text-inverse: #ffffff;
-
-            /* Background colors */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-
-            /* Border colors */
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
-
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-
-            /* Border radius */
-            --radius-sm: 0.25rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-        }
-
-        /* ============================================
-           RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: var(--leading-normal);
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ============================================
-           LAYOUT
-           ============================================ */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            background: var(--bg-primary);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* ============================================
-           HEADER
-           ============================================ */
-        header {
-            background: linear-gradient(135deg, var(--color-purple), var(--color-pink));
-            color: var(--text-inverse);
-            padding: var(--space-8) var(--space-6);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        header h1 {
-            font-size: var(--text-4xl);
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-tight);
-            position: relative;
-            z-index: 1;
-        }
-
-        header .subtitle {
-            font-size: var(--text-lg);
-            opacity: 0.95;
-            font-weight: 400;
-        }
-
-        header .course-info {
-            margin-top: var(--space-4);
-            font-size: var(--text-sm);
-            opacity: 0.85;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        /* ============================================
-           NAVIGATION - Enhanced
-           ============================================ */
-        nav {
-            background: var(--color-secondary);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-md);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 var(--space-4);
-            max-width: 100%;
-            overflow-x: auto;
-        }
-
-        nav li {
-            margin: 0;
-        }
-
-        nav a {
-            display: block;
-            padding: var(--space-3) var(--space-4);
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: var(--text-sm);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-inverse);
-        }
-
-        nav a:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: -2px;
-        }
-
-        /* Progress indicator */
-        .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.2);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* ============================================
-           MAIN CONTENT
-           ============================================ */
-        main {
-            padding: var(--space-8);
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: var(--space-12);
-            scroll-margin-top: 80px;
-            scroll-margin-block: 80px;
-        }
-
-        /* ============================================
-           TYPOGRAPHY HIERARCHY
-           ============================================ */
-        section h2 {
-            color: var(--color-purple);
-            border-bottom: 3px solid var(--color-primary-light);
-            padding-bottom: var(--space-2);
-            margin-bottom: var(--space-6);
-            font-size: var(--text-3xl);
-            font-weight: 700;
-            line-height: var(--leading-tight);
-        }
-
-        section h3 {
-            color: var(--color-primary);
-            margin: var(--space-6) 0 var(--space-4);
-            font-size: var(--text-2xl);
-            font-weight: 600;
-            line-height: var(--leading-snug);
-        }
-
-        section h4 {
-            color: var(--text-secondary);
-            margin: var(--space-4) 0 var(--space-2);
-            font-size: var(--text-lg);
-            font-weight: 600;
-        }
-
-        section h5 {
-            color: var(--text-secondary);
-            margin: var(--space-3) 0 var(--space-2);
-            font-size: var(--text-base);
-            font-weight: 600;
-        }
-
-        p {
-            margin-bottom: var(--space-4);
-            text-align: justify;
-            line-height: var(--leading-relaxed);
-            max-width: 75ch;
-        }
-
-        /* ============================================
-           CALLOUT BOXES
-           ============================================ */
-        .intro-box {
-            background: #eff6ff;
-            border-left: 4px solid var(--color-primary-light);
-            padding: var(--space-5);
-            margin: var(--space-6) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .intro-box strong {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .example-box {
-            background: #fef3c7;
-            border-left: 4px solid var(--color-accent);
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert-box {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================
-           TABLES - Enhanced
-           ============================================ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-6) 0;
-            font-size: var(--text-sm);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        th {
-            background: var(--color-purple);
-            color: var(--text-inverse);
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            font-size: var(--text-xs);
-        }
-
-        td {
-            padding: var(--space-3) var(--space-4);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--bg-secondary);
-        }
-
-        tbody tr:hover {
-            background: #e0e7ff;
-            transition: background 0.15s ease;
-        }
-
-        /* Responsive tables */
-        @media (max-width: 768px) {
-            table {
-                font-size: var(--text-xs);
-            }
-            th, td {
-                padding: var(--space-2) var(--space-3);
-            }
-        }
-
-        /* ============================================
-           GRIDS
-           ============================================ */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-6);
-            margin: var(--space-6) 0;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: var(--space-5);
-            margin: var(--space-6) 0;
-        }
-
-        /* ============================================
-           CARDS - Enhanced
-           ============================================ */
-        .card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .card h4 {
-            color: var(--color-primary);
-            margin-bottom: var(--space-2);
-            font-size: var(--text-lg);
-        }
-
-        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
-        .card-yellow { background: #fef3c7; border-color: #fde68a; }
-        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
-
-        /* ============================================
-           FLOW DIAGRAM
-           ============================================ */
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3);
-            align-items: center;
-            margin: var(--space-8) 0;
-            justify-content: center;
-        }
-
-        .flow-step {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: var(--space-4) var(--space-5);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            flex: 0 0 auto;
-            min-width: 150px;
-            font-size: var(--text-base);
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid #1d4ed8;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .flow-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .flow-step strong {
-            display: block;
-            font-size: var(--text-lg);
-            margin-bottom: var(--space-1);
-        }
-
-        .flow-step small {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: var(--text-sm);
-        }
-
-        .flow-arrow {
-            font-size: var(--text-3xl);
-            color: #1d4ed8;
-            font-weight: bold;
-            flex: 0 0 auto;
-        }
-
-        /* ============================================
-           TIMELINE
-           ============================================ */
-        .timeline {
-            position: relative;
-            padding-left: var(--space-8);
-            margin: var(--space-6) 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: var(--space-2);
-            bottom: var(--space-2);
-            width: 3px;
-            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            margin-bottom: var(--space-6);
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: calc(-1 * var(--space-8) - 5px);
-            top: var(--space-2);
-            width: 14px;
-            height: 14px;
-            background: var(--color-primary-light);
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-light);
-        }
-
-        /* ============================================
-           CODE BLOCKS
-           ============================================ */
-        pre {
-            background: var(--color-secondary);
-            color: #e2e8f0;
-            padding: var(--space-4);
-            border-radius: var(--radius-lg);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-            font-size: var(--text-sm);
-            line-height: var(--leading-relaxed);
-            box-shadow: var(--shadow-md);
-        }
-
-        code {
-            background: var(--bg-tertiary);
-            color: var(--color-primary);
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-md);
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
-
-        /* ============================================
-           FIGURES
-           ============================================ */
-        figure {
-            margin: var(--space-8) 0;
-            text-align: center;
-        }
-
-        figure img {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        figcaption {
-            margin-top: var(--space-3);
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           LISTS
-           ============================================ */
-        ul, ol {
-            margin-left: var(--space-6);
-            margin-bottom: var(--space-4);
-        }
-
-        li {
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           BACK TO TOP BUTTON
-           ============================================ */
-        .back-to-top {
-            position: fixed;
-            bottom: var(--space-6);
-            right: var(--space-6);
-            background: var(--color-purple);
-            color: var(--text-inverse);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            border: none;
-            font-size: var(--text-xl);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--color-pink);
-            transform: translateY(-2px);
-        }
-
-        .back-to-top:focus {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer {
-            background: var(--color-secondary);
-            color: var(--text-inverse);
-            text-align: center;
-            padding: var(--space-8) var(--space-6);
-            margin-top: var(--space-12);
-        }
-
-        footer p {
-            margin: var(--space-2) 0;
-            text-align: center;
-            color: rgba(255,255,255,0.85);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            main { padding: var(--space-6); }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: var(--space-6) var(--space-4);
-            }
-            header h1 {
-                font-size: var(--text-3xl);
-            }
-            header .subtitle {
-                font-size: var(--text-base);
-            }
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                position: relative;
-            }
-            nav ul {
-                flex-direction: column;
-                padding: 0;
-            }
-            nav a {
-                padding: var(--space-3) var(--space-4);
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            main {
-                padding: var(--space-4);
-            }
-            section {
-                margin-bottom: var(--space-10);
-            }
-            section h2 {
-                font-size: var(--text-2xl);
-            }
-            .back-to-top {
-                bottom: var(--space-4);
-                right: var(--space-4);
-                width: 44px;
-                height: 44px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            header h1 {
-                font-size: var(--text-2xl);
-            }
-            .flow-step {
-                min-width: 120px;
-                font-size: var(--text-sm);
-                padding: var(--space-3) var(--space-4);
-            }
-            .flow-step strong {
-                font-size: var(--text-base);
-            }
-            .flow-arrow {
-                font-size: var(--text-2xl);
-            }
-        }
-
-        /* ============================================
-           ACCESSIBILITY ENHANCEMENTS
-           ============================================ */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* Skip link for keyboard users */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-2) var(--space-4);
-            z-index: 999;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* Print styles */
-        @media print {
-            nav, .back-to-top, .progress-bar {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
-
-        /* ============================================
-           SPECIAL COMPONENTS FOR CLASE-11
-           ============================================ */
-
-        /* Stats Box */
-        .stats-box {
-            background: linear-gradient(135deg, #1e293b, #334155);
-            color: white;
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            margin: 1.5rem 0;
-        }
-
-        .stats-box h4 {
-            text-align: center;
-            color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #fbbf24;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 0.5rem;
-        }
-
-        /* Comparison Bars */
-        .comparison-bar {
-            margin: 1rem 0;
-        }
-
-        .comparison-bar-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .comparison-track {
-            background: #e2e8f0;
-            height: 24px;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .comparison-fill {
-            height: 100%;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
-            color: white;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .comparison-fill.g4 {
-            background: #94a3b8;
-            width: 10%;
-        }
-
-        .comparison-fill.g5 {
-            background: linear-gradient(90deg, var(--color-purple), var(--color-pink));
-            width: 100%;
-        }
-
-        .comparison-fill.latency-4g {
-            background: #94a3b8;
-            width: 80%;
-        }
-
-        .comparison-fill.latency-5g {
-            background: linear-gradient(90deg, var(--color-success), #34d399);
-            width: 5%;
-        }
-
-        /* Three Pillars */
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .pillar-card {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border: 2px solid #e2e8f0;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .pillar-card h4 {
-            color: var(--color-purple);
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .pillar-card .acronym {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--color-pink);
-            margin-bottom: 0.5rem;
-        }
-
-        .pillar-card ul {
-            list-style: none;
-            padding-left: 0;
-            text-align: left;
-            margin-top: 1rem;
-        }
-
-        .pillar-card li {
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
-        }
-
-        /* Case Study */
-        .case-study {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #fbbf24;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .case-study.colombia {
-            background: linear-gradient(135deg, #fef3c7, #fcd34d);
-            border-color: #f59e0b;
-        }
-
-        .case-study h4 {
-            color: #92400e;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .case-study ul {
-            margin: 1rem 0 1rem 1.5rem;
-        }
-
-        .case-study li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Architecture Diagram */
-        .arch-diagram {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            border: 2px solid #86efac;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .arch-diagram h4 {
-            color: #166534;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .arch-layer {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.75rem 0;
-        }
-
-        .arch-layer-title {
-            font-weight: bold;
-            color: var(--color-purple);
-            margin-bottom: 0.5rem;
-        }
-
-        /* Tech Grid */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .tech-card {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border: 2px solid #e2e8f0;
-            border-radius: var(--radius-lg);
-            padding: 1.25rem;
-        }
-
-        .tech-card h4 {
-            color: var(--color-purple);
-            margin-bottom: 0.75rem;
-            font-size: 1.05rem;
-        }
-
-        .tech-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .tech-card li {
-            padding: 0.3rem 0;
-            padding-left: 1.25rem;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .tech-card li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--color-pink);
-        }
-
-        /* Activity Box */
-        .activity {
-            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
-            border: 2px solid #c084fc;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .activity h4 {
-            color: #6b21a8;
-            margin-bottom: 1rem;
-        }
-
-        /* Learning Key Box */
-        .learning-key {
-            background: linear-gradient(135deg, #ede9fe, #fce7f3);
-            border-left: 5px solid var(--color-purple);
-            padding: 1.25rem;
-            margin: 1.5rem 0;
-            border-radius: var(--radius-lg);
-            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
-        }
-        .learning-key h4 {
-            color: var(--color-purple);
-            margin-bottom: 0.75rem;
-            font-size: 1.05rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .learning-key h4::before {
-            content: "💡";
-            font-size: 1.2rem;
-        }
-        .learning-key p {
-            margin: 0;
-            font-size: 0.95rem;
-            opacity: 0.95;
-        }
-
-        /* Hardware Notice */
-        .hardware-notice {
-            background: #fef3c7;
-            border-left: 4px solid var(--color-accent);
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 8px;
-            font-size: 0.95rem;
-        }
-        .hardware-notice strong {
-            color: #92400e;
-        }
-
-        /* Next Class Box */
-        .next-class {
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            padding: 1.5rem;
-            border-radius: var(--radius-lg);
-            margin-top: 2rem;
-        }
-
-        .next-class h3 {
-            color: var(--color-primary);
-            margin-bottom: 1rem;
-        }
-
-        /* Responsive adjustments for special components */
-        @media (max-width: 768px) {
-            .pillars-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
+        /* Estilos específicos de esta clase (si los hay) */
     </style>
 </head>
 <body>
-    <header>
-        <h1>Clase 11: Futuro de Internet y Tecnologías Emergentes</h1>
-        <p class="subtitle">5G, AIoT y Tendencias de Conectividad</p>
-        <p class="meta">
-            IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
-        </p>
-    </header>
+    <div class="container">
+        <header>
+<h1>Sesión 11: Conexiones M2M/M2P/P2P + Marco Legal IoT</h1>
+            <p class="subtitle">Patrones de Comunicación y Ley 1581 de Protección de Datos</p>
+            <p class="meta">
+                IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 27-abr-2026
+            </p>
+        </header>
 
 
         <!-- Info Cronograma 2026-I -->
         <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 11 - M2M/M2P/P2P</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 27 de Abril 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min)</p>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 11 - M2M/M2P/P2P + Marco Legal</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 27 de Abril 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min) | <strong>Modalidad:</strong> Teórica</p>
                 </div>
                 <div style="text-align: right;">
                     <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
                 </div>
             </div>
 
-            <!-- Próxima evaluación -->
             <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">⚠️ Próxima Evaluación: E5 (Semana 12)</h4>
-                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>E5 (15%):</strong> Presentación Estándares IoT. Fecha: 03-may-2026 (clase).</p>
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">⚠️ PRÓXIMA SEMANA: E5 (15%) - 04-may</h4>
+                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>E5 Trabajo Escrito:</strong> Normativa aplicada al SMAI.</p>
+                <p><a href="../evaluaciones/guia-E5.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía Normativa E5 →</a></p>
             </div>
 
             <!-- Proyecto -->
             <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
                 <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">🎯 Proyecto Final - Fase 3</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Continuar desarrollo del proyecto integrador. Próxima clase: Estándares IoT + E5.</p>
-            </div>
-
-            <!-- Preparación -->
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Entregar informe E4 el domingo. Traer laptop al lab para configurar Grafana. Leer guía del caso asignado.</p>
+                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Continuar desarrollo del proyecto integrador. Próxima clase: E5 Trabajo Escrito + Caso SIATA.</p>
             </div>
 
         </section>
 
-    
-    <section class="objectives">
-        <h2>🎯 Objetivos de la Clase</h2>
-        <p>Al finalizar esta clase, el estudiante será capaz de:</p>
-        <ul>
-            <li><strong>Describir</strong> las capacidades de 5G para IoT</li>
-            <li><strong>Identificar</strong> tendencias tecnológicas emergentes</li>
-            <li><strong>Analizar</strong> el impacto de IA en IoT</li>
-            <li><strong>Proyectar</strong> escenarios futuros de conectividad</li>
-        </ul>
-        <p class="meta"><strong>Duración:</strong> 2 horas | <strong>Unidad:</strong> 2 - La Piedra Angular del IoT</p>
-    </section>
-    
-    <nav>
-        <ul>
-            <li><a href="#objetivos">Objetivos</a></li>
-            <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
-            <li><a href="#conexion-evaluacion">📝 Conexión E4</a></li>
-            <li><a href="#por-que">¿Por qué?</a></li>
-            <li><a href="#estadisticas">Estadísticas</a></li>
-            <li><a href="#5g">5G</a></li>
-            <li><a href="#pilares">3 Pilares</a></li>
-            <li><a href="#casos-5g">Casos 5G</a></li>
-            <li><a href="#colombia">5G Colombia</a></li>
-            <li><a href="#aiot">AIoT</a></li>
-            <li><a href="#tinyml">TinyML</a></li>
-            <li><a href="#digital-twin">Digital Twin</a></li>
-            <li><a href="#metaverso">Metaverso</a></li>
-            <li><a href="#blockchain">Blockchain</a></li>
-            <li><a href="#satelites">Satélites</a></li>
-            <li><a href="#cuantica">Cuántica</a></li>
-            <li><a href="#resumen">Resumen</a></li>
-            <li><a href="#referencias">Referencias</a></li>
-        </ul>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-    </nav>
 
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
+                <li><a href="#conexion-evaluacion">📝 Conexión Evaluación</a></li>
+                <li><a href="#contexto">Contexto</a></li>
+                <li><a href="#clasificacion">Clasificacion</a></li>
+                <li><a href="#p2m">P2M</a></li>
+                <li><a href="#m2m">M2M</a></li>
+                <li><a href="#m2p">M2P</a></li>
+                <li><a href="#p2p">P2P</a></li>
+                <li><a href="#comparativa">Comparativa</a></li>
+                <li><a href="#practica">Practica / Lab</a></li>
+                <li><a href="#ejercicios">Ejercicios</a></li>
+                <li><a href="#marco-legal">⚖️ Marco Legal IoT</a></li>
+                <li><a href="#referencias">Referencias</a></li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </nav>
 
-    <main>
-        <!-- Objetivos -->
-        <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-<h2>⏱️ Agenda de 90 Minutos</h2>
+        <!-- Back to top button -->
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
+        <main>
+
+        <!-- Objectives Section -->
+<section id="agenda-120" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+<h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
 <ul>
-<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
-<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
-<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
-<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
+<li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
+<li><strong>10-40 min:</strong> Patrones <abbr title="Machine-to-Machine / Machine-to-Person / Person-to-Person">M2M/M2P/P2P</abbr> (30 min teoría)</li>
+<li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Mapeo de interacciones del proyecto (30 min práctica)</li>
+<li><strong>70-95 min:</strong> Marco Legal: Ley 1581 y ética (25 min teoría)</li>
+<li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Auditoría de privacidad y cierre (25 min práctica)</li>
 </ul>
+<div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+</div>
 </section>
 <section id="objetivos">
             <h2>Objetivos de la Clase</h2>
-
-            <div class="grid-2">
-                <div>
-                    <h3>Competencias a Desarrollar</h3>
-                    <p>Al finalizar esta clase, podrá:</p>
-                    <ul>
-                        <li><strong>Identificar</strong> las tendencias emergentes en IoT</li>
-                        <li><strong>Comprender</strong> el impacto de 5G en IoT</li>
-                        <li><strong>Analizar</strong> la convergencia AIoT (AI + IoT)</li>
-                        <li><strong>Evaluar</strong> aplicaciones de TinyML en edge devices</li>
-                        <li><strong>Explorar</strong> tecnologías emergentes (Blockchain, Digital Twin, Metaverso)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Estructura de la Clase</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Bloque</th>
-                                <th>Tema</th>
-                                <th>Duración</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>1️⃣</td><td>Contexto y Estadísticas</td><td>15 min</td></tr>
-                            <tr><td>2️⃣</td><td>5G y sus aplicaciones IoT</td><td>25 min</td></tr>
-                            <tr><td>3️⃣</td><td>AIoT y TinyML</td><td>25 min</td></tr>
-                            <tr><td>4️⃣</td><td>Tecnologías emergentes</td><td>25 min</td></tr>
-                            <tr><td>5️⃣</td><td>Resumen y Discusión</td><td>10 min</td></tr>
-                        </tbody>
-                    </table>
-                    <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Qué tecnologías definirán el futuro de IoT?</p>
-                </div>
-            </div>
+            <p>Al finalizar esta clase, el estudiante será capaz de:</p>
+            <ul>
+                <li>Diferenciar P2M, M2M, M2P y P2P en sistemas IoT.</li>
+                <li>Evaluar latencia, complejidad y confianza en cada tipo.</li>
+                <li>Relacionar patrones de comunicación con casos reales.</li>
+                <li>Diseñar un flujo IoT según el tipo de conexión.</li>
+            </ul>
         </section>
 
         <!-- Avance del Proyecto Integrador -->
         <section id="avance-proyecto" class="info-box success">
             <h2>🏗️ Avance del Proyecto Integrador</h2>
             <p><strong>Proyecto:</strong> <em>Sistema de Monitoreo Ambiental IoT</em></p>
-            <p><strong>Qué construimos esta semana:</strong> Exploramos tecnologías emergentes (5G, AIoT, TinyML, Digital Twins) que podrían mejorar nuestro proyecto de monitoreo ambiental. Aunque usaremos tecnologías actuales (ESP32 + MQTT), entender el futuro nos ayuda a diseñar sistemas escalables y preparados para evolución.</p>
-            <p><strong>Evidencia esperada:</strong> Análisis de cómo al menos una tecnología emergente (ej: TinyML en ESP32, Digital Twin para simulación) podría aplicarse al proyecto de monitoreo ambiental para hacerlo más inteligente o eficiente.</p>
-            <p><strong>Conexión con el proyecto final:</strong> Esta semana ampliamos nuestra visión del proyecto IoT. Aunque usaremos tecnologías básicas, entendemos las tendencias que podrían mejorar el sistema en el futuro (ej: IA para predecir patrones ambientales, Digital Twin para simulación).</p>
+            <p><strong>Qué construimos esta semana:</strong> Aprendemos sobre patrones de comunicación M2M (máquina a máquina) que son fundamentales para el proyecto. El sistema de monitoreo ambiental requiere que los sensores se comuniquen automáticamente con actuadores sin intervención humana.</p>
+            <p><strong>Evidencia esperada:</strong> Comprensión de cómo implementar comunicación M2M en el proyecto: sensores que detectan condiciones críticas (temperatura alta, humedad baja) y activan automáticamente actuadores (alertas, riego).</p>
+            <p><strong>Conexión con el proyecto final:</strong> Los patrones M2M/M2P aprendidos se aplican directamente en el proyecto: sensores → MQTT → Actuadores, y notificaciones M2P al usuario cuando se detecten alertas.</p>
         </section>
 
-        <!-- Conexión con Evaluación E4 -->
+        <!-- Conexión con Evaluación -->
         <section id="conexion-evaluacion" class="info-box info">
             <h2>📝 Conexión con Evaluación</h2>
-            <div class="evaluacion-activa">
-                <p><strong>📌 Esta semana tenemos evaluación:</strong></p>
+            <div class="evaluacion-preparacion">
+                <p><strong>🔜 Esta semana nos preparamos para:</strong></p>
                 <ul>
-                    <li><strong>Evaluación:</strong> E4 - Análisis de Caso + Dashboard/Interpretación de Datos</li>
-                    <li><strong>Peso:</strong> 15%</li>
-                    <li><strong>Fecha:</strong> Lunes 20 de Abril 2026</li>
-                    <li><strong>Formato:</strong>
-                        <ul>
-                            <li><strong>Informe (15%):</strong> Entregar DOMINGO 19/04 antes 11:59 PM. Análisis de un caso IoT real aplicando conceptos del curso (arquitectura, tecnologías, protocolos, desafíos).</li>
-                            <li><strong>Dashboard:</strong> Parte del informe debe incluir interpretación de datos de un sistema IoT (similar a nuestro proyecto de monitoreo).</li>
-                        </ul>
-                    </li>
-                    <li><strong>Preparación:</strong> Revisar casos de estudio vistos en clase, entender cómo interpretar datos de sensores, analizar arquitecturas IoT reales.</li>
+                    <li><strong>Evaluación:</strong> E5 (Trabajo Escrito Normativo, 15%)</li>
+                    <li><strong>Sesión:</strong> Sesión 12 (Lunes 04 de Mayo 2026)</li>
+                    <li><strong>Conexión:</strong> E5 evaluará conocimientos de estándares y marcos legales. Los patrones de comunicación M2M/M2P que aprendemos esta semana son relevantes para entender cómo los estándares de seguridad se aplican a las comunicaciones IoT.</li>
                 </ul>
-            </div>
-            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
-                <p style="margin: 0; color: #1e40af;"><strong>🔗 Conexión:</strong> E4 evalúa la capacidad de analizar y entender sistemas IoT reales. El informe requiere interpretar datos de un sistema IoT, exactamente lo que haremos con nuestro proyecto de monitoreo ambiental. Esta evaluación prepara para el análisis de datos del proyecto final.</p>
             </div>
         </section>
 
-        <!-- Por qué -->
-        <section id="por-que">
-            <h2>❓ ¿Por qué estudiar el Futuro de IoT?</h2>
-            
-            <p>El Internet de las Cosas está evolucionando rápidamente con nuevas tecnologías que cambiarán cómo interactuamos con el mundo. Comprender estas tendencias es fundamental para anticipar oportunidades y desafíos profesionales.</p>
-            
-            <h3>Tendencias Clave que Moldearán el Futuro</h3>
-            
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>📡 5G</h4>
-                    <ul>
-                        <li>Conectividad ultra-rápida</li>
-                        <li>Latencia menor a 1ms</li>
-                        <li>1 millón de dispositivos/km²</li>
-                        <li>Habilita vehículos autónomos</li>
-                        <li>Cirugía remota en tiempo real</li>
-                    </ul>
+        <!-- Contexto -->
+        <section id="contexto">
+                <h2>Contexto y motivacion</h2>
+                <p>En IoT no solo importan los dispositivos, sino la forma en que interactuan. Las conexiones P2M, M2M, M2P y P2P definen el flujo de control, los tiempos de respuesta y el nivel de autonomia. Identificar el tipo de conexion permite diseñar arquitecturas eficientes y seguras.</p>
+                <div class="note">
+                    <strong>Idea clave:</strong> cambia el actor que inicia la accion y cambia el diseño completo del sistema.
                 </div>
-                
-                <div class="tech-card">
-                    <h4>🧠 AIoT</h4>
-                    <ul>
-                        <li>Inteligencia Artificial integrada</li>
-                        <li>Dispositivos autónomos</li>
-                        <li>Decisiones locales inteligentes</li>
-                        <li>Reconocimiento de patrones</li>
-                        <li>Asistentes de voz avanzados</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>⚡ Edge AI</h4>
-                    <ul>
-                        <li>ML directamente en sensores</li>
-                        <li>Privacidad mejorada</li>
-                        <li>Menor dependencia de nube</li>
-                        <li>Respuestas instantáneas</li>
-                        <li>Menor consumo de ancho de banda</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🔮 Digital Twins</h4>
-                    <ul>
-                        <li>Réplicas virtuales de objetos físicos</li>
-                        <li>Simulación en tiempo real</li>
-                        <li>Mantenimiento predictivo</li>
-                        <li>Optimización continua</li>
-                        <li>Ciudades virtuales completas</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🔗 Blockchain IoT</h4>
-                    <ul>
-                        <li>Seguridad descentralizada</li>
-                        <li>Trazabilidad garantizada</li>
-                        <li>Contratos inteligentes</li>
-                        <li>Identidad de dispositivos</li>
-                        <li>Mercados de datos P2P</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🛰️ Satélites LEO</h4>
-                    <ul>
-                        <li>Cobertura global</li>
-                        <li>Latencia 20-40ms</li>
-                        <li>IoT en zonas remotas</li>
-                        <li>Monitoreo marítimo</li>
-                        <li>Agricultura sin límites</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="info-box purple">
-                <h4>🇨🇴 Impacto para Colombia</h4>
-                <ul>
-                    <li><strong>5G ya desplegado</strong> en principales ciudades (2024-2025)</li>
-                    <li><strong>Inversión de $3+ billones</strong> en infraestructura digital</li>
-                    <li><strong>Oportunidades</strong> en agricultura, minería y ciudades inteligentes</li>
-                    <li><strong>Desafío:</strong> Brecha digital rural vs urbana</li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- Estadísticas -->
-        <section id="estadisticas">
-            <h2>📊 Internet Hoy: Estadísticas 2024</h2>
-            
-            <div class="stats-box">
-                <h4>🌐 Internet en Números</h4>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">5.4B</div>
-                        <div class="stat-label">Usuarios de Internet<br>(67% población mundial)</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">16.7B</div>
-                        <div class="stat-label">Dispositivos móviles<br>conectados</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">30+ B</div>
-                        <div class="stat-label">Dispositivos IoT<br>conectados</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">120 ZB</div>
-                        <div class="stat-label">Datos generados<br>por año</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">97%</div>
-                        <div class="stat-label">Tráfico pasa por<br>cables submarinos</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">$15T+</div>
-                        <div class="stat-label">Mercado IoT<br>(proyección 2030)</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="info-box info">
-                <h4>💡 Contexto</h4>
-                <p>El crecimiento exponencial de dispositivos conectados y datos generados está impulsando la necesidad de tecnologías como 5G, Edge Computing e IA distribuida. Para 2030, se espera que haya más de <strong>50 mil millones de dispositivos IoT</strong> conectados globalmente.</p>
-            </div>
-        </section>
-        
-        <!-- 5G -->
-        <section id="5g">
-            <h2>📡 5G: La Quinta Generación</h2>
+            </section>
 
-            <div class="learning-key">
-                <h4>Aprendizaje clave</h4>
-                <p>5G no es solo más velocidad. Sus tres pilares son: <strong>eMBB</strong> (velocidad hasta 20 Gbps), <strong>URLLC</strong> (latencia ultra baja de 1ms para vehículos autónomos), y <strong>mMTC</strong> (hasta 1M dispositivos/km² para IoT masivo).</p>
-            </div>
+            <section id="clasificacion">
+                <h2>Clasificacion de conexiones</h2>
 
-            <p>El 5G representa un salto cualitativo en las comunicaciones móviles, no solo por velocidad sino por habilitar nuevas aplicaciones que requieren latencia ultra baja y conectividad masiva.</p>
-            
-            <h3>Especificaciones 5G</h3>
-            
-            <h4>Velocidad</h4>
-            <div class="comparison-bar">
-                <div class="comparison-bar-label">
-                    <span>4G vs 5G</span>
-                    <span>Pico teórico: 20 Gbps</span>
+                <div class="learning-key">
+                    <h4>Aprendizaje clave</h4>
+                    <p>Los 4 patrones de conexión <abbr title="Internet of Things">IoT</abbr> son: <strong><abbr title="Person-to-Machine">P2M</abbr></strong> (Persona controla máquina), <strong><abbr title="Machine-to-Person: Alertas desde dispositivos a humanos">M2P</abbr></strong> (Máquina notifica persona), <strong><abbr title="Machine-to-Machine: Comunicación directa entre objetos sin humanos">M2M</abbr></strong> (Máquina con máquina), y <strong><abbr title="Person-to-Person: Comunicación mediada por IoT">P2P</abbr></strong> (Persona con persona). Cada patrón tiene latencia, complejidad y confianza diferentes.</p>
                 </div>
-                <div class="comparison-track">
-                    <div class="comparison-fill g4">100 Mbps</div>
+
+                <div class="diagram">
+Persona (P)                   Maquina (M)
+    |                             |
+    |                             |
++---+---+                     +---+---+
+|       |                     |       |
+P2M   M2P                     M2M   P2P
                 </div>
-                <div class="comparison-track" style="margin-top: 0.5rem;">
-                    <div class="comparison-fill g5">10 Gbps</div>
-                </div>
-            </div>
-            
-            <h4>Latencia</h4>
-            <div class="comparison-bar">
-                <div class="comparison-bar-label">
-                    <span>Comparativa</span>
-                    <span>5G: 1ms vs 4G: 30-50ms</span>
-                </div>
-                <div class="comparison-track">
-                    <div class="comparison-fill latency-4g">4G: 30-50ms</div>
-                </div>
-                <div class="comparison-track" style="margin-top: 0.5rem;">
-                    <div class="comparison-fill latency-5g">5G: 1ms</div>
-                </div>
-            </div>
-            
-            <h4>Densidad de Conexión</h4>
-            <div class="info-box success">
-                <h4>📊 Capacidad Máxima</h4>
-                <p><strong>5G:</strong> 1 millón de dispositivos por km²<br>
-                <strong>4G:</strong> ~10,000 dispositivos por km²</p>
-                <p>Esto significa que 5G puede soportar <strong>100 veces más dispositivos</strong> en la misma área, haciendo posible el IoT masivo en ciudades inteligentes.</p>
-            </div>
-        </section>
-        
-        <!-- 3 Pilares -->
-        <section id="pilares">
-            <h2>🏛️ Tres Pilares de 5G</h2>
-            
-            <p>5G está diseñado para servir tres tipos de casos de uso fundamentales, cada uno con requisitos diferentes:</p>
-            
-            <div class="pillars-grid">
-                <div class="pillar-card">
-                    <h4>📺 eMBB</h4>
-                    <div class="acronym">Enhanced Mobile Broadband</div>
-                    <p style="font-size: 0.9rem; color: var(--color-text-light);">Mayor velocidad y capacidad</p>
-                    <ul>
-                        <li>📺 Video 4K/8K streaming</li>
-                        <li>🎮 Cloud gaming</li>
-                        <li>🕶️ VR/AR inmersivo</li>
-                        <li>📱 Móvil mejorado</li>
-                        <li>📹 Videoconferencias 8K</li>
-                    </ul>
-                </div>
-                
-                <div class="pillar-card">
-                    <h4>⚡ URLLC</h4>
-                    <div class="acronym">Ultra-Reliable Low-Latency</div>
-                    <p style="font-size: 0.9rem; color: var(--color-text-light);">Latencia ultra baja, alta confiabilidad</p>
-                    <ul>
-                        <li>🚗 Vehículos autónomos</li>
-                        <li>🏥 Cirugía remota</li>
-                        <li>🏭 Control industrial</li>
-                        <li>✈️ Drones críticos</li>
-                        <li>⚡ Smart grid</li>
-                    </ul>
-                </div>
-                
-                <div class="pillar-card">
-                    <h4>🌐 mMTC</h4>
-                    <div class="acronym">Massive Machine-Type</div>
-                    <p style="font-size: 0.9rem; color: var(--color-text-light);">Millones de conexiones</p>
-                    <ul>
-                        <li>🌡️ Sensores masivos</li>
-                        <li>📍 Medidores inteligentes</li>
-                        <li>🏭 IoT industrial masivo</li>
-                        <li>🌾 Agricultura conectada</li>
-                        <li>🏙️ Ciudades inteligentes</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="info-box warning">
-                <h4>⚠️ No todo 5G es igual</h4>
-                <p>Dependiendo de la frecuencia utilizada, 5G ofrece diferentes características:</p>
-                <ul>
-                    <li><strong>Banda baja (sub-1GHz):</strong> Cobertura amplia, velocidades moderadas (~100 Mbps)</li>
-                    <li><strong>Banda media (1-6GHz):</strong> Balance cobertura/velocidad (~1 Gbps)</li>
-                    <li><strong>mmWave (>24GHz):</strong> Velocidades ultra altas (>10 Gbps), cobertura limitada a ciudades</li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- Casos 5G -->
-        <section id="casos-5g">
-            <h2>🚗 5G y IoT: Casos de Uso</h2>
-            
-            <h3>Vehículos Conectados (V2X)</h3>
-            
-            <div class="arch-diagram">
-                <h4>Comunicación Vehicular (V2X)</h4>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">🚦 Infraestructura (V2I)</div>
-                    <p>Semáforos, señales de tránsito, sensores de carretera</p>
-                </div>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">🚗 ↔️ 🚙 Vehículos (V2V)</div>
-                    <p>Comunicación directa entre vehículos para evitar colisiones</p>
-                </div>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">🚶 Peatones (V2P)</div>
-                    <p>Alertas a peatones y ciclistas con dispositivos conectados</p>
-                </div>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">☁️ Red (V2N)</div>
-                    <p>Conexión a nube para servicios y actualizaciones</p>
-                </div>
-                
-                <div class="info-box danger">
-                    <h4>⏱️ Requisito Crítico</h4>
-                    <p>Los vehículos autónomos requieren <strong>latencia menor a 10ms</strong> para reacciones de emergencia. Solo 5G URLLC puede cumplir esto.</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Casos Colombia -->
-        <section id="colombia">
-            <h2>🇨🇴 Casos 5G en Colombia</h2>
-            
-            <!-- Caso Medellín -->
-            <div class="case-study colombia">
-                <h4>🏙️ Medellín - Ciudad Inteligente 5G</h4>
-                
-                <div class="tech-grid">
-                    <div class="tech-card">
-                        <h4>🚦 Semáforos Inteligentes</h4>
-                        <ul>
-                            <li>500 intersecciones conectadas</li>
-                            <li>Ajuste dinámico con IA edge</li>
-                            <li>Reducción congestión: -25%</li>
-                            <li>Tiempo de respuesta: <100ms</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="tech-card">
-                        <h4>📹 Vigilancia Masiva</h4>
-                        <ul>
-                            <li>2000+ cámaras conectadas</li>
-                            <li>Análisis en tiempo real con IA</li>
-                            <li>Detección automática de anomalías</li>
-                            <li>Alertas a centros de comando</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="tech-card">
-                        <h4>🚑 Emergencias Médicas</h4>
-                        <ul>
-                            <li>Ambulancias con prioridad V2I</li>
-                            <li>Semáforos se liberan automáticamente</li>
-                            <li>Tiempo de respuesta: <5 segundos</li>
-                            <li>Rutas optimizadas en tiempo real</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="tech-card">
-                        <h4>📱 Turismo Aumentado</h4>
-                        <ul>
-                            <li>Realidad AR en lugares históricos</li>
-                            <li>Guías virtuales interactivas</li>
-                            <li>Información contextual 5G</li>
-                            <li>Experiencias inmersivas</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 1rem; text-align: center; font-weight: bold; color: #92400e;">Socialización: 2024-2028</p>
-            </div>
-            
-            <!-- Caso Minería -->
-            <div class="case-study">
-                <h4>🏔️ Minería 5G - Cerrejón (Guajira)</h4>
-                
-                <h3>Desafío</h3>
-                <ul>
-                    <li>Zonas remotas sin fibra óptica</li>
-                    <li>Operaciones peligrosas underground</li>
-                    <li>Necesidad de monitoreo en tiempo real</li>
-                    <li>Control de equipos pesados</li>
-                </ul>
-                
-                <h3>Solución 5G</h3>
-                <div class="arch-diagram">
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">📡 Infraestructura 5G Privada</div>
-                        <p>Red 5G dedicada en la mina con cobertura subterránea y superficie</p>
-                    </div>
-                    
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">🚛 Camiones Autónomos</div>
-                        <p>GPS + sensores LiDAR + cámaras 4K, control remoto desde centro de operaciones</p>
-                    </div>
-                    
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">📹 Monitoreo Geológico</div>
-                        <p>Cámaras 4K + LiDAR para detección de inestabilidades en tiempo real</p>
-                    </div>
-                    
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">👷 Entrenamiento VR</div>
-                        <p>Simulación segura de operaciones peligrosas, reduciendo riesgos</p>
-                    </div>
-                </div>
-                
-                <h3>Resultados</h3>
+            </section>
+
+            <section id="p2m">
+                <h2>P2M (Persona a Maquina)</h2>
+                <p>Un humano controla o interactua directamente con un dispositivo IoT.</p>
                 <table>
                     <thead>
                         <tr>
-                            <th>Métrica</th>
-                            <th>Mejora</th>
+                            <th>Caso</th>
+                            <th>P → M</th>
+                            <th>Descripcion</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Seguridad</td>
-                            <td>-60% incidentes laborales</td>
+                            <td>Smart Home</td>
+                            <td>App enciende luz</td>
+                            <td>Usuario toca boton en app</td>
                         </tr>
                         <tr>
-                            <td>Eficiencia</td>
-                            <td>+35% toneladas/día</td>
+                            <td>Vehiculo</td>
+                            <td>Conductor activa calefaccion</td>
+                            <td>Boton fisico en panel</td>
                         </tr>
                         <tr>
-                            <td>Costos</td>
-                            <td>-40% transporte personal</td>
+                            <td>Industrial</td>
+                            <td>Operario ajusta parametros</td>
+                            <td>HMI panel tactil</td>
                         </tr>
                         <tr>
-                            <td>Operación</td>
-                            <td>24/7 continua</td>
+                            <td>Wearable</td>
+                            <td>Usuario consulta reloj</td>
+                            <td>Tap en pantalla</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            
-            <!-- Caso Agricultura -->
-            <div class="case-study">
-                <h4>🌾 Agricultura 5G - Caña de Azúcar (Valle del Cauca)</h4>
-                
-                <h3>Contexto</h3>
                 <ul>
-                    <li>Regiones de ciénaga con poca conectividad</li>
-                    <li>Cultivos extensos de caña de azúcar</li>
-                    <li>Necesidad de optimizar riego y cosecha</li>
-                    <li>Detección temprana de plagas</li>
+                    <li><strong>Latencia:</strong> &lt; 100 ms (feedback inmediato).</li>
+                    <li><strong>Confianza:</strong> alta (humano en el loop).</li>
+                    <li><strong>Complejidad:</strong> baja.</li>
                 </ul>
-                
-                <h3>Solución IoT + 5G</h3>
-                <div class="tech-grid">
-                    <div class="tech-card">
-                        <h4>🌾 Campo</h4>
-                        <ul>
-                            <li>Sensores de humedad del suelo (LoRa → Gateway)</li>
-                            <li>Estaciones meteorológicas</li>
-                            <li>Drones de monitoreo (5G control)</li>
-                            <li>Sistema de riego automatizado</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="tech-card">
-                        <h4>☁️ Plataforma Edge</h4>
-                        <ul>
-                            <li>IA para predicción de cosecha</li>
-                            <li>Optimización de riego</li>
-                            <li>Alertas de plagas/enfermedades</li>
-                            <li>Trazabilidad del producto</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="tech-card">
-                        <h4>📱 App Productor</h4>
-                        <ul>
-                            <li>Recomendaciones diarias</li>
-                            <li>Alertas climáticas</li>
-                            <li>Precios de mercado en tiempo real</li>
-                            <li>Control remoto de equipos</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h3>Resultados</h3>
+                <pre><code>// App envia comando al ESP32
+void loop() {
+  if (Serial.available()) {
+    char comando = Serial.read();
+    if (comando == '1') {
+      digitalWrite(LED_PIN, HIGH); // Encender luz
+    }
+  }
+}</code></pre>
+            </section>
+
+            <section id="m2m">
+                <h2><abbr title="Machine-to-Machine: Máquina a Máquina - Comunicación directa entre dispositivos sin intervención humana">M2M</abbr> (Máquina a Máquina)</h2>
+                <p>Dispositivos IoT se comunican sin intervencion humana.</p>
                 <table>
                     <thead>
                         <tr>
-                            <th>Métrica</th>
-                            <th>Mejora</th>
+                            <th>Caso</th>
+                            <th>M → M</th>
+                            <th>Descripcion</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Ahorro de agua</td>
-                            <td>-40%</td>
+                            <td>Domotica</td>
+                            <td>Sensor movimiento → Camara</td>
+                            <td>Movimiento detectado activa grabacion</td>
                         </tr>
                         <tr>
-                            <td>Incremento rendimiento</td>
-                            <td>+25%</td>
+                            <td>Industrial</td>
+                            <td>Sensor vibracion → Motor</td>
+                            <td>Vibracion alta apaga motor</td>
                         </tr>
                         <tr>
-                            <td>Reducción agroquímicos</td>
-                            <td>-35%</td>
+                            <td>Agricultura</td>
+                            <td>Sensor humedad → Valvula</td>
+                            <td>Suelo seco abre riego</td>
+                        </tr>
+                        <tr>
+                            <td>Smart Grid</td>
+                            <td>Medidor → Interruptor</td>
+                            <td>Demanda alta reduce carga</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </section>
-        
-        <!-- 5G Colombia -->
-        <section>
-            <h2>📍 5G en Colombia: Estado de Despliegue (2024)</h2>
-            
-            <h3>Operadores con 5G</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Operador</th>
-                        <th>Lanzamiento</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Claro Colombia</td>
-                        <td>2021</td>
-                        <td>🟢 Operativo</td>
-                    </tr>
-                    <tr>
-                        <td>Movistar Colombia</td>
-                        <td>2022</td>
-                        <td>🟢 Operativo</td>
-                    </tr>
-                    <tr>
-                        <td>WOM Colombia</td>
-                        <td>2023</td>
-                        <td>🟢 Operativo</td>
-                    </tr>
-                    <tr>
-                        <td>Tigo Colombia</td>
-                        <td>2024</td>
-                        <td>🟡 Piloto</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Cobertura por Ciudades</h3>
-            <div class="comparison-bar">
-                <div class="comparison-bar-label">
-                    <span>🏙️ Bogotá</span>
-                    <span>60%</span>
-                </div>
-                <div class="comparison-track">
-                    <div class="comparison-fill g5" style="width: 60%;">██████████</div>
-                </div>
-            </div>
-            
-            <div class="comparison-bar">
-                <div class="comparison-bar-label">
-                    <span>🏙️ Medellín</span>
-                    <span>40%</span>
-                </div>
-                <div class="comparison-track">
-                    <div class="comparison-fill g5" style="width: 40%;">███████</div>
-                </div>
-            </div>
-            
-            <div class="comparison-bar">
-                <div class="comparison-bar-label">
-                    <span>🏙️ Cali</span>
-                    <span>30%</span>
-                </div>
-                <div class="comparison-track">
-                    <div class="comparison-fill g5" style="width: 30%;">█████</div>
-                </div>
-            </div>
-            
-            <div class="comparison-bar">
-                <div class="comparison-bar-label">
-                    <span>🏙️ Otras ciudades</span>
-                    <span>20%</span>
-                </div>
-                <div class="comparison-track">
-                    <div class="comparison-fill g5" style="width: 20%;">███</div>
-                </div>
-            </div>
-            
-            <div class="info-box warning">
-                <h4>⚠️ Desafíos para Colombia</h4>
                 <ul>
-                    <li><strong>Subasta de espectro:</strong> Asignación de frecuencias para 5G</li>
-                    <li><strong>Infraestructura rural:</strong> Zonas remotas sin cobertura</li>
-                    <li><strong>Adopción de dispositivos:</strong> Precio de equipos 5G</li>
-                    <li><strong>Brecha digital:</strong> Desigualdad entre urbano y rural</li>
+                    <li><strong>Latencia:</strong> variable (ms a segundos).</li>
+                    <li><strong>Autonomia:</strong> completa.</li>
+                    <li><strong>Complejidad:</strong> media-alta.</li>
                 </ul>
-            </div>
-        </section>
-        
-        <!-- AIoT -->
-        <section id="aiot">
-            <h2>🧠 AIoT: Inteligencia Artificial en IoT</h2>
+                <pre><code>// ESP32 (M1) publica, ESP32 (M2) recibe y actua
+// Emisor (M1)
+void loop() {
+  float temp = dht.readTemperature();
+  if (temp > 30) {
+    client.publish("casa/living/alerta", "TEMP_ALTA");
+  }
+}
 
-            <div class="learning-key">
-                <h4>Aprendizaje clave</h4>
-                <p>AIoT combina la capacidad de recolección de datos del IoT con el análisis predictivo de la IA. El flujo es: <strong>Sensores → Datos → Edge AI → Acción autónoma</strong>. Esto permite decisiones locales sin depender de la nube, reduciendo latencia y ancho de banda.</p>
-            </div>
+// Receptor (M2)
+void callback(char* topic, byte* payload, unsigned int length) {
+  if (strcmp((char*)payload, "TEMP_ALTA") == 0) {
+    digitalWrite(AIRE_PIN, HIGH); // Encender A/C
+  }
+}</code></pre>
+            </section>
 
-            <p>La convergencia de <strong>AI (Inteligencia Artificial)</strong> e <strong>IoT (Internet de las Cosas)</strong> crea sistemas que no solo conectan dispositivos, sino que los hacen inteligentes y autónomos.</p>
-            
-            <div class="stats-box">
-                <h4>AIoT: AI + IoT = Sistemas Autónomos</h4>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🌐 IoT</div>
-                        <p style="font-size: 0.85rem;">Datos<br>Sensores<br>Conectividad<br>Actuadores</p>
-                    </div>
-                    <div class="stat-item">
-                        <div style="font-size: 1.5rem; color: #fbbf24;">+</div>
-                    </div>
-                    <div class="stat-item">
-                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🧠 AI</div>
-                        <p style="font-size: 0.85rem;">Inteligencia<br>Decisiones<br>Predicción<br>Automatización</p>
-                    </div>
-                    <div class="stat-item">
-                        <div style="font-size: 1.5rem; color: #fbbf24;">=</div>
-                    </div>
-                    <div class="stat-item" style="grid-column: span 2;">
-                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🚀 AIoT</div>
-                        <p style="font-size: 0.85rem;">Dispositivos que aprenden, deciden y actúan</p>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>Ejemplos de AIoT</h3>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>🏠 Hogar Inteligente</h4>
-                    <ul>
-                        <li>Termostatos que aprenden patrones</li>
-                        <li>Asistentes de voz (Alexa, Google)</li>
-                        <li>Cámaras con reconocimiento facial</li>
-                        <li>Iluminación adaptativa</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🏭 Industria 4.0</h4>
-                    <ul>
-                        <li>Mantenimiento predictivo</li>
-                        <li>Control de calidad automático</li>
-                        <li>Optimización de energía</li>
-                        <li>Robots colaborativos</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🏥 Salud</h4>
-                    <ul>
-                        <li>Monitoreo predictivo de pacientes</li>
-                        <li>Diagnóstico asistido por IA</li>
-                        <li>Dispositivos wearables inteligentes</li>
-                        <li>Alertas tempranas de anomalías</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🚗 Transporte</h4>
-                    <ul>
-                        <li>Vehículos autónomos</li>
-                        <li>Optimización de rutas</li>
-                        <li>Detección de fatiga del conductor</li>
-                        <li>Predicción de tráfico</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- TinyML -->
-        <section id="tinyml">
-            <h2>⚡ TinyML: Machine Learning en Microcontroladores</h2>
-
-            <div class="learning-key">
-                <h4>Aprendizaje clave</h4>
-                <p>TinyML ejecuta modelos de IA en microcontroladores con <256KB RAM. Frameworks como TensorFlow Lite para Micro permiten inferencia en dispositivos de $2-5. Aplicaciones: wake words, detección de anomalías, reconocimiento de gestos, todo sin nube.</p>
-            </div>
-
-            <p><strong>TinyML</strong> es el campo del machine learning que permite ejecutar modelos de IA directamente en microcontroladores de bajo consumo, sin necesidad de conexión a la nube.</p>
-            
-            <div class="info-box success">
-                <h4>✅ Ventajas de TinyML</h4>
+            <section id="m2p">
+                <h2><abbr title="Machine-to-Person: Máquina a Persona - Comunicación desde un dispositivo hacia una persona, típicamente mediante notificaciones o alertas">M2P</abbr> (Máquina a Persona)</h2>
+                <p>El dispositivo notifica o entrega informacion al humano.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caso</th>
+                            <th>M → P</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wearable</td>
+                            <td>Reloj → Usuario</td>
+                            <td>Alerta de frecuencia cardiaca</td>
+                        </tr>
+                        <tr>
+                            <td>Smart Home</td>
+                            <td>Sensor → App</td>
+                            <td>Notificacion "Puerta abierta"</td>
+                        </tr>
+                        <tr>
+                            <td>Industrial</td>
+                            <td>Maquina → Operario</td>
+                            <td>"Mantenimiento requerido"</td>
+                        </tr>
+                        <tr>
+                            <td>Smart City</td>
+                            <td>Semaforo → Conductor</td>
+                            <td>"Luz roja en 10s"</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <ul>
-                    <li><strong>Privacidad:</strong> Los datos nunca salen del dispositivo</li>
-                    <li><strong>Latencia:</strong> Respuestas instantáneas</li>
-                    <li><strong>Conectividad:</strong> Funciona sin Internet</li>
-                    <li><strong>Consumo:</strong> mW de energía, años de batería</li>
-                    <li><strong>Costo:</strong> Sin costos de transmisión de datos</li>
+                    <li><strong>Latencia:</strong> segundos aceptable.</li>
+                    <li><strong>Formato:</strong> push, email, dashboard.</li>
+                    <li><strong>Confianza:</strong> media (requiere verificacion).</li>
                 </ul>
-            </div>
-            
-            <h3>Ejemplo de Código TinyML</h3>
-            <pre>// TinyML: ML en microcontroladores
-#include "model_data.h"
+                <pre><code>// ESP32 notifica al usuario via Push
+void enviarNotificacionPush(String mensaje) {
+  HTTPClient http;
+  http.begin("https://push.example.com/api");
+  http.addHeader("Content-Type", "application/json");
 
-// Modelo entrenado (convertido a array de bytes)
-tflite::MicroInterpreter* interpreter;
+  String payload = "{\"message\":\"" + mensaje + "\"}";
+  int httpCode = http.POST(payload);
 
-void setup() {
-    Serial.begin(115200);
-    
-    // Cargar modelo desde array de datos
-    const tflite::Model* model = tflite::GetModel(model_data);
-    
-    // Crear intérprete TensorFlow Lite
-    static tflite::MicroMutableOpResolver<10> resolver;
-    resolver.AddConv2D();
-    resolver.AddMaxPool2D();
-    resolver.AddFullyConnected();
-    
-    // Asignar memoria para tensores
-    static tflite::MicroInterpreter static_interpreter(
-        model, resolver, tensor_arena, kTensorArenaSize);
-    interpreter = &static_interpreter;
-    
-    // Asignar memoria para los tensores
-    interpreter->AllocateTensors();
+  http.end();
 }
 
 void loop() {
-    // Leer sensor (ej: acelerómetro)
-    float sensor_data = readAccelerometer();
-    
-    // Cargar entrada en el modelo
-    interpreter->input(0)->data.f[0] = sensor_data;
-    
-    // Ejecutar inferencia localmente
-    TfLiteStatus invoke_status = interpreter->Invoke();
-    if (invoke_status != kTfLiteOk) {
-        Serial.println("Error en inferencia");
-        return;
-    }
-    
-    // Obtener resultado
-    float* output = interpreter->output(0)->data.f;
-    Serial.printf("Predicción: %.2f\n", output[0]);
-    
-    // Ejemplo: Detección de caídas, gestos, anomalías
-    delay(100);
-}</pre>
-            
-            <h3>Aplicaciones de TinyML</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aplicación</th>
-                        <th>Sensor</th>
-                        <th>Modelo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Detección de caídas</td>
-                        <td>Acelerómetro</td>
-                        <td>Clasificación de patrones</td>
-                    </tr>
-                    <tr>
-                        <td>Reconocimiento de voz</td>
-                        <td>Micrófono</td>
-                        <td>Wake word detection</td>
-                    </tr>
-                    <tr>
-                        <td>Detección de gestos</td>
-                        <td>IMU</td>
-                        <td>Series temporales</td>
-                    </tr>
-                    <tr>
-                        <td>Clasificación de imágenes</td>
-                        <td>Cámara</td>
-                        <td>MobileNet reducido</td>
-                    </tr>
-                    <tr>
-                        <td>Anomalías industriales</td>
-                        <td>Vibración</td>
-                        <td>Autoencoder</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Digital Twin -->
-        <section id="digital-twin">
-            <h2>🔮 Digital Twin Avanzado</h2>
-            
-            <p>Un <strong>Digital Twin</strong> es una réplica virtual de un objeto, proceso o sistema físico que se actualiza en tiempo real con datos del mundo real y permite simular, predecir y optimizar.</p>
-            
-            <div class="arch-diagram">
-                <h4>Flujo del Digital Twin</h4>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">🏭 Mundo Físico</div>
-                    <p>Fábrica real, sensores, actuadores, ambiente operativo</p>
-                </div>
-                
-                <div style="text-align: center; margin: 1rem 0; font-size: 1.5rem;">↕️ Sincronización tiempo real</div>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">💻 Gemelo Digital</div>
-                    <p>Modelo matemático 3D, base de datos en tiempo real, réplica virtual</p>
-                </div>
-                
-                <div class="arch-layer">
-                    <div class="arch-layer-title">🧠 Análisis AI</div>
-                    <p>Simulación, predicción, optimización, escenarios "what-if"</p>
-                </div>
-            </div>
-            
-            <h3>Aplicaciones Avanzadas</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aplicación</th>
-                        <th>Ejemplo</th>
-                        <th>Beneficio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ciudades</td>
-                        <td>Singapur Virtual Singapore</td>
-                        <td>Planificación urbana, simulación de desastres</td>
-                    </tr>
-                    <tr>
-                        <td>Fábricas</td>
-                        <td>BMW, Siemens</td>
-                        <td>Optimización de líneas, mantenimiento predictivo</td>
-                    </tr>
-                    <tr>
-                        <td>Edificios</td>
-                        <td>Gestión energética inteligente</td>
-                        <td>-40% consumo energético</td>
-                    </tr>
-                    <tr>
-                        <td>Humanos</td>
-                        <td>Medicina personalizada</td>
-                        <td>Tratamientos individualizados</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Metaverso -->
-        <section id="metaverso">
-            <h2>🥽 Metaverso e IoT</h2>
-            
-            <p>El <strong>Metaverso</strong> es un espacio virtual compartido donde la convergencia de IoT, VR/AR, 5G y blockchain crea experiencias inmersivas que interactúan con el mundo físico.</p>
-            
-            <div class="stats-box">
-                <h4>Convergencia de Mundos</h4>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div style="font-size: 1.2rem;">🏠 FÍSICO</div>
-                    </div>
-                    <div class="stat-item">
-                        <div style="font-size: 1rem;">←→ IoT ←→</div>
-                    </div>
-                    <div class="stat-item">
-                        <div style="font-size: 1.2rem;">💻 VIRTUAL</div>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>Ejemplos de Convergencia</h3>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>🏠 Hogar Conectado</h4>
-                    <ul>
-                        <li>Controlar dispositivos físicos desde VR</li>
-                        <li>Visualizar datos de sensores en 3D</li>
-                        <li>Simular cambios antes de implementar</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>👷 Entrenamiento</h4>
-                    <ul>
-                        <li>Gemelos digitales para práctica segura</li>
-                        <li>Operación de maquinaria peligrosa</li>
-                        <li>Procedimientos médicos complejos</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🤝 Colaboración</h4>
-                    <ul>
-                        <li>Equipos remotos en espacios virtuales</li>
-                        <li>Revisión de diseños 3D</li>
-                        <li>Soporte técnico asistido con AR</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🛒 Comercio</h4>
-                    <ul>
-                        <li>Probar productos virtualmente</li>
-                        <li>Showrooms virtuales con IoT real</li>
-                        <li>Experiencias de compra inmersivas</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="info-box info">
-                <h4>🛠️ Tecnologías del Metaverso + IoT</h4>
-                <p><strong>Stack tecnológico:</strong> VR/AR + 5G (baja latencia) + IoT (datos del mundo real) + Blockchain (economía virtual) + AI (interacciones inteligentes)</p>
-            </div>
-        </section>
-        
-        <!-- Blockchain -->
-        <section id="blockchain">
-            <h2>🔗 Blockchain para IoT</h2>
-            
-            <p>La tecnología blockchain ofrece soluciones a problemas críticos de IoT: centralización, falta de confianza, vulnerabilidades de seguridad y privacidad de datos.</p>
-            
-            <h3>Problemas IoT vs Soluciones Blockchain</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Problema IoT</th>
-                        <th>Solución Blockchain</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Centralización de datos</td>
-                        <td>Descentralización (red distribuida)</td>
-                    </tr>
-                    <tr>
-                        <td>Falta de confianza entre dispositivos</td>
-                        <td>Inmutabilidad de datos verificable</td>
-                    </tr>
-                    <tr>
-                        <td>Vulnerabilidades de seguridad</td>
-                        <td>Criptografía avanzada</td>
-                    </tr>
-                    <tr>
-                        <td>Privacidad de datos</td>
-                        <td>Smart contracts (transacciones condicionales)</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Casos de Uso Blockchain IoT</h3>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>📦 Cadena de Suministro</h4>
-                    <ul>
-                        <li>Trazabilidad completa de productos</li>
-                        <li>Verificación de origen</li>
-                        <li>Documentación inmutable</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>⚡ Energía P2P</h4>
-                    <ul>
-                        <li>Venta de energía entre vecinos</li>
-                        <li>Contratos inteligentes automáticos</li>
-                        <li>Microgrids descentralizadas</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🔐 Identidad de Dispositivos</h4>
-                    <ul>
-                        <li>Autenticación única e inmutable</li>
-                        <li>Historial de dispositivos</li>
-                        <li>Prevenir suplantación</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>💰 Mercados de Datos</h4>
-                    <ul>
-                        <li>Monetización segura de datos IoT</li>
-                        <li>Pagos automáticos por uso</li>
-                        <li>Micropagos sin intermediarios</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>Proyectos Destacados</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Enfoque</th>
-                        <th>Características</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>IOTA</strong></td>
-                        <td>Diseñado para IoT</td>
-                        <td>Sin fees, Tangle (no blockchain tradicional), escalable</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Helium</strong></td>
-                        <td>Red LoRaWAN</td>
-                        <td>Descentralizada, recompensas por hotspots</td>
-                    </tr>
-                    <tr>
-                        <td><strong>VeChain</strong></td>
-                        <td>Supply chain</td>
-                        <td>Enfocado en trazabilidad empresarial</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Satélites -->
-        <section id="satelites">
-            <h2>🛰️ Satélites LEO para IoT</h2>
-            
-            <p>Los <strong>satélites LEO (Low Earth Orbit)</strong> operan a altitudes de 500-2000 km, ofreciendo latencias mucho menores que los satélites geoestacionarios tradicionales.</p>
-            
-            <h3>Comparativa: LEO vs Geoestacionarios</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Característica</th>
-                        <th>LEO</th>
-                        <th>Geoestacionarios</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Altitud</td>
-                        <td>500-2000 km</td>
-                        <td>36,000 km</td>
-                    </tr>
-                    <tr>
-                        <td>Latencia</td>
-                        <td>20-40 ms</td>
-                        <td>600+ ms</td>
-                    </tr>
-                    <tr>
-                        <td>Cobertura</td>
-                        <td>Global con constelación</td>
-                        <td>Regional fija</td>
-                    </tr>
-                    <tr>
-                        <td>Número necesario</td>
-                        <td>Miles</td>
-                        <td>Pocos</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Constelaciones Principales</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Empresa</th>
-                        <th>Satélites</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Starlink</strong></td>
-                        <td>SpaceX</td>
-                        <td>5,000+</td>
-                        <td>🟢 Operativo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Kuiper</strong></td>
-                        <td>Amazon</td>
-                        <td>3,200+</td>
-                        <td>🟡 Planeado</td>
-                    </tr>
-                    <tr>
-                        <td><strong>OneWeb</strong></td>
-                        <td>Eutelsat</td>
-                        <td>600+</td>
-                        <td>🟢 Operativo</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Aplicaciones IoT Satelital</h3>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>🌾 Agricultura Remota</h4>
-                    <ul>
-                        <li>Monitoreo de cultivos sin cobertura terrestre</li>
-                        <li>Detección de plagas en zonas remotas</li>
-                        <li>Ganadería en extensas áreas rurales</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🚢 Monitoreo Marítimo</h4>
-                    <ul>
-                        <li>Seguimiento de flotas pesqueras</li>
-                        <li>Contenedores en alta mar</li>
-                        <li>Seguridad y prevención de piratería</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4>🏔️ Áreas Remotas</h4>
-                    <ul>
-                        <li>Estaciones meteorológicas en montañas</li>
-                        <li>Monitoreo de fauna silvestre</li>
-                        <li>Sensores en selvas y desiertos</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="info-box info">
-                <h4>🛰️ Proyectos IoT Satelital Especializados</h4>
-                <ul>
-                    <li><strong>Swarm Technologies:</strong> Satélites del tamaño de un sandwich, conectividad IoT global económica</li>
-                    <li><strong>Lacuna Space:</strong> LoRaWAN desde el espacio, ideal para sensores de bajo consumo</li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- Cuántica -->
-        <section id="cuantica">
-            <h2>⚛️ Computación Cuántica e IoT</h2>
-            
-            <p>La <strong>computación cuántica</strong> promete revolucionar el procesamiento de datos, pero también representa amenazas para la seguridad actual de IoT. Es una tecnología de largo plazo (2030-2040) con impacto potencial masivo.</p>
-            
-            <div class="info-box danger">
-                <h4>⚠️ Impacto en Seguridad IoT</h4>
-                <ul>
-                    <li>Los algoritmos criptográficos actuales (RSA, ECC) serán vulnerables a ataques cuánticos</li>
-                    <li>Los datos IoT almacenados hoy podrían ser descifrados en el futuro</li>
-                    <li>Necesidad urgente de <strong>criptografía post-cuántica</strong></li>
-                </ul>
-            </div>
-            
-            <div class="info-box success">
-                <h4>✅ Oportunidades</h4>
-                <ul>
-                    <li><strong>Optimización de redes IoT:</strong> Algoritmos cuánticos para routing eficiente</li>
-                    <li><strong>Procesamiento de datos masivos:</strong> Machine Learning cuántico</li>
-                    <li><strong>Simulación avanzada:</strong> Digital twins moleculares</li>
-                    <li><strong>Búsqueda en grandes datasets:</strong> Algoritmo de Grover</li>
-                </ul>
-            </div>
-            
-            <h3>Línea Temporal Estimada</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Año</th>
-                        <th>Estado</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2024</td>
-                        <td>Experimental</td>
-                        <td>Computadoras cuánticas de cientos de qubits, sin corrección de errores</td>
-                    </tr>
-                    <tr>
-                        <td>2030</td>
-                        <td>Aplicaciones específicas</td>
-                        <td>Primeras aplicaciones comerciales viables (optimización)</td>
-                    </tr>
-                    <tr>
-                        <td>2040+</td>
-                        <td>Impacto masivo</td>
-                        <td>Computación cuántica generalizada, criptografía post-cuántica obligatoria</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Actividad -->
-        <section>
-            <h2>📝 Actividad: Visión del Futuro (30 min)</h2>
-
-            <section class="actividad">
-                <h4>⚪ Tipo de Actividad</h4>
-                <p><strong>Tipo:</strong> Opcional (ejercicio de prospectiva en clase)</p>
-                <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
-                <p><strong>Entregable:</strong> Presentación de visión Colombia 2035 (no afecta nota)</p>
-                <p><strong>Tiempo estimado:</strong> 30 minutos en clase</p>
-                <p><strong>Criterios:</strong> Creatividad, análisis de impacto tecnológico, contexto colombiano</p>
+  if (alguienDetectada()) {
+    enviarNotificacionPush("Movimiento en sala");
+  }
+}</code></pre>
             </section>
 
-            <div class="activity">
-                <h4>Ejercicio de Prospectiva - Colombia 2035</h4>
-                
-                <p>En grupos, imaginen cómo será Colombia en el año 2035 con estas tecnologías:</p>
-                
-                <h3>Preguntas Guía</h3>
-                <ol>
-                    <li><strong>🏠 Hogares:</strong> ¿Qué dispositivos IoT serán comunes en los hogares colombianos?</li>
-                    <li><strong>🚗 Transporte:</strong> ¿Cómo será el transporte urbano en ciudades como Bogotá o Medellín?</li>
-                    <li><strong>🧠 IA:</strong> ¿Qué rol tendrá la inteligencia artificial en la vida diaria de los colombianos?</li>
-                    <li><strong>💼 Trabajo:</strong> ¿Qué trabajos nuevos existirán en el campo de IoT?</li>
-                    <li><strong>⚖️ Ética:</strong> ¿Qué desafíos éticos enfrentaremos con estas tecnologías?</li>
-                </ol>
-                
-                <h3>Entregable</h3>
-                <p>Presentación de 5 minutos con la visión del grupo sobre Colombia 2035.</p>
-            </div>
-        </section>
-        
-        <!-- Resumen -->
-        <section id="resumen">
-            <h2>📋 Resumen: Tecnologías Emergentes</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tecnología</th>
-                        <th>Impacto Principal en IoT</th>
-                        <th>Horizonte</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>5G</strong></td>
-                        <td>Latencia ultra baja, IoT masivo</td>
-                        <td>Ya disponible</td>
-                    </tr>
-                    <tr>
-                        <td><strong>AIoT</strong></td>
-                        <td>Dispositivos inteligentes autónomos</td>
-                        <td>2024-2030</td>
-                    </tr>
-                    <tr>
-                        <td><strong>TinyML</strong></td>
-                        <td>IA en el edge, privacidad, offline</td>
-                        <td>Ya disponible</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Digital Twin</strong></td>
-                        <td>Simulación, optimización, predicción</td>
-                        <td>2024-2030</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Blockchain</strong></td>
-                        <td>Seguridad, descentralización, trazabilidad</td>
-                        <td>2024-2030</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Satélites LEO</strong></td>
-                        <td>Cobertura global, IoT en zonas remotas</td>
-                        <td>Ya disponible</td>
-                    </tr>
-                    <tr>
-                        <td><strong>6G</strong></td>
-                        <td>Terabits/segundo, 0.1ms latencia</td>
-                        <td>2030+</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cuántica</strong></td>
-                        <td>Seguridad post-cuántica, optimización</td>
-                        <td>2030-2040</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="hardware-notice">
-                <strong>💻 Factibilidad Windows:</strong> Esta clase es completamente teórica sobre tecnologías emergentes. No requiere instalación de software ni hardware específico. Todo el contenido se puede estudiar directamente en el navegador en Windows.
-            </div>
-
-            <div class="next-class">
-                <h3>➡️ Próxima Clase: Conexiones M2M, M2P, P2P</h3>
-                <p><strong>Temas:</strong></p>
+            <section id="p2p">
+                <h2><abbr title="Person-to-Person: Persona a Persona - Comunicación entre personas mediada por dispositivos IoT">P2P</abbr> (Persona a Persona vía <abbr title="Internet of Things">IoT</abbr>)</h2>
+                <p>Personas se comunican mediadas por infraestructura IoT.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Caso</th>
+                            <th>P → [IoT] → P</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Telemedicina</td>
+                            <td>Paciente → Cloud → Doctor</td>
+                            <td>Datos vitales transmitidos</td>
+                        </tr>
+                        <tr>
+                            <td>Adulto mayor</td>
+                            <td>Abuelo → Alerta → Familia</td>
+                            <td>Caida detectada</td>
+                        </tr>
+                        <tr>
+                            <td>Colaborativo</td>
+                            <td>Usuario 1 → Shared → Usuario 2</td>
+                            <td>Edificio compartido</td>
+                        </tr>
+                        <tr>
+                            <td>Social</td>
+                            <td>Jugador → Plataforma → Amigos</td>
+                            <td>Videojuego AR</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <ul>
-                    <li>Tipos de comunicación IoT</li>
-                    <li>Machine-to-Machine (M2M)</li>
-                    <li>Machine-to-Person (M2P)</li>
-                    <li>Person-to-Person (P2P)</li>
-                    <li>Casos de uso empresariales</li>
-                    <li>Estándares de interoperabilidad</li>
+                    <li><strong>Latencia:</strong> baja (&lt; 1 s para inmediatez).</li>
+                    <li><strong>Interactividad:</strong> bidireccional.</li>
+                    <li><strong>Enriquecimiento:</strong> datos contextuales.</li>
                 </ul>
+                <pre><code>// Paciente (P1) -> Cloud -> Doctor (P2)
+void enviarVitals() {
+  String payload = "{\"hr\":85, \"spo2\":98, \"temp\":36.5}";
+  client.publish("paciente/123/vitals", payload);
+}
+
+// Receptor (P2 - Doctor dashboard)
+void callback(char* topic, byte* payload, unsigned int length) {
+  StaticJsonDocument<200> doc;
+  deserializeJson(doc, payload);
+
+  int hr = doc["hr"];
+  displayHeartRate(patientID, hr);
+}</code></pre>
+            </section>
+
+            <section id="comparativa">
+                <h2>Comparativa de tipos de conexion</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>P2M</th>
+                            <th>M2M</th>
+                            <th>M2P</th>
+                            <th>P2P</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Iniciativa</td>
+                            <td>Humano</td>
+                            <td>Automatico</td>
+                            <td>Automatico</td>
+                            <td>Humanos</td>
+                        </tr>
+                        <tr>
+                            <td>Feedback</td>
+                            <td>Inmediato</td>
+                            <td>Variable</td>
+                            <td>Diferido</td>
+                            <td>Rapido</td>
+                        </tr>
+                        <tr>
+                            <td>Confianza</td>
+                            <td>Alta</td>
+                            <td>Media</td>
+                            <td>Media</td>
+                            <td>Media</td>
+                        </tr>
+                        <tr>
+                            <td>Complejidad</td>
+                            <td>Baja</td>
+                            <td>Media</td>
+                            <td>Media</td>
+                            <td>Alta</td>
+                        </tr>
+                        <tr>
+                            <td>Ejemplo IoT</td>
+                            <td>App → Luz</td>
+                            <td>Sensor → Aire</td>
+                            <td>Sensor → Push</td>
+                            <td>Reloj → Cloud → App</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practica">
+                <h2>Practica / laboratorio</h2>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Práctica guiada en clase</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Mapa de interacciones IoT (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 20 minutos en clase</p>
+                    <p><strong>Criterios:</strong> Clasificación correcta de interacciones P2M/M2M/M2P/P2P</p>
+                </section>
+
+                <h3>Actividad guiada: mapa de interacciones</h3>
+                <ol>
+                    <li>Seleccione un sistema IoT (smart home, industria, salud).</li>
+                    <li>Liste 5 interacciones clave entre personas y maquinas.</li>
+                    <li>Clasifique cada interaccion como P2M, M2M, M2P o P2P.</li>
+                    <li>Identifique el tipo de latencia y seguridad requerida.</li>
+                </ol>
+                <pre><code># Plantilla rapida
+Interaccion,Tipo,Latencia,Sensibilidad
+Sensor puerta -> App,M2P,Segundos,Media
+Usuario -> Luz,P2M,Inmediato,Baja
+Sensor humo -> Sirena,M2M,Sub-segundo,Alta</code></pre>
+            </section>
+
+            <section id="ejercicios">
+                <h2>Ejercicios</h2>
+
+                <section class="actividad">
+                    <h4>⚪ Tipo de Actividad</h4>
+                    <p><strong>Tipo:</strong> Práctica recomendada</p>
+                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
+                    <p><strong>Entregable:</strong> Soluciones a ejercicios (no afecta nota)</p>
+                    <p><strong>Tiempo estimado:</strong> 30-45 minutos autónomos</p>
+                    <p><strong>Criterios:</strong> Aplicación de conceptos de interacciones IoT</p>
+                </section>
+
+                <ol>
+                    <li>Clasifique 8 interacciones de un hospital IoT en P2M, M2M, M2P y P2P.</li>
+                    <li>Explique por que un sistema de riego inteligente requiere M2M y no P2M.</li>
+                    <li>Disene un flujo IoT que combine M2P y P2P en telemedicina.</li>
+                    <li>Para un ascensor inteligente, identifique que conexiones son criticas y su latencia maxima.</li>
+                    <li>Proponga dos medidas de seguridad para un escenario M2M industrial.</li>
+                </ol>
+
+                <div class="hardware-notice">
+                    <strong>💻 Factibilidad Windows:</strong> Esta clase es teórica sobre patrones de conexión IoT. Los ejercicios son de diseño y clasificación, pueden realizarse en papel o con herramientas como draw.io/PowerPoint en Windows. No requiere hardware ni instalación de software.
+                </div>
+            </section>
+
+<section id="marco-legal">
+                <h2>⚖️ Marco Legal IoT: Ley 1581 de 2012</h2>
+                
+                <div class="info-box warning">
+                    <h4>⚠️ Importante para E5</h4>
+                    <p>Esta sección prepara para <strong>E5 (15%)</strong> que evalúa el marco metodológico y legal regulatorio. La Ley 1581 es fundamental para proyectos IoT que manejan datos personales.</p>
+                </div>
+
+                <h3>¿Qué es la Ley 1581?</h3>
+                <p>La <strong>Ley 1581 de 2012</strong> es la norma colombiana de protección de datos personales. Establece derechos y obligaciones para el tratamiento de datos.</p>
+
+                <h3>Datos Personales en IoT</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Ejemplos IoT</th>
+                            <th>Consideración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Identificación</strong></td>
+                            <td>Nombre, email, ID usuario</td>
+                            <td>Siempre personal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ubicación</strong></td>
+                            <td>GPS, dirección IP</td>
+                            <td>Puede identificar patrones</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Biométricos</strong></td>
+                            <td>Huella, ritmo cardíaco</td>
+                            <td>Datos sensibles</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Técnicos</strong></td>
+                            <td>MAC, IMEI, ID dispositivo</td>
+                            <td>Pueden vincularse a usuario</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Derechos ARCO</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Derecho</th>
+                            <th>Significado</th>
+                            <th>Ejemplo IoT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>A - Acceso</strong></td>
+                            <td>Saber qué datos se tienen</td>
+                            <td>Ver historial de sensores</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R - Rectificación</strong></td>
+                            <td>Corregir datos incorrectos</td>
+                            <td>Actualizar email contacto</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C - Cancelación</strong></td>
+                            <td>Eliminar datos personales</td>
+                            <td>Borrar historial ubicación</td>
+                        </tr>
+                        <tr>
+                            <td><strong>O - Oposición</strong></td>
+                            <td>Negarse al tratamiento</td>
+                            <td>No compartir con terceros</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Obligaciones para Proyectos IoT</h3>
+                <ul>
+                    <li><strong>Consentimiento:</strong> Obtener autorización previa del usuario.</li>
+                    <li><strong>Política de privacidad:</strong> Documento público y accesible.</li>
+                    <li><strong>Seguridad:</strong> Proteger datos contra acceso no autorizado.</li>
+                    <li><strong>Minimización:</strong> Recolectar solo lo necesario.</li>
+                </ul>
+
+                <div class="info-box info">
+                    <h4>🎯 Aplicación al Proyecto Monitor Ambiental</h4>
+                    <p>Checklist para E5:</p>
+                    <ul>
+                        <li>☐ ¿Recolectamos datos personales? (email, ubicación)</li>
+                        <li>☐ ¿Tenemos política de privacidad?</li>
+                        <li>☐ ¿Pedimos consentimiento?</li>
+                        <li>☐ ¿Usamos HTTPS para transmisión?</li>
+                        <li>☐ ¿Minimizamos datos recolectados?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Ejercicio del Simulador Propuesto -->
+            <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
+                <p>Este ejercicio demuestra la comunicación Machine-to-Machine (M2M):</p>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">🤝 Ejercicio 16: M2M Simulation</h4>
+                    <p><strong>Concepto:</strong> Comunicación Machine-to-Machine, cola de mensajes, autonomía de dispositivos</p>
+                    <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                    <p><strong>Objetivo:</strong> Simular comunicación M2M donde un dispositivo sensor envía comandos a un dispositivo actuador de forma autónoma.</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-16-m2m-simulation.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                </div>
+
+                <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                    <strong>💡 Conexión con la clase:</strong> El ejercicio ilustra los patrones M2M/M2P/P2P vistos en esta sesión, mostrando cómo los dispositivos se comunican entre sí.
+                </div>
             </div>
-        </section>
 
-        <!-- Evaluación 4 -->
-        <section id="evaluacion-4" style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
-            <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Evaluación Programada</h3>
-            <p style="margin: 0;"><strong>Eval 4 (15%):</strong> Informe + Sustentación - Fecha: 2026-04-20</p>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
-                Consulte la plataforma educativa para el detalle completo de la evaluación.
-            </p>
-        </section>
-        <section id="referencias">
-            <h2>Referencias</h2>
-            <ul>
-                <li>5G-ACIA: 5G for IoT Applications - whitepaper</li>
-                <li>Ericsson Mobility Report 2025 - IoT projections</li>
-                <li>AIoT: Artificial Intelligence of Things - Deloitte Insights</li>
-                <li>TinyML Book - Mozilla Foundation</li>
-                <li>IoT Blockchain Applications - IEEE Internet of Computing</li>
-                <li>Digital Twin Technology - Gartner Research</li>
-                <li>Metaverse and IoT - McKinsey Digital</li>
-                <li>Satellite IoT Networks - SpaceX Starlink specifications</li>
-            </ul>
-        </section>
+            <section id="referencias">
+                <h2>Referencias</h2>
+                <ul>
+                    <li>Ley 1581 de 2012 - Protección de Datos Personales (Colombia)</li>
+                    <li>Decreto 1377 de 2013 - Reglamentario Ley 1581</li>
+                    <li>Material complementario en el aula virtual de la clase.</li>
+                </ul>
+            </section>
 
-        <section id="📚-recursos-curados" class="info-box">
-            <h2>📚 Recursos Curados</h2>
-            <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
+            <section id="📚-recursos-curados" class="info-box">
+                <h2>📚 Recursos Curados</h2>
+                <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
 
-            <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 TinyML and Edge AI: Interesting future</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> TinyML Community</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 20 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Discute cómo TinyML y Edge AI tendrán un lugar definido en nuestro futuro cercano, transformando dispositivos IoT con inteligencia artificial.</p>
-                    <a href="https://www.youtube.com/watch?v=9eiIE7MxmeI" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
+                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Tutorial para solución E2E con ESP32 y AWS IoT</h4>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Telefónica Tech</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 35 minutos</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Tutorial end-to-end para implementar una solución IoT completa con ESP32 y AWS IoT, demostrando conexiones M2M en la nube.</p>
+                        <a href="https://telefonicatech.com/blog/esp32-y-aws-tutorial-from-scratch-de-solucion-iot-cloud" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Como construir un proyecto de IoT</h4>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Projects</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 28 minutos</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Guía paso a paso para construir un proyecto de IoT completo, integrando conexiones M2M entre dispositivos y M2P para la interfaz humana.</p>
+                        <a href="https://www.youtube.com/watch?v=8XPcGuEXMuk" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 IoT: Usos prácticos del Internet de las Cosas</h4>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Applications</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 22 minutos</p>
+                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Ejemplos reales de proyectos IoT con experiencias prácticas, demostrando diferentes patrones de conexión M2M, M2P y P2P.</p>
+                        <a href="https://www.youtube.com/watch?v=pux40QVOjVM" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                    </div>
                 </div>
+            </section>
+        </main>
 
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Más allá del 5G: el poder del IoT en la nueva era de las telecomunicaciones</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Telecomunicaciones Futuras</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 25 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Explora el poder del IoT en la nueva era de las telecomunicaciones más allá del 5G y cómo esto transformará la conectividad.</p>
-                    <a href="https://www.youtube.com/watch?v=-vpQjeD9ztc" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 TinyML para implementar modelos de aprendizaje</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> TinyML en Español</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 30 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Demostración completa del flujo de TinyML, capturando datos, preparándolos y entrenando modelos para dispositivos IoT del futuro.</p>
-                    <a href="https://www.youtube.com/watch?v=p8ZoUmNa9cc" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-        <!-- Navegación entre clases -->
+    <!-- Navegación entre clases -->
         <nav class="class-nav">
-            <div class="class-nav-title">Navegación del Curso</div>
-            <div class="class-nav-links">
-                <a href="index.html" class="class-nav-btn">
-                    <span class="arrow">🏠</span> Inicio
-                </a>                <a href="clase-10.html" class="class-nav-btn">
-                    <span class="arrow">←</span> Clase Anterior
-                </a>                <a href="clase-12.html" class="class-nav-btn">
-                    Clase Siguiente <span class="arrow">→</span>
-                </a>            </div>
-        </nav>
+        <div class="class-nav-title">Navegación del Curso</div>
+        <div class="class-nav-links">
+            <a href="index.html" class="class-nav-btn">
+                <span class="arrow">🏠</span> Inicio
+            </a>
+            <a href="clase-10.html" class="class-nav-btn">
+                <span class="arrow">←</span> Sesión Anterior
+            </a>
+            <a href="clase-12.html" class="class-nav-btn">
+                Sesión Siguiente <span class="arrow">→</span>
+            </a>
+        </div>
+    </nav>
 
-    <footer>
-        <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
-        <p>UNAULA - 2026-I | Generado: 2026-02-01</p>
-    </footer>
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 11</p>
+        </footer>
+        </div>
 
-<script>        (function() {            'use strict';            const progressFill = document.getElementById('progressFill');            const backToTop = document.getElementById('backToTop');            if (!progressFill || !backToTop) return;            function updateProgress() {                const windowHeight = window.innerHeight;                const documentHeight = document.documentElement.scrollHeight - windowHeight;                const scrolled = window.scrollY;                const progress = (scrolled / documentHeight) * 100;                progressFill.style.width = Math.min(progress, 100) + '%;';                if (scrolled > windowHeight * 0.5) {                    backToTop.classList.add('visible');                } else {                    backToTop.classList.remove('visible');                }            }            function scrollToTop() {                window.scrollTo({ top: 0, behavior: 'smooth' });            }            let ticking = false;            function onScroll() {                if (!ticking) {                    window.requestAnimationFrame(function() {                        updateProgress();                        ticking = false;                    });                    ticking = true;                }            }            window.addEventListener('scroll', onScroll, { passive: true });            backToTop.addEventListener('click', scrollToTop);            backToTop.addEventListener('keydown', function(e) {                if (e.key === 'Enter' || e.key === ' ') {                    e.preventDefault();                    scrollToTop();                }            });            updateProgress();        })();    </script></body></html>
+        <script>
+            // ============================================
+            // SCROLL PROGRESS & BACK TO TOP
+            // ============================================
+            (function() {
+                'use strict';
 
-    <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
+                const progressFill = document.getElementById('progressFill');
+                const backToTop = document.getElementById('backToTop');
 
-            const progressFill = document.getElementById('progressFill');
-            const backToTop = document.getElementById('backToTop');
+                if (!progressFill || !backToTop) return;
 
-            if (!progressFill || !backToTop) return;
+                // Update progress bar and back-to-top visibility
+                function updateProgress() {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                    const scrolled = window.scrollY;
+                    const progress = (scrolled / documentHeight) * 100;
 
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
+                    progressFill.style.width = Math.min(progress, 100) + '%';
 
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
+                    // Show/hide back-to-top button
+                    if (scrolled > windowHeight * 0.5) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
                 }
-            }
 
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
+                // Smooth scroll to top
+                function scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
                     });
-                    ticking = true;
                 }
-            }
 
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
+                // Throttle scroll events for performance
+                let ticking = false;
+                function onScroll() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(function() {
+                            updateProgress();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
                 }
-            });
 
-            // Initial call
-            updateProgress();
-        })();
-    </script>
+                // Event listeners
+                window.addEventListener('scroll', onScroll, { passive: true });
+                backToTop.addEventListener('click', scrollToTop);
+
+                // Keyboard accessibility for back-to-top
+                backToTop.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        scrollToTop();
+                    }
+                });
+
+                // Initial call
+                updateProgress();
+            })();
+        </script>
 </body>
 </html>
 

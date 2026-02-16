@@ -3,1377 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 14: Marco Legal - IF0112 Complementaria II (IoT)</title>
-    <style>
-
-        /* ============================================
-           DESIGN SYSTEM - Spacing Scale (8px base)
-           ============================================ */
-        :root {
-            /* Spacing scale */
-            --space-1: 0.25rem;  /* 4px */
-            --space-2: 0.5rem;   /* 8px */
-            --space-3: 0.75rem;  /* 12px */
-            --space-4: 1rem;     /* 16px */
-            --space-5: 1.25rem;  /* 20px */
-            --space-6: 1.5rem;   /* 24px */
-            --space-8: 2rem;     /* 32px */
-            --space-10: 2.5rem;  /* 40px */
-            --space-12: 3rem;    /* 48px */
-
-            /* Typography scale */
-            --text-xs: 0.75rem;    /* 12px */
-            --text-sm: 0.875rem;   /* 14px */
-            --text-base: 1rem;     /* 16px */
-            --text-lg: 1.125rem;   /* 18px */
-            --text-xl: 1.25rem;    /* 20px */
-            --text-2xl: 1.5rem;    /* 24px */
-            --text-3xl: 1.875rem;  /* 30px */
-            --text-4xl: 2.25rem;   /* 36px */
-
-            /* Line heights */
-            --leading-tight: 1.25;
-            --leading-snug: 1.375;
-            --leading-normal: 1.5;
-            --leading-relaxed: 1.625;
-            --leading-loose: 2;
-
-            /* Colors - improved accessibility */
-            --color-primary: #1e40af;
-            --color-primary-light: #3b82f6;
-            --color-secondary: #0f172a;
-            --color-accent: #f59e0b;
-
-            /* Text colors - WCAG AA compliant */
-            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
-            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
-            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
-            --text-inverse: #ffffff;
-
-            /* Background colors */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-
-            /* Border colors */
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
-
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-
-            /* Border radius */
-            --radius-sm: 0.25rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-        }
-
-        /* ============================================
-           RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: var(--leading-normal);
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ============================================
-           LAYOUT
-           ============================================ */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            background: var(--bg-primary);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* ============================================
-           HEADER
-           ============================================ */
-        header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            color: var(--text-inverse);
-            padding: var(--space-8) var(--space-6);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        header h1 {
-            font-size: var(--text-4xl);
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-tight);
-            position: relative;
-            z-index: 1;
-        }
-
-        header .subtitle {
-            font-size: var(--text-lg);
-            opacity: 0.95;
-            font-weight: 400;
-        }
-
-        header .meta {
-            margin-top: var(--space-4);
-            font-size: var(--text-sm);
-            opacity: 0.85;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        header .meta span {
-            padding: var(--space-1) var(--space-3);
-            background: rgba(255,255,255,0.15);
-            border-radius: var(--radius-lg);
-        }
-
-        /* ============================================
-           NAVIGATION - Enhanced
-           ============================================ */
-        nav {
-            background: var(--color-secondary);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-md);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 var(--space-4);
-            max-width: 100%;
-            overflow-x: auto;
-        }
-
-        nav li {
-            margin: 0;
-        }
-
-        nav a {
-            display: block;
-            padding: var(--space-3) var(--space-4);
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: var(--text-sm);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-inverse);
-        }
-
-        nav a:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: -2px;
-        }
-
-        /* Progress indicator */
-        .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.2);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* ============================================
-           MAIN CONTENT
-           ============================================ */
-        main {
-            padding: var(--space-8);
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: var(--space-12);
-            scroll-margin-top: 80px;
-            scroll-margin-block: 80px;
-        }
-
-        /* ============================================
-           TYPOGRAPHY HIERARCHY
-           ============================================ */
-        section h2 {
-            color: var(--color-primary);
-            border-bottom: 3px solid var(--color-primary-light);
-            padding-bottom: var(--space-2);
-            margin-bottom: var(--space-6);
-            font-size: var(--text-3xl);
-            font-weight: 700;
-            line-height: var(--leading-tight);
-        }
-
-        section h3 {
-            color: var(--color-primary);
-            margin: var(--space-6) 0 var(--space-4);
-            font-size: var(--text-2xl);
-            font-weight: 600;
-            line-height: var(--leading-snug);
-        }
-
-        section h4 {
-            color: var(--text-secondary);
-            margin: var(--space-4) 0 var(--space-2);
-            font-size: var(--text-lg);
-            font-weight: 600;
-        }
-
-        section h5 {
-            color: var(--text-secondary);
-            margin: var(--space-3) 0 var(--space-2);
-            font-size: var(--text-base);
-            font-weight: 600;
-        }
-
-        p {
-            margin-bottom: var(--space-4);
-            text-align: justify;
-            line-height: var(--leading-relaxed);
-            max-width: 75ch;
-        }
-
-        /* ============================================
-           CALLOUT BOXES
-           ============================================ */
-        .intro-box {
-            background: #eff6ff;
-            border-left: 4px solid var(--color-primary-light);
-            padding: var(--space-5);
-            margin: var(--space-6) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .intro-box strong {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .example-box {
-            background: #fef3c7;
-            border-left: 4px solid var(--color-accent);
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert-box {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================
-           TABLES - Enhanced
-           ============================================ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-6) 0;
-            font-size: var(--text-sm);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        th {
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            font-size: var(--text-xs);
-        }
-
-        td {
-            padding: var(--space-3) var(--space-4);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--bg-secondary);
-        }
-
-        tbody tr:hover {
-            background: #e0e7ff;
-            transition: background 0.15s ease;
-        }
-
-        /* Responsive tables */
-        @media (max-width: 768px) {
-            table {
-                font-size: var(--text-xs);
-            }
-            th, td {
-                padding: var(--space-2) var(--space-3);
-            }
-        }
-
-        /* ============================================
-           GRIDS
-           ============================================ */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-6);
-            margin: var(--space-6) 0;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: var(--space-5);
-            margin: var(--space-6) 0;
-        }
-
-        /* ============================================
-           CARDS - Enhanced
-           ============================================ */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .card h4 {
-            color: var(--color-primary-light);
-            margin-bottom: var(--space-2);
-            font-size: var(--text-lg);
-        }
-
-        .card li {
-            color: #0f172a;
-            margin-bottom: var(--space-2);
-        }
-
-        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
-        .card-yellow { background: #fef3c7; border-color: #fde68a; }
-        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
-
-        /* ============================================
-           FLOW DIAGRAM
-           ============================================ */
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3);
-            align-items: center;
-            margin: var(--space-8) 0;
-            justify-content: center;
-        }
-
-        .flow-step {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: var(--space-4) var(--space-5);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            flex: 0 0 auto;
-            min-width: 150px;
-            font-size: var(--text-base);
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid #1d4ed8;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .flow-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .flow-step strong {
-            display: block;
-            font-size: var(--text-lg);
-            margin-bottom: var(--space-1);
-        }
-
-        .flow-step small {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: var(--text-sm);
-        }
-
-        .flow-arrow {
-            font-size: var(--text-3xl);
-            color: #1d4ed8;
-            font-weight: bold;
-            flex: 0 0 auto;
-        }
-
-        /* ============================================
-           TIMELINE
-           ============================================ */
-        .timeline {
-            position: relative;
-            padding-left: var(--space-8);
-            margin: var(--space-6) 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: var(--space-2);
-            bottom: var(--space-2);
-            width: 3px;
-            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            margin-bottom: var(--space-6);
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: calc(-1 * var(--space-8) - 5px);
-            top: var(--space-2);
-            width: 14px;
-            height: 14px;
-            background: var(--color-primary-light);
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-light);
-        }
-
-        /* ============================================
-           CODE BLOCKS
-           ============================================ */
-        pre {
-            background: var(--color-secondary);
-            color: #e2e8f0;
-            padding: var(--space-4);
-            border-radius: var(--radius-lg);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-            font-size: var(--text-sm);
-            line-height: var(--leading-relaxed);
-            box-shadow: var(--shadow-md);
-        }
-
-        code {
-            background: var(--bg-tertiary);
-            color: var(--color-primary);
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-md);
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
-
-        /* ============================================
-           FIGURES
-           ============================================ */
-        figure {
-            margin: var(--space-8) 0;
-            text-align: center;
-        }
-
-        figure img {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        figcaption {
-            margin-top: var(--space-3);
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           LISTS
-           ============================================ */
-        ul, ol {
-            margin-left: var(--space-6);
-            margin-bottom: var(--space-4);
-        }
-
-        li {
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           SPECIAL TABLES
-           ============================================ */
-        .competencies-table th:first-child,
-        .competencies-table td:first-child {
-            width: 20%;
-            text-align: center;
-            font-size: var(--text-3xl);
-        }
-
-        .eras-table td:first-child {
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        /* ============================================
-           NAVIGATION BETWEEN CLASSES
-           ============================================ */
-        .class-nav {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            padding: var(--space-6);
-            margin-top: var(--space-12);
-            border-radius: var(--radius-lg);
-        }
-
-        .class-nav-title {
-            color: white;
-            font-size: var(--text-sm);
-            text-align: center;
-            margin-bottom: var(--space-4);
-            opacity: 0.9;
-        }
-
-        .class-nav-links {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-4);
-            flex-wrap: wrap;
-        }
-
-        .class-nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-3) var(--space-5);
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-size: var(--text-sm);
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .class-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .class-nav-btn.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .class-nav-btn .arrow {
-            font-size: var(--text-lg);
-        }
-
-        /* ============================================
-           BACK TO TOP BUTTON
-           ============================================ */
-        .back-to-top {
-            position: fixed;
-            bottom: var(--space-6);
-            right: var(--space-6);
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            border: none;
-            font-size: var(--text-xl);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
-        }
-
-        .back-to-top:focus {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer {
-            background: var(--color-secondary);
-            color: var(--text-inverse);
-            text-align: center;
-            padding: var(--space-8) var(--space-6);
-            margin-top: var(--space-12);
-        }
-
-        footer p {
-            margin: var(--space-2) 0;
-            text-align: center;
-            color: rgba(255,255,255,0.85);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            main { padding: var(--space-6); }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: var(--space-6) var(--space-4);
-            }
-            header h1 {
-                font-size: var(--text-3xl);
-            }
-            header .subtitle {
-                font-size: var(--text-base);
-            }
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                position: relative;
-            }
-            nav ul {
-                flex-direction: column;
-                padding: 0;
-            }
-            nav a {
-                padding: var(--space-3) var(--space-4);
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            main {
-                padding: var(--space-4);
-            }
-            section {
-                margin-bottom: var(--space-10);
-            }
-            section h2 {
-                font-size: var(--text-2xl);
-            }
-            .back-to-top {
-                bottom: var(--space-4);
-                right: var(--space-4);
-                width: 44px;
-                height: 44px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            header h1 {
-                font-size: var(--text-2xl);
-            }
-            .flow-step {
-                min-width: 120px;
-                font-size: var(--text-sm);
-                padding: var(--space-3) var(--space-4);
-            }
-            .flow-step strong {
-                font-size: var(--text-base);
-            }
-            .flow-arrow {
-                font-size: var(--text-2xl);
-            }
-        }
-
-        /* ============================================
-           ACCESSIBILITY ENHANCEMENTS
-           ============================================ */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* Skip link for keyboard users */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-2) var(--space-4);
-            z-index: 999;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* Print styles */
-        @media print {
-            nav, .back-to-top, .progress-bar {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
-    
-    </style>
+    <title>Sesión 14: E6 - Sustentación Proyecto Final | IF0112</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Clase 14: Marco Legal (Ley 1581)</h1>
-            <p class="subtitle">IF0112 - Complementaria II (IoT) | Protección de Datos Personales</p>
-            <p class="meta">
-                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
-            </p>
+            <h1>Sesión 14: E6 - Sustentación Proyecto Final SMAI</h1>
+            <p class="subtitle">Evaluación Final - Entrega Producto Integrado</p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 25-may-2026</p>
         </header>
 
-
-        <!-- Info Cronograma 2026-I -->
-        <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
+        <section class="schedule-info" style="background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #ef4444;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 14 - Marco Legal y Normativo</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 18 de Mayo 2026 (Semana 16) | <strong>Horario:</strong> 06:00-07:30 (90 min)</p>
+                    <h3 style="color: #991b1b; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 14 - <abbr title="Evaluación 6">E6</abbr> (20%)</h3>
+                    <p style="margin: 0; color: #991b1b; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 25 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
                 </div>
                 <div style="text-align: right;">
-                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📅 E6 PRÓXIMA SEMANA</span>
+                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">🎓 SUSTENTACIÓN FINAL</span>
                 </div>
             </div>
-            
-            <!-- E6 próxima semana -->
+
             <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">⚠️ PRÓXIMA SEMANA: E6 (20%) + LAB 5</h4>
-                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>Lunes 25/05:</strong> Sesión extendida 3 horas (6:00-9:00 AM). Examen escrito + Sustentaciones proyecto final.</p>
+                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 ESTRUCTURA <abbr title="Evaluación 6">E6</abbr></h4>
+                <ul style="margin: 0; color: #991b1b; font-size: var(--text-sm);">
+                    <li><strong>Proyecto Final (20%):</strong> Entrega del SMAI encapsulado y funcionando.</li>
+                    <li><a href="../evaluaciones/guia-E6.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Proyecto Final E6 →</a></li>
+                </ul>
             </div>
-
-            <!-- Proyecto -->
-            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">🎯 Proyecto Final - Entrega</h4>
-                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Entrega final:</strong> Domingo 24/05 antes 11:59 PM. Documentación completa + video demo. El proyecto debe estar 100% funcional.</p>
-            </div>
-
-            <!-- Preparación -->
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Revisión Legal</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Asegurar cumplimiento Ley 1581 en el proyecto. Verificar políticas de privacidad y consentimientos.</p>
-            </div>
-
         </section>
-
 
         <nav>
             <ul>
-                <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
-                <li><a href="#conexion-evaluacion">📝 Conexión Evaluación</a></li>
-                <li><a href="#contexto">Contexto</a></li>
-                <li><a href="#datos">Datos personales</a></li>
-                <li><a href="#obligaciones">Obligaciones</a></li>
-                <li><a href="#consentimiento">Consentimiento</a></li>
-                <li><a href="#arco">Derechos ARCO</a></li>
-                <li><a href="#seguridad">Seguridad</a></li>
-                <li><a href="#sanciones">Sanciones</a></li>
+                <li><a href="#sustentacion">Sustentación</a></li>
+                <li><a href="#rubrica">Rúbrica</a></li>
                 <li><a href="#checklist">Checklist</a></li>
-                <li><a href="#practica">Practica / Lab</a></li>
-                <li><a href="#ejercicios">Ejercicios</a></li>
-                <li><a href="#actualizacion-2025">Actualización 2025 ⚠️</a></li>
-                <li><a href="#referencias">Referencias</a></li>
+                <li><a href="#consejos">Consejos</a></li>
             </ul>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
         </nav>
 
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
-    <main>
-            <!-- Objetivos -->
-            <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-<h2>⏱️ Agenda de 90 Minutos</h2>
-<ul>
-<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
-<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
-<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
-<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
-</ul>
-</section>
-<section id="objetivos">
-                <h2>Objetivos de la Clase</h2>
-
-                <div class="grid-2">
-                    <div>
-                        <h3>Competencias a Desarrollar</h3>
-                        <p>Al finalizar esta clase, podrá:</p>
-                        <ul>
-                            <li><strong>Identificar</strong> datos personales en IoT y riesgos asociados</li>
-                            <li><strong>Aplicar</strong> obligaciones de la Ley 1581 (Colombia)</li>
-                            <li><strong>Implementar</strong> consentimientos y derechos ARCO</li>
-                            <li><strong>Diseñar</strong> controles de seguridad y respuesta a incidentes</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Estructura de la Clase</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Bloque</th>
-                                    <th>Tema</th>
-                                    <th>Duración</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1️⃣</td>
-                                    <td>Contexto legal y datos personales</td>
-                                    <td>20 min</td>
-                                </tr>
-                                <tr>
-                                    <td>2️⃣</td>
-                                    <td>Obligaciones y políticas de privacidad</td>
-                                    <td>25 min</td>
-                                </tr>
-                                <tr>
-                                    <td>3️⃣</td>
-                                    <td>Derechos ARCO y seguridad</td>
-                                    <td>40 min</td>
-                                </tr>
-                                <tr>
-                                    <td>4️⃣</td>
-                                    <td>Sanciones, checklist y práctica</td>
-                                    <td>35 min</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p class="intro-box"><strong>Total:</strong> 2 horas | <strong>💡 Pregunta clave:</strong> ¿Cumple mi proyecto IoT con la Ley 1581?</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Avance del Proyecto Integrador -->
-            <section id="avance-proyecto" class="info-box success">
-                <h2>🏗️ Avance del Proyecto Integrador</h2>
-                <p><strong>Proyecto:</strong> <em>Sistema de Monitoreo Ambiental IoT</em></p>
-                <p><strong>Qué construimos esta semana:</strong> Cierre del proyecto y preparación para E6. Esta semana nos enfocamos en asegurar que el proyecto cumpla con la Ley 1581 de Protección de Datos Personales, implementando políticas de privacidad y consentimientos.</p>
-                <p><strong>Evidencia esperada:</strong> Proyecto final con política de privacidad implementada, mecanismos de consentimiento, y documentación sobre cumplimiento de la Ley 1581 (derechos ARCO, seguridad de datos).</p>
-                <p><strong>Conexión con el proyecto final:</strong> El cumplimiento legal es un requisito fundamental del proyecto. Antes de la sustentación E6, debemos verificar que todos los aspectos de privacidad y seguridad estén implementados correctamente.</p>
-            </section>
-
-            <!-- Conexión con Evaluación -->
-            <section id="conexion-evaluacion" class="info-box info">
-                <h2>📝 Conexión con Evaluación</h2>
-                <div class="evaluacion-preparacion">
-                    <p><strong>🔜 Esta semana nos preparamos para:</strong></p>
-                    <ul>
-                        <li><strong>Evaluación:</strong> E6 (Proyecto Final + Examen + Sustentación, 20%)</li>
-                        <li><strong>Semana:</strong> Semana 16 (Lunes 25 de Mayo 2026)</li>
-                        <li><strong>Conexión:</strong> E6 es la evaluación final que incluye sustentación del proyecto. Esta semana debemos finalizar la implementación, documentación técnica, manual de usuario y video demo. También debemos repasar todos los contenidos para el examen escrito.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="contexto">
-                <h2>Resumen ejecutivo para desarrolladores</h2>
-
-                <div class="learning-key">
-                    <h4>Aprendizaje clave</h4>
-                    <p>En IoT, casi todo puede volverse dato personal: ubicación, horarios de uso, temperatura ambiente (presencia), hábitos de consumo. La Ley 1581 exige: consentimiento previo, políticas de privacidad, derechos ARCO (Acceso, Rectificación, Cancelación, Oposición), y seguridad mínima (encriptación, control de acceso).</p>
+        <main>
+            <section id="sustentacion">
+                <h2>🎤 Proyecto Final y Sustentación (20%)</h2>
+                
+                <div class="info-box info">
+                    <h4>⏱️ Estructura de la Presentación (15 min)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tiempo</th>
+                                <th>Actividad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>3 min</td>
+                                <td><strong>Pitch:</strong> El problema que resuelve el SMAI</td>
+                            </tr>
+                            <tr>
+                                <td>5 min</td>
+                                <td><strong>Demo Técnica:</strong> Datos en tiempo real en Grafana</td>
+                            </tr>
+                            <tr>
+                                <td>4 min</td>
+                                <td><strong>Arquitectura:</strong> Justificación de hardware y estándares</td>
+                            </tr>
+                            <tr>
+                                <td>3 min</td>
+                                <td><strong>Preguntas:</strong> Defensa del proyecto</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <p>Si tu proyecto IoT captura datos personales en Colombia, debes cumplir la <strong>Ley 1581 de 2012</strong>. Esta ley exige consentimiento previo, politicas de privacidad claras y la implementacion efectiva de derechos ARCO.</p>
-                <div class="note">
-                    <strong>Idea clave:</strong> en IoT, casi todo puede volverse dato personal si permite inferir habitos o identificar personas.
-                </div>
+                <h3>Requisitos del SMAI Final</h3>
+                <ul>
+                    <li><strong>Hardware:</strong> ESP32 montado firmemente con sus sensores (DHT22/LDR)</li>
+                    <li><strong>Encapsulado:</strong> El dispositivo no debe tener cables sueltos (usar caja/soporte)</li>
+                    <li><strong>Conectividad:</strong> WiFi estable reportando a ThingSpeak</li>
+                    <li><strong>Visualización:</strong> Dashboard profesional en Grafana</li>
+                </ul>
             </section>
 
-            <section id="datos">
-                <h2>Que datos se consideran personales</h2>
-                <p>Un dato es personal si identifica o puede identificar a una persona. En IoT, incluso datos "ambientales" pueden ser personales por inferencia.</p>
+            <section id="rubrica">
+                <h2>📊 Rúbrica de Evaluación Final</h2>
+                
                 <table>
                     <thead>
                         <tr>
-                            <th>Tipo</th>
-                            <th>Dato IoT</th>
-                            <th>¿Es personal?</th>
+                            <th>Criterio</th>
+                            <th>Peso</th>
+                            <th>Excelente (100%)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Ubicacion</td>
-                            <td>GPS del dispositivo</td>
-                            <td>Si</td>
+                            <td><strong>Funcionalidad</strong></td>
+                            <td>30%</td>
+                            <td>Sistema completo y estable</td>
                         </tr>
                         <tr>
-                            <td>Uso</td>
-                            <td>Horarios de encendido</td>
-                            <td>Si (patron de vida)</td>
+                            <td><strong>Demo en vivo</strong></td>
+                            <td>25%</td>
+                            <td>Presentación clara, demuestra todas las funciones</td>
                         </tr>
                         <tr>
-                            <td>Ambiente</td>
-                            <td>Temperatura habitacion</td>
-                            <td>Si (inferencia presencia)</td>
+                            <td><strong>Documentación</strong></td>
+                            <td>20%</td>
+                            <td>Completa, clara, bien organizada</td>
                         </tr>
                         <tr>
-                            <td>Biometricos</td>
-                            <td>Huella, voz</td>
-                            <td>Si (sensibles)</td>
+                            <td><strong>Estándares/Arquitectura</strong></td>
+                            <td>15%</td>
+                            <td>Identifica y explica estándares usados</td>
                         </tr>
                         <tr>
-                            <td>Salud</td>
-                            <td>Frecuencia cardiaca</td>
-                            <td>Si (dato especial)</td>
-                        </tr>
-                        <tr>
-                            <td>Consumo</td>
-                            <td>Uso energia</td>
-                            <td>Si (habitos)</td>
-                        </tr>
-                        <tr>
-                            <td>Agregado</td>
-                            <td>Promedio de zona</td>
-                            <td>No (no identifica individuo)</td>
+                            <td><strong>Participación equipo</strong></td>
+                            <td>10%</td>
+                            <td>Todos participan equitativamente</td>
                         </tr>
                     </tbody>
                 </table>
-            </section>
-
-            <section id="obligaciones">
-                <h2>Obligaciones principales</h2>
-                <h3>1. Politica de privacidad</h3>
-                <ul>
-                    <li>Que datos se capturan y por que.</li>
-                    <li>Con quien se comparten.</li>
-                    <li>Como se protegen.</li>
-                </ul>
-                <pre><code># Politica de Privacidad - Termostato Inteligente
-
-## Datos Capturamos
-- Temperatura configurada por el usuario
-- Horarios de uso (encendido/apagado)
-- Ubicacion del dispositivo (solo casa)
-
-## No Capturamos
-- Audio, video
-- Datos de otros dispositivos
-- Conversaciones
-
-## Como Protegemos
-- Encriptacion TLS 1.3 en transito
-- Almacenamiento cifrado (AES-256)
-- Acceso limitado al equipo
-
-## Sus Derechos (ARCO)
-Puede solicitar Acceso, Rectificacion, Cancelacion u Oposicion
-escribiendo a privacidad@ejemplo.com
-</code></pre>
-
-                <h3>2. Autorizacion (consentimiento)</h3>
-                <ul>
-                    <li><strong>Previa:</strong> antes de capturar datos.</li>
-                    <li><strong>Informada:</strong> el usuario sabe que entrega.</li>
-                    <li><strong>Explicita:</strong> opt-in, no opt-out.</li>
-                </ul>
-                <div class="diagram">
-+-------------------------------------+
-| Termostato Inteligente              |
-|                                     |
-| Para funcionar, necesita acceder a: |
-|                                     |
-| [x] Ubicacion del dispositivo       |
-| [x] Datos de uso                    |
-|                                     |
-| Acepto Terminos y Politica          |
-|                                     |
-| [ Rechazar ]   [ Aceptar ]          |
-+-------------------------------------+
-                </div>
-            </section>
-
-            <section id="arco">
-                <h2>Derechos ARCO: implementacion tecnica</h2>
-                <h3>Acceso (A)</h3>
-                <pre><code>// GET /api/v1/user/data
-// Response 200
-{
-  "user_id": "user_123",
-  "data_collected": {
-    "temperature_readings": 1520,
-    "schedule": {"mon": [{"start": "07:00", "end": "23:00"}]},
-    "device_location": "Medellin"
-  },
-  "retention_period": "90 days"
-}
-</code></pre>
-
-                <h3>Rectificacion (R)</h3>
-                <pre><code>// PUT /api/v1/user/data/profile
-{
-  "field": "email",
-  "old_value": "old@email.com",
-  "new_value": "new@email.com",
-  "reason": "Email actualizado"
-}
-</code></pre>
-
-                <h3>Cancelacion / Supresion (C)</h3>
-                <pre><code>// DELETE /api/v1/user/data
-// Response 200
-{
-  "status": "deleted",
-  "data_deleted": 1520,
-  "data_retained": ["billing_records"],
-  "retained_reason": "legal_requirement"
-}
-</code></pre>
-
-                <h3>Oposicion (O)</h3>
-                <pre><code>// POST /api/v1/user/consent
-{
-  "data_type": "location",
-  "purpose": "third_party_sharing",
-  "consent": false
-}
-</code></pre>
-            </section>
-
-            <section id="seguridad">
-                <h2>Seguridad minima obligatoria</h2>
-                <ul>
-                    <li>Encriptacion en transito (TLS 1.2+).</li>
-                    <li>Encriptacion en reposo (AES-256 equivalente).</li>
-                    <li>Control de acceso y autenticacion.</li>
-                    <li>Auditoria y logs de accesos.</li>
-                </ul>
-                <div class="note">
-                    <strong>Deber de informar:</strong> vulnerabilidades que afecten datos personales deben reportarse a la SIC en 15 dias habiles.
-                </div>
-            </section>
-
-            <section id="sanciones">
-                <h2>Sanciones</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Infraccion</th>
-                            <th>Sancion maxima</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>No informar politica</td>
-                            <td>Multa hasta 300 SMMLV</td>
-                        </tr>
-                        <tr>
-                            <td>No obtener autorizacion</td>
-                            <td>Multa hasta 600 SMMLV</td>
-                        </tr>
-                        <tr>
-                            <td>No cumplir ARCO</td>
-                            <td>Multa hasta 1000 SMMLV</td>
-                        </tr>
-                        <tr>
-                            <td>Comprometer seguridad</td>
-                            <td>Multa hasta 1000 SMMLV + cierre</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p><strong>Referencia:</strong> 1 SMMLV 2025 ≈ 260 USD (aprox).</p>
             </section>
 
             <section id="checklist">
-                <h2>Checklist de cumplimiento</h2>
+                <h2>✅ Checklist Final</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📦 Entregables (Canvas)</h3>
+                        <ul>
+                            <li>☐ Documentación técnica (PDF)</li>
+                            <li>☐ Manual de usuario</li>
+                            <li>☐ Video demo (máx 5 min)</li>
+                            <li>☐ Código en GitHub (link)</li>
+                            <li>☐ Todo antes: Dom 24/05 11:59 PM</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔧 Para la Presentación</h3>
+                        <ul>
+                            <li>☐ Hardware funcionando</li>
+                            <li>☐ Circuito estable/protegido</li>
+                            <li>☐ Laptop con dashboard listo</li>
+                            <li>☐ Plan B (video grabado)</li>
+                            <li>☐ Todos los integrantes presentes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="consejos">
+                <h2>💡 Consejos para el Proyecto Final</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🛠️ Preparación Técnica</h3>
+                        <ul>
+                            <li>Verificar el encapsulado y aislamiento</li>
+                            <li>Asegurar que los cables no se suelten al mover el dispositivo</li>
+                            <li>Tener una fuente de alimentación externa (USB)</li>
+                            <li>Probar el dashboard en modo incógnito</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎤 Para la Sustentación</h3>
+                        <ul>
+                            <li>Practicar la demo varias veces</li>
+                            <li>Preparar respuestas a preguntas típicas</li>
+                            <li>Tener todo listo la noche anterior</li>
+                            <li>Mostrar confianza y dominio del proyecto</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box success" style="margin-top: 2rem; text-align: center;">
+                    <h4>🎉 ¡Ha sido un placer!</h4>
+                    <p>Gracias por su dedicación durante el curso. ¡Mucho éxito en la evaluación final!</p>
+                </div>
+            </section>
+
+            <section class="summary-table" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
+                <h2 style="color: #065f46;">🎓 Resumen del Curso IF0112</h2>
+                
+                <h3>Evaluaciones Realizadas</h3>
                 <ul>
-                    <li>Politica de privacidad redactada y publicada.</li>
-                    <li>Consentimiento explicito implementado.</li>
-                    <li>API ARCO implementada (A, R, C, O).</li>
-                    <li>Encriptacion TLS 1.3 habilitada.</li>
-                    <li>Encriptacion at-rest configurada.</li>
-                    <li>Logs de auditoria activados.</li>
-                    <li>Procedimiento de retencion definido.</li>
-                    <li>Minimizacion de datos aplicada.</li>
+                    <li>✅ <strong>E1 Investigación (15%):</strong> Arquitectura SMAI</li>
+                    <li>✅ <strong>E2 Prototipo (15%):</strong> Interacción Sensórica</li>
+                    <li>✅ <strong>E3 Software (20%):</strong> Conectividad Cloud</li>
+                    <li>✅ <strong>E4 Informe (15%):</strong> Lógica de Control</li>
+                    <li>✅ <strong>E5 Trabajo Escrito (15%):</strong> Normativa y Ficha Técnica</li>
+                    <li>🎯 <strong>E6 Proyecto Final (20%):</strong> Entrega SMAI Funcionando</li>
                 </ul>
-            </section>
 
-            <section id="practica">
-                <h2>Practica / laboratorio</h2>
-                <h3>Actividad guiada: plan de cumplimiento</h3>
-                <ol>
-                    <li>Identifique datos personales en un dispositivo IoT real.</li>
-                    <li>Redacte una politica de privacidad minima.</li>
-                    <li>Disene endpoints ARCO para ese dispositivo.</li>
-                    <li>Defina controles de seguridad y reporte de incidentes.</li>
-                    <li>Presente un plan de auditoria basico.</li>
-                </ol>
-            </section>
-
-            <section id="ejercicios">
-                <h2>Ejercicios</h2>
-
-                <section class="actividad">
-                    <h4>⚪ Tipo de Actividad</h4>
-                    <p><strong>Tipo:</strong> Opcional (recomendado para practicar)</p>
-                    <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
-                    <p><strong>Entregable:</strong> Soluciones a ejercicios (no afecta nota)</p>
-                    <p><strong>Tiempo estimado:</strong> 30-45 minutos autónomos</p>
-                    <p><strong>Criterios:</strong> Aplicación de conceptos de privacidad y seguridad IoT</p>
-                </section>
-
-                <ol>
-                    <li>Explique por que un dato de temperatura puede ser personal.</li>
-                    <li>Disene un flujo de consentimiento para un wearable de salud.</li>
-                    <li>Liste 4 obligaciones legales clave para un proyecto IoT en Colombia.</li>
-                    <li>Proponga un esquema de retencion de datos para sensores de trafico.</li>
-                    <li>Simule una respuesta a incidente: que pasos seguiria en 15 dias.</li>
-                </ol>
-            </section>
-
-            <section id="actualizacion-2025">
-                <h2>Actualización importante (2025)</h2>
-                <div class="note" style="border-left: 4px solid #f59e0b; background: #fffbeb; padding: 1rem; margin: 1rem 0;">
-                    <h3 style="color: #92400e; margin-top: 0;">Proyecto de Reforma Ley 1581 (Agosto 2025)</h3>
-                    <p><strong>Nota importante:</strong> En agosto de 2025, se presentó un proyecto de ley para modernizar y actualizar la Ley 1581 de 2012. Esta reforma propuesta incluye:</p>
-                    <ul>
-                        <li><strong>Adaptación a estándares internacionales:</strong> Alineación con el GDPR europeo y CCPA californiano.</li>
-                        <li><strong>Mayor autonomía del titular:</strong> Fortalecimiento de los derechos ARCO y adición de nuevos derechos (portabilidad, oposición automatizada).</li>
-                        <li><strong>Notificación de incidentes:</strong> Plazos más estrictos (72 horas para incidentes graves, reduciendo los 15 días actuales).</li>
-                        <li><strong>Principios de privacidad por diseño:</strong> Obligación de incorporar protección de datos desde el diseño de sistemas IoT.</li>
-                        <li><strong>Evaluaciones de impacto:</strong> Requerimiento de DPIA (Data Protection Impact Assessment) para proyectos de alto riesgo.</li>
-                        <li><strong>Sanciones actualizadas:</strong> Montos proporcionales a la gravedad y facturación de las empresas.</li>
-                    </ul>
-                    <p><strong>Estado:</strong> Proyecto en trámite legislativo (pendiente de aprobación al 2026-I). Mientras se aprueba, la Ley 1581 de 2012 sigue vigente en su versión original.</p>
-                    <p><strong>Recomendación:</strong> Diseñar sus proyectos IoT cumpliendo los estándares más altos (GDPR + reforma propuesta) para estar preparados cuando entre en vigencia.</p>
-                    <p style="margin-bottom: 0; font-size: 0.9rem; color: #6b7280;"><em>Fuente: Congreso de la República de Colombia, Proyecto de Ley número 318 de 2025 Senado / 397 de 2025 Cámara.</em></p>
-                </div>
-            </section>
-
-            <section id="referencias">
-                <h2>Referencias</h2>
+                <h3 style="margin-top: 1.5rem;">Competencias Desarrolladas</h3>
                 <ul>
-                    <li>Material complementario interno disponible en el aula virtual de la clase.</li>
-                    <li>Congreso de la República - Proyecto de Reforma Ley 1581 (2025).</li>
+                    <li>✅ Comprender arquitectura IoT y sus pilares</li>
+                    <li>✅ Diseñar sistemas con sensores y conectividad</li>
+                    <li>✅ Implementar soluciones usando protocolos IoT</li>
+                    <li>✅ Aplicar estándares y normativas de privacidad</li>
+                    <li>✅ Desarrollar proyecto IoT funcional de principio a fin</li>
                 </ul>
 
-                <div class="hardware-notice">
-                    <strong>💻 Factibilidad Windows:</strong> Esta clase es completamente teórica sobre marco legal colombiano. No requiere hardware ni software especializado. Todo el contenido se puede estudiar directamente en el navegador en Windows.
-                </div>
-            </section>
-
-            <section id="📚-recursos-curados" class="info-box">
-                <h2>📚 Recursos Curados</h2>
-                <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
-
-                <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
-                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Guía para probar y explotar sistemas y dispositivos de IoT</h4>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Ciberseguridad IoT</p>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 45 minutos</p>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Guía fundamental sobre seguridad y vulnerabilidades en dispositivos IoT, esencial para entender el marco legal y la protección de datos.</p>
-                        <a href="https://www.youtube.com/watch?v=mjp1m-CKXNo" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                    </div>
-
-                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 ¿Cómo Desarrollar Aplicaciones de IoT?</h4>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Development</p>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 30 minutos</p>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Tips para desarrollar aplicaciones de IoT cumpliendo con regulaciones y estándares de seguridad, relevante para el marco legal.</p>
-                        <a href="https://www.youtube.com/watch?v=vNp2feREK7c" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                    </div>
-
-                    <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                        <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Webinar: Internet of Things (IoT)</h4>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> CIDESI</p>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 60 minutos</p>
-                        <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Conceptos fundamentales de IoT con demostraciones de proyectos, incluyendo consideraciones de seguridad y privacidad.</p>
-                        <a href="https://www.youtube.com/watch?v=yf6w-vqbwF0" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                    </div>
-                </div>
+                <p style="margin-top: 2rem; padding: 1.5rem; background: #ecfdf5; border-radius: 6px; text-align: center; font-size: 1.2rem; font-weight: bold; color: #065f46;">
+                    ¡Felicitaciones por llegar al final del curso! 🚀
+                </p>
             </section>
         </main>
 
-        <!-- Navegación entre clases -->
         <nav class="class-nav">
             <div class="class-nav-title">Navegación del Curso</div>
             <div class="class-nav-links">
                 <a href="index.html" class="class-nav-btn">
                     <span class="arrow">🏠</span> Inicio
-                </a>
-                <a href="clase-13.html" class="class-nav-btn">
-                    <span class="arrow">←</span> Clase Anterior
-                </a>
-                <a href="clase-15.html" class="class-nav-btn">
-                    Clase Siguiente <span class="arrow">→</span>
-                </a>
-            </div>
+                </a>                <a href="clase-13.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Sesión Anterior
+                </a>            </div>
         </nav>
 
-        <button id="backToTop" class="back-to-top" title="Volver arriba">↑</button>
-
-        <footer style="text-align: center; padding: 2rem; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; background: #0f172a; color: #bbf7d0;">
-            <p><strong>IF0112 - Complementaria II (IoT)</strong> | 6° Semestre - Ingeniería Informática</p>
-            <p>Universidad Autónoma Latinoamericana (UNAULA) - 2026-I</p>
-            <p style="margin-top: 0.5rem; opacity: 0.8;">Clase 14: Marco Legal IoT en Colombia</p>
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 14</p>
         </footer>
     </div>
 
-    <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
-
-            const progressFill = document.getElementById('progressFill');
-            const backToTop = document.getElementById('backToTop');
-
-            if (!progressFill || !backToTop) return;
-
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
-                }
-            });
-
-            // Initial call
-            updateProgress();
-        })();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-

@@ -3,139 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clase 10: Dashboard Grafana + E4 Caso | IF0112 - Complementaria II (IoT)</title>
-  <style>
-    :root {
-      --color-primary: #1e40af;
-      --color-primary-light: #3b82f6;
-      --color-secondary: #0f172a;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #64748b;
-      --bg-primary: #ffffff;
-      --bg-secondary: #f8fafc;
-      --border: #e2e8f0;
-      --radius: 10px;
-      --space-1: 0.25rem;
-      --space-2: 0.5rem;
-      --space-3: 0.75rem;
-      --space-4: 1rem;
-      --space-6: 1.5rem;
-      --space-8: 2rem;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text-primary);
-      background: #eef2ff;
-      line-height: 1.55;
-    }
-
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
-      background: var(--bg-primary);
-      min-height: 100vh;
-      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
-    }
-
-    header {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      color: #fff;
-      padding: var(--space-8) var(--space-6);
-    }
-
-    h1 { margin: 0 0 var(--space-2) 0; font-size: 2rem; }
-
-    .subtitle { margin: 0; opacity: 0.95; }
-
-    nav {
-      background: var(--color-secondary);
-      padding: var(--space-3) var(--space-6);
-    }
-
-    nav ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      gap: var(--space-3);
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.92rem;
-    }
-
-    nav a:hover { color: #fff; }
-
-    main { padding: var(--space-8) var(--space-6); }
-
-    section {
-      margin-bottom: var(--space-8);
-      padding: var(--space-6);
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
-
-    h2 {
-      margin: 0 0 var(--space-4) 0;
-      color: var(--color-primary);
-      font-size: 1.35rem;
-    }
-
-    .meta {
-      background: #dbeafe;
-      border: 1px solid #93c5fd;
-      color: #1e3a8a;
-      padding: var(--space-4);
-      border-radius: var(--radius);
-      margin-bottom: var(--space-6);
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: var(--space-4);
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: var(--space-4);
-    }
-
-    .alert {
-      background: #fff7ed;
-      border-left: 4px solid #f59e0b;
-    }
-
-    .ok {
-      background: #ecfdf5;
-      border-left: 4px solid #10b981;
-    }
-
-    footer {
-      padding: var(--space-6);
-      text-align: center;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      background: #fff;
-    }
-  </style>
+  <title>Sesión 10: Dashboard Grafana + E4 Caso | IF0112 - Complementaria II (IoT)</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos de esta clase (si los hay) */
+    </style>
 </head>
 <body>
+  <!-- Progress bar -->
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+
   <div class="container">
     <header>
-      <h1>Clase 10: Dashboard Grafana + E4 Caso</h1>
-      <p class="subtitle">IF0112 Complementaria II (IoT) · Unidad 2</p>
+      <h1>Sesión 10: Dashboard Grafana + E4 Caso</h1>
+      <p class="subtitle">IF0112 Complementaria II (IoT) · UNAULA 2026-I · Fecha: 20-abr-2026 (E4)</p>
     </header>
 
     <nav>
@@ -151,27 +35,55 @@
     </nav>
 
     <main>
+      <!-- Info Cronograma 2026-I -->
+      <section style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius); margin-bottom: var(--space-6); border: 2px solid #3b82f6;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+          <div>
+            <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: 1.25rem;">📅 Sesión 10 - Dashboard y Visualización</h3>
+            <p style="margin: 0; color: #1e3a8a;"><strong>Fecha:</strong> Lunes 20 de Abril 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min) | <strong>Modalidad:</strong> Teórico-Práctica</p>
+          </div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #f59e0b; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius); font-weight: 600; font-size: 0.85rem;">📝 E4 (15%)</span>
+          </div>
+        </div>
+
+        <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 E4 Informe (15%): Entrega HOY 20-abr</h4>
+          <p style="margin: 0; color: #991b1b; font-size: 0.9rem;"><strong>Tema:</strong> Lógica de Control y Reglas Domóticas del SMAI.</p>
+          <p><a href="../evaluaciones/guia-E4.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Informe E4 →</a></p>
+        </div>
+
+        <!-- Preparación LAB -->
+        <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación para E4</h4>
+          <p style="margin: 0; color: #065f46; font-size: 0.9rem;">Revisar ejercicios del simulador Wokwi sobre ThingSpeak y MQTT para aplicar en el informe.</p>
+        </div>
+      </section>
+
       <div class="meta">
         <strong>Fecha:</strong> Lunes 20 de Abril 2026 |
-        <strong>Horario:</strong> 06:00-07:30 (90 min) |
-        <strong>Semana:</strong> 10 |
-        <strong>Modalidad:</strong> Laboratorio: Dashboard Grafana + visualización
+        <strong>Horario:</strong> 06:00-08:00 (120 min) |
+        <strong>Semana:</strong> 12 |
+        <strong>Modalidad:</strong> Teórico-Práctica: Dashboard Grafana
       </div>
 
       <section id="objetivo-aprendizaje">
-        <h2>Objetivo de Aprendizaje</h2>
+        <h2>Objetivo de la Sesión</h2>
         <p>Comparar y seleccionar protocolos de transporte y aplicación para escenarios IoT, justificando decisiones con criterios de latencia, confiabilidad, consumo energético y costo operativo.</p>
       </section>
 
       <section id="agenda-90">
-        <h2>Agenda de 90 Minutos</h2>
+        <h2>Agenda de 120 Minutos (6:00-8:00 AM)</h2>
         <ul>
-          <li><strong>0-15 min:</strong> Repaso de conectividad (WiFi, HTTP, MQTT) y contexto del problema.</li>
-          <li><strong>15-45 min:</strong> Transporte y sesión: TCP, UDP, TLS, QoS.</li>
-          <li><strong>45-70 min:</strong> Comparativa aplicada: HTTP/REST, MQTT, CoAP para casos IoT.</li>
-          <li><strong>70-85 min:</strong> Taller breve de decisión arquitectónica por equipos.</li>
-          <li><strong>85-90 min:</strong> Cierre y puente hacia E4 + LAB 4.</li>
+          <li><strong>0-10 min:</strong> Repaso de conectividad y contexto (10 min)</li>
+          <li><strong>10-40 min:</strong> Visualización: <abbr title="Tableros de control">Dashboards</abbr> y Grafana (30 min teoría)</li>
+          <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Configuración de fuentes de datos (30 min práctica)</li>
+          <li><strong>70-95 min:</strong> Diseño de paneles y métricas (25 min teoría)</li>
+          <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Laboratorio 4 Dashboard y cierre (25 min práctica)</li>
         </ul>
+        <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+            <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+        </div>
       </section>
 
       <section id="contenido-teorico">
@@ -297,60 +209,130 @@
       <section id="conexion-evaluacion" class="alert">
         <h2>Conexión con Evaluación</h2>
         <ul>
-          <li><strong>Evaluación actual:</strong> E4 Caso de Estudio (15%) - Documento 3-5 páginas, entrega 19-abr-2026 23:59</li>
-          <li><strong>LAB 4 hoy:</strong> Dashboard Grafana + visualización de datos del proyecto (3 horas)</li>
+          <li><strong>Evaluación actual:</strong> E4 Caso de Estudio (15%) - Documento y Sustentación, entrega 20-abr-2026 23:59</li>
+          <li><strong>LAB 4 hoy:</strong> Dashboard Grafana + visualización de datos del proyecto (120 min)</li>
           <li><strong>Evidencias esperadas:</strong> Dashboard funcional con datos del proyecto + informe E4</li>
         </ul>
       </section>
 
       <section id="recursos-curados">
         <h2>Recursos para LAB 4: Dashboard Grafana</h2>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-3); margin-bottom: var(--space-4); border-radius: var(--radius-md);">
+          <p style="margin: 0; color: #92400e;"><strong>💡 Nota sobre idioma:</strong> Los siguientes videos de Grafana Labs están en inglés. Son la fuente oficial y más actualizada de aprendizaje de Grafana. Si prefieres contenido en español, busca alternativas como "Grafana tutorial español" en YouTube.</p>
+        </div>
+
+        <h3>📺 Tutoriales Oficiales (en inglés)</h3>
         <div class="grid-2">
           <div class="card">
             <h3>Grafana Essentials: Getting Started</h3>
             <p><strong>Canal:</strong> Grafana Labs · <strong>Duración:</strong> ~25 min</p>
             <p><strong>Propósito:</strong> Introducción completa a Grafana, panels y visualizaciones.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
             <p><a href="https://www.youtube.com/watch?v=P7inlVTl6a4" target="_blank">Ver en YouTube</a></p>
           </div>
           <div class="card">
             <h3>Dashboard Examples for IoT</h3>
             <p><strong>Canal:</strong> Grafana Learning Library · <strong>Duración:</strong> ~30 min</p>
             <p><strong>Propósito:</strong> Ejemplos de dashboards IoT con datos reales.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
             <p><a href="https://www.youtube.com/watch?v=9q2DnV_88R8" target="_blank">Ver en YouTube</a></p>
           </div>
           <div class="card">
             <h3>Building Dashboards with Grafana & Prometheus</h3>
             <p><strong>Canal:</strong> Grafana Labs · <strong>Duración:</strong> ~20 min</p>
             <p><strong>Propósito:</strong> Connect ESP32 to Prometheus to Grafana dashboard.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
             <p><a href="https://www.youtube.com/watch?v=992KDW1cEIA" target="_blank">Ver en YouTube</a></p>
           </div>
           <div class="card">
             <h3>Grafana + Data Sources</h3>
             <p><strong>Canal:</strong> Grafana Learning Library · <strong>Duración:</strong> ~15 min</p>
             <p><strong>Propósito:</strong> Configuración de sources de datos para dashboards.</p>
+            <p><strong>Idioma:</strong> <span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Inglés</span></p>
             <p><a href="https://www.youtube.com/watch?v=n5nWSnwF6-o" target="_blank">Ver en YouTube</a></p>
           </div>
+        </div>
+
+        <h3>🇪🇸 Alternativas en Español (búsqueda sugerida)</h3>
+        <div class="card" style="background: #f0fdf4; border-left: 4px solid #22c55e;">
+          <p style="margin: 0 0 var(--space-2) 0;"><strong>Busca en YouTube:</strong></p>
+          <ul style="margin: 0; padding-left: var(--space-4);">
+            <li>"Grafana tutorial español"</li>
+            <li>"Grafana dashboards en español"</li>
+            <li>"Introducción a Grafana español"</li>
+            <li>"Grafana con ThingSpeak tutorial"</li>
+          </ul>
+          <p style="margin: var(--space-2) 0 0 0;"><strong>Canales recomendados para buscar:</strong></p>
+          <ul style="margin: 0; padding-left: var(--space-4);">
+            <li>Código IoT</li>
+            <li>Teckknow</li>
+            <li>Píldoras Informáticas</li>
+            <li>Telluric</li>
+          </ul>
         </div>
       </section>
     </main>
 
-        <!-- Navegación entre clases -->
         <nav class="class-nav">
             <div class="class-nav-title">Navegación del Curso</div>
             <div class="class-nav-links">
                 <a href="index.html" class="class-nav-btn">
                     <span class="arrow">🏠</span> Inicio
                 </a>                <a href="clase-09.html" class="class-nav-btn">
-                    <span class="arrow">←</span> Clase Anterior
+                    <span class="arrow">←</span> Sesión Anterior
                 </a>                <a href="clase-11.html" class="class-nav-btn">
-                    Clase Siguiente <span class="arrow">→</span>
+                    Sesión Siguiente <span class="arrow">→</span>
                 </a>            </div>
         </nav>
 
     <footer>
-      <p>IF0112 - Complementaria II (IoT) · UNAULA · 2026-I</p>
+      <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 10</p>
     </footer>
   </div>
+
+  <script>
+    // Progress bar and back-to-top functionality
+    (function() {
+      const progressFill = document.getElementById('progressFill');
+      const backToTop = document.getElementById('backToTop');
+
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressFill.style.width = Math.min(progress, 100) + '%';
+
+        // Show/hide back-to-top button
+        if (scrollTop > window.innerHeight * 0.3) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+
+      // Throttle scroll events for performance
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            updateProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      // Event listeners
+      window.addEventListener('scroll', onScroll, { passive: true });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Initial call
+      updateProgress();
+    })();
+  </script>
 </body>
 </html>
 

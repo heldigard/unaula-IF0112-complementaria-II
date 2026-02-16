@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 15: Edge Computing | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .tip { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.75rem; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f1f5f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Ejercicio 15: Edge Computing</h1>
+            <p>⏱️ 30 min | 📦 ESP32 + LDR + LED | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Implementar procesamiento local (Edge Computing) para filtrar y validar datos de un sensor antes de "enviarlos a la nube", demostrando la diferencia entre procesamiento en el edge vs cloud.</p>
+            <div class="tip">
+                <strong>💡 Contexto:</strong> Edge Computing procesa datos localmente en el dispositivo, reduciendo latencia, uso de ancho de banda y mejorando la privacidad. Es clave en IoT industrial y aplicaciones en tiempo real.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Edge vs Cloud Computing</h2>
+            <table>
+                <tr><th>Aspecto</th><th>Edge Computing</th><th>Cloud Computing</th></tr>
+                <tr><td>Latencia</td><td>⚡ Muy baja (ms)</td><td>🐢 Alta (segundos)</td></tr>
+                <tr><td>Ancho de banda</td><td>✅ Bajo uso</td><td>❌ Alto uso</td></tr>
+                <tr><td>Privacidad</td><td>✅ Datos locales</td><td>⚠️ Datos en servidores</td></tr>
+                <tr><td>Procesamiento</td><td>Limitado</td><td>Ilimitado</td></tr>
+                <tr><td>Conectividad</td><td>Funciona offline</td><td>Requiere internet</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+            <h3>Componentes:</h3>
+            <ul>
+                <li>1 x ESP32 DevKit V1</li>
+                <li>1 x LDR (fotorresistencia)</li>
+                <li>1 x Resistencia 10kΩ (para LDR)</li>
+                <li>1 x LED + Resistencia 220Ω</li>
+            </ul>
+
+            <h3>Conexiones:</h3>
+            <pre style="background: #f0f9ff; padding: 1rem; border-radius: 8px;">
+LDR:
+  Un lado → 3.3V
+  Otro lado → GPIO34 + Resistencia 10kΩ
+  Resistencia 10kΩ → GND
+
+LED:
+  GPIO18 → 220Ω → Ánodo LED → Cátodo LED → GND
+            </pre>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código: Procesamiento Edge</h2>
+            <pre><code>// Ejercicio 15: Edge Computing - Procesamiento Local
+// Filtra, valida y solo "envía" datos significativos
+
+const int ldrPin = 34;
+const int ledPin = 18;
+
+// Variables para promedio móvil
+const int MUESTRAS = 10;
+int lecturas[MUESTRAS];
+int indice = 0;
+int total = 0;
+
+// Variables para detección de cambios
+int luxAnterior = 0;
+const int UMBRAL_CAMBIO = 5;  // Solo envía si cambia más de 5%
+
+// Estadísticas Edge
+int lecturasProcesadas = 0;
+int datosEnviados = 0;
+unsigned long ultimoEnvio = 0;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(115200);
+
+  // Inicializar buffer de promedio móvil
+  for (int i = 0; i < MUESTRAS; i++) {
+    lecturas[i] = 0;
+  }
+
+  Serial.println("=== Edge Computing Demo ===");
+  Serial.println("Procesando datos localmente...");
+  Serial.println("----------------------------------------");
+}
+
+void loop() {
+  // 1. LEER SENSOR (simulado cada 100ms)
+  int lecturaRaw = analogRead(ldrPin);
+
+  // 2. FILTRO: Promedio móvil (reduce ruido)
+  total -= lecturas[indice];
+  lecturas[indice] = lecturaRaw;
+  total += lecturaRaw;
+  indice = (indice + 1) % MUESTRAS;
+
+  int promedio = total / MUESTRAS;
+  int lux = map(promedio, 0, 4095, 0, 100);  // Convertir a %
+
+  lecturasProcesadas++;
+
+  // 3. VALIDACIÓN: Descartar lecturas inválidas
+  if (lux < 0 || lux > 100) {
+    Serial.println("⚠️ Lectura inválida descartada");
+    return;
+  }
+
+  // 4. DETECCIÓN DE CAMBIO SIGNIFICATIVO
+  int cambio = abs(lux - luxAnterior);
+  bool cambioSignificativo = (cambio >= UMBRAL_CAMBIO);
+
+  // 5. DECISIÓN EDGE: ¿Enviar o no?
+  bool debeEnviar = false;
+  String razon = "";
+
+  if (cambioSignificativo) {
+    debeEnviar = true;
+    razon = "Cambio significativo";
+  }
+  else if (millis() - ultimoEnvio > 10000) {  // Cada 10 seg mínimo
+    debeEnviar = true;
+    razon = "Actualización periódica";
+  }
+
+  // 6. ACCIÓN LOCAL (siempre, sin importar envío)
+  if (lux < 30) {
+    digitalWrite(ledPin, HIGH);  // Poca luz → LED on
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  // 7. ENVIAR A "NUBE" (solo si necesario)
+  if (debeEnviar) {
+    datosEnviados++;
+    ultimoEnvio = millis();
+
+    Serial.println("📤 ENVIANDO A NUBE:");
+    Serial.print("   Lux: ");
+    Serial.print(lux);
+    Serial.print("% | Razón: ");
+    Serial.println(razon);
+    Serial.println("---");
+
+    luxAnterior = lux;
+  }
+
+  // Mostrar estadísticas cada 50 lecturas
+  if (lecturasProcesadas % 50 == 0) {
+    float eficiencia = (1.0 - (float)datosEnviados / lecturasProcesadas) * 100;
+    Serial.println("📊 ESTADÍSTICAS EDGE:");
+    Serial.print("   Lecturas procesadas: ");
+    Serial.println(lecturasProcesadas);
+    Serial.print("   Datos enviados: ");
+    Serial.println(datosEnviados);
+    Serial.print("   Ahorro de ancho de banda: ");
+    Serial.print(eficiencia, 1);
+    Serial.println("%");
+    Serial.println("========================================");
+  }
+
+  delay(100);
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Qué Demostramos</h2>
+            <table>
+                <tr><th>Técnica Edge</th><th>Beneficio</th></tr>
+                <tr><td><strong>Promedio móvil</strong></td><td>Reduce ruido del sensor</td></tr>
+                <tr><td><strong>Validación de datos</strong></td><td>Descarta lecturas imposibles</td></tr>
+                <tr><td><strong>Detección de cambios</strong></td><td>Solo envía datos significativos</td></tr>
+                <tr><td><strong>Acción local inmediata</strong></td><td>LED responde sin latencia</td></tr>
+                <tr><td><strong>Ahorro de ancho de banda</strong></td><td>Reduce tráfico a la nube</td></tr>
+            </table>
+
+            <div class="warning">
+                <strong>💡 Observa:</strong> El LED responde INMEDIATAMENTE a los cambios de luz (acción local), pero los datos solo se "envían" cuando hay un cambio significativo o periódicamente. Esto es Edge Computing en acción.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación</li>
+                <li>Observa el Monitor Serial mostrando estadísticas de ahorro</li>
+                <li>Tapa/destapa el LDR (simula cambios de luz)</li>
+                <li>Toma pantallazo mostrando el "ahorro de ancho de banda"</li>
+                <li>Sube a Canvas</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Retos Adicionales</h2>
+            <ul>
+                <li>Agrega detección de anomalías (lecturas fuera de rango normal)</li>
+                <li>Implementa compresión: envía solo el promedio de 10 lecturas</li>
+                <li>Agrega un "buffer circular" para guardar datos cuando no hay conexión</li>
+            </ul>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-14-web-server.html">← Ejercicio 14</a>
+            <a href="ejercicio-16-m2m-simulation.html">Ejercicio 16 →</a>
+        </nav>
+    </div>
+</body>
+</html>

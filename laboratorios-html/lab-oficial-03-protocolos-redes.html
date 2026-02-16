@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAB 3 Oficial - Protocolos IoT y Conectividad</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 980px; margin: 0 auto; padding: 24px; line-height: 1.6; color: #0f172a; }
+    h1, h2 { color: #1e40af; }
+    h1 { border-bottom: 3px solid #3b82f6; padding-bottom: 12px; }
+    section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
+    th { background: #e2e8f0; font-weight: 600; }
+    .nav { display: flex; justify-content: space-between; margin-top: 32px; padding-top: 20px; border-top: 2px solid #e2e8f0; }
+    .nav a { display: inline-block; background: #3b82f6; color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; }
+    .nav a:hover { background: #1d4ed8; }
+    .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 16px 0; }
+    .info { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 16px; margin: 16px 0; }
+    .success { background: #d1fae5; border-left: 4px solid #10b981; padding: 16px; margin: 16px 0; }
+    code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+    pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>🔌 LAB 3 Oficial: Protocolos IoT y Conectividad</h1>
+  
+  <p><strong>Sesión:</strong> 7 (Preparación E3) | <strong>Duración:</strong> 60-120 minutos | 
+  <strong>Objetivo:</strong> Comprender protocolos MQTT/HTTP, conectar ESP32 a WiFi y enviar datos a la nube. <a href="../evaluaciones/guia-E3.html">Ver Guía E3</a>.</p>
+
+  <div class="warning">
+    <strong>📅 Conexión con E3 (20%):</strong> Este laboratorio prepara específicamente la entrega de <strong>Software IoT</strong> sobre 
+    "interacción de dispositivos IoT a través de redes e Internet". Dominar estos conceptos es clave para el éxito del proyecto.
+  </div>
+
+  <section>
+    <h2>📋 Checklist Pre-Lab</h2>
+    <ul>
+      <li>☐ Cuenta creada en una plataforma IoT gratuita:
+        <ul>
+          <li><strong>Opción A (Recomendada):</strong> <a href="https://stem.ubidots.com" target="_blank">Ubidots STEM</a> - Gratis para siempre</li>
+          <li><strong>Opción B:</strong> <a href="https://thingspeak.com" target="_blank">ThingSpeak.com</a> - Gratis con limites</li>
+          <li><strong>Opción C:</strong> <a href="https://cloud.arduino.cc" target="_blank">Arduino IoT Cloud</a> - Gratis</li>
+        </ul>
+      </li>
+      <li>☐ Acceso al simulador <a href="https://wokwi.com" target="_blank">Wokwi.com</a></li>
+      <li>☐ Conocimiento básico de ESP32 (de LABs 1 y 2)</li>
+      <li>☐ Red WiFi disponible (para pruebas con hardware físico opcional)</li>
+    </ul>
+    <div class="info">
+      <strong>💡 Nota:</strong> Se puede usar cualquier plataforma IoT gratuita. Ubidots STEM es la más estable y permanente para educación.
+    </div>
+  </section>
+
+  <section>
+    <h2>🎯 Objetivos de Aprendizaje</h2>
+    <p>Al completar este laboratorio, podrás:</p>
+    <ol>
+      <li>Explicar las diferencias entre HTTP y MQTT para IoT</li>
+      <li>Conectar un ESP32 a red WiFi</li>
+      <li>Enviar datos desde ESP32 a ThingSpeak usando HTTP GET</li>
+      <li>Comprender el modelo publicador/suscriptor de MQTT</li>
+      <li>Visualizar datos en tiempo real en dashboard</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>📚 Parte 1: Teoría de Protocolos (20 min)</h2>
+    
+    <h3>HTTP vs MQTT para IoT</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>HTTP</th>
+          <th>MQTT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Modelo</strong></td>
+          <td>Request/Response (petición/respuesta)</td>
+          <td>Publish/Subscribe (publicar/suscribir)</td>
+        </tr>
+        <tr>
+          <td><strong>Overhead</strong></td>
+          <td>Alto (headers extensos)</td>
+          <td>Bajo (headers mínimos)</td>
+        </tr>
+        <tr>
+          <td><strong>Batería</strong></td>
+          <td>Consume más (conexiones cortas)</td>
+          <td>Consume menos (conexión persistente)</td>
+        </tr>
+        <tr>
+          <td><strong>Casos de uso</strong></td>
+          <td>APIs REST, envío periódico de datos</td>
+          <td>Comandos en tiempo real, alertas</td>
+        </tr>
+        <tr>
+          <td><strong>Ejemplo IoT</strong></td>
+          <td>Enviar temperatura cada 5 minutos</td>
+          <td>Encender luz cuando se detecta movimiento</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      <strong>💡 Concepto Clave para E3:</strong> MQTT usa un <strong>broker</strong> (intermediario) que recibe todos los mensajes 
+      y los distribuye a los dispositivos suscritos. Esto permite comunicación <strong>muchos-a-muchos</strong> eficiente.
+    </div>
+
+    <h3>Conceptos MQTT Esenciales</h3>
+    <ul>
+      <li><strong>Topic (Tema):</strong> Canal donde se publican mensajes (ej: <code>casa/sala/temperatura</code>)</li>
+      <li><strong>Publish (Publicar):</strong> Enviar un mensaje a un topic</li>
+      <li><strong>Subscribe (Suscribir):</strong> Recibir mensajes de un topic</li>
+      <li><strong>Broker:</strong> Servidor que gestiona los mensajes (ej: Mosquitto, HiveMQ, broker público)</li>
+      <li><strong>QoS (Calidad de Servicio):</strong> Nivel de garantía de entrega (0, 1 o 2)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🛠️ Parte 2: Práctica con ThingSpeak (30 min)</h2>
+    
+    <h3>Paso 1: Crear Canal en ThingSpeak</h3>
+    <ol>
+      <li>Ingresa a <a href="https://thingspeak.com" target="_blank">ThingSpeak.com</a> y crea cuenta gratuita</li>
+      <li>Ve a <strong>Channels → New Channel</strong></li>
+      <li>Completa:
+        <ul>
+          <li><strong>Name:</strong> Laboratorio ESP32 IoT</li>
+          <li><strong>Field 1:</strong> Temperatura</li>
+          <li><strong>Field 2:</strong> Humedad</li>
+        </ul>
+      </li>
+      <li>Guarda y anota el <strong>Channel ID</strong> y <strong>Write API Key</strong> (API Keys tab)</li>
+    </ol>
+
+    <div class="success">
+      <strong>✅ Dato Importante:</strong> Tu <strong>Write API Key</strong> es secreta. No la compartas públicamente.
+    </div>
+
+    <h3>Paso 2: Simulación en Wokwi (Opción sin hardware)</h3>
+    <ol>
+      <li>Abre <a href="https://wokwi.com/projects/new/esp32" target="_blank">Wokwi ESP32</a></li>
+      <li>Agrega componentes:
+        <ul>
+          <li>ESP32 DevKit v1</li>
+          <li>Sensor DHT22 (temperatura/humedad)</li>
+        </ul>
+      </li>
+      <li>Conecta DHT22: VCC→3.3V, GND→GND, DATA→GPIO4</li>
+    </ol>
+
+    <h3>Paso 3: Código Arduino</h3>
+    <pre><code>/*
+ * LAB 3: Envío de datos a ThingSpeak (HTTP GET)
+ * Preparación para E3 - Protocolos IoT
+ */
+
+#include &lt;WiFi.h&gt;
+#include &lt;HTTPClient.h&gt;
+#include "DHT.h"
+
+// ⚠️ CONFIGURACIÓN: Reemplaza con tus datos
+const char* ssid = "TU_WIFI_SSID";
+const char* password = "TU_WIFI_PASSWORD";
+const String apiKey = "TU_WRITE_API_KEY";  // De ThingSpeak
+const String channelID = "TU_CHANNEL_ID";
+
+// Configuración DHT22
+#define DHTPIN 4
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+// Variables para timing no bloqueante
+unsigned long lastTime = 0;
+const unsigned long timerDelay = 20000;  // 20 segundos entre envíos
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  
+  // Conectar a WiFi
+  WiFi.begin(ssid, password);
+  Serial.print("Conectando a WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\n✓ WiFi Conectado");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  // Enviar datos cada 20 segundos (sin bloquear)
+  if (millis() - lastTime > timerDelay) {
+    
+    // Leer sensores
+    float temperatura = dht.readTemperature();
+    float humedad = dht.readHumidity();
+    
+    // Validar lecturas
+    if (isnan(temperatura) || isnan(humedad)) {
+      Serial.println("⚠ Error leyendo DHT22");
+      return;
+    }
+    
+    Serial.printf("🌡 Temperatura: %.1f°C | 💧 Humedad: %.1f%%\n", 
+                  temperatura, humedad);
+    
+    // Enviar a ThingSpeak (HTTP GET)
+    if (WiFi.status() == WL_CONNECTED) {
+      HTTPClient http;
+      
+      // Construir URL
+      String url = "http://api.thingspeak.com/update?api_key=" + apiKey;
+      url += "&field1=" + String(temperatura);
+      url += "&field2=" + String(humedad);
+      
+      Serial.println("📤 Enviando a ThingSpeak...");
+      http.begin(url);
+      int httpCode = http.GET();
+      
+      if (httpCode == 200) {
+        String payload = http.getString();
+        Serial.println("✓ Datos enviados correctamente. Entry: " + payload);
+      } else {
+        Serial.printf("✗ Error HTTP: %d\n", httpCode);
+      }
+      http.end();
+    }
+    
+    lastTime = millis();
+  }
+}</code></pre>
+
+    <h3>Paso 4: Verificación</h3>
+    <ol>
+      <li>Compila y sube el código (o inicia simulación en Wokwi)</li>
+      <li>Abre el Monitor Serial (115200 baudios)</li>
+      <li>Verifica que se conecte a WiFi y envíe datos</li>
+      <li>Ve a tu canal en ThingSpeak → <strong>Private View</strong></li>
+      <li>Confirma que los gráficos muestran datos</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>🧪 Parte 3: Ejercicios Adicionales (20 min)</h2>
+    
+    <h3>Ejercicio 1: Análisis de URLs HTTP</h3>
+    <p>Descompón esta URL de ThingSpeak:</p>
+    <pre><code>http://api.thingspeak.com/update?api_key=XXXXXXXX&field1=25.3&field2=60</code></pre>
+    <ul>
+      <li><strong>Protocolo:</strong> ________________</li>
+      <li><strong>Dominio:</strong> ________________</li>
+      <li><strong>Endpoint:</strong> ________________</li>
+      <li><strong>Parámetro API Key:</strong> ________________</li>
+      <li><strong>Parámetro Field1:</strong> ________________</li>
+    </ul>
+
+    <h3>Ejercicio 2: Diseño de Topics MQTT</h3>
+    <p>Diseña una estructura de topics para una casa inteligente:</p>
+    <ul>
+      <li>Temperatura sala: <code>________________</code></li>
+      <li>Estado puerta principal: <code>________________</code></li>
+      <li>Consumo eléctrico general: <code>________________</code></li>
+    </ul>
+
+    <h3>Ejercicio 3: Identificación de Protocolos</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Escenario</th>
+          <th>¿HTTP o MQTT?</th>
+          <th>Justificación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Enviar lectura de sensor cada hora</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Encender luz desde app móvil</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Alerta de intruso (inmediata)</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>✅ Entregable Verificable</h2>
+    <p><strong>Formato:</strong> Captura de pantalla + respuestas ejercicios</p>
+    
+    <h3>Checklist de Entrega:</h3>
+    <ul>
+      <li>☐ Captura del dashboard de ThingSpeak mostrando datos recibidos</li>
+      <li>☐ Código .ino con tus credenciales (puedes ocultar la API key)</li>
+      <li>☐ Respuestas a los 3 ejercicios de análisis</li>
+      <li>☐ Breve explicación (3 líneas): ¿Por qué HTTP es adecuado para ThingSpeak?</li>
+    </ul>
+
+    <div class="info">
+      <strong>💡 Consejo para E3:</strong> Este laboratorio cubre exactamente el tema de 
+      "interacción de dispositivos IoT a través de redes e Internet". Si dominas esto, 
+      estarás preparado para la entrega de software IoT.
+    </div>
+
+    <p><strong>Deadline:</strong> Domingo posterior a la clase, 23:59</p>
+  </section>
+
+  <section>
+    <h2>🔧 Troubleshooting Común</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Síntoma</th>
+          <th>Causa probable</th>
+          <th>Solución</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>No conecta a WiFi</td>
+          <td>Credenciales incorrectas</td>
+          <td>Verificar SSID y password exactos (distinguen mayúsculas)</td>
+        </tr>
+        <tr>
+          <td>Error HTTP -401</td>
+          <td>API Key incorrecta</td>
+          <td>Copiar Write API Key exacta de ThingSpeak</td>
+        </tr>
+        <tr>
+          <td>Error HTTP 0</td>
+          <td>Sin conexión internet</td>
+          <td>Verificar que WiFi tenga acceso a internet</td>
+        </tr>
+        <tr>
+          <td>DHT22 devuelve NaN</td>
+          <td>Conexión incorrecta o librería</td>
+          <td>Verificar cableado e instalar librería DHT (Adafruit)</td>
+        </tr>
+        <tr>
+          <td>Datos no aparecen en ThingSpeak</td>
+          <td>Límite de rate (15 seg mínimo)</td>
+          <td>ThingSpeak acepta datos máximo cada 15 segundos</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>📖 Conexión con E3 (Software IoT 20%)</h2>
+    <p>Este laboratorio prepara específicamente:</p>
+    <ul>
+      <li>✅ <strong>RA3:</strong> Comprender la interacción de dispositivos IoT a través de redes e Internet</li>
+      <li>✅ Protocolos de comunicación (MQTT, HTTP)</li>
+      <li>✅ Arquitectura cliente-servidor en IoT</li>
+      <li>✅ Conectividad WiFi en ESP32</li>
+      <li>✅ Plataformas cloud para IoT</li>
+    </ul>
+    
+    <div class="success">
+      <strong>📝 Requisito de E3:</strong> "Explicar las ventajas de MQTT sobre HTTP 
+      para una aplicación de monitoreo de sensores en tiempo real en la documentación del firmware."<br><br>
+      <strong>Respuesta clave:</strong> MQTT usa menos batería, tiene menor overhead de red, 
+      permite comunicación bidireccional en tiempo real mediante el modelo pub/sub, 
+      y mantiene conexión persistente.
+    </div>
+  </section>
+
+  <section>
+    <h2>🔗 Recursos Adicionales</h2>
+    <ul>
+      <li><a href="https://thingspeak.com/channels/public" target="_blank">Canales públicos ThingSpeak</a> - Ver ejemplos reales</li>
+      <li><a href="https://mqtt.org" target="_blank">MQTT.org</a> - Documentación oficial</li>
+      <li><a href="https://wokwi.com" target="_blank">Wokwi Simulator</a> - Practicar sin hardware</li>
+    </ul>
+  </section>
+
+  <nav class="nav">
+    <a href="index.html">← Índice Laboratorios</a>
+    <a href="lab-oficial-02-sensores-dht22-ldr.html">← LAB 2: Sensores</a>
+    <a href="lab-oficial-04-dashboard-grafana.html">LAB 4: Dashboard →</a>
+  </nav>
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="../clases-html/clase-07.html" style="color: #3b82f6; text-decoration: none; font-weight: bold;">📚 Volver a la Clase 7 Teórica</a>
+  </div>
+</body>
+</html>

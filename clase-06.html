@@ -3,2359 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 6: Programación para Microcontroladores | IF0112</title>
-    <style>
-        /* ============================================
-           DESIGN SYSTEM - Spacing Scale (8px base)
-           ============================================ */
-        :root {
-            /* Spacing scale */
-            --space-1: 0.25rem;  /* 4px */
-            --space-2: 0.5rem;   /* 8px */
-            --space-3: 0.75rem;  /* 12px */
-            --space-4: 1rem;     /* 16px */
-            --space-5: 1.25rem;  /* 20px */
-            --space-6: 1.5rem;   /* 24px */
-            --space-8: 2rem;     /* 32px */
-            --space-10: 2.5rem;  /* 40px */
-            --space-12: 3rem;    /* 48px */
-
-            /* Typography scale */
-            --text-xs: 0.75rem;    /* 12px */
-            --text-sm: 0.875rem;   /* 14px */
-            --text-base: 1rem;     /* 16px */
-            --text-lg: 1.125rem;   /* 18px */
-            --text-xl: 1.25rem;    /* 20px */
-            --text-2xl: 1.5rem;    /* 24px */
-            --text-3xl: 1.875rem;  /* 30px */
-            --text-4xl: 2.25rem;   /* 36px */
-
-            /* Line heights */
-            --leading-tight: 1.25;
-            --leading-snug: 1.375;
-            --leading-normal: 1.5;
-            --leading-relaxed: 1.625;
-            --leading-loose: 2;
-
-            /* Colors - improved accessibility */
-            --color-primary: #1e40af;
-            --color-primary-light: #3b82f6;
-            --color-secondary: #0f172a;
-            --color-accent: #f59e0b;
-
-            /* Text colors - WCAG AA compliant */
-            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
-            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
-            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
-            --text-inverse: #ffffff;
-
-            /* Background colors */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-
-            /* Border colors */
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
-
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-
-            /* Border radius */
-            --radius-sm: 0.25rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-        }
-
-        /* ============================================
-           RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: var(--leading-normal);
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ============================================
-           LAYOUT
-           ============================================ */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            background: var(--bg-primary);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* ============================================
-           HEADER
-           ============================================ */
-        header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            color: var(--text-inverse);
-            padding: var(--space-8) var(--space-6);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        header h1 {
-            font-size: var(--text-4xl);
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-tight);
-            position: relative;
-            z-index: 1;
-        }
-
-        header .subtitle {
-            font-size: var(--text-lg);
-            opacity: 0.95;
-            font-weight: 400;
-        }
-
-        header .meta {
-            margin-top: var(--space-4);
-            font-size: var(--text-sm);
-            opacity: 0.85;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        header .meta span {
-            padding: var(--space-1) var(--space-3);
-            background: rgba(255,255,255,0.15);
-            border-radius: var(--radius-lg);
-        }
-
-        /* ============================================
-           NAVIGATION - Enhanced
-           ============================================ */
-        nav {
-            background: var(--color-secondary);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-md);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 var(--space-4);
-            max-width: 100%;
-            overflow-x: auto;
-        }
-
-        nav li {
-            margin: 0;
-        }
-
-        nav a {
-            display: block;
-            padding: var(--space-3) var(--space-4);
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: var(--text-sm);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-inverse);
-        }
-
-        nav a:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: -2px;
-        }
-
-        /* Progress indicator */
-        .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.2);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* ============================================
-           MAIN CONTENT
-           ============================================ */
-        main {
-            padding: var(--space-8);
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: var(--space-12);
-            scroll-margin-top: 80px;
-            scroll-margin-block: 80px;
-        }
-
-        /* ============================================
-           TYPOGRAPHY HIERARCHY
-           ============================================ */
-        section h2 {
-            color: var(--color-primary);
-            border-bottom: 3px solid var(--color-primary-light);
-            padding-bottom: var(--space-2);
-            margin-bottom: var(--space-6);
-            font-size: var(--text-3xl);
-            font-weight: 700;
-            line-height: var(--leading-tight);
-        }
-
-        section h3 {
-            color: var(--color-primary);
-            margin: var(--space-6) 0 var(--space-4);
-            font-size: var(--text-2xl);
-            font-weight: 600;
-            line-height: var(--leading-snug);
-        }
-
-        section h4 {
-            color: var(--text-secondary);
-            margin: var(--space-4) 0 var(--space-2);
-            font-size: var(--text-lg);
-            font-weight: 600;
-        }
-
-        section h5 {
-            color: var(--text-secondary);
-            margin: var(--space-3) 0 var(--space-2);
-            font-size: var(--text-base);
-            font-weight: 600;
-        }
-
-        p {
-            margin-bottom: var(--space-4);
-            text-align: justify;
-            line-height: var(--leading-relaxed);
-            max-width: 75ch;
-        }
-
-        /* ============================================
-           CALLOUT BOXES
-           ============================================ */
-        .intro-box {
-            background: #eff6ff;
-            border-left: 4px solid var(--color-primary-light);
-            padding: var(--space-5);
-            margin: var(--space-6) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .intro-box strong {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .example-box {
-            background: #fef3c7;
-            border-left: 4px solid var(--color-accent);
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert-box {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================
-           TABLES - Enhanced
-           ============================================ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-6) 0;
-            font-size: var(--text-sm);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        th {
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            font-size: var(--text-xs);
-        }
-
-        td {
-            padding: var(--space-3) var(--space-4);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--bg-secondary);
-        }
-
-        tbody tr:hover {
-            background: #e0e7ff;
-            transition: background 0.15s ease;
-        }
-
-        /* Responsive tables */
-        @media (max-width: 768px) {
-            table {
-                font-size: var(--text-xs);
-            }
-            th, td {
-                padding: var(--space-2) var(--space-3);
-            }
-        }
-
-        /* ============================================
-           GRIDS
-           ============================================ */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-6);
-            margin: var(--space-6) 0;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: var(--space-5);
-            margin: var(--space-6) 0;
-        }
-
-        /* ============================================
-           CARDS - Enhanced
-           ============================================ */
-        .card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .card h4 {
-            color: var(--color-primary);
-            margin-bottom: var(--space-2);
-            font-size: var(--text-lg);
-        }
-
-        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
-        .card-yellow { background: #fef3c7; border-color: #fde68a; }
-        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
-
-        /* ============================================
-           FLOW DIAGRAM
-           ============================================ */
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3);
-            align-items: center;
-            margin: var(--space-8) 0;
-            justify-content: center;
-        }
-
-        .flow-step {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: var(--space-4) var(--space-5);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            flex: 0 0 auto;
-            min-width: 150px;
-            font-size: var(--text-base);
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid #1d4ed8;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .flow-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .flow-step strong {
-            display: block;
-            font-size: var(--text-lg);
-            margin-bottom: var(--space-1);
-        }
-
-        .flow-step small {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: var(--text-sm);
-        }
-
-        .flow-arrow {
-            font-size: var(--text-3xl);
-            color: #1d4ed8;
-            font-weight: bold;
-            flex: 0 0 auto;
-        }
-
-        /* ============================================
-           TIMELINE
-           ============================================ */
-        .timeline {
-            position: relative;
-            padding-left: var(--space-8);
-            margin: var(--space-6) 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: var(--space-2);
-            bottom: var(--space-2);
-            width: 3px;
-            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            margin-bottom: var(--space-6);
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: calc(-1 * var(--space-8) - 5px);
-            top: var(--space-2);
-            width: 14px;
-            height: 14px;
-            background: var(--color-primary-light);
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-light);
-        }
-
-        /* ============================================
-           CODE BLOCKS
-           ============================================ */
-        pre {
-            background: var(--color-secondary);
-            color: #e2e8f0;
-            padding: var(--space-4);
-            border-radius: var(--radius-lg);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-            font-size: var(--text-sm);
-            line-height: var(--leading-relaxed);
-            box-shadow: var(--shadow-md);
-        }
-
-        code {
-            background: var(--bg-tertiary);
-            color: var(--color-primary);
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-md);
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
-
-        /* ============================================
-           FIGURES
-           ============================================ */
-        figure {
-            margin: var(--space-8) 0;
-            text-align: center;
-        }
-
-        figure img {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        figcaption {
-            margin-top: var(--space-3);
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           LISTS
-           ============================================ */
-        ul, ol {
-            margin-left: var(--space-6);
-            margin-bottom: var(--space-4);
-        }
-
-        li {
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           SPECIAL TABLES
-           ============================================ */
-        .competencies-table th:first-child,
-        .competencies-table td:first-child {
-            width: 20%;
-            text-align: center;
-            font-size: var(--text-3xl);
-        }
-
-        .eras-table td:first-child {
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        /* ============================================
-           NAVIGATION BETWEEN CLASSES
-           ============================================ */
-        .class-nav {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            padding: var(--space-6);
-            margin-top: var(--space-12);
-            border-radius: var(--radius-lg);
-        }
-
-        .class-nav-title {
-            color: white;
-            font-size: var(--text-sm);
-            text-align: center;
-            margin-bottom: var(--space-4);
-            opacity: 0.9;
-        }
-
-        .class-nav-links {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-4);
-            flex-wrap: wrap;
-        }
-
-        .class-nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-3) var(--space-5);
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-size: var(--text-sm);
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .class-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .class-nav-btn.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .class-nav-btn .arrow {
-            font-size: var(--text-lg);
-        }
-
-        /* ============================================
-           BACK TO TOP BUTTON
-           ============================================ */
-        .back-to-top {
-            position: fixed;
-            bottom: var(--space-6);
-            right: var(--space-6);
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            border: none;
-            font-size: var(--text-xl);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
-        }
-
-        .back-to-top:focus {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer {
-            background: var(--color-secondary);
-            color: var(--text-inverse);
-            text-align: center;
-            padding: var(--space-8) var(--space-6);
-            margin-top: var(--space-12);
-        }
-
-        footer p {
-            margin: var(--space-2) 0;
-            text-align: center;
-            color: rgba(255,255,255,0.85);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            main { padding: var(--space-6); }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: var(--space-6) var(--space-4);
-            }
-            header h1 {
-                font-size: var(--text-3xl);
-            }
-            header .subtitle {
-                font-size: var(--text-base);
-            }
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                position: relative;
-            }
-            nav ul {
-                flex-direction: column;
-                padding: 0;
-            }
-            nav a {
-                padding: var(--space-3) var(--space-4);
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            main {
-                padding: var(--space-4);
-            }
-            section {
-                margin-bottom: var(--space-10);
-            }
-            section h2 {
-                font-size: var(--text-2xl);
-            }
-            .back-to-top {
-                bottom: var(--space-4);
-                right: var(--space-4);
-                width: 44px;
-                height: 44px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            header h1 {
-                font-size: var(--text-2xl);
-            }
-            .flow-step {
-                min-width: 120px;
-                font-size: var(--text-sm);
-                padding: var(--space-3) var(--space-4);
-            }
-            .flow-step strong {
-                font-size: var(--text-base);
-            }
-            .flow-arrow {
-                font-size: var(--text-2xl);
-            }
-        }
-
-        /* ============================================
-           ACCESSIBILITY ENHANCEMENTS
-           ============================================ */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* Skip link for keyboard users */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-2) var(--space-4);
-            z-index: 999;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* Print styles */
-        @media print {
-            nav, .back-to-top, .progress-bar {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
-
-        /* ============================================
-           SPECIAL COMPONENTS - clase-06.html
-           ============================================ */
-        .info-box {
-            padding: var(--space-5);
-            border-radius: var(--radius-lg);
-            margin: var(--space-5) 0;
-            border-left: 4px solid;
-        }
-        .info-box.success { background: #f0fdf4; border-color: var(--color-success, #10b981); }
-        .info-box.warning { background: #fef3c7; border-color: var(--color-accent, #f59e0b); }
-        .info-box.info { background: #dbeafe; border-color: var(--color-secondary, #3b82f6); }
-        .info-box.danger { background: #fef2f2; border-color: #ef4444; }
-        .info-box h4 { margin-bottom: var(--space-2); color: inherit; }
-
-        .activity {
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            padding: var(--space-5);
-            border-radius: var(--radius-lg);
-            margin: var(--space-5) 0;
-            border: 2px solid #60a5fa;
-        }
-        .activity h4 { color: var(--color-primary); margin-bottom: var(--space-2); }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-5);
-            margin: var(--space-5) 0;
-        }
-        .comparison-card {
-            padding: var(--space-5);
-            border-radius: var(--radius-lg);
-        }
-        .comparison-card.good { background: #f0fdf4; border: 2px solid #86efac; }
-        .comparison-card.bad { background: #fef2f2; border: 2px solid #fca5a5; }
-
-        /* ============================================
-           EXECUTION FLOW DIAGRAM
-           ============================================ */
-        .execution-flow-diagram {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            padding: var(--space-5);
-            border-radius: var(--radius-lg);
-            margin: var(--space-4) 0;
-        }
-
-        .flow-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-2);
-            flex-wrap: wrap;
-        }
-
-        .flow-step {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2) var(--space-3);
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: var(--text-sm);
-        }
-
-        .step-icon {
-            font-size: var(--text-lg);
-        }
-
-        .step-text {
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .flow-start {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 2px solid #f59e0b;
-        }
-
-        .flow-start .step-text {
-            color: #92400e;
-        }
-
-        .flow-setup {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            border: 2px solid #3b82f6;
-        }
-
-        .flow-setup .step-text {
-            color: #1e40af;
-        }
-
-        .flow-loop {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            border: 2px solid #10b981;
-        }
-
-        .flow-loop .step-text {
-            color: #065f46;
-        }
-
-        .flow-ellipsis {
-            background: #e2e8f0;
-            color: var(--text-muted);
-        }
-
-        .flow-arrow {
-            font-size: var(--text-xl);
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .reset-loop {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: var(--space-3);
-        }
-
-        .reset-arrow {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2) var(--space-3);
-            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
-            border: 2px solid #ec4899;
-            border-radius: var(--radius-md);
-            font-size: var(--text-sm);
-            font-weight: 600;
-        }
-
-        .reset-icon {
-            font-size: var(--text-base);
-        }
-
-        .reset-text {
-            color: #9f1239;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* ============================================
-           DUTY CYCLE DIAGRAM
-           ============================================ */
-        .duty-cycle-diagram {
-            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            padding: var(--space-6);
-            border-radius: var(--radius-lg);
-            margin: var(--space-6) 0;
-        }
-
-        .duty-intro {
-            text-align: center;
-            font-size: var(--text-base);
-            margin-bottom: var(--space-5);
-            padding: var(--space-3);
-            background: white;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .duty-cycles {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-4);
-        }
-
-        .duty-cycle-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: var(--space-2);
-        }
-
-        .duty-label {
-            font-weight: 700;
-            font-size: var(--text-lg);
-            color: var(--color-primary);
-        }
-
-        .duty-wave {
-            width: 80px;
-            height: 60px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background: white;
-            box-shadow: var(--shadow-md);
-            position: relative;
-        }
-
-        .wave-high {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            height: 100%;
-            position: relative;
-        }
-
-        .wave-low {
-            background: #e2e8f0;
-            flex: 1;
-        }
-
-        .duty-25 .wave-high {
-            width: 25%;
-            display: inline-block;
-        }
-        .duty-25 .wave-low {
-            width: 75%;
-            display: inline-block;
-        }
-
-        .duty-50 .wave-high {
-            width: 50%;
-            display: inline-block;
-        }
-        .duty-50 .wave-low {
-            width: 50%;
-            display: inline-block;
-        }
-
-        .duty-75 .wave-high {
-            width: 75%;
-            display: inline-block;
-        }
-        .duty-75 .wave-low {
-            width: 25%;
-            display: inline-block;
-        }
-
-        .duty-100 .wave-high {
-            width: 100%;
-            display: inline-block;
-        }
-        .duty-100 .wave-low {
-            display: none;
-        }
-
-        .duty-result {
-            font-weight: 600;
-            font-size: var(--text-sm);
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        @media (max-width: 768px) {
-            .duty-cycles {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .flow-container {
-                flex-direction: column;
-            }
-
-            .flow-arrow {
-                transform: rotate(90deg);
-            }
-        }
-    </style>
+    <title>Sesión 6: Programación ESP32 - Arduino IDE</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Clase 6: Programación para Microcontroladores</h1>
+            <h1>Sesión 6: Programación para Microcontroladores</h1>
             <p class="subtitle">Arduino IDE y Primeros Programas</p>
-            <p class="meta">
-                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
-            </p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 09-mar-2026 (E2: Prototipo)</p>
         </header>
 
-
-        <!-- Info Cronograma 2026-I -->
-        <section class="schedule-info" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #f59e0b;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
-                <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 6 - Programación ESP32 + WiFi</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 16 de Marzo 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min) | <strong>Modalidad:</strong> Teórica</p>
-                </div>
-                <div style="text-align: right;">
-                    <span style="display: inline-block; background: #10b981; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
-                </div>
-            </div>
-
-            <!-- Preparación para E3 -->
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación para E3 Examen (Semana 7)</h4>
-                <ul style="margin: 0; padding-left: var(--space-6); color: #065f46; font-size: var(--text-sm);">
-                    <li><strong>E3 (20%):</strong> Examen Presencial 90 minutos</li>
-                    <li><strong>Fecha:</strong> Lunes 23/MAR/2026</li>
-                    <li><strong>Temas:</strong> Unidades 1-2 (Clases 1-7) - Evolución IoT, pilares, redes, hardware, WiFi</li>
-                    <li><strong>Casos:</strong> Nutresa, EPM, casos Colombianos</li>
-                </ul>
-            </div>
-
-            <!-- Próximo Laboratorio -->
-            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
-                    ⚠️ PRÓXIMA SEMANA: LAB 3 (WiFi) + E3 EXAMEN
-                </h4>
-                <ul style="margin: 0; padding-left: var(--space-6); color: #92400e; font-size: var(--text-sm);">
-                    <li><strong>LAB 3 (Sem 7, 23-mar):</strong> Conectividad WiFi + HTTP | Miércoles 25/03 o Sábado 28/03 | 2.5 horas</li>
-                    <li><strong>E3 (Sem 7, 23-mar):</strong> Examen Presencial (20%)</li>
-                </ul>
-            </div>
-
-        </section>
-
-
         <nav>
-            <ul>                <li><a href="#laboratorios">Laboratorios</a></li>
-
+            <ul>
                 <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
-                <li><a href="#conexion-evaluacion">📝 Conexión E2</a></li>
-                <li><a href="#intro">Introducción</a></li>
-                <li><a href="#terminos-hardware">Términos Clave</a></li>
-                <li><a href="#arduino">Arduino IDE</a></li>
+                <li><a href="#arduino-ide">Arduino IDE</a></li>
                 <li><a href="#estructura">Estructura</a></li>
-                <li><a href="#funciones">Funciones</a></li>
-                <li><a href="#blink">Blink LED</a></li>
-                <li><a href="#boton">Botón + LED</a></li>
-                <li><a href="#ldr">Sensor LDR</a></li>
-                <li><a href="#pwm">PWM</a></li>
-                <li><a href="#dht11">DHT11</a></li>
-                <li><a href="#buenas">Buenas Prácticas</a></li>
-                <li><a href="#troubleshooting">Troubleshooting</a></li>
-                <li><a href="#actividad">Actividad</a></li>
-                <li><a href="#referencias">Referencias</a></li>
+                <li><a href="#gpio">GPIO</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#sensores">Sensores</a></li>
+                <li><a href="#e2">Preparación E2</a></li>
             </ul>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         </nav>
 
-        <!-- Back to top button -->
-        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+        <button class="back-to-top" id="backToTop">↑</button>
 
         <main>
-
-        <!-- Objectives Section -->
-        <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-<h2>⏱️ Agenda de 90 Minutos</h2>
-<ul>
-<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
-<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
-<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
-<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
-</ul>
-</section>
-<section id="objetivos">
-            <h2>Objetivos de la Clase</h2>
-
-            <p>Al finalizar esta clase, el estudiante será capaz de:</p>
-            <ul>
-                <li><strong>Configurar</strong> Arduino IDE para ESP32</li>
-                <li><strong>Entender</strong> la estructura de programas (setup/loop)</li>
-                <li><strong>Leer</strong> sensores digitales y analógicos</li>
-                <li><strong>Controlar</strong> LEDs, botones y actuadores básicos</li>
-                <li><strong>Usar</strong> el monitor serial para depuración</li>
-            </ul>
-        </section>
-
-        <!-- Avance del Proyecto Integrador -->
-        <section id="avance-proyecto" class="info-box success">
-            <h2>🏗️ Avance del Proyecto Integrador</h2>
-            <p><strong>Proyecto:</strong> <em>Sistema de Monitoreo Ambiental IoT</em></p>
-            <p><strong>Qué construimos esta semana:</strong> Aprendemos a programar el ESP32, que es el "cerebro" de nuestro proyecto IoT. Sin programación, los sensores no pueden leer datos ni enviarlos a la nube.</p>
-            <p><strong>Evidencia esperada:</strong> Código funcional que lee un sensor (DHT22 o LDR) y muestra datos en el monitor serial. Este código es la base del proyecto final.</p>
-            <p><strong>Conexión con el proyecto final:</strong> La programación aprendida esta semana (setup, loop, lectura de sensores) se usará en TODOS los laboratorios restantes y en el proyecto final. Es el fundamento técnico del sistema IoT.</p>
-        </section>
-
-        <!-- Conexión con Evaluación E2 -->
-        <section id="conexion-evaluacion" class="info-box info">
-            <h2>📝 Conexión con Evaluación</h2>
-            <div class="evaluacion-activa">
-                <p><strong>📌 Esta semana tenemos evaluación:</strong></p>
-                <ul>
-                    <li><strong>Evaluación:</strong> E2 - Demo Físico-Virtual (Interacción con sensores/actuadores)</li>
-                    <li><strong>Peso:</strong> 15% (4% documento + 11% demo en clase)</li>
-                    <li><strong>Fecha:</strong> Lunes 09 de Marzo 2026</li>
-                    <li><strong>Formato:</strong>
-                        <ul>
-                            <li><strong>Documento (4%):</strong> Entregar DOMINGO 08/03 antes 11:59 PM. Describir circuito y código del demo.</li>
-                            <li><strong>Demo (11%):</strong> 15 min por pareja en clase. Mostrar circuito funcionando con sensor + actuador.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Preparación:</strong> Completar Labs 0-2, practicar lectura de sensores (DHT22, LDR), controlar LEDs, preparar diagrama de circuito</li>
-                </ul>
-            </div>
-            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-md);">
-                <p style="margin: 0; color: #1e40af;"><strong>🔗 Conexión:</strong> E2 evalúa la capacidad de interactuar con hardware físico y virtual. El demo debe mostrar un sensor leyendo datos (ej: temperatura) y un actuador respondiendo (ej: LED se enciende). Esta es la base del proyecto integrador.</p>
-            </div>
-        </section>
-
-        <!-- Introducción -->
-        <section id="intro">
-            <h2>🤔 ¿Por qué Programar Microcontroladores?</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Programar microcontroladores permite dar <strong>inteligencia</strong> a dispositivos físicos, convirtiendo sensores y actuadores en sistemas autónomos que responden al entorno.</p>
-            </div>
-            
-            <h3>Están en TODAS Partes</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dispositivo</th>
-                        <th>Microcontroladores</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>⌚ Smartwatch</td><td>3-5 MCUs</td></tr>
-                    <tr><td>🚗 Automóvil moderno</td><td>40-100 MCUs</td></tr>
-                    <tr><td>🏠 Smart Home</td><td>10-50 MCUs</td></tr>
-                    <tr><td>📱 Smartphone</td><td>8-15 MCUs</td></tr>
-                    <tr><td>🏭 Fábrica industrial</td><td>1000+ MCUs</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Oportunidades Laborales Colombia (2026)</h3>
-            <table>
-                <thead>
-                    <tr><th>Rol</th><th>Salario Mensual</th><th>Vacantes</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Desarrollador IoT Junior</td><td>$3.5M - $5M COP</td><td>+2,500</td></tr>
-                    <tr><td>Desarrollador IoT Senior</td><td>$6M - $10M COP</td><td>+800</td></tr>
-                    <tr><td>Ingeniero de Embarcados</td><td>$5M - $8M COP</td><td>+600</td></tr>
-                    <tr><td>Arquitecto IoT</td><td>$8M - $15M COP</td><td>+200</td></tr>
-                </tbody>
-            </table>
-            
-            <div class="info-box info">
-                <h4>💡 ¿Por qué Arduino para Comenzar?</h4>
-                <p><strong>Ventajas:</strong> Curva de aprendizaje suave, IDE gratuito y multiplataforma, miles de bibliotecas disponibles, comunidad global activa, hardware económico ($10-30 USD), documentación extensa en español.</p>
-                <p><strong>Limitaciones:</strong> No es un IDE profesional completo, gestión de proyectos grandes es difícil, no tiene debugger integrado.</p>
-                <p><strong>Alternativas profesionales:</strong> PlatformIO + VSCode, ESP-IDF (nativo Espressif), MicroPython.</p>
-            </div>
-        </section>
-
-        <!-- Key Hardware Terms Definitions -->
-        <section id="terminos-hardware">
-            <h2>Términos Clave de Hardware y Programación</h2>
-
-            <div class="highlight">
-                <strong>Nota:</strong> Los siguientes términos son fundamentales para comprender la programación de microcontroladores. Familiarizarse con ellos facilita el aprendizaje de Arduino/ESP32.
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Término</th>
-                        <th>Definición</th>
-                        <th>Ejemplo en Arduino/ESP32</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>GPIO</strong></td>
-                        <td>General Purpose Input/Output: Pines de entrada/salida de propósito general</td>
-                        <td>GPIO18 puede ser INPUT o OUTPUT según se configure</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ESP32</strong></td>
-                        <td>Microcontrolador de Espressif con WiFi/BLE integrados, low-cost, comunidad grande</td>
-                        <td>La placa usada en este curso (reemplaza a Arduino clásico)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>PWM</strong></td>
-                        <td>Pulse Width Modulation: Modulación por ancho de pulso para simular salida analógica</td>
-                        <td>Controla brillo de LED variando el ancho del pulso</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ADC</strong></td>
-                        <td>Analog-to-Digital Converter: Convierte señales analógicas a valores digitales</td>
-                        <td>Lectura de LDR devuelve 0-4095 (12-bit) en ESP32</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pull-up</strong></td>
-                        <td>Resistencia interna que mantiene un pin en estado HIGH cuando no está conectado</td>
-                        <td>INPUT_PULLUP evita lecturas erráticas cuando botón está abierto</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Firmware</strong></td>
-                        <td>Software de bajo nivel que controla el hardware directamente</td>
-                        <td>El código Arduino se convierte en firmware que ejecuta el ESP32</td>
-                    </tr>
-                    <tr>
-                        <td><strong>LDR</strong></td>
-                        <td>Light Dependent Resistor: Resistencia que varía con la luz incidente</td>
-                        <td>Mayor luz = menor resistencia, se usa con divisor de voltaje</td>
-                    </tr>
-                    <tr>
-                        <td><strong>DHT11</strong></td>
-                        <td>Sensor digital de temperatura y humedad (rango: 0-50°C, 20-90% HR)</td>
-                        <td>Usa protocolo propio de un hilo, requiere librería DHT.h</td>
-                    </tr>
-                    <tr>
-                        <td><strong>isnan()</strong></td>
-                        <td>Is Not a Number: Función C++ que verifica si un valor es inválido (NaN)</td>
-                        <td>Usado para detectar fallas de lectura del sensor DHT11</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Baud Rate</strong></td>
-                        <td>Velocidad de comunicación serial (bits por segundo)</td>
-                        <td>115200 es estándar para ESP32, 9600 es compatible universal</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Monitor Serial</strong></td>
-                        <td>Herramienta para ver datos enviados por el microcontrolador vía USB</td>
-                        <td>Usa Serial.print() en código, abre con Ctrl+Shift+M</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="alert-box">
-                <strong>Error Común:</strong> Confundir <em>pinMode()</em> con <em>digitalWrite()</em>. <strong>pinMode()</strong> CONFIGURA el pin (una vez en setup), <strong>digitalWrite()</strong> ESCRIBE un valor (en loop, muchas veces). No configures pines repetidamente.
-            </div>
-
-            <!-- Diagrama SVG: Pinout ESP32 -->
-            <figure style="margin: 2rem 0; background: white; padding: 1rem; border-radius: 8px;">
-                <object type="image/svg+xml" data="../diagrams/esp32-pinout.svg" width="100%" height="400" style="max-width: 900px;">
-                    <img src="../diagrams/esp32-pinout.svg" alt="Diagrama SVG: Pinout ESP32 DevKit V1">
-                </object>
-                <figcaption>Figura 1: Pinout ESP32 DevKit V1 - GPIO, power, y pines especiales con código de colores</figcaption>
-            </figure>
-
-            <!-- Video Educativo -->
-            <div class="video-container" style="margin: 2rem 0;">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/Odh0LWXOZZk"
-                        title="ESP32 desde Cero - Tutorial 1" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-            </div>
-            <p class="example-note" style="text-align: center;">
-                📺 <strong>Video recomendado:</strong> "ESP32 desde Cero - Tutorial 1: Instalación" - (18:45 min)
-            </p>
-        </section>
-
-        <!-- Arduino IDE -->
-        <section id="arduino">
-            <h2>🔧 Instalación y Configuración de Arduino IDE</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Arduino IDE es la herramienta fundamental para programar ESP32. Su configuración correcta (board, puerto, URLs) es esencial para compilar y subir código.</p>
-            </div>
-
-            <div class="hardware-notice">
-                <h4>💻 Nota sobre Factibilidad Windows</h4>
-                <p><strong>Arduino IDE es gratuito y multiplataforma.</strong> Esta clase puede seguirse completamente con simuladores (Wokwi, Tinkercad) o en modo "demo del docente". <strong>No es obligatorio</strong> comprar hardware según el programa del curso IF0112.</p>
-            </div>
-            
-            <h3>Paso a Paso</h3>
-            <table>
-                <thead>
-                    <tr><th>Paso</th><th>Acción</th><th>Descripción</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>1️⃣</td><td>Descargar</td><td>arduino.cc - Windows/Mac/Linux</td></tr>
-                    <tr><td>2️⃣</td><td>Instalar</td><td>Ejecutar instalador, aceptar términos</td></tr>
-                    <tr><td>3️⃣</td><td>Configurar ESP32</td><td>File → Preferences → URLs adicionales</td></tr>
-                    <tr><td>4️⃣</td><td>Instalar soporte</td><td>Tools → Board → Boards Manager → ESP32</td></tr>
-                    <tr><td>5️⃣</td><td>Seleccionar placa</td><td>Tools → Board → ESP32 Arduino → ESP32 Dev Module</td></tr>
-                    <tr><td>6️⃣</td><td>Puerto COM</td><td>Tools → Port → seleccionar puerto correcto</td></tr>
-                </tbody>
-            </table>
-            
-            <div class="info-box warning">
-                <h4>⚠️ URL para ESP32</h4>
-                <code>https://dl.espressif.com/dl/package_esp32_index.json</code>
-            </div>
-            
-            <h3>Puertos por Sistema Operativo</h3>
-            <table>
-                <thead>
-                    <tr><th>SO</th><th>Puerto típico</th><th>Driver</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Windows</td><td>COM3, COM4, COM5</td><td>CP210x o CH340</td></tr>
-                    <tr><td>Linux</td><td>/dev/ttyUSB0</td><td>Incluido</td></tr>
-                    <tr><td>Mac</td><td>/dev/cu.usbserial</td><td>CP210x</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Botones Clave del IDE</h3>
-            <table>
-                <thead>
-                    <tr><th>Botón</th><th>Función</th><th>Atajo</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>✅ Verify</td><td>Compilar y chequear errores</td><td>Ctrl+R</td></tr>
-                    <tr><td>→ Upload</td><td>Subir código al ESP32</td><td>Ctrl+U</td></tr>
-                    <tr><td>📟 Serial Monitor</td><td>Ver mensajes del ESP32</td><td>Ctrl+Shift+M</td></tr>
-                </tbody>
-            </table>
-
-            <!-- Infografía: Arduino IDE -->
-            <figure>
-                <img src="assets/infografias/clase-06-arduino-ide.png" alt="Infografía: Entorno de desarrollo Arduino IDE">
-                <figcaption>Figura 1: Arduino IDE - Interfaz y componentes principales del entorno de desarrollo</figcaption>
-            </figure>
-        </section>
-
-        <!-- Estructura -->
-        <section id="estructura">
-            <h2>📐 Estructura de un Programa Arduino</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Todo programa Arduino tiene dos partes: <code>setup()</code> (configuración inicial única) y <code>loop()</code> (bucle infinito). Esta estructura es el fundamento de todo código embebido.</p>
-            </div>
-            
-            <p>Todo programa Arduino tiene exactamente <strong>dos funciones obligatorias</strong>:</p>
-            
-            <h3>1. `setup()` - Configuración</h3>
-            <ul>
-                <li>Se ejecuta <strong>una sola vez</strong> al inicio</li>
-                <li>Se usa para configurar pines, iniciar comunicación, etc.</li>
-                <li>Equivalente al "constructor" o "inicializador"</li>
-            </ul>
-            
-            <h3>2. `loop()` - Bucle Principal</h3>
-            <ul>
-                <li>Se ejecuta <strong>infinitamente</strong> después de setup()</li>
-                <li>Aquí va la lógica principal del programa</li>
-                <li>Cada iteración es un "ciclo" del programa</li>
-            </ul>
-            
-            <div class="info-box success">
-                <h4>🔁 Orden de Ejecución</h4>
-
-                <div class="execution-flow-diagram">
-                    <div class="flow-container">
-                        <div class="flow-step flow-start">
-                            <span class="step-icon">⚡</span>
-                            <span class="step-text">ENCENDIDO</span>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step flow-setup">
-                            <span class="step-icon">⚙️</span>
-                            <span class="step-text">setup()</span>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step flow-loop">
-                            <span class="step-icon">🔄</span>
-                            <span class="step-text">loop()</span>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step flow-loop">
-                            <span class="step-icon">🔄</span>
-                            <span class="step-text">loop()</span>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step flow-ellipsis">
-                            <span class="step-text">...</span>
-                        </div>
-                    </div>
-                    <div class="reset-loop">
-                        <div class="reset-arrow">
-                            <span class="reset-icon">🔙</span>
-                            <span class="reset-text">RESET</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>Analogía con la Vida Real: Cocina</h3>
-            <table>
-                <thead>
-                    <tr><th>Programa Arduino</th><th>Cocina</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>setup()</code></td><td>Preparar ingredientes y utensilios</td></tr>
-                    <tr><td><code>loop()</code></td><td>Cocinar repetidamente (servir platos)</td></tr>
-                    <tr><td>Variables globales</td><td>Ingredientes en la mesa</td></tr>
-                    <tr><td><code>millis()</code></td><td>Reloj controlando tiempos</td></tr>
-                </tbody>
-            </table>
-
-            <!-- Infografía: Programación Arduino -->
-            <figure>
-                <img src="assets/infografias/clase-06-programacion-arduino.png" alt="Infografía: Estructura y flujo de un programa Arduino">
-                <figcaption>Figura 2: Estructura Arduino - setup(), loop() y flujo de ejecución</figcaption>
-            </figure>
-        </section>
-
-        <!-- Funciones -->
-        <section id="funciones">
-            <h2>⚡ Funciones Básicas de Entrada/Salida</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Las funciones <code>pinMode()</code>, <code>digitalWrite()</code>, <code>digitalRead()</code> y <code>analogRead()</code> son los <strong>primitivos básicos</strong> para interactuar con el mundo físico desde el código.</p>
-            </div>
-            
-            <h3>Configuración y Digital</h3>
-            <pre>// Configurar pines
-pinMode(pin, OUTPUT);        // Salida
-pinMode(pin, INPUT);         // Entrada
-pinMode(pin, INPUT_PULLUP);  // Con pull-up interno
-
-// Escribir/leer digital
-digitalWrite(pin, HIGH);     // 3.3V
-digitalWrite(pin, LOW);      // 0V
-int valor = digitalRead(pin); // HIGH o LOW</pre>
-            
-            <h3>Analógico y PWM</h3>
-            <pre>// Leer ADC (0-4095 en ESP32)
-int valor = analogRead(pin);
-
-// PWM en ESP32
-ledcSetup(channel, 5000, 8);  // 5kHz, 8-bit
-ledcAttachPin(pin, channel);
-ledcWrite(channel, 127);      // 50% brillo</pre>
-            
-            <h3>Tiempo y Serial</h3>
-            <pre>// Pausas
-delay(1000);              // 1 segundo (bloquea)
-unsigned long t = millis(); // Tiempo desde inicio (no bloquea)
-
-// Serial
-Serial.begin(115200);
-Serial.println("Valor: " + String(valor));
-Serial.printf("Temp: %.2f C\n", temp);</pre>
-            
-            <div class="info-box info">
-                <h4>📟 Monitor Serial: Herramienta de Depuración</h4>
-                <p>Canal de comunicación entre el ESP32 y la computadora que permite ver valores de sensores en tiempo real, enviar comandos al microcontrolador, depurar errores en el código.</p>
-                <p><strong>Velocidad (Baud Rate):</strong> 9600 (compatible universal), 115200 (estándar ESP32), 921600 (upload rápido).</p>
-                <p><strong>IMPORTANTE:</strong> La velocidad en código debe coincidir con la del monitor serial.</p>
-            </div>
-        </section>
-        
-        <!-- Blink LED -->
-        <section id="blink">
-            <h2>💡 Proyecto 1: LED Blink (El "Hola Mundo" de Hardware)</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El proyecto Blink enseña la diferencia entre <code>delay()</code> (bloqueante) y <code>millis()</code> (no bloqueante). El enfoque no bloqueante es esencial para sistemas que deben hacer múltiples tareas simultáneamente.</p>
-            </div>
-
-            <div class="hardware-notice">
-                <h4>🔧 Alternativas sin Hardware Físico</h4>
-                <p><strong>Simuladores gratuitos:</strong> Wokwi.com (recomendado), Tinkercad Circuits. Permiten probar el código completo sin comprar ESP32 ni componentes.</p>
-            </div>
-            
-            <h3>Versión Básica (con delay)</h3>
-            <pre>// Pin del LED integrado en ESP32
-const int LED_PIN = 2;
-
-void setup() {
-    pinMode(LED_PIN, OUTPUT);
-}
-
-void loop() {
-    digitalWrite(LED_PIN, HIGH);
-    delay(1000);  // Esperar 1 segundo
-    digitalWrite(LED_PIN, LOW);
-    delay(1000);  // Esperar 1 segundo
-}</pre>
-            
-            <div class="info-box warning">
-                <h4>⚠️ Problema con delay()</h4>
-                <p>El <code>delay()</code> bloquea TODO el programa. Durante ese segundo, el ESP32 no puede hacer nada más.</p>
-            </div>
-            
-            <h3>Versión Profesional (sin delay)</h3>
-            <pre>const int LED_PIN = 2;
-
-unsigned long tiempoAnterior = 0;
-const long intervalo = 1000;  // 1 segundo
-int estadoLED = LOW;
-
-void setup() {
-    pinMode(LED_PIN, OUTPUT);
-}
-
-void loop() {
-    unsigned long tiempoActual = millis();
-    
-    if (tiempoActual - tiempoAnterior >= intervalo) {
-        tiempoAnterior = tiempoActual;
-        estadoLED = !estadoLED;  // Toggle
-        digitalWrite(LED_PIN, estadoLED);
-    }
-    
-    // ¡Aquí puedes hacer otras tareas!
-    // Leer sensores, checar botones, etc.
-}</pre>
-            
-            <div class="info-box success">
-                <h4>✅ Ventaja de millis()</h4>
-                <p>No bloquea el programa. Permite multitarea.</p>
-            </div>
-        </section>
-        
-        <!-- Botón + LED -->
-        <section id="boton">
-            <h2>🔘 Proyecto 2: Botón Controla LED</h2>
-            
-            <h3>Conexión</h3>
-            <table>
-                <thead>
-                    <tr><th>ESP32</th><th>Componente</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>GPIO15</td><td>Botón (INPUT_PULLUP)</td></tr>
-                    <tr><td>GPIO2</td><td>LED + Resistencia 220Ω</td></tr>
-                    <tr><td>GND</td><td>Común</td></tr>
-                </tbody>
-            </table>
-            
-            <p><strong>INPUT_PULLUP:</strong> LOW = presionado, HIGH = suelto</p>
-            
-            <h3>Código</h3>
-            <pre>const int LED_PIN = 2;
-const int BOTON_PIN = 15;
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(BOTON_PIN, INPUT_PULLUP);
-  Serial.begin(115200);
-}
-
-void loop() {
-  if (digitalRead(BOTON_PIN) == LOW) {
-    digitalWrite(LED_PIN, HIGH);  // Presionado
-  } else {
-    digitalWrite(LED_PIN, LOW);   // Suelto
-  }
-  delay(100);
-}</pre>
-            
-            <h3>Componentes Necesarios</h3>
-            <table>
-                <thead>
-                    <tr><th>Componente</th><th>Cantidad</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>ESP32 DevKit</td><td>1</td></tr>
-                    <tr><td>LED</td><td>1</td></tr>
-                    <tr><td>Botón pulsador</td><td>1</td></tr>
-                    <tr><td>Resistencia 220Ω</td><td>1</td></tr>
-                    <tr><td>Protoboard + cables</td><td>-</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- LDR -->
-        <section id="ldr">
-            <h2>☀️ Proyecto 3: Sensor de Luz (LDR)</h2>
-            
-            <h3>¿Qué es el LDR?</h3>
-            <p><strong>LDR (Light Dependent Resistor)</strong> = Fotoresistencia</p>
-            <table>
-                <thead>
-                    <tr><th>Condición</th><th>Resistencia</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Oscuro</strong></td><td>Alta (MΩ)</td></tr>
-                    <tr><td><strong>Iluminado</strong></td><td>Baja (Ω)</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Conexión (Divisor de Voltaje)</h3>
-            <p><strong>3.3V → LDR → GPIO34 → Resistencia 10KΩ → GND</strong></p>
-            <p>Más luz = Mayor valor ADC | Menos luz = Menor valor ADC</p>
-            
-            <h3>Código</h3>
-            <pre>const int LDR_PIN = 34;
-const int LED_PIN = 2;
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(LED_PIN, OUTPUT);
-}
-
-void loop() {
-  int valorLuz = analogRead(LDR_PIN);
-  int porcentaje = map(valorLuz, 0, 4095, 0, 100);
-
-  Serial.print("Luz: ");
-  Serial.print(porcentaje);
-  Serial.println("%");
-
-  // LED se enciende si está oscuro
-  digitalWrite(LED_PIN, valorLuz < 1000);
-  delay(500);
-}</pre>
-            
-            <table>
-                <thead>
-                    <tr><th>Condición</th><th>Valor ADC típico</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Oscuro</td><td>&lt; 1000</td></tr>
-                    <tr><td>Claro</td><td>&gt; 3000</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- PWM -->
-        <section id="pwm">
-            <h2>🎨 Proyecto 4: Control de Brillo con PWM</h2>
-            
-            <h3>¿Qué es PWM?</h3>
-            <p><strong>PWM (Pulse Width Modulation)</strong> es una técnica para simular una señal analógica usando pulsos digitales.</p>
-            
-            <h3>Concepto de Duty Cycle</h3>
-
-            <div class="duty-cycle-diagram">
-                <div class="duty-intro">
-                    <strong>Duty Cycle</strong> = Porcentaje de tiempo en HIGH
-                </div>
-
-                <div class="duty-cycles">
-                    <div class="duty-cycle-item">
-                        <div class="duty-label">25%</div>
-                        <div class="duty-wave duty-25">
-                            <div class="wave-high"></div>
-                            <div class="wave-low"></div>
-                        </div>
-                        <div class="duty-result">Bajo</div>
-                    </div>
-
-                    <div class="duty-cycle-item">
-                        <div class="duty-label">50%</div>
-                        <div class="duty-wave duty-50">
-                            <div class="wave-high"></div>
-                            <div class="wave-low"></div>
-                        </div>
-                        <div class="duty-result">Medio</div>
-                    </div>
-
-                    <div class="duty-cycle-item">
-                        <div class="duty-label">75%</div>
-                        <div class="duty-wave duty-75">
-                            <div class="wave-high"></div>
-                            <div class="wave-low"></div>
-                        </div>
-                        <div class="duty-result">Alto</div>
-                    </div>
-
-                    <div class="duty-cycle-item">
-                        <div class="duty-label">100%</div>
-                        <div class="duty-wave duty-100">
-                            <div class="wave-high"></div>
-                            <div class="wave-low"></div>
-                        </div>
-                        <div class="duty-result">Máximo</div>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>ESP32 PWM</h3>
-            <table>
-                <thead>
-                    <tr><th>Parámetro</th><th>Valor Típico</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Frecuencia</td><td>5000 Hz</td></tr>
-                    <tr><td>Resolución</td><td>8 bits (0-255)</td></tr>
-                    <tr><td>Canales</td><td>16 disponibles</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Código: LED Dimmer</h3>
-            <pre>const int LED_PIN = 2;
-const int PWM_CHANNEL = 0;      // Canal 0-15
-const int PWM_FREQ = 5000;      // 5 KHz
-const int PWM_RESOLUTION = 8;   // 8 bits: 0-255
-
-void setup() {
-    ledcSetup(PWM_CHANNEL, PWM_FREQ, PWM_RESOLUTION);
-    ledcAttachPin(LED_PIN, PWM_CHANNEL);
-}
-
-void loop() {
-    // Fade in (aumentar brillo)
-    for (int brillo = 0; brillo <= 255; brillo++) {
-        ledcWrite(PWM_CHANNEL, brillo);
-        delay(10);
-    }
-    
-    // Fade out (disminuir brillo)
-    for (int brillo = 255; brillo >= 0; brillo--) {
-        ledcWrite(PWM_CHANNEL, brillo);
-        delay(10);
-    }
-}</pre>
-            
-            <h3>Funciones PWM en ESP32</h3>
-            <table>
-                <thead>
-                    <tr><th>Función</th><th>Descripción</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>ledcSetup(ch, freq, res)</code></td><td>Configura canal</td></tr>
-                    <tr><td><code>ledcAttachPin(pin, ch)</code></td><td>Asocia pin a canal</td></tr>
-                    <tr><td><code>ledcWrite(ch, duty)</code></td><td>Escribe valor (0-255)</td></tr>
-                    <tr><td><code>ledcDetachPin(pin)</code></td><td>Libera pin</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- DHT11 -->
-        <section id="dht11">
-            <h2>🌡️ Proyecto 5: Sensor DHT11 (Temperatura y Humedad)</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El sensor DHT11 demuestra cómo leer datos de sensores digitales con librerías. La validación de datos (<code>isnan()</code>) es crítica para detectar fallos de comunicación.</p>
-            </div>
-            
-            <h3>Instalación de Librería</h3>
-            <p>Arduino IDE → Sketch → Include Library → Manage Libraries → Buscar "DHT sensor library" (Adafruit)</p>
-            
-            <h3>Conexión</h3>
-            <table>
-                <thead>
-                    <tr><th>ESP32</th><th>DHT11</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>3.3V</td><td>VCC</td></tr>
-                    <tr><td>GND</td><td>GND</td></tr>
-                    <tr><td>GPIO4 ── 10KΩ ──►</td><td>DATA</td></tr>
-                </tbody>
-            </table>
-            <p><strong>Resistencia 10KΩ</strong> entre DATA y VCC (pull-up)</p>
-            
-            <h3>Especificaciones DHT11</h3>
-            <table>
-                <thead>
-                    <tr><th>Parámetro</th><th>Valor</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Rango temperatura</td><td>0°C a 50°C (±2°C)</td></tr>
-                    <tr><td>Rango humedad</td><td>20% a 80% RH (±5%)</td></tr>
-                    <tr><td>Tiempo entre lecturas</td><td>Mínimo 2 segundos</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Código</h3>
-            <pre>#include "DHT.h"
-
-const int DHT_PIN = 4;
-DHT dht(DHT_PIN, DHT11);
-
-void setup() {
-  Serial.begin(115200);
-  dht.begin();
-}
-
-void loop() {
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-
-  if (isnan(h) || isnan(t)) {
-    Serial.println("Error DHT11!");
-    delay(2000);
-    return;
-  }
-
-  Serial.print("Temp: ");
-  Serial.print(t);
-  Serial.print("°C  Hum: ");
-  Serial.print(h);
-  Serial.println("%");
-  delay(2000);
-}</pre>
-            
-            <h3>Troubleshooting DHT11</h3>
-            <table>
-                <thead>
-                    <tr><th>Problema</th><th>Solución</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Lecturas "nan"</td><td>Verificar resistencia 10KΩ</td></tr>
-                    <tr><td>Siempre 0°C</td><td>Revisar conexiones DATA/VCC</td></tr>
-                    <tr><td>Lecturas erráticas</td><td>Esperar 2s entre lecturas</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Buenas Prácticas -->
-        <section id="buenas">
-            <h2>✅ Buenas Prácticas de Programación</h2>
-            
-            <div class="comparison-grid">
-                <div class="comparison-card good">
-                    <h4>✅ HACER</h4>
-                    <pre>// Constantes para pines
-const int LED_PIN = 2;
-
-// Nombres descriptivos
-float temperaturaActual;
-
-// millis() en lugar de delay()
-unsigned long t = millis();
-if (t - tiempoAnterior >= 1000) {
-  // Ejecutar cada 1s sin bloquear
-}
-
-// Verificar errores
-if (isnan(temp)) {
-  return;  // Sensor no responde
-}</pre>
-                </div>
-                <div class="comparison-card bad">
-                    <h4>❌ EVITAR</h4>
-                    <pre>// Números mágicos
-digitalWrite(2, HIGH);  // ❌
-
-// Delay excesivo
-delay(10000);  // ❌ Bloquea todo
-
-// Variables sin nombre descriptivo
-int x, y, z;  // ❌
-
-// No validar datos
-int valor = analogRead(34);  // ❌ Sin validar</pre>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Troubleshooting -->
-        <section id="troubleshooting">
-            <h2>🐛 Troubleshooting: Problemas Comunes</h2>
-            
-            <h3>Error: "Failed to connect to ESP32"</h3>
-            <table>
-                <thead>
-                    <tr><th>Causa</th><th>Solución</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Puerto incorrecto</td><td>Verificar Tools → Port</td></tr>
-                    <tr><td>Cable de solo carga</td><td>Usar cable de datos USB</td></tr>
-                    <tr><td>Drivers faltantes</td><td>Instalar CP2102 o CH340</td></tr>
-                    <tr><td>Modo bootloader</td><td>Presionar BOOT al subir</td></tr>
-                </tbody>
-            </table>
-            
-            <p><strong>Secuencia de subida:</strong></p>
-            <ol>
-                <li>Mantener presionado BOOT</li>
-                <li>Clic en Upload</li>
-                <li>Soltar BOOT cuando diga "Connecting..."</li>
-            </ol>
-            
-            <h3>Error: Caracteres raros en Serial Monitor</h3>
-            <div class="info-box warning">
-                <h4>⚠️ Solución</h4>
-                <ol>
-                    <li>Verificar baud rate = 115200</li>
-                    <li>Ambos lados deben usar misma velocidad</li>
-                    <li>Seleccionar "Both NL & CR" en monitor</li>
-                </ol>
-            </div>
-            
-            <h3>PlatformIO: Alternativa Profesional</h3>
-            <table>
-                <thead>
-                    <tr><th>Característica</th><th>Arduino IDE</th><th>PlatformIO</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Curva aprendizaje</td><td>⭐ Muy fácil</td><td>⭐⭐⭐ Media</td></tr>
-                    <tr><td>Gestión librerías</td><td>Básica</td><td>Avanzada</td></tr>
-                    <tr><td>IntelliSense</td><td>❌ No</td><td>✅ Sí</td></tr>
-                    <tr><td>Autocompletado</td><td>❌ No</td><td>✅ Sí</td></tr>
-                    <tr><td>Debug</td><td>❌ No</td><td>✅ Sí</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Actividad -->
-        <section id="actividad">
-            <h2>📝 Actividad Práctica: Sistema de Alerta de Temperatura</h2>
-
-            <section class="actividad">
-                <h4>⚪ Tipo de Actividad</h4>
-                <p><strong>Tipo:</strong> Opcional (práctica de laboratorio en clase)</p>
-                <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
-                <p><strong>Entregable:</strong> Sistema de alerta funcional (no afecta nota)</p>
-                <p><strong>Tiempo estimado:</strong> 45 minutos en clase</p>
-                <p><strong>Criterios:</strong> Integración de sensor DHT11 y LEDs con lógica de decisión</p>
+            <section class="info-box warning">
+                <h3>📝 E2 Prototipo (15%) - ¡ESTA SEMANA!</h3>
+                <p><strong>Fecha:</strong> Lunes 09 de Marzo 2026</p>
+                <p><strong>Tema:</strong> Interacción Mundo Físico: Lectura de Sensores (DHT22/LDR)</p>
+                <p><a href="../evaluaciones/guia-E2.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de Prototipo E2 →</a></p>
+                <p><strong>Peso:</strong> 15% de la nota final</p>
             </section>
 
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>Integrar múltiples sensores y actuadores requiere planificar las conexiones, configurar cada pin correctamente, y escribir lógica de decisión clara.</p>
+            <section id="agenda-120" class="info-box">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+                <ul>
+                    <li><strong>0-10 min:</strong> Apertura y preparación E2 (10 min)</li>
+                    <li><strong>10-40 min:</strong> Arduino IDE y configuración ESP32 (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> "Hola Mundo" LED blink (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Estructura setup()/loop() y GPIO (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Lectura de sensores y cierre (25 min práctica)</li>
+                </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
+                </div>
+            </section>
+
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
+                <ul>
+                    <li><strong>Configurar</strong> Arduino IDE para <abbr title="Microcontrolador WiFi">ESP32</abbr></li>
+                    <li><strong>Entender</strong> la estructura setup() / loop()</li>
+                    <li><strong>Controlar</strong> <abbr title="General Purpose Input Output">GPIO</abbr> (entradas y salidas)</li>
+                    <li><strong>Leer</strong> sensores digitales y analógicos</li>
+                    <li><strong>Usar</strong> el monitor serial para depuración</li>
+                </ul>
+            </section>
+
+            <section id="arduino-ide">
+                <h2>Instalación y Configuración</h2>
+
+                <h3>Paso a Paso</h3>
+                <ol>
+                    <li>Descargar Arduino IDE de arduino.cc</li>
+                    <li>Instalar y abrir</li>
+                    <li>Agregar URL ESP32: <code>https://dl.espressif.com/dl/package_esp32_index.json</code></li>
+                    <li>Boards Manager → Buscar "ESP32" → Instalar</li>
+                    <li>Seleccionar placa: Tools → Board → ESP32 Dev Module</li>
+                    <li>Seleccionar puerto COM correcto</li>
+                </ol>
+
+                <h3>Botones Clave</h3>
+                <table>
+                    <tr><th>Botón</th><th>Función</th><th>Atajo</th></tr>
+                    <tr><td>✅ Verify</td><td>Compilar código</td><td>Ctrl+R</td></tr>
+                    <tr><td>→ Upload</td><td>Subir al ESP32</td><td>Ctrl+U</td></tr>
+                    <tr><td>📟 Serial Monitor</td><td>Ver mensajes</td><td>Ctrl+Shift+M</td></tr>
+                </table>
+
+                <div class="note">
+                    <strong>Instalación de drivers:</strong> Windows puede requerir drivers CP210x o CH340 para reconocer el ESP32.
+                </div>
+            </section>
+
+            <section id="estructura">
+                <h2>Estructura de un Programa Arduino</h2>
+
+                <p>Todo programa Arduino tiene <strong>dos funciones obligatorias</strong>:</p>
+
+                <h3>1. setup() - Configuración</h3>
+                <ul>
+                    <li>Se ejecuta <strong>una sola vez</strong> al inicio</li>
+                    <li>Configura pines, inicia comunicación</li>
+                </ul>
+
+                <h3>2. loop() - Bucle Principal</h3>
+                <ul>
+                    <li>Se ejecuta <strong>infinitamente</strong></li>
+                    <li>Aquí va la lógica principal</li>
+                </ul>
+
+                <pre><code>// Ejemplo mínimo
+void setup() {
+    // Configuración inicial
+    Serial.begin(115200);
+    pinMode(2, OUTPUT);  // LED integrado
+}
+
+void loop() {
+    // Código que se repite
+    digitalWrite(2, HIGH);
+    delay(1000);
+    digitalWrite(2, LOW);
+    delay(1000);
+}</code></pre>
+
+                <div class="highlight">
+                    <strong>Orden de ejecución:</strong> ENCENDIDO → setup() → loop() → loop() → loop()...
+                </div>
+            </section>
+
+            <section id="gpio">
+                <h2>Control de GPIO</h2>
+                
+                <div class="intro-box" style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <strong>GPIO</strong> = <strong>G</strong>eneral <strong>P</strong>urpose <strong>I</strong>nput/<strong>O</strong>utput (Entrada/Salida de Propósito General)
+                    <br><br>
+                    Son los pines del microcontrolador que pueden configurarse como:
+                    <ul style="margin: 10px 0;">
+                        <li><strong>Entrada (INPUT):</strong> Leer señales (botones, sensores)</li>
+                        <li><strong>Salida (OUTPUT):</strong> Enviar señales (LEDs, actuadores)</li>
+                        <li><strong>Entrada con pull-up (INPUT_PULLUP):</strong> Entrada con resistencia interna activada</li>
+                    </ul>
+                </div>
+
+                <h3>Funciones Básicas</h3>
+                <table>
+                    <tr><th>Función</th><th>Descripción</th><th>Ejemplo</th></tr>
+                    <tr><td><code>pinMode(pin, mode)</code></td><td>Configura pin</td><td>INPUT, OUTPUT, INPUT_PULLUP</td></tr>
+                    <tr><td><code>digitalWrite(pin, value)</code></td><td>Escribe digital</td><td>HIGH, LOW</td></tr>
+                    <tr><td><code>digitalRead(pin)</code></td><td>Lee digital</td><td>Devuelve HIGH/LOW</td></tr>
+                    <tr><td><code>analogRead(pin)</code></td><td>Lee analógico</td><td>Devuelve 0-4095 (ESP32)</td></tr>
+                    <tr><td><code>delay(ms)</code></td><td>Pausa</td><td>delay(1000) = 1 segundo</td></tr>
+                    <tr><td><code>millis()</code></td><td>Tiempo transcurrido</td><td>Desde inicio en ms</td></tr>
+                </table>
+
+                <h3>Pines ESP32 DevKit</h3>
+                <ul>
+                    <li><strong>GPIO2:</strong> LED integrado (azul)</li>
+                    <li><strong>GPIO4:</strong> DHT22 (recomendado)</li>
+                    <li><strong>GPIO15:</strong> Botón (con pull-up)</li>
+                    <li><strong>GPIO34:</strong> ADC (LDR)</li>
+                </ul>
+            </section>
+
+            <section id="proyectos">
+                <h2>Proyectos Básicos</h2>
+
+                <h3>Proyecto 1: LED Blink</h3>
+                <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/01_blink_led.ino" class="btn">📥 Descargar .ino</a></p>
+                <pre><code>const int LED = 2;  // LED integrado
+
+void setup() {
+    pinMode(LED, OUTPUT);
+}
+
+void loop() {
+    digitalWrite(LED, HIGH);
+    delay(1000);        // 1 segundo encendido
+    digitalWrite(LED, LOW);
+    delay(1000);        // 1 segundo apagado
+}</code></pre>
+
+                <h3>Proyecto 2: Botón + LED</h3>
+                <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/02_led_boton.ino" class="btn">📥 Descargar .ino</a></p>
+                <pre><code>const int LED = 2;
+const int BOTON = 15;
+
+void setup() {
+    pinMode(LED, OUTPUT);
+    pinMode(BOTON, INPUT_PULLUP);
+    Serial.begin(115200);
+}
+
+void loop() {
+    if (digitalRead(BOTON) == LOW) {  // Presionado
+        digitalWrite(LED, HIGH);
+        Serial.println("Botón presionado");
+    } else {
+        digitalWrite(LED, LOW);
+    }
+    delay(100);
+}</code></pre>
+
+                <div class="note">
+                    <strong>INPUT_PULLUP:</strong> Activa resistencia interna. Botón presionado = LOW, suelto = HIGH.
+                </div>
+            </section>
+
+            <section id="sensores">
+                <h2>Lectura de Sensores</h2>
+
+                <h3>Sensor LDR (Luz)</h3>
+                <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/04_ldr_luz.ino" class="btn">📥 Descargar .ino</a></p>
+                <pre><code>const int LDR = 34;  // Pin analógico
+
+void setup() {
+    Serial.begin(115200);
+}
+
+void loop() {
+    int valor = analogRead(LDR);     // 0-4095
+    int porcentaje = map(valor, 0, 4095, 0, 100);
+    
+    Serial.print("Luz: ");
+    Serial.print(porcentaje);
+    Serial.println("%");
+    
+    delay(500);
+}</code></pre>
+
+                <h3>Sensor DHT22 (Temperatura/Humedad)</h3>
+                <p>Instalar librería: Sketch → Include Library → Manage Libraries → "DHT sensor library"</p>
+                <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/03_sensor_dht.ino" class="btn">📥 Descargar .ino</a></p>
+
+                <pre><code>#include "DHT.h"
+
+const int DHT_PIN = 4;
+DHT dht(DHT_PIN, DHT22);
+
+void setup() {
+    Serial.begin(115200);
+    dht.begin();
+}
+
+void loop() {
+    float temp = dht.readTemperature();
+    float hum = dht.readHumidity();
+    
+    if (isnan(temp) || isnan(hum)) {
+        Serial.println("Error leyendo DHT22");
+    } else {
+        Serial.print("Temp: ");
+        Serial.print(temp);
+        Serial.print("°C  Hum: ");
+        Serial.print(hum);
+        Serial.println("%");
+    }
+    
+    delay(2000);  // DHT22 requiere 2s entre lecturas
+}</code></pre>
+
+                <h3>Conexión DHT22</h3>
+                <pre><code>VCC  → 3.3V
+GND  → GND
+DATA → GPIO4 (con pull-up 10KΩ a 3.3V)</code></pre>
+            </section>
+
+            <!-- Ejercicios del Simulador Propuestos -->
+            <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>🛠️ Ejercicios en Simulador Wokwi (Práctica Individual)</h3>
+                <p>Continuación de los ejercicios de la <strong>Clase 05</strong>. Este ejercicio introduce interrupciones por timer:</p>
+
+                <div style="display: grid; gap: 15px; margin-top: 15px;">
+                    <!-- Ejercicio 8: Timer Interrupt -->
+                    <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="margin-top: 0;">⏱️ Ejercicio 8: Timer Interrupt</h4>
+                        <p><strong>Concepto:</strong> Interrupciones por hardware timer</p>
+                        <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🔴 Avanzado</p>
+                        <p><strong>Objetivo:</strong> Crear un temporizador preciso usando interrupciones de hardware del ESP32 para parpadear un LED sin usar delay().</p>
+                        <p><a href="../ejercicios-simulador/ejercicio-08-timer-interrupt.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                    <strong>💡 Recomendación:</strong> Este ejercicio es opcional pero muy útil para entender cómo funcionan las interrupciones en sistemas embebidos.
+                </div>
             </div>
 
-            <div class="hardware-notice">
-                <h4>💻 Opciones para Realizar la Actividad</h4>
-                <p><strong>Opción A (Simulador):</strong> Usar Wokwi.com - crear proyecto ESP32 con DHT11 y LEDs. Gratuito y no requiere compras.<br><br>
-                <strong>Opción B (Demo Docente):</strong> El profesor demuestra el circuito en clase.<br><br>
-                <strong>Opción C (Hardware Propio):</strong> Solo si el estudiante ya tiene los componentes (aprox. $15-20 USD).</p>
-            </div>
-            
-            <div class="activity">
-                <h4>Descripción</h4>
-                <p>Crear un sistema que:</p>
-                <ol>
-                    <li><strong>Mida</strong> temperatura con DHT11</li>
-                    <li><strong>Indique</strong> estado con LEDs:
-                        <ul>
-                            <li>🔴 <strong>Rojo:</strong> &gt; 30°C (Calor)</li>
-                            <li>🟢 <strong>Verde:</strong> 20-30°C (Normal)</li>
-                            <li>🔵 <strong>Azul:</strong> &lt; 20°C (Frío)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Muestre</strong> valores en Monitor Serial</li>
-                </ol>
+            <section id="e2">
+                <h2>Preparación E2 - Prototipo</h2>
+
+                <div class="actividad">
+                    <h4>E2 Prototipo (15%) - Interacción Sensórica Local</h4>
+                    <p><strong>Formato:</strong> Demostración en clase de circuito funcional (Físico o Wokwi)</p>
+                    <p><strong>Duración:</strong> 3-5 minutos por estudiante</p>
+                    <p><strong>Contenido:</strong></p>
+                    <ul>
+                        <li>Mostrar montaje físico o link de Wokwi</li>
+                        <li>Explicar lectura de sensores (DHT22 o LDR)</li>
+                        <li>Accionar un LED o Actuador basado en la lectura</li>
+                        <li>Justificación del hardware elegido</li>
+                    </ul>
+                </div>
+
+                <h3>Ideas para E2</h3>
+                <ul>
+                    <li>Sensor de temperatura que enciende LED cuando pasa umbral</li>
+                    <li>Botón que controla LED RGB (cambia colores)</li>
+                    <li>LDR que activa buzzer cuando hay poca luz</li>
+                    <li>Combinación sensor + actuador con lógica</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>Resultado de Aprendizaje:</strong> Comprender la interacción entre el mundo físico y el mundo virtual.
+                </div>
+            </section>
+
+            <section id="glosario">
+                <h2>📚 Glosario de Programación Arduino</h2>
+                <p>Términos esenciales para programar el ESP32:</p>
                 
-                <h4>Materiales</h4>
                 <table>
                     <thead>
-                        <tr><th>Componente</th><th>Pin ESP32</th></tr>
+                        <tr>
+                            <th>Término</th>
+                            <th>Significado</th>
+                            <th>Descripción</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr><td>DHT11</td><td>GPIO4</td></tr>
-                        <tr><td>LED Rojo</td><td>GPIO18</td></tr>
-                        <tr><td>LED Verde</td><td>GPIO19</td></tr>
-                        <tr><td>LED Azul</td><td>GPIO21</td></tr>
+                        <tr>
+                            <td><strong><abbr title="General Purpose Input/Output: Pines de propósito general">GPIO</abbr></strong></td>
+                            <td>General Purpose Input/Output</td>
+                            <td>Pines de entrada/salida de propósito general</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Analog-to-Digital Converter: Convierte voltajes en números">ADC</abbr></strong></td>
+                            <td>Analog-to-Digital Converter</td>
+                            <td>Conversor analógico-digital (lee 0-3.3V → 0-4095)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Pulse Width Modulation: Control de potencia por pulsos">PWM</abbr></strong></td>
+                            <td>Pulse Width Modulation</td>
+                            <td>Modulación por ancho de pulso (control intensidad LED)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>INPUT_PULLUP</strong></td>
+                            <td>Entrada con resistencia pull-up</td>
+                            <td>Activa resistencia interna (botón: presionado=LOW)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Universal Asynchronous Receiver-Transmitter: Comunicación serial estándar">Serial (UART)</abbr></strong></td>
+                            <td>Comunicación serie UART</td>
+                            <td>Interfaz para depuración y comunicación</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Baudios</strong></td>
+                            <td>Baud rate</td>
+                            <td>Velocidad de comunicación (ej: 115200 bits/seg)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><abbr title="General Purpose Input/Output: Pines de propósito general">GPIO</abbr></strong></td>
+                            <td>General Purpose Input/Output</td>
+                            <td>Pines de entrada/salida de propósito general</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Analog-to-Digital Converter: Convierte voltajes en números">ADC</abbr></strong></td>
+                            <td>Analog-to-Digital Converter</td>
+                            <td>Conversor analógico-digital (lee 0-3.3V → 0-4095)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Pulse Width Modulation: Control de potencia por pulsos">PWM</abbr></strong></td>
+                            <td>Pulse Width Modulation</td>
+                            <td>Modulación por ancho de pulso (control intensidad LED)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>INPUT_PULLUP</strong></td>
+                            <td>Entrada con resistencia pull-up</td>
+                            <td>Activa resistencia interna (botón: presionado=LOW)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><abbr title="Universal Asynchronous Receiver-Transmitter: Comunicación serial estándar">Serial (UART)</abbr></strong></td>
+                            <td>Comunicación serie UART</td>
+                            <td>Interfaz para depuración y comunicación</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Baudios</strong></td>
+                            <td>Baud rate</td>
+                            <td>Velocidad de comunicación (ej: 115200 bits/seg)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Variable</strong></td>
+                            <td>- (término general)</td>
+                            <td>Espacio para almacenar datos (int, float, bool)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Función</strong></td>
+                            <td>- (término general)</td>
+                            <td>Bloque de código reutilizable (setup, loop, etc.)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CONST</strong></td>
+                            <td>Constante</td>
+                            <td>Valor que no cambia durante la ejecución</td>
+                        </tr>
                     </tbody>
                 </table>
                 
-                <div class="info-box info">
-                    <h4>💡 Nota</h4>
-                    <p>Resistencia pull-up de 10KΩ entre DATA y VCC del DHT11</p>
+                <div class="note" style="background: #f0fdfa; border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>💡 Recuerda:</strong> En el <abbr title="Microcontrolador WiFi">ESP32</abbr>, <code>analogRead()</code> devuelve valores entre 0-4095 (12 bits). Para convertir a voltaje: <code>V = (lectura / 4095) × 3.3V</code>
                 </div>
-                
-                <h4>Solución de Referencia</h4>
-                <pre>#include "DHT.h"
-
-const int DHT_PIN = 4;
-const int LED_ROJO = 18;
-const int LED_VERDE = 19;
-const int LED_AZUL = 21;
-
-DHT dht(DHT_PIN, DHT11);
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(LED_ROJO, OUTPUT);
-  pinMode(LED_VERDE, OUTPUT);
-  pinMode(LED_AZUL, OUTPUT);
-  dht.begin();
-}
-
-void loop() {
-  float temp = dht.readTemperature();
-
-  if (isnan(temp)) {
-    Serial.println("Error de sensor");
-    delay(2000);
-    return;
-  }
-
-  // Apagar todos
-  digitalWrite(LED_ROJO, LOW);
-  digitalWrite(LED_VERDE, LOW);
-  digitalWrite(LED_AZUL, LOW);
-
-  // Activar LED correspondiente
-  if (temp > 30.0) {
-    digitalWrite(LED_ROJO, HIGH);
-    Serial.println("Calor extremo");
-  }
-  else if (temp >= 20.0) {
-    digitalWrite(LED_VERDE, HIGH);
-    Serial.println("Temperatura normal");
-  }
-  else {
-    digitalWrite(LED_AZUL, HIGH);
-    Serial.println("Frío");
-  }
-
-  delay(2000);
-}</pre>
-            </div>
-            
-            <!-- Evaluación 2 -->
-            <section style="background: #f0f9ff; border-left: 4px solid #1e40af; padding: 1rem; margin: 2rem 0; border-radius: 6px;">
-                <h3 style="color: #1e40af; margin: 0 0 0.5rem 0;">📋 Evaluación Programada</h3>
-                <p style="margin: 0;"><strong>Eval 2 (15%):</strong> Presentación + Demostración - Fecha: 2026-03-09</p>
-                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #64748b;">
-                    Consulte la plataforma educativa para el detalle completo de la evaluación.
-                </p>
             </section>
-        
-        <!-- Resumen -->
-        <section>
-            <h2>📋 Resumen de la Clase</h2>
-            
-            <table>
-                <thead>
-                    <tr><th>Concepto</th><th>Descripción</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>setup()</code></td><td>Función que se ejecuta una vez al inicio</td></tr>
-                    <tr><td><code>loop()</code></td><td>Función que se repite infinitamente</td></tr>
-                    <tr><td><code>pinMode()</code></td><td>Configura un pin como entrada o salida</td></tr>
-                    <tr><td><code>digitalWrite()</code></td><td>Escribe HIGH (3.3V) o LOW (0V)</td></tr>
-                    <tr><td><code>digitalRead()</code></td><td>Lee el estado de un pin digital</td></tr>
-                    <tr><td><code>analogRead()</code></td><td>Lee valor analógico (0-4095 en ESP32)</td></tr>
-                    <tr><td><code>Serial.begin()</code></td><td>Inicia comunicación serial</td></tr>
-                    <tr><td><code>Serial.print()</code></td><td>Imprime texto al monitor serial</td></tr>
-                    <tr><td><code>delay()</code></td><td>Pausa la ejecución (milisegundos)</td></tr>
-                    <tr><td><code>millis()</code></td><td>Retorna tiempo desde inicio (sin bloquear)</td></tr>
-                </tbody>
-            </table>
-            
-            <h3>Proyectos Realizados</h3>
-            <ol>
-                <li>✅ <strong>LED Blink:</strong> Parpadeo básico con delay y millis</li>
-                <li>✅ <strong>Botón + LED:</strong> Entrada digital con pull-up</li>
-                <li>✅ <strong>LDR:</strong> Lectura analógica de luz</li>
-                <li>✅ <strong>PWM:</strong> Control de brillo con fade</li>
-                <li>✅ <strong>DHT11:</strong> Sensor de temperatura/humedad</li>
-                <li>✅ <strong>Sistema de Alerta:</strong> Integración completa</li>
-            </ol>
-            
-            <div class="info-box success">
-                <h4>➡️ Próxima Clase: Conectividad WiFi</h4>
+
+            <section>
+                <h2>Resumen</h2>
                 <ul>
-                    <li>📡 Configuración WiFi en ESP32 (modo STA y AP)</li>
-                    <li>🌐 Servidor web básico con ESP32</li>
-                    <li>📊 Envío de datos a la nube</li>
-                    <li>🔐 Seguridad básica en redes IoT</li>
+                    <li><strong>Arduino IDE:</strong> Instalar, configurar ESP32, compilar y subir</li>
+                    <li><strong>setup():</strong> Configuración inicial (una vez)</li>
+                    <li><strong>loop():</strong> Bucle infinito con lógica principal</li>
+                    <li><strong><abbr title="General Purpose Input Output">GPIO</abbr>:</strong> pinMode(), digitalWrite(), digitalRead()</li>
+                    <li><strong>Analógico:</strong> <abbr title="Analog-to-Digital Converter">ADC</abbr> devuelve 0-4095 en ESP32</li>
+                    <li><strong>Sensores:</strong> DHT22 (temp/hum), LDR (luz)</li>
+                    <li><strong>Serial:</strong> Serial.begin(), Serial.print() para debug</li>
                 </ul>
-            </div>
-        </section>
-        
-        <!-- Laboratorios Relacionados -->
-        <section id="laboratorios">
-            <h2>🔬 Laboratorios Relacionados</h2>
-
-            <div class="info-box info">
-                <h4>💡 Aprendizaje Práctico</h4>
-                <p>Los siguientes laboratorios refuerzan los conceptos teóricos de esta clase con práctica hands-on. Completa estos laboratorios para construir las habilidades necesarias para el proyecto final.</p>
-            </div>
-
-            
-            <div class="lab-header" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: var(--color-accent);">
-                <h3 style="color: #92400e; margin: 0 0 0.5rem 0; font-size: 1.5rem;">🎯 FASE 1: Fundamentos de Hardware</h3>
-                <p style="margin: 0; color: #78716c;">En esta fase aprendes las bases de programación y electrónica con el ESP32. Los laboratorios 00-04 te preparan para construir la parte de sensores del proyecto final.</p>
-            </div>
-
-
-            <div class="grid-2" style="margin-top: 2rem;">
                 
-                <div class="card" style="border-left: 4px solid var(--color-primary);">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 00</span>
-                        Introducción Arduino IDE
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Instalación y configuración de Arduino IDE para ESP32. Primer programa con el LED integrado.</p>
-                    <a href="laboratorios-html/lab-oficial-01-fundamentos-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Ver Laboratorio →
-                    </a>
+                <div class="intro-box" style="text-align: center; margin-top: 30px;">
+                    <h4>Próxima Sesión: Conectividad WiFi</h4>
+                    <p>Conectar ESP32 a internet, ThingSpeak, servidor web</p>
                 </div>
+            </section>
+        </main>
 
-                <div class="card" style="border-left: 4px solid var(--color-primary);">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 01</span>
-                        LED Blink y Estructura
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Control de LEDs externos, estructuras de código, delay vs millis, y PWM.</p>
-                    <a href="laboratorios-html/lab-oficial-01-fundamentos-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Ver Laboratorio →
-                    </a>
-                </div>
-
-                <div class="card" style="border-left: 4px solid var(--color-primary);">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 02</span>
-                        Entradas Digitales (Botones)
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Uso de botones con INPUT_PULLUP, anti-rebote, y lógica de control.</p>
-                    <a href="laboratorios-html/lab-oficial-01-fundamentos-esp32.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Ver Laboratorio →
-                    </a>
-                </div>
-
-                <div class="card" style="border-left: 4px solid var(--color-primary);">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 03</span>
-                        Entradas Analógicas (LDR)
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Lectura de sensores analógicos con el LDR, divisor de voltaje, y mapeo de valores.</p>
-                    <a href="laboratorios-html/lab-oficial-02-sensores-dht22-ldr.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Ver Laboratorio →
-                    </a>
-                </div>
-
-                <div class="card" style="border-left: 4px solid var(--color-primary);">
-                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="background: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Lab 04</span>
-                        Sensor DHT (Temperatura/Humedad)
-                    </h4>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Uso del sensor DHT11/DHT22 para leer temperatura y humedad. Manejo de librerías.</p>
-                    <a href="laboratorios-html/lab-oficial-02-sensores-dht22-ldr.html" style="display: inline-block; background: var(--color-primary-light); color: var(--text-inverse); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.9rem;">
-                        Ver Laboratorio →
-                    </a>
-                </div>
-
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">🏠 Índice</a>
+                <a href="clase-05.html" class="class-nav-btn">← Anterior<br><small style="font-size:0.75em;opacity:0.8;">02-mar</small></a>
+                <a href="clase-07.html" class="class-nav-btn">Siguiente<br><small style="font-size:0.75em;opacity:0.8;">16-mar (E3) →</small></a>
             </div>
+        </nav>
 
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="laboratorios-html/index.html" style="display: inline-block; background: var(--color-primary); color: var(--text-inverse); padding: 0.75rem 1.5rem; border-radius: var(--radius-lg); text-decoration: none; font-weight: 600;">
-                    Ver Todos los Laboratorios →
-                </a>
-            </div>
-        </section>
-
-
-<section id="referencias">
-            <h2>Referencias</h2>
-            <ul>
-                <li>Arduino Language Reference - arduino.cc/reference/en</li>
-                <li>Arduino IDE Documentation - arduino.cc/en/guide</li>
-                <li>C++ for Arduino - Programming Electronics Academy</li>
-                <li>ESP32 Arduino Core Documentation - docs.espressif.com</li>
-                <li>FreeRTOS Reference Manual - freertos.org</li>
-                <li>Making Embedded Systems - Elecia White</li>
-                <li>Embedded C Programming - ARM University Press</li>
-            </ul>
-        </section>
-
-        <section id="📚-recursos-curados" class="info-box">
-            <h2>📚 Recursos Curados</h2>
-            <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
-
-            <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Instalar esp32 en IDE arduino 2024</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Arduino y Electrónica</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 10 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Configuración actualizada 2024 del IDE de Arduino para programar microcontroladores ESP32, esencial para comenzar a programar dispositivos IoT.</p>
-                    <a href="https://www.youtube.com/watch?v=cplqUquyDIc" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Arduino - Logical and Bitwise Operators</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Arduino Programming</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 15 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Comprende los operadores lógicos y bit a bit fundamentales para programar microcontroladores de manera eficiente.</p>
-                    <a href="https://www.youtube.com/watch?v=7F7LS2JkGag" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 ESP32: MANUAL BÁSICO PARA ESTUDIANTES</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Universidad</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 40 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Manual básico completo para estudiantes que cubre la instalación, configuración y uso de ESP32 con Arduino IDE.</p>
-                    <a href="https://alumnieditora.com/omp/index.php/home/catalog/download/9/12/33?inline=1" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Navegación entre clases -->
-    <nav class="class-nav">
-        <div class="class-nav-title">Navegación del Curso</div>
-        <div class="class-nav-links">
-            <a href="index.html" class="class-nav-btn">
-                <span class="arrow">🏠</span> Inicio
-            </a>
-            <a href="clase-05.html" class="class-nav-btn">
-                <span class="arrow">←</span> Clase Anterior
-            </a>
-            <a href="clase-07.html" class="class-nav-btn">
-                Clase Siguiente <span class="arrow">→</span>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Footer -->
-    <footer>
-        <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
-        <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
-        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 6: Programación para Microcontroladores | Última actualización: Febrero 2026</p>
-    </footer>
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 6 - 09-mar-2026 (E2)</p>
+        </footer>
     </div>
 
     <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
-
-            const progressFill = document.getElementById('progressFill');
+        (function(){
             const backToTop = document.getElementById('backToTop');
-
-            if (!progressFill || !backToTop) return;
-
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const progressFill = document.getElementById('progressFill');
+            window.addEventListener('scroll', () => {
                 const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
-                }
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight ? Math.min(100, Math.round((scrolled / docHeight) * 100)) : 0;
+                if (scrolled > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+                progressFill.style.width = pct + '%';
             });
-
-            // Initial call
-            updateProgress();
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
         })();
     </script>
 </body>
 </html>
-
-
-

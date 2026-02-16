@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 13: Comunicación Serial UART | Wokwi Simulator</title>
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .tip { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.75rem; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f1f5f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📡 Ejercicio 13: Comunicación Serial UART</h1>
+            <p>⏱️ 25 min | 📦 Solo ESP32 | 🟢 Básico</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Aprender a enviar y recibir datos a través del puerto serial (UART) del ESP32, el protocolo de comunicación más básico en sistemas embebidos.</p>
+            <div class="tip">
+                <strong>💡 Contexto:</strong> UART (Universal Asynchronous Receiver-Transmitter) es el protocolo que usas cada vez que ves el Monitor Serial. Es la base de muchas comunicaciones en IoT.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Conceptos Previos</h2>
+            <h3>¿Qué es UART?</h3>
+            <p>UART es un protocolo de comunicación serial asíncrono que permite enviar datos bit por bit:</p>
+            <table>
+                <tr><th>Parámetro</th><th>Valor típico</th><th>Descripción</th></tr>
+                <tr><td>Baud Rate</td><td>9600, 115200</td><td>Velocidad de transmisión (bits/segundo)</td></tr>
+                <tr><td>Data Bits</td><td>8</td><td>Cantidad de bits por carácter</td></tr>
+                <tr><td>Paridad</td><td>None</td><td>Bit de verificación (opcional)</td></tr>
+                <tr><td>Stop Bits</td><td>1</td><td>Bit que indica fin de transmisión</td></tr>
+            </table>
+
+            <h3>Funciones Principales</h3>
+            <ul>
+                <li><code>Serial.begin(115200)</code> - Inicia comunicación a 115200 baudios</li>
+                <li><code>Serial.print("texto")</code> - Envía texto sin salto de línea</li>
+                <li><code>Serial.println("texto")</code> - Envía texto con salto de línea</li>
+                <li><code>Serial.available()</code> - Retorna cantidad de bytes disponibles</li>
+                <li><code>Serial.read()</code> - Lee un byte del buffer</li>
+                <li><code>Serial.readString()</code> - Lee string completo hasta timeout</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código: Eco Serial con Comandos</h2>
+            <pre><code>// Ejercicio 13: Comunicación Serial UART
+// Recibe comandos y responde
+
+String comando = "";
+bool ledEstado = false;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(2, OUTPUT);  // LED integrado
+
+  Serial.println("=== Ejercicio 13: Comunicación Serial UART ===");
+  Serial.println("Comandos disponibles:");
+  Serial.println("  ON    - Encender LED");
+  Serial.println("  OFF   - Apagar LED");
+  Serial.println("  STATUS - Ver estado del LED");
+  Serial.println("  HOLA  - Saludo");
+  Serial.println("  HELP  - Mostrar ayuda");
+  Serial.println("------------------------------------");
+  Serial.print("> ");
+}
+
+void loop() {
+  // Verificar si hay datos disponibles
+  if (Serial.available() > 0) {
+    // Leer el comando hasta salto de línea
+    comando = Serial.readStringUntil('\n');
+    comando.trim();  // Eliminar espacios y saltos
+    comando.toUpperCase();  // Convertir a mayúsculas
+
+    Serial.println(comando);  // Eco del comando
+
+    // Procesar comando
+    if (comando == "ON") {
+      ledEstado = true;
+      digitalWrite(2, HIGH);
+      Serial.println("✅ LED ENCENDIDO");
+    }
+    else if (comando == "OFF") {
+      ledEstado = false;
+      digitalWrite(2, LOW);
+      Serial.println("❌ LED APAGADO");
+    }
+    else if (comando == "STATUS") {
+      Serial.print("📊 Estado LED: ");
+      Serial.println(ledEstado ? "ENCENDIDO" : "APAGADO");
+    }
+    else if (comando == "HOLA") {
+      Serial.println("👋 ¡Hola! Soy tu ESP32");
+    }
+    else if (comando == "HELP") {
+      Serial.println("📋 Comandos: ON, OFF, STATUS, HOLA, HELP");
+    }
+    else {
+      Serial.print("⚠️ Comando no reconocido: ");
+      Serial.println(comando);
+      Serial.println("   Escribe HELP para ver comandos");
+    }
+
+    Serial.print("> ");
+  }
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Cómo Probar en Wokwi</h2>
+            <ol>
+                <li>Copia el código en Wokwi</li>
+                <li>Abre el <strong>Monitor Serial</strong> (icono de terminal)</li>
+                <li>Escribe comandos en el campo de entrada: <code>ON</code>, <code>OFF</code>, <code>STATUS</code>, <code>HOLA</code></li>
+                <li>Observa cómo el LED responde y el ESP32 confirma cada acción</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ Nota:</strong> En Wokwi, el Monitor Serial muestra la salida pero para enviar comandos debes usar el campo de entrada que aparece en la parte inferior del monitor.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación</li>
+                <li>Envía los comandos: <code>ON</code>, <code>STATUS</code>, <code>OFF</code>, <code>HOLA</code></li>
+                <li>Toma pantallazo del Monitor Serial mostrando el diálogo</li>
+                <li>Sube a Canvas</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Retos Adicionales</h2>
+            <ul>
+                <li>Agrega un comando <code>BLINK</code> que haga parpadear el LED 5 veces</li>
+                <li>Agrega un comando <code>COUNT</code> que cuente del 1 al 10</li>
+                <li>Crea un comando <code>TEMP</code> que simule una lectura de temperatura aleatoria</li>
+            </ul>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-12-mqtt.html">← Ejercicio 12</a>
+            <a href="ejercicio-14-web-server.html">Ejercicio 14 →</a>
+        </nav>
+    </div>
+</body>
+</html>

@@ -11,6 +11,9 @@
         .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
         pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
         .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
     </style>
 </head>
 <body>
@@ -205,6 +208,35 @@ void loop() {
                 <li>El ESP32 tiene varios pines ADC: GPIO 34, 35, 36, 39 son SOLO entrada</li>
             </ul>
         </div>
+
+        <div class="section">
+            <h2>🔍 Cómo Probar en Wokwi</h2>
+            <ol>
+                <li>Copia el código en Wokwi</li>
+                <li>Arma el circuito según el diagrama SVG</li>
+                <li>Ejecuta la simulación</li>
+                <li>Abre el <strong>Monitor Serial</strong></li>
+                <li>Haz <strong>clic derecho</strong> en el LDR para cambiar el nivel de luz simulado</li>
+                <li>Observa cómo cambian los valores en el Monitor Serial</li>
+                <li>Observa que el LED se enciende cuando el valor es menor a 2000</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Ejecuta la simulación en Wokwi</li>
+                <li>Simula diferentes niveles de luz (alto, medio, bajo)</li>
+                <li>Toma pantallazo del Monitor Serial mostrando los valores</li>
+                <li>Toma pantallazo del circuito con el LED encendido (cuando hay poca luz)</li>
+                <li>Sube ambos pantallazos a Canvas</li>
+            </ol>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-05-pwm-dimmer.html">← Ejercicio 5</a>
+            <a href="ejercicio-07-ldr-automatico.html">Ejercicio 7 →</a>
+        </nav>
     </div>
 </body>
 </html>

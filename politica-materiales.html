@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Materiales y Grupos - IF0112 Complementaria II</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .cost-highlight {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            border: 2px solid #10b981;
+            text-align: center;
+            margin: var(--space-6) 0;
+        }
+        .cost-highlight .price {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            color: #065f46;
+        }
+        .cost-highlight .unit {
+            font-size: var(--text-lg);
+            color: #047857;
+        }
+        .store-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: var(--color-primary);
+            color: white;
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            margin: var(--space-2);
+        }
+        .store-link:hover {
+            background: var(--color-primary-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Política de Materiales y Grupos de Trabajo</h1>
+            <p class="subtitle">IF0112 - Complementaria II (IoT) | UNAULA 2026-1</p>
+        </header>
+
+        <main>
+            <!-- Trabajo en Equipos -->
+            <section>
+                <h2>Trabajo en Equipos</h2>
+                <div class="info-box">
+                    <p><strong>Tamaño recomendado:</strong> <strong>2 estudiantes</strong> (máximo 3)</p>
+                    <p><strong>Por qué parejas:</strong></p>
+                    <ul>
+                        <li>Reduce costo individual del kit de materiales</li>
+                        <li>Mejora colaboración y aprendizaje peer-to-peer</li>
+                        <li>Facilita compartir protoboard y componentes</li>
+                        <li>Prepara para trabajo profesional en equipo</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Costos -->
+            <section>
+                <h2>Inversión en Materiales</h2>
+
+                <div class="cost-highlight">
+                    <p class="price">50.000-60.000 COP</p>
+                    <p class="unit">por equipo completo</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card card-green">
+                        <h4>En Pareja (2)</h4>
+                        <p><strong>~25.000-30.000 COP</strong> por persona</p>
+                    </div>
+                    <div class="card card-yellow">
+                        <h4>En Trío (3)</h4>
+                        <p><strong>~17.000-22.000 COP</strong> por persona</p>
+                    </div>
+                </div>
+
+                <div class="highlight-success">
+                    <strong>Nota:</strong> Esta inversión les sirve para TODO el semestre y pueden reutilizar materiales en futuros cursos.
+                </div>
+            </section>
+
+            <!-- Kit Mínimo -->
+            <section>
+                <h2>Kit Mínimo Recomendado</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Cantidad</th>
+                            <th>Uso en Proyecto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ESP32 DevKit V1</strong></td>
+                            <td>1</td>
+                            <td>Cerebro del sistema IoT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protoboard</strong></td>
+                            <td>1</td>
+                            <td>Conexiones sin soldadura</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cables jumper</strong></td>
+                            <td>1 kit (MM, MF, FF)</td>
+                            <td>Conexiones componentes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DHT22</strong> (o DHT11)</td>
+                            <td>1</td>
+                            <td>Sensor temperatura/humedad</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LDR</strong></td>
+                            <td>1</td>
+                            <td>Sensor de luz</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resistencias</strong></td>
+                            <td>220Ω × 5, 10kΩ × 2</td>
+                            <td>Protección LEDs y pull-down</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LEDs</strong></td>
+                            <td>3 (rojo, verde, amarillo)</td>
+                            <td>Indicadores visuales</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cable USB de datos</strong></td>
+                            <td>1</td>
+                            <td>Programación y alimentación</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Dónde Comprar -->
+            <section>
+                <h2>Dónde Comprar</h2>
+                <div class="card">
+                    <h4>Tiendas Recomendadas en Colombia</h4>
+                    <p>
+                        <a href="https://www.todomicro.com/" target="_blank" class="store-link">Todomicro</a>
+                        <a href="https://www.electronicade.com/" target="_blank" class="store-link">Electrónica DE</a>
+                        <a href="https://www.mercadolibre.com.co/" target="_blank" class="store-link">MercadoLibre</a>
+                    </p>
+                    <p class="tag-list" style="margin-top: var(--space-4);">
+                        <span class="tag">Búsqueda: "Kit ESP32 Arduino"</span>
+                        <span class="tag">Búsqueda: "Sensor DHT22"</span>
+                        <span class="tag">Búsqueda: "Protoboard 830 puntos"</span>
+                    </p>
+                </div>
+
+                <div class="highlight-warning">
+                    <strong>Importante:</strong> Verifiquen que el cable USB sea <strong>de datos</strong>, no solo de carga. Los cables de carga no permiten programar el ESP32.
+                </div>
+            </section>
+
+            <!-- Simulador Alternativo -->
+            <section>
+                <h2>Alternativa sin Compras: Wokwi</h2>
+                <div class="card card-blue">
+                    <h4>Simulador Gratuito Online</h4>
+                    <p>Si no pueden adquirir los materiales físicos, pueden usar <a href="https://wokwi.com/" target="_blank"><strong>Wokwi</strong></a>, un simulador gratuito que soporta ESP32, Arduino, sensores DHT, LDR y más.</p>
+                    <ul>
+                        <li>Sin costo</li>
+                        <li>Funciona en el navegador</li>
+                        <li>Ideal para aprender sin hardware físico</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Navegación -->
+            <nav class="class-nav">
+                <p class="class-nav-title">Volver a las clases</p>
+                <div class="class-nav-links">
+                    <a href="clase-01.html" class="class-nav-btn">📚 Sesión 1</a>
+                    <a href="clase-02.html" class="class-nav-btn">📚 Sesión 2</a>
+                    <a href="index.html" class="class-nav-btn">📋 Índice</a>
+                </div>
+            </nav>
+        </main>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) | Ingeniería Informática | UNAULA</p>
+            <p>Semestre 2026-1</p>
+        </footer>
+    </div>
+</body>
+</html>

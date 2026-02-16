@@ -3,2381 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 9: Convergencia IT/OT | IF0112 - Complementaria II (IoT)</title>
-    <style>
-
-        /* ============================================
-           DESIGN SYSTEM - Spacing Scale (8px base)
-           ============================================ */
-        :root {
-            /* Spacing scale */
-            --space-1: 0.25rem;  /* 4px */
-            --space-2: 0.5rem;   /* 8px */
-            --space-3: 0.75rem;  /* 12px */
-            --space-4: 1rem;     /* 16px */
-            --space-5: 1.25rem;  /* 20px */
-            --space-6: 1.5rem;   /* 24px */
-            --space-8: 2rem;     /* 32px */
-            --space-10: 2.5rem;  /* 40px */
-            --space-12: 3rem;    /* 48px */
-
-            /* Typography scale */
-            --text-xs: 0.75rem;    /* 12px */
-            --text-sm: 0.875rem;   /* 14px */
-            --text-base: 1rem;     /* 16px */
-            --text-lg: 1.125rem;   /* 18px */
-            --text-xl: 1.25rem;    /* 20px */
-            --text-2xl: 1.5rem;    /* 24px */
-            --text-3xl: 1.875rem;  /* 30px */
-            --text-4xl: 2.25rem;   /* 36px */
-
-            /* Line heights */
-            --leading-tight: 1.25;
-            --leading-snug: 1.375;
-            --leading-normal: 1.5;
-            --leading-relaxed: 1.625;
-            --leading-loose: 2;
-
-            /* Colors - improved accessibility */
-            --color-primary: #1e40af;
-            --color-primary-light: #3b82f6;
-            --color-secondary: #0f172a;
-            --color-accent: #f59e0b;
-
-            /* Text colors - WCAG AA compliant */
-            --text-primary: #0f172a;      /* #0f172a on white = 16.4:1 */
-            --text-secondary: #334155;    /* #334155 on white = 9.8:1 */
-            --text-muted: #64748b;        /* #64748b on white = 5.1:1 */
-            --text-inverse: #ffffff;
-
-            /* Background colors */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-
-            /* Border colors */
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
-
-            /* Shadows */
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-
-            /* Border radius */
-            --radius-sm: 0.25rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-        }
-
-        /* ============================================
-           RESET & BASE STYLES
-           ============================================ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: var(--leading-normal);
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ============================================
-           LAYOUT
-           ============================================ */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            background: var(--bg-primary);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* ============================================
-           HEADER
-           ============================================ */
-        header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            color: var(--text-inverse);
-            padding: var(--space-8) var(--space-6);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        header h1 {
-            font-size: var(--text-4xl);
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-tight);
-            position: relative;
-            z-index: 1;
-        }
-
-        header .subtitle {
-            font-size: var(--text-lg);
-            opacity: 0.95;
-            font-weight: 400;
-        }
-
-        header .meta {
-            margin-top: var(--space-4);
-            font-size: var(--text-sm);
-            opacity: 0.85;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        header .meta span {
-            padding: var(--space-1) var(--space-3);
-            background: rgba(255,255,255,0.15);
-            border-radius: var(--radius-lg);
-        }
-
-        /* ============================================
-           NAVIGATION - Enhanced
-           ============================================ */
-        nav {
-            background: var(--color-secondary);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-md);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 var(--space-4);
-            max-width: 100%;
-            overflow-x: auto;
-        }
-
-        nav li {
-            margin: 0;
-        }
-
-        nav a {
-            display: block;
-            padding: var(--space-3) var(--space-4);
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: var(--text-sm);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-inverse);
-        }
-
-        nav a:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: -2px;
-        }
-
-        /* Progress indicator */
-        .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.2);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent), #fbbf24);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* ============================================
-           MAIN CONTENT
-           ============================================ */
-        main {
-            padding: var(--space-8);
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: var(--space-12);
-            scroll-margin-top: 80px;
-            scroll-margin-block: 80px;
-        }
-
-        /* ============================================
-           TYPOGRAPHY HIERARCHY
-           ============================================ */
-        section h2 {
-            color: var(--color-primary);
-            border-bottom: 3px solid var(--color-primary-light);
-            padding-bottom: var(--space-2);
-            margin-bottom: var(--space-6);
-            font-size: var(--text-3xl);
-            font-weight: 700;
-            line-height: var(--leading-tight);
-        }
-
-        section h3 {
-            color: var(--color-primary);
-            margin: var(--space-6) 0 var(--space-4);
-            font-size: var(--text-2xl);
-            font-weight: 600;
-            line-height: var(--leading-snug);
-        }
-
-        section h4 {
-            color: var(--text-secondary);
-            margin: var(--space-4) 0 var(--space-2);
-            font-size: var(--text-lg);
-            font-weight: 600;
-        }
-
-        section h5 {
-            color: var(--text-secondary);
-            margin: var(--space-3) 0 var(--space-2);
-            font-size: var(--text-base);
-            font-weight: 600;
-        }
-
-        p {
-            margin-bottom: var(--space-4);
-            text-align: justify;
-            line-height: var(--leading-relaxed);
-            max-width: 75ch;
-        }
-
-        /* ============================================
-           CALLOUT BOXES
-           ============================================ */
-        .intro-box {
-            background: #eff6ff;
-            border-left: 4px solid var(--color-primary-light);
-            padding: var(--space-5);
-            margin: var(--space-6) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .intro-box strong {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .example-box {
-            background: #fef3c7;
-            border-left: 4px solid var(--color-accent);
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert-box {
-            background: #fee2e2;
-            border-left: 4px solid #ef4444;
-            padding: var(--space-5);
-            margin: var(--space-5) 0;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================
-           TABLES - Enhanced
-           ============================================ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-6) 0;
-            font-size: var(--text-sm);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        th {
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            font-size: var(--text-xs);
-        }
-
-        td {
-            padding: var(--space-3) var(--space-4);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--bg-secondary);
-        }
-
-        tbody tr:hover {
-            background: #e0e7ff;
-            transition: background 0.15s ease;
-        }
-
-        /* Responsive tables */
-        @media (max-width: 768px) {
-            table {
-                font-size: var(--text-xs);
-            }
-            th, td {
-                padding: var(--space-2) var(--space-3);
-            }
-        }
-
-        /* ============================================
-           GRIDS
-           ============================================ */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-6);
-            margin: var(--space-6) 0;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: var(--space-5);
-            margin: var(--space-6) 0;
-        }
-
-        /* ============================================
-           CARDS - Enhanced
-           ============================================ */
-        .card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .card h4 {
-            color: var(--color-primary);
-            margin-bottom: var(--space-2);
-            font-size: var(--text-lg);
-        }
-
-        .card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .card-green { background: #f0fdf4; border-color: #bbf7d0; }
-        .card-yellow { background: #fef3c7; border-color: #fde68a; }
-        .card-pink { background: #fdf2f8; border-color: #fbcfe8; }
-
-        /* ============================================
-           FLOW DIAGRAM
-           ============================================ */
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3);
-            align-items: center;
-            margin: var(--space-8) 0;
-            justify-content: center;
-        }
-
-        .flow-step {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: var(--space-4) var(--space-5);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            flex: 0 0 auto;
-            min-width: 150px;
-            font-size: var(--text-base);
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid #1d4ed8;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .flow-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .flow-step strong {
-            display: block;
-            font-size: var(--text-lg);
-            margin-bottom: var(--space-1);
-        }
-
-        .flow-step small {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: var(--text-sm);
-        }
-
-        .flow-arrow {
-            font-size: var(--text-3xl);
-            color: #1d4ed8;
-            font-weight: bold;
-            flex: 0 0 auto;
-        }
-
-        /* ============================================
-           TIMELINE
-           ============================================ */
-        .timeline {
-            position: relative;
-            padding-left: var(--space-8);
-            margin: var(--space-6) 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: var(--space-2);
-            bottom: var(--space-2);
-            width: 3px;
-            background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            margin-bottom: var(--space-6);
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: calc(-1 * var(--space-8) - 5px);
-            top: var(--space-2);
-            width: 14px;
-            height: 14px;
-            background: var(--color-primary-light);
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-light);
-        }
-
-        /* ============================================
-           CODE BLOCKS
-           ============================================ */
-        pre {
-            background: var(--color-secondary);
-            color: #e2e8f0;
-            padding: var(--space-4);
-            border-radius: var(--radius-lg);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-            font-size: var(--text-sm);
-            line-height: var(--leading-relaxed);
-            box-shadow: var(--shadow-md);
-        }
-
-        code {
-            background: var(--bg-tertiary);
-            color: var(--color-primary);
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-md);
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
-
-        /* ============================================
-           FIGURES
-           ============================================ */
-        figure {
-            margin: var(--space-8) 0;
-            text-align: center;
-        }
-
-        figure img {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        figcaption {
-            margin-top: var(--space-3);
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           LISTS
-           ============================================ */
-        ul, ol {
-            margin-left: var(--space-6);
-            margin-bottom: var(--space-4);
-        }
-
-        li {
-            margin-bottom: var(--space-2);
-            line-height: var(--leading-relaxed);
-        }
-
-        /* ============================================
-           SPECIAL TABLES
-           ============================================ */
-        .competencies-table th:first-child,
-        .competencies-table td:first-child {
-            width: 20%;
-            text-align: center;
-            font-size: var(--text-3xl);
-        }
-
-        .eras-table td:first-child {
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        /* ============================================
-           NAVIGATION BETWEEN CLASSES
-           ============================================ */
-        .class-nav {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            padding: var(--space-6);
-            margin-top: var(--space-12);
-            border-radius: var(--radius-lg);
-        }
-
-        .class-nav-title {
-            color: white;
-            font-size: var(--text-sm);
-            text-align: center;
-            margin-bottom: var(--space-4);
-            opacity: 0.9;
-        }
-
-        .class-nav-links {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-4);
-            flex-wrap: wrap;
-        }
-
-        .class-nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-3) var(--space-5);
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-size: var(--text-sm);
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .class-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .class-nav-btn.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .class-nav-btn .arrow {
-            font-size: var(--text-lg);
-        }
-
-        /* ============================================
-           BACK TO TOP BUTTON
-           ============================================ */
-        .back-to-top {
-            position: fixed;
-            bottom: var(--space-6);
-            right: var(--space-6);
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            border: none;
-            font-size: var(--text-xl);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
-        }
-
-        .back-to-top:focus {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer {
-            background: var(--color-secondary);
-            color: var(--text-inverse);
-            text-align: center;
-            padding: var(--space-8) var(--space-6);
-            margin-top: var(--space-12);
-        }
-
-        footer p {
-            margin: var(--space-2) 0;
-            text-align: center;
-            color: rgba(255,255,255,0.85);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 1024px) {
-            main { padding: var(--space-6); }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: var(--space-6) var(--space-4);
-            }
-            header h1 {
-                font-size: var(--text-3xl);
-            }
-            header .subtitle {
-                font-size: var(--text-base);
-            }
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                position: relative;
-            }
-            nav ul {
-                flex-direction: column;
-                padding: 0;
-            }
-            nav a {
-                padding: var(--space-3) var(--space-4);
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            main {
-                padding: var(--space-4);
-            }
-            section {
-                margin-bottom: var(--space-10);
-            }
-            section h2 {
-                font-size: var(--text-2xl);
-            }
-            .back-to-top {
-                bottom: var(--space-4);
-                right: var(--space-4);
-                width: 44px;
-                height: 44px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            header h1 {
-                font-size: var(--text-2xl);
-            }
-            .flow-step {
-                min-width: 120px;
-                font-size: var(--text-sm);
-                padding: var(--space-3) var(--space-4);
-            }
-            .flow-step strong {
-                font-size: var(--text-base);
-            }
-            .flow-arrow {
-                font-size: var(--text-2xl);
-            }
-        }
-
-        /* ============================================
-           ACCESSIBILITY ENHANCEMENTS
-           ============================================ */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        /* Skip link for keyboard users */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--color-primary);
-            color: var(--text-inverse);
-            padding: var(--space-2) var(--space-4);
-            z-index: 999;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* Print styles */
-        @media print {
-            nav, .back-to-top, .progress-bar {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
-
-        /* ============================================
-           DATA FLOW DIAGRAM
-           ============================================ */
-        .data-flow-diagram {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            padding: var(--space-6);
-            border-radius: var(--radius-xl);
-            margin: var(--space-8) 0;
-        }
-
-        .flow-main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-5);
-            flex-wrap: wrap;
-        }
-
-        .flow-device, .flow-edge, .flow-cloud {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: var(--space-4);
-            border-radius: var(--radius-lg);
-            min-width: 120px;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-        }
-
-        .flow-device:hover, .flow-edge:hover, .flow-cloud:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .flow-device {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            border: 2px solid #3b82f6;
-        }
-
-        .flow-edge {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 2px solid #f59e0b;
-        }
-
-        .flow-cloud {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            border: 2px solid #10b981;
-        }
-
-        .flow-header {
-            font-size: var(--text-2xl);
-            margin-bottom: var(--space-2);
-        }
-
-        .flow-body {
-            font-weight: 700;
-            font-size: var(--text-base);
-            text-align: center;
-            color: var(--text-primary);
-        }
-
-        .flow-sub {
-            display: block;
-            font-size: var(--text-xs);
-            font-weight: 400;
-            color: var(--text-secondary);
-            margin-top: var(--space-1);
-        }
-
-        .flow-arrow-right {
-            font-size: var(--text-3xl);
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .flow-details {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-4);
-            margin-bottom: var(--space-5);
-        }
-
-        .detail-device, .detail-edge, .detail-cloud {
-            text-align: center;
-            padding: var(--space-4);
-            background: white;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .detail-title {
-            font-weight: 700;
-            font-size: var(--text-base);
-            margin-bottom: var(--space-2);
-        }
-
-        .detail-sub {
-            font-size: var(--text-sm);
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .detail-desc {
-            display: block;
-            font-size: var(--text-xs);
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .flow-actions {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-6);
-            flex-wrap: wrap;
-        }
-
-        .action-item {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-3) var(--space-4);
-            background: white;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            font-weight: 600;
-            font-size: var(--text-sm);
-        }
-
-        .action-icon {
-            font-size: var(--text-xl);
-        }
-
-        .action-text {
-            color: var(--text-primary);
-        }
-
-        @media (max-width: 768px) {
-            .flow-main {
-                flex-direction: column;
-            }
-
-            .flow-arrow-right {
-                transform: rotate(90deg);
-            }
-
-            .flow-details {
-                grid-template-columns: 1fr;
-            }
-
-            .flow-device, .flow-edge, .flow-cloud {
-                width: 100%;
-            }
-        }
-    
-    </style>
+    <title>Sesión 9: Convergencia IT/OT | IF0112</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Clase 9: Convergencia IT/OT</h1>
+            <h1>Sesión 9: Convergencia IT/OT</h1>
             <p class="subtitle">Edge Computing y Arquitecturas Híbridas</p>
-            <p class="meta">
-                IF0112 - Complementaria II (IoT) | 6° Semestre - Ingeniería Informática | UNAULA
-            </p>
+            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 13-abr-2026</p>
         </header>
 
-
-        <!-- Info Cronograma 2026-I -->
         <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
                 <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Semana 9 - Convergencia IT/OT</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 13 de Abril 2026 | <strong>Horario:</strong> 06:00-07:30 (90 min)</p>
+                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 9 - Convergencia IT/OT</h3>
+                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 13 de Abril 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
                 </div>
                 <div style="text-align: right;">
                     <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
                 </div>
             </div>
 
-            <!-- Próxima semana -->
             <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0; display: flex; align-items: center; gap: var(--space-2);">
-                    📅 PRÓXIMA SEMANA: Clase 10 (LAB 4) + E4 Caso
-                </h4>
-                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Semana 10:</strong> LAB 4 (Dashboard Grafana) + preparación para <strong>E4 Caso (15%)</strong></p>
+                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 PRÓXIMA SEMANA: Clase 10 - 20-abr</h4>
+                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Sesión 10:</strong> Dashboard Grafana. Entrega de <strong>E4 Informe de Gestión (15%)</strong>.</p>
             </div>
-
-            <!-- Preparación -->
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación proyecto</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Continuar desarrollo del proyecto integrador. La próxima semana tendremos LAB 4 y E4 se entrega el 19-abr.</p>
-            </div>
-
         </section>
-
 
         <nav>
             <ul>
+                <li><a href="#agenda">Agenda</a></li>
                 <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#avance-proyecto">🏗️ Proyecto Integrador</a></li>
-                <li><a href="#conexion-evaluacion">📝 Conexión Evaluación</a></li>
-                <li><a href="#terminos-it-ot">Términos Clave</a></li>
-                <li><a href="#it-vs-ot">IT vs OT</a></li>
-                <li><a href="#importancia">Importancia</a></li>
-                <li><a href="#diferencias">Diferencias</a></li>
-                <li><a href="#puente">IoT como Puente</a></li>
-                <li><a href="#cloud">Cloud Computing</a></li>
+                <li><a href="#it-ot">IT vs OT</a></li>
                 <li><a href="#edge">Edge Computing</a></li>
-                <li><a href="#latencia">Latencia</a></li>
-                <li><a href="#arquitectura">Arquitectura 3 Capas</a></li>
-                <li><a href="#fog">Fog Computing</a></li>
-                <li><a href="#cuando">¿Cuándo usar?</a></li>
-                <li><a href="#casos">Casos de Estudio</a></li>
-                <li><a href="#gateway">Gateway</a></li>
-                <li><a href="#digital-twin">Digital Twin</a></li>
+                <li><a href="#cloud">Cloud Computing</a></li>
+                <li><a href="#comparacion">Comparación</a></li>
+                <li><a href="#arquitectura">Arquitectura</a></li>
                 <li><a href="#actividad">Actividad</a></li>
-                <li><a href="#resumen">Resumen</a></li>
-                <li><a href="#referencias">Referencias</a></li>
             </ul>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
         </nav>
 
-        <!-- Back to top button -->
         <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
         <main>
-
-        <!-- Objectives Section -->
-        <section id="agenda-90" class="info-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-<h2>⏱️ Agenda de 90 Minutos</h2>
-<ul>
-<li><strong>0-15 min:</strong> Apertura, contexto y objetivos de la sesión.</li>
-<li><strong>15-50 min:</strong> Desarrollo teórico guiado y análisis de casos.</li>
-<li><strong>50-80 min:</strong> Actividad práctica / discusión aplicada al proyecto integrador.</li>
-<li><strong>80-90 min:</strong> Cierre, conexión con evaluación y tareas.</li>
-</ul>
-</section>
-<section id="objetivos">
-            <h2>Objetivos de la Clase</h2>
-            <p>Al finalizar esta clase, el estudiante será capaz de:</p>
-            <ul>
-                <li><strong>Diferenciar</strong> IT y OT en contexto IoT</li>
-                <li><strong>Explicar</strong> Edge Computing vs Cloud Computing</li>
-                <li><strong>Diseñar</strong> arquitecturas híbridas IoT</li>
-                <li><strong>Evaluar</strong> cuándo usar Edge vs Cloud</li>
-            </ul>
-        </section>
-
-        <!-- Avance del Proyecto Integrador -->
-        <section id="avance-proyecto" class="info-box success">
-            <h2>🏗️ Avance del Proyecto Integrador</h2>
-            <p><strong>Proyecto:</strong> <em>Sistema de Monitoreo Ambiental IoT</em></p>
-            <p><strong>Qué construimos esta semana:</strong> Momento de integración y avance del proyecto. Aprovechamos el receso para consolidar lo aprendido sobre arquitecturas Edge/Cloud y prepararnos para las evaluaciones siguientes.</p>
-            <p><strong>Evidencia esperada:</strong> Revisión del estado actual del proyecto, identificando componentes de Edge Computing y Cloud Computing que se están implementando o se implementarán.</p>
-            <p><strong>Conexión con el proyecto final:</strong> La comprensión de IT/OT y Edge/Cloud es fundamental para diseñar la arquitectura del proyecto final. Esta semana nos permite integrar estos conceptos en el diseño del sistema.</p>
-        </section>
-
-        <!-- Conexión con Evaluación -->
-        <section id="conexion-evaluacion" class="info-box info">
-            <h2>📝 Conexión con Evaluación</h2>
-            <div class="evaluacion-preparacion">
-                <p><strong>🔜 Esta semana nos preparamos para:</strong></p>
+            <section id="agenda" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
+                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
                 <ul>
-                    <li><strong>Evaluación:</strong> E4 (Demo Avance Proyecto - Arduino/ESP32)</li>
-                    <li><strong>Semana:</strong> Semana 12 (Lunes 06 de Abril 2026)</li>
-                    <li><strong>Conexión:</strong> E4 evaluará el avance del proyecto integrador. Durante el receso, deben asegurarse de tener los fundamentos de programación ESP32 y comunicación MQTT claros para demostrar el progreso del proyecto.</li>
+                    <li><strong>0-10 min:</strong> Apertura y diferencias IT/OT</li>
+                    <li><strong>10-40 min:</strong> Edge vs Cloud Computing (30 min teoría)</li>
+                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de latencia y arquitectura (30 min práctica)</li>
+                    <li><strong>70-95 min:</strong> Arquitectura de 3 capas (25 min teoría)</li>
+                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Diseño arquitectónico y cierre (25 min práctica)</li>
                 </ul>
-            </div>
-        </section>
-
-        <!-- Key IT/OT Terms Definitions -->
-        <section id="terminos-it-ot">
-            <h2>Términos Clave IT/OT para IoT</h2>
-
-            <div class="highlight">
-                <strong>Nota:</strong> Los siguientes términos son esenciales para comprender la convergencia IT/OT en contextos industriales y de IoT.
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Término</th>
-                        <th>Definición</th>
-                        <th>Rol en IoT/Industria 4.0</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>IT</strong></td>
-                        <td>Information Technology: Tecnología de la Información</td>
-                        <td>Gestiona datos, software empresarial, redes, seguridad informática</td>
-                    </tr>
-                    <tr>
-                        <td><strong>OT</strong></td>
-                        <td>Operational Technology: Tecnología Operacional</td>
-                        <td>Controla máquinas físicas, sensores, PLCs, SCADA</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ERP</strong></td>
-                        <td>Enterprise Resource Planning: Planificación de Recursos Empresariales</td>
-                        <td>Sistema integrado para gestionar negocio, inventario, producción</td>
-                    </tr>
-                    <tr>
-                        <td><strong>MES</strong></td>
-                        <td>Manufacturing Execution System: Sistema de Ejecución de Manufactura</td>
-                        <td>Monitorea y controla producción en tiempo real en planta</td>
-                    </tr>
-                    <tr>
-                        <td><strong>SCADA</strong></td>
-                        <td>Supervisory Control and Data Acquisition (Control Supervisorio y Adquisición de Datos)</td>
-                        <td>Sistema industrial para monitorear y controlar procesos a distancia</td>
-                    </tr>
-                    <tr>
-                        <td><strong>PLC</strong></td>
-                        <td>Programmable Logic Controller (Controlador Lógico Programable)</td>
-                        <td>Computadora industrial que automatiza procesos de manufactura</td>
-                    </tr>
-                    <tr>
-                        <td><strong>API</strong></td>
-                        <td>Application Programming Interface: Interfaz de Programación de Aplicaciones</td>
-                        <td>Permite que sistemas IT/OT se comuniquen (REST, GraphQL, MQTT)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>REST</strong></td>
-                        <td>Representational State Transfer: Arquitectura de APIs web</td>
-                        <td>Estándar para comunicación HTTP cliente-servidor (GET, POST, PUT, DELETE)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>JSON</strong></td>
-                        <td>JavaScript Object Notation: Formato ligero de intercambio de datos</td>
-                        <td>Formato estándar para enviar datos de sensores a sistemas cloud</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dashboard</strong></td>
-                        <td>Panel de visualización: Interfaz gráfica de monitoreo</td>
-                        <td>Muestra KPIs en tiempo real para operadores y gerentes</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="alert-box">
-                <strong>Error Común:</strong> Confundir <em>MES</em> con <em>ERP</em>. <strong>ERP</strong> gestiona el negocio a nivel global (financiero, ventas), <strong>MES</strong> gestiona el piso de planta a nivel local (producción hoy, turno actual).
-            </div>
-        </section>
-
-        <!-- IT vs OT -->
-        <section id="it-vs-ot">
-            <h2>🖥️ IT vs OT: Dos Mundos Convergiendo</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p><strong>IT (Tecnología de la Información)</strong> gestiona datos y sistemas de negocio. <strong>OT (Tecnología Operacional)</strong> controla equipos y procesos físicos. IoT es el puente que une ambos mundos.</p>
-            </div>
-            
-            <div class="comparison-grid">
-                <div class="comparison-card it">
-                    <h4>🖥️ IT (Information Technology)</h4>
-                    <ul>
-                        <li>💻 Computadoras</li>
-                        <li>🌐 Redes de datos</li>
-                        <li>📊 Software empresarial</li>
-                        <li>☁️ Computación en la nube</li>
-                        <li>🔒 Seguridad informática</li>
-                        <li>📱 Aplicaciones móviles</li>
-                    </ul>
+                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
                 </div>
-                <div class="comparison-card ot">
-                    <h4>🏭 OT (Operational Technology)</h4>
-                    <ul>
-                        <li>🏭 Máquinas industriales</li>
-                        <li>🔧 Sensores de campo</li>
-                        <li>⚡ Sistemas de control</li>
-                        <li>🤖 PLCs y SCADA</li>
-                        <li>🎛️ Instrumentación</li>
-                        <li>⚙️ Robótica industrial</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="info-box info">
-                <h4>📡 IoT: El Puente de Convergencia</h4>
-                <p>El Internet de las Cosas actúa como el puente que une estos dos mundos tradicionalmente aislados, permitiendo que los datos operacionales fluyan hacia los sistemas de información y viceversa.</p>
-            </div>
-        </section>
-        
-        <!-- Importancia -->
-        <section id="importancia">
-            <h2>❓ ¿Por qué es importante la Convergencia IT/OT?</h2>
-            
-            <p>La <strong>Industria 4.0</strong> requiere que los sistemas de información (IT) y los sistemas operacionales (OT) trabajen juntos de manera integrada. Esta convergencia no es solo tecnológica, sino también cultural y organizacional.</p>
-            
-            <h3>Ejemplos del Mundo Real</h3>
-            
-            <div class="info-box success">
-                <h4>🏭 Manufactura</h4>
-                <p>Sensores en maquinaria envían datos a sistemas ERP para planificación de mantenimiento predictivo, optimización de producción y gestión de inventario en tiempo real.</p>
-            </div>
-            
-            <div class="info-box warning">
-                <h4>⚡ Energía</h4>
-                <p>Smart grids conectan plantas generadoras con sistemas de facturación y análisis de demanda, permitiendo una distribución más eficiente de la energía eléctrica.</p>
-            </div>
-            
-            <div class="info-box info">
-                <h4>📦 Logística</h4>
-                <p>Tracking de flotas integrado con sistemas de inventario permite optimizar rutas, predecir tiempos de entrega y reducir costos operativos.</p>
-            </div>
-            
-            <h3>📊 Estadísticas de Impacto</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Métrica</th>
-                        <th>Valor</th>
-                        <th>Impacto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Empresas con plan de convergencia IT/OT para 2025</td>
-                        <td>70%</td>
-                        <td>Tendencia global creciente</td>
-                    </tr>
-                    <tr>
-                        <td>Reducción de costos operativos</td>
-                        <td>Hasta 30%</td>
-                        <td>Por optimización de procesos</td>
-                    </tr>
-                    <tr>
-                        <td>Mejora en tiempo de respuesta a incidentes</td>
-                        <td>50%</td>
-                        <td>Visibilidad unificada</td>
-                    </tr>
-                    <tr>
-                        <td>ROI promedio en proyectos de convergencia</td>
-                        <td>2-3 años</td>
-                        <td>Depende del sector</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Diferencias -->
-        <section id="diferencias">
-            <h2>🔍 Diferencias IT vs OT</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aspecto</th>
-                        <th>IT</th>
-                        <th>OT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Prioridad principal</strong></td>
-                        <td>Confidencialidad de datos</td>
-                        <td>Disponibilidad del sistema</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tipo de datos</strong></td>
-                        <td>Transacciones, registros</td>
-                        <td>Tiempo real, señales</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Actualizaciones</strong></td>
-                        <td>Frecuentes, automáticas</td>
-                        <td>Raras, planeada con cuidado</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Vida útil del equipo</strong></td>
-                        <td>3-5 años</td>
-                        <td>15-25 años</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Interrupciones</strong></td>
-                        <td>Tolerables (mantenimiento)</td>
-                        <td>Críticas (pérdida de producción)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Enfoque de seguridad</strong></td>
-                        <td>Parches frecuentes</td>
-                        <td>Estabilidad, no tocar lo que funciona</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Protocolos de red</strong></td>
-                        <td>TCP/IP, HTTP, HTTPS</td>
-                        <td>Modbus, OPC-UA, Profibus</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Personal típico</strong></td>
-                        <td>IT / Desarrolladores</td>
-                        <td>Ingenieros de planta</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="info-box warning">
-                <h4>⚠️ Desafío Cultural</h4>
-                <p>La convergencia IT/OT requiere superar barreras culturales: los equipos de IT priorizan la seguridad y los cambios rápidos, mientras que OT prioriza la estabilidad y evita alterar sistemas que funcionan.</p>
-            </div>
-        </section>
-        
-        <!-- IoT como Puente -->
-        <section id="puente">
-            <h2>🌉 IoT: El Puente entre IT y OT</h2>
-            
-            <h3>Antes: Mundos Aislados (Silos)</h3>
-            <div class="info-box danger">
-                <h4>❌ Problemas del Modelo Tradicional</h4>
-                <ul>
-                    <li>IT y OT operaban completamente separados</li>
-                    <li>Los datos de planta no llegaban a los sistemas de negocio</li>
-                    <li>Decisiones basadas en información desactualizada</li>
-                    <li>Duplicación de esfuerzos y recursos</li>
-                    <li>Visibilidad limitada de la operación</li>
-                </ul>
-            </div>
-            
-            <h3>Después: Convergencia mediante IoT</h3>
-            <div class="info-box success">
-                <h4>✅ Beneficios de la Convergencia</h4>
-                <ul>
-                    <li><strong>Visibilidad unificada:</strong> Dashboards integrados con datos de toda la operación</li>
-                    <li><strong>Análisis conjunto:</strong> Datos operacionales cruzados con información de negocio</li>
-                    <li><strong>Automatización end-to-end:</strong> Desde el sensor hasta el ERP</li>
-                    <li><strong>Mejores decisiones:</strong> Basadas en datos en tiempo real</li>
-                    <li><strong>Optimización continua:</strong> ML/AI aplicados a datos operacionales</li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- Cloud Computing -->
-        <section id="cloud">
-            <h2>☁️ Cloud Computing para IoT</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El <strong>Cloud Computing</strong> ofrece recursos ilimitados para análisis histórico y ML, pero introduce <strong>latencia</strong> (100-500ms) y dependencia de Internet.</p>
-            </div>
-            
-            <p>El <strong>Cloud Computing</strong> es el modelo de computación donde los recursos (servidores, almacenamiento, bases de datos, software) se entregan a través de Internet mediante un modelo de pago por uso.</p>
-            
-            <h3>Arquitectura Centralizada</h3>
-            <div class="arch-layer cloud">
-                <h4>☁️ NUBE (Cloud Layer)</h4>
-                <div class="arch-components">
-                    <span class="component">Almacenamiento masivo</span>
-                    <span class="component">Procesamiento distribuido</span>
-                    <span class="component">Machine Learning</span>
-                    <span class="component">Dashboards</span>
-                    <span class="component">APIs</span>
-                </div>
-            </div>
-            
-            <div class="comparison-grid">
-                <div class="info-box success">
-                    <h4>✅ Ventajas del Cloud</h4>
-                    <ul>
-                        <li>Escala infinita según demanda</li>
-                        <li>Recursos computacionales ilimitados</li>
-                        <li>Sin mantenimiento de hardware</li>
-                        <li>ML/AI avanzado disponible</li>
-                        <li>Acceso desde cualquier lugar</li>
-                        <li>Copias de seguridad automáticas</li>
-                        <li>Redundancia geográfica</li>
-                    </ul>
-                </div>
-                <div class="info-box danger">
-                    <h4>❌ Desventajas del Cloud</h4>
-                    <ul>
-                        <li>Alta latencia (100-500ms típico)</li>
-                        <li>Dependencia total de Internet</li>
-                        <li>Costos crecen con el uso</li>
-                        <li>Preocupaciones de privacidad</li>
-                        <li>Transferencia de datos costosa</li>
-                        <li>Menor control sobre infraestructura</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Edge Computing -->
-        <section id="edge">
-            <h2>⚡ Edge Computing</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El <strong>Edge Computing</strong> procesa datos cerca de su fuente, reduciendo latencia a 1-10ms y permitiendo operación sin Internet. Esencial para aplicaciones críticas.</p>
-            </div>
-            
-            <p>El <strong>Edge Computing</strong> es el paradigma de procesamiento donde los datos se procesan cerca de su fuente (en el "borde" de la red), en lugar de enviarlos a un centro de datos centralizado.</p>
-            
-            <div class="info-box info">
-                <h4>🎯 Definición</h4>
-                <p><em>"Procesamiento de datos cerca de la fuente que los genera, reduciendo la latencia y el tráfico de red"</em></p>
-            </div>
-            
-            <h3>Flujo de Datos en Edge Computing</h3>
-            
-            <div class="arch-layer device">
-                <h4>🔧 DISPOSITIVOS (Device Layer)</h4>
-                <div class="arch-components">
-                    <span class="component">Sensores</span>
-                    <span class="component">Actuadores</span>
-                    <span class="component">Cámaras</span>
-                    <span class="component">Medidores</span>
-                </div>
-            </div>
-            
-            <div class="arch-layer edge">
-                <h4>⚡ EDGE (Edge Layer)</h4>
-                <div class="arch-components">
-                    <span class="component">Filtrado de datos</span>
-                    <span class="component">Agregación</span>
-                    <span class="component">Decisiones locales</span>
-                    <span class="component">Gateway</span>
-                </div>
-            </div>
-            
-            <div class="arch-layer cloud">
-                <h4>☁️ CLOUD (Cloud Layer)</h4>
-                <div class="arch-components">
-                    <span class="component">Solo datos relevantes</span>
-                    <span class="component">Análisis histórico</span>
-                    <span class="component">ML training</span>
-                </div>
-            </div>
-            
-            <h3>Dispositivos Edge Comunes</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dispositivo</th>
-                        <th>Uso típico</th>
-                        <th>Capacidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Raspberry Pi</td>
-                        <td>Prototipos, gateways ligeros</td>
-                        <td>Media</td>
-                    </tr>
-                    <tr>
-                        <td>Intel NUC</td>
-                        <td>Edge industrial</td>
-                        <td>Alta</td>
-                    </tr>
-                    <tr>
-                        <td>NVIDIA Jetson</td>
-                        <td>AI en el edge</td>
-                        <td>GPU integrada</td>
-                    </tr>
-                    <tr>
-                        <td>Gateways industriales</td>
-                        <td>Fábricas, robustez</td>
-                        <td>Variable</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Latencia -->
-        <section id="latencia">
-            <h2>⏱️ Edge vs Cloud: Comparación de Latencia</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Métrica</th>
-                        <th>⚡ EDGE</th>
-                        <th>☁️ CLOUD</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Latencia típica</strong></td>
-                        <td><span style="color: var(--color-success); font-weight: bold;">1-10 ms</span></td>
-                        <td><span style="color: var(--color-danger); font-weight: bold;">100-500 ms</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Ruta de datos</strong></td>
-                        <td>Sensor → Edge</td>
-                        <td>Sensor → Edge → Internet → Cloud</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dependencia red</strong></td>
-                        <td>Mínima</td>
-                        <td>Total</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Procesamiento</strong></td>
-                        <td>Local, inmediato</td>
-                        <td>Remoto, con delay</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>🚨 Casos Críticos que Requieren Edge</h3>
-            
-            <div class="info-box danger">
-                <h4>🚗 Vehículos Autónomos</h4>
-                <p><strong>Latencia requerida:</strong> &lt; 10ms<br>
-                Una decisión de frenado no puede esperar 200ms de ida y vuelta a la nube. Debe procesarse localmente en el vehículo.</p>
-            </div>
-            
-            <div class="info-box warning">
-                <h4>🏭 Control Industrial</h4>
-                <p><strong>Latencia requerida:</strong> &lt; 50ms<br>
-                Los sistemas de control de líneas de producción requieren respuestas inmediatas para mantener calidad y seguridad.</p>
-            </div>
-            
-            <div class="info-box info">
-                <h4>🏥 Monitoreo Médico</h4>
-                <p><strong>Latencia preferida:</strong> &lt; 100ms<br>
-                Dispositivos médicos críticos deben alertar anomalías inmediatamente, sin depender de la conectividad.</p>
-            </div>
-        </section>
-        
-        <!-- Arquitectura 3 Capas -->
-        <section id="arquitectura">
-            <h2>🏗️ Arquitectura IoT de 3 Capas</h2>
-            
-            <p>Una arquitectura típica de IoT industrial se divide en tres capas principales, cada una con responsabilidades específicas:</p>
-            
-            <div class="arch-layer cloud">
-                <h4>☁️ CAPA 3: CLOUD (Business Layer)</h4>
-                <p><strong>Funciones:</strong> Análisis histórico, Machine Learning, dashboards empresariales, integración con ERP/CRM</p>
-                <div class="arch-components">
-                    <span class="component">AWS IoT / Azure IoT</span>
-                    <span class="component">Data Warehouse</span>
-                    <span class="component">ML Training</span>
-                    <span class="component">Business Intelligence</span>
-                </div>
-            </div>
-            
-            <div class="arch-layer fog">
-                <h4>🌫️ CAPA 2: EDGE/FOG (Processing Layer)</h4>
-                <p><strong>Funciones:</strong> Filtrado, agregación, decisiones locales, buffer temporal, pre-procesamiento</p>
-                <div class="arch-components">
-                    <span class="component">Gateway IoT</span>
-                    <span class="component">Raspberry Pi / Mini PC</span>
-                    <span class="component">Filtrado de datos</span>
-                    <span class="component">Decisiones locales</span>
-                </div>
-            </div>
-            
-            <div class="arch-layer device">
-                <h4>🔧 CAPA 1: DISPOSITIVOS (Device Layer)</h4>
-                <p><strong>Funciones:</strong> Adquisición de datos, actuación, control básico, comunicación con gateway</p>
-                <div class="arch-components">
-                    <span class="component">Sensores</span>
-                    <span class="component">Actuadores</span>
-                    <span class="component">Cámaras</span>
-                    <span class="component">Microcontroladores</span>
-                </div>
-            </div>
-            
-            <h3>Flujo de Datos entre Capas</h3>
-
-            <div class="data-flow-diagram">
-                <!-- Top Row: Main Flow -->
-                <div class="flow-main">
-                    <div class="flow-device">
-                        <div class="flow-header">📱</div>
-                        <div class="flow-body">Dispositivos</div>
-                    </div>
-                    <div class="flow-arrow-right">→</div>
-                    <div class="flow-edge">
-                        <div class="flow-header">⚡</div>
-                        <div class="flow-body">Edge<br><span class="flow-sub">(filtrado)</span></div>
-                    </div>
-                    <div class="flow-arrow-right">→</div>
-                    <div class="flow-cloud">
-                        <div class="flow-header">☁️</div>
-                        <div class="flow-body">Cloud<br><span class="flow-sub">(análisis)</span></div>
-                    </div>
-                </div>
-
-                <!-- Bottom Details -->
-                <div class="flow-details">
-                    <div class="detail-device">
-                        <div class="detail-title">🔌 Sensores</div>
-                        <div class="detail-sub">Raw data<br><span class="detail-desc">(alto vol)</span></div>
-                    </div>
-                    <div class="detail-edge">
-                        <div class="detail-title">🖥️ Gateway</div>
-                        <div class="detail-sub">RPi/PC<br><span class="detail-desc">↓ Pre-procesado</span></div>
-                    </div>
-                    <div class="detail-cloud">
-                        <div class="detail-title">📊 Dashboards</div>
-                        <div class="detail-sub">APIs<br><span class="detail-desc">↓ Insights</span></div>
-                    </div>
-                </div>
-
-                <!-- Action Items -->
-                <div class="flow-actions">
-                    <div class="action-item">
-                        <span class="action-icon">📈</span>
-                        <span class="action-text">Datos relevantes</span>
-                    </div>
-                    <div class="action-item">
-                        <span class="action-icon">🎯</span>
-                        <span class="action-text">Acciones automatizadas</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Fog Computing -->
-        <section id="fog">
-            <h2>🌫️ Fog Computing</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El <strong>Fog Computing</strong> es una capa intermedia entre Edge y Cloud, distribuyendo computación en nodos locales (routers, servidores) para reducir latencia a 10-50ms.</p>
-            </div>
-            
-            <p>El <strong>Fog Computing</strong> extiende los servicios de la nube hasta el borde de la red, creando una capa intermedia distribuida entre los dispositivos y la nube central.</p>
-            
-            <div class="info-box info">
-                <h4>🌫️ Definición</h4>
-                <p><em>"Nube extendida hasta el edge - una capa de computación distribuida que reduce la distancia entre datos y procesamiento"</em></p>
-            </div>
-            
-            <h3>Jerarquía de Fog Computing</h3>
-            
-            <div class="arch-layer cloud">
-                <h4>☁️ CLOUD (Nube Central)</h4>
-                <p>Análisis global, ML training, almacenamiento a largo plazo</p>
-            </div>
-            
-            <div class="arch-layer fog">
-                <h4>🌫️ FOG LAYER (Nodos Distribuidos)</h4>
-                <p>Routers inteligentes, servidores locales, micro-datacenters</p>
-                <div class="arch-components">
-                    <span class="component">Fog Node 1 (Router)</span>
-                    <span class="component">Fog Node 2 (Servidor)</span>
-                    <span class="component">Fog Node 3 (Mini DC)</span>
-                </div>
-            </div>
-            
-            <div class="arch-layer edge">
-                <h4>⚡ EDGE DEVICES</h4>
-                <p>Gateways locales, dispositivos de borde</p>
-            </div>
-            
-            <h3>Cloud vs Fog vs Edge</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Característica</th>
-                        <th>Cloud</th>
-                        <th>Fog</th>
-                        <th>Edge</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ubicación</td>
-                        <td>Centros de datos remotos</td>
-                        <td>Red local / cercana</td>
-                        <td>Dispositivo / gateway</td>
-                    </tr>
-                    <tr>
-                        <td>Latencia</td>
-                        <td>100-500ms</td>
-                        <td>10-50ms</td>
-                        <td>1-10ms</td>
-                    </tr>
-                    <tr>
-                        <td>Capacidad</td>
-                        <td>Ilimitada</td>
-                        <td>Media</td>
-                        <td>Limitada</td>
-                    </tr>
-                    <tr>
-                        <td>Cobertura</td>
-                        <td>Global</td>
-                        <td>Regional/Local</td>
-                        <td>Local/Punto</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Cuándo usar -->
-        <section id="cuando">
-            <h2>❓ ¿Cuándo Usar Edge vs Cloud?</h2>
-            
-            <div class="comparison-grid">
-                <div class="info-box success">
-                    <h4>✅ Usar EDGE cuando:</h4>
-                    <ul>
-                        <li>La latencia es crítica (&lt; 100ms)</li>
-                        <li>Se requiere operación sin Internet</li>
-                        <li>El volumen de datos es muy alto</li>
-                        <li>Los datos son sensibles/privados</li>
-                        <li>Los costos de transferencia son altos</li>
-                        <li>Se necesitan decisiones locales inmediatas</li>
-                        <li>El ancho de banda es limitado</li>
-                    </ul>
-                </div>
-                <div class="info-box info">
-                    <h4>☁️ Usar CLOUD cuando:</h4>
-                    <ul>
-                        <li>Se necesita análisis histórico a largo plazo</li>
-                        <li>El Machine Learning es complejo</li>
-                        <li>Se requiere visualización centralizada</li>
-                        <li>Hay integración multi-sitio</li>
-                        <li>Se necesitan recursos computacionales altos</li>
-                        <li>El almacenamiento masivo es necesario</li>
-                        <li>Se requiere escala elástica</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>💡 Mejor Práctica: Arquitectura Híbrida</h3>
-            <div class="info-box warning">
-                <h4>🎯 La mayoría de proyectos IoT exitosos usan ambos</h4>
-                <ul>
-                    <li><strong>Edge:</strong> Procesamiento en tiempo real, decisiones críticas, filtrado</li>
-                    <li><strong>Cloud:</strong> Análisis histórico, ML, dashboards, integración empresarial</li>
-                </ul>
-                <p><em>Regla de oro: Procesa en el edge lo que necesites inmediatamente, envía a la nube lo que necesites analizar.</em></p>
-            </div>
-        </section>
-        
-        <!-- Casos de Estudio -->
-        <section id="casos">
-            <h2>📚 Casos de Estudio: Convergencia IT/OT en Colombia</h2>
-            
-            <!-- Caso Celsia -->
-            <div class="case-study">
-                <h4>⚡ Caso 1: Celsia (Grupo EPM) - Smart Grid</h4>
-                
-                <div class="case-columns">
-                    <div class="case-column before">
-                        <h4>❌ ANTES (Silos)</h4>
-                        <ul>
-                            <li><strong>OT:</strong> SCADA para control de red</li>
-                            <li><strong>IT:</strong> SAP ERP para negocio</li>
-                            <li>No compartían datos</li>
-                            <li>Decisiones desconectadas</li>
-                            <li>Fraudes difíciles de detectar</li>
-                        </ul>
-                    </div>
-                    <div class="case-column after">
-                        <h4>✅ DESPUÉS (Convergencia)</h4>
-                        <ul>
-                            <li><strong>Medidores IoT</strong> en campo</li>
-                            <li><strong>Plataforma integrada</strong> IoT</li>
-                            <li>SCADA ↔ Cloud ↔ ERP</li>
-                            <li>Datos en tiempo real</li>
-                            <li>Detección automática</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h4>Resultados Medibles</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Métrica</th>
-                            <th>Mejora</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Detección de fraudes</td>
-                            <td>-35% en pérdidas no técnicas</td>
-                        </tr>
-                        <tr>
-                            <td>Restauración de servicio</td>
-                            <td>-60% en tiempo de respuesta</td>
-                        </tr>
-                        <tr>
-                            <td>Balance de energía</td>
-                            <td>Automatizado en tiempo real</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Caso Alpina -->
-            <div class="case-study">
-                <h4>🥛 Caso 2: Alpina - Industria 4.0</h4>
-                
-                <div class="case-columns">
-                    <div>
-                        <h4>🏭 OT (Sistemas de Producción)</h4>
-                        <ul>
-                            <li>PLCs Siemens en líneas</li>
-                            <li>Controladores de temperatura</li>
-                            <li>SCADA (monitoreo planta)</li>
-                            <li>Sensores de proceso</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>💻 IT (Sistemas de Información)</h4>
-                        <ul>
-                            <li>SAP ERP (gestión negocio)</li>
-                            <li>Salesforce (clientes)</li>
-                            <li>Data Warehouse (analytics)</li>
-                            <li>Dashboards gerenciales</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h4>Integración mediante IoT Gateway</h4>
-                <div class="info-box success">
-                    <h4>🔌 Edge Computing (Kepware + OPC UA)</h4>
-                    <ul>
-                        <li><strong>Traducción de protocolos:</strong> Modbus/OPC → MQTT/HTTP</li>
-                        <li><strong>Buffer local:</strong> 48 horas de datos</li>
-                        <li><strong>Filtrado:</strong> Solo envía cambios relevantes</li>
-                    </ul>
-                </div>
-                
-                <p><strong>Flujo de Datos:</strong> <code>Sensores → Edge → Cloud → SAP → Dashboards</code></p>
-                <p><em>Tiempo: 1 segundo desde sensor hasta decisión</em></p>
-                
-                <h4>Beneficios Obtenidos</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>KPI</th>
-                            <th>Antes</th>
-                            <th>Después</th>
-                            <th>Mejora</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>OEE (Eficiencia)</td>
-                            <td>65%</td>
-                            <td>87%</td>
-                            <td>+22%</td>
-                        </tr>
-                        <tr>
-                            <td>Detección de calidad</td>
-                            <td>4 horas</td>
-                            <td>Tiempo real</td>
-                            <td>Inmediato</td>
-                        </tr>
-                        <tr>
-                            <td>Predicción de demanda</td>
-                            <td>75%</td>
-                            <td>95%</td>
-                            <td>+20%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Caso Fábrica Inteligente -->
-            <div class="case-study">
-                <h4>🏭 Caso 3: Arquitectura de Fábrica Inteligente</h4>
-                
-                <div class="arch-layer cloud">
-                    <h4>☁️ CLOUD (AWS/Azure)</h4>
-                    <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-                        <li>Dashboard gerencial</li>
-                        <li>Predicción de demanda (ML)</li>
-                        <li>Optimización de producción</li>
-                        <li>Históricos (años)</li>
-                    </ul>
-                    <p style="margin-top: 1rem;"><em>Resúmenes cada hora</em></p>
-                </div>
-                
-                <div class="arch-layer fog">
-                    <h4>⚡ EDGE (Servidor local)</h4>
-                    <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-                        <li>Monitoreo tiempo real</li>
-                        <li>Detección de anomalías</li>
-                        <li>Control de calidad</li>
-                        <li>Buffer si Internet falla</li>
-                    </ul>
-                    <p style="margin-top: 1rem;"><em>Datos cada segundo</em></p>
-                </div>
-                
-                <div class="arch-layer device">
-                    <h4>🔧 DISPOSITIVOS</h4>
-                    <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-                        <li>Sensores de vibración</li>
-                        <li>Cámaras de inspección</li>
-                        <li>Medidores de energía</li>
-                        <li>PLCs de control</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Gateway -->
-        <section id="gateway">
-            <h2>🔌 Gateway IoT</h2>
-
-            <div class="learning-key">
-                <h4>🎯 Aprendizaje Clave</h4>
-                <p>El <strong>Gateway IoT</strong> es el puente crítico entre OT e IT: traduce protocolos, filtra datos, almacena localmente y asegura la comunicación entre dispositivos y nube.</p>
-            </div>
-            
-            <p>El <strong>Gateway IoT</strong> es el dispositivo puente que conecta los dispositivos de borde con la nube, realizando funciones críticas de traducción, preprocesamiento y seguridad.</p>
-            
-            <h3>Funciones del Gateway</h3>
-            
-            <div class="info-box success">
-                <h4>1️⃣ Traducción de Protocolos</h4>
-                <p>Convierte protocolos de OT (Zigbee, Modbus, OPC UA) a protocolos de IT (MQTT, HTTP, HTTPS)</p>
-                <pre><code>// Ejemplo: Modbus → MQTT
-Sensor (Modbus RTU) → Gateway → Cloud (MQTT over TLS)
-  [OT Protocol]      [Translate]      [IT Protocol]</code></pre>
-            </div>
-            
-            <div class="info-box warning">
-                <h4>2️⃣ Preprocesamiento</h4>
-                <ul>
-                    <li><strong>Filtrado:</strong> Elimina lecturas erróneas y ruido</li>
-                    <li><strong>Agregación:</strong> Resume datos (promedios, máximos)</li>
-                    <li><strong>Normalización:</strong> Estandariza formatos de datos</li>
-                </ul>
-            </div>
-            
-            <div class="info-box info">
-                <h4>3️⃣ Almacenamiento Local (Buffer)</h4>
-                <p>Mantiene datos cuando no hay conexión a Internet, sincronizando cuando se restablece.</p>
-            </div>
-            
-            <div class="info-box danger">
-                <h4>4️⃣ Seguridad</h4>
-                <ul>
-                    <li>Firewall de red</li>
-                    <li>Cifrado TLS/SSL</li>
-                    <li>Autenticación de dispositivos</li>
-                    <li>Aislamiento de redes OT/IT</li>
-                </ul>
-            </div>
-            
-            <h3>Hardware Típico de Gateway</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dispositivo</th>
-                        <th>Aplicación</th>
-                        <th>Características</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Raspberry Pi 4</td>
-                        <td>Prototipos, pequeñas instalaciones</td>
-                        <td>Económico, flexible, comunidad activa</td>
-                    </tr>
-                    <tr>
-                        <td>Intel NUC</td>
-                        <td>Edge industrial</td>
-                        <td>Alto rendimiento, Windows/Linux</td>
-                    </tr>
-                    <tr>
-                        <td>Gateway Industrial (Advantech, etc.)</td>
-                        <td>Fábricas, entornos hostiles</td>
-                        <td>Robusto, certificaciones industriales</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Ejemplo: Filtrado y Agregación en Edge</h3>
-            <pre><code>// FILTRADO - Eliminar ruido con promedio móvil
-float filtrarLecturas(float nuevaLectura) {
-    static float buffer[5];
-    static int indice = 0;
-    
-    buffer[indice] = nuevaLectura;
-    indice = (indice + 1) % 5;
-    
-    // Promedio móvil
-    float suma = 0;
-    for (int i = 0; i < 5; i++) suma += buffer[i];
-    return suma / 5;
-}</code></pre>
-
-            <pre><code>// AGREGACIÓN - Resumir datos antes de enviar
-void enviarResumen() {
-    static float minTemp = 100, maxTemp = -100, sumaTemp = 0;
-    static int conteo = 0;
-    
-    // Cada 60 segundos, enviar resumen en lugar de 60 lecturas
-    if (conteo >= 60) {
-        float promedio = sumaTemp / conteo;
-        enviarACloud(minTemp, maxTemp, promedio, conteo);
-        
-        // Reset para siguiente ciclo
-        minTemp = 100; 
-        maxTemp = -100; 
-        sumaTemp = 0; 
-        conteo = 0;
-    }
-}</code></pre>
-
-            <h3>Ejemplo: Buffer Local en Python</h3>
-            <pre><code>import paho.mqtt.client as mqtt
-import json
-from datetime import datetime
-
-local_broker = "localhost"
-cloud_broker = "broker.hivemq.com"
-buffer = []
-
-def on_message_local(client, userdata, msg):
-    """Recibe datos de sensores locales"""
-    datos = json.loads(msg.payload)
-    
-    # Agregar timestamp
-    datos['timestamp'] = datetime.now().isoformat()
-    
-    # Almacenar en buffer
-    buffer.append(datos)
-    
-    # Cada 10 lecturas, enviar resumen a la nube
-    if len(buffer) >= 10:
-        resumen = calcular_resumen(buffer)
-        cloud_client.publish("fabrica/linea1/resumen", json.dumps(resumen))
-        buffer.clear()
-
-def calcular_resumen(datos):
-    temps = [d['temperatura'] for d in datos]
-    return {
-        'min': min(temps),
-        'max': max(temps),
-        'promedio': sum(temps)/len(temps),
-        'cantidad_lecturas': len(temps),
-        'timestamp': datetime.now().isoformat()
-    }</code></pre>
-        </section>
-        
-        <!-- Digital Twin -->
-        <section id="digital-twin">
-            <h2>🔮 Digital Twin (Gemelo Digital)</h2>
-            
-            <p>Un <strong>Digital Twin</strong> es una réplica digital de un objeto, proceso o sistema físico, que se actualiza en tiempo real con datos del mundo real y permite simular, predecir y optimizar.</p>
-            
-            <div class="info-box info">
-                <h4>🎯 Definición</h4>
-                <p><em>"Réplica digital de un objeto físico que utiliza datos en tiempo real para simular, predecir y optimizar el comportamiento del sistema"</em></p>
-            </div>
-            
-            <h3>Componentes del Digital Twin</h3>
-            
-            <div class="comparison-grid">
-                <div>
-                    <h4>🏭 Mundo Físico</h4>
-                    <div class="arch-layer device" style="margin: 0;">
-                        <ul style="text-align: left;">
-                            <li>Máquina real</li>
-                            <li>Sensores físicos</li>
-                            <li>Actuadores</li>
-                            <li>Ambiente operativo</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <h4>💻 Mundo Digital</h4>
-                    <div class="arch-layer cloud" style="margin: 0;">
-                        <ul style="text-align: left;">
-                            <li>Modelo matemático 3D</li>
-                            <li>Base de datos en tiempo real</li>
-                            <li>Simulación y análisis</li>
-                            <li>Predicción y optimización</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>Aplicaciones del Digital Twin</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aplicación</th>
-                        <th>Descripción</th>
-                        <th>Beneficio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mantenimiento predictivo</td>
-                        <td>Predecir fallas antes de que ocurran</td>
-                        <td>-40% tiempo de parada</td>
-                    </tr>
-                    <tr>
-                        <td>Diseño virtual</td>
-                        <td>Probar cambios sin afectar producción</td>
-                        <td>Menor riesgo, menor costo</td>
-                    </tr>
-                    <tr>
-                        <td>Entrenamiento</td>
-                        <td>Capacitar operadores en simulador</td>
-                        <td>Seguridad, repetibilidad</td>
-                    </tr>
-                    <tr>
-                        <td>Optimización</td>
-                        <td>Encontrar mejores parámetros de operación</td>
-                        <td>+15-20% eficiencia</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="info-box warning">
-                <h4>⚠️ Requisitos para Implementar Digital Twin</h4>
-                <ul>
-                    <li>Conectividad robusta entre físico y digital</li>
-                    <li>Modelos matemáticos precisos</li>
-                    <li>Datos históricos para calibración</li>
-                    <li>Capacidad computacional para simulación</li>
-                    <li>Integración IT/OT completa</li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- Actividad -->
-        <section id="actividad">
-            <h2>📝 Actividad en Clase (30 min)</h2>
-
-            <section class="actividad">
-                <h4>⚪ Tipo de Actividad</h4>
-                <p><strong>Tipo:</strong> Opcional (práctica de diseño en clase)</p>
-                <p><strong>Relacionado con:</strong> Ninguno (no es evaluación calificable)</p>
-                <p><strong>Entregable:</strong> Diagrama de arquitectura IoT (no afecta nota)</p>
-                <p><strong>Tiempo estimado:</strong> 30 minutos en clase</p>
-                <p><strong>Criterios:</strong> Arquitectura de 3 capas, Edge vs Cloud, flujo de datos</p>
             </section>
 
-            <div class="activity">
-                <h4>🏢 Diseño de Arquitectura IoT - Edificio Inteligente</h4>
-                
-                <h3>Escenario</h3>
-                <p>Diseñar un sistema de monitoreo para un edificio de oficinas de 10 pisos.</p>
-                
-                <h3>Requerimientos</h3>
+            <section id="objetivos">
+                <h2>Objetivos de la Sesión</h2>
                 <ul>
-                    <li>50 sensores de temperatura/humedad (uno por oficina)</li>
-                    <li>20 sensores de ocupación (áreas comunes)</li>
-                    <li>10 medidores de energía (por piso)</li>
-                    <li>Dashboard tiempo real para facility managers</li>
-                    <li>Alertas instantáneas (temperatura extrema, consumo anómalo)</li>
-                    <li>Históricos de 1 año para análisis de eficiencia</li>
+                    <li><strong>Diferenciar</strong> tecnología de información (IT) y tecnología operacional (OT)</li>
+                    <li><strong>Comparar</strong> Edge Computing vs Cloud Computing</li>
+                    <li><strong>Identificar</strong> cuándo usar cada arquitectura</li>
+                    <li><strong>Diseñar</strong> arquitectura híbrida para proyecto IoT</li>
                 </ul>
-                
-                <h3>Tareas a Realizar</h3>
-                <ol>
-                    <li><strong>Diagramar arquitectura de 3 capas:</strong> Identificar qué va en cada capa</li>
-                    <li><strong>Decidir Edge vs Cloud:</strong> ¿Qué procesamiento va en cada nivel?</li>
-                    <li><strong>Definir flujo de datos:</strong> Frecuencias, formatos, protocolos</li>
-                    <li><strong>Justificar decisiones:</strong> ¿Por qué esa arquitectura?</li>
-                </ol>
-                
-                <h3>Preguntas Guía</h3>
-                <ul>
-                    <li>¿Qué pasa si se cae Internet? ¿El edificio sigue funcionando?</li>
-                    <li>¿Cuántos datos generan 80 sensores midiendo cada segundo?</li>
-                    <li>¿Qué decisiones necesitan ser inmediatas (&lt; 1s) vs diarias?</li>
-                    <li>¿Dónde aplicarías un Digital Twin en este escenario?</li>
-                </ul>
-            </div>
-            
-            <div class="info-box success">
-                <h4>💡 Entregable Esperado</h4>
-                <p>Un diagrama de arquitectura de 3 capas con justificación de las decisiones de diseño, especificando:</p>
-                <ul>
-                    <li>Hardware en cada capa</li>
-                    <li>Software/Servicios utilizados</li>
-                    <li>Flujo de datos y frecuencias</li>
-                    <li>Estrategia de respaldo/manejo de fallas</li>
-                </ul>
-            </div>
+            </section>
 
-            <div class="hardware-notice">
-                <strong>💻 Factibilidad Windows:</strong> Esta actividad es de diseño conceptual y diagramación. Puedes usar herramientas disponibles en Windows como draw.io (web/desktop), PowerPoint, Lucidchart, o incluso lápiz y papel. No requiere hardware específico ni instalación de software especializado.
-                <br><br>
-                <strong>🔧 Hardware opcional:</strong> Esta es una actividad teórica de diseño de arquitectura. No requiere hardware físico. El docente puede mostrar demos de plataformas IoT reales como complemento, pero no es obligatorio para completar la actividad.
-            </div>
-        </section>
-        
-        <!-- Resumen -->
-        <section id="resumen" class="summary-table">
-            <h2>📋 Resumen de la Clase</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Concepto</th>
-                        <th>Descripción</th>
-                        <th>Cuándo Usar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>IT</strong></td>
-                        <td>Tecnología de información - Sistemas de datos, software, nube</td>
-                        <td>Procesamiento, análisis, integración empresarial</td>
-                    </tr>
-                    <tr>
-                        <td><strong>OT</strong></td>
-                        <td>Tecnología operacional - Control industrial, PLCs, sensores</td>
-                        <td>Control de procesos, automatización</td>
-                    </tr>
-                    <tr>
-                        <td><strong>IoT</strong></td>
-                        <td>Puente de convergencia entre IT y OT</td>
-                        <td>Integración end-to-end</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Edge Computing</strong></td>
-                        <td>Procesamiento cerca de los sensores</td>
-                        <td>Latencia crítica, operación offline</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cloud Computing</strong></td>
-                        <td>Procesamiento centralizado en la nube</td>
-                        <td>ML, análisis histórico, escala</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Fog Computing</strong></td>
-                        <td>Capa intermedia distribuida entre edge y cloud</td>
-                        <td>Grandes instalaciones, procesamiento regional</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Gateway</strong></td>
-                        <td>Dispositivo puente entre edge y cloud</td>
-                        <td>Traducción de protocolos, preprocesamiento</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Digital Twin</strong></td>
-                        <td>Réplica digital de objeto físico</td>
-                        <td>Simulación, mantenimiento predictivo</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="next-class">
-                <h3>➡️ Próxima Clase: Futuro de IoT + LAB 4 + E4</h3>
-                <p><strong>Enfoque de preparación:</strong></p>
-                <ul>
-                    <li>Revisar tendencias 5G, AIoT y TinyML para discusión en clase.</li>
-                    <li>Verificar que el flujo ESP32 → API → PostgreSQL esté enviando datos.</li>
-                    <li>Llevar avance de dashboard para integrar en LAB 4.</li>
-                    <li>Preparar evidencias para E4 (informe técnico + visualización).</li>
-                </ul>
-                <p><strong>Meta de la siguiente sesión:</strong> dejar listo el sistema para visualización y análisis de datos en Grafana.</p>
-                <p style="margin-top: 1rem; font-weight: bold; color: var(--color-primary);">📚 ¡Estudien los materiales de las clases 1-9!</p>
-            </div>
-        </section>
-        <section id="referencias">
-            <h2>Referencias</h2>
-            <ul>
-                <li>NIST Framework for Improving Critical Infrastructure Cybersecurity</li>
-                <li>IIoT vs IoT: Key Differences - IoT For All Magazine</li>
-                <li>Edge Computing vs Cloud Computing in IoT - IEEE Access</li>
-                <li>Fog Computing: A Platform for Internet of Things - Cisco Systems</li>
-                <li>Industrial Internet Consortium Reference Architecture</li>
-                <li>Digital Twin Technology - Gartner Research</li>
-                <li>OT Security Best Practices - ISA/IEC 62443 Standard</li>
-            </ul>
-        </section>
+            <section id="it-ot">
+                <h2>🔄 <abbr title="Information Technology">IT</abbr> vs <abbr title="Operational Technology">OT</abbr>: Dos Mundos Convergentes</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <td><strong>Aspecto</strong></td>
+                            <td>💻 <strong><abbr title="Information Technology">IT</abbr></strong></td>
+                            <td>⚙️ <strong><abbr title="Operational Technology">OT</abbr></strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enfoque</strong></td>
+                            <td>Procesamiento de datos, software</td>
+                            <td>Control de equipos físicos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prioridad</strong></td>
+                            <td>Seguridad de datos, confidencialidad</td>
+                            <td>Disponibilidad, seguridad física</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Latencia</strong></td>
+                            <td>Tolerante (ms-seg)</td>
+                            <td>Crítica (&lt;10ms)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ejemplos</strong></td>
+                            <td>Servidores, ERP, CRM</td>
+                            <td>PLC, SCADA, sensores industriales</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <section id="📚-recursos-curados" class="info-box">
-            <h2>📚 Recursos Curados</h2>
-            <p><strong>Videos recomendados para profundizar en los temas de esta semana:</strong></p>
+                <div class="info-box success">
+                    <h4>🎯 Convergencia IT/OT</h4>
+                    <p>El <strong>IoT</strong> une ambos mundos: datos de sensores OT se procesan con tecnologías IT (cloud, analytics) para generar valor de negocio.</p>
+                </div>
+            </section>
 
-            <div style="display: grid; gap: var(--space-4); margin-top: var(--space-4);">
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Industria 4.0: La convergencia IT-OT como clave del éxito</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Transformación Digital Industrial</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 30 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Explora cómo la convergencia IT-OT es clave para el éxito en la digitalización industrial y la Industria 4.0.</p>
-                    <a href="https://www.youtube.com/watch?v=lTd9wn3HywU" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+            <section id="edge">
+                <h2>⚡ <abbr title="Edge Computing: Procesamiento en el borde">Edge Computing</abbr></h2>
+                
+                <div class="info-box info">
+                    <h4>📝 Definición</h4>
+                    <p>Procesamiento de datos <strong>cerca de la fuente</strong> (dispositivos), reduciendo latencia y ancho de banda.</p>
                 </div>
 
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Convergencia IT/OT – El puente hacia la Industria 4.0</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> IoT Industrial</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 25 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Explica la importancia de la convergencia entre IT (Tecnología de la Información) y OT (Tecnología Operativa) como base de la Industria 4.0.</p>
-                    <a href="https://www.youtube.com/watch?v=8NbgE6wMdQ4" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                <h3>Ventajas del Edge</h3>
+                <ul>
+                    <li><strong>Baja latencia:</strong> 1-10 ms (vs 100-500 ms en cloud).</li>
+                    <li><strong>Independencia de red:</strong> Funciona offline.</li>
+                    <li><strong>Privacidad:</strong> Datos sensibles no salen del sitio.</li>
+                    <li><strong>Ancho de banda:</strong> Solo envía datos filtrados a la nube.</li>
+                </ul>
+
+                <h3>Casos de Uso Edge</h3>
+                <ul>
+                    <li><strong>Vehículos autónomos:</strong> Decisiones de frenado en &lt;10ms.</li>
+                    <li><strong>Control industrial:</strong> Respuesta inmediata en producción.</li>
+                    <li><strong>Monitoreo médico:</strong> Alertas instantáneas sin depender de internet.</li>
+                </ul>
+            </section>
+
+            <section id="cloud">
+                <h2>☁️ <abbr title="Cloud Computing: Procesamiento y almacenamiento en la nube">Cloud Computing</abbr></h2>
+                
+                <div class="info-box info">
+                    <h4>📝 Definición</h4>
+                    <p>Procesamiento y almacenamiento en <strong>servidores remotos</strong> accesibles por internet.</p>
                 </div>
 
-                <div style="background: white; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">
-                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-2) 0;">🎥 Convergencia entre IT-OT</h4>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Canal:</strong> Roberto Junco - IoT Systems Engineer</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Duración:</strong> 20 minutos</p>
-                    <p style="margin: var(--space-2) 0; font-size: var(--text-sm);"><strong>Propósito:</strong> Discute la convergencia IT-OT en el contexto de Industria 4.0 con un enfoque práctico de ingeniería de sistemas IoT.</p>
-                    <a href="https://www.youtube.com/watch?v=cPU_GeLja6M" target="_blank" style="display: inline-block; background: var(--color-primary); color: white; text-decoration: none; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-top: var(--space-2);">Ver en YouTube →</a>
+                <h3>Ventajas del Cloud</h3>
+                <ul>
+                    <li><strong>Escalabilidad:</strong> Recursos bajo demanda.</li>
+                    <li><strong>Costos:</strong> Pago por uso, sin inversión inicial.</li>
+                    <li><strong>Machine Learning:</strong> Entrenamiento de modelos con grandes datasets.</li>
+                    <li><strong>Acceso global:</strong> Dashboards desde cualquier lugar.</li>
+                </ul>
+
+                <h3>Proveedores Cloud IoT</h3>
+                <ul>
+                    <li>AWS IoT Core</li>
+                    <li>Microsoft Azure IoT Hub</li>
+                    <li>Google Cloud IoT</li>
+                </ul>
+            </section>
+
+            <section id="comparacion">
+                <h2>📊 Edge vs Cloud: Comparación</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>⚡ Edge</th>
+                            <th>☁️ Cloud</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Latencia</strong></td>
+                            <td>1-10 ms</td>
+                            <td>100-500 ms</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Costo</strong></td>
+                            <td>Alto inicial (hardware)</td>
+                            <td>Bajo inicial, variable mensual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Procesamiento</strong></td>
+                            <td>Local, limitado</td>
+                            <td>Ilimitado (escalable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conectividad</strong></td>
+                            <td>No requerida</td>
+                            <td>Requerida</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mejor para</strong></td>
+                            <td>Control en tiempo real</td>
+                            <td>Análisis histórico, ML</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box warning">
+                    <h4>💡 Regla Práctica</h4>
+                    <p><strong>Edge</strong> para control en tiempo real.<br>
+                    <strong>Cloud</strong> para análisis, almacenamiento y ML.<br>
+                    <strong>Híbrida</strong> para la mayoría de proyectos IoT.</p>
+                </div>
+            </section>
+
+            <section id="arquitectura">
+                <h2>🏗️ Arquitectura IoT de 3 Capas</h2>
+                
+                <div style="background: #eff6ff; border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #1e40af; margin-top: 0;">☁️ CAPA 3: <abbr title="Servicios de cómputo remoto">Cloud</abbr></h4>
+                    <p><strong>Funciones:</strong> Análisis histórico, ML, dashboards empresariales.</p>
+                    <p><strong>Ejemplos:</strong> AWS IoT, ThingSpeak, Blynk</p>
+                </div>
+
+                <div style="background: #f0fdf4; border: 2px solid #10b981; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #065f46; margin-top: 0;">⚡ CAPA 2: <abbr title="Procesamiento en el borde">Edge</abbr></h4>
+                    <p><strong>Funciones:</strong> Filtrado, agregación, decisiones locales.</p>
+                    <p><strong>Ejemplos:</strong> Raspberry Pi, Gateway IoT</p>
+                </div>
+
+                <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                    <h4 style="color: #92400e; margin-top: 0;">🔧 CAPA 1: <abbr title="Microcontroladores y Sensores">Dispositivos</abbr></h4>
+                    <p><strong>Funciones:</strong> Sensores, actuadores, control básico.</p>
+                    <p><strong>Ejemplos:</strong> ESP32, Arduino, sensores</p>
+                </div>
+
+                <h3>Flujo de Datos</h3>
+                <p style="text-align: center; font-size: 1.2rem; background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                    🔧 <strong>Dispositivos</strong> → ⚡ <strong>Edge</strong> (filtra) → ☁️ <strong>Cloud</strong> (analiza)
+                </p>
+            </section>
+
+            <section id="actividad">
+                <h2>📝 Actividad: Diseño Arquitectónico</h2>
+                
+                <div class="info-box info">
+                    <h4>🎯 Instrucciones</h4>
+                    <p>En equipos, diseñen la arquitectura para su proyecto de <strong>monitoreo ambiental</strong>:</p>
+                    <ol>
+                        <li>¿Qué procesamiento harán en el Edge (ESP32)?</li>
+                        <li>¿Qué datos enviarán al Cloud?</li>
+                        <li>¿Qué decisiones tomarán localmente vs remotamente?</li>
+                        <li>Dibujen el flujo de datos entre capas.</li>
+                    </ol>
+                </div>
+
+                <h3>Ejemplo de Respuesta</h3>
+                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1rem 0;">
+                    <p><strong>Edge (ESP32):</strong> Leer sensor cada segundo, calcular promedio cada minuto, alertar si temperatura &gt;30°C.</p>
+                    <p><strong>Cloud (ThingSpeak):</strong> Recibir promedios cada minuto, mostrar gráficos históricos, alertas por email.</p>
+                </div>
+            </section>
+
+            <!-- Ejercicio del Simulador Propuesto -->
+            <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
+                <p>Este ejercicio demuestra la diferencia entre procesamiento Edge vs Cloud:</p>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">⚡ Ejercicio 15: Edge Computing</h4>
+                    <p><strong>Concepto:</strong> Procesamiento local, filtrado de datos, ahorro de ancho de banda</p>
+                    <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                    <p><strong>Objetivo:</strong> Implementar procesamiento local para filtrar y validar datos de un sensor antes de "enviarlos a la nube".</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-15-edge-computing.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                </div>
+
+                <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
+                    <strong>💡 Conexión con la clase:</strong> El ejercicio muestra cómo el procesamiento Edge reduce latencia y ahorra ancho de banda, conceptos clave de esta sesión.
                 </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p><strong>IF0112 - Complementaria II (IoT)</strong></p>
-        <p>Universidad Autónoma Latinoamericana (UNAULA) - Ingeniería Informática - 2026-I</p>
-        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Clase 9: Convergencia IT/OT | Última actualización: Febrero 2026</p>
-    </footer>
+            <section class="summary-table" style="background: #f0fdf4; border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
+                <h2 style="color: #065f46;">📝 Resumen de Conceptos Clave</h2>
+                <ul>
+                    <li><strong><abbr title="Information Technology: Tecnologías de la Información">IT</abbr>:</strong> Tecnología de información (datos)</li>
+                    <li><strong><abbr title="Operational Technology: Tecnologías de Operación">OT</abbr>:</strong> Tecnología operacional (control físico)</li>
+                    <li><strong><abbr title="Edge Computing: Procesamiento en el borde">Edge</abbr>:</strong> Procesamiento local, baja latencia</li>
+                    <li><strong><abbr title="Cloud Computing: Procesamiento en la nube">Cloud</abbr>:</strong> Procesamiento remoto, escalable</li>
+                    <li><strong>Arquitectura 3 capas:</strong> Dispositivos → Edge → Cloud</li>
+                </ul>
+                <p style="margin-top: 1rem; padding: 1rem; background: #ecfdf5; border-radius: 6px; text-align: center;">
+                    <strong>Próxima Sesión:</strong> LAB 4 - Dashboard Grafana (20-abr) | <strong>E4 entrega:</strong> 20-abr
+                </p>
+            </section>
+        </main>
+
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>                <a href="clase-08.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Sesión Anterior
+                </a>                <a href="clase-10.html" class="class-nav-btn">
+                    Sesión Siguiente <span class="arrow">→</span>
+                </a>            </div>
+        </nav>
+
+        <footer>
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 9</p>
+        </footer>
     </div>
 
-    <script>
-        // ============================================
-        // SCROLL PROGRESS & BACK TO TOP
-        // ============================================
-        (function() {
-            'use strict';
-
-            const progressFill = document.getElementById('progressFill');
-            const backToTop = document.getElementById('backToTop');
-
-            if (!progressFill || !backToTop) return;
-
-            // Update progress bar and back-to-top visibility
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-
-                progressFill.style.width = Math.min(progress, 100) + '%';
-
-                // Show/hide back-to-top button
-                if (scrolled > windowHeight * 0.5) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Throttle scroll events for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', onScroll, { passive: true });
-            backToTop.addEventListener('click', scrollToTop);
-
-            // Keyboard accessibility for back-to-top
-            backToTop.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    scrollToTop();
-                }
-            });
-
-            // Initial call
-            updateProgress();
-        })();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
