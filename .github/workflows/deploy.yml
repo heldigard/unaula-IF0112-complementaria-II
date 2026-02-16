@@ -29,9 +29,12 @@ jobs:
           mkdir -p output/assets
           cp -r assets/* output/assets/ 2>/dev/null || true
 
+      - name: Copy root index.html to output
+        run: |
+          cp index.html output/index.html 2>/dev/null || true
+          
       - name: Copy additional HTML resources to output
         run: |
-          cp -r clases-html/* output/ 2>/dev/null || true
           cp -r ejercicios-simulador output/ 2>/dev/null || true
           cp -r laboratorios-html output/ 2>/dev/null || true
           cp -r planificacion output/ 2>/dev/null || true
