@@ -12,20 +12,34 @@
             --surface: #ffffff;
             --text: #0f172a;
             --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
         body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 2rem; }
-        .container { max-width: 800px; margin: 0 auto; background: var(--surface); padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .container { max-width: 900px; margin: 0 auto; background: var(--surface); padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         header { border-bottom: 4px solid var(--primary); padding-bottom: 1rem; margin-bottom: 2rem; }
         h1 { color: var(--primary-dark); margin: 0; }
         .meta { color: #64748b; font-weight: 600; margin-top: 0.5rem; }
         section { margin-bottom: 2rem; }
         h2 { color: var(--primary-dark); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { color: var(--primary-dark); margin-top: 1.5rem; }
         ul { padding-left: 1.5rem; }
         li { margin-bottom: 0.5rem; }
         .highlight { background: #eff6ff; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .success-box { background: #d1fae5; border-left: 4px solid var(--success); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
         .footer { text-align: center; margin-top: 3rem; color: #64748b; font-size: 0.875rem; }
         .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
         .btn:hover { background: var(--primary-dark); }
+        .checklist { background: #f8fafc; border: 2px solid var(--border); border-radius: 0.5rem; padding: 1rem; }
+        .checklist-item { display: flex; align-items: start; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .checklist-item input[type="checkbox"] { margin-top: 0.25rem; }
+        code { background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        .example-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+        th { background: #f1f5f9; font-weight: 600; }
+        .phase-badge { display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -33,57 +47,292 @@
         <header>
             <h1>Guía E1: Investigación Técnica - Arquitectura del Proyecto SMAI</h1>
             <p class="meta">Valor: 15% | Tipo: Investigación | Fecha: 23-feb-2026 | Individual</p>
-            <p class="meta" style="font-size: 0.9rem; color: #0369a1; margin-top: 0.25rem;">Fase 1 del Proyecto SMAI: Diseño y planificación técnica</p>
+            <p class="meta" style="font-size: 0.9rem; color: #0369a1; margin-top: 0.25rem;"><span class="phase-badge">FASE 1</span> del Proyecto SMAI: Diseño y planificación técnica</p>
         </header>
 
-        <section>
-            <h2>Objetivo</h2>
-            <p>Diseñar la arquitectura técnica del <strong>Sistema de Monitoreo Ambiental Inteligente (SMAI)</strong>, justificando la selección de hardware y protocolos de comunicación basados en los fundamentos del IoT.</p>
-        </section>
+        <div class="highlight">
+            <h3>📋 ¿Qué es el SMAI?</h3>
+            <p><strong>SMAI</strong> = <strong>S</strong>istema de <strong>M</strong>onitoreo <strong>A</strong>mbiental <strong>I</strong>nteligente</p>
+            <p>Es el proyecto integrador del curso que construirás progresivamente a través de 6 evaluaciones. En E1 diseñarás la arquitectura técnica completa.</p>
+        </div>
 
         <section>
-            <h2>Contenido del Documento</h2>
-            <p>El estudiante debe entregar un informe en PDF que contenga:</p>
+            <h2>Objetivo de Aprendizaje (RA1)</h2>
+            <p>Al finalizar esta evaluación, serás capaz de:</p>
             <ul>
-                <li><strong>Definición del Problema:</strong> Contexto del monitoreo ambiental que se abordará (ej. monitoreo de invernadero, oficina, hogar).</li>
-                <li><strong>Arquitectura del Sistema:</strong> Diagrama de bloques que incluya las 4 capas del modelo IoT:
-                    <ul>
-                        <li><strong>Capa de Percepción:</strong> Sensores <abbr title="Digital Humidity and Temperature: Sensor digital de temperatura y humedad">DHT22</abbr> y <abbr title="Light Dependent Resistor: Resistencia dependiente de la luz">LDR</abbr> para captura de datos ambientales.</li>
-                        <li><strong>Capa de Procesamiento:</strong> Microcontrolador <abbr title="Sistema embebido con WiFi y Bluetooth integrado">ESP32</abbr> como unidad central de procesamiento.</li>
-                        <li><strong>Capa de Red:</strong> Conectividad <abbr title="Wireless Fidelity: Estándar de redes inalámbricas IEEE 802.11">WiFi</abbr> en modo <abbr title="Station Mode: El dispositivo se conecta a una red existente">STA</abbr> para transmisión de datos.</li>
-                        <li><strong>Capa de Aplicación:</strong> Plataforma <abbr title="Plataforma IoT para almacenamiento y visualización de datos">ThingSpeak</abbr> o similar en la nube. <a href="docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">Ver todas las opciones gratuitas disponibles →</a></li>
-                    </ul>
-                </li>
-                <li><strong>Justificación de Hardware:</strong> Comparativa técnica detallada explicando por qué el ESP32 (240MHz, 520KB RAM, WiFi integrado) es superior al Arduino Uno (16MHz, 2KB RAM, sin WiFi nativo) para aplicaciones IoT.</li>
-                <li><strong>Plan de Conectividad:</strong> Descripción del protocolo <abbr title="Hypertext Transfer Protocol: Protocolo de transferencia web">HTTP</abbr> o <abbr title="Message Queuing Telemetry Transport: Protocolo ligero de mensajería para IoT">MQTT</abbr> y justificación de su idoneidad para el entorno de monitoreo.</li>
+                <li>Diseñar la arquitectura técnica de un sistema <abbr title="Internet of Things">IoT</abbr> de 4 capas</li>
+                <li>Justificar la selección de hardware basándote en especificaciones técnicas</li>
+                <li>Seleccionar protocolos de comunicación apropiados para el contexto</li>
+                <li>Aplicar conceptos de telecomunicaciones y conectividad</li>
             </ul>
+            <p><strong>RA Asociado:</strong> Brinda conceptos de telecomunicaciones, Internet y conectividad como base para comprender la evolución de la domótica y el Internet de las Cosas</p>
         </section>
 
-        <section class="highlight">
-            <h2>Criterios de Éxito</h2>
+        <section>
+            <h2>Contenido Obligatorio del Documento</h2>
+            <p>Tu informe en PDF debe contener exactamente estas 4 secciones:</p>
+
+            <h3>1. Definición del Problema (20% del documento)</h3>
+            <p>Describe el contexto específico donde instalarás tu SMAI. Elige uno de estos escenarios o propón otro:</p>
+            
+            <div class="example-box">
+                <h4>Ejemplos de Contextos Válidos:</h4>
+                <ul>
+                    <li><strong>Invernadero casero:</strong> Monitoreo de temperatura y humedad para optimizar crecimiento de plantas</li>
+                    <li><strong>Oficina inteligente:</strong> Control ambiental para confort y ahorro energético</li>
+                    <li><strong>Habitación del bebé:</strong> Vigilancia de condiciones ambientales para seguridad infantil</li>
+                    <li><strong>Bodega de vinos:</strong> Control climático para preservación de productos</li>
+                    <li><strong>Laboratorio escolar:</strong> Monitoreo de condiciones para experimentos sensibles</li>
+                </ul>
+                <p><strong>Debes incluir:</strong> Ubicación física, problema específico a resolver, variables ambientales críticas (temp, humedad, luz), usuarios beneficiarios.</p>
+            </div>
+
+            <h3>2. Arquitectura del Sistema (40% del documento)</h3>
+            <p>Dibuja y describe un <strong>diagrama de bloques</strong> que muestre las 4 capas del modelo IoT aplicadas a tu SMAI:</p>
+
+            <div class="example-box">
+                <h4>Plantilla del Diagrama de Bloques:</h4>
+                <pre style="background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto;">
+┌──────────────────────────────────────────────────────────────┐
+│  CAPA DE APLICACIÓN (Nube)                                   │
+│  • Plataforma: [ThingSpeak/Ubidots/Arduino Cloud]           │
+│  • Dashboard con gráficos en tiempo real                     │
+│  • Almacenamiento histórico de datos                         │
+└──────────────────────┬───────────────────────────────────────┘
+                       │ Protocolo: [HTTP/MQTT]
+┌──────────────────────▼───────────────────────────────────────┐
+│  CAPA DE RED                                                 │
+│  • WiFi IEEE 802.11 b/g/n (2.4 GHz)                         │
+│  • Modo STA: Conexión a router existente                     │
+│  • Seguridad: WPA2                                           │
+└──────────────────────┬───────────────────────────────────────┘
+                       │
+┌──────────────────────▼───────────────────────────────────────┐
+│  CAPA DE PROCESAMIENTO                                       │
+│  • Microcontrolador ESP32 DevKit v1                         │
+│  • Dual-core 240 MHz, 520 KB RAM                            │
+│  • WiFi/Bluetooth integrado                                  │
+└──────────────────────┬───────────────────────────────────────┘
+                       │
+┌──────────────────────▼───────────────────────────────────────┐
+│  CAPA DE PERCEPCIÓN (Sensores y Actuadores)                  │
+│  • DHT22 (GPIO 4): Temperatura (-40°C a 80°C, ±0.5°C)       │
+│  • LDR (GPIO 34, ADC1): Luz ambiente (0-100%)               │
+│  • LED Rojo (GPIO 2): Alerta visual temperatura             │
+│  • LED Amarillo (GPIO 15): Alerta visual luz                │
+└──────────────────────────────────────────────────────────────┘</pre>
+            </div>
+
+            <p><strong>Para cada capa debes explicar:</strong></p>
             <ul>
-                <li>Claridad técnica en los diagramas.</li>
-                <li>Uso correcto de la terminología (GPIO, ADC, STA Mode, etc.).</li>
-                <li>Justificación basada en las limitaciones de recursos de los dispositivos.</li>
+                <li><strong>Capa de Percepción:</strong> Sensores <abbr title="Digital Humidity and Temperature: Sensor digital de temperatura y humedad con precisión ±0.5°C y ±2% HR">DHT22</abbr> (GPIO 4) y <abbr title="Light Dependent Resistor: Resistencia fotosensible que varía según la intensidad de luz">LDR</abbr> (GPIO 34, <abbr title="Analog-to-Digital Converter: Convertidor analógico-digital de 12 bits (0-4095)">ADC</abbr>1). Incluye especificaciones técnicas: rango, precisión, voltaje de operación.</li>
+                
+                <li><strong>Capa de Procesamiento:</strong> Microcontrolador <abbr title="Sistema embebido con WiFi y Bluetooth integrado, dual-core 240MHz, 520KB RAM">ESP32</abbr> como unidad central. Explica por qué es adecuado vs. otras opciones.</li>
+                
+                <li><strong>Capa de Red:</strong> Conectividad <abbr title="Wireless Fidelity: Estándar de redes inalámbricas IEEE 802.11">WiFi</abbr> en modo <abbr title="Station Mode: El dispositivo funciona como cliente y se conecta a una red WiFi existente">STA</abbr> (no AP). Protocolo <abbr title="Hypertext Transfer Protocol: Protocolo de transferencia de hipertexto web">HTTP</abbr> o <abbr title="Message Queuing Telemetry Transport: Protocolo ligero de mensajería para IoT">MQTT</abbr>.</li>
+                
+                <li><strong>Capa de Aplicación:</strong> Plataforma en la nube. <a href="docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">Ver guía completa de plataformas IoT gratuitas →</a></li>
+            </ul>
+
+            <h3>3. Justificación de Hardware (30% del documento)</h3>
+            <p>Tabla comparativa técnica justificando la selección del ESP32:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>ESP32</th>
+                        <th>Arduino Uno</th>
+                        <th>Ventaja ESP32</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Procesador</td>
+                        <td>Dual-core 240 MHz</td>
+                        <td>16 MHz single-core</td>
+                        <td>15x más rápido, multitarea real</td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>520 KB</td>
+                        <td>2 KB</td>
+                        <td>260x más memoria para datos</td>
+                    </tr>
+                    <tr>
+                        <td>Conectividad</td>
+                        <td>WiFi + Bluetooth integrados</td>
+                        <td>Ninguna (requiere shields)</td>
+                        <td>Sin hardware adicional</td>
+                    </tr>
+                    <tr>
+                        <td>Precio</td>
+                        <td>$6-8 USD</td>
+                        <td>$20-25 USD + shield WiFi ($15)</td>
+                        <td>3x más económico con WiFi</td>
+                    </tr>
+                    <tr>
+                        <td>Consumo</td>
+                        <td>Modos de bajo consumo</td>
+                        <td>Consumo fijo</td>
+                        <td>Ideal para baterías</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Conclusión obligatoria:</strong> Explica por qué el ESP32 es la mejor opción para tu aplicación específica de monitoreo ambiental.</p>
+
+            <h3>4. Plan de Conectividad (10% del documento)</h3>
+            <p>Describe tu estrategia de comunicación:</p>
+            <ul>
+                <li><strong>Protocolo:</strong> ¿HTTP GET o MQTT? ¿Por qué?</li>
+                <li><strong>Frecuencia:</strong> ¿Cada cuántos segundos enviarás datos? (Recomendado: 15-20 segundos)</li>
+                <li><strong>Formato:</strong> ¿Qué datos enviarás? (ej: temperatura, humedad, luz)</li>
+                <li><strong>Seguridad:</strong> ¿Cómo protegerás las credenciales WiFi?</li>
+            </ul>
+
+            <div class="example-box">
+                <h4>Ejemplo de Plan de Conectividad:</h4>
+                <p><strong>Protocolo:</strong> HTTP GET por simplicidad y compatibilidad con ThingSpeak</p>
+                <p><strong>Frecuencia:</strong> 20 segundos (cumple con límites de cuenta gratuita y es suficiente para monitoreo ambiental)</p>
+                <p><strong>Formato:</strong> <code>api.thingspeak.com/update?api_key=XXX&field1=temp&field2=hum&field3=luz</code></p>
+                <p><strong>Seguridad:</strong> Credenciales almacenadas en variables constantes en código (limitación aceptable para proyecto académico)</p>
+            </div>
+        </section>
+
+        <section class="success-box">
+            <h2>✅ Lista de Verificación Pre-Entrega</h2>
+            <p>Antes de enviar tu documento, verifica cada ítem:</p>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Portada con nombre, código de estudiante, fecha, nombre del curso y título "E1: Arquitectura SMAI"</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Índice con números de página</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3">Sección 1: Contexto específico definido (ubicación, problema, usuarios)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4">Sección 2: Diagrama de bloques claro con las 4 capas IoT</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5">Sección 2: Pines GPIO especificados (DHT22: GPIO 4, LDR: GPIO 34)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check6">
+                    <label for="check6">Sección 2: Protocolos identificados (HTTP o MQTT)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check7">
+                    <label for="check7">Sección 2: Plataforma en la nube seleccionada con justificación</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check8">
+                    <label for="check8">Sección 3: Tabla comparativa ESP32 vs Arduino Uno</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check9">
+                    <label for="check9">Sección 3: Conclusión de por qué ESP32 es mejor opción</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check10">
+                    <label for="check10">Sección 4: Plan de conectividad con frecuencia y formato</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check11">
+                    <label for="check11">Mínimo 4 páginas, máximo 8 páginas (sin contar portada)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check12">
+                    <label for="check12">Archivo nombrado: <code>E1_Apellido_Nombre.pdf</code> (ej: E1_Camacho_Eldigardo.pdf)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check13">
+                    <label for="check13">PDF legible, imágenes nítidas, texto no cortado</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check14">
+                    <label for="check14">Sin faltas de ortografía graves</label>
+                </div>
+            </div>
+        </section>
+
+        <section class="warning-box">
+            <h3>⚠️ Advertencias Importantes</h3>
+            <ul>
+                <li><strong>NO copies diagramas de Internet sin citar.</strong> Será detectado como plagio.</li>
+                <li><strong>NO uses imágenes borrosas.</strong> El diagrama debe ser legible.</li>
+                <li><strong>NO olvides especificar los pines GPIO.</strong> Es fundamental para E2.</li>
+                <li><strong>Esta evaluación es INDIVIDUAL.</strong> Aunque E2-E6 pueden ser grupales, E1 es personal.</li>
             </ul>
         </section>
 
         <section>
             <h2>Formato de Entrega</h2>
+            <table>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>Requisito</th>
+                </tr>
+                <tr>
+                    <td><strong>Archivo</strong></td>
+                    <td><code>E1_Apellido_Nombre.pdf</code> (ej: E1_Garcia_Maria.pdf)</td>
+                </tr>
+                <tr>
+                    <td><strong>Plataforma</strong></td>
+                    <td>Canvas / Sistema Institucional de la UNAULA</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha Límite</strong></td>
+                    <td><strong>23 de febrero de 2026, 11:59 PM</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Extensión</strong></td>
+                    <td>4-8 páginas (sin portada)</td>
+                </tr>
+                <tr>
+                    <td><strong>Formato</strong></td>
+                    <td>PDF, texto legible, imágenes nítidas</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="highlight">
+            <h2>🔗 Conexión con E2 (Próxima Evaluación)</h2>
+            <p>El diagrama de bloques que diseñes en E1 será la guía para montar el circuito físico en E2:</p>
             <ul>
-                <li>Archivo: <code>E1_Apellido_Nombre.pdf</code></li>
-                <li>Plataforma: Canvas / Sistema Institucional.</li>
-                <li>Fecha Límite: 23 de febrero, 11:59 PM.</li>
+                <li>Los sensores que especifiques (DHT22, LDR) deben ser los mismos en E2</li>
+                <li>Los pines GPIO que definas (GPIO 4, GPIO 34) deben ser los mismos en E2</li>
+                <li>La arquitectura debe ser implementable con los componentes del kit</li>
+            </ul>
+            <p><strong>E1 es la base técnica de todo el proyecto.</strong> Si lo haces bien, E2-E6 serán más fáciles.</p>
+        </section>
+
+        <section>
+            <h2>Recursos de Apoyo</h2>
+            <ul>
+                <li><a href="../clases-html/clase-04.html">Sesión 4: Empresas y Ciudades Inteligentes</a> - Revisa los diagramas de arquitectura IoT</li>
+                <li><a href="docs/plataformas-iot-gratuitas.html">Guía de Plataformas IoT Gratuitas</a> - Compara opciones antes de elegir</li>
+                <li><a href="../estudiantes/guia-compra-kit.html">Guía de Compra del Kit</a> - Conoce los componentes disponibles</li>
+                <li><a href="rubricas-evaluacion.html#e1">Rúbrica de Calificación E1</a> - Revisa los criterios de evaluación</li>
             </ul>
         </section>
 
         <div style="text-align: center; margin-top: 2rem;">
-            <a href="rubricas-evaluacion.html#e1" class="btn">Ver Rúbrica de Calificación</a>
+            <a href="rubricas-evaluacion.html#e1" class="btn">Ver Rúbrica de Calificación E1</a>
         </div>
 
         <div class="footer">
-            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
-            <p><a href="../index.html">Volver al Inicio</a></p>
+            <p><strong>IF0112 - Complementaria II (IoT)</strong> — UNAULA 2026-I</p>
+            <p>E1: Investigación Técnica | Valor: 15% | Fecha: 23-feb-2026</p>
+            <p><a href="../index.html">← Volver al Portal del Curso</a> | <a href="guia-E2.html">Ir a Guía E2 →</a></p>
         </div>
     </div>
 </body>
