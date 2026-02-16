@@ -20,9 +20,8 @@ jobs:
 
       - name: Copy HTML classes to output
         run: |
-          cp -r clases-html/* output/
-          # Rename clases-html folder to just root level
-          # The classes are already in output/
+          cp -r clases-html output/
+          # Mantener estructura de carpetas: clases-html/ en output/
 
       - name: Copy assets to output
         run: |
