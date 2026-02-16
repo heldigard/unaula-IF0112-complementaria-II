@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glosario de Términos IoT - IF0112 Complementaria II</title>
+    <style>
+        :root {
+            --color-primary: #1e40af;
+            --color-secondary: #0f172a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --border-color: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .intro {
+            background: #eff6ff;
+            padding: 20px;
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        .letter-section {
+            margin-bottom: 40px;
+        }
+        .letter-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color-primary);
+            background: var(--bg-secondary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .term-item {
+            background: var(--bg-secondary);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-primary);
+        }
+        .term-acronym {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        .term-full {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin: 0 10px;
+        }
+        .term-definition {
+            margin-top: 8px;
+            color: var(--text-secondary);
+        }
+        .term-category {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           NAVIGATION BETWEEN CLASSES
+           ============================================ */
+        .class-nav {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 24px;
+            margin-top: 48px;
+            border-radius: 12px;
+        }
+        .class-nav-title {
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+        .class-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .class-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .class-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        .class-nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .class-nav-btn .arrow {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Glosario de Términos IoT</h1>
+        <p class="intro">
+            <strong>Curso:</strong> IF0112 Complementaria II (IoT) - UNAULA<br>
+            <strong>Semestre:</strong> 6° Semestre - Ingeniería Informática<br>
+            <strong>Última actualización:</strong> 2026-02-01
+        </p>
+        <p>Este glosario define los términos técnicos, siglas y abreviaturas utilizadas en las 16 clases del curso de Internet of Things (IoT).</p>
+
+        <div class="letter-section">
+            <div class="letter-title">#</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">4G LTE-M / 5G IoT</span>
+                    <span class="term-full">Fourth Generation Long-Term Evolution Machine-Type / Fifth Generation IoT</span>
+                </div>
+                <div class="term-definition">Tecnologías de red móvil de cuarta y quinta generación optimizadas para IoT con bajas potencias y latencias mejoradas.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">A</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">ADC</span>
+                    <span class="term-full">Analog-to-Digital Converter</span>
+                </div>
+                <div class="term-definition">Conversor Analógico-Digital - Convierte señales analógicas del mundo real (temperatura, voltaje) a valores digitales que los microcontroladores pueden procesar.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">API</span>
+                    <span class="term-full">Application Programming Interface</span>
+                </div>
+                <div class="term-definition">Interfaz de Programación de Aplicaciones - Conjunto de reglas y protocolos que permite que diferentes aplicaciones de software se comuniquen entre sí.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Arduino</span>
+                </div>
+                <div class="term-definition">Plataforma de electrónica abierta basada en hardware y software fáciles de usar, popular para prototipado IoT.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">B</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">BLE</span>
+                    <span class="term-full">Bluetooth Low Energy</span>
+                </div>
+                <div class="term-definition">Versión de Bluetooth optimizada para consumo de energía muy bajo, ideal para dispositivos IoT y wearables. Alcance típico de 10-50 metros.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">C</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Cloud</span>
+                    <span class="term-full">Cloud Computing</span>
+                </div>
+                <div class="term-definition">Computación en la Nube - Entrega de servicios de computación (servidores, almacenamiento, bases de datos) a través de Internet.</div>
+                <span class="term-category">Arquitectura</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">CPU</span>
+                    <span class="term-full">Central Processing Unit</span>
+                </div>
+                <div class="term-definition">Unidad Central de Procesamiento - Componente de computadora que ejecuta instrucciones de programas de computadora.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">D</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">DAC</span>
+                    <span class="term-full">Digital-to-Analog Converter</span>
+                </div>
+                <div class="term-definition">Conversor Digital-Analógico - Convierte valores digitales a señales analógicas para controlar dispositivos del mundo real.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">DHCP</span>
+                    <span class="term-full">Dynamic Host Configuration Protocol</span>
+                </div>
+                <div class="term-definition">Protocolo de Configuración Dinámica de Host - Protocolo de red que asigna automáticamente direcciones IP y otros parámetros de configuración a dispositivos.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">DIKW</span>
+                    <span class="term-full">Data-Information-Knowledge-Wisdom</span>
+                </div>
+                <div class="term-definition">Jerarquía que representa la transformación progresiva de datos brutos en sabiduría actionable. Datos → Información → Conocimiento → Sabiduría.</div>
+                <span class="term-category">Datos</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">DNS</span>
+                    <span class="term-full">Domain Name System</span>
+                </div>
+                <div class="term-definition">Sistema de Nombres de Dominio - Sistema jerárquico y distribuido que traduce nombres de dominio legibles por humanos a direcciones IP.</div>
+                <span class="term-category">Redes</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">E</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">EEPROM</span>
+                    <span class="term-full">Electrically Erasable Programmable Read-Only Memory</span>
+                </div>
+                <div class="term-definition">Memoria Programable y Borrable Eléctricamente - Memoria no volátil que puede ser borrada y reescrita eléctricamente, usada para guardar configuraciones.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Edge</span>
+                    <span class="term-full">Edge Computing</span>
+                </div>
+                <div class="term-definition">Computación en el Borde - Procesamiento de datos cerca de la fuente de datos (en el "borde" de la red) en lugar de en la nube centralizada.</div>
+                <span class="term-category">Arquitectura</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">ESP32</span>
+                </div>
+                <div class="term-definition">Microcontrolador Espressif de 32 bits con WiFi y Bluetooth integrados, muy popular para proyectos IoT por su bajo costo y comunidad activa.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">ESP8266</span>
+                </div>
+                <div class="term-definition">Microcontrolador Espressif con WiFi integrado - Predecesor del ESP32, chip de bajo costo con WiFi integrado que popularizó IoT para makers.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">F</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Firmware</span>
+                </div>
+                <div class="term-definition">Software de bajo nivel que controla el hardware de un dispositivo directamente.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Flash</span>
+                    <span class="term-full">Flash Memory</span>
+                </div>
+                <div class="term-definition">Memoria Flash - Tipo de memoria no volátil que puede ser borrada y reprogramada en bloques, usada para almacenamiento de código y datos.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Fog</span>
+                    <span class="term-full">Fog Computing</span>
+                </div>
+                <div class="term-definition">Computación en la Niebla - Arquitectura descentralizada que procesa datos entre el edge y la nube, reduciendo latencia.</div>
+                <span class="term-category">Arquitectura</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">G</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">GPIO</span>
+                    <span class="term-full">General-Purpose Input/Output</span>
+                </div>
+                <div class="term-definition">Entrada/Salida de Propósito General - Pines de un microcontrolador configurables como entrada o salida para conectar sensores y actuadores.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Grafana</span>
+                </div>
+                <div class="term-definition">Plataforma de visualización de código abierto para crear dashboards interactivos de datos de series temporales.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">GPRS</span>
+                    <span class="term-full">General Packet Radio Service</span>
+                </div>
+                <div class="term-definition">Servicio General de Paquetes por Radio - Servicio de datos móviles de conmutación por paquetes en redes GSM.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">GPS</span>
+                    <span class="term-full">Global Positioning System</span>
+                </div>
+                <div class="term-definition">Sistema de Posicionamiento Global - Sistema de navegación por satélite que proporciona ubicación y tiempo en cualquier condición climática.</div>
+                <span class="term-category">Sensores</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">GSM</span>
+                    <span class="term-full">Global System for Mobile Communications</span>
+                </div>
+                <div class="term-definition">Sistema Global para Comunicaciones Móviles - Estándar desarrollado por ETSI para redes de telefonía móvil digital.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">H</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">HTTP</span>
+                    <span class="term-full">Hypertext Transfer Protocol</span>
+                </div>
+                <div class="term-definition">Protocolo de Transferencia de Hipertexto - Protocolo de comunicación request-response para transferencia de datos en la World Wide Web.</div>
+                <span class="term-category">Protocolos</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">HTTPS</span>
+                    <span class="term-full">HTTP Secure</span>
+                </div>
+                <div class="term-definition">HTTP Seguro - Versión cifrada de HTTP que utiliza TLS/SSL para comunicaciones seguras.</div>
+                <span class="term-category">Protocolos</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">HiveMQ</span>
+                </div>
+                <div class="term-definition">Broker MQTT empresarial escalable basado en Java para comunicaciones IoT.</div>
+                <span class="term-category">Software</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">I</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">IC</span>
+                    <span class="term-full">Integrated Circuit</span>
+                </div>
+                <div class="term-definition">Circuito Integrado - Conjunto de circuitos electrónicos miniaturizados en un chip de material semiconductor.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">IoE</span>
+                    <span class="term-full">Internet of Everything</span>
+                </div>
+                <div class="term-definition">Internet de Todo - Concepto de Cisco que expande IoT para incluir personas, procesos y datos además de cosas.</div>
+                <span class="term-category">Conceptos</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">IoT</span>
+                    <span class="term-full">Internet of Things</span>
+                </div>
+                <div class="term-definition">Internet de las Cosas - Red de objetos físicos ("cosas") incrustados con sensores, software y conectividad que les permite recolectar e intercambiar datos sin intervención humana directa.</div>
+                <span class="term-category">Conceptos</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">IP</span>
+                    <span class="term-full">Internet Protocol</span>
+                </div>
+                <div class="term-definition">Protocolo de Internet - Protocolo de comunicaciones que enruta paquetes de datos a través de fronteras de red hacia su destino.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">I2C</span>
+                    <span class="term-full">Inter-Integrated Circuit</span>
+                </div>
+                <div class="term-definition">Inter-Circuito Integrado - Protocolo de comunicación serial sincrónica para conectar circuitos integrados de baja velocidad.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">J</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">JSON</span>
+                    <span class="term-full">JavaScript Object Notation</span>
+                </div>
+                <div class="term-definition">Notación de Objetos de JavaScript - Formato ligero de intercambio de datos, fácil de leer y escribir para humanos.</div>
+                <span class="term-category">Datos</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">L</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LAN</span>
+                    <span class="term-full">Local Area Network</span>
+                </div>
+                <div class="term-definition">Red de Área Local - Red de computadoras que conecta dispositivos en un área geográfica limitada como una casa o edificio.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LDR</span>
+                    <span class="term-full">Light Dependent Resistor</span>
+                </div>
+                <div class="term-definition">Resistencia Dependiente de la Luz - Sensor analógico cuya resistencia varía según la intensidad de la luz recibida. Clave para el proyecto SMAI.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">DHT22 / AM2302</span>
+                </div>
+                <div class="term-definition">Sensor digital de alta precisión para medir temperatura y humedad ambiental. Utiliza un protocolo serie de un solo hilo (One-wire).</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">STA</span>
+                    <span class="term-full">Station Mode</span>
+                </div>
+                <div class="term-definition">Modo Estación - Configuración del WiFi del ESP32 donde se conecta a un router existente como un cliente (igual que un celular).</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">AP</span>
+                    <span class="term-full">Access Point Mode</span>
+                </div>
+                <div class="term-definition">Modo Punto de Acceso - El ESP32 crea su propia red inalámbrica para que otros dispositivos se conecten a él.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LED</span>
+                    <span class="term-full">Light-Emitting Diode</span>
+                </div>
+                <div class="term-definition">Diodo Emisor de Luz - Dispositivo semiconductor que emite luz cuando corriente eléctrica fluye a través de él.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LiDAR</span>
+                    <span class="term-full">Light Detection and Ranging</span>
+                </div>
+                <div class="term-definition">Detección y Medición por Luz - Tecnología de detección remota que usa luz láser para medir distancias y crear mapas 3D.</div>
+                <span class="term-category">Sensores</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LLM</span>
+                    <span class="term-full">Large Language Model</span>
+                </div>
+                <div class="term-definition">Modelo de Lenguaje Grande - Modelo de IA entrenado con grandes cantidades de texto para comprender y generar lenguaje natural.</div>
+                <span class="term-category">IA</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LoRa</span>
+                    <span class="term-full">Long Range</span>
+                </div>
+                <div class="term-definition">Largo Alcance - Tecnología de comunicación inalámbrica de bajo consumo y largo alcance (hasta 15 km) para IoT.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LoRaWAN</span>
+                    <span class="term-full">Long Range Wide Area Network</span>
+                </div>
+                <div class="term-definition">Red de Área Amplia de Largo Alcance - Protocolo de comunicación de bajo consumo para redes inalámbricas de largo alcance basado en LoRa.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">LTE</span>
+                    <span class="term-full">Long-Term Evolution</span>
+                </div>
+                <div class="term-definition">Evolución a Largo Plazo - Estándar de comunicación móvil inalámbrica de alta velocidad para datos y telefonía móvil.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">M</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">MAC</span>
+                    <span class="term-full">Media Access Control</span>
+                </div>
+                <div class="term-definition">Control de Acceso al Medio - Dirección física única asignada a la tarjeta de red de un dispositivo para identificación en la red.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">MAN</span>
+                    <span class="term-full">Metropolitan Area Network</span>
+                </div>
+                <div class="term-definition">Red de Área Metropolitana - Red que conecta un área urbana mayor que LAN pero menor que WAN.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">M2M</span>
+                    <span class="term-full">Machine-to-Machine</span>
+                </div>
+                <div class="term-definition">Máquina a Máquina - Comunicación directa entre dispositivos sin intervención humana, base fundamental de IoT para automatización.</div>
+                <span class="term-category">Patrones IoT</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">M2P</span>
+                    <span class="term-full">Machine-to-Person</span>
+                </div>
+                <div class="term-definition">Máquina a Persona - Comunicación desde un dispositivo hacia una persona, típicamente mediante notificaciones o alertas.</div>
+                <span class="term-category">Patrones IoT</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Mosquitto</span>
+                </div>
+                <div class="term-definition">Eclipse Mosquitto - Broker MQTT open source ligero que implementa protocolo MQTT.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">MQTT</span>
+                    <span class="term-full">Message Queuing Telemetry Transport</span>
+                </div>
+                <div class="term-definition">Protocolo de Cola de Mensajes para Telemetría - Protocolo de mensajería ligero publish/subscribe diseñado para dispositivos IoT con recursos limitados.</div>
+                <span class="term-category">Protocolos</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">N</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">NFC</span>
+                    <span class="term-full">Near Field Communication</span>
+                </div>
+                <div class="term-definition">Comunicación de Campo Cercano - Tecnología de comunicación inalámbrica de corto alcance (~4cm) usada en pagos y transferencia de datos.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">NB-IoT</span>
+                    <span class="term-full">Narrowband Internet of Things</span>
+                </div>
+                <div class="term-definition">IoT de Banda Estrecha - Estándar de comunicación celular de bajo ancho de banda y bajo consumo diseñado específicamente para IoT.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">O</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">OTA</span>
+                    <span class="term-full">Over-The-Air</span>
+                </div>
+                <div class="term-definition">Por el Aire - Método de distribución de actualizaciones de software a dispositivos de forma inalámbrica sin conexión física.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">OLED</span>
+                    <span class="term-full">Organic Light-Emitting Diode</span>
+                </div>
+                <div class="term-definition">Diodo Emisor de Luz Orgánico - Tipo de pantalla donde cada píxel es un LED orgánico que emite su propia luz.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">P</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">P2P</span>
+                    <span class="term-full">Person-to-Person</span>
+                </div>
+                <div class="term-definition">Persona a Persona - Comunicación entre personas mediada por dispositivos IoT, como en sistemas de teleasistencia.</div>
+                <span class="term-category">Patrones IoT</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">P-P-D-C</span>
+                    <span class="term-full">Plan-Do-Check-Act</span>
+                </div>
+                <div class="term-definition">Planificar-Hacer-Verificar-Actuar - Ciclo de mejora continua (también conocido como PDCA) utilizado para gestión de proyectos y procesos IoT.</div>
+                <span class="term-category">Metodología</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">PAN</span>
+                    <span class="term-full">Personal Area Network</span>
+                </div>
+                <div class="term-definition">Red de Área Personal - Red de computadoras utilizada para comunicación entre dispositivos cercanos a una persona (alcance de ~10 metros).</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">PlatformIO</span>
+                </div>
+                <div class="term-definition">Herramienta profesional de desarrollo embebido multiplataforma con soporte para múltiples plataformas.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">PWM</span>
+                    <span class="term-full">Pulse-Width Modulation</span>
+                </div>
+                <div class="term-definition">Modulación por Ancho de Pulso - Técnica para controlar el voltaje analógico promedio usando señales digitales de pulsos rápidos.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">R</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">RAM</span>
+                    <span class="term-full">Random Access Memory</span>
+                </div>
+                <div class="term-definition">Memoria de Acceso Aleatorio - Memoria volátil que almacena datos temporalmente mientras el procesador los necesita.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">REST</span>
+                    <span class="term-full">Representational State Transfer</span>
+                </div>
+                <div class="term-definition">Transferencia de Estado Representacional - Estilo arquitectónico para sistemas distribuidos que utiliza operaciones HTTP estándar.</div>
+                <span class="term-category">Arquitectura</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">RFID</span>
+                    <span class="term-full">Radio-Frequency Identification</span>
+                </div>
+                <div class="term-definition">Identificación por Radiofrecuencia - Tecnología de identificación inalámbrica que usa etiquetas o tarjetas con chips para transmitir datos.</div>
+                <span class="term-category">Sensores</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">ROI</span>
+                    <span class="term-full">Return on Investment</span>
+                </div>
+                <div class="term-definition">Retorno sobre Inversión - Métrica financiera que mide la rentabilidad de una inversión comparando ganancia con costo inicial.</div>
+                <span class="term-category">Negocios</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">ROM</span>
+                    <span class="term-full">Read-Only Memory</span>
+                </div>
+                <div class="term-definition">Memoria de Solo Lectura - Memoria no volátil que almacena datos permanentes que no pueden ser modificados después de la fabricación.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Raspberry Pi</span>
+                </div>
+                <div class="term-definition">Computadora de placa reducida (single-board computer) de bajo costo, usada para proyectos IoT y educación.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">S</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">SDK</span>
+                    <span class="term-full">Software Development Kit</span>
+                </div>
+                <div class="term-definition">Kit de Desarrollo de Software - Conjunto de herramientas de desarrollo para crear aplicaciones para una plataforma específica.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Sigfox</span>
+                </div>
+                <div class="term-definition">Tecnología de red de área amplia de bajo consumo para comunicaciones pequeñas y esporádicas entre dispositivos IoT.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">SPI</span>
+                    <span class="term-full">Serial Peripheral Interface</span>
+                </div>
+                <div class="term-definition">Interfaz Periférica Serial - Protocolo de comunicación serial de alta velocidad para conectar microcontroladores y periféricos.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">SSID</span>
+                    <span class="term-full">Service Set Identifier</span>
+                </div>
+                <div class="term-definition">Identificador de Conjunto de Servicio - Nombre que identifica una red WiFi visible para los usuarios.</div>
+                <span class="term-category">Redes</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">T</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">TCP</span>
+                    <span class="term-full">Transmission Control Protocol</span>
+                </div>
+                <div class="term-definition">Protocolo de Control de Transmisión - Protocolo de transporte orientado a conexión que garantiza entrega ordenada y confiable de datos.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">ThingSpeak</span>
+                </div>
+                <div class="term-definition">Plataforma IoT de código abierto para almacenar y recuperar datos de dispositivos mediante HTTP.</div>
+                <span class="term-category">Software</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">TinyML</span>
+                    <span class="term-full">Tiny Machine Learning</span>
+                </div>
+                <div class="term-definition">Aprendizaje Automático Tiny - Campo del ML que permite ejecutar modelos de IA en microcontroladores con recursos muy limitados.</div>
+                <span class="term-category">IA</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">U</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">UART</span>
+                    <span class="term-full">Universal Asynchronous Receiver-Transmitter</span>
+                </div>
+                <div class="term-definition">Receptor-Transmisor Asincrónico Universal - Circuito de comunicación serial asíncrona para transmitir y recibir datos entre dispositivos.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">UDP</span>
+                    <span class="term-full">User Datagram Protocol</span>
+                </div>
+                <div class="term-definition">Protocolo de Datagramas de Usuario - Protocolo de transporte sin conexión, rápido pero sin garantías de entrega.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">URL</span>
+                    <span class="term-full">Uniform Resource Locator</span>
+                </div>
+                <div class="term-definition">Localizador Uniforme de Recursos - Dirección que especifica la ubicación de un recurso en Internet.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">URI</span>
+                    <span class="term-full">Uniform Resource Identifier</span>
+                </div>
+                <div class="term-definition">Identificador Uniforme de Recursos - Cadena de caracteres que identifica un recurso particular en una red.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">USB</span>
+                    <span class="term-full">Universal Serial Bus</span>
+                </div>
+                <div class="term-definition">Bus Serial Universal - Estándar industrial para cables, conectores y protocolos de comunicación para conexión de periféricos.</div>
+                <span class="term-category">Hardware</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">V</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">VPN</span>
+                    <span class="term-full">Virtual Private Network</span>
+                </div>
+                <div class="term-definition">Red Privada Virtual - Tecnología que crea una conexión segura y cifrada sobre una red pública menos segura como Internet.</div>
+                <span class="term-category">Seguridad</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">W</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">WAN</span>
+                    <span class="term-full">Wide Area Network</span>
+                </div>
+                <div class="term-definition">Red de Área Amplia - Red de telecomunicaciones que se extiende sobre un área geográfica grande.</div>
+                <span class="term-category">Redes</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">WiFi</span>
+                    <span class="term-full">Wireless Fidelity</span>
+                </div>
+                <div class="term-definition">Fidelidad Inalámbrica - Tecnología de redes inalámbricas basada en estándares IEEE 802.11 para conectividad de área local.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Wokwi</span>
+                </div>
+                <div class="term-definition">Simulador online de electronics que permite probar código Arduino y ESP32 sin hardware físico.</div>
+                <span class="term-category">Software</span>
+            </div>
+        </div>
+
+        <div class="letter-section">
+            <div class="letter-title">Z</div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Zigbee</span>
+                </div>
+                <div class="term-definition">Especificación de redes de área personal de alto nivel basada en IEEE 802.15.4 para bajo consumo.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+            <div class="term-item">
+                <div>
+                    <span class="term-acronym">Z-Wave</span>
+                </div>
+                <div class="term-definition">Protocolo de comunicación inalámbrico de bajo consumo usado principalmente en domótica.</div>
+                <span class="term-category">Comunicaciones</span>
+            </div>
+        </div>
+
+        <!-- Navegación entre clases -->
+        <nav class="class-nav">
+            <div class="class-nav-title">Navegación del Curso</div>
+            <div class="class-nav-links">
+                <a href="index.html" class="class-nav-btn">
+                    <span class="arrow">🏠</span> Inicio
+                </a>
+                <a href="clase-14.html" class="class-nav-btn">
+                    <span class="arrow">←</span> Clase Anterior
+                </a>
+            </div>
+        </nav>
+
+        <a href="clase-01.html" class="back-link">← Volver a Sesión 1</a>
+    </div>
+</body>
+</html>
+
