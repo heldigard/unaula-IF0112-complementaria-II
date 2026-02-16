@@ -105,21 +105,46 @@
             <p>En esta etapa, el SMAI ya no solo "envía datos", sino que debe "gestionar situaciones". Se evaluará la complejidad de las reglas programadas (uso de lógica booleana y operadores relacionales).</p>
         </section>
 
-        <section>
-            <h2>Entregables</h2>
+        <section class="highlight" style="background: #fffbeb; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>✅ Lista de Verificación Pre-Entrega</h2>
             <ul>
-                <li>Documento PDF con el informe técnico.</li>
-                <li>Actualización del repositorio de código con la lógica de control implementada.</li>
+                <li>☐ El código tiene 3 tareas concurrentes usando <code>millis()</code> (lectura, envío, LEDs)</li>
+                <li>☐ La máquina de estados tiene al menos 4 estados (NORMAL, ALERTA_TEMP, ALERTA_LUZ, ALERTA_DOBLE)</li>
+                <li>☐ Hay histéresis implementada (ej: encender a 30°C, apagar a 28°C)</li>
+                <li>☐ Los umbrales son configurables (#define o const al inicio)</li>
+                <li>☐ El informe incluye diagrama de flujo de la máquina de estados</li>
+                <li>☐ Hay capturas del Monitor Serial mostrando cambios de estado</li>
+                <li>☐ El código está en GitHub con README actualizado</li>
             </ul>
         </section>
 
+        <section style="background: #f3e8ff; border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>🔗 Conexión con E5 (Próxima Evaluación)</h2>
+            <ul>
+                <li><strong>E4:</strong> Firmware con máquina de estados funcionando</li>
+                <li><strong>E5:</strong> Documentación normativa del producto ya funcionando</li>
+            </ul>
+            <p><strong>En E5 documentarás el producto que ya funciona en E4.</strong></p>
+        </section>
+
+        <section>
+            <h2>Entregables</h2>
+            <ul>
+                <li>Documento PDF: <code>E4_Apellido_Nombre.pdf</code> (mínimo 5 páginas)</li>
+                <li>Código .ino actualizado con lógica de control</li>
+                <li>Link a repositorio GitHub con README</li>
+            </ul>
+            <p><strong>Fecha límite:</strong> 20 de abril de 2026, 11:59 PM</p>
+        </section>
+
         <div style="text-align: center; margin-top: 2rem;">
-            <a href="rubricas-evaluacion.html#e4" class="btn">Ver Rúbrica de Calificación</a>
+            <a href="rubricas-evaluacion.html#e4" class="btn">Ver Rúbrica de Calificación E4</a>
         </div>
 
         <div class="footer">
             <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
-            <p><a href="../index.html">Volver al Inicio</a></p>
+            <p>E4: Informe de Gestión | Valor: 15% | Fecha: 20-abr-2026</p>
+            <p><a href="../index.html">← Volver al Portal</a> | <a href="guia-E5.html">Ir a E5 →</a></p>
         </div>
     </div>
 </body>

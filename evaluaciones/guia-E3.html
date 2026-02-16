@@ -140,13 +140,73 @@
             </div>
         </section>
 
+        <section class="highlight" style="background: #fef2f2; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>✅ Lista de Verificación Pre-Entrega</h2>
+            <p>Antes de enviar tu E3, verifica cada ítem:</p>
+            <ul style="margin-top: 0.5rem;">
+                <li>☐ El código incluye <code>WiFi.mode(WIFI_STA)</code> y conecta a tu red WiFi</li>
+                <li>☐ El Monitor Serial muestra "WiFi conectado" y la IP asignada (ej: 192.168.1.45)</li>
+                <li>☐ Se ven mensajes "Enviando datos..." y "Datos enviados! Código: 200" cada 20 segundos</li>
+                <li>☐ El Dashboard en la nube muestra datos actualizándose en tiempo real</li>
+                <li>☐ Hay mínimo 3 widgets/gráficos: Temperatura, Humedad, Luz</li>
+                <li>☐ Se usa <code>millis()</code> en lugar de <code>delay()</code> para la temporización</li>
+                <li>☐ El código maneja reconexión automática si se pierde WiFi</li>
+                <li>☐ El archivo se llama <code>E3_Apellido_Nombre.ino</code></li>
+                <li>☐ El link al dashboard es accesible públicamente (no requiere login)</li>
+            </ul>
+            
+            <div style="background: #fff; border: 2px solid #fecaca; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem;">
+                <strong>⚠️ Errores Comunes a Evitar:</strong>
+                <ul style="margin: 0.5rem 0 0 0;">
+                    <li>Usar <code>delay(20000)</code> en lugar de <code>millis()</code> (bloquea el sistema)</li>
+                    <li>Olvidar llamar <code>http.end()</code> después de cada envío (fuga de memoria)</li>
+                    <li>No verificar <code>WiFi.status()</code> antes de enviar (causa errores HTTP)</li>
+                    <li>API Key incorrecta o canal no configurado en ThingSpeak/Ubidots</li>
+                    <li>Enviar datos más rápido que el límite de la plataforma (15-20 segundos mínimo)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>🔗 Conexión con E4 (Próxima Evaluación)</h2>
+            <p>El código de E3 será la base para E4:</p>
+            <ul>
+                <li><strong>E3:</strong> Conectividad WiFi + envío de datos a la nube</li>
+                <li><strong>E4:</strong> Mismo código + máquina de estados + lógica de control inteligente</li>
+            </ul>
+            <p><strong>No pierdas tu código de E3.</strong> En E4 agregarás una capa de "inteligencia" sobre este mismo firmware.</p>
+        </section>
+
         <section>
             <h2>Entregables</h2>
-            <ul>
-                <li>Código fuente (<code>.ino</code>) completo y comentado.</li>
-                <li>Captura de pantalla del Monitor Serial mostrando la IP y el éxito del envío (Código 200).</li>
-                <li>Enlace (URL) del canal de ThingSpeak.</li>
-            </ul>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #f1f5f9;">
+                    <th style="border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left;">Entregable</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left;">Formato</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left;">Peso</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;"><strong>Código fuente</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;"><code>E3_Apellido_Nombre.ino</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">40%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;"><strong>Captura Monitor Serial</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">Imagen (.png/.jpg)</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">20%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;"><strong>Link al Dashboard</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">URL pública</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">30%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;"><strong>Captura del Dashboard</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">Imagen mostrando datos</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 0.75rem;">10%</td>
+                </tr>
+            </table>
+            <p><strong>Fecha límite:</strong> 16 de marzo de 2026, 11:59 PM</p>
         </section>
 
         <div style="text-align: center; margin-top: 2rem;">
