@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Integrador SMAI - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --muted: #64748b;
+            --code-bg: #f1f5f9;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 2rem; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+        header { 
+            background: linear-gradient(135deg, #0b2d6b, #1e40af);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { color: white; margin: 0; font-size: 1.75rem; }
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 { color: var(--primary); margin-top: 1.5rem; }
+        .nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .nav a {
+            background: var(--primary-light); 
+            color: #fff; 
+            padding: 10px 16px; 
+            border-radius: 8px;
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        .nav a:hover { background: var(--primary); }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .highlight { 
+            background: #eff6ff; 
+            border-left: 4px solid var(--primary-light); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .success { 
+            background: #d1fae5; 
+            border-left: 4px solid var(--success); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .warning { 
+            background: #fef3c7; 
+            border-left: 4px solid var(--warning); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .footer { 
+            text-align: center; 
+            margin-top: 3rem; 
+            color: var(--muted); 
+            font-size: 0.875rem; 
+        }
+        .phase-box {
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .phase-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        abbr {
+            text-decoration: underline dotted;
+            cursor: help;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Proyecto Integrador: Sistema de Monitoreo Ambiental IoT</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">IF0112 - Complementaria II (IoT) 2026-I | Proyecto Progresivo</p>
+        </header>
+
+        <nav class="nav">
+            <a href="clases-html/index.html">🏠 Inicio</a>
+            <a href="evaluaciones/index.html">📋 Evaluaciones</a>
+            <a href="estudiantes/index.html">👥 Estudiantes</a>
+            <a href="laboratorios-html/index.html">🔬 Laboratorios</a>
+        </nav>
+
+        <div class="highlight">
+            <p><strong>🎯 Objetivo:</strong> Construir un sistema <abbr title="Internet of Things">IoT</abbr> completo que monitoree variables ambientales (temperatura, humedad, intensidad lumínica) y transmita los datos a una plataforma en la nube para su visualización.</p>
+        </div>
+
+        <h2>🏗️ Arquitectura del Sistema</h2>
+
+        <pre style="font-size: 0.85rem;">
+┌─────────────────────────────────────────────────────────────────┐
+│                    ARQUITECTURA DEL PROYECTO                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌────────────┐  │
+│   │ DHT22   │───▶│  ESP32  │───▶│  WiFi   │───▶│ ThingSpeak │  │
+│   │ LDR     │    │         │    │  (HTTP) │    │   Cloud    │  │
+│   │ Botón   │    │         │    │         │    │            │  │
+│   └─────────┘    └─────────┘    └─────────┘    └────────────┘  │
+│         │              │                           │            │
+│         │              │                           │            │
+│         ▼              ▼                           ▼            │
+│   ┌─────────┐    ┌─────────┐              ┌────────────┐      │
+│   │ Hardware │    │  LED    │              │  Grafana    │      │
+│   │ Físico  │    │ Status  │              │  Dashboard  │      │
+│   └─────────┘    └─────────┘              └────────────┘      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+        </pre>
+
+        <h2>📊 Entregables por Fase (SMAI-PBL)</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fase</th>
+                    <th>Entrega</th>
+                    <th>%</th>
+                    <th>Descripción</th>
+                    <th>Enlace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>E1</strong></td>
+                    <td>15%</td>
+                    <td>Investigación Técnica: Arquitectura y Capas</td>
+                    <td><a href="evaluaciones/guia-E1.html">Ver E1 →</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>E2</strong></td>
+                    <td>15%</td>
+                    <td>Prototipo Sensórico: Hardware Local</td>
+                    <td><a href="evaluaciones/guia-E2.html">Ver E2 →</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>E3</strong></td>
+                    <td>20%</td>
+                    <td>Software IoT: Conectividad Cloud</td>
+                    <td><a href="evaluaciones/guia-E3.html">Ver E3 →</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>E4</strong></td>
+                    <td>15%</td>
+                    <td>Informe de Gestión: Lógica de Control</td>
+                    <td><a href="evaluaciones/guia-E4.html">Ver E4 →</a></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>E5</strong></td>
+                    <td>15%</td>
+                    <td>Trabajo Escrito: Normativa y Seguridad</td>
+                    <td><a href="evaluaciones/guia-E5.html">Ver E5 →</a></td>
+                </tr>
+                <tr style="background: #dbeafe;">
+                    <td>6</td>
+                    <td><strong>E6</strong></td>
+                    <td>20%</td>
+                    <td>Proyecto Final: Producto Integrado</td>
+                    <td><a href="evaluaciones/guia-E6.html">Ver E6 →</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔄 Flujo del Proyecto (Incremental)</h2>
+
+        <div class="phase-box">
+            <h3>Fase 1: E1 - Investigación (15%)</h3>
+            <p><strong>Entregable:</strong> Documento de arquitectura técnica</p>
+            <ul>
+                <li>Define la estructura de 4 capas del sistema</li>
+                <li>Especifica hardware: <abbr title="Sistema embebido con WiFi">ESP32</abbr>, <abbr title="Sensor digital de temperatura y humedad">DHT22</abbr>, <abbr title="Resistencia dependiente de la luz">LDR</abbr></li>
+                <li>Selecciona pines <abbr title="General Purpose Input/Output">GPIO</abbr> específicos</li>
+                <li>Base conceptual para todo el proyecto</li>
+            </ul>
+            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E2.html">E2 - Prototipo</a> (usa las especificaciones de E1)</p>
+        </div>
+
+        <div class="phase-box">
+            <h3>Fase 2: E2 - Prototipo (15%)</h3>
+            <p><strong>Entregable:</strong> Circuito físico funcionando</p>
+            <ul>
+                <li>Montaje físico según arquitectura de E1</li>
+                <li>Conexión de sensores a pines especificados</li>
+                <li>Lectura local de datos (Monitor Serial)</li>
+                <li><strong>Prerrequisito:</strong> Haber aprobado E1</li>
+            </ul>
+            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E3.html">E3 - Software</a> (agrega WiFi al circuito de E2)</p>
+        </div>
+
+        <div class="phase-box">
+            <h3>Fase 3: E3 - Software (20%)</h3>
+            <p><strong>Entregable:</strong> Código con conectividad Cloud</p>
+            <ul>
+                <li>Hereda circuito de E2 (sin modificar hardware)</li>
+                <li>Agrega conexión <abbr title="Wireless Fidelity">WiFi</abbr> (<abbr title="Station Mode">STA</abbr>)</li>
+                <li>Envío de datos a ThingSpeak cada 20 segundos</li>
+                <li>Dashboard en la nube visible</li>
+                <li><strong>Prerrequisito:</strong> Circuito de E2 funcionando</li>
+            </ul>
+            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E4.html">E4 - Informe</a> (agrega lógica inteligente al código de E3)</p>
+        </div>
+
+        <div class="phase-box">
+            <h3>Fase 4: E4 - Lógica de Gestión (15%)</h3>
+            <p><strong>Entregable:</strong> Sistema con estados y alertas</p>
+            <ul>
+                <li>Hereda código de E3 (mismo circuito)</li>
+                <li>Agrega máquina de estados (NORMAL, ALERTA_TEMP, ALERTA_LUZ)</li>
+                <li>LEDs indicadores de estado</li>
+                <li>Histeresis en umbrales (30°C/28°C)</li>
+                <li><strong>Prerrequisito:</strong> Código de E3 con WiFi funcionando</li>
+            </ul>
+            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E5.html">E5 - Normativa</a> (documenta el producto funcionando)</p>
+        </div>
+
+        <div class="phase-box">
+            <h3>Fase 5: E5 - Normativa (15%)</h3>
+            <p><strong>Entregable:</strong> Documentación legal y técnica</p>
+            <ul>
+                <li>Documenta producto funcionando de E4</li>
+                <li>Cumplimiento <abbr title="Reglamento Técnico de Instalaciones Eléctricas">RETIE</abbr></li>
+                <li>Ley 1581 - Protección de datos (<abbr title="Acceso, Rectificación, Cancelación, Oposición">ARCO</abbr>)</li>
+                <li>Ficha técnica del dispositivo</li>
+                <li><strong>Prerrequisito:</strong> Producto SMAI funcionando de E4</li>
+            </ul>
+            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E6.html">E6 - Proyecto Final</a> (integra todo)</p>
+        </div>
+
+        <div class="success">
+            <h3>Fase 6: E6 - Proyecto Final (20%) 🎯</h3>
+            <p><strong>Entregable:</strong> Producto terminado y encapsulado</p>
+            <ul>
+                <li>Integra todos los entregables E1-E5</li>
+                <li>Dispositivo encapsulado (caja/protección)</li>
+                <li>Funcionamiento autónomo completo</li>
+                <li>Sustentación tipo pitch (10-15 min)</li>
+                <li>Demo en vivo del sistema</li>
+                <li><strong>Requiere:</strong> Todos los entregables E1-E5 completos</li>
+            </ul>
+        </div>
+
+        <h2>💡 Consejos para el Proyecto</h2>
+
+        <div class="highlight">
+            <h3>📌 Mantén el mismo circuito todo el semestre</h3>
+            <p><strong>Regla de oro:</strong> Desde E2 hasta E6 usas el <strong>MISMO circuito físico</strong>. Solo vas agregando código y mejorando el firmware.</p>
+            
+            <p><strong>Beneficios:</p>
+            <ul>
+                <li>✅ Ahorras tiempo (no rehaces conexiones)</li>
+                <li>✅ Reduce errores de conexión</li>
+                <li>✅ Ves progreso real clase a clase</li>
+                <li>✅ Producto final robusto y probado</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ Errores Comunes a Evitar</h3>
+            
+            <ul>
+                <li>❌ Desarmar el circuito entre evaluaciones</li>
+                <li>❌ Cambiar pines GPIO en cada entrega</li>
+                <li>❌ Empezar desde cero en cada evaluación</li>
+                <li>❌ Dejar todo para la última semana</li>
+                <li>❌ No documentar cambios en el código</li>
+            </ul>
+        </div>
+
+        <h2>📚 Recursos Adicionales</h2>
+
+        <table>
+            <tr>
+                <th>Recurso</th>
+                <th>Descripción</th>
+                <th>Enlace</th>
+            </tr>
+            <tr>
+                <td>🛒 Guía de Compra</td>
+                <td>Qué comprar y dónde</td>
+                <td><a href="estudiantes/guia-compra-kit.html">Ver →</a></td>
+            </tr>
+            <tr>
+                <td>⚙️ Instalación IDE</td>
+                <td>Arduino IDE + ESP32 paso a paso</td>
+                <td><a href="estudiantes/instalacion-arduino-ide.html">Ver →</a></td>
+            </tr>
+            <tr>
+                <td>📋 Referencia Rápida</td>
+                <td>Códigos y funciones útiles</td>
+                <td><a href="estudiantes/guia-rapida-esp32.html">Ver →</a></td>
+            </tr>
+            <tr>
+                <td>🔬 Laboratorios</td>
+                <td>5 guías prácticas paso a paso</td>
+                <td><a href="laboratorios-html/index.html">Ver →</a></td>
+            </tr>
+            <tr>
+                <td>📡 Plataformas IoT</td>
+                <td>Comparativa de 5 opciones gratuitas</td>
+                <td><a href="plataformas-iot-gratuitas.html">Ver →</a></td>
+            </tr>
+        </table>
+
+        <div class="footer">
+            <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+            <p>Proyecto Integrador SMAI 2026-I | UNAULA</p>
+            <p><a href="clases-html/index.html">← Volver al portal de clases</a> | 
+               <a href="evaluaciones/index.html">📋 Ver Evaluaciones</a></p>
+        </div>
+    </div>
+</body>
+</html>
