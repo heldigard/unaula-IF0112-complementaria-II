@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos para Estudiantes - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --muted: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --accent: #8b5cf6;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 2rem; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+        header { 
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { color: white; margin: 0; font-size: 1.75rem; }
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        .nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .nav a {
+            background: var(--primary-light); 
+            color: #fff; 
+            padding: 10px 16px; 
+            border-radius: 8px;
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        .nav a:hover { background: var(--primary); }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .resource-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .resource-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-light);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        .resource-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .badge-new { background: var(--success); color: white; }
+        .badge-essential { background: #ef4444; color: white; }
+        .badge-reference { background: var(--warning); color: white; }
+        .highlight { 
+            background: #f3e8ff; 
+            border-left: 4px solid var(--accent); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .footer { 
+            text-align: center; 
+            margin-top: 3rem; 
+            color: var(--muted); 
+            font-size: 0.875rem; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Recursos para Estudiantes</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">IF0112 - Complementaria II (IoT) | Todo lo que necesitas para el curso</p>
+        </header>
+
+        <nav class="nav">
+            <a href="../clases-html/index.html">🏠 Portal de Clases</a>
+            <a href="../evaluaciones/index.html">📋 Evaluaciones</a>
+            <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
+            <a href="../planificacion/cronograma.html">📅 Cronograma</a>
+        </nav>
+
+        <div class="highlight">
+            <p><strong>🎯 Estás en el lugar correcto si:</strong></p>
+            <ul>
+                <li>Necesitas comprar el kit de componentes</li>
+                <li>Quieres instalar el software necesario</li>
+                <li>Necesitas una referencia rápida durante laboratorios</li>
+                <li>Buscas ejemplos de código y troubleshooting</li>
+            </ul>
+        </div>
+
+        <h2>📚 Guías Esenciales</h2>
+
+        <div class="resource-grid">
+            <a href="guia-compra-kit.html" class="resource-card" style="border-color: #10b981;">
+                <span class="badge badge-essential">ESENCIAL</span>
+                <h3>🛒 Guía de Compra del Kit</h3>
+                <p>Todo sobre qué comprar, dónde comprar en Medellín, y cuánto cuesta el kit IoT. Incluye lista completa de componentes con precios aproximados.</p>
+                <p><strong>Inversión:</strong> ~$50.000 - $55.000 COP</p>
+            </a>
+
+            <a href="instalacion-arduino-ide.html" class="resource-card" style="border-color: #3b82f6;">
+                <span class="badge badge-essential">ESENCIAL</span>
+                <h3>⚙️ Instalación Arduino IDE + ESP32</h3>
+                <p>Guía paso a paso para instalar Arduino IDE y configurar el ESP32. Incluye drivers, configuración de placas y verificación de instalación.</p>
+                <p><strong>Tiempo:</strong> 20-30 minutos</p>
+            </a>
+
+            <a href="guia-rapida-esp32.html" class="resource-card" style="border-color: #f59e0b;">
+                <span class="badge badge-reference">REFERENCIA</span>
+                <h3>📋 Guía Rápida ESP32</h3>
+                <p>Referencia de bolsillo con códigos básicos, pines del ESP32, funciones útiles y troubleshooting rápido. Para consultar durante laboratorios.</p>
+                <p><strong>Usar en:</strong> Durante clases y laboratorios</p>
+            </a>
+        </div>
+
+        <h2>🔗 Enlaces Rápidos</h2>
+
+        <div class="resource-grid">
+            <a href="../ejercicios-simulador/index.html" class="resource-card">
+                <span class="badge badge-new">PRÁCTICA</span>
+                <h3>🚀 Ejercicios en Simulador</h3>
+                <p>Practica con Wokwi antes de tener el hardware físico. Simulador online gratuito del ESP32.</p>
+            </a>
+
+            <a href="../laboratorios-html/index.html" class="resource-card">
+                <span class="badge badge-new">LABS</span>
+                <h3>🔬 Laboratorios Oficiales</strong></h3>
+                <p>5 laboratorios prácticos que guían el desarrollo del proyecto SMAI paso a paso.</p>
+            </a>
+
+            <a href="../evaluaciones/index.html" class="resource-card">
+                <span class="badge badge-reference">EVALUACIONES</span>
+                <h3>📊 Guías de Evaluación E1-E6</h3>
+                <p>Conoce los requisitos, rúbricas y fechas de entrega de cada evaluación del curso.</p>
+            </a>
+
+            <a href="../docs/plataformas-iot-gratuitas.html" class="resource-card">
+                <span class="badge badge-reference">PLATAFORMAS</span>
+                <h3>📡 Plataformas IoT Gratuitas</h3>
+                <p>Comparativa de 5 plataformas IoT gratuitas: Ubidots STEM, ThingSpeak, Arduino Cloud, Blynk y ThingsBoard.</p>
+            </a>
+        </div>
+
+        <h2>⚡ Primeros Pasos Recomendados</h2>
+
+        <ol>
+            <li><strong>Lee la Guía de Compra</strong> → Entiende qué necesitas y cuánto cuesta</li>
+            <li><strong>Compra el kit</strong> → Ve a JNC o compra online (recomendado: compra grupal)</li>
+            <li><strong>Instala Arduino IDE</strong> → Sigue la guía de instalación paso a paso</li>
+            <li><strong>Prueba tu kit</strong> → Sube el ejemplo Blink para verificar que todo funciona</li>
+            <li><strong>Explora los laboratorios</strong> → Familiarízate con las actividades del curso</li>
+        </ol>
+
+        <div class="highlight">
+            <p><strong>💡 Tip Importante:</strong> No esperes a tener todo el kit para empezar. Puedes practicar con el <a href="../ejercicios-simulador/index.html">simulador Wokwi</a> mientras llegan los componentes.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+            <p>UNAULA — 2026-I | Recursos para Estudiantes</p>
+            <p><a href="../clases-html/index.html">← Volver al portal de clases</a></p>
+        </div>
+    </div>
+</body>
+</html>

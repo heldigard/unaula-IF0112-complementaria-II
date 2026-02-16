@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía E5: Trabajo Escrito - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #a855f7;
+            --primary-dark: #7e22ce;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--surface); padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        header { border-bottom: 4px solid var(--primary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        h1 { color: var(--primary-dark); margin: 0; }
+        .meta { color: #64748b; font-weight: 600; margin-top: 0.5rem; }
+        section { margin-bottom: 2rem; }
+        h2 { color: var(--primary-dark); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .highlight { background: #f3e8ff; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .footer { text-align: center; margin-top: 3rem; color: #64748b; font-size: 0.875rem; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-dark); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía E5: Trabajo Escrito Normativo - Marco Legal y Ficha Técnica</h1>
+            <p class="meta">Valor: 15% | Tipo: Escrito | Fecha: 04-may-2026 | Grupal</p>
+            <p class="meta" style="font-size: 0.9rem; color: #7e22ce; margin-top: 0.25rem;">Fase 5 del Proyecto SMAI: Marco legal regulatorio y validación técnica</p>
+        </header>
+
+        <section class="highlight">
+            <h2>📋 Prerrequisitos (de E4)</h2>
+            <p>Para realizar esta evaluación debes tener:</p>
+            <ul>
+                <li><strong>E4 Lógica:</strong> Firmware con máquina de estados funcionando (NORMAL, ALERTA_TEMP, ALERTA_LUZ).</li>
+                <li>Producto SMAI operativo: sensores leyendo, WiFi conectado, dashboard actualizándose.</li>
+                <li>Código finalizado y estable (será la base para E6).</li>
+            </ul>
+            <p><strong>Nota:</strong> Esta evaluación documenta el producto <strong>ya funcionando</strong>. Se crea la ficha técnica, manual de usuario y cumplimiento normativo. La documentación de E5 será entregada junto al producto final en E6.</p>
+        </section>
+
+        <section>
+            <h2>Objetivo</h2>
+            <p>Asegurar que el SMAI cumple con los estándares legales y técnicos del sector tecnológico en Colombia, incluyendo la privacidad de datos y la seguridad eléctrica.</p>
+        </section>
+
+        <section>
+            <h2>Estructura del PDF (Obligatoria)</h2>
+            <p>El documento unificado debe contener las siguientes secciones, siguiendo estándares de documentación técnica:</p>
+            <ul>
+                <li><strong>1. Ficha Técnica del Producto (SMAI):</strong>
+                    <ul>
+                        <li><strong>Especificaciones Eléctricas:</strong>
+                            <ul>
+                                <li>Voltaje de alimentación: 5V DC (Micro-USB tipo B).</li>
+                                <li>Consumo máximo: ~250mA (con WiFi activo).</li>
+                                <li>Consumo standby: ~80mA (modo ahorro).</li>
+                                <li>Clase de protección: III (bajo voltaje).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Especificaciones de Sensores:</strong>
+                            <ul>
+                                <li><abbr title="Digital Humidity and Temperature 22">DHT22</abbr>: Rango -40°C a 80°C, precisión ±0.5°C, ±2% HR.</li>
+                                <li><abbr title="Light Dependent Resistor">LDR</abbr>: Resistencia 1MΩ (oscuridad) a 10kΩ (luz).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Conectividad:</strong>
+                            <ul>
+                                <li>Protocolo: <abbr title="Institute of Electrical and Electronics Engineers">IEEE</abbr> 802.11 b/g/n (WiFi 2.4GHz).</li>
+                                <li>Seguridad: WPA2/WPA3.</li>
+                                <li>API: HTTP GET a plataforma IoT (puerto 80) - <a href="../docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">opciones: ThingSpeak, Ubidots STEM, Arduino Cloud, etc.</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>2. Política de Tratamiento de Datos Personales (Ley 1581 de 2012):</strong>
+                    <ul>
+                        <li>Identificación del Responsable: Nombre del estudiante/grupo.</li>
+                        <li>Datos recolectados: Dirección IP del dispositivo, credenciales WiFi (almacenadas localmente).</li>
+                        <li>Finalidad: Monitoreo ambiental y académico.</li>
+                        <li>Derechos del titular: Acceso, rectificación, supresión (derechos <abbr title="Acceso, Rectificación, Cancelación y Oposición">ARCO</abbr>).</li>
+                        <li>Medidas de seguridad: Cifrado WPA2 en red, credenciales no compartidas públicamente.</li>
+                    </ul>
+                </li>
+                <li><strong>3. Manual de Instalación Eléctrica (Basado en <abbr title="Reglamento Técnico de Instalaciones Eléctricas">RETIE</abbr>):</strong>
+                    <ul>
+                        <li>Tipo de fuente: Adaptador USB 5V/1A con certificación de seguridad.</li>
+                        <li>Protección: Fusible de 500mA en línea positiva.</li>
+                        <li>Aislamiento: Caja plástica con IP20 (protección contra objetos sólidos).</li>
+                        <li>Conexión a tierra: No aplica (clase III, doble aislamiento).</li>
+                        <li>Advertencias: No operar en atmósferas explosivas, evitar exposición directa a agua.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="highlight">
+            <h2>Manual de Usuario</h2>
+            <p>Se debe adjuntar un manual simplificado para el usuario final que incluya:</p>
+            <ul>
+                <li>Instrucciones de conexión al WiFi.</li>
+                <li>Interpretación de las alertas visuales (LEDs).</li>
+                <li>Cómo acceder al Dashboard de visualización.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Formato de Entrega</h2>
+            <ul>
+                <li>Documento PDF unificado.</li>
+                <li>Lenguaje profesional y técnico.</li>
+                <li>Citas bibliográficas de las normas consultadas.</li>
+            </ul>
+        </section>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="rubricas-evaluacion.html#e5" class="btn">Ver Rúbrica de Calificación</a>
+        </div>
+
+        <div class="footer">
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
+            <p><a href="../clases-html/index.html">Volver al Inicio</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía E3: Software IoT - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #ef4444;
+            --primary-dark: #991b1b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--surface); padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        header { border-bottom: 4px solid var(--primary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        h1 { color: var(--primary-dark); margin: 0; }
+        .meta { color: #64748b; font-weight: 600; margin-top: 0.5rem; }
+        section { margin-bottom: 2rem; }
+        h2 { color: var(--primary-dark); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .highlight { background: #fef2f2; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .footer { text-align: center; margin-top: 3rem; color: #64748b; font-size: 0.875rem; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-dark); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía E3: Software IoT - Conectividad y Cloud</h1>
+            <p class="meta">Valor: 20% | Tipo: Software | Fecha: 16-mar-2026 | Individual</p>
+            <p class="meta" style="font-size: 0.9rem; color: #991b1b; margin-top: 0.25rem;">Fase 3 del Proyecto SMAI: Conectividad IoT a través de redes e Internet</p>
+        </header>
+
+        <section class="highlight">
+            <h2>📋 Prerrequisitos (de E2)</h2>
+            <p>Para realizar esta evaluación debes tener funcionando:</p>
+            <ul>
+                <li><strong>E2 Prototipo:</strong> Circuito con ESP32 + DHT22 + LDR leyendo datos correctamente.</li>
+                <li>Código de E2 funcionando: lectura de sensores cada 2 segundos, LEDs respondiendo a umbrales.</li>
+                <li>Monitor Serial mostrando valores de temperatura, humedad y luz en formato legible.</li>
+            </ul>
+            <p><strong>Nota:</strong> Esta evaluación <strong>NO</strong> requiere modificar el circuito de E2, solo agregar conectividad WiFi al código existente. El mismo hardware servirá para E4.</p>
+        </section>
+
+        <section>
+            <h2>Objetivo</h2>
+            <p>Desarrollar el firmware de conectividad para el SMAI, permitiendo que el microcontrolador ESP32 transmita datos ambientales a una plataforma en la nube a través de protocolos IP.</p>
+        </section>
+
+        <section>
+            <h2>Requisitos Técnicos del Firmware</h2>
+            <p>El código <code>.ino</code> debe implementar obligatoriamente los siguientes componentes de conectividad IoT:</p>
+            <ul>
+                <li><strong>Configuración WiFi Modo Estación (STA):</strong>
+                    <ul>
+                        <li>Uso de <code>WiFi.mode(WIFI_STA)</code> para conexión a red existente.</li>
+                        <li>Configuración de credenciales: <code>const char* ssid = "nombre_red";</code> y <code>const char* password = "clave";</code>.</li>
+                        <li>Tiempo máximo de intento: 10 segundos antes de timeout.</li>
+                    </ul>
+                </li>
+                <li><strong>Gestión de Estados de Red:</strong>
+                    <ul>
+                        <li>Imprimir en Serial: <code>"Conectando a WiFi..."</code>, <code>"WiFi conectado"</code>.</li>
+                        <li>Mostrar dirección IP asignada: <code>WiFi.localIP()</code>.</li>
+                        <li>Verificar estado antes de cada envío: <code>if(WiFi.status() == WL_CONNECTED)</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Protocolo HTTP GET:</strong>
+                    <ul>
+                        <li>Uso de librería <code>HTTPClient</code> para envío de datos.</li>
+                        <li>URL de ThingSpeak: <code>"http://api.thingspeak.com/update?api_key=TU_KEY&field1=temp&field2=hum&field3=luz"</code>.</li>
+                        <li>Código de respuesta HTTP 200 = éxito.</li>
+                        <li>Liberar recursos: <code>http.end()</code> después de cada envío.</li>
+                    </ul>
+                </li>
+                <li><strong>Frecuencia de Envío y Temporización:</strong>
+                    <ul>
+                        <li>Intervalo: 20 segundos (20000 ms) entre envíos.</li>
+                        <li>Uso de <code>millis()</code> para temporización no bloqueante (NO usar <code>delay()</code>).</li>
+                        <li>Variable <code>unsigned long lastTime = 0;</code> para control de tiempo.</li>
+                    </ul>
+                </li>
+                <li><strong>Reconexión Automática:</strong>
+                    <ul>
+                        <li>Detectar desconexión: <code>if(WiFi.status() != WL_CONNECTED)</code>.</li>
+                        <li>Reintentar conexión: <code>WiFi.reconnect()</code> o <code>WiFi.begin()</code> nuevamente.</li>
+                        <li>Esperar máximo 5 segundos antes de siguiente intento.</li>
+                    </ul>
+                </li>
+                <li><strong>Comunicación Serial:</strong>
+                    <ul>
+                        <li>Inicialización: <code>Serial.begin(115200)</code> en <code>setup()</code>.</li>
+                        <li>Debug: Imprimir variables antes de enviar y código HTTP de respuesta.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="highlight">
+            <h2>Plataformas IoT Cloud Recomendadas (Gratuitas)</h2>
+            <p>Puedes usar cualquiera de estas plataformas gratuitas para educación:</p>
+            
+            <h3>🥇 Opción 1: Ubidots STEM (Recomendada)</h3>
+            <ul>
+                <li><strong>URL:</strong> <a href="https://stem.ubidots.com" target="_blank">stem.ubidots.com</a></li>
+                <li><strong>Ventajas:</strong> Gratis para siempre (3 dispositivos), dashboards profesionales, alertas por correo.</li>
+                <li><strong>Límite:</strong> 4,000 datos/hora por dispositivo.</li>
+                <li><strong>Registro:</strong> Usar correo institucional (.edu).</li>
+            </ul>
+            
+            <h3>🥈 Opción 2: ThingSpeak (MathWorks)</h3>
+            <ul>
+                <li><strong>URL:</strong> <a href="https://thingspeak.com" target="_blank">thingspeak.com</a></li>
+                <li><strong>Ventajas:</strong> Integración MATLAB, análisis de datos avanzado.</li>
+                <li><strong>Límite gratuito:</strong> 3 millones de mensajes/año (suficiente para el curso).</li>
+                <li><strong>Nota:</strong> Crear cuenta gratuita, luego se puede usar indefinidamente con limitaciones.</li>
+            </ul>
+            
+            <h3>🥉 Opción 3: Arduino IoT Cloud</h3>
+            <ul>
+                <li><strong>URL:</strong> <a href="https://cloud.arduino.cc" target="_blank">cloud.arduino.cc</a></li>
+                <li><strong>Ventajas:</strong> Integración nativa ESP32, dashboard sencillo.</li>
+                <li><strong>Límite:</strong> 25 días de retención de datos en plan gratuito.</li>
+            </ul>
+            
+            <p><strong>Requisito mínimo independiente de la plataforma:</strong></p>
+            <ul>
+                <li>Dashboard con 3 widgets/gráficos (Temperatura, Humedad, Luz).</li>
+                <li>Actualización en tiempo real (cada 15-20 segundos).</li>
+                <li>Acceso público o link compartible para el docente.</li>
+            </ul>
+            
+            <div style="background: #f0f9ff; border-left: 4px solid #3b82f6; padding: 1rem; margin-top: 1rem; border-radius: 0.5rem;">
+                <p style="margin: 0;"><strong>📡 Todas las opciones disponibles:</strong> <a href="../docs/plataformas-iot-gratuitas.html" style="color: #1e40af; font-weight: 600;">Ver guía completa de plataformas IoT gratuitas →</a></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Entregables</h2>
+            <ul>
+                <li>Código fuente (<code>.ino</code>) completo y comentado.</li>
+                <li>Captura de pantalla del Monitor Serial mostrando la IP y el éxito del envío (Código 200).</li>
+                <li>Enlace (URL) del canal de ThingSpeak.</li>
+            </ul>
+        </section>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="rubricas-evaluacion.html#e3" class="btn">Ver Rúbrica de Calificación</a>
+        </div>
+
+        <div class="footer">
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
+            <p><a href="../clases-html/index.html">Volver al Inicio</a></p>
+        </div>
+    </div>
+</body>
+</html>

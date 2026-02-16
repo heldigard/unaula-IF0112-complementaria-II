@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Rápida ESP32 - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --muted: #64748b;
+            --code-bg: #f1f5f9;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 2rem; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+        header { 
+            background: linear-gradient(135deg, #0b2d6b, #1e40af);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { color: white; margin: 0; font-size: 1.75rem; }
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 { color: var(--primary); margin-top: 1.5rem; }
+        .nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .nav a {
+            background: var(--primary-light); 
+            color: #fff; 
+            padding: 10px 16px; 
+            border-radius: 8px;
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        .nav a:hover { background: var(--primary); }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .highlight { 
+            background: #eff6ff; 
+            border-left: 4px solid var(--primary-light); 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        .warning { 
+            background: #fef3c7; 
+            border-left: 4px solid #f59e0b; 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin: 1rem 0; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .footer { 
+            text-align: center; 
+            margin-top: 3rem; 
+            color: var(--muted); 
+            font-size: 0.875rem; 
+        }
+        abbr {
+            text-decoration: underline dotted;
+            cursor: help;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía Rápida de Supervivencia ESP32</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">IF0112 - Complementaria II | Referencia de Bolsillo</p>
+        </header>
+
+        <nav class="nav">
+            <a href="../clases-html/index.html">🏠 Inicio</a>
+            <a href="instalacion-arduino-ide.html">⚙️ Instalación IDE</a>
+            <a href="guia-compra-kit.html">🛒 Guía de Compra</a>
+            <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
+        </nav>
+
+        <div class="highlight">
+            <p><strong>🎯 Propósito:</strong> Esta guía es un resumen rápido para consultar durante los laboratorios. No reemplaza las guías completas de cada laboratorio.</p>
+        </div>
+
+        <h2>📌 Pines del ESP32 (Los más usados)</h2>
+        
+        <pre>
+     ESP32 DevKit V1 - 30 Pines
+
+┌────────────────────────────────────────────────┐
+│                                                │
+│   ENTRADA DIGITAL        ENTRADA ANALÓGICA     │
+│   GPIO 2 (LED builtin)   GPIO 34              │
+│   GPIO 4                 GPIO 35              │
+│   GPIO 5                 GPIO 36              │
+│   GPIO 12 - 19           GPIO 39              │
+│                                                │
+│   SALIDA DIGITAL        I2C / SPI             │
+│   GPIO 2 (LED)           GPIO 21 (I2C SDA)    │
+│   GPIO 12-19             GPIO 22 (I2C SCL)    │
+│                                                │
+│   PODER                                        │
+│   3V3 (3.3V)                                 │
+│   GND (Tierra)                                │
+│   VIN (7-12V)                                │
+│                                                │
+└────────────────────────────────────────────────┘
+        </pre>
+
+        <h2>💻 Estructura de Código Arduino</h2>
+        
+        <pre><code>// ===========================================
+// VARIABLES GLOBALES (arriba del setup)
+// ===========================================
+const int PIN_LED = 2;
+const int PIN_BOTON = 4;
+int contador = 0;
+
+// ===========================================
+// SETUP - Se ejecuta UNA VEZ al inicio
+// ===========================================
+void setup() {
+  Serial.begin(115200);        // Iniciar comunicación serial
+  pinMode(PIN_LED, OUTPUT);    // Configurar pin como salida
+  pinMode(PIN_BOTON, INPUT);   // Configurar pin como entrada
+
+  Serial.println("Sistema iniciado");
+}
+
+// ===========================================
+// LOOP - Se ejecuta repetidamente
+// ===========================================
+void loop() {
+  // Tu código aquí
+  delay(1000);  // Esperar 1 segundo
+}
+</code></pre>
+
+        <h2>🔌 Códigos Básicos</h2>
+
+        <h3>LED Parpadear (Blink)</h3>
+        <pre><code>const int LED = 2;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED, HIGH);  // Encender
+  delay(1000);              // 1 segundo
+  digitalWrite(LED, LOW);   // Apagar
+  delay(1000);              // 1 segundo
+}
+</code></pre>
+
+        <h3>Leer Botón</h3>
+        <pre><code>const int BOTON = 4;
+const int LED = 2;
+
+void setup() {
+  pinMode(BOTON, INPUT_PULLUP);  // Pull-up interno
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  if (digitalRead(BOTON) == LOW) {
+    digitalWrite(LED, HIGH);  // Presionado = LOW
+  } else {
+    digitalWrite(LED, LOW);
+  }
+}
+</code></pre>
+
+        <h3>Leer Sensor DHT22</h3>
+        <pre><code>#include "DHT.h"
+
+#define DHTPIN 4
+#define DHTTYPE DHT22
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float hum = dht.readHumidity();
+
+  Serial.print("Temp: ");
+  Serial.print(temp);
+  Serial.print("°C  Hum: ");
+  Serial.print(hum);
+  Serial.println("%");
+
+  delay(3000);  // Esperar 3 segundos
+}
+</code></pre>
+
+        <h3>Leer LDR (Analógico)</h3>
+        <pre><code>#define LDR_PIN 34
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);  // ESP32: 12 bits = 0-4095
+}
+
+void loop() {
+  int valor = analogRead(LDR_PIN);
+
+  Serial.print("Luz: ");
+  Serial.println(valor);
+
+  delay(500);
+}
+</code></pre>
+
+        <h3>Conectar WiFi</h3>
+        <pre><code>#include <WiFi.h>
+
+const char* ssid = "NOMBRE_RED";
+const char* password = "CLAVE_WIFI";
+
+void setup() {
+  Serial.begin(115200);
+
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nConectado!");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  // Nada aquí
+}
+</code></pre>
+
+        <h3>Enviar HTTP POST</h3>
+        <pre><code>#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+
+const char* servidor = "http://192.168.1.100:5000/api/v1/datos";
+
+void enviarDatos(float temp, float hum, int luz) {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+
+    // Crear JSON
+    StaticJsonDocument<256> doc;
+    doc["temperatura"] = temp;
+    doc["humedad"] = hum;
+    doc["luz"] = luz;
+
+    String jsonString;
+    serializeJson(doc, jsonString);
+
+    // Enviar
+    http.begin(servidor);
+    http.addHeader("Content-Type", "application/json");
+    int httpCode = http.POST(jsonString);
+
+    if (httpCode > 0) {
+      Serial.println("Enviado OK");
+    }
+
+    http.end();
+  }
+}
+</code></pre>
+
+        <h2>🎛️ Funciones Útiles</h2>
+
+        <h3>Tiempo</h3>
+        <pre><code>delay(1000);                  // Esperar 1000ms (1 segundo)
+millis();                     // Milisegundos desde inicio (desborda en 50 días)
+</code></pre>
+
+        <h3>Matemáticas</h3>
+        <pre><code>map(valor, 0, 4095, 0, 100); // Convertir rango (ej: ADC a porcentaje)
+constrain(x, 0, 255);        // Limitar valor entre min y max
+random(10, 100);              // Número aleatorio entre 10 y 99
+</code></pre>
+
+        <h3>Comunicación Serial</h3>
+        <pre><code>Serial.begin(115200);         // Iniciar serial
+Serial.print("Hola");         // Imprimir sin salto de línea
+Serial.println("Mundo");      // Imprimir con salto de línea
+Serial.print(valor);          // Imprimir variable
+Serial.print("Num: ");        // Imprimir texto y variable
+Serial.print(numero);
+</code></pre>
+
+        <h2>🐛 Debugging Rápido</h2>
+
+        <div class="warning">
+            <h3>¿Algo no funciona?</h3>
+            
+            <p><strong>1. Verificar conexiones</strong></p>
+            <ul>
+                <li>¿Está conectado al pin correcto?</li>
+                <li>¿GND conectado?</li>
+                <li>¿3.3V o 5V conectado?</li>
+            </ul>
+
+            <p><strong>2. Usar Monitor Serial</strong></p>
+            <pre><code>Serial.begin(115200);
+Serial.println("Debug: paso 1");
+</code></pre>
+
+            <p><strong>3. Verificar valores</strong></p>
+            <pre><code>Serial.print("Valor: ");
+Serial.println(variable);
+</code></pre>
+
+            <p><strong>4. Dividir y conquistar</strong></p>
+            <ul>
+                <li>Comentar partes del código</li>
+                <li>Probar cada parte por separado</li>
+                <li>Volver agregando gradualmente</li>
+            </ul>
+        </div>
+
+        <h2>⚠️ Errores Comunes</h2>
+
+        <table>
+            <tr>
+                <th>Error</th>
+                <th>Solución</th>
+            </tr>
+            <tr>
+                <td>"'DHT' was not declared"</td>
+                <td>Falta incluir librería: <code>#include "DHT.h"</code> o instalar librería en Arduino IDE</td>
+            </tr>
+            <tr>
+                <td>"Compilation error"</td>
+                <td>Verificar punto y coma, paréntesis balanceados {}, comillas en strings</td>
+            </tr>
+            <tr>
+                <td>"Port not found"</td>
+                <td>ESP32 no conectado, drivers no instalados, puerto incorrecto</td>
+            </tr>
+            <tr>
+                <td>"Failed to connect"</td>
+                <td>Presionar botón BOOT mientras sube, verificar puerto, cambiar cable USB</td>
+            </tr>
+        </table>
+
+        <h2>📊 Conversiones</h2>
+
+        <h3>ADC (Entrada Analógica)</h3>
+        <p>ESP32 ADC: 12 bits = 0 a 4095</p>
+        <pre><code>// Convertir a porcentaje:
+porcentaje = map(valorLDR, 0, 4095, 0, 100);
+
+// Convertir a voltaje (3.3V):
+voltaje = (valor * 3.3) / 4095;
+</code></pre>
+
+        <h3>Temperatura</h3>
+        <pre><code>// Celsius a Fahrenheit:
+F = (C * 9/5) + 32;
+
+// Fahrenheit a Celsius:
+C = (F - 32) * 5/9;
+</code></pre>
+
+        <h2>🚨 Modo Emergencia</h2>
+
+        <h3>Código no sube</h3>
+        <ol>
+            <li>Presionar BOOT mientras sube</li>
+            <li>Presionar RESET antes de subir</li>
+            <li>Verificar puerto correcto</li>
+            <li>Simplificar código (comentar partes)</li>
+        </ol>
+
+        <h3>ESP32 caliente</h3>
+        <ul>
+            <li>Normal durante transmisión WiFi</li>
+            <li>Preocupante si > 60°C</li>
+            <li>Verificar cortocircuito en <abbr title="General Purpose Input/Output">GPIO</abbr></li>
+        </ul>
+
+        <h2>📞 Ayuda Rápida</h2>
+
+        <table>
+            <tr>
+                <th>Problema</th>
+                <th>Comando/Acción</th>
+            </tr>
+            <tr>
+                <td>Ver puertos</td>
+                <td>Herramientas > Puerto</td>
+            </tr>
+            <tr>
+                <td>Ver placa</td>
+                <td>Herramientas > Placa</td>
+            </tr>
+            <tr>
+                <td>Formatear código</td>
+                <td>Ctrl + T</td>
+            </tr>
+            <tr>
+                <td>Verificar</td>
+                <td>Ctrl + R (o click ✓)</td>
+            </tr>
+            <tr>
+                <td>Subir</td>
+                <td>Ctrl + U (o click →)</td>
+            </tr>
+            <tr>
+                <td>Monitor Serial</td>
+                <td>Ctrl + Shift + M</td>
+            </tr>
+        </table>
+
+        <h2>✅ Checklist Antes de Clase</h2>
+
+        <ul>
+            <li><input type="checkbox"> ESP32 cargado</li>
+            <li><input type="checkbox"> Cable USB en la mochila</li>
+            <li><input type="checkbox"> Kit completo</li>
+            <li><input type="checkbox"> Arduino IDE instalado</li>
+            <li><input type="checkbox"> Librerías instaladas</li>
+            <li><input type="checkbox"> WiFi del laboratorio anotada</li>
+        </ul>
+
+        <div class="footer">
+            <p><strong>¡Buena suerte! 🔧⚡</strong></p>
+            <p>Guía rápida para: IF0112 - Complementaria II</p>
+            <p>Institución: UNAULA | Febrero 2026</p>
+            <p><a href="../clases-html/index.html">← Volver al portal de clases</a></p>
+        </div>
+    </div>
+</body>
+</html>

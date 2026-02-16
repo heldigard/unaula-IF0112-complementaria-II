@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía E4: Informe de Gestión - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #92400e;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--surface); padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        header { border-bottom: 4px solid var(--primary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        h1 { color: var(--primary-dark); margin: 0; }
+        .meta { color: #64748b; font-weight: 600; margin-top: 0.5rem; }
+        section { margin-bottom: 2rem; }
+        h2 { color: var(--primary-dark); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .highlight { background: #fffbeb; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .footer { text-align: center; margin-top: 3rem; color: #64748b; font-size: 0.875rem; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-dark); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía E4: Informe de Gestión - Lógica de Control SMAI</h1>
+            <p class="meta">Valor: 15% | Tipo: Informe | Fecha: 20-abr-2026 | Grupal</p>
+            <p class="meta" style="font-size: 0.9rem; color: #92400e; margin-top: 0.25rem;">Fase 4 del Proyecto SMAI: Gestión domótica e inteligencia del sistema</p>
+        </header>
+
+        <section class="highlight">
+            <h2>📋 Prerrequisitos (de E3)</h2>
+            <p>Para realizar esta evaluación debes tener funcionando:</p>
+            <ul>
+                <li><strong>E3 Software:</strong> ESP32 enviando datos a la nube cada 20 segundos (WiFi conectado).</li>
+                <li>Dashboard en plataforma IoT (Ubidots, ThingSpeak o similar - <a href="../docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">ver opciones gratuitas</a>) mostrando datos en tiempo real.</li>
+                <li>Código de E3 con estructura no bloqueante usando <code>millis()</code>.</li>
+            </ul>
+            <p><strong>Nota:</strong> Esta evaluación agrega <strong>lógica de control inteligente</strong> sobre el código de E3. No se modifica el circuito, solo se mejora el firmware. Este código será la base para E6.</p>
+        </section>
+
+        <section>
+            <h2>Requisitos del Firmware (Lógica SMAI)</h2>
+            <p>El código fuente actualizado debe demostrar el uso de técnicas avanzadas de programación embebida para IoT. Se construye sobre el código de la E3, agregando inteligencia al sistema:</p>
+            <ul>
+                <li><strong>Multitarea Cooperativa (No Bloqueante):</strong>
+                    <ul>
+                        <li>Eliminar completamente el uso de <code>delay()</code> en el <code>loop()</code> principal.</li>
+                        <li>Usar <code>millis()</code> para gestionar múltiples tareas simultáneas:</li>
+                        <li>- Tarea 1: Lectura de sensores cada 2 segundos.</li>
+                        <li>- Tarea 2: Envío a la nube cada 20 segundos.</li>
+                        <li>- Tarea 3: Actualización de LEDs cada 100 ms.</li>
+                        <li>Estructura: <code>if(currentMillis - previousMillis >= interval) { ... }</code></li>
+                    </ul>
+                </li>
+                <li><strong>Máquina de Estados (State Machine):</strong>
+                    <ul>
+                        <li>Definir enum con estados: <code>enum Estado { NORMAL, ALERTA_TEMP, ALERTA_LUZ, ALERTA_DOBLE };</code></li>
+                        <li>Variable de estado: <code>Estado estadoActual = NORMAL;</code></li>
+                        <li>Transiciones basadas en umbrales configurables:</li>
+                        <li>- <code>NORMAL</code>: Temp < 28°C y Luz > 30%.</li>
+                        <li>- <code>ALERTA_TEMP</code>: Temp ≥ 30°C.</li>
+                        <li>- <code>ALERTA_LUZ</code>: Luz ≤ 20%.</li>
+                        <li>- <code>ALERTA_DOBLE</code>: Ambas condiciones críticas simultáneas.</li>
+                    </ul>
+                </li>
+                <li><strong>Histéresis (Zona Muerta):</strong>
+                    <ul>
+                        <li>Evitar oscilaciones rápidas de actuadores cuando el valor oscila cerca del umbral.</li>
+                        <li>Ejemplo para temperatura: Encender alerta a 30°C, apagar a 28°C (2°C de histéresis).</li>
+                        <li>Implementación: Usar dos umbrales separados (umbralAlto y umbralBajo).</li>
+                        <li>Código: <code>if(temp > UMBRAL_ALTO) estado = ALERTA; else if(temp < UMBRAL_BAJO) estado = NORMAL;</code></li>
+                    </ul>
+                </li>
+                <li><strong>Condiciones de Entrada:</strong>
+                    <ul>
+                        <li>Debe usar el código funcional de la E3 (conectividad WiFi) como base.</li>
+                        <li>Los umbrales deben ser configurables mediante constantes al inicio del código.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="highlight">
+            <h2>Estructura del Informe</h2>
+            <p>El documento PDF debe seguir este orden:</p>
+            <ol>
+                <li><strong>Introducción:</strong> Explicación de la necesidad de automatización.</li>
+                <li><strong>Diagrama de Flujo:</strong> Representación gráfica de la máquina de estados.</li>
+                <li><strong>Matriz de Decisiones:</strong> Tabla con Entradas -> Lógica -> Salida.</li>
+                <li><strong>Evidencia de Pruebas:</strong> Capturas del Monitor Serial validando los cambios de estado.</li>
+            </ol>
+        </section>
+
+        <section class="highlight">
+            <h2>Hito de Proyecto</h2>
+            <p>En esta etapa, el SMAI ya no solo "envía datos", sino que debe "gestionar situaciones". Se evaluará la complejidad de las reglas programadas (uso de lógica booleana y operadores relacionales).</p>
+        </section>
+
+        <section>
+            <h2>Entregables</h2>
+            <ul>
+                <li>Documento PDF con el informe técnico.</li>
+                <li>Actualización del repositorio de código con la lógica de control implementada.</li>
+            </ul>
+        </section>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="rubricas-evaluacion.html#e4" class="btn">Ver Rúbrica de Calificación</a>
+        </div>
+
+        <div class="footer">
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
+            <p><a href="../clases-html/index.html">Volver al Inicio</a></p>
+        </div>
+    </div>
+</body>
+</html>
