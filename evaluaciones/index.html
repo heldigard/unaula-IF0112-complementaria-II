@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rúbricas de Evaluación - IF0112 IoT 2026-I</title>
+    <style>
+        :root { --primary: #1e40af; --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --text: #0f172a; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; margin: 0; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; padding: 2rem; border-radius: 1rem; margin-bottom: 2rem; text-align: center; }
+        .grid { display: grid; gap: 1rem; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; text-decoration: none; color: inherit; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-4px); border-color: var(--primary); }
+        .badge { background: #dbeafe; color: #1e3a8a; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: bold; }
+        h3 { margin: 0.5rem 0; }
+        .footer { margin-top: 3rem; text-align: center; font-size: 0.875rem; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rúbricas de Evaluación (2026-I)</h1>
+            <p>Criterios detallados para las evaluaciones E1 a E6</p>
+        </header>
+
+        <div style="background: #f0f9ff; border: 2px solid #3b82f6; border-radius: 12px; padding: 20px; margin: 20px 0;">
+            <h3 style="color: #1e40af; margin-top: 0;">📡 Plataformas IoT Gratuitas</h3>
+            <p>El curso soporta múltiples plataformas IoT gratuitas:</p>
+            <ul>
+                <li><strong>🥇 Ubidots STEM</strong> (Recomendada) - Gratis para siempre</li>
+                <li><strong>🥈 ThingSpeak</strong> - Gratis con limitaciones</li>
+                <li><strong>🥉 Arduino IoT Cloud</strong> - Gratis</li>
+                <li><strong>Blynk</strong> - Plan gratuito disponible</li>
+            </ul>
+            <p><a href="../docs/plataformas-iot-gratuitas.html" style="color: #1e40af; font-weight: 600;">📖 Ver guía completa →</a></p>
+        </div>
+
+        <div class="grid">
+            <a href="guia-E1.html" class="card">
+                <span class="badge">E1</span>
+                <h3>Guía E1: Investigación Técnica</h3>
+                <p>Diseño de arquitectura y justificación de hardware.</p>
+            </a>
+            <a href="guia-E2.html" class="card">
+                <span class="badge">E2</span>
+                <h3>Guía E2: Prototipo Sensórico</h3>
+                <p>Lectura de sensores y control de actuadores locales.</p>
+            </a>
+            <a href="guia-E3.html" class="card">
+                <span class="badge">E3</span>
+                <h3>Guía E3: Software IoT</h3>
+                <p>Conectividad cloud y protocolos de red.</p>
+            </a>
+            <a href="guia-E4.html" class="card">
+                <span class="badge">E4</span>
+                <h3>Guía E4: Informe de Gestión</h3>
+                <p>Lógica de automatización y reglas de negocio.</p>
+            </a>
+            <a href="guia-E5.html" class="card">
+                <span class="badge">E5</span>
+                <h3>Guía E5: Trabajo Escrito Normativo</h3>
+                <p>Privacidad, seguridad eléctrica y ficha técnica.</p>
+            </a>
+            <a href="guia-E6.html" class="card">
+                <span class="badge">E6</span>
+                <h3>Guía E6: Proyecto Final</h3>
+                <p>Sustentación del producto terminado y encapsulado.</p>
+            </a>
+            <a href="rubricas-evaluacion.html" class="card" style="background: #f1f5f9; border-color: #3b82f6; grid-column: 1 / -1;">
+                <span class="badge" style="background: #3b82f6; color: white;">📊 RÚBRICAS</span>
+                <h3>Criterios de Calificación (E1-E6)</h3>
+                <p>Consulte los niveles de desempeño (Alto, Medio, Bajo) requeridos para cada entrega.</p>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
+            <p><a href="../clases-html/index.html">Volver al portal de clases</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,8 +2,8 @@
 # ESTUDIANTES: Solo ven HTML de clases y laboratorios
 # ============================================
 
-# Ignorar evaluaciones (contenido confidencial - respuestas, soluciones)
-evaluaciones/
+# Evaluaciones - ahora visible para estudiantes
+# evaluaciones/
 
 # Documentos internos del docente (notas, seguimiento, tareas pendientes)
 memory-bank/

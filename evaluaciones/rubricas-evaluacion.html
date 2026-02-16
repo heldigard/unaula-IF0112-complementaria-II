@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rúbricas de Evaluación - IF0112 IoT</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #1f2933;
+      --muted: #52606d;
+      --brand: #1e3a8a;
+      --accent: #3b82f6;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --iot-green: #10b981;
+      --iot-orange: #f59e0b;
+      --iot-red: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    header {
+      background: linear-gradient(135deg, #0b2d6b, #1e40af);
+      color: #fff;
+      padding: 32px 20px;
+    }
+    header h1 { margin: 0 0 8px; font-size: 2rem; }
+    header p { margin: 0; opacity: 0.9; }
+    main { max-width: 1100px; margin: 24px auto; padding: 0 20px; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    h2 { margin-top: 0; color: var(--brand); border-bottom: 3px solid var(--accent); padding-bottom: 8px; }
+    h3 { color: var(--brand); margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+    th { background: #f1f5f9; }
+    .eval-card { border-left: 5px solid var(--accent); }
+    .eval-e1 { border-left-color: #3b82f6; }
+    .eval-e2 { border-left-color: #22c55e; }
+    .eval-e3 { border-left-color: #ef4444; }
+    .eval-e4 { border-left-color: #f59e0b; }
+    .eval-e5 { border-left-color: #a855f7; }
+    .eval-e6 { border-left-color: #ec4899; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .badge-e1 { background: #dbeafe; color: #1e3a8a; }
+    .badge-e2 { background: #dcfce7; color: #166534; }
+    .badge-e3 { background: #fee2e2; color: #991b1b; }
+    .badge-e4 { background: #fef3c7; color: #92400e; }
+    .badge-e5 { background: #f3e8ff; color: #7e22ce; }
+    .badge-e6 { background: #fce7f3; color: #9d174d; }
+    .note { background: #f0f4ff; border-left: 4px solid var(--accent); padding: 12px; border-radius: 8px; margin: 16px 0; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+    .nav-links a {
+      background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 8px;
+      text-decoration: none; font-weight: 500;
+    }
+    .nav-links a:hover { background: var(--brand); }
+    footer { text-align: center; padding: 24px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; }
+    .criterio-row td { padding: 8px 12px; }
+    .nivel-alto { background: #dcfce7; }
+    .nivel-medio { background: #fef9c3; }
+    .nivel-bajo { background: #fee2e2; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rúbricas de Evaluación</h1>
+    <p>IF0112 - Complementaria II (Internet de las Cosas) | 2026-I</p>
+  </header>
+
+  <main>
+    <!-- Navegación -->
+    <nav class="nav-links">
+      <a href="../clases-html/index.html">🏠 Inicio</a>
+      <a href="../clases-html/cronograma.html">📅 Cronograma</a>
+      <a href="../clases-html/presentacion-docente.html">📋 Presentación</a>
+      <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
+    </nav>
+
+    <!-- Tabla Resumen -->
+    <section>
+      <h2>📊 Resumen de Evaluaciones (Proyecto SMAI)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Eval</th>
+            <th>Tipo</th>
+            <th>Peso</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="eval-card eval-e1">
+            <td><span class="badge badge-e1">E1</span></td>
+            <td>Investigación</td>
+            <td>15%</td>
+            <td>23-feb-2026</td>
+            <td>Arquitectura y Diseño de la Solución IoT (SMAI)</td>
+          </tr>
+          <tr class="eval-card eval-e2">
+            <td><span class="badge badge-e2">E2</span></td>
+            <td>Prototipo</td>
+            <td>15%</td>
+            <td>09-mar-2026</td>
+            <td>Interacción Sensórica Local (Hardware/Simulado)</td>
+          </tr>
+          <tr class="eval-card eval-e3">
+            <td><span class="badge badge-e3">E3</span></td>
+            <td>Software</td>
+            <td>20%</td>
+            <td>16-mar-2026</td>
+            <td>Conectividad Cloud y Protocolos (WiFi/MQTT)</td>
+          </tr>
+          <tr class="eval-card eval-e4">
+            <td><span class="badge badge-e4">E4</span></td>
+            <td>Informe</td>
+            <td>15%</td>
+            <td>20-abr-2026</td>
+            <td>Lógica de Control y Gestión Domótica</td>
+          </tr>
+          <tr class="eval-card eval-e5">
+            <td><span class="badge badge-e5">E5</span></td>
+            <td>Escrito</td>
+            <td>15%</td>
+            <td>04-may-2026</td>
+            <td>Normativa, Ficha Técnica y Seguridad IoT</td>
+          </tr>
+          <tr class="eval-card eval-e6">
+            <td><span class="badge badge-e6">E6</span></td>
+            <td>Proyecto</td>
+            <td>20%</td>
+            <td>25-may-2026</td>
+            <td>Sustentación Final SMAI (Producto Terminado)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E1: Investigación -->
+    <section class="eval-card eval-e1">
+      <h2>E1: Investigación Técnica (15%) - 23 de febrero de 2026</h2>
+      <p><strong>Propósito:</strong> Evaluar la capacidad de investigación y diseño de arquitectura IoT para el proyecto SMAI.</p>
+      <p><strong>Formato:</strong> Documento técnico (PDF) con diagramas de bloques y justificación de selección de hardware.</p>
+
+      <h3>Criterios de Evaluación</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Alto (5.0-4.0)</th>
+            <th>Medio (3.9-3.0)</th>
+            <th>Bajo (2.9-1.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="criterio-row">
+            <td><strong>Arquitectura del Sistema</strong></td>
+            <td class="nivel-alto">Diagrama de bloques claro y completo (Sensores, Microcontrolador, Red, Nube).</td>
+            <td class="nivel-medio">Diagrama aceptable pero faltan componentes o flujos de datos.</td>
+            <td class="nivel-bajo">Sin diagrama o diagrama incoherente.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Justificación de Hardware</strong></td>
+            <td class="nivel-alto">Sustenta técnicamente la elección de ESP32 y sensores específicos para el caso de uso.</td>
+            <td class="nivel-medio">Justificación genérica sin entrar en detalles técnicos de voltajes o protocolos.</td>
+            <td class="nivel-bajo">Sin justificación técnica real.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Investigación de Protocolos</strong></td>
+            <td class="nivel-alto">Compara y elige correctamente el protocolo de red (WiFi/LoRa) según el entorno.</td>
+            <td class="nivel-medio">Menciona protocolos pero no justifica su idoneidad para el proyecto.</td>
+            <td class="nivel-bajo">Desconocimiento de protocolos aplicables.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Formato Técnico</strong></td>
+            <td class="nivel-alto">Documento profesional, ortografía perfecta y uso de terminología técnica correcta.</td>
+            <td class="nivel-medio">Documento aceptable con errores menores de formato.</td>
+            <td class="nivel-bajo">Documento desordenado o lenguaje no técnico.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E2: Prototipo -->
+    <section class="eval-card eval-e2">
+      <h2>E2: Prototipo Sensórico (15%) - 9 de marzo de 2026</h2>
+      <p><strong>Propósito:</strong> Validar la lectura de variables físicas y control de actuadores en local.</p>
+      <p><strong>Formato:</strong> Demostración en clase (Físico o Wokwi) del circuito funcionando.</p>
+
+      <h3>Criterios de Evaluación</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Alto (5.0-4.0)</th>
+            <th>Medio (3.9-3.0)</th>
+            <th>Bajo (2.9-1.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="criterio-row">
+            <td><strong>Lectura de Sensores</strong></td>
+            <td class="nivel-alto">Lectura precisa de temperatura, humedad (DHT22) y luz (LDR) mostrada por serial.</td>
+            <td class="nivel-medio">Lectura inestable o solo de un sensor.</td>
+            <td class="nivel-bajo">No logra leer los sensores.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Control de Actuadores</strong></td>
+            <td class="nivel-alto">LEDs reaccionan correctamente a los cambios en los sensores (lógica local).</td>
+            <td class="nivel-medio">Los actuadores funcionan pero la lógica es errática.</td>
+            <td class="nivel-bajo">Actuadores no funcionan.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Estructura del Código</strong></td>
+            <td class="nivel-alto">Código modular, usa constantes, sin delays bloqueantes innecesarios.</td>
+            <td class="nivel-medio">Código funcional pero desordenado (Spaghetti code).</td>
+            <td class="nivel-bajo">Código con errores de compilación o incomprensible.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Montaje (Gemelo Digital)</strong></td>
+            <td class="nivel-alto">Uso correcto de protoboard o link de Wokwi perfectamente organizado.</td>
+            <td class="nivel-medio">Conexiones confusas o cables sueltos en el simulador.</td>
+            <td class="nivel-bajo">Cortocircuitos o montaje erróneo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E3: Software -->
+    <section class="eval-card eval-e3">
+      <h2>E3: Software IoT (20%) - 16 de marzo de 2026</h2>
+      <p><strong>Propósito:</strong> Evaluar la implementación de conectividad IP y reporte a la nube.</p>
+      <p><strong>Formato:</strong> Código fuente (.ino) + Dashboard público en ThingSpeak.</p>
+
+      <h3>Criterios de Evaluación</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Alto (5.0-4.0)</th>
+            <th>Medio (3.9-3.0)</th>
+            <th>Bajo (2.9-1.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="criterio-row">
+            <td><strong>Gestión WiFi</strong></td>
+            <td class="nivel-alto">Conexión exitosa, manejo de reconexión y visualización de IP en serial.</td>
+            <td class="nivel-medio">Se conecta pero no maneja pérdida de señal.</td>
+            <td class="nivel-bajo">No logra conectar el ESP32 a la red.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Protocolo HTTP/MQTT</strong></td>
+            <td class="nivel-alto">Implementación correcta del protocolo para enviar datos a la nube.</td>
+            <td class="nivel-medio">Envía datos pero con errores de formato o latencia alta.</td>
+            <td class="nivel-bajo">No envía datos a internet.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Dashboard Cloud</strong></td>
+            <td class="nivel-alto">Visualización clara de datos históricos y en tiempo real en ThingSpeak/Adafruit.</td>
+            <td class="nivel-medio">Dashboard básico sin etiquetas ni unidades claras.</td>
+            <td class="nivel-bajo">Sin visualización en la nube.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Seguridad Básica</strong></td>
+            <td class="nivel-alto">Uso de archivos de cabecera para credenciales o manejo seguro de API Keys.</td>
+            <td class="nivel-medio">API Keys en el código principal (Hardcoded).</td>
+            <td class="nivel-bajo">Exposición innecesaria de credenciales críticas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E4: Informe -->
+    <section class="eval-card eval-e4">
+      <h2>E4: Informe de Gestión (15%) - 20 de abril de 2026</h2>
+      <p><strong>Propósito:</strong> Evaluar la lógica de negocio y automatización del sistema domótico.</p>
+      <p><strong>Formato:</strong> Informe técnico con diagramas de flujo de decisiones.</p>
+
+      <h3>Criterios de Evaluación</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Alto (5.0-4.0)</th>
+            <th>Medio (3.9-3.0)</th>
+            <th>Bajo (2.9-1.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="criterio-row">
+            <td><strong>Lógica de Automatización</strong></td>
+            <td class="nivel-alto">Define reglas claras (IF-THEN) complejas y útiles para el usuario final.</td>
+            <td class="nivel-medio">Reglas muy básicas (encender/apagar simple).</td>
+            <td class="nivel-bajo">Sin lógica de automatización.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Gestión de Eventos</strong></td>
+            <td class="nivel-alto">Identifica correctamente eventos críticos (Alerta incendio, intrusión, etc).</td>
+            <td class="nivel-medio">Solo considera eventos informativos (Temperatura actual).</td>
+            <td class="nivel-bajo">No diferencia entre datos y eventos.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Diagramas de Flujo</strong></td>
+            <td class="nivel-alto">Diagramas profesionales que representan la lógica del código implementado.</td>
+            <td class="nivel-medio">Diagramas confusos o que no coinciden con la realidad del sistema.</td>
+            <td class="nivel-bajo">Sin diagramas de flujo.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Documentación de Pruebas</strong></td>
+            <td class="nivel-alto">Reporte detallado de pruebas de campo o simulación (casos de éxito/error).</td>
+            <td class="nivel-medio">Reporte de pruebas incompleto.</td>
+            <td class="nivel-bajo">Sin evidencia de pruebas de funcionamiento.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E5: Trabajo Escrito -->
+    <section class="eval-card eval-e5">
+      <h2>E5: Trabajo Escrito Normativo (15%) - 4 de mayo de 2026</h2>
+      <p><strong>Propósito:</strong> Evaluar el conocimiento del marco legal y técnico del sector tecnológico.</p>
+      <p><strong>Formato:</strong> Ficha Técnica Legal y Manual de Cumplimiento.</p>
+
+      <h3>Criterios de Evaluación</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Alto (5.0-4.0)</th>
+            <th>Medio (3.9-3.0)</th>
+            <th>Bajo (2.9-1.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="criterio-row">
+            <td><strong>Ley 1581 (Privacidad)</strong></td>
+            <td class="nivel-alto">Aplica correctamente la política de tratamiento de datos al proyecto IoT.</td>
+            <td class="nivel-medio">Menciona la ley pero no explica cómo se aplica a su dispositivo.</td>
+            <td class="nivel-bajo">Desconocimiento total de la normativa de privacidad.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Normativa Eléctrica (RETIE)</strong></td>
+            <td class="nivel-alto">Identifica riesgos eléctricos del prototipo y propone medidas de seguridad.</td>
+            <td class="nivel-medio">Menciona normas pero sin aplicarlas al hardware real.</td>
+            <td class="nivel-bajo">Ignora la seguridad eléctrica del dispositivo.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Ficha Técnica</strong></td>
+            <td class="nivel-alto">Documento profesional con especificaciones de voltaje, consumo y alcance.</td>
+            <td class="nivel-medio">Ficha técnica incompleta o con datos erróneos.</td>
+            <td class="nivel-bajo">Sin ficha técnica del producto.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Manual de Usuario</strong></td>
+            <td class="nivel-alto">Guía clara para un usuario no técnico sobre cómo usar el SMAI.</td>
+            <td class="nivel-medio">Manual confuso o muy técnico.</td>
+            <td class="nivel-bajo">Sin manual de instrucciones.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E6: Proyecto Final -->
+    <section class="eval-card eval-e6">
+      <h2>E6: Sustentación Final SMAI (20%) - 25 de mayo de 2026</h2>
+      <p><strong>Propósito:</strong> Evaluación integral del producto terminado y defensa de ingeniería.</p>
+      <p><strong>Formato:</strong> Pitch de Ventas + Demo Técnica + Dispositivo Encapsulado.</p>
+
+      <h3>Criterios de Evaluación</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Alto (5.0-4.0)</th>
+            <th>Medio (3.9-3.0)</th>
+            <th>Bajo (2.9-1.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="criterio-row">
+            <td><strong>Producto Terminado</strong></td>
+            <td class="nivel-alto">Dispositivo encapsulado, robusto, estético y funcional al 100%.</td>
+            <td class="nivel-medio">Funciona pero tiene cables expuestos o problemas de robustez.</td>
+            <td class="nivel-bajo">El sistema falla durante la demo o no está terminado.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Sustentación (Pitch)</strong></td>
+            <td class="nivel-alto">Explica el valor agregado, la arquitectura y los estándares con dominio total.</td>
+            <td class="nivel-medio">Explica pero tiene dudas técnicas o no es claro en la propuesta.</td>
+            <td class="nivel-bajo">Incapacidad de explicar cómo funciona el sistema.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Integración Cloud-Real</strong></td>
+            <td class="nivel-alto">Sincronización perfecta entre el mundo físico y el dashboard de Grafana.</td>
+            <td class="nivel-medio">Latencia alta o datos inconsistentes en la nube.</td>
+            <td class="nivel-bajo">Sin integración en tiempo real.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Calidad de Ingeniería</strong></td>
+            <td class="nivel-alto">Uso correcto de librerías, estándares de código y optimización de recursos.</td>
+            <td class="nivel-medio">Uso ineficiente de memoria o código sin estandarizar.</td>
+            <td class="nivel-bajo">Pobre calidad técnica del desarrollo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Nota Final -->
+    <div class="note">
+      <strong>📌 Políticas Generales:</strong>
+      <ul>
+        <li>Todas las evaluaciones son obligatorias</li>
+        <li>No se aceptan entregas tardías sin justificación válida</li>
+        <li>Las entregas técnicas se validan en laboratorio o simulador</li>
+        <li>Los prototipos requieren funcionamiento del hardware real o virtual</li>
+        <li>Los informes técnicos deben ser originales (política anti-plagio)</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
+    <p>UNAULA — 2026-I | Rúbricas de Evaluación</p>
+    <p><a href="../clases-html/index.html">Volver al portal de clases</a></p>
+  </footer>
+</body>
+</html>

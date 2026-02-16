@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía E2: Prototipo Sensórico - IF0112 IoT</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #065f46;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--surface); padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        header { border-bottom: 4px solid var(--primary); padding-bottom: 1rem; margin-bottom: 2rem; }
+        h1 { color: var(--primary-dark); margin: 0; }
+        .meta { color: #64748b; font-weight: 600; margin-top: 0.5rem; }
+        section { margin-bottom: 2rem; }
+        h2 { color: var(--primary-dark); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .highlight { background: #ecfdf5; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .footer { text-align: center; margin-top: 3rem; color: #64748b; font-size: 0.875rem; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-dark); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía E2: Prototipo Sensórico - Demo Prototipo Físico/Virtual</h1>
+            <p class="meta">Valor: 15% | Tipo: Prototipo | Fecha: 09-mar-2026 | Individual</p>
+            <p class="meta" style="font-size: 0.9rem; color: #065f46; margin-top: 0.25rem;">Fase 2 del Proyecto SMAI: Interacción mundo físico-virtual</p>
+        </header>
+
+        <section class="highlight">
+            <h2>📋 Prerrequisitos (de E1)</h2>
+            <p>Para realizar esta evaluación debes haber completado:</p>
+            <ul>
+                <li><strong>E1 Investigación:</strong> Arquitectura del SMAI aprobada.</li>
+                <li>Kit de materiales: ESP32, DHT22, LDR, resistencias 10kΩ, LEDs, protoboard.</li>
+                <li>Arduino IDE instalado con librería DHT sensor library.</li>
+            </ul>
+            <p><strong>Nota:</strong> El circuito que montes en E2 será la base para E3 (conectividad WiFi).</p>
+        </section>
+
+        <section>
+            <h2>Objetivo</h2>
+            <p>Implementar el montaje físico (o simulado en Wokwi) de la capa de percepción del SMAI, logrando la lectura de variables ambientales y el control de actuadores locales.</p>
+        </section>
+
+        <section>
+            <h2>Requisitos Técnicos</h2>
+            <p>El prototipo debe demostrar las siguientes funcionalidades usando el hardware del Kit SMAI:</p>
+            <ul>
+                <li><strong>Lectura DHT22:</strong> Obtención de temperatura (°C) y humedad (%) con precisión de 1 decimal.
+                    <ul>
+                        <li>Librería requerida: <code>DHT sensor library</code> by Adafruit (v1.4.4 o superior).</li>
+                        <li>Pin de datos: <strong>GPIO 4</strong> (con resistencia pull-up de 10kΩ opcional).</li>
+                        <li>Tiempo de estabilización: 2 segundos entre lecturas.</li>
+                    </ul>
+                </li>
+                <li><strong>Lectura LDR:</strong> Mapeo del valor analógico a porcentaje de luz.
+                    <ul>
+                        <li>Pin analógico: <strong>GPIO 34</strong> (canal <abbr title="Analog-to-Digital Converter: Convertidor analógico-digital de 12 bits">ADC1</abbr> del ESP32).</li>
+                        <li>Rango del ADC: 0-4095 (12 bits de resolución).</li>
+                        <li>Función: <code>map(valorADC, 0, 4095, 0, 100)</code> para obtener porcentaje.</li>
+                        <li>Circuito: Divisor de voltaje con resistencia de 10kΩ.</li>
+                    </ul>
+                </li>
+                <li><strong>Salida Serial:</strong> Comunicación a <strong>115200 baudios</strong>.
+                    <ul>
+                        <li>Formato: <code>Serial.begin(115200)</code> en el <code>setup()</code>.</li>
+                        <li>Visualización: Monitor Serial del Arduino IDE o puerto COM.</li>
+                    </ul>
+                </li>
+                <li><strong>Lógica de Actuación:</strong> Control de LEDs indicadores.
+                    <ul>
+                        <li>LED Rojo (GPIO 2): Se enciende si temperatura ≥ 30°C.</li>
+                        <li>LED Amarillo (GPIO 15): Se enciende si luz ≤ 20%.</li>
+                        <li>Implementación: Función <code>digitalWrite()</code> basada en condicionales <code>if</code>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="highlight">
+            <h2>Modos de Presentación</h2>
+            <p>Puedes presentar esta evaluación de dos formas (ambas tienen el mismo valor):</p>
+            <ul>
+                <li><strong>Hardware Real:</strong> Presentación en el laboratorio presencial con los componentes físicos.</li>
+                <li><strong>Gemelo Digital (Wokwi):</strong> Entrega del link del proyecto en Wokwi funcionando al 100%.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Entregables</h2>
+            <ul>
+                <li>Código fuente (<code>.ino</code>) subido a la plataforma.</li>
+                <li>Captura de pantalla o Link de Wokwi.</li>
+                <li>Video de máximo 60 segundos demostrando el funcionamiento (si no se presenta en vivo).</li>
+            </ul>
+        </section>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="rubricas-evaluacion.html#e2" class="btn">Ver Rúbrica de Calificación</a>
+        </div>
+
+        <div class="footer">
+            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
+            <p><a href="../clases-html/index.html">Volver al Inicio</a></p>
+        </div>
+    </div>
+</body>
+</html>
