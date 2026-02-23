@@ -206,7 +206,7 @@
             <section id="protocolos">
                 <h2>Protocolos de Aplicación IoT</h2>
 
-                <p>Los protocolos definen cómo se comunican los dispositivos:</p>
+                <p>Los protocolos de aplicación definen <strong>cómo se comunican los dispositivos IoT</strong>. A diferencia de HTTP (diseñado para la web), los protocolos IoT están optimizados para dispositivos con recursos limitados: poca memoria, bajo ancho de banda y necesidad de bajo consumo energético.</p>
 
                 <table>
                     <thead>
@@ -239,26 +239,297 @@
                     </tbody>
                 </table>
 
-                <h3>MQTT vs CoAP: ¿Cuándo usar cada uno?</h3>
+                <h3>📡 MQTT: Message Queuing Telemetry Transport</h3>
+
+                <div class="highlight" style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin-top: 0;">¿Qué es MQTT?</h4>
+                    <p><strong>MQTT</strong> (Message Queuing Telemetry Transport) es un protocolo de mensajería ligero diseñado específicamente para dispositivos con recursos limitados y redes inestables. Fue creado en 1999 por IBM para monitorear oleoductos vía satélite, donde el ancho de banda era extremadamente limitado y las conexiones poco confiables.</p>
+                    <p><strong>Hoy es el protocolo más usado en IoT</strong>, siendo el estándar de facto para comunicación entre dispositivos y plataformas en la nube como AWS IoT, Azure IoT Hub, y ThingSpeak.</p>
+                </div>
+
+                <h4>Arquitectura Cliente-Servidor con Broker</h4>
+                <p>MQTT utiliza un modelo <strong>Cliente-Broker</strong> (no Cliente-Servidor tradicional):</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Función</th>
+                            <th>Analogía</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Broker</strong></td>
+                            <td>Servidor central que recibe, filtra y distribuye mensajes</td>
+                            <td>Como una oficina de correo central</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Publisher</strong><br>(Cliente)</td>
+                            <td>Dispositivo que ENVÍA datos (ej: sensor de temperatura)</td>
+                            <td>Como quien envía una carta</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Subscriber</strong><br>(Cliente)</td>
+                            <td>Dispositivo que RECIBE datos (ej: app móvil, dashboard)</td>
+                            <td>Como quien se suscribe a una revista</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Topic</strong></td>
+                            <td>Canal de comunicación jerárquico (ej: <code>casa/sala/temperatura</code>)</td>
+                            <td>Como la dirección en un sobre</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; margin: 20px 0; font-family: monospace; overflow-x: auto;">
+                    <p style="color: #94a3b8; margin-top: 0;">Ejemplo de flujo de comunicación MQTT:</p>
+<pre>
+    ┌─────────────┐                    ┌─────────────┐
+    │  SENSOR     │                    │   MÓVIL     │
+    │  (Publisher)│                    │(Subscriber) │
+    │  ESP32      │                    │   App       │
+    └──────┬──────┘                    └──────┬──────┘
+           │                                  │
+           │  Publica en:                      │  Suscrito a:
+           │  casa/sala/temp                   │  casa/sala/#
+           │                                  │
+           ▼                                  ▼
+    ┌─────────────────────────────────────────────────────┐
+    │                    BROKER MQTT                      │
+    │         (ej: mosquito, HiveMQ, AWS IoT)            │
+    │                                                     │
+    │  Recibe mensaje → Busca suscriptores → Entrega     │
+    └─────────────────────────────────────────────────────┘
+</pre>
+                </div>
+
+                <h4>Niveles de Calidad de Servicio (QoS)</h4>
+                <p>MQTT ofrece 3 niveles de garantía de entrega, cruciales para aplicaciones donde la pérdida de datos puede ser crítica:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>QoS</th>
+                            <th>Nombre</th>
+                            <th>Garantía</th>
+                            <th>Cuándo Usar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>QoS 0</strong></td>
+                            <td>At most once<br>(Al menos una vez)</td>
+                            <td>El mensaje se envía una vez, sin confirmación. Puede perderse.</td>
+                            <td>Sensores que envían datos frecuentes donde perder un dato no es crítico (ej: temperatura cada 5 seg)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QoS 1</strong></td>
+                            <td>At least once<br>(Al menos una vez)</td>
+                            <td>El mensaje se reenvía hasta recibir confirmación. Puede duplicarse.</td>
+                            <td>La mayoría de aplicaciones IoT (recomendado). Balance entre confiabilidad y rendimiento.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QoS 2</strong></td>
+                            <td>Exactly once<br>(Exactamente una vez)</td>
+                            <td>Garantiza entrega única con handshake de 4 pasos. Más lento.</td>
+                            <td>Aplicaciones críticas donde duplicados son inaceptables (ej: facturación, comandos de control)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Ejemplo Práctico: Envío de Temperatura</h4>
+                <div style="background: #f8fafc; border: 2px solid #e2e8f0; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Escenario:</strong> Un ESP32 envía temperatura cada 10 segundos a un dashboard.</p>
+                    <ul>
+                        <li><strong>Topic:</strong> <code>unaula/laboratorio/temperatura</code></li>
+                        <li><strong>Payload:</strong> <code>{"temp": 24.5, "unidad": "C", "timestamp": 1708723500}</code></li>
+                        <li><strong>QoS:</strong> 1 (recomendado para telemetría)</li>
+                        <li><strong>Retain:</strong> true (el último valor queda guardado para nuevos suscriptores)</li>
+                    </ul>
+                </div>
+
+                <div class="note" style="background: #f0fdfa; border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>💡 ¿Por qué MQTT es ideal para IoT?</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li><strong>Header mínimo:</strong> Solo 2 bytes de overhead (HTTP tiene ~200+ bytes)</li>
+                        <li><strong>Desacoplamiento:</strong> Publisher y Subscriber no necesitan conocerse</li>
+                        <li><strong>Escalabilidad:</strong> Un broker puede manejar millones de dispositivos</li>
+                        <li><strong>Calidad de servicio:</strong> Garantías de entrega configurables</li>
+                    </ul>
+                </div>
+
+                <h3>📡 CoAP: Constrained Application Protocol</h3>
+
+                <div class="highlight" style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin-top: 0;">¿Qué es CoAP?</h4>
+                    <p><strong>CoAP</strong> (Constrained Application Protocol) es un protocolo diseñado específicamente para dispositivos "constrained" (restringidos): aquellos con muy poca memoria (10-100 KB), procesadores limitados, y redes de bajo ancho de banda. Fue estandarizado por el IETF en 2014 como RFC 7252.</p>
+                    <p>A diferencia de MQTT, CoAP usa <strong>UDP</strong> en lugar de TCP, lo que lo hace más eficiente pero requiere manejar la confiabilidad a nivel de aplicación cuando es necesaria.</p>
+                </div>
+
+                <h4>Modelo Request/Response (Estilo Web)</h4>
+                <p>CoAP funciona como una versión minimalista de HTTP, usando el mismo modelo request/response que conoces de la web:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>CoAP</th>
+                            <th>HTTP (comparación)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Transporte</strong></td>
+                            <td>UDP (sin conexión, rápido)</td>
+                            <td>TCP (orientado a conexión)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tamaño header</strong></td>
+                            <td>4 bytes fijo</td>
+                            <td>~200+ bytes típico</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Métodos</strong></td>
+                            <td>GET, POST, PUT, DELETE</td>
+                            <td>GET, POST, PUT, DELETE, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Formato</strong></td>
+                            <td>Binario (compacto)</td>
+                            <td>Texto (verbose)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modelo</strong></td>
+                            <td>Request/Response (1:1)</td>
+                            <td>Request/Response (1:1)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Características Clave de CoAP</h4>
+
+                <div class="grid-2">
+                    <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px;">
+                        <h5 style="margin-top: 0;">✅ Ventajas</h5>
+                        <ul>
+                            <li><strong>Ultra ligero:</strong> Funciona en dispositivos con solo 10 KB de RAM</li>
+                            <li><strong>Estilo REST:</strong> Usa URLs y métodos HTTP familiares</li>
+                            <li><strong>Observación:</strong> Permite "suscribirse" a recursos (similar a pub/sub)</li>
+                            <li><strong>Multicast:</strong> Puede enviar un mensaje a múltiples dispositivos</li>
+                            <li><strong>DTLS:</strong> Seguridad integrada (similar a HTTPS)</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="background: #fef2f2; border: 1px solid #fecaca; padding: 15px; border-radius: 8px;">
+                        <h5 style="margin-top: 0;">⚠️ Limitaciones</h5>
+                        <ul>
+                            <li><strong>Sin broker:</strong> Cliente y servidor deben conocerse mutuamente</li>
+                            <li><strong>UDP:</strong> Requiere manejar pérdida de paquetes</li>
+                            <li><strong>Menos adoptado:</strong> MQTT es más popular en la industria</li>
+                            <li><strong>Sin QoS nativo:</strong> Debe implementarse manualmente</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4>Ejemplo Práctico: Consulta de Sensor</h4>
+                <div style="background: #f8fafc; border: 2px solid #e2e8f0; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Escenario:</strong> Un gateway consulta un sensor de humedad en una red LoRaWAN.</p>
+                    <pre style="background: #1e293b; color: #e2e8f0; padding: 10px; border-radius: 4px; margin: 10px 0;">GET coap://[2001:db8::1]/sensors/humidity
+Accept: application/json
+
+Respuesta (4 bytes header + payload):
+2.05 Content
+{"humidity": 65, "unit": "%"}</pre>
+                </div>
+
+                <h3>MQTT vs CoAP: Comparación Detallada</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>MQTT</th>
+                            <th>CoAP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Modelo de comunicación</strong></td>
+                            <td>Pub/Sub (muchos a muchos)</td>
+                            <td>Request/Response (uno a uno)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Capa de transporte</strong></td>
+                            <td>TCP (confiable, más overhead)</td>
+                            <td>UDP (rápido, puede perder paquetes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Requiere broker</strong></td>
+                            <td>Sí (centralizado)</td>
+                            <td>No (peer-to-peer)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Garantía de entrega</strong></td>
+                            <td>3 niveles de QoS integrados</td>
+                            <td>Confirmaciones opcionales</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Overhead por mensaje</strong></td>
+                            <td>~2-5 bytes</td>
+                            <td>~4 bytes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uso de memoria</strong></td>
+                            <td>Medio (~100 KB mínimo)</td>
+                            <td>Muy bajo (~10 KB posible)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NAT/Firewalls</strong></td>
+                            <td>Fácil (conexión saliente TCP)</td>
+                            <td>Difícil (UDP puede ser bloqueado)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adopción industrial</strong></td>
+                            <td>Muy alta (AWS, Azure, Google Cloud)</td>
+                            <td>Moderada (específico para LPWAN)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>¿Cuándo usar MQTT vs CoAP?</h3>
                 <div class="grid-2">
                     <div class="card" style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px;">
-                        <h4>MQTT</h4>
+                        <h4>Usa MQTT cuando:</h4>
                         <ul>
-                            <li>✅ Necesitas garantía de entrega (QoS)</li>
-                            <li>✅ Múltiples suscriptores por topic</li>
-                            <li>✅ Conexión persistente TCP</li>
-                            <li>📍 Ejemplo: Monitoreo industrial</li>
+                            <li>✅ Necesitas garantía de entrega (QoS 1 o 2)</li>
+                            <li>✅ Múltiples dispositivos necesitan los mismos datos</li>
+                            <li>✅ Dispositivos detrás de firewalls/NAT</li>
+                            <li>✅ Usas plataformas cloud (ThingSpeak, AWS IoT, etc.)</li>
+                            <li>✅ Conexión persistente es viable</li>
+                            <li>📍 <strong>Ejemplo:</strong> Monitoreo industrial, smart home, telemetría en tiempo real</li>
                         </ul>
                     </div>
                     <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 20px; border-radius: 8px;">
-                        <h4>CoAP</h4>
+                        <h4>Usa CoAP cuando:</h4>
                         <ul>
-                            <li>✅ Redes con ancho de banda limitado</li>
-                            <li>✅ Dispositivos muy restringidos</li>
-                            <li>✅ Consulta/respuesta simple</li>
-                            <li>📍 Ejemplo: Sensores en LoRaWAN</li>
+                            <li>✅ Redes con ancho de banda extremadamente limitado (LPWAN)</li>
+                            <li>✅ Dispositivos muy restringidos (&lt;100 KB RAM)</li>
+                            <li>✅ Comunicación simple consulta/respuesta</li>
+                            <li>✅ Necesitas multicast (un mensaje a muchos)</li>
+                            <li>✅ Redes UDP son confiables</li>
+                            <li>📍 <strong>Ejemplo:</strong> Sensores en LoRaWAN, redes 6LoWPAN, dispositivos NB-IoT</li>
                         </ul>
                     </div>
+                </div>
+
+                <div class="note" style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>🎓 Para tu proyecto SMAI:</strong> Recomendamos <strong>MQTT</strong> (o HTTP) porque:
+                    <ul style="margin-bottom: 0;">
+                        <li>ThingSpeak soporta MQTT nativamente</li>
+                        <li>ESP32 tiene bibliotecas maduras para MQTT</li>
+                        <li>Mayor facilidad de depuración</li>
+                        <li>Documentación y ejemplos abundantes</li>
+                    </ul>
                 </div>
             </section>
 

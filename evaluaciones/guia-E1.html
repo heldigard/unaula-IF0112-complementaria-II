@@ -275,6 +275,162 @@
         </section>
 
         <section>
+            <h2>📋 ¿Qué Debes Entregar Exactamente?</h2>
+
+            <div class="highlight" style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="margin-top: 0;">Entregable Único</h3>
+                <p><strong>Un archivo PDF</strong> que contenga el diseño completo de la arquitectura de tu Sistema de Monitoreo Ambiental Inteligente (SMAI).</p>
+                <p>Este documento es <strong>INDIVIDUAL</strong> y constituye la <strong>FASE 1</strong> del proyecto integrador del curso. En las siguientes evaluaciones (E2-E6) implementarás lo que diseñas aquí.</p>
+            </div>
+
+            <h3>Estructura Obligatoria del Documento</h3>
+            <p>Tu PDF debe seguir exactamente esta estructura para ser evaluado correctamente:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sección</th>
+                        <th>Contenido</th>
+                        <th>Páginas aprox.</th>
+                        <th>Peso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Portada</strong></td>
+                        <td>Universidad, curso, título, tu nombre, código, fecha</td>
+                        <td>1</td>
+                        <td>Requerido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Índice</strong></td>
+                        <td>Lista de secciones con números de página</td>
+                        <td>1</td>
+                        <td>Requerido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Definición del Problema</strong></td>
+                        <td>Contexto, ubicación, problema a resolver, usuarios</td>
+                        <td>1-2</td>
+                        <td>20%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Arquitectura del Sistema</strong></td>
+                        <td>Diagrama de bloques de 4 capas + explicación detallada</td>
+                        <td>2-3</td>
+                        <td>40%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Justificación de Hardware</strong></td>
+                        <td>Tabla comparativa ESP32 vs Arduino + conclusión</td>
+                        <td>1-2</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Plan de Conectividad</strong></td>
+                        <td>Protocolo, frecuencia, formato, seguridad</td>
+                        <td>1</td>
+                        <td>10%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Contenido Específico por Sección</h3>
+
+            <div class="example-box" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 20px; margin: 15px 0;">
+                <h4 style="margin-top: 0;">📄 Sección 1: Definición del Problema (20%)</h4>
+                <p><strong>Debe incluir OBLIGATORIAMENTE:</strong></p>
+                <ul>
+                    <li><strong>Contexto:</strong> ¿Dónde se instalará el sistema? (ej: "Invernadero de 5m² en terraza de apartamento")</li>
+                    <li><strong>Problema:</strong> ¿Qué problema específico resuelve? (ej: "Las plantas mueren por exceso/defecto de riego por falta de monitoreo")</li>
+                    <li><strong>Variables críticas:</strong> ¿Qué se medirá? (temperatura, humedad, luz - mínimo 2)</li>
+                    <li><strong>Usuarios:</strong> ¿Quiénes se beneficiarán? (ej: "Habitantes del apartamento que cultivan plantas")</li>
+                    <li><strong>Objetivo:</strong> ¿Qué se logrará? (ej: "Mantener condiciones óptimas de crecimiento")</li>
+                </ul>
+            </div>
+
+            <div class="example-box" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 20px; margin: 15px 0;">
+                <h4 style="margin-top: 0;">📄 Sección 2: Arquitectura del Sistema (40%)</h4>
+                <p><strong>Debe incluir OBLIGATORIAMENTE:</strong></p>
+                <ul>
+                    <li><strong>Diagrama de bloques VISUAL:</strong> No solo texto, debe haber un dibujo/diagrama claro</li>
+                    <li><strong>Capa de Percepción:</strong>
+                        <ul>
+                            <li>Sensor DHT22 conectado a GPIO 4 (temperatura/humedad)</li>
+                            <li>Sensor LDR conectado a GPIO 34 (luz)</li>
+                            <li>LEDs indicadores en GPIO 2 y GPIO 15</li>
+                            <li><strong>Especificaciones técnicas:</strong> Rango de medición, precisión, voltaje</li>
+                        </ul>
+                    </li>
+                    <li><strong>Capa de Procesamiento:</strong>
+                        <ul>
+                            <li>Microcontrolador ESP32 DevKit v1</li>
+                            <li><strong>Justificación:</strong> WiFi integrado, bajo costo, suficiente memoria</li>
+                        </ul>
+                    </li>
+                    <li><strong>Capa de Red:</strong>
+                        <ul>
+                            <li>Tecnología: WiFi 802.11 b/g/n (2.4 GHz)</li>
+                            <li>Modo: STA (Station) - se conecta a router existente</li>
+                            <li>Protocolo: HTTP o MQTT (elegir uno y justificar)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Capa de Aplicación:</strong>
+                        <ul>
+                            <li>Plataforma: ThingSpeak, Ubidots, Arduino Cloud (elegir una)</li>
+                            <li><strong>Justificación:</strong> ¿Por qué elegiste esa plataforma?</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example-box" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 20px; margin: 15px 0;">
+                <h4 style="margin-top: 0;">📄 Sección 3: Justificación de Hardware (30%)</h4>
+                <p><strong>Debe incluir OBLIGATORIAMENTE:</strong></p>
+                <ul>
+                    <li><strong>Tabla comparativa:</strong> ESP32 vs Arduino Uno con al menos 5 características</li>
+                    <li>Características a comparar: Procesador, RAM, Conectividad, Precio, Consumo</li>
+                    <li><strong>Conclusión escrita:</strong> Párrafo explicando por qué ESP32 es la mejor opción para TU aplicación específica</li>
+                </ul>
+            </div>
+
+            <div class="example-box" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 20px; margin: 15px 0;">
+                <h4 style="margin-top: 0;">📄 Sección 4: Plan de Conectividad (10%)</h4>
+                <p><strong>Debe incluir OBLIGATORIAMENTE:</strong></p>
+                <ul>
+                    <li><strong>Protocolo:</strong> ¿HTTP o MQTT? ¿Por qué?</li>
+                    <li><strong>Frecuencia de envío:</strong> ¿Cada cuántos segundos? (Recomendado: 15-20 segundos para ThingSpeak gratuito)</li>
+                    <li><strong>Formato de datos:</strong> ¿Qué variables enviarás? (ej: temp, humedad, luz)</li>
+                    <li><strong>Ejemplo de URL/payload:</strong> Muestra cómo se vería el envío de datos</li>
+                    <li><strong>Seguridad:</strong> ¿Cómo manejarás las credenciales WiFi?</li>
+                </ul>
+            </div>
+
+            <h3>Ejemplo de Contenido Mínimo por Sección</h3>
+            <div style="background: #f8fafc; border: 2px solid #e2e8f0; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                <pre style="white-space: pre-wrap; font-size: 0.85rem; margin: 0;">
+PORTADA
+├── Logo UNAULA
+├── "IF0112 - Complementaria II (IoT)"
+├── "E1: Arquitectura del Sistema de Monitoreo Ambiental Inteligente"
+├── Nombre: [Tu nombre completo]
+├── Código: [Tu código de estudiante]
+├── Fecha: 23 de febrero de 2026
+└── Profesores: [Nombres]
+
+ÍNDICE
+├── 1. Definición del Problema..............................3
+├── 2. Arquitectura del Sistema............................4
+├── 3. Justificación de Hardware...........................6
+└── 4. Plan de Conectividad...............................7
+
+CONTENIDO (páginas 3-7 aproximadamente)
+└── [Ver detalles en las secciones anteriores]
+                </pre>
+            </div>
+        </section>
+
+        <section>
             <h2>Formato de Entrega</h2>
             <table>
                 <tr>
@@ -295,11 +451,23 @@
                 </tr>
                 <tr>
                     <td><strong>Extensión</strong></td>
-                    <td>4-8 páginas (sin portada)</td>
+                    <td>4-8 páginas de contenido (sin contar portada ni índice)</td>
                 </tr>
                 <tr>
                     <td><strong>Formato</strong></td>
                     <td>PDF, texto legible, imágenes nítidas</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo de letra</strong></td>
+                    <td>Times New Roman, Arial o similar, tamaño 11-12pt</td>
+                </tr>
+                <tr>
+                    <td><strong>Interlineado</strong></td>
+                    <td>1.5 o doble espacio</td>
+                </tr>
+                <tr>
+                    <td><strong>Márgenes</strong></td>
+                    <td>2.5 cm todos los lados (estándar)</td>
                 </tr>
             </table>
         </section>
