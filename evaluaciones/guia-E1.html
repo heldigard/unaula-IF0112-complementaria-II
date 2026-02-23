@@ -91,36 +91,17 @@
             <p>Dibuja y describe un <strong>diagrama de bloques</strong> que muestre las 4 capas del modelo IoT aplicadas a tu SMAI:</p>
 
             <div class="example-box">
-                <h4>Plantilla del Diagrama de Bloques:</h4>
-                <pre style="background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto;">
-┌──────────────────────────────────────────────────────────────┐
-│  CAPA DE APLICACIÓN (Nube)                                   │
-│  • Plataforma: [ThingSpeak/Ubidots/Arduino Cloud]           │
-│  • Dashboard con gráficos en tiempo real                     │
-│  • Almacenamiento histórico de datos                         │
-└──────────────────────┬───────────────────────────────────────┘
-                       │ Protocolo: [HTTP/MQTT]
-┌──────────────────────▼───────────────────────────────────────┐
-│  CAPA DE RED                                                 │
-│  • WiFi IEEE 802.11 b/g/n (2.4 GHz)                         │
-│  • Modo STA: Conexión a router existente                     │
-│  • Seguridad: WPA2                                           │
-└──────────────────────┬───────────────────────────────────────┘
-                       │
-┌──────────────────────▼───────────────────────────────────────┐
-│  CAPA DE PROCESAMIENTO                                       │
-│  • Microcontrolador ESP32 DevKit v1                         │
-│  • Dual-core 240 MHz, 520 KB RAM                            │
-│  • WiFi/Bluetooth integrado                                  │
-└──────────────────────┬───────────────────────────────────────┘
-                       │
-┌──────────────────────▼───────────────────────────────────────┐
-│  CAPA DE PERCEPCIÓN (Sensores y Actuadores)                  │
-│  • DHT22 (GPIO 4): Temperatura (-40°C a 80°C, ±0.5°C)       │
-│  • LDR (GPIO 34, ADC1): Luz ambiente (0-100%)               │
-│  • LED Rojo (GPIO 2): Alerta visual temperatura             │
-│  • LED Amarillo (GPIO 15): Alerta visual luz                │
-└──────────────────────────────────────────────────────────────┘</pre>
+                <h4>Diagrama de Arquitectura IoT - 4 Capas:</h4>
+                <div style="margin: 1rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                    <img src="../assets/diagrams/iot-architecture-layers.svg" alt="Arquitectura IoT de 4 capas: Percepción, Red, Procesamiento, Aplicación" style="width: 100%; height: auto; display: block;">
+                </div>
+                <p><strong>Tu diagrama debe incluir los componentes específicos de tu proyecto SMAI:</strong></p>
+                <ul>
+                    <li><strong>Capa de Percepción:</strong> DHT22 (GPIO 4), LDR (GPIO 34), LEDs (GPIO 2, 15)</li>
+                    <li><strong>Capa de Procesamiento:</strong> ESP32 DevKit v1</li>
+                    <li><strong>Capa de Red:</strong> WiFi en modo STA</li>
+                    <li><strong>Capa de Aplicación:</strong> ThingSpeak, Ubidots o Arduino Cloud</li>
+                </ul>
             </div>
 
             <p><strong>Para cada capa debes explicar:</strong></p>
