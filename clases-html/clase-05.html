@@ -116,19 +116,38 @@
                     <strong>¿Por qué ESP32 domina IoT?</strong> Combina potencia, conectividad (WiFi + Bluetooth) y bajo costo ($3-5 USD).
                 </div>
 
-                <h3>Especificaciones</h3>
+                <h3>Diagrama de Pines ESP32 DevKit V1</h3>
+                <div style="margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                    <img src="../assets/diagrams/esp32-pinout.svg" alt="Diagrama de pines del ESP32 DevKit V1 mostrando GPIO, ADC, DAC, y pines especiales" style="width: 100%; height: auto; display: block;">
+                </div>
+
+                <h3>Especificaciones Técnicas</h3>
                 <table>
                     <tr><th>Característica</th><th>Especificación</th></tr>
                     <tr><td>CPU</td><td>Xtensa dual-core @ 240 MHz</td></tr>
-                    <tr><td>RAM</td><td>520 KB</td></tr>
-                    <tr><td>Flash</td><td>4 MB</td></tr>
-                    <tr><td>WiFi</td><td>802.11 b/g/n</td></tr>
-                    <tr><td>Bluetooth</td><td>Classic + BLE</td></tr>
+                    <tr><td>RAM</td><td>520 KB SRAM</td></tr>
+                    <tr><td>Flash</td><td>4 MB (externo)</td></tr>
+                    <tr><td>WiFi</td><td>802.11 b/g/n (2.4 GHz)</td></tr>
+                    <tr><td>Bluetooth</td><td>Classic + BLE 4.2</td></tr>
                     <tr><td>GPIO</td><td>34 pines programables</td></tr>
-                    <tr><td>ADC</td><td>18 canales (12-bit)</td></tr>
+                    <tr><td>ADC</td><td>18 canales (12-bit, 0-4095)</td></tr>
+                    <tr><td>DAC</td><td>2 canales (8-bit)</td></tr>
+                    <tr><td>PWM</td><td>16 canales independientes</td></tr>
                 </table>
 
-                <h3>Comparación</h3>
+                <h3>Pines Importantes para el Proyecto SMAI</h3>
+                <div style="background: #f0fdf4; border: 2px solid #bbf7d0; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="margin-top: 0;">Asignación de Pines Recomendada:</h4>
+                    <table style="margin: 0;">
+                        <tr><th>Componente</th><th>Pin ESP32</th><th>Nota</th></tr>
+                        <tr><td>DHT22 (Datos)</td><td><strong>GPIO 4</strong></td><td>Solo entrada digital</td></tr>
+                        <tr><td>LDR (Señal)</td><td><strong>GPIO 34</strong></td><td>ADC1_CH6 (solo input)</td></tr>
+                        <tr><td>LED Alerta Temp</td><td><strong>GPIO 2</strong></td><td>LED onboard disponible</td></tr>
+                        <tr><td>LED Alerta Luz</td><td><strong>GPIO 15</strong></td><td>Output con pull-down</td></tr>
+                    </table>
+                </div>
+
+                <h3>Comparación de Plataformas</h3>
                 <table>
                     <tr><th>Plataforma</th><th>Precio</th><th>WiFi</th><th>Uso Ideal</th></tr>
                     <tr><td>Arduino UNO</td><td>$25</td><td>No</td><td>Aprendizaje básico</td></tr>
@@ -165,6 +184,11 @@
                     <li><strong>Servomotores:</strong> Posicionamiento preciso</li>
                     <li><strong>Buzzers:</strong> Alertas sonoras</li>
                 </ul>
+
+                <h3>Diagrama de Conexión: DHT22 + LDR al ESP32</h3>
+                <div style="margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                    <img src="../assets/diagrams/dht22-ldr-connections.svg" alt="Diagrama de conexión del sensor DHT22 y LDR al ESP32" style="width: 100%; height: auto; display: block;">
+                </div>
             </section>
 
             <section id="protocolos">
