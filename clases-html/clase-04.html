@@ -282,26 +282,8 @@
                     </tbody>
                 </table>
 
-                <div style="background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; margin: 20px 0; font-family: monospace; overflow-x: auto;">
-                    <p style="color: #94a3b8; margin-top: 0;">Ejemplo de flujo de comunicación MQTT:</p>
-<pre>
-    ┌─────────────┐                    ┌─────────────┐
-    │  SENSOR     │                    │   MÓVIL     │
-    │  (Publisher)│                    │(Subscriber) │
-    │  ESP32      │                    │   App       │
-    └──────┬──────┘                    └──────┬──────┘
-           │                                  │
-           │  Publica en:                      │  Suscrito a:
-           │  casa/sala/temp                   │  casa/sala/#
-           │                                  │
-           ▼                                  ▼
-    ┌─────────────────────────────────────────────────────┐
-    │                    BROKER MQTT                      │
-    │         (ej: mosquito, HiveMQ, AWS IoT)            │
-    │                                                     │
-    │  Recibe mensaje → Busca suscriptores → Entrega     │
-    └─────────────────────────────────────────────────────┘
-</pre>
+                <div style="margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                    <img src="../assets/diagrams/mqtt-flow.svg" alt="Flujo de comunicación MQTT: Publisher (ESP32) envía datos al Broker MQTT que los distribuye a Subscribers (App móvil)" style="width: 100%; height: auto; display: block;">
                 </div>
 
                 <h4>Niveles de Calidad de Servicio (QoS)</h4>
@@ -319,7 +301,7 @@
                     <tbody>
                         <tr>
                             <td><strong>QoS 0</strong></td>
-                            <td>At most once<br>(Al menos una vez)</td>
+                            <td>At most once<br>(A lo sumo una vez)</td>
                             <td>El mensaje se envía una vez, sin confirmación. Puede perderse.</td>
                             <td>Sensores que envían datos frecuentes donde perder un dato no es crítico (ej: temperatura cada 5 seg)</td>
                         </tr>

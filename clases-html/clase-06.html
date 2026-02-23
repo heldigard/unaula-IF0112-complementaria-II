@@ -316,45 +316,13 @@ DATA → GPIO4 (con pull-up 10KΩ a 3.3V)</code></pre>
             <section id="glosario">
                 <h2>📚 Glosario de Programación Arduino</h2>
                 <p>Términos esenciales para programar el ESP32:</p>
-                
+
                 <table>
                     <thead>
                         <tr>
                             <th>Término</th>
                             <th>Significado</th>
                             <th>Descripción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong><abbr title="General Purpose Input/Output: Pines de propósito general">GPIO</abbr></strong></td>
-                            <td>General Purpose Input/Output</td>
-                            <td>Pines de entrada/salida de propósito general</td>
-                        </tr>
-                        <tr>
-                            <td><strong><abbr title="Analog-to-Digital Converter: Convierte voltajes en números">ADC</abbr></strong></td>
-                            <td>Analog-to-Digital Converter</td>
-                            <td>Conversor analógico-digital (lee 0-3.3V → 0-4095)</td>
-                        </tr>
-                        <tr>
-                            <td><strong><abbr title="Pulse Width Modulation: Control de potencia por pulsos">PWM</abbr></strong></td>
-                            <td>Pulse Width Modulation</td>
-                            <td>Modulación por ancho de pulso (control intensidad LED)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>INPUT_PULLUP</strong></td>
-                            <td>Entrada con resistencia pull-up</td>
-                            <td>Activa resistencia interna (botón: presionado=LOW)</td>
-                        </tr>
-                        <tr>
-                            <td><strong><abbr title="Universal Asynchronous Receiver-Transmitter: Comunicación serial estándar">Serial (UART)</abbr></strong></td>
-                            <td>Comunicación serie UART</td>
-                            <td>Interfaz para depuración y comunicación</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Baudios</strong></td>
-                            <td>Baud rate</td>
-                            <td>Velocidad de comunicación (ej: 115200 bits/seg)</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -399,13 +367,28 @@ DATA → GPIO4 (con pull-up 10KΩ a 3.3V)</code></pre>
                             <td>Bloque de código reutilizable (setup, loop, etc.)</td>
                         </tr>
                         <tr>
-                            <td><strong>CONST</strong></td>
+                            <td><strong>const</strong></td>
                             <td>Constante</td>
                             <td>Valor que no cambia durante la ejecución</td>
                         </tr>
+                        <tr>
+                            <td><strong>int</strong></td>
+                            <td>Entero</td>
+                            <td>Número entero (-32768 a 32767 en Arduino)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>float</strong></td>
+                            <td>Punto flotante</td>
+                            <td>Número decimal (ej: 24.5)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>bool</strong></td>
+                            <td>Booleano</td>
+                            <td>Verdadero o falso (true/false)</td>
+                        </tr>
                     </tbody>
                 </table>
-                
+
                 <div class="note" style="background: #f0fdfa; border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; margin-top: 20px;">
                     <strong>💡 Recuerda:</strong> En el <abbr title="Microcontrolador WiFi">ESP32</abbr>, <code>analogRead()</code> devuelve valores entre 0-4095 (12 bits). Para convertir a voltaje: <code>V = (lectura / 4095) × 3.3V</code>
                 </div>
