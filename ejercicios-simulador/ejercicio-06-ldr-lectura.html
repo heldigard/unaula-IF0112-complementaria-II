@@ -35,28 +35,53 @@
         <div class="section">
             <h2>📋 Diagrama de Conexión</h2>
 
-            <h3>Componentes Necesarios:</h3>
+            <h3>Componentes Necesarios (vérificalos antes de empezar):</h3>
             <ul>
-                <li>1 x LDR (fotorresistencia)</li>
-                <li>1 x Resistencia 10kΩ (para pull-down del LDR)</li>
-                <li>1 x LED (opcional, para visualización)</li>
-                <li>1 x Resistencia 220Ω (para el LED)</li>
-                <li>Cables de conexión</li>
+                <li>✅ 1 x LDR (fotorresistencia) - tiene forma de disco con líneas en espiral</li>
+                <li>✅ 1 x Resistencia 10kΩ (marrón-negro-naranja) - la de color amarillo es más grande</li>
+                <li>✅ 1 x LED (cualquier color - rojo, verde, azul)</li>
+                <li>✅ 1 x Resistencia 220Ω (rojo-rojo-marrón) - para el LED</li>
+                <li>✅ Cables de conexión (mínimo 6)</li>
             </ul>
+
+            <div class="warning">
+                <strong>⚠️ ERROR COMÚN:</strong> No confundas la resistencia de 10kΩ (pull-down del LDR) con la de 220Ω (LED).
+                Son muy diferentes. Si dudas, lee los colores: <strong>220Ω = rojo-rojo-marrón</strong>,
+                <strong>10kΩ = marrón-negro-naranja</strong>.
+            </div>
 
             <h3>Conexiones del LDR (Sensor de Luz):</h3>
-            <p>El LDR se conecta como un <strong>divisor de tensión</strong>:</p>
-            <ul>
-                <li><strong>LDR</strong> → Un lado a <strong>3.3V</strong></li>
-                <li><strong>LDR</strong> → Otro lado a <strong>D34</strong> (ADC1_CH6) y a <strong>resistencia 10kΩ</strong></li>
-                <li><strong>Resistencia 10kΩ</strong> → Otro lado a <strong>GND</strong></li>
-            </ul>
+            <p>El LDR se conecta como un <strong>divisor de tensión</strong>. Sigue estos pasos exactos:</p>
+            <ol style="line-height: 2;">
+                <li><strong>Paso 1:</strong> Conecta un extremo del LDR al pin <strong>3.3V</strong> del ESP32 (cable ROJO)</li>
+                <li><strong>Paso 2:</strong> Conecta el otro extremo del LDR a:
+                    <ul>
+                        <li>Una patita de la resistencia de <strong>10kΩ</strong></li>
+                        <li>Al pin <strong>GPIO34</strong> (D34) del ESP32</li>
+                    </ul>
+                </li>
+                <li><strong>Paso 3:</strong> Conecta la otra patita de la resistencia de <strong>10kΩ</strong> al pin <strong>GND</strong> del ESP32 (cable NEGRO)</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ IMPORTANTE - Conexión correcta del LDR:</strong><br>
+                El LDR necesita la resistencia de 10kΩ hacia GND (no hacia VCC). Sin esta resistencia,
+                el pin GPIO34 queda "flotando" y dará lecturas aleatorias.
+            </div>
 
             <h3>Conexión del LED (Opcional - para visualización):</h3>
-            <ul>
-                <li><strong>Ánodo (+) del LED</strong> → Pin <strong>D18</strong> (a través del resistor 220Ω)</li>
-                <li><strong>Cátodo (-) del LED</strong> → Pin <strong>GND</strong></li>
-            </ul>
+            <p>Si quieres ver visualmente cuándo hay poca luz:</p>
+            <ol style="line-height: 2;">
+                <li><strong>Paso 1:</strong> Conecta la resistencia de <strong>220Ω</strong> al pin <strong>D18</strong> del ESP32</li>
+                <li><strong>Paso 2:</strong> Conecta el <strong>ánodo</strong> (la patita larga, +) del LED a la resistencia de 220Ω</li>
+                <li><strong>Paso 3:</strong> Conecta el <strong>cátodo</strong> (la patita corta, -) del LED al pin <strong>GND</strong> del ESP32</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ ERROR COMÚN - LED no enciende:</strong><br>
+                ¿LED al revés? La patita LARGA va hacia la resistencia (ánodo +), la patita CORTA va a GND (cátodo -).
+                Si lo pones al revés, no se dañará pero no funcionará.
+            </div>
 
             <h3>Diagrama del Circuito:</h3>
 
@@ -214,16 +239,66 @@ void loop() {
         </div>
 
         <div class="section">
-            <h2>🔍 Cómo Probar en Wokwi</h2>
-            <ol>
-                <li>Copia el código en Wokwi</li>
-                <li>Arma el circuito según el diagrama SVG</li>
-                <li>Ejecuta la simulación</li>
-                <li>Abre el <strong>Monitor Serial</strong></li>
-                <li>Haz <strong>clic derecho</strong> en el LDR para cambiar el nivel de luz simulado</li>
-                <li>Observa cómo cambian los valores en el Monitor Serial</li>
-                <li>Observa que el LED se enciende cuando el valor es menor a 2000</li>
+            <h2>🔍 Cómo Probar en Wokwi (Paso a Paso)</h2>
+            <ol style="line-height: 2;">
+                <li><strong>Paso 1:</strong> Ve a <a href="https://wokwi.com" target="_blank">wokwi.com</a> y crea un nuevo proyecto con ESP32</li>
+                <li><strong>Paso 2:</strong> Copia y pega el código en el editor de Wokwi</li>
+                <li><strong>Paso 3:</strong> Agrega los componentes:
+                    <ul>
+                        <li>1 LDR (busca "photoresistor" en los componentes)</li>
+                        <li>1 Resistencia de 10kΩ (en resistors, busca "10000" ohms)</li>
+                        <li>1 LED (cualquier color)</li>
+                        <li>1 Resistencia de 220Ω (en resistors, busca "220" ohms)</li>
+                    </ul>
+                </li>
+                <li><strong>Paso 4:</strong> Conecta todo según el diagrama SVG de arriba</li>
+                <li><strong>Paso 5:</strong> Haz clic en el botón verde ▶️ <strong>"Start Simulation"</strong></li>
+                <li><strong>Paso 6:</strong> Abre el <strong>Monitor Serial</strong> (botón de la derecha, icono de consola)</li>
+                <li><strong>Paso 7:</strong> En el simulador, haz <strong>clic derecho sobre el LDR</strong> y selecciona:
+                    <ul>
+                        <li>"Bright" (brillante) → Valor alto (~3000-4000)</li>
+                        <li>"Dim" (tenue) → Valor medio (~1500-2500)</li>
+                        <li>"Dark" (oscuro) → Valor bajo (~0-1000)</li>
+                    </ul>
+                </li>
+                <li><strong>Paso 8:</strong> Observa los valores. Cuando el valor baje de <strong>2000</strong>, el LED se enciende automáticamente</li>
             </ol>
+
+            <div class="warning">
+                <strong>⚠️ NO VES NADA EN EL MONITOR SERIAL?</strong><br>
+                Verifica que esté configurado en <strong>115200 baudios</strong>. Ese es el valor correcto en el código.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Problemas Comunes y Soluciones</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #fef2f2;">
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Problema</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Causa</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Solución</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Valores siempre en 0 o 4095</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">LDR mal conectado</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Verifica que el LDR tenga la resistencia 10kΩ hacia GND</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">LED no enciende nunca</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">LED al revés o resistencia muy alta</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Invierte las patitas del LED (larga = +)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Valores muy inestables</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Conexiones flojas</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Revisa que todos los cables estén bien conectados</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">"GPIO34 is not an output"</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Usas pin 34 como salida</td>
+                    <td style="padding: 12px; border: 1px solid #e2e8f0;">GPIO34 solo es entrada. Usa otro pin para el LED (D18)</td>
+                </tr>
+            </table>
         </div>
 
         <div class="section">
@@ -245,5 +320,6 @@ void loop() {
     <!-- Prism.js para resaltado de sintaxis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-arduino.min.js"></script>
 </body>
 </html>
