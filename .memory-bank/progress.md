@@ -4,6 +4,21 @@
 
 ### Completado ✅
 
+#### Ejercicios de Simulador Mejorados (2026-03-01)
+- ✅ **Ejercicio 08-DHT22**: NUEVO - Creado con diagrama SVG detallado, instrucciones paso a paso, tabla de troubleshooting
+  - Conexión de pines VCC, DATA, NC, GND explicada
+  - Resistencia pull-up de 10kΩ destacada como OBLIGATORIA
+  - Referencias desde ejercicio 07 y hacia ejercicio 09
+  - **Commit:** `333f561`
+
+- ✅ **Guía E2**: Agregada sección "Diagrama de Conexión Completo"
+  - Tabla detallada con conexiones de DHT22, LDR, LEDs
+  - Explicaciones de resistencia pull-up y divisor de voltaje
+  - Referencias a ejercicios del simulador para diagramas visuales
+  - **Commit:** `d58e567`
+
+- ✅ **Ejercicios 01-07**: Verificados - Tienen diagramas SVG y explicaciones detalladas
+
 #### Clases Revisadas y Corregidas
 - ✅ **Clase 05**: Hardware IoT - CORREGIDA Y COMITEADA
   - SVG pinout ESP32 actualizado con ADC1/ADC2, DAC, colores por función
@@ -34,8 +49,9 @@
 
 ### Pendiente 📋
 - ⏳ Revisar clases 01-04 (resultados de agentes)
-- ⏳ Verificar diagramas en ejercicios del simulador
-- ⏳ Asegurar que todas las conexiones estén bien explicadas
+- ⏳ Verificar diagramas en ejercicios 12-16 del simulador
+- ⏳ Agregar diagrama SVG completo a ejercicio 11 (ThingSpeak con DHT22+LDR)
+- ⏳ Mejorar ejercicio 02 con diagrama SVG (tiene solo ASCII)
 
 ### Problemas Resueltos ✅
 - ✅ Prism.js ahora funciona correctamente en todos los ejercicios
