@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 2: LED + Monitor Serial | Wokwi Simulator</title>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
         :root {
             --primary: #1e40af;
@@ -35,15 +37,7 @@
             padding: 2rem;
             margin-bottom: 2rem;
         }
-        pre {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-        }
+        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
         .step {
             background: #f0f9ff;
             border-left: 4px solid var(--primary);
@@ -139,7 +133,7 @@
 
         <div class="section">
             <h2>📋 Código</h2>
-            <pre><code>// Ejercicio 2: LED con Monitor Serial
+            <pre><code class="language-cpp">// Ejercicio 2: LED con Monitor Serial
 const int ledPin = 18;
 unsigned long ultimoCambio = 0;
 int estadoLed = LOW;
@@ -199,9 +193,9 @@ void loop() {
             </div>
             <div class="step">
                 <strong>3. Operador Ternario</strong>
-                <pre><code>estadoLed == HIGH ? "ENCENDIDO" : "APAGADO"</code></pre>
+                <pre><code class="language-cpp">estadoLed == HIGH ? "ENCENDIDO" : "APAGADO"</code></pre>
                 <p>Es una forma compacta de un if-else. Equivale a:</p>
-                <pre><code>if (estadoLed == HIGH) {
+                <pre><code class="language-cpp">if (estadoLed == HIGH) {
   return "ENCENDIDO";
 } else {
   return "APAGADO";
@@ -214,5 +208,8 @@ void loop() {
             <a href="ejercicio-03-multiple-leds.html">Siguiente →</a>
         </div>
     </div>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </body>
 </html>

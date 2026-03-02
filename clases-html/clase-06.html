@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesión 6: Programación ESP32 - Arduino IDE</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -106,7 +112,7 @@
                     <li>Aquí va la lógica principal</li>
                 </ul>
 
-                <pre><code>// Ejemplo mínimo
+                <pre><code class="language-cpp">// Ejemplo mínimo
 void setup() {
     // Configuración inicial
     Serial.begin(115200);
@@ -165,7 +171,7 @@ void loop() {
 
                 <h3>Proyecto 1: LED Blink</h3>
                 <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/01_blink_led.ino" class="btn">📥 Descargar .ino</a></p>
-                <pre><code>const int LED = 2;  // LED integrado
+                <pre><code class="language-cpp">const int LED = 2;  // LED integrado
 
 void setup() {
     pinMode(LED, OUTPUT);
@@ -180,7 +186,7 @@ void loop() {
 
                 <h3>Proyecto 2: Botón + LED</h3>
                 <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/02_led_boton.ino" class="btn">📥 Descargar .ino</a></p>
-                <pre><code>const int LED = 2;
+                <pre><code class="language-cpp">const int LED = 2;
 const int BOTON = 15;
 
 void setup() {
@@ -209,7 +215,7 @@ void loop() {
 
                 <h3>Sensor LDR (Luz)</h3>
                 <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/04_ldr_luz.ino" class="btn">📥 Descargar .ino</a></p>
-                <pre><code>const int LDR = 34;  // Pin analógico
+                <pre><code class="language-cpp">const int LDR = 34;  // Pin analógico
 
 void setup() {
     Serial.begin(115200);
@@ -230,7 +236,7 @@ void loop() {
                 <p>Instalar librería: Sketch → Include Library → Manage Libraries → "DHT sensor library"</p>
                 <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/03_sensor_dht.ino" class="btn">📥 Descargar .ino</a></p>
 
-                <pre><code>#include "DHT.h"
+                <pre><code class="language-cpp">#include "DHT.h"
 
 const int DHT_PIN = 4;
 DHT dht(DHT_PIN, DHT22);
@@ -442,5 +448,9 @@ DATA → GPIO4 (con pull-up 10KΩ a 3.3V)</code></pre>
             backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
         })();
     </script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-arduino.min.js"></script>
 </body>
 </html>

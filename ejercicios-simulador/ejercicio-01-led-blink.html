@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 1: LED Parpadeante | Wokwi Simulator</title>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
         :root {
             --primary: #1e40af;
@@ -76,16 +78,7 @@
             margin-right: 0.5rem;
         }
 
-        pre {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
+        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
         code { font-family: 'Consolas', 'Monaco', monospace; }
 
         .copy-btn {
@@ -324,7 +317,7 @@
                 <span class="step-number">4</span>
                 <strong>Escribir el Código</strong>
                 <p>Copia y pega este código en el editor de Wokwi:</p>
-                <pre><code>// Ejercicio 1: LED Parpadeante
+                <pre><code class="language-cpp">// Ejercicio 1: LED Parpadeante
 // IF0112 - Complementaria II (IoT)
 
 // Pin donde conectamos el LED
@@ -486,7 +479,7 @@ LED apagado
         <div class="section">
             <h2>✅ Solución del Reto 4 (LEDs Alternantes)</h2>
             <p>Si intentaste el reto 4 y quieres verificar tu solución, aquí está el código:</p>
-            <pre><code>// Reto: LEDs Alternantes
+            <pre><code class="language-cpp">// Reto: LEDs Alternantes
 const int led1Pin = 18;
 const int led2Pin = 19;
 
@@ -524,5 +517,8 @@ void loop() {
             </p>
         </footer>
     </div>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </body>
 </html>

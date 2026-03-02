@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesión 8: Protocolos IoT | IF0112</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
         /* Estilos específicos de esta clase (si los hay) */
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
     </style>
 </head>
 <body>
@@ -518,7 +522,7 @@ edificio/sectorA/piso3/oficina12/aire</pre>
             
             <h3>Código: Publicador MQTT</h3>
             <p><a href="https://github.com/heldigard/unaula-IF0112-complementaria-II/raw/main/codigo/esp32/06_enviar_datos_http.ino" class="btn">📥 Descargar .ino (Ejemplo HTTP/MQTT)</a></p>
-            <pre>#include &lt;WiFi.h&gt;
+            <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 #include &lt;PubSubClient.h&gt;
 
 const char* ssid = "TU_RED";
@@ -566,10 +570,10 @@ void reconnect() {
       delay(5000);
     }
   }
-}</pre>
+}</code></pre>
             
             <h3>Suscriptor con Callback</h3>
-            <pre>void callback(char* topic, byte* payload, unsigned int length) {
+            <pre><code class="language-cpp">void callback(char* topic, byte* payload, unsigned int length) {
   String mensaje = "";
   for (int i = 0; i &lt; length; i++) {
     mensaje += (char)payload[i];
@@ -593,10 +597,10 @@ void reconnect() {
   if (client.connect("ESP32-Sub")) {
     client.subscribe("unaula/sala/luz");
   }
-}</pre>
+}</code></pre>
             
             <h3>JSON en MQTT</h3>
-            <pre>#include &lt;ArduinoJson.h&gt;
+            <pre><code class="language-cpp">#include &lt;ArduinoJson.h&gt;
 
 void publicar<abbr title="JavaScript Object Notation">JSON</abbr>(float temp, float hum) {
   StaticJsonDocument&lt;256&gt; doc;
@@ -607,7 +611,7 @@ void publicar<abbr title="JavaScript Object Notation">JSON</abbr>(float temp, fl
   char buffer[256];
   serializeJson(doc, buffer);
   client.publish("unaula/sala/datos", buffer);
-}</pre>
+}</code></pre>
         </section>
         
         <!-- CoAP -->
@@ -944,6 +948,13 @@ void publicar<abbr title="JavaScript Object Notation">JSON</abbr>(float temp, fl
         })();
     
     </script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-arduino.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 </body>
 </html>
 
