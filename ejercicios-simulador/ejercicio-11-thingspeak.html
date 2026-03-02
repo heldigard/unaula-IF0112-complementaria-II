@@ -316,6 +316,37 @@ Enviando a ThingSpeak: http://api.thingspeak.com/update?api_key=ABC123&field1=24
         </div>
 
         <div class="section">
+            <h2>🔧 Problemas Comunes</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #fef2f2;">
+                    <th style="padding: 12px; text-align: left;">Problema</th>
+                    <th style="padding: 12px; text-align: left;">Causa</th>
+                    <th style="padding: 12px; text-align: left;">Solución</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">"Error HTTP -1"</td>
+                    <td style="padding: 12px;">WiFi no conectado o API Key incorrecta</td>
+                    <td style="padding: 12px;">Verifica WiFi y que la API Key sea correcta</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px;">No aparecen datos en ThingSpeak</td>
+                    <td style="padding: 12px;">API Key de solo lectura en lugar de escritura</td>
+                    <td style="padding: 12px;">Usa la "Write API Key", no la de lectura</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">"❌ Error al leer DHT22"</td>
+                    <td style="padding: 12px;">Sensor mal conectado</td>
+                    <td style="padding: 12px;">Verifica conexiones: D4 → DATA, 3.3V → VCC, GND → GND</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px;">Datos muy lentos</td>
+                    <td style="padding: 12px;">Límite de ThingSpeak</td>
+                    <td style="padding: 12px;">ThingSpeak gratis = max 1 envío cada 15 segundos</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
             <h2>✅ Entrega Requerida</h2>
             <ul>
                 <li>Código completo con tu Write API Key reemplazado</li>

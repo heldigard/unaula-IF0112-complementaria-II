@@ -92,6 +92,22 @@
         </div>
 
         <div class="section">
+            <h2>⚠️ IMPORTANTE: Configurar WiFi Antes de Ejecutar</h2>
+            <div class="warning" style="background: #fef2f2; border-left: 4px solid #ef4444;">
+                <strong>⚠️ Antes de subir el código a un ESP32 real, DEBES cambiar estas líneas:</strong>
+                <pre style="margin-top: 1rem;"><code class="language-cpp">const char* ssid = "TU_RED_WIFI";        // ← Cambia por tu WiFi
+const char* password = "TU_CONTRASENA";  // ← Cambia tu contraseña</code></pre>
+                <p style="margin-top: 1rem;"><strong>Ejemplo:</strong></p>
+                <pre><code class="language-cpp">const char* ssid = "MiCasa_WiFi";
+const char* password = "12345678";</code></pre>
+            </div>
+
+            <div class="warning" style="background: #fef3c7; border-left: 4px solid #f59e0b;">
+                <strong>⚠️ ERROR COMÚN:</strong> Si dejas "TU_RED_WIFI" y "TU_CONTRASENA", el código NO funcionará en hardware real.
+            </div>
+        </div>
+
+        <div class="section">
             <h2>🛠️ Paso 1: Instalar MQTT Library</h2>
             <div class="steps">
                 <ol>
@@ -243,19 +259,33 @@ void callback(char* topic, byte* payload, unsigned int length) {
         </div>
 
         <div class="section">
-            <h2>🔧 Cómo Probar MQTT</h2>
-            <ol>
-                <li>Sube el código de <strong>Publicador</strong> al ESP32</li>
-                <li>Abre el Monitor Serial (115200 baudios)</li>
-                <li>Verás mensajes publicados cada 5 segundos</li>
-                <li>Para probar suscripción, usa el código de <strong>Suscriptor</strong> o una herramienta como:
+            <h2>🔧 Cómo Probar MQTT (Paso a Paso)</h2>
+            <ol style="line-height: 2;">
+                <li><strong>Paso 1:</strong> Configura tus credenciales WiFi en el código (ver sección anterior)</li>
+                <li><strong>Paso 2:</strong> Sube el código de <strong>Publicador</strong> al ESP32</li>
+                <li><strong>Paso 3:</strong> Abre el Monitor Serial (115200 baudios)</li>
+                <li><strong>Paso 4:</strong> <strong>VERIFICA:</strong> Debes ver:
                     <ul>
-                        <li><strong>MQTT Explorer</strong>: https://mqtt-explorer.com/ (gratis)</li>
-                        <li><strong>MQTT.fx</strong>: https://mqttfx.jensd.de/ (gratis)</li>
-                        <li><strong>HiveMQ Web Client</strong>: https://www.hivemq.com/demos/websocket-client/</li>
+                        <li>"Conectando WiFi..." con puntos</li>
+                        <li>"✅ WiFi Conectado!"</li>
+                        <li>"Conectando a MQTT... ✅ Conectado!"</li>
+                        <li>"✅ Mensaje publicado: laboratorio/temperatura" cada 5 segundos</li>
                     </ul>
                 </li>
             </ol>
+
+            <h3>Para Ver los Mensajes en tu Computadora:</h3>
+            <ol style="line-height: 2;" start="5">
+                <li><strong>Paso 5:</strong> Ve a <strong>MQTT Explorer</strong>: https://mqtt-explorer.com/</li>
+                <li><strong>Paso 6:</strong> En "Host", escribe: <code>broker.emqx.io</code></li>
+                <li><strong>Paso 7:</strong> Haz clic en <strong>Connect</strong></li>
+                <li><strong>Paso 8:</strong> En la izquierda, busca <code>laboratorio/temperatura</code></li>
+                <li><strong>Paso 9:</strong> <strong>VERIFICA:</strong> Debes ver los mensajes "Hola desde ESP32 MQTT!" arriving</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ NOTA:</strong> broker.emqx.io es un broker público. Otros estudiantes pueden estar usando el mismo topic. Para evitar conflictos, puedes cambiar el topic a uno único, por ejemplo: <code>tu-nombre/temperatura</code>
+            </div>
         </div>
 
         <div class="section">
@@ -315,6 +345,42 @@ Suscrito a: laboratorio/temperatura
                 <tr style="background: #f8fafc;">
                     <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>Transporte</strong></td>
                     <td style="padding: 12px; border: 1px solid #e2e8f0;">/transporte/vehiculo-123/gps</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Problemas Comunes</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #fef2f2;">
+                    <th style="padding: 12px; text-align: left;">Problema</th>
+                    <th style="padding: 12px; text-align: left;">Causa</th>
+                    <th style="padding: 12px; text-align: left;">Solución</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">"rc=-2" o "rc=-4"</td>
+                    <td style="padding: 12px;">No se puede conectar al broker</td>
+                    <td style="padding: 12px;">Verifica tu conexión WiFi e internet</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px;">WiFi conectado pero MQTT no</td>
+                    <td style="padding: 12px;">Firewall bloquea puerto 1883</td>
+                    <td style="padding: 12px;">Usa broker WebSocket: broker.emqx.io:8084</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">Mensajes no aparecen en MQTT Explorer</td>
+                    <td style="padding: 12px;">Topic diferente o no conectado</td>
+                    <td style="padding: 12px;">Verifica que el topic sea exactamente "laboratorio/temperatura"</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px;">"..." infinitos en WiFi</td>
+                    <td style="padding: 12px;">WiFi incorrecto o sin señal</td>
+                    <td style="padding: 12px;">Verifica SSID y contraseña</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">Error "PubSubClient not found"</td>
+                    <td style="padding: 12px;">Librería no instalada</td>
+                    <td style="padding: 12px;">Instala PubSubClient desde Library Manager</td>
                 </tr>
             </table>
         </div>
