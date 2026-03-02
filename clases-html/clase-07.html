@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesión 7: Conectividad WiFi - ESP32</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -72,7 +78,7 @@
                     <tr><td><strong>STA+AP</strong></td><td>Ambos simultáneamente</td><td>Configuración avanzada</td></tr>
                 </table>
 
-                <pre><code>WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>);      // Modo estación
+                <pre><code class="language-cpp">WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>);      // Modo estación
 WiFi.mode(<abbr title="Access Point Mode">WIFI_AP</abbr>);       // Modo access point
 WiFi.mode(<abbr title="Dual Mode">WIFI_AP_STA</abbr>);   // Modo dual</code></pre>
             </section>
@@ -81,7 +87,7 @@ WiFi.mode(<abbr title="Dual Mode">WIFI_AP_STA</abbr>);   // Modo dual</code></pr
                 <h2>Conexión WiFi (Modo STA)</h2>
 
                 <h3>Código Básico</h3>
-                <pre><code>#include &lt;WiFi.h&gt;
+                <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 
 const char* ssid = "NombreDeTuRed";
 const char* password = "Contrasena";
@@ -124,7 +130,7 @@ void loop() {}</code></pre>
                 <h2>Servidor Web en ESP32</h2>
 
                 <h3>Código Básico</h3>
-                <pre><code>#include &lt;WiFi.h&gt;
+                <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 #include &lt;WebServer.h&gt;
 
 const char* ssid = "TU_RED";
@@ -180,7 +186,7 @@ void loop() {
                 </ol>
 
                 <h3>Código para ThingSpeak</h3>
-                <pre><code>#include &lt;WiFi.h&gt;
+                <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 #include &lt;HTTPClient.h&gt;
 
 const char* apiKey = "TU_API_KEY";
@@ -306,5 +312,9 @@ void enviarAThingSpeak(float temp, float hum) {
             backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
         })();
     </script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-arduino.min.js"></script>
 </body>
 </html>

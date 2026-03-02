@@ -187,7 +187,7 @@ P2M   M2P                     M2M   P2P
                     <li><strong>Confianza:</strong> alta (humano en el loop).</li>
                     <li><strong>Complejidad:</strong> baja.</li>
                 </ul>
-                <pre><code>// App envia comando al ESP32
+                <pre><code class="language-cpp">// App envia comando al ESP32
 void loop() {
   if (Serial.available()) {
     char comando = Serial.read();
@@ -237,7 +237,7 @@ void loop() {
                     <li><strong>Autonomia:</strong> completa.</li>
                     <li><strong>Complejidad:</strong> media-alta.</li>
                 </ul>
-                <pre><code>// ESP32 (M1) publica, ESP32 (M2) recibe y actua
+                <pre><code class="language-cpp">// ESP32 (M1) publica, ESP32 (M2) recibe y actua
 // Emisor (M1)
 void loop() {
   float temp = dht.readTemperature();
@@ -293,7 +293,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
                     <li><strong>Formato:</strong> push, email, dashboard.</li>
                     <li><strong>Confianza:</strong> media (requiere verificacion).</li>
                 </ul>
-                <pre><code>// ESP32 notifica al usuario via Push
+                <pre><code class="language-cpp">// ESP32 notifica al usuario via Push
 void enviarNotificacionPush(String mensaje) {
   HTTPClient http;
   http.begin("https://push.example.com/api");
@@ -351,7 +351,7 @@ void loop() {
                     <li><strong>Interactividad:</strong> bidireccional.</li>
                     <li><strong>Enriquecimiento:</strong> datos contextuales.</li>
                 </ul>
-                <pre><code>// Paciente (P1) -> Cloud -> Doctor (P2)
+                <pre><code class="language-cpp">// Paciente (P1) -> Cloud -> Doctor (P2)
 void enviarVitals() {
   String payload = "{\"hr\":85, \"spo2\":98, \"temp\":36.5}";
   client.publish("paciente/123/vitals", payload);
@@ -438,7 +438,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
                     <li>Clasifique cada interaccion como P2M, M2M, M2P o P2P.</li>
                     <li>Identifique el tipo de latencia y seguridad requerida.</li>
                 </ol>
-                <pre><code># Plantilla rapida
+                <pre><code class="language-cpp"># Plantilla rapida
 Interaccion,Tipo,Latencia,Sensibilidad
 Sensor puerta -> App,M2P,Segundos,Media
 Usuario -> Luz,P2M,Inmediato,Baja
@@ -713,6 +713,9 @@ Sensor humo -> Sirena,M2M,Sub-segundo,Alta</code></pre>
                 updateProgress();
             })();
         </script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </body>
 </html>
 
