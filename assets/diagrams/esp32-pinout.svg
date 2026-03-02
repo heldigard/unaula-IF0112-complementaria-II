@@ -1,144 +1,271 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 580" aria-labelledby="title desc">
   <title id="title">Pinout ESP32 DevKit V1</title>
-  <desc id="desc">Diagrama del pinout del microcontrolador ESP32 DevKit V1</desc>
+  <desc id="desc">Diagrama del pinout del microcontrolador ESP32 DevKit V1 - 30 pines con ADC</desc>
 
   <!-- Fondo -->
-  <rect width="900" height="400" fill="#f8fafc"/>
+  <rect width="950" height="580" fill="#f8fafc"/>
 
   <!-- Título -->
-  <text x="450" y="30" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1e40af">
-    ESP32 DevKit V1 - Pinout Completo
+  <text x="475" y="28" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#1e40af">
+    ESP32 DevKit V1 - Pinout Completo (30 Pines)
   </text>
 
   <!-- Board rectangular -->
-  <rect x="100" y="55" width="700" height="290" rx="15" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+  <rect x="175" y="50" width="600" height="420" rx="15" fill="#1e293b" stroke="#334155" stroke-width="3"/>
 
-  <!-- Pines laterales -->
-  <!-- Izquierda -->
-  <g transform="translate(100, 75)">
-    <!-- GPIO numbers -->
-    <text x="15" y="22" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">GND</text>
-    <text x="15" y="47" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">23</text>
-    <text x="15" y="72" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">22</text>
-    <text x="15" y="97" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">1</text>
-    <text x="15" y="122" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">3</text>
-    <text x="15" y="147" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">21</text>
-    <text x="15" y="172" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">19</text>
-    <text x="15" y="197" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">18</text>
-    <text x="15" y="222" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="end">5</text>
-    <text x="15" y="247" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">17</text>
-    <text x="15" y="272" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">16</text>
-    <text x="15" y="297" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">4</text>
-    <text x="15" y="322" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor-end">0</text>
+  <!-- === LADO IZQUIERDO (15 pines) === -->
+  <g transform="translate(175, 70)">
+    <!-- Pin 1: 3V3 -->
+    <rect x="5" y="5" width="55" height="22" rx="3" fill="#8b5cf6" stroke="#7c3aed"/>
+    <text x="-8" y="21" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">3V3</text>
+    <text x="68" y="21" font-family="monospace" font-size="9" fill="#c4b5fd">3.3V</text>
 
-    <!-- Pin headers -->
-    <rect x="25" y="12" width="50" height="20" rx="3" fill="#334155" stroke="#64748b"/>
-    <rect x="25" y="37" width="50" height="20" rx="3" fill="#ef4444" stroke="#dc2626"/>
-    <rect x="25" y="62" width="50" height="20" rx="3" fill="#ef4444" stroke="#dc2626"/>
-    <rect x="25" y="87" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="112" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="137" width="50" height="20" rx="3" fill="#10b981" stroke="#059669"/>
-    <rect x="25" y="162" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="187" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="212" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="237" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="262" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="287" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="25" y="312" width="50" height="20" rx="3" fill="#f59e0b" stroke="#d97706"/>
+    <!-- Pin 2: EN -->
+    <rect x="5" y="32" width="55" height="22" rx="3" fill="#f59e0b" stroke="#d97706"/>
+    <text x="-8" y="48" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">EN</text>
+    <text x="68" y="48" font-family="monospace" font-size="9" fill="#fde68a">RST</text>
 
-    <!-- Pin labels -->
-    <text x="80" y="27" font-family="monospace" font-size="11" fill="#e2e8f0">GND</text>
-    <text x="80" y="52" font-family="monospace" font-size="11" fill="#fca5a5">GPIO23</text>
-    <text x="80" y="77" font-family="monospace" font-size="11" fill="#fca5a5">GPIO22</text>
-    <text x="80" y="102" font-family="monospace" font-size="11" fill="#93c5fd">U0TXD</text>
-    <text x="80" y="127" font-family="monospace" font-size="11" fill="#93c5fd">U0RXD</text>
-    <text x="80" y="152" font-family="monospace" font-size="11" fill="#6ee7b7">GPIO21</text>
-    <text x="80" y="177" font-family="monospace" font-size="11" fill="#93c5fd">GPIO19</text>
-    <text x="80" y="202" font-family="monospace" font-size="11" fill="#93c5fd">GPIO18</text>
-    <text x="80" y="227" font-family="monospace" font-size="11" fill="#93c5fd">GPIO5</text>
-    <text x="80" y="252" font-family="monospace" font-size="11" fill="#93c5fd">GPIO17</text>
-    <text x="80" y="277" font-family="monospace" font-size="11" fill="#93c5fd">GPIO16</text>
-    <text x="80" y="302" font-family="monospace" font-size="11" fill="#93c5fd">GPIO4</text>
-    <text x="80" y="327" font-family="monospace" font-size="11" fill="#fde68a">GPIO0</text>
+    <!-- Pin 3: GPIO36 (VP) - ADC1_CH0 -->
+    <rect x="5" y="59" width="55" height="22" rx="3" fill="#06b6d4" stroke="#0891b2"/>
+    <text x="-8" y="75" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">36</text>
+    <text x="68" y="70" font-family="monospace" font-size="8" fill="#67e8f9">VP (IN only)</text>
+    <text x="68" y="80" font-family="monospace" font-size="7" fill="#22d3ee">ADC1_CH0 ✓</text>
+
+    <!-- Pin 4: GPIO39 (VN) - ADC1_CH3 -->
+    <rect x="5" y="86" width="55" height="22" rx="3" fill="#06b6d4" stroke="#0891b2"/>
+    <text x="-8" y="102" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">39</text>
+    <text x="68" y="97" font-family="monospace" font-size="8" fill="#67e8f9">VN (IN only)</text>
+    <text x="68" y="107" font-family="monospace" font-size="7" fill="#22d3ee">ADC1_CH3 ✓</text>
+
+    <!-- Pin 5: GPIO34 - ADC1_CH6 -->
+    <rect x="5" y="113" width="55" height="22" rx="3" fill="#06b6d4" stroke="#0891b2"/>
+    <text x="-8" y="129" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">34</text>
+    <text x="68" y="124" font-family="monospace" font-size="8" fill="#67e8f9">IN only</text>
+    <text x="68" y="134" font-family="monospace" font-size="7" fill="#22d3ee">ADC1_CH6 ✓</text>
+
+    <!-- Pin 6: GPIO35 - ADC1_CH7 -->
+    <rect x="5" y="140" width="55" height="22" rx="3" fill="#06b6d4" stroke="#0891b2"/>
+    <text x="-8" y="156" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">35</text>
+    <text x="68" y="151" font-family="monospace" font-size="8" fill="#67e8f9">IN only</text>
+    <text x="68" y="161" font-family="monospace" font-size="7" fill="#22d3ee">ADC1_CH7 ✓</text>
+
+    <!-- Pin 7: GPIO32 - ADC1_CH4 -->
+    <rect x="5" y="167" width="55" height="22" rx="3" fill="#0ea5e9" stroke="#0284c7"/>
+    <text x="-8" y="183" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">32</text>
+    <text x="68" y="178" font-family="monospace" font-size="8" fill="#7dd3fc">GPIO32</text>
+    <text x="68" y="188" font-family="monospace" font-size="7" fill="#38bdf8">ADC1_CH4 ✓</text>
+
+    <!-- Pin 8: GPIO33 - ADC1_CH5 -->
+    <rect x="5" y="194" width="55" height="22" rx="3" fill="#0ea5e9" stroke="#0284c7"/>
+    <text x="-8" y="210" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">33</text>
+    <text x="68" y="205" font-family="monospace" font-size="8" fill="#7dd3fc">GPIO33</text>
+    <text x="68" y="215" font-family="monospace" font-size="7" fill="#38bdf8">ADC1_CH5 ✓</text>
+
+    <!-- Pin 9: GPIO25 - ADC2_CH8, DAC1 -->
+    <rect x="5" y="221" width="55" height="22" rx="3" fill="#8b5cf6" stroke="#7c3aed"/>
+    <text x="-8" y="237" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">25</text>
+    <text x="68" y="232" font-family="monospace" font-size="8" fill="#c4b5fd">DAC1</text>
+    <text x="68" y="242" font-family="monospace" font-size="7" fill="#a78bfa">ADC2_CH8 ⚠</text>
+
+    <!-- Pin 10: GPIO26 - ADC2_CH9, DAC2 -->
+    <rect x="5" y="248" width="55" height="22" rx="3" fill="#8b5cf6" stroke="#7c3aed"/>
+    <text x="-8" y="264" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">26</text>
+    <text x="68" y="259" font-family="monospace" font-size="8" fill="#c4b5fd">DAC2</text>
+    <text x="68" y="269" font-family="monospace" font-size="7" fill="#a78bfa">ADC2_CH9 ⚠</text>
+
+    <!-- Pin 11: GPIO27 - ADC2_CH7 -->
+    <rect x="5" y="275" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="-8" y="291" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">27</text>
+    <text x="68" y="286" font-family="monospace" font-size="8" fill="#d8b4fe">GPIO27</text>
+    <text x="68" y="296" font-family="monospace" font-size="7" fill="#c084fc">ADC2_CH7 ⚠</text>
+
+    <!-- Pin 12: GPIO14 - ADC2_CH6 -->
+    <rect x="5" y="302" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="-8" y="318" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">14</text>
+    <text x="68" y="313" font-family="monospace" font-size="8" fill="#d8b4fe">GPIO14</text>
+    <text x="68" y="323" font-family="monospace" font-size="7" fill="#c084fc">ADC2_CH6 ⚠</text>
+
+    <!-- Pin 13: GPIO12 - ADC2_CH5 -->
+    <rect x="5" y="329" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="-8" y="345" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">12</text>
+    <text x="68" y="340" font-family="monospace" font-size="8" fill="#d8b4fe">GPIO12</text>
+    <text x="68" y="350" font-family="monospace" font-size="7" fill="#c084fc">ADC2_CH5 ⚠</text>
+
+    <!-- Pin 14: GND -->
+    <rect x="5" y="356" width="55" height="22" rx="3" fill="#334155" stroke="#475569"/>
+    <text x="-8" y="372" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">GND</text>
+    <text x="68" y="372" font-family="monospace" font-size="9" fill="#94a3b8">GND</text>
+
+    <!-- Pin 15: GPIO13 - ADC2_CH4 -->
+    <rect x="5" y="383" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="-8" y="399" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="end">13</text>
+    <text x="68" y="394" font-family="monospace" font-size="8" fill="#d8b4fe">GPIO13</text>
+    <text x="68" y="404" font-family="monospace" font-size="7" fill="#c084fc">ADC2_CH4 ⚠</text>
+  </g>
+
+  <!-- === LADO DERECHO (15 pines) === -->
+  <g transform="translate(720, 70)">
+    <!-- Pin 1: VIN -->
+    <rect x="5" y="5" width="55" height="22" rx="3" fill="#dc2626" stroke="#b91c1c"/>
+    <text x="68" y="21" font-family="monospace" font-size="10" fill="#94a3b8">VIN</text>
+    <text x="-3" y="21" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="end">5V IN</text>
+
+    <!-- Pin 2: GND -->
+    <rect x="5" y="32" width="55" height="22" rx="3" fill="#334155" stroke="#475569"/>
+    <text x="68" y="48" font-family="monospace" font-size="10" fill="#94a3b8">GND</text>
+    <text x="-3" y="48" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="end">GND</text>
+
+    <!-- Pin 3: GPIO15 - ADC2_CH3 -->
+    <rect x="5" y="59" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="68" y="75" font-family="monospace" font-size="10" fill="#94a3b8">15</text>
+    <text x="-3" y="70" font-family="monospace" font-size="8" fill="#d8b4fe" text-anchor="end">GPIO15</text>
+    <text x="-3" y="80" font-family="monospace" font-size="7" fill="#c084fc" text-anchor="end">ADC2_CH3 ⚠</text>
+
+    <!-- Pin 4: GPIO2 - ADC2_CH2, LED -->
+    <rect x="5" y="86" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="68" y="102" font-family="monospace" font-size="10" fill="#94a3b8">2</text>
+    <text x="-3" y="97" font-family="monospace" font-size="8" fill="#d8b4fe" text-anchor="end">GPIO2 (LED)</text>
+    <text x="-3" y="107" font-family="monospace" font-size="7" fill="#c084fc" text-anchor="end">ADC2_CH2 ⚠</text>
+
+    <!-- Pin 5: GPIO4 - ADC2_CH0 -->
+    <rect x="5" y="113" width="55" height="22" rx="3" fill="#a855f7" stroke="#9333ea"/>
+    <text x="68" y="129" font-family="monospace" font-size="10" fill="#94a3b8">4</text>
+    <text x="-3" y="124" font-family="monospace" font-size="8" fill="#d8b4fe" text-anchor="end">GPIO4</text>
+    <text x="-3" y="134" font-family="monospace" font-size="7" fill="#c084fc" text-anchor="end">ADC2_CH0 ⚠</text>
+
+    <!-- Pin 6: GPIO16 (RX2) -->
+    <rect x="5" y="140" width="55" height="22" rx="3" fill="#3b82f6" stroke="#2563eb"/>
+    <text x="68" y="156" font-family="monospace" font-size="10" fill="#94a3b8">16</text>
+    <text x="-3" y="156" font-family="monospace" font-size="9" fill="#93c5fd" text-anchor="end">RX2</text>
+
+    <!-- Pin 7: GPIO17 (TX2) -->
+    <rect x="5" y="167" width="55" height="22" rx="3" fill="#3b82f6" stroke="#2563eb"/>
+    <text x="68" y="183" font-family="monospace" font-size="10" fill="#94a3b8">17</text>
+    <text x="-3" y="183" font-family="monospace" font-size="9" fill="#93c5fd" text-anchor="end">TX2</text>
+
+    <!-- Pin 8: GPIO5 -->
+    <rect x="5" y="194" width="55" height="22" rx="3" fill="#3b82f6" stroke="#2563eb"/>
+    <text x="68" y="210" font-family="monospace" font-size="10" fill="#94a3b8">5</text>
+    <text x="-3" y="210" font-family="monospace" font-size="9" fill="#93c5fd" text-anchor="end">GPIO5</text>
+
+    <!-- Pin 9: GPIO18 (SCK) -->
+    <rect x="5" y="221" width="55" height="22" rx="3" fill="#ef4444" stroke="#dc2626"/>
+    <text x="68" y="237" font-family="monospace" font-size="10" fill="#94a3b8">18</text>
+    <text x="-3" y="237" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="end">SCK (SPI)</text>
+
+    <!-- Pin 10: GPIO19 (MISO) -->
+    <rect x="5" y="248" width="55" height="22" rx="3" fill="#ef4444" stroke="#dc2626"/>
+    <text x="68" y="264" font-family="monospace" font-size="10" fill="#94a3b8">19</text>
+    <text x="-3" y="264" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="end">MISO (SPI)</text>
+
+    <!-- Pin 11: GPIO21 (SDA) -->
+    <rect x="5" y="275" width="55" height="22" rx="3" fill="#10b981" stroke="#059669"/>
+    <text x="68" y="291" font-family="monospace" font-size="10" fill="#94a3b8">21</text>
+    <text x="-3" y="291" font-family="monospace" font-size="9" fill="#6ee7b7" text-anchor="end">SDA (I2C)</text>
+
+    <!-- Pin 12: GPIO22 (SCL) -->
+    <rect x="5" y="302" width="55" height="22" rx="3" fill="#10b981" stroke="#059669"/>
+    <text x="68" y="318" font-family="monospace" font-size="10" fill="#94a3b8">22</text>
+    <text x="-3" y="318" font-family="monospace" font-size="9" fill="#6ee7b7" text-anchor="end">SCL (I2C)</text>
+
+    <!-- Pin 13: GPIO23 (MOSI) -->
+    <rect x="5" y="329" width="55" height="22" rx="3" fill="#ef4444" stroke="#dc2626"/>
+    <text x="68" y="345" font-family="monospace" font-size="10" fill="#94a3b8">23</text>
+    <text x="-3" y="345" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="end">MOSI (SPI)</text>
+
+    <!-- Pin 14: GPIO0 - ADC2_CH1, BOOT -->
+    <rect x="5" y="356" width="55" height="22" rx="3" fill="#f59e0b" stroke="#d97706"/>
+    <text x="68" y="372" font-family="monospace" font-size="10" fill="#94a3b8">0</text>
+    <text x="-3" y="367" font-family="monospace" font-size="8" fill="#fde68a" text-anchor="end">BOOT</text>
+    <text x="-3" y="377" font-family="monospace" font-size="7" fill="#fbbf24" text-anchor="end">ADC2_CH1 ⚠</text>
+
+    <!-- Pin 15: GPIO1 (TX0) -->
+    <rect x="5" y="383" width="55" height="22" rx="3" fill="#3b82f6" stroke="#2563eb"/>
+    <text x="68" y="399" font-family="monospace" font-size="10" fill="#94a3b8">1</text>
+    <text x="-3" y="399" font-family="monospace" font-size="9" fill="#93c5fd" text-anchor="end">TX0</text>
   </g>
 
   <!-- Puerto USB -->
-  <g transform="translate(380, 330)">
-    <rect x="0" y="0" width="140" height="40" rx="5" fill="#0f172a" stroke="#334155"/>
-    <text x="70" y="25" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">USB → UART</text>
-  </g>
-
-  <!-- Pines laterales derechos -->
-  <g transform="translate(750, 75)">
-    <!-- GPIO numbers -->
-    <text x="65" y="22" font-family="monospace" font-size="12" fill="#94a3b8">2</text>
-    <text x="65" y="47" font-family="monospace" font-size="12" fill="#94a3b8">4</text>
-    <text x="65" y="72" font-family="monospace" font-size="12" fill="#94a3b8">NP</text>
-    <text x="65" y="97" font-family="monospace" font-size="12" fill="#94a3b8">17</text>
-    <text x="65" y="122" font-family="monospace" font-size="12" fill="#94a3b8">16</text>
-    <text x="65" y="147" font-family="monospace" font-size="12" fill="#94a3b8">25</text>
-    <text x="65" y="172" font-family="monospace" font-size="12" fill="#94a3b8">26</text>
-    <text x="65" y="197" font-family="monospace" font-size="12" fill="#94a3b8">27</text>
-    <text x="65" y="222" font-family="monospace" font-size="12" fill="#94a3b8">14</text>
-    <text x="65" y="247" font-family="monospace" font-size="12" fill="#94a3b8">12</text>
-    <text x="65" y="272" font-family="monospace" font-size="12" fill="#94a3b8">13</text>
-    <text x="65" y="297" font-family="monospace" font-size="12" fill="#94a3b8">GND</text>
-    <text x="65" y="322" font-family="monospace" font-size="12" fill="#94a3b8">VIN</text>
-
-    <!-- Pin headers -->
-    <rect x="15" y="12" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="37" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="62" width="50" height="20" rx="3" fill="#94a3b8" stroke="#64748b"/>
-    <rect x="15" y="87" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="112" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="137" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="162" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="187" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="212" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="237" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="262" width="50" height="20" rx="3" fill="#3b82f6" stroke="#1d4ed8"/>
-    <rect x="15" y="287" width="50" height="20" rx="3" fill="#0f172a" stroke="#64748b"/>
-    <rect x="15" y="312" width="50" height="20" rx="3" fill="#dc2626" stroke="#b91c1c"/>
-
-    <!-- Pin labels -->
-    <text x="15" y="27" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO2</text>
-    <text x="15" y="52" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO4</text>
-    <text x="15" y="77" font-family="monospace" font-size="11" fill="#94a3b8">3V3</text>
-    <text x="15" y="102" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO17</text>
-    <text x="15" y="127" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO16</text>
-    <text x="15" y="152" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO25</text>
-    <text x="15" y="177" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO26</text>
-    <text x="15" y="202" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO27</text>
-    <text x="15" y="227" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO14</text>
-    <text x="15" y="252" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO12</text>
-    <text x="15" y="277" font-family="monospace" font-size="11" fill="#e2e8f0">GPIO13</text>
-    <text x="15" y="302" font-family="monospace" font-size="11" fill="#e2e8f0">GND</text>
-    <text x="15" y="327" font-family="monospace" font-size="11" fill="#fca5a5">5V</text>
+  <g transform="translate(405, 450)">
+    <rect x="0" y="0" width="140" height="30" rx="5" fill="#0f172a" stroke="#334155"/>
+    <text x="70" y="20" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">USB Micro-B</text>
   </g>
 
   <!-- Chip central -->
-  <rect x="350" y="130" width="200" height="80" rx="8" fill="#1e3a8a" stroke="#1e40af"/>
-  <text x="450" y="175" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#60a5fa" text-anchor="middle">ESP32</text>
-  <text x="450" y="195" font-family="system-ui, sans-serif" font-size="12" fill="#93c5fd" text-anchor="middle">ESP32-WROOM-32</text>
+  <rect x="380" y="200" width="190" height="70" rx="8" fill="#1e3a8a" stroke="#1e40af"/>
+  <text x="475" y="230" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#60a5fa" text-anchor="middle">ESP32</text>
+  <text x="475" y="250" font-family="system-ui, sans-serif" font-size="11" fill="#93c5fd" text-anchor="middle">ESP32-WROOM-32</text>
 
-  <!-- Leyenda de colores -->
-  <g transform="translate(200, 375)">
-    <rect x="0" y="0" width="20" height="15" rx="2" fill="#3b82f6"/>
-    <text x="25" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">GPIO Digital</text>
+  <!-- LED onboard -->
+  <g transform="translate(560, 145)">
+    <circle cx="0" cy="0" r="8" fill="#22c55e" stroke="#16a34a"/>
+    <text x="15" y="5" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8">LED (GPIO2)</text>
+  </g>
 
-    <rect x="100" y="0" width="20" height="15" rx="2" fill="#10b981"/>
-    <text x="125" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">I2C/TWI</text>
+  <!-- Botón BOOT -->
+  <g transform="translate(330, 145)">
+    <rect x="-15" y="-10" width="30" height="20" rx="3" fill="#475569" stroke="#64748b"/>
+    <text x="22" y="5" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8">BOOT</text>
+  </g>
 
-    <rect x="200" y="0" width="20" height="15" rx="2" fill="#f59e0b"/>
-    <text x="225" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">Boot/ADC</text>
+  <!-- Botón EN -->
+  <g transform="translate(620, 145)">
+    <rect x="-15" y="-10" width="30" height="20" rx="3" fill="#475569" stroke="#64748b"/>
+    <text x="22" y="5" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8">EN</text>
+  </g>
 
-    <rect x="310" y="0" width="20" height="15" rx="2" fill="#ef4444"/>
-    <text x="335" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">SPI</text>
+  <!-- === LEYENDA DE COLORES === -->
+  <g transform="translate(100, 495)">
+    <rect x="0" y="0" width="750" height="75" rx="8" fill="#f1f5f9" stroke="#e2e8f0"/>
 
-    <rect x="420" y="0" width="20" height="15" rx="2" fill="#dc2626"/>
-    <text x="445" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">Alimentación</text>
+    <text x="375" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#374151" text-anchor="middle">Leyenda de Colores y Funciones</text>
 
-    <rect x="530" y="0" width="20" height="15" rx="2" fill="#64748b"/>
-    <text x="555" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#374151">No conectar</text>
+    <!-- Fila 1 -->
+    <g transform="translate(15, 28)">
+      <rect x="0" y="0" width="18" height="14" rx="2" fill="#06b6d4"/>
+      <text x="22" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">ADC1 (✓ WiFi OK)</text>
+
+      <rect x="120" y="0" width="18" height="14" rx="2" fill="#0ea5e9"/>
+      <text x="142" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">ADC1 + GPIO</text>
+
+      <rect x="230" y="0" width="18" height="14" rx="2" fill="#a855f7"/>
+      <text x="252" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">ADC2 (⚠ No WiFi)</text>
+
+      <rect x="360" y="0" width="18" height="14" rx="2" fill="#8b5cf6"/>
+      <text x="382" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">DAC + ADC2</text>
+
+      <rect x="460" y="0" width="18" height="14" rx="2" fill="#3b82f6"/>
+      <text x="482" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">GPIO</text>
+
+      <rect x="540" y="0" width="18" height="14" rx="2" fill="#10b981"/>
+      <text x="562" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">I2C</text>
+
+      <rect x="610" y="0" width="18" height="14" rx="2" fill="#ef4444"/>
+      <text x="632" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">SPI</text>
+    </g>
+
+    <!-- Fila 2 -->
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="18" height="14" rx="2" fill="#f59e0b"/>
+      <text x="22" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">Boot/Strap</text>
+
+      <rect x="100" y="0" width="18" height="14" rx="2" fill="#dc2626"/>
+      <text x="122" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">5V</text>
+
+      <rect x="160" y="0" width="18" height="14" rx="2" fill="#8b5cf6"/>
+      <text x="182" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">3.3V</text>
+
+      <rect x="230" y="0" width="18" height="14" rx="2" fill="#334155"/>
+      <text x="252" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#374151">GND</text>
+
+      <text x="330" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#dc2626">⚠ ADC2 NO funciona cuando WiFi está activo</text>
+    </g>
+  </g>
+
+  <!-- Notas importantes -->
+  <g transform="translate(100, 575)">
+    <text x="375" y="0" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">
+      GPIO 34, 35, 36, 39: Solo entrada (sin pull-up/pull-down interno) | DAC: GPIO25 (DAC1), GPIO26 (DAC2) | Para sensores analógicos con WiFi: usar ADC1 (GPIO32-39)
+    </text>
   </g>
 </svg>
