@@ -11,8 +11,9 @@
         .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
         header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
         .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
-        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
-        pre code { font-size: 0.9rem; }
+        pre { background: var(--code-bg) !important; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        code { font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; }
+        pre code { background: transparent; color: inherit; }
         .tip { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
         .concept { background: #f0fdf4; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
         .warning { background: #fee2e2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
@@ -190,7 +191,7 @@ void loop() {
         </div>
 
         <nav class="nav">
-            <a href="ejercicio-07-ldr-automatico.html">← Ejercicio 7</a>
+            <a href="ejercicio-08-dht22.html">← Ejercicio 8: DHT22</a>
             <a href="ejercicio-09-wifi-scan.html">Ejercicio 9 →</a>
         </nav>
     </div>

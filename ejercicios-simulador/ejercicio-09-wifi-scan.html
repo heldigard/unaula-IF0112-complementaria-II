@@ -11,7 +11,9 @@
         .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
         header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
         .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
-        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        pre { background: var(--code-bg) !important; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        code { font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; }
+        pre code { background: transparent; color: inherit; }
         .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
         .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
         .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
@@ -100,7 +102,7 @@ void loop() {
         </div>
 
         <nav class="nav">
-            <a href="ejercicio-08-timer-interrupt.html">← Ejercicio 8</a>
+            <a href="ejercicio-08-dht22.html">← Ejercicio 8: DHT22</a>
             <a href="ejercicio-10-wifi-connect.html">Ejercicio 10 →</a>
         </nav>
     </div>
