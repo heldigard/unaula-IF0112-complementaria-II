@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 3: Múltiples LEDs | Wokwi Simulator</title>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
         :root { --primary: #1e40af; --code-bg: #1e293b; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,7 +13,7 @@
         .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
         header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
         .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
-        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
         .nav { display: flex; justify-content: space-between; margin-top: 2rem; }
         .nav a { background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; }
     </style>
@@ -172,7 +174,7 @@
 
         <div class="section">
             <h2>📋 Código</h2>
-            <pre><code>// Ejercicio 3: Múltiples LEDs con Arrays
+            <pre><code class="language-cpp">// Ejercicio 3: Múltiples LEDs con Arrays
 const int numLeds = 3;
 const int leds[numLeds] = {18, 19, 21};  // Pines para los 3 LEDs
 
@@ -219,14 +221,14 @@ void loop() {
         <div class="section">
             <h2>🔍 Conceptos Clave</h2>
             <h3>Arrays en Arduino</h3>
-            <pre><code>const int leds[3] = {18, 19, 21};</code></pre>
+            <pre><code class="language-cpp">const int leds[3] = {18, 19, 21};</code></pre>
             <ul>
                 <li>Un array es una colección de valores del mismo tipo</li>
                 <li>Los índices comienzan en 0: <code>leds[0]</code> = 18, <code>leds[1]</code> = 19, etc.</li>
             </ul>
 
             <h3>Bucles For</h3>
-            <pre><code>for (int i = 0; i < 3; i++) {
+            <pre><code class="language-cpp">for (int i = 0; i < 3; i++) {
   // Este código se repite 3 veces
   // i vale 0, luego 1, luego 2
 }</code></pre>
@@ -237,5 +239,8 @@ void loop() {
             <a href="ejercicio-04-botones.html">Siguiente →</a>
         </div>
     </div>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </body>
 </html>

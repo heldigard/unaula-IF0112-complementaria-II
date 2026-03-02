@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio Wokwi 01: LED Interactivo | IF0112 IoT 2026-I</title>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
         :root {
             --primary: #1e40af;
@@ -130,17 +132,7 @@
         }
 
         /* Code block */
-        pre {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            margin: 1rem 0;
-        }
+        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
 
         code {
             background: #e2e8f0;
@@ -702,7 +694,7 @@
             <h2>💻 Codigo Completo</h2>
             <p>Copia y pega este codigo directamente en el editor de Wokwi:</p>
 
-            <pre><code>// ============================================
+            <pre><code class="language-cpp">// ============================================
 // EJERCICIO WOKWI 01: LED INTERACTIVO
 // Semana 1 - Clase 2: Personas, Procesos, Datos y Cosas en IoT
 // ============================================
@@ -955,5 +947,8 @@ void loop() {
             </p>
         </footer>
     </div>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </body>
 </html>

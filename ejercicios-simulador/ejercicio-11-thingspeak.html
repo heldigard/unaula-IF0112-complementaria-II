@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Ejercicio 11: ThingSpeak - Envío de Datos | Wokwi Simulator</title>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
         :root { --primary: #1e40af; --code-bg: #1e293b; }
         body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
         .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
         header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
         .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
-        pre { background: var(--code-bg); color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        pre { background: var(--code-bg); padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
         .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
         .tip { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
         .steps { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 1rem; margin: 1rem 0; border-radius: 6px; }
@@ -78,7 +80,7 @@
 
         <div class="section">
             <h2>📋 Código</h2>
-            <pre><code>#include &lt;WiFi.h&gt;
+            <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 #include &lt;DHT.h&gt;
 #include &lt;HTTPClient.h&gt;
 
@@ -326,5 +328,8 @@ Enviando a ThingSpeak: http://api.thingspeak.com/update?api_key=ABC123&field1=24
             <a href="ejercicio-12-mqtt.html">Ejercicio 12 →</a>
         </nav>
     </div>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </body>
 </html>
