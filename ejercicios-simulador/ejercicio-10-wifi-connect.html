@@ -36,6 +36,29 @@
         </div>
 
         <div class="section">
+            <h2>⚠️ IMPORTANTE: Configurar WiFi Antes de Ejecutar</h2>
+            <div class="warning" style="background: #fef2f2; border-left: 4px solid #ef4444;">
+                <strong>⚠️ Antes de subir el código a un ESP32 real, DEBES cambiar estas líneas:</strong>
+                <pre style="margin-top: 1rem;"><code class="language-cpp">const char* ssid = "TU_RED_WIFI";        // ← Cambia "TU_RED_WIFI" por tu WiFi
+const char* password = "TU_CONTRASENA";  // ← Cambia "TU_CONTRASENA" por tu contraseña</code></pre>
+                <p style="margin-top: 1rem;"><strong>Ejemplo:</strong></p>
+                <pre><code class="language-cpp">const char* ssid = "MiCasa_WiFi";
+const char* password = "12345678";</code></pre>
+            </div>
+
+            <h3>Cómo encontrar tu WiFi:</h3>
+            <ul style="line-height: 2;">
+                <li><strong>Windows:</strong> Busca el icono de WiFi en la barra de tareas</li>
+                <li><strong>Mac:</strong> Busca el icono de WiFi en el menú superior</li>
+                <li><strong>Teléfono:</strong> Configuración → WiFi</li>
+            </ul>
+
+            <div class="warning" style="background: #fef3c7; border-left: 4px solid #f59e0b;">
+                <strong>⚠️ ERROR COMÚN:</strong> Si dejas "TU_RED_WIFI" y "TU_CONTRASENA", el código NO funcionará en hardware real porque esas no son conexiones WiFi válidas.
+            </div>
+        </div>
+
+        <div class="section">
             <h2>📋 Código</h2>
             <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 
@@ -118,6 +141,27 @@ Fuerza de señal: -45 dBm</pre>
                 <li>Observa la dirección IP asignada (Wokwi simula la conexión)</li>
                 <li>El código de reconexión automática funciona si se pierde la conexión</li>
             </ol>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Problemas Comunes</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #fef2f2;">
+                    <th style="padding: 12px; text-align: left;">Problema</th>
+                    <th style="padding: 12px; text-align: left;">Causa</th>
+                    <th style="padding: 12px; text-align: left;">Solución</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">"❌ No se pudo conectar"</td>
+                    <td style="padding: 12px;">SSID o contraseña incorrectos</td>
+                    <td style="padding: 12px;">Verifica que las credenciales sean correctas</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px;">"..." infinitos</td>
+                    <td style="padding: 12px;">Red no disponible</td>
+                    <td style="padding: 12px;">Verifica que el router funcione</td>
+                </tr>
+            </table>
         </div>
 
         <div class="section">
