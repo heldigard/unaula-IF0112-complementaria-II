@@ -11,7 +11,7 @@
         .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
         header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
         .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
-        pre { background: var(--code-bg) !important; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        pre { background: var(--code-bg) !important; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
         code { font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; }
         pre code { background: transparent; color: inherit; }
         .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
@@ -39,14 +39,19 @@
         <div class="section">
             <h2>📋 Diagrama de Conexión</h2>
 
-            <h3>Componentes Necesarios:</h3>
+            <h3>Componentes Necesarios (verifica antes de empezar):</h3>
             <ul>
-                <li>1 x LDR (fotorresistencia)</li>
-                <li>1 x Resistencia 10kΩ (para divisor de tensión)</li>
-                <li>1 x LED (para indicador visual)</li>
-                <li>1 x Resistencia 220Ω (para el LED)</li>
-                <li>Cables de conexión</li>
+                <li>✅ 1 x LDR () - formafotorresistencia de disco con líneas</li>
+                <li>✅ 1 x Resistencia 10kΩ (marrón-negro-naranja)</li>
+                <li>✅ 1 x LED (cualquier color)</li>
+                <li>✅ 1 x Resistencia 220Ω (rojo-rojo-marrón)</li>
+                <li>✅ Cables de conexión</li>
             </ul>
+
+            <div class="warning">
+                <strong>⚠️ ERROR COMÚN:</strong> La resistencia de 10kΩ es para el LDR (divisor de tensión).
+                La resistencia de 220Ω es para el LED. Son diferentes y tienen funciones distintas.
+            </div>
 
             <!-- Diagrama SVG LDR + LED Sistema Automático -->
             <svg viewBox="0 0 800 420" style="width:100%; max-width:800px; display:block; margin:1rem auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
@@ -207,15 +212,62 @@ void loop() {
         </div>
 
         <div class="section">
-            <h2>🔍 Cómo Probar en Wokwi</h2>
-            <ol>
-                <li>Copia el código en Wokwi</li>
-                <li>Arma el circuito según el diagrama SVG</li>
-                <li>Ejecuta la simulación</li>
-                <li>Abre el <strong>Monitor Serial</strong></li>
-                <li>Haz <strong>clic derecho</strong> en el LDR para cambiar su nivel de luz</li>
-                <li>Observa cómo el LED se enciende cuando reduces la luz</li>
+            <h2>🔍 Cómo Probar en Wokwi (Paso a Paso)</h2>
+            <ol style="line-height: 2;">
+                <li><strong>Paso 1:</strong> Ve a <a href="https://wokwi.com" target="_blank">wokwi.com</a> y crea un proyecto con ESP32</li>
+                <li><strong>Paso 2:</strong> Copia el código completo y pégalo en el editor</li>
+                <li><strong>Paso 3:</strong> Agrega los componentes en Wokwi:
+                    <ul>
+                        <li>LDR (photoresistor)</li>
+                        <li>Resistencia 10kΩ (para LDR)</li>
+                        <li>LED</li>
+                        <li>Resistencia 220Ω (para LED)</li>
+                    </ul>
+                </li>
+                <li><strong>Paso 4:</strong> Conecta todo según el diagrama SVG de arriba</li>
+                <li><strong>Paso 5:</strong> Haz clic en ▶️ <strong>"Start Simulation"</strong></li>
+                <li><strong>Paso 6:</strong> Abre el <strong>Monitor Serial</strong> (115200 baudios)</li>
+                <li><strong>Paso 7:</strong> Haz <strong>clic derecho en el LDR</strong> y selecciona "Dark" (oscuro)</li>
+                <li><strong>Paso 8:</strong> <strong>VERIFICA:</strong> El LED debe ENCENDERSE y verás "OSCURO, LED encendido"</li>
+                <li><strong>Paso 9:</strong> Cambia el LDR a "Bright" (brillante)</li>
+                <li><strong>Paso 10:</strong> <strong>VERIFICA:</strong> El LED debe APAGARSE y verás "CLARO, LED apagado"</li>
             </ol>
+
+            <div class="warning">
+                <strong>⚠️ VERIFICACIÓN OBLIGATORIA:</strong><br>
+                Antes de entregar, debes probar AMBOS escenarios:
+                <ul>
+                    <li>✅ Con luz = LED apagado</li>
+                    <li>✅ Sin luz = LED encendido</li>
+                </ul>
+                Si no funcionan ambos, revisa las conexiones.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Problemas Comunes</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr style="background: #fef2f2;">
+                    <th style="padding: 12px; text-align: left;">Problema</th>
+                    <th style="padding: 12px; text-align: left;">Causa</th>
+                    <th style="padding: 12px; text-align: left;">Solución</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">LED siempre apagado</td>
+                    <td style="padding: 12px;">LDR al revés o umbral muy alto</td>
+                    <td style="padding: 12px;">Pon "Dark" en LDR, baja el umbral a 1000</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                    <td style="padding: 12px;">LED siempre encendido</td>
+                    <td style="padding: 12px;">LDR mal conectado</td>
+                    <td style="padding: 12px;">Verifica conexión: LDR → 3.3V y 10kΩ → GND</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;">Funciona al revés</td>
+                    <td style="padding: 12px;">Lógica invertida en código</td>
+                    <td style="padding: 12px;">El código actual enciende con menos de 2000. Está correcto.</td>
+                </tr>
+            </table>
         </div>
 
         <div class="section">
