@@ -93,6 +93,85 @@
             </ul>
         </section>
 
+        <section>
+            <h2>🔌 Diagrama de Conexión Completo (E2)</h2>
+            <p>El circuito de la E2 combina el <strong>DHT22</strong> para temperatura/humedad y el <strong>LDR</strong> para luz, junto con 2 LEDs indicadores. Sigue estas conexiones exactas:</p>
+
+            <h3>Conexiones Paso a Paso:</h3>
+            <table style="width:100%; border-collapse:collapse; margin:1rem 0;">
+                <tr style="background:#f0f9ff;">
+                    <th style="border:1px solid #e2e8f0; padding:0.75rem; text-align:left;">Componente</th>
+                    <th style="border:1px solid #e2e8f0; padding:0.75rem; text-align:left;">Pin/Terminal</th>
+                    <th style="border:1px solid #e2e8f0; padding:0.75rem; text-align:left;">Conecta a ESP32</th>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;" rowspan="4"><strong>DHT22</strong></td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Pin 1 (VCC)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">3.3V</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Pin 2 (DATA)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;"><strong>GPIO 4</strong> + Resistencia 10kΩ a 3.3V</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Pin 3 (NC)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">No conectar</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Pin 4 (GND)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">GND</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;" rowspan="3"><strong>LDR</strong><br>(fotorresistencia)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Lado 1</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">3.3V</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Lado 2</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;"><strong>GPIO 34</strong> (ADC1)</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Lado 2 (también)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Resistencia 10kΩ a GND</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;" rowspan="2"><strong>LED Rojo</strong></td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Ánodo (+)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;"><strong>GPIO 2</strong> (vía resistor 220Ω)</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Cátodo (-)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">GND</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;" rowspan="2"><strong>LED Amarillo</strong></td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Ánodo (+)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;"><strong>GPIO 15</strong> (vía resistor 220Ω)</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Cátodo (-)</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">GND</td>
+                </tr>
+            </table>
+
+            <div style="background:#fef2f2; border-left:4px solid #ef4444; padding:1rem; margin:1rem 0; border-radius:0.5rem;">
+                <strong>⚠️ Consejos Importantes:</strong>
+                <ul style="margin:0.5rem 0 0 1.5rem;">
+                    <li><strong>Resistencia pull-up DHT22:</strong> La resistencia de 10kΩ entre DATA y VCC es <strong>OBLIGATORIA</strong>. Sin ella, el sensor dará lecturas erráticas.</li>
+                    <li><strong>Divisor de voltaje LDR:</strong> El LDR debe formar un divisor con la resistencia de 10kΩ. Un lado del LDR a 3.3V, el otro lado conecta a GPIO 34 Y a la resistencia de 10kΩ que va a GND.</li>
+                    <li><strong>GPIO 34:</strong> Este pin es <strong>solo entrada</strong> y usa el canal ADC1, que funciona bien con WiFi activado.</li>
+                    <li><strong>GPIO 4:</strong> Para el DHT22 es digital, no necesita ser pin ADC.</li>
+                </ul>
+            </div>
+
+            <p style="margin-top:1rem;"><strong>📚 Referencia:</strong> Para diagrama visual detallado, consulta los ejercicios del simulador:</p>
+            <ul>
+                <li><a href="../ejercicios-simulador/ejercicio-08-dht22.html" target="_blank">Ejercicio 8: DHT22</a> - Conexión detallada del sensor de temperatura/humedad</li>
+                <li><a href="../ejercicios-simulador/ejercicio-06-ldr-lectura.html" target="_blank">Ejercicio 6: LDR</a> - Conexión del divisor de voltaje para el sensor de luz</li>
+                <li><a href="../ejercicios-simulador/ejercicio-01-led-blink.html" target="_blank">Ejercicio 1: LED</a> - Conexión básica de LEDs con resistencias</li>
+            </ul>
+        </section>
+
         <section class="highlight">
             <h2>Modos de Presentación</h2>
             <p>Puedes presentar esta evaluación de dos formas (ambas tienen el mismo valor):</p>

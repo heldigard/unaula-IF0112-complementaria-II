@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 8: Sensor DHT22 - Temperatura y Humedad | Wokwi Simulator</title>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root { --primary: #1e40af; --code-bg: #1e293b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f8fafc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), #3b82f6); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .section { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        pre { background: var(--code-bg) !important; padding: 1.5rem; border-radius: 8px; overflow-x: auto; }
+        code { font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; }
+        pre code { background: transparent !important; color: inherit !important; }
+        .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .tip { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .nav { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
+        .nav a { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; }
+        .nav a:hover { background: #1d4ed8; }
+        .step {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌡️ Ejercicio 8: Sensor DHT22 - Temperatura y Humedad</h1>
+            <p>⏱️ 40 min | 📦 DHT22 + Resistencia | 🟠 Medio</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Objetivo</h2>
+            <p>Aprender a usar el sensor <strong>DHT22</strong> (también conocido como AM2302) para medir temperatura y humedad ambiental. Este es un sensor fundamental en proyectos IoT de monitoreo ambiental.</p>
+            <div class="tip">
+                <strong>💡 Aplicación real:</strong> El DHT22 se usa en estaciones meteorológicas caseras, sistemas de control climático, invernaderos inteligentes, y monitoreo de bodegas.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Diagrama de Conexión</h2>
+
+            <h3>Componentes Necesarios:</h3>
+            <ul>
+                <li>1 x Sensor DHT22 (AM2302)</li>
+                <li>1 x Resistencia 10kΩ (pull-up obligatoria)</li>
+                <li>Cables de conexión</li>
+            </ul>
+
+            <h3>Pasos de Conexión Detallados:</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Identificar las patillas del DHT22:</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Visto de frente (con la rejilla hacia ti):</li>
+                    <li><strong>Pin 1 (izquierda)</strong>: VCC (3.3V o 5V)</li>
+                    <li><strong>Pin 2</strong>: DATA (señal de datos)</li>
+                    <li><strong>Pin 3</strong>: NC (No conectar - no se usa)</li>
+                    <li><strong>Pin 4 (derecha)</strong>: GND (tierra)</li>
+                </ul>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Conectar alimentación:</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li><strong>Pin 1 (VCC)</strong> del DHT22 → <strong>3.3V</strong> del ESP32</li>
+                    <li><strong>Pin 4 (GND)</strong> del DHT22 → <strong>GND</strong> del ESP32</li>
+                </ul>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Conectar señal de datos (IMPORTANTE):</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li><strong>Pin 2 (DATA)</strong> del DHT22 → <strong>GPIO 4</strong> del ESP32</li>
+                    <li>Colocar resistencia <strong>10kΩ</strong> entre Pin 2 (DATA) y Pin 1 (VCC)</li>
+                    <li>Esta resistencia es <strong>obligatoria</strong> para estabilizar la señal</li>
+                </ul>
+            </div>
+
+            <!-- Diagrama SVG DHT22 -->
+            <svg viewBox="0 0 800 450" style="width:100%; max-width:800px; display:block; margin:1rem auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                <!-- Fondo -->
+                <rect x="0" y="0" width="800" height="450" fill="#fafafa"/>
+
+                <!-- ESP32 -->
+                <rect x="450" y="80" width="190" height="290" rx="8" fill="#1e40af" stroke="#0f172a" stroke-width="3"/>
+                <text x="545" y="105" text-anchor="middle" fill="white" font-size="14" font-weight="bold">ESP32 DevKit V1</text>
+
+                <!-- Pines ESP32 -->
+                <!-- 3.3V -->
+                <circle cx="480" cy="150" r="12" fill="#ef4444" stroke="#0f172a" stroke-width="2"/>
+                <text x="480" y="154" text-anchor="middle" fill="white" font-size="9" font-weight="bold">3.3V</text>
+
+                <!-- GPIO 4 (DHT22) -->
+                <circle cx="480" cy="200" r="12" fill="#22c55e" stroke="#0f172a" stroke-width="2"/>
+                <text x="480" y="204" text-anchor="middle" fill="white" font-size="9" font-weight="bold">GPIO4</text>
+
+                <!-- GND -->
+                <circle cx="480" cy="300" r="12" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+                <text x="480" y="304" text-anchor="middle" fill="white" font-size="10" font-weight="bold">GND</text>
+
+                <!-- DHT22 Sensor -->
+                <rect x="120" y="150" width="120" height="150" rx="10" fill="#f0f9ff" stroke="#1e40af" stroke-width="3"/>
+                <text x="180" y="175" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">DHT22</text>
+                <text x="180" y="195" text-anchor="middle" fill="#1e40af" font-size="10">AM2302</text>
+
+                <!-- Rejilla del sensor -->
+                <rect x="140" y="210" width="80" height="60" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+                <line x1="150" y1="210" x2="150" y2="270" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="160" y1="210" x2="160" y2="270" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="170" y1="210" x2="170" y2="270" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="180" y1="210" x2="180" y2="270" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="190" y1="210" x2="190" y2="270" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="200" y1="210" x2="200" y2="270" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="210" y1="210" x2="210" y2="270" stroke="#94a3b8" stroke-width="1"/>
+
+                <!-- Patillas DHT22 -->
+                <text x="135" y="330" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="bold">1</text>
+                <text x="165" y="330" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="bold">2</text>
+                <text x="195" y="330" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">3</text>
+                <text x="225" y="330" text-anchor="middle" fill="#1e40af" font-size="10" font-weight="bold">4</text>
+
+                <!-- Líneas de patillas -->
+                <line x1="135" y1="300" x2="135" y2="320" stroke="#0f172a" stroke-width="2"/>
+                <line x1="165" y1="300" x2="165" y2="320" stroke="#0f172a" stroke-width="2"/>
+                <line x1="195" y1="300" x2="195" y2="320" stroke="#0f172a" stroke-width="2"/>
+                <line x1="225" y1="300" x2="225" y2="320" stroke="#0f172a" stroke-width="2"/>
+
+                <!-- Resistencia 10kΩ (pull-up) -->
+                <rect x="280" y="180" width="50" height="20" rx="3" fill="#fde68a" stroke="#ca8a04" stroke-width="2"/>
+                <text x="305" y="194" text-anchor="middle" fill="#713f12" font-size="10" font-weight="bold">10kΩ</text>
+
+                <!-- Conexiones -->
+                <!-- VCC (Pin 1) a 3.3V -->
+                <path d="M 135 300 L 135 280 L 420 280 L 420 150 L 468 150" stroke="#ef4444" stroke-width="3" fill="none"/>
+                <polygon points="460,146 468,150 460,154" fill="#ef4444"/>
+
+                <!-- DATA (Pin 2) a GPIO 4 -->
+                <path d="M 165 300 L 165 270 L 300 270 L 300 240 L 468 240" stroke="#22c55e" stroke-width="3" fill="none"/>
+                <polygon points="460,236 468,240 460,244" fill="#22c55e"/>
+
+                <!-- Pull-up resistor VCC -->
+                <line x1="305" y1="180" x2="305" y2="150" stroke="#ca8a04" stroke-width="2"/>
+                <line x1="305" y1="150" x2="420" y2="150" stroke="#ca8a04" stroke-width="2" stroke-dasharray="5,3"/>
+
+                <!-- Pull-up resistor a DATA -->
+                <line x1="305" y1="200" x2="305" y2="240" stroke="#ca8a04" stroke-width="2"/>
+                <circle cx="305" cy="220" r="3" fill="#ca8a04"/>
+
+                <!-- GND (Pin 4) a GND -->
+                <path d="M 225 300 L 225 380 L 420 380 L 420 300 L 468 300" stroke="#64748b" stroke-width="3" fill="none"/>
+                <polygon points="460,296 468,300 460,304" fill="#64748b"/>
+
+                <!-- Panel informativo -->
+                <rect x="540" y="150" width="240" height="220" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="660" y="175" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Conexiones DHT22</text>
+
+                <text x="555" y="205" fill="#1e3a8a" font-size="12" font-weight="bold">Pin 1 (VCC):</text>
+                <text x="555" y="225" fill="#1e3a8a" font-size="11">→ 3.3V del ESP32</text>
+
+                <text x="555" y="255" fill="#1e3a8a" font-size="12" font-weight="bold">Pin 2 (DATA):</text>
+                <text x="555" y="275" fill="#1e3a8a" font-size="11">→ GPIO 4 del ESP32</text>
+
+                <text x="555" y="305" fill="#1e3a8a" font-size="12" font-weight="bold">Pin 3 (NC):</text>
+                <text x="555" y="325" fill="#1e3a8a" font-size="11">→ No conectar</text>
+
+                <text x="555" y="355" fill="#1e3a8a" font-size="12" font-weight="bold">Pin 4 (GND):</text>
+                <text x="555" y="375" fill="#1e3a8a" font-size="11">→ GND del ESP32</text>
+
+                <!-- Panel de resistencia pull-up -->
+                <rect x="280" y="50" width="240" height="80" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="400" y="75" text-anchor="middle" fill="#92400e" font-size="13" font-weight="bold">⚠️ Resistencia Pull-up</text>
+                <text x="295" y="100" fill="#78350f" font-size="11">La resistencia de 10kΩ entre DATA y VCC</text>
+                <text x="295" y="118" fill="#78350f" font-size="11">es OBLIGATORIA para estabilizar la señal</text>
+            </svg>
+
+            <div class="warning">
+                <strong>⚠️ Importante:</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li>El <strong>DHT22 requiere resistencia pull-up de 4.7kΩ a 10kΩ</strong> entre DATA y VCC</li>
+                    <li>Sin esta resistencia, las lecturas serán erráticas o mostrarán "nan"</li>
+                    <li>El DHT22 puede funcionar con 3.3V o 5V (usamos 3.3V para compatibilidad con ESP32)</li>
+                    <li>El sensor tiene una <strong>tasa de muestreo de 2 segundos</strong> - no leer más frecuentemente</li>
+                    <li>El pin 3 (NC) no se conecta a nada</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Diferencia entre DHT11 y DHT22:</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li><strong>DHT11:</strong> Menor precisión (±2°C, ±5% HR), rango limitado (0-50°C)</li>
+                    <li><strong>DHT22 (AM2302):</strong> Mayor precisión (±0.5°C, ±2% HR), rango amplio (-40 a 80°C)</li>
+                    <li>El curso usa DHT22 por su mejor precisión para proyectos IoT profesionales</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Código</h2>
+            <pre><code class="language-cpp">// Ejercicio 8: Sensor DHT22 - Temperatura y Humedad
+// Requiere instalar la librería: "DHT sensor library" by Adafruit
+
+#include "DHT.h"
+
+// Definiciones del sensor
+#define DHTPIN 4        // Pin GPIO conectado al DATA del DHT22
+#define DHTTYPE DHT22   // Tipo de sensor (DHT22 o AM2302)
+
+// Crear objeto DHT
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("=== Ejercicio 8: Sensor DHT22 ===");
+  Serial.println("Iniciando sensor DHT22...");
+
+  // Inicializar el sensor
+  dht.begin();
+
+  Serial.println("Sensor iniciado. Esperando 2 segundos...");
+  delay(2000); // El DHT22 necesita tiempo para estabilizarse
+}
+
+void loop() {
+  // Esperar 2 segundos entre lecturas (obligatorio para DHT22)
+  delay(2000);
+
+  // Leer temperatura y humedad
+  float humedad = dht.readHumidity();
+  float temperatura = dht.readTemperature(); // Por defecto en Celsius
+
+  // Verificar si la lectura falló
+  if (isnan(humedad) || isnan(temperatura)) {
+    Serial.println("⚠️ Error: Fallo al leer del sensor DHT22!");
+    Serial.println("   Verifica las conexiones y la resistencia pull-up.");
+    return;
+  }
+
+  // Calcular índice de calor (sensación térmica)
+  float indiceCalor = dht.computeHeatIndex(temperatura, humedad, false);
+
+  // Mostrar resultados
+  Serial.println("\n--- Lectura DHT22 ---");
+  Serial.print("Humedad: ");
+  Serial.print(humedad);
+  Serial.println(" %");
+
+  Serial.print("Temperatura: ");
+  Serial.print(temperatura);
+  Serial.println(" °C");
+
+  Serial.print("Sensación térmica: ");
+  Serial.print(indiceCalor);
+  Serial.println(" °C");
+
+  // Interpretación de humedad
+  Serial.print("Estado: ");
+  if (humedad < 30) {
+    Serial.println("💨 Aire seco");
+  } else if (humedad > 70) {
+    Serial.println("💧 Aire húmedo");
+  } else {
+    Serial.println("✅ Humedad confortable");
+  }
+
+  Serial.println("---------------------");
+}</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Conceptos Clave</h2>
+
+            <h3>Librería DHT</h3>
+            <p>La librería <code>DHT.h</code> simplifica la comunicación con el sensor:</p>
+            <ul>
+                <li><code>dht.begin()</code>: Inicializa el sensor en setup()</li>
+                <li><code>dht.readHumidity()</code>: Lee humedad relativa (0-100%)</li>
+                <li><code>dht.readTemperature()</code>: Lee temperatura en °C</li>
+                <li><code>dht.computeHeatIndex()</code>: Calcula sensación térmica</li>
+                <li><code>isnan()</code>: Verifica si la lectura es válida (not-a-number)</li>
+            </ul>
+
+            <h3>Protocolo de Comunicación</h3>
+            <p>El DHT22 usa un protocolo propietario de 1-wire (no es el mismo que Dallas 1-Wire):</p>
+            <ul>
+                <li>Transmite 40 bits de datos (16 humedad, 16 temperatura, 8 checksum)</li>
+                <li>La resistencia pull-up mantiene la línea en HIGH cuando no transmite</li>
+                <li>El ESP32 envía una señal de inicio, el DHT22 responde con datos</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Solución de Problemas</h2>
+            <table style="width:100%; border-collapse:collapse; margin-top:1rem;">
+                <tr style="background:#f1f5f9;">
+                    <th style="border:1px solid #e2e8f0; padding:0.75rem; text-align:left;">Problema</th>
+                    <th style="border:1px solid #e2e8f0; padding:0.75rem; text-align:left;">Causa probable</th>
+                    <th style="border:1px solid #e2e8f0; padding:0.75rem; text-align:left;">Solución</th>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Lectura "nan"</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Sin resistencia pull-up</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Agregar 10kΩ entre DATA y VCC</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Lecturas erráticas</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Lecturas muy frecuentes</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Esperar mínimo 2 segundos entre lecturas</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Valores incorrectos</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">DHTTYPE incorrecto</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Verificar que sea DHT22, no DHT11</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">No compila</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Falta librería</td>
+                    <td style="border:1px solid #e2e8f0; padding:0.75rem;">Instalar "DHT sensor library" de Adafruit</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>📸 Instrucciones de Entrega</h2>
+            <ol>
+                <li>Abre Wokwi y crea un nuevo proyecto ESP32</li>
+                <li>Agrega un componente DHT22 y una resistencia de 10kΩ</li>
+                <li>Conecta según el diagrama (DATA → GPIO 4)</li>
+                <li>Copia el código y ejecútalo</li>
+                <li>Abre el Monitor Serial (115200 baudios)</li>
+                <li>Verifica que muestra temperatura y humedad correctas</li>
+                <li>Toma pantallazo del circuito funcionando</li>
+                <li>Toma pantallazo del Monitor Serial con las lecturas</li>
+                <li>Sube ambos pantallazos a Canvas</li>
+            </ol>
+        </div>
+
+        <nav class="nav">
+            <a href="ejercicio-07-ldr-automatico.html">← Ejercicio 7</a>
+            <a href="ejercicio-09-wifi-scan.html">Ejercicio 9: WiFi →</a>
+        </nav>
+    </div>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-arduino.min.js"></script>
+</body>
+</html>
