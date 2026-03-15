@@ -86,183 +86,875 @@ WiFi.mode(<abbr title="Dual Mode">WIFI_AP_STA</abbr>);   // Modo dual</code></pr
             <section id="conexion">
                 <h2>Conexión WiFi (Modo STA)</h2>
 
-                <h3>Código Básico</h3>
+                <div class="info-box" style="background: #f0f9ff; border-left: 4px solid #3b82f6; margin: 20px 0; padding: 20px; border-radius: 8px;">
+                    <h4>🎯 ¿Qué aprenderás en esta sección?</h4>
+                    <ul style="margin-top: 10px;">
+                        <li>Cómo conectar el ESP32 a tu red WiFi existente</li>
+                        <li>El flujo de conexión paso a paso</li>
+                        <li>Cómo interpretar los diferentes estados de conexión</li>
+                        <li>Cómo obtener información de la red conectada</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📚 Relación con ejercicios:</strong> Este contenido es base para los <a href="../ejercicios-simulador/ejercicio-09-wifi-scan.html">Ejercicios 9</a>, <a href="../ejercicios-simulador/ejercicio-10-wifi-connect.html">10</a> y <a href="../ejercicios-simulador/ejercicio-11-thingspeak.html">11</a>.</p>
+                </div>
+
+                <h3>🔀 Diagrama de Flujo: Proceso de Conexión WiFi</h3>
+                <svg viewBox="0 0 700 500" style="width:100%; max-width:700px; display:block; margin:20px auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                    <!-- Fondo -->
+                    <rect x="0" y="0" width="700" height="500" fill="#fafafa" rx="12"/>
+                    
+                    <!-- Inicio -->
+                    <ellipse cx="350" cy="40" rx="80" ry="25" fill="#10b981" stroke="#065f46" stroke-width="2"/>
+                    <text x="350" y="45" text-anchor="middle" fill="white" font-size="12" font-weight="bold">INICIO</text>
+                    
+                    <!-- Configurar Serial -->
+                    <rect x="250" y="80" width="200" height="40" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="350" y="105" text-anchor="middle" fill="#1e40af" font-size="11">Serial.begin(115200)</text>
+                    
+                    <!-- WiFi.begin() -->
+                    <rect x="250" y="140" width="200" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="350" y="165" text-anchor="middle" fill="#92400e" font-size="11">WiFi.begin(ssid, password)</text>
+                    
+                    <!-- Flechas -->
+                    <line x1="350" y1="65" x2="350" y2="80" stroke="#64748b" stroke-width="2"/>
+                    <polygon points="346,76 350,80 354,76" fill="#64748b"/>
+                    <line x1="350" y1="120" x2="350" y2="140" stroke="#64748b" stroke-width="2"/>
+                    <polygon points="346,136 350,140 354,136" fill="#64748b"/>
+                    
+                    <!-- Decisión -->
+                    <polygon points="350,220 450,260 350,300 250,260" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+                    <text x="350" y="255" text-anchor="middle" fill="#be185d" font-size="10">¿WiFi.status() ==</text>
+                    <text x="350" y="270" text-anchor="middle" fill="#be185d" font-size="10">WL_CONNECTED?</text>
+                    
+                    <line x1="350" y1="180" x2="350" y2="220" stroke="#64748b" stroke-width="2"/>
+                    <polygon points="346,216 350,220 354,216" fill="#64748b"/>
+                    
+                    <!-- Esperando -->
+                    <rect x="460" y="240" width="140" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+                    <text x="530" y="265" text-anchor="middle" fill="#374151" font-size="11">delay(500); print(".")</text>
+                    
+                    <line x1="450" y1="260" x2="460" y2="260" stroke="#64748b" stroke-width="2"/>
+                    <text x="470" y="230" fill="#6b7280" font-size="9">NO</text>
+                    
+                    <!-- Flecha de retorno -->
+                    <path d="M 530 240 L 530 180 L 450 180" stroke="#64748b" stroke-width="2" fill="none"/>
+                    <polygon points="454,176 450,180 454,184" fill="#64748b"/>
+                    
+                    <!-- Conectado -->
+                    <rect x="250" y="340" width="200" height="40" rx="5" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+                    <text x="350" y="365" text-anchor="middle" fill="#065f46" font-size="11">✓ Conectado! Mostrar IP</text>
+                    
+                    <line x1="350" y1="300" x2="350" y2="340" stroke="#10b981" stroke-width="2"/>
+                    <text x="360" y="325" fill="#10b981" font-size="9" font-weight="bold">SI</text>
+                    <polygon points="346,336 350,340 354,336" fill="#10b981"/>
+                    
+                    <!-- Loop -->
+                    <rect x="250" y="420" width="200" height="50" rx="5" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+                    <text x="350" y="440" text-anchor="middle" fill="#5b21b6" font-size="10">Loop principal:</text>
+                    <text x="350" y="458" text-anchor="middle" fill="#5b21b6" font-size="10">Verificar WiFi.status()</text>
+                    
+                    <line x1="350" y1="380" x2="350" y2="420" stroke="#64748b" stroke-width="2"/>
+                    <polygon points="346,416 350,420 354,416" fill="#64748b"/>
+                    
+                    <!-- Notas -->
+                    <rect x="20" y="80" width="200" height="120" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+                    <text x="120" y="105" text-anchor="middle" fill="#c2410c" font-size="11" font-weight="bold">⚠️ Importante</text>
+                    <text x="30" y="130" fill="#9a3412" font-size="9">• SSID = nombre de tu red</text>
+                    <text x="30" y="150" fill="#9a3412" font-size="9">• Password = contraseña</text>
+                    <text x="30" y="170" fill="#9a3412" font-size="9">• Mayúsculas importan</text>
+                    <text x="30" y="190" fill="#9a3412" font-size="9">• Sin espacios extra</text>
+                </svg>
+
+                <h3>💻 Código Básico Explicado Paso a Paso</h3>
                 <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 
+// Credenciales de tu red WiFi
+// ⚠️ CAMBIA ESTOS VALORES por tu red real
 const char* ssid = "NombreDeTuRed";
 const char* password = "Contrasena";
 
 void setup() {
+    // 1. Iniciar comunicación serial para ver mensajes
     Serial.begin(115200);
+    
+    // 2. Iniciar conexión WiFi
+    // El ESP32 comienza a buscar la red y negociar conexión
     WiFi.begin(ssid, password);
     
+    // 3. Mostrar mensaje mientras conecta
     Serial.print("Conectando");
+    
+    // 4. BLOQUEANTE: Esperar hasta conectar
+    // while() bloquea el programa hasta que se cumpla la condición
     while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
+        delay(500);           // Esperar 500ms
+        Serial.print(".");    // Mostrar progreso
     }
     
-    Serial.println("\nConectado!");
-    Serial.print("IP: ");
-    Serial.println(WiFi.localIP());
+    // 5. ¡Conectado! Mostrar información
+    Serial.println("\n¡Conectado exitosamente!");
+    Serial.print("Dirección IP asignada: ");
+    Serial.println(WiFi.localIP());  // Ej: 192.168.1.100
+    Serial.print("Intensidad de señal: ");
+    Serial.print(WiFi.RSSI());       // Ej: -45 dBm
+    Serial.println(" dBm");
 }
 
-void loop() {}</code></pre>
+void loop() {
+    // En loop() puedes verificar si sigue conectado
+    // y reconectar si es necesario
+}</code></pre>
 
-                <h3>Estados WiFi</h3>
-                <table>
-                    <tr><th>Estado</th><th>Significado</th></tr>
-                    <tr><td><code>WL_CONNECTED</code></td><td>Conectado</td></tr>
-                    <tr><td><code>WL_NO_SSID_AVAIL</code></td><td>Red no encontrada</td></tr>
-                    <tr><td><code>WL_CONNECT_FAILED</code></td><td>Contraseña incorrecta</td></tr>
+                <div class="highlight" style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 6px;">
+                    <strong>🔍 ¿Por qué usar while() bloqueante?</strong>
+                    <p style="margin-top: 8px;">El while() evita que el programa continúe sin conexión. Es útil en setup() porque necesitamos WiFi antes de iniciar otros servicios (servidor web, sensores, etc.). En producción, se usa con timeout para no bloquear indefinidamente.</p>
+                </div>
+
+                <h3>📊 Estados WiFi: El "Estado de Ánimo" del ESP32</h3>
+                <p>El ESP32 pasa por diferentes estados durante la conexión. Conocerlos te ayuda a depurar problemas:</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <tr style="background: #f0f9ff;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Estado (Código)</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Significado</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">¿Qué hacer?</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_IDLE_STATUS</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Inicializando / Inactivo</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Esperar, es normal al inicio</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_SCAN_COMPLETED</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Escaneo de redes completado</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Listo para seleccionar red</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_CONNECTED</code> ✅</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>¡Conectado exitosamente!</strong></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Puedes enviar datos</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_CONNECT_FAILED</code> ❌</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Falló la conexión</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Revisar contraseña</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_CONNECTION_LOST</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Conexión perdida</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Reconectar automáticamente</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_DISCONNECTED</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Desconectado</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Llamar WiFi.begin() de nuevo</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WL_NO_SSID_AVAIL</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Red no encontrada</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Verificar nombre SSID</td>
+                    </tr>
                 </table>
 
-                <h3>Información de Red</h3>
-                <table>
-                    <tr><th>Función</th><th>Retorna</th></tr>
-                    <tr><td><code>WiFi.localIP()</code></td><td>IP local</td></tr>
-                    <tr><td><code>WiFi.RSSI()</code></td><td>Intensidad señal (<abbr title="Decibel-milliwatts: Unidad de potencia de señal">dBm</abbr>)</td></tr>
-                    <tr><td><code>WiFi.macAddress()</code></td><td>Dirección <abbr title="Media Access Control: Identificador único de hardware de red">MAC</abbr></td></tr>
+                <h3>🔧 Funciones Útiles de Información de Red</h3>
+                <p>Una vez conectado, puedes obtener información valiosa sobre tu conexión:</p>
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <tr style="background: #f0f9ff;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Función</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Retorna</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Ejemplo de uso</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WiFi.localIP()</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">IP local asignada</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">192.168.1.100</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WiFi.RSSI()</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Intensidad señal (<abbr title="Decibel-milliwatts: Unidad de potencia de señal">dBm</abbr>)</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">-45 (buena), -85 (débil)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WiFi.macAddress()</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Dirección <abbr title="Media Access Control: Identificador único de hardware de red">MAC</abbr></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">24:6F:28:A4:B2:C1</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WiFi.gatewayIP()</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">IP del router</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">192.168.1.1</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WiFi.subnetMask()</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Máscara de subred</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">255.255.255.0</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>WiFi.SSID()</code></td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Nombre de red conectada</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">"MiRedWiFi"</td>
+                    </tr>
                 </table>
+
+                <div class="tip" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0; border-radius: 6px;">
+                    <strong>📶 Interpretando RSSI (Intensidad de Señal):</strong>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>-30 a -50 dBm:</strong> Señal excelente (cerca del router)</li>
+                        <li><strong>-50 a -65 dBm:</strong> Señal buena</li>
+                        <li><strong>-65 a -75 dBm:</strong> Señal regular (puede haber intermitencias)</li>
+                        <li><strong>-75 a -85 dBm:</strong> Señal débil (posibles desconexiones)</li>
+                        <li><strong>Menos de -85 dBm:</strong> Muy débil (probablemente no funcione)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="troubleshooting" style="background: #fef2f2; border: 2px solid #ef4444; border-radius: 12px; padding: 30px; margin: 30px 0;">
+                <h2 style="color: #dc2626;">🚨 Guía de Troubleshooting WiFi</h2>
+                <p style="margin-bottom: 20px;">¿Problemas conectando tu ESP32? Esta guía te ayuda a diagnosticar y solucionar los errores más comunes.</p>
+
+                <h3 style="color: #dc2626; margin-top: 25px;">❌ Errores Comunes y Soluciones</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: white;">
+                    <tr style="background: #fee2e2;">
+                        <th style="padding: 14px; text-align: left; border: 1px solid #fecaca; width: 25%;">Síntoma/Error</th>
+                        <th style="padding: 14px; text-align: left; border: 1px solid #fecaca; width: 35%;">Causa Probable</th>
+                        <th style="padding: 14px; text-align: left; border: 1px solid #fecaca; width: 40%;">Solución</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 14px; border: 1px solid #fecaca;"><strong>"WL_NO_SSID_AVAIL"</strong> o puntos infinitos</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">El ESP32 no encuentra la red WiFi</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">• Verificar que escribiste bien el SSID<br>• Revisar mayúsculas/minúsculas<br>• Asegurar que el router esté encendido<br>• El SSID no debe tener espacios al inicio/final</td>
+                    </tr>
+                    <tr style="background: #fef2f2;">
+                        <td style="padding: 14px; border: 1px solid #fecaca;"><strong>"WL_CONNECT_FAILED"</strong></td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">Contraseña incorrecta</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">• Revisar contraseña caracter por caracter<br>• Verificar caracteres especiales<br>• Asegurar que no hay espacios extras</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 14px; border: 1px solid #fecaca;"><strong>Monitor Serial vacío</strong></td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">Baudios incorrectos o cable mal conectado</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">• Configurar Monitor Serial a 115200 baudios<br>• Verificar cable USB de datos (no solo carga)<br>• Presionar botón RST en el ESP32</td>
+                    </tr>
+                    <tr style="background: #fef2f2;">
+                        <td style="padding: 14px; border: 1px solid #fecaca;"><strong>Se conecta pero pierde IP</strong></td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">Señal débil o router con DHCP limitado</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">• Acercar ESP32 al router<br>• Verificar RSSI (debe ser > -70 dBm)<br>• Reiniciar router si es necesario</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 14px; border: 1px solid #fecaca;"><strong>"Brownout detector"</strong></td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">Alimentación insuficiente</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">• Usar cable USB de mejor calidad<br>• Conectar a puerto USB 2.0 en lugar de 3.0<br>• Usar fuente de alimentación externa</td>
+                    </tr>
+                    <tr style="background: #fef2f2;">
+                        <td style="padding: 14px; border: 1px solid #fecaca;"><strong>"Connection lost" frecuente</strong></td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">Interferencia o señal inestable</td>
+                        <td style="padding: 14px; border: 1px solid #fecaca;">• Implementar reconexión automática en loop()<br>• Cambiar canal del router (1, 6 o 11)<br>• Alejar de microondas o bluetooth</td>
+                    </tr>
+                </table>
+
+                <h3 style="color: #dc2626; margin-top: 25px;">🔍 Checklist de Verificación</h3>
+                <div style="background: white; border-radius: 8px; padding: 20px; margin-top: 15px;">
+                    <p style="font-weight: bold; margin-bottom: 15px;">Antes de pedir ayuda, verifica:</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f0fdf4; border-radius: 6px;">
+                                <input type="checkbox"> SSID escrito exactamente igual
+                            </label>
+                        </div>
+                        <div>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f0fdf4; border-radius: 6px;">
+                                <input type="checkbox"> Contraseña sin errores
+                            </label>
+                        </div>
+                        <div>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f0fdf4; border-radius: 6px;">
+                                <input type="checkbox"> Monitor Serial a 115200 baudios
+                            </label>
+                        </div>
+                        <div>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f0fdf4; border-radius: 6px;">
+                                <input type="checkbox"> Cable USB transmite datos
+                            </label>
+                        </div>
+                        <div>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f0fdf4; border-radius: 6px;">
+                                <input type="checkbox"> Router funcionando
+                            </label>
+                        </div>
+                        <div>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f0fdf4; border-radius: 6px;">
+                                <input type="checkbox"> ESP32 cerca del router (< 5m)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: #dc2626; margin-top: 25px;">💡 Código de Reconexión Automática</h3>
+                <p>Para proyectos en producción, implementa reconexión automática en el loop():</p>
+                <pre style="background: #1e293b; border-radius: 8px; margin-top: 15px;"><code class="language-cpp">void loop() {
+  // Verificar conexión WiFi
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("⚠️ WiFi desconectado. Reconectando...");
+    WiFi.reconnect();
+    
+    // Esperar reconexión con timeout
+    int intentos = 0;
+    while (WiFi.status() != WL_CONNECTED && intentos < 10) {
+      delay(500);
+      Serial.print(".");
+      intentos++;
+    }
+    
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.println("\n✅ Reconectado!");
+    } else {
+      Serial.println("\n❌ Falló reconexión");
+    }
+  }
+  
+  // Tu código principal aquí
+  delay(1000);
+}</code></pre>
+
+                <div style="background: #fff7ed; border-left: 4px solid #f97316; padding: 15px; margin-top: 20px; border-radius: 6px;">
+                    <strong>⚠️ Consejo para el Simulador Wokwi:</strong>
+                    <p style="margin-top: 8px;">En Wokwi, las redes WiFi son simuladas. Los ejercicios funcionarán sin configurar SSID real, pero cuando pases a hardware físico, debes reemplazar los valores con tu red real.</p>
+                </div>
             </section>
 
             <section id="servidor">
-                <h2>Servidor Web en ESP32</h2>
+                <h2>🌐 Servidor Web en ESP32</h2>
 
-                <h3>Código Básico</h3>
+                <div class="info-box" style="background: #f0fdf4; border-left: 4px solid #10b981; margin: 20px 0; padding: 20px; border-radius: 8px;">
+                    <h4>🎯 ¿Qué aprenderás?</h4>
+                    <ul style="margin-top: 10px;">
+                        <li>Crear un servidor web embebido en el ESP32</li>
+                        <li>Responder a peticiones HTTP desde un navegador</li>
+                        <li>Controlar hardware (LEDs, sensores) desde la web</li>
+                        <li>Servir páginas HTML dinámicas</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📚 Nota:</strong> El servidor web es un concepto avanzado que practicarás más adelante. En esta clase nos enfocamos en conectividad básica y ThingSpeak.</p>
+                </div>
+
+                <h3>🏗️ Arquitectura del Servidor Web</h3>
+                <svg viewBox="0 0 800 400" style="width:100%; max-width:800px; display:block; margin:20px auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                    <!-- Fondo -->
+                    <rect x="0" y="0" width="800" height="400" fill="#fafafa" rx="12"/>
+                    
+                    <!-- Cliente (Navegador) -->
+                    <rect x="50" y="80" width="180" height="240" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/>
+                    <text x="140" y="110" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Navegador Web</text>
+                    <text x="140" y="135" text-anchor="middle" fill="#1e3a8a" font-size="11">Celular/PC/Tablet</text>
+                    
+                    <!-- Icono navegador -->
+                    <circle cx="140" cy="180" r="40" fill="#3b82f6" opacity="0.2"/>
+                    <text x="140" y="190" text-anchor="middle" fill="#1e40af" font-size="40">🌐</text>
+                    
+                    <!-- IP del cliente -->
+                    <rect x="70" y="240" width="140" height="25" rx="4" fill="#fff" stroke="#3b82f6" stroke-width="1"/>
+                    <text x="140" y="257" text-anchor="middle" fill="#1e40af" font-size="10">192.168.1.50</text>
+                    
+                    <!-- Flecha HTTP Request -->
+                    <line x1="230" y1="150" x2="320" y2="150" stroke="#10b981" stroke-width="3"/>
+                    <polygon points="316,146 320,150 316,154" fill="#10b981"/>
+                    <text x="275" y="140" text-anchor="middle" fill="#065f46" font-size="10" font-weight="bold">HTTP Request</text>
+                    <text x="275" y="170" text-anchor="middle" fill="#065f46" font-size="9">GET / HTTP/1.1</text>
+                    
+                    <!-- Flecha HTTP Response -->
+                    <line x1="320" y1="250" x2="230" y2="250" stroke="#f59e0b" stroke-width="3"/>
+                    <polygon points="234,246 230,250 234,254" fill="#f59e0b"/>
+                    <text x="275" y="240" text-anchor="middle" fill="#92400e" font-size="10" font-weight="bold">HTTP Response</text>
+                    <text x="275" y="270" text-anchor="middle" fill="#92400e" font-size="9">HTML + 200 OK</text>
+                    
+                    <!-- ESP32 Servidor -->
+                    <rect x="320" y="80" width="200" height="240" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+                    <text x="420" y="110" text-anchor="middle" fill="#92400e" font-size="14" font-weight="bold">ESP32</text>
+                    <text x="420" y="130" text-anchor="middle" fill="#92400e" font-size="11">Servidor Web</text>
+                    
+                    <!-- Puerto 80 -->
+                    <rect x="350" y="150" width="140" height="30" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+                    <text x="420" y="170" text-anchor="middle" fill="#78350f" font-size="12" font-weight="bold">Puerto 80 (HTTP)</text>
+                    
+                    <!-- WebServer -->
+                    <rect x="350" y="200" width="140" height="50" rx="5" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="420" y="220" text-anchor="middle" fill="#92400e" font-size="10">WebServer server(80);</text>
+                    <text x="420" y="240" text-anchor="middle" fill="#92400e" font-size="10">server.handleClient();</text>
+                    
+                    <!-- IP del servidor -->
+                    <rect x="350" y="270" width="140" height="25" rx="4" fill="#fff" stroke="#f59e0b" stroke-width="1"/>
+                    <text x="420" y="287" text-anchor="middle" fill="#92400e" font-size="10">192.168.1.100</text>
+                    
+                    <!-- Router -->
+                    <rect x="580" y="120" width="160" height="100" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+                    <text x="660" y="150" text-anchor="middle" fill="#5b21b6" font-size="13" font-weight="bold">Router WiFi</text>
+                    <text x="660" y="170" text-anchor="middle" fill="#5b21b6" font-size="10">Red Local</text>
+                    <text x="660" y="195" text-anchor="middle" fill="#5b21b6" font-size="10">192.168.1.1</text>
+                    
+                    <!-- Conexión al router -->
+                    <line x1="520" y1="170" x2="580" y2="170" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,3"/>
+                    
+                    <!-- Leyenda -->
+                    <rect x="580" y="240" width="160" height="130" rx="8" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="1"/>
+                    <text x="660" y="260" text-anchor="middle" fill="#0369a1" font-size="11" font-weight="bold">Flujo de Datos:</text>
+                    <text x="590" y="285" fill="#0369a1" font-size="10">1. Navegador solicita</text>
+                    <text x="590" y="305" fill="#0369a1" font-size="10">2. ESP32 recibe</text>
+                    <text x="590" y="325" fill="#0369a1" font-size="10">3. Procesa request</text>
+                    <text x="590" y="345" fill="#0369a1" font-size="10">4. Envía HTML</text>
+                    <text x="590" y="365" fill="#0369a1" font-size="10">5. Navegador muestra</text>
+                </svg>
+
+                <h3>💻 Código del Servidor Web</h3>
+                <p>Este código crea un servidor web que muestra una página con el estado de un sensor:</p>
+                
                 <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
 #include &lt;WebServer.h&gt;
 
 const char* ssid = "TU_RED";
 const char* password = "TU_PASS";
 
-WebServer server(80);  // Puerto 80 (HTTP)
+WebServer server(80);  // Puerto 80 (HTTP estándar)
 
+// Función que responde a la ruta principal "/"
 void handleRoot() {
-    String html = "<html><body>";
-    html += "<h1>Hola desde ESP32!</h1>";
-    html += "<p>Temperatura: 25°C</p>";
-    html += "</body></html>";
+    // Crear página HTML dinámica
+    String html = "<!DOCTYPE html>";
+    html += "<html>";
+    html += "<head>";
+    html += "<title>ESP32 IoT</title>";
+    html += "<style>";
+    html += "body{font-family:Arial;text-align:center;margin:50px;}";
+    html += "h1{color:#1e40af;}";
+    html += ".box{border:2px solid #3b82f6;padding:20px;border-radius:10px;}";
+    html += "</style>";
+    html += "</head>";
+    html += "<body>";
+    html += "<h1>🌐 Servidor ESP32</h1>";
+    html += "<div class='box'>";
+    html += "<h2>Datos del Sensor</h2>";
+    html += "<p>Temperatura: 25.5°C</p>";
+    html += "<p>Humedad: 60%</p>";
+    html += "</div>";
+    html += "</body>";
+    html += "</html>";
+    
+    // Enviar respuesta HTTP 200 OK con el HTML
     server.send(200, "text/html", html);
 }
 
 void setup() {
     Serial.begin(115200);
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) delay(500);
     
+    // Conectar a WiFi
+    WiFi.begin(ssid, password);
+    Serial.print("Conectando a WiFi");
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    
+    // Mostrar IP del servidor
+    Serial.println("\n✅ Conectado!");
+    Serial.print("🌐 Servidor web en: http://");
     Serial.println(WiFi.localIP());
     
-    server.on("/", handleRoot);
+    // Configurar rutas del servidor
+    server.on("/", handleRoot);  // Ruta principal
+    
+    // Iniciar servidor
     server.begin();
+    Serial.println("✅ Servidor iniciado");
 }
 
 void loop() {
+    // Escuchar y responder peticiones de clientes
     server.handleClient();
 }</code></pre>
 
-                <div class="highlight">
-                    <strong>Acceder:</strong> En navegador, ir a la IP mostrada en el Serial Monitor (ej: 192.168.1.100)
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 6px;">
+                    <strong>🌐 ¿Cómo acceder?</strong>
+                    <p style="margin-top: 8px;">Abre cualquier navegador (Chrome, Firefox, Safari) y escribe la IP mostrada en el Serial Monitor. Ejemplo: <code>http://192.168.1.100</code></p>
                 </div>
+
+                <h3>🔧 Rutas HTTP Comunes</h3>
+                <p>Puedes crear diferentes rutas para diferentes funciones:</p>
+                <pre><code class="language-cpp">// En setup():
+server.on("/", handleRoot);           // Página principal
+server.on("/led/on", handleLedOn);    // Encender LED
+server.on("/led/off", handleLedOff);  // Apagar LED
+server.on("/api/data", handleData);   // API JSON con datos del sensor</code></pre>
+
+                <h3>📊 Códigos de Respuesta HTTP</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                    <tr style="background: #f0f9ff;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Código</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Significado</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">Uso típico</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>200</strong> OK</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Petición exitosa</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Página cargada correctamente</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>404</strong> Not Found</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Ruta no existe</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">URL incorrecta</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>500</strong> Server Error</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Error del servidor</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Bug en el código</td>
+                    </tr>
+                    <tr style="background: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;"><strong>201</strong> Created</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Recurso creado</td>
+                        <td style="padding: 12px; border: 1px solid #e2e8f0;">Datos enviados a ThingSpeak</td>
+                    </tr>
+                </table>
             </section>
 
             <section id="nube">
-                <h2>ThingSpeak: Plataforma IoT Gratuita</h2>
+                <h2>☁️ ThingSpeak: Plataforma IoT Gratuita</h2>
 
-                <h3>¿Qué es ThingSpeak?</h3>
-                <ul>
-                    <li>Almacenar datos de sensores en la nube</li>
-                    <li>Visualizar en gráficos automáticos</li>
-                    <li>API simple basada en HTTP</li>
-                    <li>Gratuito (con limitaciones)</li>
-                </ul>
+                <div class="info-box" style="background: #f0fdf4; border-left: 4px solid #10b981; margin: 20px 0; padding: 20px; border-radius: 8px;">
+                    <h4>🎯 ¿Qué aprenderás?</h4>
+                    <ul style="margin-top: 10px;">
+                        <li>Enviar datos de sensores a la nube</li>
+                        <li>Visualizar datos en gráficos automáticos</li>
+                        <li>Usar APIs HTTP para comunicación IoT</li>
+                        <li>Configurar un canal de ThingSpeak</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📚 Ejercicio relacionado:</strong> <a href="../ejercicios-simulador/ejercicio-11-thingspeak.html">Ejercicio 11 - ThingSpeak</a></p>
+                </div>
 
-                <h3>Configuración</h3>
-                <ol>
-                    <li>Crear cuenta en thingspeak.com</li>
-                    <li>Crear nuevo "Channel"</li>
-                    <li>Configurar Field 1: Temperatura, Field 2: Humedad</li>
-                    <li>Obtener Write API Key</li>
-                </ol>
+                <h3>🏗️ Arquitectura: Sensor → ESP32 → Nube</h3>
+                <svg viewBox="0 0 800 300" style="width:100%; max-width:800px; display:block; margin:20px auto; background:#fafafa; border:2px solid #e2e8f0; border-radius:12px;">
+                    <!-- Sensor DHT22 -->
+                    <rect x="30" y="100" width="140" height="100" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/>
+                    <text x="100" y="130" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">DHT22</text>
+                    <text x="100" y="155" text-anchor="middle" fill="#1e3a8a" font-size="11">Sensor Temp/Hum</text>
+                    <text x="100" y="180" text-anchor="middle" fill="#1e3a8a" font-size="10">Temp: 25.5°C</text>
 
-                <h3>Código para ThingSpeak</h3>
-                <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
-#include &lt;HTTPClient.h&gt;
+                    <!-- ESP32 -->
+                    <rect x="250" y="80" width="180" height="140" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+                    <text x="340" y="110" text-anchor="middle" fill="#92400e" font-size="14" font-weight="bold">ESP32</text>
+                    <text x="340" y="135" text-anchor="middle" fill="#92400e" font-size="11">Lee sensor</text>
+                    <text x="340" y="155" text-anchor="middle" fill="#92400e" font-size="11">Crea JSON</text>
+                    <text x="340" y="175" text-anchor="middle" fill="#92400e" font-size="11">HTTP POST</text>
 
-const char* apiKey = "TU_API_KEY";
+                    <!-- Router -->
+                    <rect x="480" y="120" width="120" height="80" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+                    <text x="540" y="145" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">Router</text>
+                    <text x="540" y="165" text-anchor="middle" fill="#5b21b6" font-size="10">WiFi</text>
+                    <text x="540" y="185" text-anchor="middle" fill="#5b21b6" font-size="10">Internet</text>
 
-void enviarAThingSpeak(float temp, float hum) {
-    if (WiFi.status() != WL_CONNECTED) return;
+                    <!-- ThingSpeak -->
+                    <rect x="640" y="90" width="140" height="120" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="3"/>
+                    <text x="710" y="120" text-anchor="middle" fill="#065f46" font-size="14" font-weight="bold">ThingSpeak</text>
+                    <text x="710" y="145" text-anchor="middle" fill="#065f46" font-size="11">☁️ Nube</text>
+                    <text x="710" y="170" text-anchor="middle" fill="#065f46" font-size="10">Almacena datos</text>
+                    <text x="710" y="195" text-anchor="middle" fill="#065f46" font-size="10">Gráficos</text>
+
+                    <!-- Flechas -->
+                    <line x1="170" y1="150" x2="250" y2="150" stroke="#3b82f6" stroke-width="3"/>
+                    <polygon points="246,146 250,150 246,154" fill="#3b82f6"/>
+
+                    <line x1="430" y1="150" x2="480" y2="150" stroke="#f59e0b" stroke-width="3"/>
+                    <polygon points="476,146 480,150 476,154" fill="#f59e0b"/>
+
+                    <line x1="600" y1="150" x2="640" y2="150" stroke="#8b5cf6" stroke-width="3"/>
+                    <polygon points="636,146 640,150 636,154" fill="#8b5cf6"/>
+
+                    <!-- Etiquetas -->
+                    <text x="210" y="140" text-anchor="middle" fill="#1e40af" font-size="10">GPIO 4</text>
+                    <text x="455" y="140" text-anchor="middle" fill="#92400e" font-size="10">WiFi</text>
+                    <text x="620" y="140" text-anchor="middle" fill="#5b21b6" font-size="10">HTTP</text>
+                </svg>
+
+                <h3>📋 Configuración Paso a Paso</h3>
+                <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin: 20px 0;">
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <div>
+                            <strong>Crear cuenta</strong> en <a href="https://thingspeak.com/signup" target="_blank">thingspeak.com</a> (gratuita)
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <div>
+                            <strong>Crear nuevo "Channel"</strong> (Canal)
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <div>
+                            <strong>Configurar campos:</strong>
+                            <ul style="margin-top: 5px; margin-left: 20px;">
+                                <li>Field 1: Temperatura (°C)</li>
+                                <li>Field 2: Humedad (%)</li>
+                                <li>Field 3: Luz (opcional)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <div style="background: #3b82f6; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                        <div>
+                            <strong>Obtener Write API Key</strong> (pestaña API Keys)
+                            <div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 10px; font-family: monospace; font-size: 12px;">
+                                Ejemplo: ABCDEFGHIJKLM123
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>💻 Código Completo para ThingSpeak</h3>
+                <pre><code class="language-cpp">#include <WiFi.h>
+#include <HTTPClient.h>
+#include <DHT.h>
+
+// Configuración WiFi
+const char* ssid = "TU_RED_WIFI";
+const char* password = "TU_CONTRASENA";
+
+// Configuración ThingSpeak
+const char* apiKey = "TU_WRITE_API_KEY";  // Reemplazar con tu API Key
+const char* server = "http://api.thingspeak.com/update";
+
+// Configuración DHT22
+#define DHTPIN 4
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+    Serial.begin(115200);
+    dht.begin();
+    
+    // Conectar WiFi
+    WiFi.begin(ssid, password);
+    Serial.print("Conectando a WiFi");
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("\n✅ WiFi conectado!");
+}
+
+void loop() {
+    // Leer datos del sensor
+    float temperatura = dht.readTemperature();
+    float humedad = dht.readHumidity();
+    
+    // Verificar lectura válida
+    if (isnan(temperatura) || isnan(humedad)) {
+        Serial.println("❌ Error leyendo DHT22");
+        return;
+    }
+    
+    // Enviar a ThingSpeak
+    enviarDatos(temperatura, humedad);
+    
+    // Esperar 15 segundos (límite de cuenta gratuita)
+    delay(15000);
+}
+
+void enviarDatos(float temp, float hum) {
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("❌ Sin conexión WiFi");
+        return;
+    }
     
     HTTPClient http;
-    String url = "http://api.thingspeak.com/update?api_key=";
-    url += apiKey;
+    
+    // Construir URL con datos
+    String url = String(server) + "?api_key=" + apiKey;
     url += "&field1=" + String(temp);
     url += "&field2=" + String(hum);
+    
+    Serial.print("Enviando: ");
+    Serial.println(url);
     
     http.begin(url);
     int httpCode = http.GET();
     
     if (httpCode == 200) {
-        Serial.println("Datos enviados!");
+        Serial.println("✅ Datos enviados exitosamente!");
+    } else {
+        Serial.print("❌ Error HTTP: ");
+        Serial.println(httpCode);
     }
+    
     http.end();
-}
+}</code></pre>
 
-// En loop(), llamar cada 15 segundos mínimo:
-// enviarAThingSpeak(temperatura, humedad);</code></pre>
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 6px;">
+                    <strong>⚠️ Limitaciones de Cuenta Gratuita:</strong>
+                    <ul style="margin-top: 8px;">
+                        <li>Máximo 3 mensajes por minuto (cada 20 segundos)</li>
+                        <li>4 canales públicos como máximo</li>
+                        <li>Datos se almacenan por tiempo limitado</li>
+                    </ul>
+                </div>
 
-                <div class="note">
-                    <strong>Límite:</strong> Cuenta gratuita permite enviar datos cada 15 segundos.
+                <h3>📊 Formato de la URL HTTP GET</h3>
+                <div style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; overflow-x: auto;">
+                    http://api.thingspeak.com/update?api_key=<span style="color: #fbbf24;">TU_API_KEY</span>&field1=<span style="color: #4ade80;">25.5</span>&field2=<span style="color: #60a5fa;">60.0</span>
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><code style="color: #fbbf24;">api_key</code>: Tu clave secreta de escritura</li>
+                    <li><code style="color: #4ade80;">field1</code>: Valor para el campo 1 (Temperatura)</li>
+                    <li><code style="color: #60a5fa;">field2</code>: Valor para el campo 2 (Humedad)</li>
+                    <li>Puedes agregar hasta 8 campos: field1, field2, ..., field8</li>
+                </ul>
+            </section>
+
+            <section id="glosario" style="background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 12px; padding: 30px; margin: 30px 0;">
+                <h2>📚 Glosario de Términos de Red</h2>
+                <p style="margin-bottom: 20px;">Conceptos importantes para entender la conectividad WiFi:</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                        <strong>SSID</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Service Set Identifier - Nombre de la red WiFi (ej: "MiCasa_WiFi")</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                        <strong>WPA2</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Protocolo de seguridad WiFi más común. Encripta la comunicación.</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <strong>DHCP</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Asigna IPs automáticamente a los dispositivos que se conectan.</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <strong>IP Estática vs Dinámica</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Estática: fija. Dinámica: cambia cada vez (asignada por DHCP).</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <strong>Puerto 80</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Puerto estándar para HTTP (webs). HTTPS usa el 443.</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <strong>HTTP GET vs POST</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">GET: solicita datos (leer). POST: envía datos (escribir).</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                        <strong>API Key</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Clave secreta para autenticarse en un servicio API.</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                        <strong>JSON</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Formato de datos {"temp": 25.5, "hum": 60}</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                        <strong>MAC Address</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Identificador único de hardware (ej: 24:6F:28:A4:B2:C1)</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                        <strong>RSSI</strong><br>
+                        <span style="font-size: 0.9em; color: #64748b;">Received Signal Strength Indicator. Mide la fuerza de señal WiFi.</span>
+                    </div>
                 </div>
             </section>
 
             <section id="e3">
-                <h2>Preparación E3 - Software IoT</h2>
+                <h2>📝 Preparación E3 - Software IoT</h2>
 
-                <div class="info-box info">
-                    <h4>📝 Guía de Entrega</h4>
-                    <p>La evaluación consiste en el desarrollo del <strong>Firmware de Conectividad</strong> del SMAI. Consulta la <strong><a href="../evaluaciones/guia-E3.html">Guía Detallada E3</a></strong> para conocer los requisitos técnicos y entregables.</p>
+                <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                    <h4 style="color: #1e40af; margin-bottom: 10px;">📋 Evaluación E3: Firmware de Conectividad</h4>
+                    <p><strong>Fecha:</strong> Lunes 16 de Marzo 2026 (¡Esta clase!)</p>
+                    <p><strong>Peso:</strong> 20% de la nota final</p>
+                    <p><strong>Resultado de Aprendizaje:</strong> Comprender la interacción de dispositivos IoT a través de redes e Internet</p>
+                    <p style="margin-top: 10px;"><a href="../evaluaciones/guia-E3.html" style="color: #1e40af; font-weight: bold; text-decoration: underline;">→ Ver Guía Completa de E3</a></p>
                 </div>
 
-                <div class="actividad">
-                    <h4>Requisitos Técnicos</h4>
-                    <ul>
-                        <li><strong>Conectividad:</strong> Uso de WiFi.mode(<abbr title="Station Mode">WIFI_STA</abbr>)</li>
-                        <li><strong>Protocolo:</strong> Implementación de HTTP GET para ThingSpeak</li>
-                        <li><strong>Dashboard:</strong> Canal de ThingSpeak configurado con al menos 3 campos</li>
-                        <li><strong>Código:</strong> Estructurado, con comentarios y manejo de reconexión</li>
+                <h3>📋 Requisitos Técnicos (Checklist)</h3>
+                <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin: 20px 0;">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        <label style="display: flex; align-items: start; gap: 10px; padding: 12px; background: #f0fdf4; border-radius: 8px; cursor: pointer;">
+                            <input type="checkbox" style="margin-top: 4px;">
+                            <div>
+                                <strong>Conectividad WiFi</strong><br>
+                                <span style="font-size: 0.9em; color: #64748b;">Uso correcto de WiFi.mode(WIFI_STA) y conexión exitosa</span>
+                            </div>
+                        </label>
+                        
+                        <label style="display: flex; align-items: start; gap: 10px; padding: 12px; background: #f0fdf4; border-radius: 8px; cursor: pointer;">
+                            <input type="checkbox" style="margin-top: 4px;">
+                            <div>
+                                <strong>Protocolo HTTP</strong><br>
+                                <span style="font-size: 0.9em; color: #64748b;">Implementación HTTP GET o POST para enviar datos a ThingSpeak</span>
+                            </div>
+                        </label>
+                        
+                        <label style="display: flex; align-items: start; gap: 10px; padding: 12px; background: #f0fdf4; border-radius: 8px; cursor: pointer;">
+                            <input type="checkbox" style="margin-top: 4px;">
+                            <div>
+                                <strong>Dashboard ThingSpeak</strong><br>
+                                <span style="font-size: 0.9em; color: #64748b;">Canal configurado con mínimo 3 campos funcionando</span>
+                            </div>
+                        </label>
+                        
+                        <label style="display: flex; align-items: start; gap: 10px; padding: 12px; background: #f0fdf4; border-radius: 8px; cursor: pointer;">
+                            <input type="checkbox" style="margin-top: 4px;">
+                            <div>
+                                <strong>Código Estructurado</strong><br>
+                                <span style="font-size: 0.9em; color: #64748b;">Comentarios, manejo de errores y reconexión automática</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <h3>📝 Temas para la Parte Teórica</h3>
+                <div style="background: white; border-radius: 8px; padding: 20px; margin: 15px 0;">
+                    <ul style="line-height: 2;">
+                        <li><strong>Conceptos:</strong> Definiciones de STA, AP, HTTP, API</li>
+                        <li><strong>Análisis de casos:</strong> Diagnosticar problemas de conectividad</li>
+                        <li><strong>Arquitectura:</strong> Diferencias entre WiFi STA y AP</li>
+                        <li><strong>Protocolos:</strong> Cuándo usar HTTP vs otros protocolos</li>
+                        <li><strong>Estados WiFi:</strong> Interpretar WL_CONNECTED, WL_CONNECT_FAILED, etc.</li>
                     </ul>
                 </div>
 
-                <h3>Tipo de Preguntas (Teoría)</h3>
-                <ul>
-                    <li>Conceptos teóricos (definiciones, diferencias STA/AP)</li>
-                    <li>Análisis de casos (aplicar conocimiento de conectividad)</li>
-                    <li>Identificación de tecnologías WiFi</li>
-                    <li>Diagramas de arquitectura IoT</li>
-                </ul>
+                <h3>📚 Material de Preparación</h3>
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 6px;">
+                    <strong>Ejercicios que debes completar antes de E3:</strong>
+                    <ul style="margin-top: 8px; margin-left: 20px;">
+                        <li><a href="../ejercicios-simulador/ejercicio-09-wifi-scan.html">Ejercicio 9: WiFi Scan</a></li>
+                        <li><a href="../ejercicios-simulador/ejercicio-10-wifi-connect.html">Ejercicio 10: WiFi Connect</a></li>
+                        <li><a href="../ejercicios-simulador/ejercicio-11-thingspeak.html">Ejercicio 11: ThingSpeak</a></li>
+                    </ul>
+                </div>
 
-                <div class="highlight">
-                    <strong>Después de E3:</strong> Receso por Semana Santa. No hay clase el 30-mar. Retomamos el 06-abr.
+                <div style="background: #ede9fe; border-left: 4px solid #8b5cf6; padding: 15px; margin: 20px 0; border-radius: 6px;">
+                    <strong>🗓️ Después de E3:</strong> Receso por Semana Santa. No hay clase el 30 de marzo. Retomamos el <strong>6 de abril</strong> con Protocolos IoT (MQTT).
                 </div>
             </section>
 
-            <!-- Ejercicio del Simulador Propuesto -->
+            <!-- Ejercicios de práctica recomendados -->
             <div class="info-box" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 8px;">
-                <h3>🛠️ Ejercicio en Simulador Wokwi (Práctica Individual)</h3>
-                <p>Este ejercicio complementa los conceptos de servidor web vistos en esta clase:</p>
+                <h3>🛠️ Ejercicios de Práctica para esta Semana</h3>
+                <p>Completa estos ejercicios en orden para dominar la conectividad WiFi:</p>
 
                 <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
-                    <h4 style="margin-top: 0;">🌐 Ejercicio 14: Web Server ESP32</h4>
-                    <p><strong>Concepto:</strong> Servidor web embebido, control remoto por HTTP</p>
-                    <p><strong>Tiempo:</strong> 35 min | <strong>Dificultad:</strong> 🔴 Avanzado</p>
-                    <p><strong>Objetivo:</strong> Crear un servidor web en el ESP32 que permita controlar un LED desde el navegador.</p>
-                    <p><a href="../ejercicios-simulador/ejercicio-14-web-server.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones del ejercicio →</a></p>
+                    <h4 style="margin-top: 0;">📶 Ejercicio 9: WiFi Scan</h4>
+                    <p><strong>Concepto:</strong> Escanear redes WiFi disponibles</p>
+                    <p><strong>Tiempo:</strong> 30 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-09-wifi-scan.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones →</a></p>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">🌐 Ejercicio 10: WiFi Connect</h4>
+                    <p><strong>Concepto:</strong> Conectar ESP32 a una red WiFi</p>
+                    <p><strong>Tiempo:</strong> 35 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-10-wifi-connect.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones →</a></p>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                    <h4 style="margin-top: 0;">📊 Ejercicio 11: ThingSpeak</h4>
+                    <p><strong>Concepto:</strong> Enviar datos de sensores a la nube</p>
+                    <p><strong>Tiempo:</strong> 45 min | <strong>Dificultad:</strong> 🟠 Medio</p>
+                    <p><a href="../ejercicios-simulador/ejercicio-11-thingspeak.html" style="color: #3b82f6; font-weight: 600;">📋 Ver instrucciones →</a></p>
                 </div>
 
                 <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 6px;">
-                    <strong>💡 Conexión con la clase:</strong> El ejercicio implementa un servidor web básico que puedes controlar desde un navegador, aplicando los conceptos de modos WiFi y HTTP.
+                    <strong>💡 Consejo:</strong> Completa los ejercicios en orden (9 → 10 → 11). El ejercicio 11 integra todo: sensores + WiFi + nube, y es la base para la evaluación E3.
                 </div>
             </div>
 
