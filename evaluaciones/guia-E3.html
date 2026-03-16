@@ -51,6 +51,58 @@
                 <li>Monitor Serial mostrando valores de temperatura, humedad y luz en formato legible.</li>
             </ul>
             <p><strong>Nota:</strong> Esta evaluación <strong>NO</strong> requiere modificar el circuito de E2, solo agregar conectividad WiFi al código existente. El mismo hardware servirá para E4.</p>
+            
+            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1rem; margin-top: 1rem; border-radius: 0.5rem;">
+                <strong>💡 Si no tienes WiFi en casa:</strong> Puedes usar el hotspot de tu celular para probar. También puedes hacer la evaluación en la universidad usando la red WiFi del campus (debes configurar las credenciales según la red disponible).
+            </div>
+        </section>
+
+        <section style="background: #f0f9ff; border: 2px solid #3b82f6; border-radius: 12px; padding: 25px; margin: 20px 0;">
+            <h2>🎯 ¿Qué vas a lograr en esta evaluación?</h2>
+            
+            <svg viewBox="0 0 800 250" style="width:100%; max-width:800px; display:block; margin:20px auto; background:white; border-radius:12px;">
+                <!-- Sensor -->
+                <rect x="50" y="80" width="120" height="100" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/>
+                <text x="110" y="110" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">DHT22</text>
+                <text x="110" y="130" text-anchor="middle" fill="#1e3a8a" font-size="11">Temperatura</text>
+                <text x="110" y="150" text-anchor="middle" fill="#1e3a8a" font-size="11">Humedad</text>
+                <text x="110" y="170" text-anchor="middle" fill="#1e3a8a" font-size="11">Luz (LDR)</text>
+                
+                <!-- ESP32 -->
+                <rect x="250" y="60" width="140" height="140" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+                <text x="320" y="90" text-anchor="middle" fill="#92400e" font-size="14" font-weight="bold">ESP32</text>
+                <text x="320" y="115" text-anchor="middle" fill="#92400e" font-size="11">Lee sensores</text>
+                <text x="320" y="135" text-anchor="middle" fill="#92400e" font-size="11">Se conecta a</text>
+                <text x="320" y="155" text-anchor="middle" fill="#92400e" font-size="11">WiFi cada</text>
+                <text x="320" y="175" text-anchor="middle" fill="#92400e" font-size="11">20 segundos</text>
+                
+                <!-- WiFi -->
+                <rect x="460" y="90" width="100" height="80" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+                <text x="510" y="115" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">WiFi</text>
+                <text x="510" y="140" text-anchor="middle" fill="#5b21b6" font-size="10">Internet</text>
+                <text x="510" y="155" text-anchor="middle" fill="#5b21b6" font-size="10">HTTP</text>
+                
+                <!-- Cloud -->
+                <rect x="620" y="70" width="140" height="120" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="3"/>
+                <text x="690" y="100" text-anchor="middle" fill="#065f46" font-size="14" font-weight="bold">ThingSpeak</text>
+                <text x="690" y="125" text-anchor="middle" fill="#065f46" font-size="11">☁️ Nube</text>
+                <text x="690" y="145" text-anchor="middle" fill="#065f46" font-size="10">Guarda datos</text>
+                <text x="690" y="165" text-anchor="middle" fill="#065f46" font-size="10">Muestra gráficas</text>
+                
+                <!-- Flechas -->
+                <line x1="170" y1="130" x2="250" y2="130" stroke="#3b82f6" stroke-width="3"/>
+                <polygon points="246,126 250,130 246,134" fill="#3b82f6"/>
+                
+                <line x1="390" y1="130" x2="460" y2="130" stroke="#f59e0b" stroke-width="3"/>
+                <polygon points="456,126 460,130 456,134" fill="#f59e0b"/>
+                
+                <line x1="560" y1="130" x2="620" y2="130" stroke="#8b5cf6" stroke-width="3"/>
+                <polygon points="616,126 620,130 616,134" fill="#8b5cf6"/>
+            </svg>
+            
+            <p style="text-align: center; font-size: 1.1rem; color: #1e40af; margin-top: 15px;">
+                <strong>Resultado final:</strong> Verás gráficas en tiempo real de tus sensores desde cualquier dispositivo (celular, PC, tablet)
+            </p>
         </section>
 
         <section>
@@ -59,52 +111,168 @@
         </section>
 
         <section>
-            <h2>Requisitos Técnicos del Firmware</h2>
-            <p>El código <code>.ino</code> debe implementar obligatoriamente los siguientes componentes de conectividad IoT:</p>
-            <ul>
-                <li><strong>Configuración WiFi Modo Estación (STA):</strong>
-                    <ul>
-                        <li>Uso de <code>WiFi.mode(WIFI_STA)</code> para conexión a red existente.</li>
-                        <li>Configuración de credenciales: <code>const char* ssid = "nombre_red";</code> y <code>const char* password = "clave";</code>.</li>
-                        <li>Tiempo máximo de intento: 10 segundos antes de timeout.</li>
+            <h2>📝 Código Base para E3 (Ejemplo Completo)</h2>
+            <p>Este es un código de ejemplo funcional. Debes adaptarlo con tus credenciales de WiFi y API Key de ThingSpeak:</p>
+            
+            <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
+#include &lt;HTTPClient.h&gt;
+#include &lt;DHT.h&gt;
+
+// ============ CONFIGURACIÓN WiFi ============
+const char* ssid = "NOMBRE_DE_TU_WIFI";      // ← Cambiar
+const char* password = "CONTRASENA_WIFI";    // ← Cambiar
+
+// ============ CONFIGURACIÓN THINGSPEAK ============
+const char* apiKey = "TU_API_KEY_AQUI";      // ← Cambiar (Write API Key)
+const char* server = "http://api.thingspeak.com/update";
+
+// ============ CONFIGURACIÓN SENSORES ============
+#define DHTPIN 4
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+const int ldrPin = 34;  // GPIO34 para LDR
+
+// ============ VARIABLES DE TIEMPO ============
+unsigned long lastTime = 0;
+unsigned long timerDelay = 20000;  // 20 segundos
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  
+  // Conectar a WiFi
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  
+  Serial.print("Conectando a WiFi");
+  int intentos = 0;
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    delay(500);
+    Serial.print(".");
+    intentos++;
+  }
+  
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n✅ WiFi conectado!");
+    Serial.print("📡 IP asignada: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\n❌ No se pudo conectar a WiFi");
+  }
+}
+
+void loop() {
+  // Enviar datos cada 20 segundos usando millis()
+  if ((millis() - lastTime) > timerDelay) {
+    
+    // Verificar conexión WiFi
+    if (WiFi.status() == WL_CONNECTED) {
+      
+      // Leer sensores
+      float temperatura = dht.readTemperature();
+      float humedad = dht.readHumidity();
+      int valorLuz = analogRead(ldrPin);
+      
+      // Verificar lecturas válidas
+      if (isnan(temperatura) || isnan(humedad)) {
+        Serial.println("❌ Error leyendo DHT22");
+      } else {
+        
+        // Mostrar en Serial lo que vamos a enviar
+        Serial.println("\n📊 Datos a enviar:");
+        Serial.print("  Temperatura: "); Serial.print(temperatura); Serial.println("°C");
+        Serial.print("  Humedad: "); Serial.print(humedad); Serial.println("%");
+        Serial.print("  Luz: "); Serial.println(valorLuz);
+        
+        // Enviar a ThingSpeak
+        enviarDatos(temperatura, humedad, valorLuz);
+      }
+      
+    } else {
+      Serial.println("⚠️ WiFi desconectado. Intentando reconectar...");
+      WiFi.reconnect();
+    }
+    
+    lastTime = millis();
+  }
+}
+
+void enviarDatos(float temp, float hum, int luz) {
+  HTTPClient http;
+  
+  // Construir URL
+  String url = String(server) + "?api_key=" + apiKey;
+  url += "&field1=" + String(temp);
+  url += "&field2=" + String(hum);
+  url += "&field3=" + String(luz);
+  
+  Serial.print("\n🌐 Enviando a ThingSpeak...");
+  
+  http.begin(url);
+  int httpCode = http.GET();
+  
+  if (httpCode == 200) {
+    Serial.println(" ✅ Exitoso!");
+    Serial.println("   Código HTTP: " + String(httpCode));
+  } else {
+    Serial.println(" ❌ Error!");
+    Serial.println("   Código HTTP: " + String(httpCode));
+  }
+  
+  http.end();  // ¡Importante! Liberar recursos
+}</code></pre>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
+                <strong>⚠️ Cambios obligatorios en el código:</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Línea 6: <code>"NOMBRE_DE_TU_WIFI"</code> → tu red WiFi real</li>
+                    <li>Línea 7: <code>"CONTRASENA_WIFI"</code> → tu contraseña WiFi</li>
+                    <li>Línea 10: <code>"TU_API_KEY_AQUI"</code> → tu Write API Key de ThingSpeak</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>🔧 Requisitos Técnicos (Resumen)</h2>
+            <p>Tu código debe cumplir estos requisitos mínimos:</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+                <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <strong>✅ Conectividad WiFi</strong>
+                    <ul style="margin-top: 8px; font-size: 0.9rem;">
+                        <li>Usar <code>WiFi.mode(WIFI_STA)</code></li>
+                        <li>Configurar credenciales correctamente</li>
+                        <li>Mostrar IP asignada en Serial</li>
                     </ul>
-                </li>
-                <li><strong>Gestión de Estados de Red:</strong>
-                    <ul>
-                        <li>Imprimir en Serial: <code>"Conectando a WiFi..."</code>, <code>"WiFi conectado"</code>.</li>
-                        <li>Mostrar dirección IP asignada: <code>WiFi.localIP()</code>.</li>
-                        <li>Verificar estado antes de cada envío: <code>if(WiFi.status() == WL_CONNECTED)</code>.</li>
+                </div>
+                
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <strong>✅ Envío de Datos</strong>
+                    <ul style="margin-top: 8px; font-size: 0.9rem;">
+                        <li>Usar librería <code>HTTPClient</code></li>
+                        <li>Enviar cada 20 segundos (mínimo)</li>
+                        <li>3 campos: Temp, Hum, Luz</li>
                     </ul>
-                </li>
-                <li><strong>Protocolo HTTP GET:</strong>
-                    <ul>
-                        <li>Uso de librería <code>HTTPClient</code> para envío de datos.</li>
-                        <li>URL de ThingSpeak: <code>"http://api.thingspeak.com/update?api_key=TU_KEY&field1=temp&field2=hum&field3=luz"</code>.</li>
-                        <li>Código de respuesta HTTP 200 = éxito.</li>
-                        <li>Liberar recursos: <code>http.end()</code> después de cada envío.</li>
+                </div>
+                
+                <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                    <strong>✅ Temporización</strong>
+                    <ul style="margin-top: 8px; font-size: 0.9rem;">
+                        <li>Usar <code>millis()</code> (NO delay)</li>
+                        <li>Variable <code>lastTime</code> para control</li>
+                        <li>Intervalo de 20000ms (20s)</li>
                     </ul>
-                </li>
-                <li><strong>Frecuencia de Envío y Temporización:</strong>
-                    <ul>
-                        <li>Intervalo: 20 segundos (20000 ms) entre envíos.</li>
-                        <li>Uso de <code>millis()</code> para temporización no bloqueante (NO usar <code>delay()</code>).</li>
-                        <li>Variable <code>unsigned long lastTime = 0;</code> para control de tiempo.</li>
+                </div>
+                
+                <div style="background: #ede9fe; padding: 15px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                    <strong>✅ Robustez</strong>
+                    <ul style="margin-top: 8px; font-size: 0.9rem;">
+                        <li>Verificar <code>WiFi.status()</code></li>
+                        <li>Reconexión automática</li>
+                        <li>Llamar <code>http.end()</code></li>
                     </ul>
-                </li>
-                <li><strong>Reconexión Automática:</strong>
-                    <ul>
-                        <li>Detectar desconexión: <code>if(WiFi.status() != WL_CONNECTED)</code>.</li>
-                        <li>Reintentar conexión: <code>WiFi.reconnect()</code> o <code>WiFi.begin()</code> nuevamente.</li>
-                        <li>Esperar máximo 5 segundos antes de siguiente intento.</li>
-                    </ul>
-                </li>
-                <li><strong>Comunicación Serial:</strong>
-                    <ul>
-                        <li>Inicialización: <code>Serial.begin(115200)</code> en <code>setup()</code>.</li>
-                        <li>Debug: Imprimir variables antes de enviar y código HTTP de respuesta.</li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
         </section>
 
         <section class="highlight">
@@ -143,6 +311,88 @@
             
             <div style="background: #f0f9ff; border-left: 4px solid #3b82f6; padding: 1rem; margin-top: 1rem; border-radius: 0.5rem;">
                 <p style="margin: 0;"><strong>📡 Todas las opciones disponibles:</strong> <a href="../docs/plataformas-iot-gratuitas.html" style="color: #1e40af; font-weight: 600;">Ver guía completa de plataformas IoT gratuitas →</a></p>
+            </div>
+        </section>
+
+        <section style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 25px; margin: 25px 0;">
+            <h2>📖 Guía Paso a Paso: Configurar ThingSpeak</h2>
+            
+            <p>Sigue estos pasos para crear tu canal y obtener la API Key:</p>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h3 style="color: #92400e; margin-top: 0;">Paso 1: Crear Cuenta</h3>
+                <ol>
+                    <li>Ve a <a href="https://thingspeak.com" target="_blank">thingspeak.com</a></li>
+                    <li>Haz clic en "Sign Up" (usar correo institucional .edu si tienes)</li>
+                    <li>Verifica tu correo electrónico</li>
+                    <li>Inicia sesión</li>
+                </ol>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h3 style="color: #92400e; margin-top: 0;">Paso 2: Crear un Nuevo Canal</h3>
+                <ol>
+                    <li>Haz clic en "Channels" en el menú superior</li>
+                    <li>Selecciona "My Channels"</li>
+                    <li>Haz clic en el botón verde "New Channel"</li>
+                    <li>Completa la información:
+                        <ul style="margin-top: 8px;">
+                            <li><strong>Name:</strong> "SMAI Monitor Ambiental" (o tu nombre)</li>
+                            <li><strong>Description:</strong> "Datos de temperatura, humedad y luz"</li>
+                            <li><strong>Field 1:</strong> Temperatura (°C)</li>
+                            <li><strong>Field 2:</strong> Humedad (%)</li>
+                            <li><strong>Field 3:</strong> Luz (0-4095)</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en "Save Channel" (abajo de todo)</li>
+                </ol>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h3 style="color: #92400e; margin-top: 0;">Paso 3: Obtener tu API Key (¡Importante!)</h3>
+                <ol>
+                    <li>En tu canal, haz clic en la pestaña "API Keys"</li>
+                    <li>Busca "Write API Key" (es un código de 16 caracteres)</li>
+                    <li><strong>Copia este código</strong> y pégalo en tu código Arduino en la línea 10:
+                        <pre style="background: #1e293b; color: #fbbf24; padding: 10px; border-radius: 5px; margin-top: 10px;">const char* apiKey = "ABCDEF1234567890";  // Tu Write API Key</pre>
+                    </li>
+                    <li>⚠️ <strong>Guarda bien este código:</strong> Es la "contraseña" para enviar datos a TU canal</li>
+                </ol>
+            </div>
+            
+            <div style="background: #dbeafe; border: 2px solid #3b82f6; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h3 style="color: #1e40af; margin-top: 0;">Paso 4: Hacer el Dashboard Público (30% de la nota)</h3>
+                <p><strong>Esto es CRÍTICO:</strong> El docente debe poder ver tu dashboard sin iniciar sesión.</p>
+                <ol style="margin-top: 10px;">
+                    <li>En tu canal, haz clic en "Sharing" (pestaña superior)</li>
+                    <li>Busca la opción "Make this channel public"</li>
+                    <li>Activa el checkbox ✅</li>
+                    <li>Haz clic en "Save"</li>
+                    <li>Ahora copia la URL de tu canal (estará en el navegador, algo como:
+                        <code style="background: white; padding: 2px 5px;">https://thingspeak.com/channels/1234567</code>)
+                    </li>
+                    <li><strong>Esta URL es la que debes entregar</strong> en Canvas</li>
+                </ol>
+                <div style="background: #fff; border-left: 4px solid #ef4444; padding: 10px; margin-top: 10px;">
+                    <strong>⚠️ Verificación:</strong> Abre la URL en una pestaña de incógnito (Ctrl+Shift+N). Si ves los gráficos sin iniciar sesión, ¡está correcto!
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h3 style="color: #92400e; margin-top: 0;">Paso 5: Personalizar Gráficos (Opcional pero recomendado)</h3>
+                <ol>
+                    <li>En tu canal, haz clic en "Private View" o "Public View"</li>
+                    <li>Haz clic en el ícono de engranaje ⚙️ de cada gráfico</li>
+                    <li>Puedes cambiar:
+                        <ul style="margin-top: 8px;">
+                            <li>Título del gráfico</li>
+                            <li>Color de la línea</li>
+                            <li>Rango del eje Y</li>
+                            <li>Tipo de gráfico (línea, barra, etc.)</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en "Save"</li>
+                </ol>
             </div>
         </section>
 

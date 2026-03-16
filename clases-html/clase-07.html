@@ -614,13 +614,34 @@ server.on("/api/data", handleData);   // API JSON con datos del sensor</code></p
             <section id="nube">
                 <h2>☁️ ThingSpeak: Plataforma IoT Gratuita</h2>
 
+                <div class="info-box" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #10b981; margin: 20px 0; padding: 25px; border-radius: 8px;">
+                    <h3>🤔 ¿Qué es ThingSpeak y para qué sirve?</h3>
+                    <p style="margin-top: 12px; line-height: 1.7;">
+                        <strong>ThingSpeak</strong> es una plataforma web gratuita (de MathWorks, los creadores de MATLAB) que te permite <strong>recibir, almacenar y visualizar datos</strong> enviados desde tu ESP32 u otros dispositivos IoT.
+                    </p>
+                    <p style="margin-top: 10px; line-height: 1.7;">
+                        Imagina que tienes un sensor de temperatura en tu casa. Sin ThingSpeak, los datos solo los ves en el Monitor Serial del Arduino IDE. Con ThingSpeak, puedes:
+                    </p>
+                    <ul style="margin-top: 12px; margin-left: 20px; line-height: 1.8;">
+                        <li>📊 <strong>Ver gráficos automáticos</strong> de temperatura en tiempo real desde cualquier lugar (celular, PC, tablet)</li>
+                        <li>💾 <strong>Guardar datos históricos</strong> para analizar tendencias (ej: "¿Cuál fue la temperatura máxima ayer?")</li>
+                        <li>🌐 <strong>Compartir datos</strong> con otros mediante URLs públicas</li>
+                        <li>⚡ <strong>Recibir alertas</strong> cuando los valores superen ciertos límites</li>
+                        <li>🤖 <strong>Integrar con MATLAB</strong> para análisis avanzado (opcional)</li>
+                    </ul>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #86efac;">
+                        <strong>💡 Ejemplo práctico:</strong><br>
+                        Montas un sensor de temperatura en tu casa. Cada 15 segundos, tu ESP32 envía la lectura a ThingSpeak. Desde tu celular, puedes ver una gráfica que muestra cómo ha variado la temperatura durante el día, sin necesidad de estar cerca del ESP32.
+                    </div>
+                </div>
+
                 <div class="info-box" style="background: #f0fdf4; border-left: 4px solid #10b981; margin: 20px 0; padding: 20px; border-radius: 8px;">
-                    <h4>🎯 ¿Qué aprenderás?</h4>
+                    <h4>🎯 ¿Qué aprenderás en esta sección?</h4>
                     <ul style="margin-top: 10px;">
-                        <li>Enviar datos de sensores a la nube</li>
+                        <li>Crear una cuenta y canal en ThingSpeak</li>
+                        <li>Enviar datos desde tu ESP32 a través de WiFi</li>
                         <li>Visualizar datos en gráficos automáticos</li>
                         <li>Usar APIs HTTP para comunicación IoT</li>
-                        <li>Configurar un canal de ThingSpeak</li>
                     </ul>
                     <p style="margin-top: 10px;"><strong>📚 Ejercicio relacionado:</strong> <a href="../ejercicios-simulador/ejercicio-11-thingspeak.html">Ejercicio 11 - ThingSpeak</a></p>
                 </div>
