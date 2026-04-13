@@ -181,15 +181,44 @@ def listar_datos(limit: int = 100, min_temp: float | None = None):
 
             <section id="taller-lab">
                 <h2>Taller en Clase: Cada Grupo con su API</h2>
+
                 <div class="card">
-                    <p><strong>Meta del taller (25 min):</strong> Cada grupo levanta su API local, conecta el ESP32 (o simulador) y verifica que los datos lleguen a la BD.</p>
-                    <p><strong>Checklist mínimo:</strong></p>
+                    <h3>🛠️ Ejercicio 1: Prueba API con tu Compañero (10 min)</h3>
+                    <p><strong>Objetivo:</strong> Verificar que la API es accesible desde otra máquina en la misma red.</p>
                     <ol>
-                        <li>La API responde en <code>http://localhost:8000/docs</code></li>
-                        <li>El endpoint <code>POST /datos</code> guarda en SQLite.</li>
-                        <li>El ESP32 envía JSON correctamente formado.</li>
-                        <li>La BD tiene al menos 3 registros reales al finalizar.</li>
+                        <li>Grupo A corre su API en la IP local (ej: <code>192.168.1.10:8000</code>).</li>
+                        <li>Grupo B abre el navegador y entra a <code>http://192.168.1.10:8000/docs</code>.</li>
+                        <li>Grupo B envía un <code>POST /datos</code> con valores de prueba.</li>
+                        <li>Grupo A verifica en su BD que llegó el dato.</li>
+                        <li><strong>Invertir roles</strong> y repetir.</li>
                     </ol>
+                    <p style="background:#fef3c7; padding:8px; border-radius:6px; margin-top:8px;"><strong>💡 Tip:</strong> Si no funciona, el problema es firewall o red diferente. Anoten el error exacto antes de pedir ayuda.</p>
+                </div>
+
+                <div class="card">
+                    <h3>🛠️ Ejercicio 2: MQTT Hands-On (10 min)</h3>
+                    <p><strong>Objetivo:</strong> Enviar un mensaje MQTT y verlo en Python.</p>
+                    <ol>
+                        <li>En una PC corre el suscriptor:</li>
+                    </ol>
+                    <pre><code class="language-bash">python codigo/servidor/mqtt/subscriber.py</code></pre>
+                    <ol start="2">
+                        <li>En otra PC (o en Wokwi) publica con el ESP32 al topic <code>unaula/if0112/sensores</code>.</li>
+                        <li>Verifica que el suscriptor imprima el JSON y lo guarde en <code>sensores.db</code>.</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>🛠️ Ejercicio 3: Taller de Integración (25 min)</h3>
+                    <p><strong>Meta:</strong> Cada grupo levanta su API local, conecta el ESP32 y verifica que los datos lleguen a la BD.</p>
+                    <p><strong>Checklist mínimo (marcar al terminar):</strong></p>
+                    <ul>
+                        <li>☐ La API responde en <code>http://localhost:8000/docs</code></li>
+                        <li>☐ El endpoint <code>POST /datos</code> guarda en SQLite</li>
+                        <li>☐ El ESP32 envía JSON correctamente formado</li>
+                        <li>☐ La BD tiene al menos 5 registros reales al finalizar</li>
+                        <li>☐ Otro compañero pudo consultar <code>GET /datos</code> desde su navegador</li>
+                    </ul>
                 </div>
             </section>
 
@@ -199,7 +228,7 @@ def listar_datos(limit: int = 100, min_temp: float | None = None):
                     <div class="card">
                         <h3>CORS bloqueado</h3>
                         <p><strong>Síntoma:</strong> El navegador rechaza peticiones desde tu dashboard HTML.</p>
-                        <p><strong>Solución:</strong> Instalar <code>python-multipart</code> y agregar middleware CORS en FastAPI:</p>
+                        <p><strong>Solución:</strong> Asegúrate de tener esto al inicio de <code>main.py</code>:</p>
                         <pre><code class="language-python">from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
@@ -208,22 +237,42 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )</code></pre>
+                        <p><strong>Prueba rápida:</strong> Abre DevTools (F12) → Consola. Si ves <code>blocked by CORS policy</code>, falta el middleware.</p>
                     </div>
                     <div class="card">
                         <h3>Firewall de Windows</h3>
                         <p><strong>Síntoma:</strong> El ESP32 no puede hacer POST a la IP de tu PC.</p>
-                        <p><strong>Solución:</strong> Permitir Python/uvicorn en el firewall, o desactivar temporalmente el firewall de red privada para probar.</p>
+                        <p><strong>Solución 1 (recomendada):</strong> Permitir Python en el firewall:</p>
+                        <pre><code class="language-bash"># PowerShell como Administrador
+netsh advfirewall firewall add rule name="Python FastAPI" dir=in action=allow program="C:\Python311\python.exe" enable=yes</code></pre>
+                        <p><strong>Solución 2 (temporal):</strong> Desactivar firewall de red privada solo durante la clase.</p>
                     </div>
                     <div class="card">
                         <h3>IP local incorrecta</h3>
                         <p><strong>Síntoma:</strong> El ESP32 no conecta o devuelve error -1.</p>
                         <p><strong>Solución:</strong> Verificar <code>ipconfig</code> y asegurar que la IP empiece por <code>192.168.</code> (WiFi), no por <code>127.0.0.1</code>.</p>
+                        <pre><code class="language-bash">ipconfig | findstr "IPv4"
+# Resultado correcto: 192.168.1.X</code></pre>
+                        <p><strong>NO uses:</strong> <code>localhost</code> ni <code>127.0.0.1</code> en el ESP32. Esas solo funcionan en la misma máquina.</p>
                     </div>
                     <div class="card">
                         <h3>La BD no crea la tabla</h3>
                         <p><strong>Síntoma:</strong> Error "no such table: sensores".</p>
-                        <p><strong>Solución:</strong> Asegurar que la función de inicialización de la BD se ejecute al iniciar la API, antes del primer <code>POST</code>.</p>
+                        <p><strong>Solución:</strong> Asegurar que la función de inicialización de la BD se ejecute al iniciar la API:</p>
+                        <pre><code class="language-python">@app.on_event("startup")
+def startup():
+    init_db()</code></pre>
+                        <p>Otra opción: borra <code>sensores.db</code>, reinicia uvicorn y verifica que se recree.</p>
                     </div>
+                </div>
+
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+                    <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">🔧 Protocolo de Diagnóstico en 3 Pasos</h4>
+                    <ol style="margin: 0; color: #78350f;">
+                        <li><strong>Paso 1:</strong> Prueba la API desde tu mismo PC con Swagger UI. ¿Funciona? → El problema es red/firewall. ¿No funciona? → El problema es el código.</li>
+                        <li><strong>Paso 2:</strong> Prueba desde el celular de un compañero conectado al mismo WiFi. ¿No entra? → Firewall de Windows o IP equivocada.</li>
+                        <li><strong>Paso 3:</strong> Revisa el Monitor Serial del ESP32. ¿Dice "Connection failed"? → Revisar SSID, contraseña o IP. ¿Dice HTTP 200? → El dato llegó, revisar la consulta SQL.</li>
+                    </ol>
                 </div>
             </section>
 

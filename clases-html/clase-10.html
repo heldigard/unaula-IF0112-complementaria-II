@@ -131,10 +131,158 @@
 
       <section id="actividades-practicas">
         <h2>Actividades Prácticas</h2>
+
         <div class="card">
-          <p><strong>Actividad 1 (25 min):</strong> Crear una API FastAPI con <code>POST /datos</code> y <code>GET /datos</code>. Probar con Thunder Client, Postman o <code>curl</code>.</p>
-          <p><strong>Actividad 2 (25 min):</strong> Conectar la API a SQLite. Crear tabla <code>sensores</code> e insertar datos de prueba. Verificar en Swagger UI.</p>
-          <p><strong>Actividad 3 (15 min):</strong> Configurar el ESP32 (o simulador) para enviar JSON por HTTP POST a la IP local del compañero. Validar que la BD recibe el dato.</p>
+          <h3>🛠️ Actividad 1: FastAPI "Copy-Paste-Run" (25 min)</h3>
+          <p><strong>Objetivo:</strong> Tener una API corriendo en tu laptop en menos de 10 minutos.</p>
+          <ol>
+            <li>Abre <strong>CMD o PowerShell</strong> en Windows y crea una carpeta:</li>
+          </ol>
+          <pre><code class="language-bash">mkdir C:\smapi-api
+cd C:\smapi-api
+python -m venv venv
+venv\Scripts\activate
+pip install fastapi uvicorn</code></pre>
+          <ol start="2">
+            <li>Crea un archivo <code>main.py</code> y pega este código mínimo:</li>
+          </ol>
+          <pre><code class="language-python">from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"message": "API IoT funcionando"}
+
+@app.post("/datos")
+def recibir_datos(temp: float, hum: float, luz: float):
+    return {"recibido": {"temp": temp, "hum": hum, "luz": luz}}
+
+@app.get("/datos")
+def listar_datos():
+    return {"datos": []}</code></pre>
+          <ol start="3">
+            <li>Corre la API y abre <code>http://localhost:8000/docs</code> en el navegador:</li>
+          </ol>
+          <pre><code class="language-bash">uvicorn main:app --reload</code></pre>
+          <ol start="4">
+            <li>Prueba <code>POST /datos</code> desde Swagger con valores de prueba. Si ves respuesta 200, avanza a la Actividad 2.</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3>🛠️ Actividad 2: SQLite Paso a Paso (25 min)</h3>
+          <p><strong>Objetivo:</strong> Guardar datos de verdad en una base de datos local.</p>
+          <p>Reemplaza <code>main.py</code> con este código completo (copia y pega):</p>
+          <pre><code class="language-python">import sqlite3
+from fastapi import FastAPI
+from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+DB_NAME = "sensores.db"
+
+def init_db():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS sensores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            temperatura REAL,
+            humedad REAL,
+            luz REAL,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+class Lectura(BaseModel):
+    temperatura: float
+    humedad: float
+    luz: float
+
+@app.on_event("startup")
+def startup():
+    init_db()
+
+@app.post("/datos")
+def guardar_dato(lectura: Lectura):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO sensores (temperatura, humedad, luz) VALUES (?, ?, ?)",
+        (lectura.temperatura, lectura.humedad, lectura.luz)
+    )
+    conn.commit()
+    conn.close()
+    return {"status": "guardado"}
+
+@app.get("/datos")
+def listar_datos(limit: int = 100):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM sensores ORDER BY timestamp DESC LIMIT ?", (limit,))
+    filas = cursor.fetchall()
+    conn.close()
+    return {"datos": filas}
+
+@app.get("/datos/latest")
+def ultimo_dato():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM sensores ORDER BY timestamp DESC LIMIT 1")
+    fila = cursor.fetchone()
+    conn.close()
+    return {"dato": fila}</code></pre>
+          <p><strong>Pasos:</strong></p>
+          <ol>
+            <li>Guarda el archivo, reinicia <code>uvicorn main:app --reload</code></li>
+            <li>Ve a <code>http://localhost:8000/docs</code></li>
+            <li>Envía un <code>POST /datos</code> con valores de prueba</li>
+            <li>Luego <code>GET /datos</code> y confirma que aparece el registro</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3>🛠️ Actividad 3: ESP32 → API (15 min)</h3>
+          <p><strong>Objetivo:</strong> Conectar tu firmware al mundo real.</p>
+          <ol>
+            <li>Descubre tu IP local en Windows (necesaria para que el ESP32 te encuentre):</li>
+          </ol>
+          <pre><code class="language-bash">ipconfig</code></pre>
+          <p>Busca algo como <code>IPv4: 192.168.1.X</code> bajo tu adaptador WiFi.</p>
+          <ol start="2">
+            <li>En tu código ESP32, cambia la URL de destino. Si antes enviabas a ThingSpeak, ahora envía a:</li>
+          </ol>
+          <pre><code class="language-cpp">String serverUrl = "http://192.168.1.X:8000/datos";</code></pre>
+          <ol start="3">
+            <li>Compila y sube el sketch. Abre el Monitor Serial a 115200 baudios.</li>
+            <li>Verifica que la respuesta sea HTTP <code>200</code> y que el dato aparezca en <code>GET /datos</code> de Swagger.</li>
+          </ol>
+        </div>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">🔧 Troubleshooting Rápido (Windows)</h4>
+          <table style="width:100%; border-collapse: collapse;">
+            <thead>
+              <tr><th style="border:1px solid #cbd5e1; padding:8px; background:#e2e8f0;">Síntoma</th><th style="border:1px solid #cbd5e1; padding:8px; background:#e2e8f0;">Solución</th></tr>
+            </thead>
+            <tbody>
+              <tr><td style="border:1px solid #cbd5e1; padding:8px;"><code>'uvicorn' no se reconoce</code></td><td style="border:1px solid #cbd5e1; padding:8px;">Asegúrate de activar el entorno: <code>venv\Scripts\activate</code></td></tr>
+              <tr><td style="border:1px solid #cbd5e1; padding:8px;">ESP32 no conecta a la API</td><td style="border:1px solid #cbd5e1; padding:8px;">Verifica que PC y ESP32 estén en la <strong>misma red WiFi</strong>. Prueba hacer ping a la IP.</td></tr>
+              <tr><td style="border:1px solid #cbd5e1; padding:8px;">Error CORS en navegador</td><td style="border:1px solid #cbd5e1; padding:8px;">Confirma que el middleware CORS esté en <code>main.py</code> (ver Actividad 2).</td></tr>
+              <tr><td style="border:1px solid #cbd5e1; padding:8px;">Puerto 8000 ocupado</td><td style="border:1px solid #cbd5e1; padding:8px;">Mata el proceso: <code>taskkill /F /IM python.exe</code> o usa otro puerto: <code>--port 8001</code></td></tr>
+            </tbody>
+          </table>
         </div>
 
         <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">

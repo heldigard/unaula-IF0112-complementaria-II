@@ -87,28 +87,68 @@
       </section>
 
       <section id="taller-ajustes">
-        <h2>Taller: Últimos Ajustes al Proyecto</h2>
-        <p>Durante los primeros 30 minutos el profesor recorre los puestos ayudando a resolver problemas técnicos. Estos son los ajustes más comunes antes de E6:</p>
+        <h2>Taller: 3 Estaciones Prácticas Pre-Sustentación</h2>
+        <p>Los primeros 40 minutos son un circuito de 3 estaciones. Cada grupo pasa por todas. El profesor y los monitores recorren ayudando.</p>
 
-        <div class="grid-2">
-          <div class="card">
-            <h3>🔧 Hardware</h3>
-            <ul>
-              <li>Verificar que el ESP32 enciende automáticamente al conectar USB</li>
-              <li>Revisar que no hay cables sueltos (usar amarras)</li>
-              <li>Encapsular el dispositivo en una caja o gabinete provisional</li>
-              <li>Probar LEDs de estado según la máquina de estados</li>
+        <div style="background: #fef2f2; border: 2px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">Estación 1: Triage de Hardware (10 min)</h4>
+          <p style="color: #7f1d1d; margin: 0 0 var(--space-2) 0;"><strong>Instrucciones:</strong> Cada grupo realiza esta checklist técnica mientras otro compañero observa y marca.</p>
+          <ul style="margin: 0; padding-left: var(--space-4); color: #7f1d1d;">
+            <li>☐ Conectar USB → ESP32 enciende solo y LED de power queda fijo.</li>
+            <li>☐ Sacudir suavemente el prototipo → ningún cable se suelta.</li>
+            <li>☐ Desconectar y reconectar USB → WiFi conecta en < 30 segundos (verificar Monitor Serial).</li>
+            <li>☐ Tapar el LDR con la mano → el valor de luz baja en el dashboard.</li>
+            <li>☐ Soplárle al DHT22 → temperatura sube en el dashboard en < 15 segundos.</li>
+          </ul>
+        </div>
+
+        <div style="background: #f0f9ff; border: 2px solid #0ea5e9; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #0369a1; margin: 0 0 var(--space-2) 0;">Estación 2: Pitch con Cronómetro (15 min)</h4>
+          <p style="color: #0c4a6e; margin: 0 0 var(--space-2) 0;"><strong>Instrucciones:</strong> Presenten su pitch completo a otro grupo mientras alguien lleva el tiempo con el celular. Deben terminar en exactamente 3 minutos.</p>
+
+          <div style="background: #ffffff; border-left: 3px solid #0ea5e9; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-sm);">
+            <h5 style="color: #0369a1; margin: 0 0 var(--space-2) 0;">Reparto de roles sugerido (rotar en cada ensayo)</h5>
+            <ul style="margin: 0; padding-left: var(--space-4); color: #0c4a6e; font-size: 0.9rem;">
+              <li><strong>Presentador 1 (30 s):</strong> Problema y solución en una frase.</li>
+              <li><strong>Presentador 2 (90 s):</strong> Demo técnica en vivo: enciende ESP32, muestra API, BD y dashboard.</li>
+              <li><strong>Presentador 3 (30 s):</strong> Explica el flujo de datos Firmware → API → BD → Visualización.</li>
+              <li><strong>Presentador 4 (30 s):</strong> Cierre: aprendizajes y cierre profesional.</li>
             </ul>
           </div>
-          <div class="card">
-            <h3>💻 Software</h3>
-            <ul>
-              <li>Confirmar que la API arranca sin errores con <code>uvicorn main:app</code></li>
-              <li>Verificar CORS habilitado para el dashboard web</li>
-              <li>Asegurar que la BD tiene datos históricos reales (no de prueba)</li>
-              <li>Comprobar que el dashboard actualiza sin recargar la página</li>
-            </ul>
-          </div>
+        </div>
+
+        <div style="background: #f0fdf4; border: 2px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">Estación 3: Jurado Simulado (15 min)</h4>
+          <p style="color: #064e3b; margin: 0 0 var(--space-2) 0;"><strong>Instrucciones:</strong> Un grupo hace la demo mientras otro grupo actúa como "jurado" y les hace 3 preguntas de la lista tipo de E6. El grupo respondiente debe contestar sin ver el código.</p>
+          <ul style="margin: 0; padding-left: var(--space-4); color: #064e3b;">
+            <li>El jurado elige una pregunta de firmware, una de API/BD y una de protocolos.</li>
+            <li>Después de responder, el jurado da una nota del 1 al 5 en: claridad, técnica y seguridad.</li>
+            <li>Luego intercambian roles.</li>
+          </ul>
+        </div>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">Drill: Recuperación ante Desastres</h4>
+          <p style="color: #78350f; margin: 0 0 var(--space-2) 0;"><strong>Escenario:</strong> Durante la sustentación algo falla. ¿Qué haces? Cada grupo debe tener un plan B para estos 3 casos:</p>
+          <table style="margin: 0; font-size: 0.9rem;">
+            <thead>
+              <tr><th>Escenario</th><th>Plan B inmediato</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ESP32 no conecta a WiFi</td>
+                <td>Reiniciar el router de datos del celular, crear red hotspot y conectar PC + ESP32 allí.</td>
+              </tr>
+              <tr>
+                <td>API no arranca en la laptop</td>
+                <td>Verificar que no hay otra terminal con uvicorn corriendo (<code>taskkill /IM python.exe /F</code> en CMD) y reiniciar.</td>
+              </tr>
+              <tr>
+                <td>Dashboard no carga</td>
+                <td>Abrir <code>http://localhost:8000/docs</code> como respaldo visual; mostrar los datos en Swagger.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 

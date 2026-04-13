@@ -113,58 +113,125 @@
           </div>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">Ejemplo: Dashboard HTML Simple</h3>
-        <p>Este código consulta tu API local y muestra el último dato recibido:</p>
+        <h3 style="margin-top: 1.5rem;">Ejemplo: Dashboard HTML Completo</h3>
+        <p>Crea un archivo <code>dashboard.html</code> en la misma carpeta de tu API (o donde quieras) y ábrelo con doble clic. Este código consulta tu API local, muestra el último dato y conserva un historial de los últimos 20 registros:</p>
         <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
   &lt;title&gt;Monitor SMAI&lt;/title&gt;
   &lt;style&gt;
-    body { font-family: sans-serif; text-align: center; background: #f0f9ff; }
-    .card { background: white; padding: 20px; margin: 10px auto; width: 200px; border-radius: 10px; }
-    .temp { color: #ef4444; font-size: 2rem; }
-    .hum  { color: #3b82f6; font-size: 2rem; }
-    .luz  { color: #f59e0b; font-size: 2rem; }
+    body { font-family: sans-serif; text-align: center; background: #f0f9ff; padding: 20px; }
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 16px 0; }
+    .card { background: white; padding: 20px; width: 160px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .temp { color: #ef4444; font-size: 2rem; font-weight: bold; }
+    .hum  { color: #3b82f6; font-size: 2rem; font-weight: bold; }
+    .luz  { color: #f59e0b; font-size: 2rem; font-weight: bold; }
+    .status { font-size: 0.85rem; color: #64748b; margin-top: 8px; }
+    .error { color: #dc2626; background: #fef2f2; padding: 8px; border-radius: 6px; display: none; }
+    table { margin: 12px auto; border-collapse: collapse; font-size: 0.9rem; background: white; }
+    th, td { border: 1px solid #cbd5e1; padding: 6px 10px; }
+    th { background: #e2e8f0; }
   &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
   &lt;h1&gt;Monitor Ambiental&lt;/h1&gt;
-  &lt;div class="card"&gt;Temperatura&lt;br&gt;&lt;span class="temp" id="t"&gt;--&lt;/span&gt; °C&lt;/div&gt;
-  &lt;div class="card"&gt;Humedad&lt;br&gt;&lt;span class="hum" id="h"&gt;--&lt;/span&gt; %&lt;/div&gt;
-  &lt;div class="card"&gt;Luz&lt;br&gt;&lt;span class="luz" id="l"&gt;--&lt;/span&gt; %&lt;/div&gt;
+  &lt;div class="grid"&gt;
+    &lt;div class="card"&gt;Temperatura&lt;br&gt;&lt;span class="temp" id="t"&gt;--&lt;/span&gt; °C&lt;/div&gt;
+    &lt;div class="card"&gt;Humedad&lt;br&gt;&lt;span class="hum" id="h"&gt;--&lt;/span&gt; %&lt;/div&gt;
+    &lt;div class="card"&gt;Luz&lt;br&gt;&lt;span class="luz" id="l"&gt;--&lt;/span&gt; %&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="error" id="err"&gt;&lt;/div&gt;
+  &lt;div class="status" id="status"&gt;Conectando...&lt;/div&gt;
+
+  &lt;h3&gt;Últimos registros&lt;/h3&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Hora&lt;/th&gt;&lt;th&gt;Temp&lt;/th&gt;&lt;th&gt;Hum&lt;/th&gt;&lt;th&gt;Luz&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody id="historial"&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
 
   &lt;script&gt;
+    const API_URL = 'http://192.168.1.X:8000'; // CAMBIA ESTO
+    let historial = [];
+
     async function actualizar() {
-      const res = await fetch('http://192.168.1.X:8000/datos/latest');
-      const json = await res.json();
-      document.getElementById('t').textContent = json.dato.temperatura;
-      document.getElementById('h').textContent = json.dato.humedad;
-      document.getElementById('l').textContent = json.dato.luz;
+      try {
+        const res = await fetch(API_URL + '/datos/latest');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        const d = json.dato || json;
+        document.getElementById('t').textContent = d.temperatura ?? '--';
+        document.getElementById('h').textContent = d.humedad ?? '--';
+        document.getElementById('l').textContent = d.luz ?? '--';
+        document.getElementById('status').textContent = 'Última actualización: ' + new Date().toLocaleTimeString();
+        document.getElementById('err').style.display = 'none';
+
+        // Guardar historial (máx 20)
+        historial.unshift({ t: new Date().toLocaleTimeString(), temp: d.temperatura, hum: d.humedad, luz: d.luz });
+        if (historial.length &gt; 20) historial.pop();
+        renderHistorial();
+      } catch (e) {
+        document.getElementById('err').textContent = 'Error de conexión: ' + e.message;
+        document.getElementById('err').style.display = 'block';
+        document.getElementById('status').textContent = 'Reintentando...';
+      }
     }
+
+    function renderHistorial() {
+      const tbody = document.getElementById('historial');
+      tbody.innerHTML = historial.map(r =&gt;
+        `&lt;tr&gt;&lt;td&gt;${r.t}&lt;/td&gt;&lt;td&gt;${r.temp}&lt;/td&gt;&lt;td&gt;${r.hum}&lt;/td&gt;&lt;td&gt;${r.luz}&lt;/td&gt;&lt;/tr&gt;`
+      ).join('');
+    }
+
     setInterval(actualizar, 5000);
     actualizar();
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-        <p style="font-size: 0.9rem; color: #64748b;"><strong>Nota:</strong> Reemplaza <code>192.168.1.X</code> por la IP local de tu PC donde corre FastAPI.</p>
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <p style="margin: 0; font-size: 0.9rem; color: #78350f;"><strong>Pasos:</strong> 1) Copia el código a un archivo llamado <code>dashboard.html</code>. 2) Reemplaza <code>192.168.1.X</code> por la IP local de tu PC (usa <code>ipconfig</code>). 3) Guarda y ábrelo con doble clic en el navegador. 4) Asegúrate de que CORS esté habilitado en FastAPI.</p>
+        </div>
       </section>
 
       <section id="taller-integracion">
-        <h2>Taller: Integración Completa</h2>
-        <p>Durante esta sesión cada grupo debe lograr que todo funcione junto. El profesor estará recorriendo los puestos para ayudar.</p>
+        <h2>Taller: 3 Ejercicios Prácticos de Integración</h2>
+        <p>Durante esta sesión cada grupo avanza por 3 estaciones prácticas. El profesor recorre los puestos para ayudar. Si un ejercicio ya te funciona, pasa al siguiente.</p>
 
-        <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-          <h4 style="color: #0369a1; margin: 0 0 var(--space-2) 0;">Checklist del Flujo Completo</h4>
-          <ul style="margin: var(--space-2) 0 0 0; padding-left: var(--space-4); color: #0c4a6e;">
-            <li>☐ El ESP32 enciende y se conecta a WiFi en menos de 30 segundos</li>
-            <li>☐ La API FastAPI está corriendo en la laptop (<code>uvicorn main:app --host 0.0.0.0</code>)</li>
-            <li>☐ Swagger UI responde en <code>http://localhost:8000/docs</code></li>
-            <li>☐ El ESP32 envía JSON por HTTP POST y recibe respuesta 200</li>
-            <li>☐ La base de datos SQLite tiene datos reales del ESP32</li>
-            <li>☐ El dashboard HTML muestra valores actualizados</li>
-            <li>☐ CORS está habilitado en la API (si usas visualización web)</li>
+        <div style="background: #fef2f2; border: 2px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">Ejercicio 1: Sistema Roto (15 min) — Depuración Guiada</h4>
+          <p style="color: #7f1d1d; margin: 0 0 var(--space-2) 0;"><strong>Instrucciones:</strong> Uno de tus compañeros (el "saboteador") introduce intencionalmente UN solo error en el sistema. El resto del grupo debe diagnosticarlo y repararlo en menos de 10 minutos.</p>
+          <ul style="margin: 0; padding-left: var(--space-4); color: #7f1d1d;">
+            <li><strong>Sabotajes permitidos:</strong> cambiar la IP de la API en el firmware, comentar el <code>CORSMiddleware</code>, cambiar el puerto de FastAPI, desconectar un cable del sensor.</li>
+            <li><strong>Regla:</strong> El saboteador puede dar pistas pero NO decir directamente qué rompió.</li>
+            <li><strong>Meta:</strong> Restaurar el flujo completo ESP32 → API → BD → Dashboard.</li>
           </ul>
+        </div>
+
+        <div style="background: #f0f9ff; border: 2px solid #0ea5e9; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #0369a1; margin: 0 0 var(--space-2) 0;">Ejercicio 2: Dashboard Copy-Paste-Run (15 min)</h4>
+          <p style="color: #0c4a6e; margin: 0 0 var(--space-2) 0;"><strong>Instrucciones:</strong> Crea el archivo <code>dashboard.html</code> con el código de la sección anterior, ajústalo a tu IP y verifica que muestre datos actualizados.</p>
+          <ul style="margin: 0; padding-left: var(--space-4); color: #0c4a6e;">
+            <li>☐ El archivo se abre en el navegador sin errores de CORS.</li>
+            <li>☐ Los 3 valores (temperatura, humedad, luz) cambian cuando el ESP32 envía datos.</li>
+            <li>☐ La tabla de historial muestra al menos 3 registros distintos.</li>
+            <li>☐ Si hay error de conexión, el mensaje en pantalla lo indica (no se queda congelado).</li>
+          </ul>
+        </div>
+
+        <div style="background: #f0fdf4; border: 2px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">Ejercicio 3: Demo Cruzada Grupal (30 min) — Preparación E5</h4>
+          <p style="color: #064e3b; margin: 0 0 var(--space-2) 0;"><strong>Instrucciones:</strong> Forma parejas de grupos. Grupo A hace la demo de su sistema a Grupo B. Grupo B evalúa usando la rúbrica y da feedback escrito. Luego intercambian roles.</p>
+
+          <div style="background: #ffffff; border-left: 3px solid #10b981; padding: var(--space-3); margin-top: var(--space-3); border-radius: var(--radius-sm);">
+            <h5 style="color: #065f46; margin: 0 0 var(--space-2) 0;">Tarjeta de Feedback (lo que escribe el grupo evaluador)</h5>
+            <ul style="margin: 0; padding-left: var(--space-4); color: #064e3b; font-size: 0.9rem;">
+              <li><strong>Punto fuerte:</strong> ___________________________________________</li>
+              <li><strong>Algo confuso en la explicación:</strong> _________________________________</li>
+              <li><strong>Fallo técnico detectado:</strong> _______________________________________</li>
+              <li><strong>Sugerencia para mejorar:</strong> ______________________________________</li>
+            </ul>
+          </div>
         </div>
 
         <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
@@ -177,6 +244,22 @@ ipconfig
 
 # Probar API desde otra laptop
 curl http://192.168.1.X:8000/datos/latest</code></pre>
+        </div>
+
+        <div style="background: #faf5ff; border-left: 4px solid #a855f7; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #6b21a8; margin: 0 0 var(--space-2) 0;">Fallos comunes y su solución</h4>
+          <table style="margin: 0; font-size: 0.9rem;">
+            <thead>
+              <tr><th>Síntoma</th><th>Causa probable</th><th>Solución rápida</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Dashboard queda en "--"</td><td>IP de la API mal escrita en el HTML</td><td>Verificar <code>ipconfig</code> y actualizar <code>API_URL</code></td></tr>
+              <tr><td>Error CORS en navegador</td><td>Falta <code>CORSMiddleware</code> en FastAPI</td><td>Agregar <code>origins=["*"]</code> en <code>main.py</code></td></tr>
+              <tr><td>ESP32 no conecta a la API</td><td>PC y ESP32 en redes WiFi diferentes</td><td>Conectar ambos a la misma red (mismo prefijo 192.168.1.X)</td></tr>
+              <tr><td>SQLite no guarda datos</td><td>Ruta de la BD incorrecta o sin permisos</td><td>Usar ruta absoluta o verificar carpeta del proyecto</td></tr>
+              <tr><td>Dashboard no actualiza solo</td><td>Error de JavaScript que detiene <code>setInterval</code></td><td>Abrir consola del navegador (F12) y revisar errores</td></tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
