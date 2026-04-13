@@ -1,249 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesión 13: El Futuro de Internet | IF0112</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sesión 13: Preparación Sustentación + Tendencias IoT | IF0112</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        /* Estilos específicos de esta clase (si los hay) */
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Sesión 13: El Futuro de Internet</h1>
-            <p class="subtitle">5G, AIoT, TinyML y Tendencias Emergentes</p>
-            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 11-may-2026</p>
-        </header>
+  <!-- Progress bar -->
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
-        <section class="schedule-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #3b82f6;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
-                <div>
-                    <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 13 - El Futuro de Internet</h3>
-                    <p style="margin: 0; color: #1e3a8a; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 11 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
-                </div>
-                <div style="text-align: right;">
-                    <span style="display: inline-block; background: #3b82f6; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📚 CLASE TEÓRICA</span>
-                </div>
-            </div>
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
-            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 PRÓXIMA SESIÓN: E6 Sustentación - 25-may</h4>
-                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Sesión 14:</strong> Sustentación final del proyecto integrador. Evaluación <strong>E6 (20%)</strong>.</p>
-            </div>
+  <div class="container">
+    <header>
+      <h1>Sesión 13: Preparación Sustentación + Tendencias IoT</h1>
+      <p class="subtitle">IF0112 Complementaria II (IoT) · UNAULA 2026-I · Fecha: 11-may-2026</p>
+    </header>
 
-            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">🎯 Proyecto Final</h4>
-                <p style="margin: 0; color: #065f46; font-size: var(--text-sm);">Proyecto debe estar 90% funcional. Asegurar cumplimiento básico de privacidad.</p>
-            </div>
-        </section>
+    <nav>
+      <ul>
+        <li><a href="#objetivo-aprendizaje">Objetivo</a></li>
+        <li><a href="#agenda-120">Agenda</a></li>
+        <li><a href="#taller-ajustes">Taller</a></li>
+        <li><a href="#simulacro">Simulacro</a></li>
+        <li><a href="#checklist-e6">Checklist E6</a></li>
+        <li><a href="#tendencias">Tendencias</a></li>
+        <li><a href="#recursos-curados">Recursos</a></li>
+      </ul>
+    </nav>
 
-        <nav>
+    <main>
+      <!-- Info Cronograma 2026-I -->
+      <section style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: var(--space-6); border-radius: var(--radius); margin-bottom: var(--space-6); border: 2px solid #3b82f6;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+          <div>
+            <h3 style="color: #1e40af; margin: 0 0 var(--space-2) 0; font-size: 1.25rem;">📅 Sesión 13 - Preparación Final</h3>
+            <p style="margin: 0; color: #1e3a8a;"><strong>Fecha:</strong> Lunes 11 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min) | <strong>Modalidad:</strong> Taller + Simulacro</p>
+          </div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #ec4899; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius); font-weight: 600; font-size: 0.85rem;">🎯 E6 en 2 semanas</span>
+          </div>
+        </div>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 PRÓXIMA SESIÓN: E6 Sustentación - 25-may</h4>
+          <p style="margin: 0; color: #92400e; font-size: 0.9rem;"><strong>Sesión 14:</strong> Sustentación final del proyecto integrador. Evaluación <strong>E6 (20%)</strong>.</p>
+        </div>
+
+        <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">🎯 Meta de hoy</h4>
+          <p style="margin: 0; color: #065f46; font-size: 0.9rem;">Cada grupo debe salir de clase con un sistema funcionando al 90% y un pitch ensayado de 3 minutos.</p>
+        </div>
+      </section>
+
+      <div class="meta">
+        <strong>Fecha:</strong> Lunes 11 de Mayo 2026 |
+        <strong>Horario:</strong> 06:00-08:00 (120 min) |
+        <strong>Semana:</strong> 15 |
+        <strong>Modalidad:</strong> Taller + Simulacro de Sustentación
+      </div>
+
+      <section id="objetivo-aprendizaje">
+        <h2>Objetivo de la Sesión</h2>
+        <p>Pulir los últimos detalles del proyecto, ensayar la sustentación oral y recibir feedback del profesor y compañeros. Al finalizar, cada grupo tendrá un <strong>checklist completo de E6</strong> y un <strong>pitch ensayado</strong> de 3 minutos.</p>
+      </section>
+
+      <section id="agenda-120">
+        <h2>Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+        <ul>
+          <li><strong>0-30 min:</strong> <strong>🛠️ TALLER:</strong> Últimos ajustes al proyecto (cables, encapsulado, CORS, dashboard) (30 min)</li>
+          <li><strong>30-60 min:</strong> <strong>🎤 SIMULACRO:</strong> Cada grupo presenta 3 min de pitch + demo técnica (30 min)</li>
+          <li><strong>60-80 min:</strong> Feedback grupal y mejoras sugeridas por el profesor (20 min)</li>
+          <li><strong>80-100 min:</strong> El futuro de IoT comprimido: 5G, AIoT y TinyML (20 min)</li>
+          <li><strong>100-120 min:</strong> Checklist final E6 + resolución de dudas (20 min)</li>
+        </ul>
+        <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+            <strong>Fórmula 60/60:</strong> 30 min Teoría | 90 min Práctica ✓
+        </div>
+      </section>
+
+      <section id="taller-ajustes">
+        <h2>Taller: Últimos Ajustes al Proyecto</h2>
+        <p>Durante los primeros 30 minutos el profesor recorre los puestos ayudando a resolver problemas técnicos. Estos son los ajustes más comunes antes de E6:</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>🔧 Hardware</h3>
             <ul>
-                <li><a href="#agenda">Agenda</a></li>
-                <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#contexto">Contexto</a></li>
-                <li><a href="#5g">5G</a></li>
-                <li><a href="#aiot">AIoT</a></li>
-                <li><a href="#tinyml">TinyML</a></li>
-                <li><a href="#tendencias">Tendencias</a></li>
+              <li>Verificar que el ESP32 enciende automáticamente al conectar USB</li>
+              <li>Revisar que no hay cables sueltos (usar amarras)</li>
+              <li>Encapsular el dispositivo en una caja o gabinete provisional</li>
+              <li>Probar LEDs de estado según la máquina de estados</li>
             </ul>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </nav>
+          </div>
+          <div class="card">
+            <h3>💻 Software</h3>
+            <ul>
+              <li>Confirmar que la API arranca sin errores con <code>uvicorn main:app</code></li>
+              <li>Verificar CORS habilitado para el dashboard web</li>
+              <li>Asegurar que la BD tiene datos históricos reales (no de prueba)</li>
+              <li>Comprobar que el dashboard actualiza sin recargar la página</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+      <section id="simulacro">
+        <h2>Simulacro de Sustentación</h2>
+        <p>Cada grupo tiene <strong>3 minutos</strong> para presentar. El formato es el mismo que usarán en E6. El profesor y compañeros tomarán notas para dar feedback.</p>
 
-        <main>
-            <section id="agenda" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
-                <ul>
-                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
-                    <li><strong>10-40 min:</strong> Impacto de <abbr title="Quinta Generación de Redes Móviles">5G</abbr> en <abbr title="Internet of Things">IoT</abbr> (30 min teoría)</li>
-                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de convergencia <abbr title="Artificial Intelligence of Things">AIoT</abbr> (30 min práctica)</li>
-                    <li><strong>70-95 min:</strong> <abbr title="Tiny Machine Learning">TinyML</abbr> y procesamiento en el borde (25 min teoría)</li>
-                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Preparación de sustentación y cierre (25 min práctica)</li>
-                </ul>
-                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
-                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
-                </div>
-            </section>
+        <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #0369a1; margin: 0 0 var(--space-2) 0;">Estructura sugerida del pitch (3 min)</h4>
+          <ol style="margin: var(--space-2) 0 0 0; padding-left: var(--space-4); color: #0c4a6e;">
+            <li><strong>Presentación del problema (30 s):</strong> Qué monitorean y por qué.</li>
+            <li><strong>Demo técnica en vivo (90 s):</strong> Encender ESP32, mostrar API, BD y dashboard.</li>
+            <li><strong>Explicación del flujo (30 s):</strong> Firmware → API → BD → Visualización.</li>
+            <li><strong>Cierre (30 s):</strong> Conclusión y qué aprendieron.</li>
+          </ol>
+        </div>
 
-            <section id="objetivos">
-                <h2>Objetivos de la Sesión</h2>
-                <ul>
-                    <li><strong>Comprender</strong> el impacto de 5G en sistemas IoT</li>
-                    <li><strong>Analizar</strong> la convergencia de IA e IoT (AIoT)</li>
-                    <li><strong>Explorar</strong> TinyML para procesamiento en edge</li>
-                    <li><strong>Preparar</strong> el proyecto para sustentación E6</li>
-                </ul>
-            </section>
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">Preguntas tipo que pueden hacer en E6</h4>
+          <ul style="margin: var(--space-2) 0 0 0; padding-left: var(--space-4); color: #78350f;">
+            <li>¿Por qué usaste <code>millis()</code> en vez de <code>delay()</code>?</li>
+            <li>¿Cómo funciona la histéresis en tu máquina de estados?</li>
+            <li>¿Qué endpoints tiene tu API y qué hace cada uno?</li>
+            <li>¿Cuál es el schema de tu base de datos?</li>
+            <li>¿Por qué habilitaste CORS y qué problema resuelve?</li>
+            <li>¿Qué diferencia hay entre HTTP y MQTT en tu proyecto?</li>
+          </ul>
+        </div>
+      </section>
 
-            <section id="contexto">
-                <h2>🌐 Contexto: La Evolución Continúa</h2>
-                
-                <div class="info-box info">
-                    <h4>📡 De IPv4 a 5G</h4>
-                    <p>Internet continúa evolucionando. El agotamiento de IPv4 impulsó <abbr title="Internet Protocol version 6">IPv6</abbr> (340 sextillones de direcciones), y ahora <abbr title="Quinta Generación de redes móviles">5G</abbr> promete latencias de 1ms para IoT.</p>
-                </div>
+      <section id="checklist-e6">
+        <h2>Checklist Final E6</h2>
+        <p>Antes de salir de clase hoy, revisa este checklist con tu grupo. Todo debe estar marcado antes del 25 de mayo.</p>
 
-                <h3>¿Por qué importa para IoT?</h3>
-                <ul>
-                    <li><strong> Más dispositivos:</strong> IPv6 permite conectar billones de sensores.</li>
-                    <li><strong>Menor latencia:</strong> 5G habilita aplicaciones en tiempo real.</li>
-                    <li><strong>Mayor ancho de banda:</strong> Transmisión de video y datos masivos.</li>
-                    <li><strong>Edge computing:</strong> Procesamiento local, menor dependencia de la nube.</li>
-                </ul>
-            </section>
+        <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">Lista de Verificación Pre-Sustentación</h4>
+          <ul style="margin: var(--space-2) 0 0 0; padding-left: var(--space-4); color: #064e3b;">
+            <li>☐ El dispositivo enciende automáticamente al conectar USB</li>
+            <li>☐ Se conecta a WiFi en menos de 30 segundos</li>
+            <li>☐ Los LEDs muestran el estado del sistema según la máquina de estados</li>
+            <li>☐ La API está corriendo y responde en <code>/docs</code></li>
+            <li>☐ La BD tiene datos históricos reales</li>
+            <li>☐ La visualización muestra datos actualizados</li>
+            <li>☐ El producto está encapsulado (caja/gabinete)</li>
+            <li>☐ No hay cables sueltos (usar amarras)</li>
+            <li>☐ Repositorio GitHub con código y README</li>
+            <li>☐ Pitch de 10-15 min preparado y ensayado</li>
+          </ul>
+        </div>
+      </section>
 
-            <section id="5g">
-                <h2>📶 5G y su Impacto en IoT</h2>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Característica</th>
-                            <th>4G LTE</th>
-                            <th>5G</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Latencia</strong></td>
-                            <td>30-50 ms</td>
-                            <td>1-5 ms</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Velocidad</strong></td>
-                            <td>100 Mbps</td>
-                            <td>10 Gbps</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Dispositivos/km²</strong></td>
-                            <td>10,000</td>
-                            <td>1,000,000</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Casos IoT</strong></td>
-                            <td>Monitoreo básico</td>
-                            <td>Vehículos autónomos, cirugía remota</td>
-                        </tr>
-                    </tbody>
-                </table>
+      <section id="tendencias">
+        <h2>Tendencias del Futuro de IoT</h2>
+        <p>Aunque el foco de hoy es la sustentación, es útil conocer hacia dónde evoluciona la industria. Estas tres tendencias resumen el futuro cercano:</p>
 
-                <div class="info-box warning">
-                    <h4>⚠️ Consideraciones</h4>
-                    <p>5G requiere nueva infraestructura. Colombia está en proceso de despliegue (2024-2026). Para prototipos educativos, WiFi/4G sigue siendo suficiente.</p>
-                </div>
-            </section>
+        <div class="grid-2">
+          <div class="card">
+            <h3>📶 5G y Redes IoT</h3>
+            <ul>
+              <li><strong>Latencia:</strong> De 30-50 ms (4G) a 1-5 ms (5G).</li>
+              <li><strong>Densidad:</strong> Hasta 1 millón de dispositivos por km².</li>
+              <li><strong>Impacto:</strong> Habilita vehículos autónomos, cirugía remota y fábricas inteligentes.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🤖 AIoT (IA + IoT)</h3>
+            <ul>
+              <li>Los dispositivos no solo recolectan datos, sino que <strong>toman decisiones</strong>.</li>
+              <li>Ejemplos: mantenimiento predictivo, optimización de tráfico, detección de anomalías.</li>
+              <li>Tu máquina de estados con histéresis es un primer paso hacia AIoT.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🔧 TinyML</h3>
+            <ul>
+              <li>Machine learning en microcontroladores como el ESP32.</li>
+              <li>Permite detectar patrones o anomalías <strong>sin depender de la nube</strong>.</li>
+              <li>Ejemplo: predecir condiciones críticas de temperatura localmente.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🎯 Aplicable a su proyecto</h3>
+            <ul>
+              <li><strong>Edge processing:</strong> Tu máquina de estados ya decide localmente.</li>
+              <li><strong>Visualización:</strong> Un dashboard claro vale más que mil registros crudos.</li>
+              <li><strong>Escalabilidad:</strong> FastAPI + SQLite pueden crecer a servicios en la nube.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-            <section id="aiot">
-                <h2>🤖 AIoT: Inteligencia Artificial + IoT</h2>
-                
-                <div class="info-box success">
-                    <h4>💡 Definición</h4>
-                    <p><strong><abbr title="Artificial Intelligence of Things">AIoT</abbr> (Artificial Intelligence of Things)</strong> es la convergencia de IA e IoT. Los dispositivos no solo recolectan datos, sino que los analizan y toman decisiones.</p>
-                </div>
+      <section id="recursos-curados">
+        <h2>Recursos para Preparación E6</h2>
 
-                <h3>Aplicaciones AIoT</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sector</th>
-                            <th>Aplicación</th>
-                            <th>Beneficio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Smart Home</strong></td>
-                            <td>Asistentes que aprenden rutinas</td>
-                            <td>Automatización predictiva</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Industria 4.0</strong></td>
-                            <td>Mantenimiento predictivo</td>
-                            <td>Reduce paradas no planificadas</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Salud</strong></td>
-                            <td>Detección temprana de anomalías</td>
-                            <td>Prevención de emergencias</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Smart City</strong></td>
-                            <td>Optimización tráfico en tiempo real</td>
-                            <td>Menos congestión</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="tinyml">
-                <h2>🔧 TinyML: ML en Microcontroladores</h2>
-                
-                <div class="info-box info">
-                    <h4>📝 ¿Qué es TinyML?</h4>
-                    <p><strong><abbr title="Tiny Machine Learning">TinyML</abbr></strong> permite ejecutar modelos de machine learning en microcontroladores con recursos limitados (como ESP32, Arduino Nano 33 BLE).</p>
-                </div>
-
-                <h3>Ejemplos con ESP32</h3>
-                <ul>
-                    <li><strong>Detección de voz:</strong> Activación por comando de voz sin conexión.</li>
-                    <li><strong>Reconocimiento de gestos:</strong> Acelerómetro detecta patrones de movimiento.</li>
-                    <li><strong>Anomalías en sensores:</strong> Detectar valores inusuales localmente.</li>
-                    <li><strong>Clasificación de imágenes:</strong> Cámaras con ESP32-CAM.</li>
-                </ul>
-
-                <div class="info-box success">
-                    <h4>🎯 Aplicación al Proyecto</h4>
-                    <p>En el proyecto Monitor Ambiental, TinyML podría:</p>
-                    <ul>
-                        <li>Detectar patrones anómalos de temperatura/humedad.</li>
-                        <li>Predecir condiciones críticas antes de que ocurran.</li>
-                        <li>Reducir envío de datos (solo enviar cuando hay anomalías).</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="tendencias">
-                <h2>📊 Tendencias Futuras</h2>
-                
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>Corto Plazo (2025-2027)</h3>
-                        <ul>
-                            <li>Expansión de 5G en Colombia</li>
-                            <li>Matter (estándar smart home unificado)</li>
-                            <li>Sensores más baratos y eficientes</li>
-                            <li>Baterías de mayor duración</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h3>Mediano Plazo (2028-2030)</h3>
-                        <ul>
-                            <li>6G (investigación en curso)</li>
-                            <li>Digital twins generalizados</li>
-                            <li>IoT satelital accesible</li>
-                            <li>Computación cuántica para IoT</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="summary-table" style="background: #f0fdf4; border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
-                <h2 style="color: #065f46;">📝 Resumen</h2>
-                <ul>
-                    <li><strong><abbr title="Fifth Generation: Alta velocidad y ultra baja latencia">5G</abbr>:</strong> Latencia 1ms, habilita <abbr title="Internet of Things">IoT</abbr> crítico</li>
-                    <li><strong><abbr title="Artificial Intelligence of Things: Dispositivos IoT con IA local">AIoT</abbr>:</strong> IA + IoT = Dispositivos inteligentes que deciden</li>
-                    <li><strong><abbr title="Tiny Machine Learning: ML en microcontroladores">TinyML</abbr>:</strong> ML en hardware restringido (ESP32, Arduino)</li>
-                    <li><strong>Preparación E6:</strong> Incluir estas tendencias en la sustentación</li>
-                </ul>
-                <p style="margin-top: 1rem; padding: 1rem; background: #ecfdf5; border-radius: 6px; text-align: center;">
-                    <strong>Próxima Sesión:</strong> E6 Sustentación Final (25-may)
-                </p>
-            </section>
-        </main>
+        <div class="grid-2">
+          <div class="card">
+            <h3>📘 Guía E6: Sustentación Final</h3>
+            <p><strong>Ubicación:</strong> <code>evaluaciones/guia-E6.html</code></p>
+            <p><strong>Propósito:</strong> Requisitos completos, rúbrica de calificación y estructura sugerida de la sustentación.</p>
+            <p><a href="../evaluaciones/guia-E6.html">Ver guía E6 →</a></p>
+          </div>
+          <div class="card">
+            <h3>🎓 Código de ejemplo del curso</h3>
+            <p><strong>Ubicación:</strong> <code>codigo/</code></p>
+            <p><strong>Propósito:</strong> Si algo se rompió, usa los ejemplos oficiales como punto de partida para reparar.</p>
+            <p><a href="../codigo/">Ver carpeta de código →</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
 
         <nav class="class-nav">
             <div class="class-nav-title">Navegación del Curso</div>
@@ -257,14 +232,56 @@
                 </a>            </div>
         </nav>
 
-        <footer>
-            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 13</p>
-        </footer>
-    </div>
+    <footer>
+      <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 13</p>
+    </footer>
+  </div>
 
-    <script src="script.js"></script>
-    <!-- Prism.js para resaltado de sintaxis -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script>
+    // Progress bar and back-to-top functionality
+    (function() {
+      const progressFill = document.getElementById('progressFill');
+      const backToTop = document.getElementById('backToTop');
+
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressFill.style.width = Math.min(progress, 100) + '%';
+
+        // Show/hide back-to-top button
+        if (scrollTop > window.innerHeight * 0.3) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+
+      // Throttle scroll events for performance
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            updateProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      // Event listeners
+      window.addEventListener('scroll', onScroll, { passive: true });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Initial call
+      updateProgress();
+    })();
+  </script>
+  <!-- Prism.js para resaltado de sintaxis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

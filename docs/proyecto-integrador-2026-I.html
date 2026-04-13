@@ -156,10 +156,10 @@
         </header>
 
         <nav class="nav">
-            <a href="clases-html/index.html">🏠 Inicio</a>
-            <a href="evaluaciones/index.html">📋 Evaluaciones</a>
-            <a href="estudiantes/index.html">👥 Estudiantes</a>
-            <a href="laboratorios-html/index.html">🔬 Laboratorios</a>
+            <a href="../clases-html/index.html">🏠 Inicio</a>
+            <a href="../evaluaciones/index.html">📋 Evaluaciones</a>
+            <a href="../estudiantes/index.html">👥 Estudiantes</a>
+            <a href="../laboratorios-html/index.html">🔬 Laboratorios</a>
         </nav>
 
         <div class="highlight">
@@ -207,42 +207,42 @@
                     <td><strong>E1</strong></td>
                     <td>15%</td>
                     <td>Investigación Técnica: Arquitectura y Capas</td>
-                    <td><a href="evaluaciones/guia-E1.html">Ver E1 →</a></td>
+                    <td><a href="../evaluaciones/guia-E1.html">Ver E1 →</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td><strong>E2</strong></td>
                     <td>15%</td>
                     <td>Prototipo Sensórico: Hardware Local</td>
-                    <td><a href="evaluaciones/guia-E2.html">Ver E2 →</a></td>
+                    <td><a href="../evaluaciones/guia-E2.html">Ver E2 →</a></td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td><strong>E3</strong></td>
                     <td>20%</td>
                     <td>Software IoT: Conectividad Cloud</td>
-                    <td><a href="evaluaciones/guia-E3.html">Ver E3 →</a></td>
+                    <td><a href="../evaluaciones/guia-E3.html">Ver E3 →</a></td>
                 </tr>
                 <tr>
                     <td>4</td>
                     <td><strong>E4</strong></td>
                     <td>15%</td>
-                    <td>Informe de Gestión: Lógica de Control</td>
-                    <td><a href="evaluaciones/guia-E4.html">Ver E4 →</a></td>
+                    <td>Informe: Firmware + FastAPI + Base de Datos</td>
+                    <td><a href="../evaluaciones/guia-E4.html">Ver E4 →</a></td>
                 </tr>
                 <tr>
                     <td>5</td>
                     <td><strong>E5</strong></td>
                     <td>15%</td>
-                    <td>Trabajo Escrito: Normativa y Seguridad</td>
-                    <td><a href="evaluaciones/guia-E5.html">Ver E5 →</a></td>
+                    <td>Demo Integración Total + Visualización</td>
+                    <td><a href="../evaluaciones/guia-E5.html">Ver E5 →</a></td>
                 </tr>
                 <tr style="background: #dbeafe;">
                     <td>6</td>
                     <td><strong>E6</strong></td>
                     <td>20%</td>
                     <td>Proyecto Final: Producto Integrado</td>
-                    <td><a href="evaluaciones/guia-E6.html">Ver E6 →</a></td>
+                    <td><a href="../evaluaciones/guia-E6.html">Ver E6 →</a></td>
                 </tr>
             </tbody>
         </table>
@@ -258,7 +258,7 @@
                 <li>Selecciona pines <abbr title="General Purpose Input/Output">GPIO</abbr> específicos</li>
                 <li>Base conceptual para todo el proyecto</li>
             </ul>
-            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E2.html">E2 - Prototipo</a> (usa las especificaciones de E1)</p>
+            <p><strong>Próximo paso:</strong> <a href="../evaluaciones/guia-E2.html">E2 - Prototipo</a> (usa las especificaciones de E1)</p>
         </div>
 
         <div class="phase-box">
@@ -270,7 +270,7 @@
                 <li>Lectura local de datos (Monitor Serial)</li>
                 <li><strong>Prerrequisito:</strong> Haber aprobado E1</li>
             </ul>
-            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E3.html">E3 - Software</a> (agrega WiFi al circuito de E2)</p>
+            <p><strong>Próximo paso:</strong> <a href="../evaluaciones/guia-E3.html">E3 - Software</a> (agrega WiFi al circuito de E2)</p>
         </div>
 
         <div class="phase-box">
@@ -283,33 +283,34 @@
                 <li>Dashboard en la nube visible</li>
                 <li><strong>Prerrequisito:</strong> Circuito de E2 funcionando</li>
             </ul>
-            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E4.html">E4 - Informe</a> (agrega lógica inteligente al código de E3)</p>
+            <p><strong>Próximo paso:</strong> <a href="../evaluaciones/guia-E4.html">E4 - Informe</a> (agrega API propia, base de datos y firmware mejorado)</p>
         </div>
 
         <div class="phase-box">
-            <h3>Fase 4: E4 - Lógica de Gestión (15%)</h3>
-            <p><strong>Entregable:</strong> Sistema con estados y alertas</p>
+            <h3>Fase 4: E4 - Informe Técnico (15%)</h3>
+            <p><strong>Entregable:</strong> Informe PDF con firmware + API + BD</p>
             <ul>
                 <li>Hereda código de E3 (mismo circuito)</li>
-                <li>Agrega máquina de estados (NORMAL, ALERTA_TEMP, ALERTA_LUZ)</li>
-                <li>LEDs indicadores de estado</li>
-                <li>Histeresis en umbrales (30°C/28°C)</li>
+                <li>Firmware mejorado: <code>millis()</code>, máquina de estados e histéresis</li>
+                <li>API FastAPI local: POST /datos, GET /datos, GET /datos/latest</li>
+                <li>Base de datos SQLite/MySQL con tabla de lecturas</li>
+                <li>Envío JSON desde ESP32 a API propia vía HTTP (o MQTT)</li>
                 <li><strong>Prerrequisito:</strong> Código de E3 con WiFi funcionando</li>
             </ul>
-            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E5.html">E5 - Normativa</a> (documenta el producto funcionando)</p>
+            <p><strong>Próximo paso:</strong> <a href="../evaluaciones/guia-E5.html">E5 - Demo Integración</a> (agrega visualización al sistema de E4)</p>
         </div>
 
         <div class="phase-box">
-            <h3>Fase 5: E5 - Normativa (15%)</h3>
-            <p><strong>Entregable:</strong> Documentación legal y técnica</p>
+            <h3>Fase 5: E5 - Demo Integración Total (15%)</h3>
+            <p><strong>Entregable:</strong> Demo en vivo + código ZIP</p>
             <ul>
-                <li>Documenta producto funcionando de E4</li>
-                <li>Cumplimiento <abbr title="Reglamento Técnico de Instalaciones Eléctricas">RETIE</abbr></li>
-                <li>Ley 1581 - Protección de datos (<abbr title="Acceso, Rectificación, Cancelación, Oposición">ARCO</abbr>)</li>
-                <li>Ficha técnica del dispositivo</li>
-                <li><strong>Prerrequisito:</strong> Producto SMAI funcionando de E4</li>
+                <li>Mantiene firmware y API de E4 (mismo circuito y BD)</li>
+                <li>Visualización de datos: HTML+JS, Grafana o dashboard propio</li>
+                <li>Demo en clase del flujo completo ESP32 → API → BD → Dashboard</li>
+                <li>CORS habilitado para visualización web</li>
+                <li><strong>Prerrequisito:</strong> Informe E4 con API y BD funcionando</li>
             </ul>
-            <p><strong>Próximo paso:</strong> <a href="evaluaciones/guia-E6.html">E6 - Proyecto Final</a> (integra todo)</p>
+            <p><strong>Próximo paso:</strong> <a href="../evaluaciones/guia-E6.html">E6 - Proyecto Final</a> (sustentación del sistema completo)</p>
         </div>
 
         <div class="success">
@@ -363,35 +364,35 @@
             <tr>
                 <td>🛒 Guía de Compra</td>
                 <td>Qué comprar y dónde</td>
-                <td><a href="estudiantes/guia-compra-kit.html">Ver →</a></td>
+                <td><a href="../estudiantes/guia-compra-kit.html">Ver →</a></td>
             </tr>
             <tr>
                 <td>⚙️ Instalación IDE</td>
                 <td>Arduino IDE + ESP32 paso a paso</td>
-                <td><a href="estudiantes/instalacion-arduino-ide.html">Ver →</a></td>
+                <td><a href="../estudiantes/instalacion-arduino-ide.html">Ver →</a></td>
             </tr>
             <tr>
                 <td>📋 Referencia Rápida</td>
                 <td>Códigos y funciones útiles</td>
-                <td><a href="estudiantes/guia-rapida-esp32.html">Ver →</a></td>
+                <td><a href="../estudiantes/guia-rapida-esp32.html">Ver →</a></td>
             </tr>
             <tr>
                 <td>🔬 Laboratorios</td>
                 <td>5 guías prácticas paso a paso</td>
-                <td><a href="laboratorios-html/index.html">Ver →</a></td>
+                <td><a href="../laboratorios-html/index.html">Ver →</a></td>
             </tr>
             <tr>
                 <td>📡 Plataformas IoT</td>
                 <td>Comparativa de 5 opciones gratuitas</td>
-                <td><a href="plataformas-iot-gratuitas.html">Ver →</a></td>
+                <td><a href="../plataformas-iot-gratuitas.html">Ver →</a></td>
             </tr>
         </table>
 
         <div class="footer">
             <p><strong>IF0112 - Complementaria II (Internet de las Cosas)</strong></p>
             <p>Proyecto Integrador SMAI 2026-I | UNAULA</p>
-            <p><a href="clases-html/index.html">← Volver al portal de clases</a> | 
-               <a href="evaluaciones/index.html">📋 Ver Evaluaciones</a></p>
+            <p><a href="../clases-html/index.html">← Volver al portal de clases</a> | 
+               <a href="../evaluaciones/index.html">📋 Ver Evaluaciones</a></p>
         </div>
     </div>
 </body>

@@ -1,21 +1,6 @@
-# Dependencias Python para API Flask IoT UNAULA
+# Dependencias Python para API FastAPI + SQLite IoT UNAULA
 # IF0112 - Complementaria II - 2026-I
 
-# Framework web
-Flask==3.0.0
-Flask-CORS==4.0.0
-gunicorn==21.2.0
-
-# Base de datos
-psycopg2-binary==2.9.9
-SQLAlchemy==2.0.23
-
-# Utilidades
-python-dotenv==1.0.0
-requests==2.31.0
-
-# Validación
-marshmallow==3.20.1
-
-# Logs
-python-json-logger==2.0.7
+fastapi
+uvicorn[standard]
+pydantic

@@ -1,206 +1,279 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesión 12: Caso Medellín Smart City | IF0112</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sesión 12: Integración Total + Demo E5 | IF0112 - Complementaria II (IoT)</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        /* Estilos específicos de esta clase (si los hay) */
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Sesión 12: Caso de Estudio - Medellín Smart City</h1>
-            <p class="subtitle">Sistema de Alerta Temprana (SIATA) - Lecciones para IoT</p>
-            <p class="meta">IF0112 - Complementaria II (IoT) | UNAULA 2026-I | Fecha: 04-may-2026 (E5)</p>
-        </header>
+  <!-- Progress bar -->
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
-        <section class="schedule-info" style="background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 2px solid #ef4444;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
-                <div>
-                    <h3 style="color: #991b1b; margin: 0 0 var(--space-2) 0; font-size: var(--text-xl);">📅 Sesión 12 - E5 Trabajo Escrito (15%)</h3>
-                    <p style="margin: 0; color: #991b1b; font-size: var(--text-base);"><strong>Fecha:</strong> Lunes 04 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min)</p>
-                </div>
-                <div style="text-align: right;">
-                    <span style="display: inline-block; background: #dc2626; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; font-size: var(--text-sm);">📝 E5 (15%)</span>
-                </div>
-            </div>
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 
-            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 EVALUACIÓN E5 (15%)</h4>
-                <p style="margin: 0; color: #991b1b; font-size: var(--text-sm);"><strong>Trabajo Escrito:</strong> Entrega hoy. Tema: Normativa IoT + Marco Legal aplicado al proyecto Monitor Ambiental. <a href="../evaluaciones/guia-E5.html">Ver Guía E5</a>.</p>
-            </div>
+  <div class="container">
+    <header>
+      <h1>Sesión 12: Integración Total + Demo E5</h1>
+      <p class="subtitle">IF0112 Complementaria II (IoT) · UNAULA 2026-I · Fecha: 04-may-2026 (E5)</p>
+    </header>
 
-            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
-                <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">📅 PRÓXIMA SEMANA: Clase 13 - 11-may</h4>
-                <p style="margin: 0; color: #92400e; font-size: var(--text-sm);"><strong>Sesión 13:</strong> El futuro de Internet (5G, AIoT, TinyML).</p>
-            </div>
-        </section>
+    <nav>
+      <ul>
+        <li><a href="#objetivo-aprendizaje">Objetivo</a></li>
+        <li><a href="#agenda-120">Agenda</a></li>
+        <li><a href="#visualizacion">Visualización</a></li>
+        <li><a href="#taller-integracion">Taller</a></li>
+        <li><a href="#evaluacion-e5">E5</a></li>
+        <li><a href="#caso-siata">Caso SIATA</a></li>
+        <li><a href="#recursos-curados">Recursos</a></li>
+      </ul>
+    </nav>
 
-        <nav>
+    <main>
+      <!-- Info Cronograma 2026-I -->
+      <section style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: var(--space-6); border-radius: var(--radius); margin-bottom: var(--space-6); border: 2px solid #a855f7;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+          <div>
+            <h3 style="color: #6b21a8; margin: 0 0 var(--space-2) 0; font-size: 1.25rem;">📅 Sesión 12 - Integración Total</h3>
+            <p style="margin: 0; color: #581c87;"><strong>Fecha:</strong> Lunes 04 de Mayo 2026 | <strong>Horario:</strong> 06:00-08:00 (120 min) | <strong>Modalidad:</strong> Taller Práctico</p>
+          </div>
+          <div style="text-align: right;">
+            <span style="display: inline-block; background: #a855f7; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius); font-weight: 600; font-size: 0.85rem;">📝 E5 (15%)</span>
+          </div>
+        </div>
+
+        <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #991b1b; margin: 0 0 var(--space-2) 0;">📝 E5 Demo (15%): Entrega HOY 04-may</h4>
+          <p style="margin: 0; color: #991b1b; font-size: 0.9rem;"><strong>Tema:</strong> Demo en vivo de ESP32 + API + BD + Visualización. Subir ZIP a Canvas.</p>
+          <p><a href="../evaluaciones/guia-E5.html" style="color: #991b1b; font-weight: 700; text-decoration: underline;">📋 Ver Guía de E5 →</a></p>
+        </div>
+
+        <!-- Preparación LAB -->
+        <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: var(--space-4); margin-top: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0;">
+          <h4 style="color: #065f46; margin: 0 0 var(--space-2) 0;">✅ Preparación para E5</h4>
+          <p style="margin: 0; color: #065f46; font-size: 0.9rem;">Traer laptop con API y BD funcionando. Traer ESP32 ensamblado. Todos los grupos deben estar en la misma red WiFi.</p>
+        </div>
+      </section>
+
+      <div class="meta">
+        <strong>Fecha:</strong> Lunes 04 de Mayo 2026 |
+        <strong>Horario:</strong> 06:00-08:00 (120 min) |
+        <strong>Semana:</strong> 14 |
+        <strong>Modalidad:</strong> Taller: Integración Total
+      </div>
+
+      <section id="objetivo-aprendizaje">
+        <h2>Objetivo de la Sesión</h2>
+        <p>Integrar todas las capas del proyecto en un sistema funcional de punta a punta: <strong>ESP32 → API → Base de Datos → Visualización</strong>. Al finalizar, cada grupo hará una demo en vivo del flujo completo y entenderá los requisitos de E5.</p>
+      </section>
+
+      <section id="agenda-120">
+        <h2>Agenda de 120 Minutos (6:00-8:00 AM)</h2>
+        <ul>
+          <li><strong>0-20 min:</strong> Repaso de integración: estado rápido de cada grupo y problemas comunes (20 min)</li>
+          <li><strong>20-50 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Visualización de datos con HTML+JavaScript (fetch a la API) o Grafana (30 min)</li>
+          <li><strong>50-80 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Taller de integración completa: cada grupo conecta ESP32 → API → BD → Dashboard (30 min)</li>
+          <li><strong>80-100 min:</strong> Explicación de E5: requisitos del demo, rúbrica y checklist de entrega (20 min)</li>
+          <li><strong>100-120 min:</strong> Caso SIATA Medellín: lecciones de escalabilidad para su proyecto (20 min)</li>
+        </ul>
+        <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
+            <strong>Fórmula 60/60:</strong> 20 min Teoría | 100 min Práctica ✓
+        </div>
+      </section>
+
+      <section id="visualizacion">
+        <h2>Visualización de Datos</h2>
+        <p>En E5 debes mostrar los datos de tu API de forma gráfica. La opción más sencilla es una página HTML con JavaScript que consulte tu API local. También puedes usar Grafana si ya lo conoces.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Opción 1: HTML + JavaScript</h3>
             <ul>
-                <li><a href="#agenda">Agenda</a></li>
-                <li><a href="#objetivos">Objetivos</a></li>
-                <li><a href="#siata">SIATA</a></li>
-                <li><a href="#arquitectura">Arquitectura</a></li>
-                <li><a href="#lecciones">Lecciones</a></li>
-                <li><a href="#actividad">Actividad</a></li>
+              <li>Solo necesitas un archivo <code>index.html</code> y un navegador.</li>
+              <li>Usa <code>fetch()</code> para llamar <code>GET /datos/latest</code> cada 5 segundos.</li>
+              <li>Muestra temperatura, humedad y luz en tarjetas o gráficas simples.</li>
+              <li>Recuerda habilitar <strong>CORS</strong> en FastAPI.</li>
             </ul>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </nav>
+          </div>
+          <div class="card">
+            <h3>Opción 2: Grafana (avanzado)</h3>
+            <ul>
+              <li>Conecta Grafana directamente a SQLite con un plugin.</li>
+              <li>Crea paneles con gráficas de líneas del historial.</li>
+              <li>Requiere algo más de configuración inicial.</li>
+              <li>Se ve muy profesional en la sustentación.</li>
+            </ul>
+          </div>
+        </div>
 
-        <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
+        <h3 style="margin-top: 1.5rem;">Ejemplo: Dashboard HTML Simple</h3>
+        <p>Este código consulta tu API local y muestra el último dato recibido:</p>
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Monitor SMAI&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; text-align: center; background: #f0f9ff; }
+    .card { background: white; padding: 20px; margin: 10px auto; width: 200px; border-radius: 10px; }
+    .temp { color: #ef4444; font-size: 2rem; }
+    .hum  { color: #3b82f6; font-size: 2rem; }
+    .luz  { color: #f59e0b; font-size: 2rem; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Monitor Ambiental&lt;/h1&gt;
+  &lt;div class="card"&gt;Temperatura&lt;br&gt;&lt;span class="temp" id="t"&gt;--&lt;/span&gt; °C&lt;/div&gt;
+  &lt;div class="card"&gt;Humedad&lt;br&gt;&lt;span class="hum" id="h"&gt;--&lt;/span&gt; %&lt;/div&gt;
+  &lt;div class="card"&gt;Luz&lt;br&gt;&lt;span class="luz" id="l"&gt;--&lt;/span&gt; %&lt;/div&gt;
 
-        <main>
-            <section id="agenda" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; border-radius: 6px;">
-                <h2>⏱️ Agenda de 120 Minutos (6:00-8:00 AM)</h2>
-                <ul>
-                    <li><strong>0-10 min:</strong> Apertura y objetivos (10 min)</li>
-                    <li><strong>10-40 min:</strong> Arquitectura <abbr title="Sistema de Alerta Temprana">SIATA</abbr> Medellín (30 min teoría)</li>
-                    <li><strong>40-70 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Análisis de caso aplicado al proyecto (30 min práctica)</li>
-                    <li><strong>70-95 min:</strong> Lecciones de escalabilidad y fiabilidad (25 min teoría)</li>
-                    <li><strong>95-120 min:</strong> <strong>🛠️ PRÁCTICA:</strong> Sustentaciones <abbr title="Evaluación 5">E5</abbr> y cierre (25 min práctica)</li>
-                </ul>
-                <div class="success-box" style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">
-                    <strong>Fórmula 60/60:</strong> 55 min Teoría | 65 min Práctica ✓
-                </div>
-            </section>
+  &lt;script&gt;
+    async function actualizar() {
+      const res = await fetch('http://192.168.1.X:8000/datos/latest');
+      const json = await res.json();
+      document.getElementById('t').textContent = json.dato.temperatura;
+      document.getElementById('h').textContent = json.dato.humedad;
+      document.getElementById('l').textContent = json.dato.luz;
+    }
+    setInterval(actualizar, 5000);
+    actualizar();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <p style="font-size: 0.9rem; color: #64748b;"><strong>Nota:</strong> Reemplaza <code>192.168.1.X</code> por la IP local de tu PC donde corre FastAPI.</p>
+      </section>
 
-            <section id="objetivos">
-                <h2>Objetivos de la Sesión</h2>
-                <ul>
-                    <li><strong>Analizar</strong> el caso SIATA como ejemplo de IoT urbano</li>
-                    <li><strong>Identificar</strong> componentes de una arquitectura IoT a gran escala</li>
-                    <li><strong>Extraer</strong> lecciones aplicables al proyecto Monitor Ambiental</li>
-                    <li><strong>Preparar</strong> fundamentos para E5</li>
-                </ul>
-            </section>
+      <section id="taller-integracion">
+        <h2>Taller: Integración Completa</h2>
+        <p>Durante esta sesión cada grupo debe lograr que todo funcione junto. El profesor estará recorriendo los puestos para ayudar.</p>
 
-            <section id="siata">
-                <h2>🌧️ SIATA: Sistema de Alerta Temprana de Medellín</h2>
-                
-                <div class="info-box info">
-                    <h4>📝 Contexto</h4>
-                    <p>Medellín está en una zona de alta vulnerabilidad a inundaciones. SIATA es un sistema IoT que monitorea <strong>+100 estaciones</strong> en tiempo real para prevenir desastres.</p>
-                </div>
+        <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #0369a1; margin: 0 0 var(--space-2) 0;">Checklist del Flujo Completo</h4>
+          <ul style="margin: var(--space-2) 0 0 0; padding-left: var(--space-4); color: #0c4a6e;">
+            <li>☐ El ESP32 enciende y se conecta a WiFi en menos de 30 segundos</li>
+            <li>☐ La API FastAPI está corriendo en la laptop (<code>uvicorn main:app --host 0.0.0.0</code>)</li>
+            <li>☐ Swagger UI responde en <code>http://localhost:8000/docs</code></li>
+            <li>☐ El ESP32 envía JSON por HTTP POST y recibe respuesta 200</li>
+            <li>☐ La base de datos SQLite tiene datos reales del ESP32</li>
+            <li>☐ El dashboard HTML muestra valores actualizados</li>
+            <li>☐ CORS está habilitado en la API (si usas visualización web)</li>
+          </ul>
+        </div>
 
-                <h3>Datos del Sistema</h3>
-                <ul>
-                    <li><strong>Estaciones:</strong> +100 sensores distribuidos en el Valle de Aburrá</li>
-                    <li><strong>Datos:</strong> 1.5 millones de registros diarios</li>
-                    <li><strong>Tiempo real:</strong> Alertas en menos de 5 minutos</li>
-                    <li><strong>Ahorro:</strong> USD 10M/año en prevención de daños</li>
-                </ul>
-            </section>
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #92400e; margin: 0 0 var(--space-2) 0;">Comandos útiles para el taller</h4>
+          <pre style="margin: 0;"><code class="language-bash"># Levantar API en red local (Windows)
+uvicorn main:app --host 0.0.0.0 --port 8000
 
-            <section id="arquitectura">
-                <h2>🏗️ Arquitectura SIATA</h2>
-                
-                <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
-                    <h4 style="color: #92400e; margin-top: 0;">🔧 CAPA 1: Sensores (Edge)</h4>
-                    <ul>
-                        <li><strong>Pluviómetros:</strong> Medición de lluvia en tiempo real</li>
-                        <li><strong>Higrómetros:</strong> Humedad del suelo</li>
-                        <li><strong>RADAR meteorológico:</strong> Precipitación a 120km</li>
-                        <li><strong>Cámaras:</strong> Monitoreo visual de quebradas</li>
-                    </ul>
-                </div>
+# Ver IP local de tu PC
+ipconfig
 
-                <div style="background: #dbeafe; border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
-                    <h4 style="color: #1e40af; margin-top: 0;">⚡ CAPA 2: Comunicación</h4>
-                    <ul>
-                        <li><strong>Red propia:</strong> Fibra óptica + radiofrecuencia</li>
-                        <li><strong>Protocolos:</strong> MQTT para alertas, HTTP para datos históricos</li>
-                        <li><strong>Gateways:</strong> Recolectan datos de múltiples sensores</li>
-                    </ul>
-                </div>
+# Probar API desde otra laptop
+curl http://192.168.1.X:8000/datos/latest</code></pre>
+        </div>
+      </section>
 
-                <div style="background: #f0fdf4; border: 2px solid #10b981; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
-                    <h4 style="color: #065f46; margin-top: 0;">☁️ CAPA 3: Cloud + Analytics</h4>
-                    <ul>
-                        <li><strong>Almacenamiento:</strong> Bases de datos históricas</li>
-                        <li><strong>Modelos ML:</strong> Predicción de inundaciones</li>
-                        <li><strong>Dashboards:</strong> Centros de comando, app móvil</li>
-                        <li><strong>Alertas:</strong> SMS, sirenas, notificaciones push</li>
-                    </ul>
-                </div>
-            </section>
+      <section id="evaluacion-e5">
+        <h2>Evaluación E5: Demo de Integración Total</h2>
+        <p>E5 se construye <strong>directamente encima de E4</strong>. No se rehace nada: se usa el mismo firmware, la misma API y la misma base de datos. Solo se agrega visualización y se pulimenta la integración.</p>
 
-            <section id="lecciones">
-                <h2>💡 Lecciones para su Proyecto</h2>
-                
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>✅ Lo que SIATA hace bien</h3>
-                        <ul>
-                            <li><strong>Red propia:</strong> No depende de internet público</li>
-                            <li><strong>Multi-sensor:</strong> Diferentes tipos de datos</li>
-                            <li><strong>Edge processing:</strong> Decisiones locales rápidas</li>
-                            <li><strong>ML predictivo:</strong> Anticipa, no solo reacciona</li>
-                            <li><strong>Multi-canal:</strong> Alertas por SMS, app, sirenas</li>
-                        </ul>
-                    </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Entregables de E5</h3>
+            <ul>
+              <li><strong>Demo en vivo en clase (obligatorio):</strong> Cada grupo conecta el ESP32, levanta la API y muestra la visualización funcionando.</li>
+              <li><strong>Código fuente ZIP en Canvas:</strong> Incluye firmware, API, script de BD y archivos de visualización.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Rúbrica E5 (100 pts)</h3>
+            <ul>
+              <li>25% — Comunicación ESP32 → API</li>
+              <li>25% — API funcional con BD</li>
+              <li>25% — Visualización de datos</li>
+              <li>15% — Funcionamiento en vivo</li>
+              <li>10% — Coherencia con E4</li>
+            </ul>
+          </div>
+        </div>
 
-                    <div class="card">
-                        <h3>🎯 Aplicable a su proyecto</h3>
-                        <ul>
-                            <li><strong>Diversidad de sensores:</strong> Temperatura + humedad + luz</li>
-                            <li><strong>Edge:</strong> Procesamiento en ESP32 (promedios)</li>
-                            <li><strong>Cloud:</strong> ThingSpeak para almacenamiento</li>
-                            <li><strong>Alertas:</strong> Umbrales configurables</li>
-                            <li><strong>Visualización:</strong> Dashboard Grafana</li>
-                        </ul>
-                    </div>
-                </div>
+        <div style="background: #fce7f3; border-left: 4px solid #ec4899; padding: var(--space-4); margin-top: var(--space-4); border-radius: var(--radius-md);">
+          <h4 style="color: #9d174d; margin: 0 0 var(--space-2) 0;">Conexión con E6 (25-may)</h4>
+          <p style="margin: 0; color: #831843; font-size: 0.9rem;">En E6 harás la sustentación oral del proyecto final. El jurado evaluará el <strong>mismo sistema</strong> que demuestras hoy en E5, pero con más pulimento y una presentación profesional.</p>
+        </div>
+      </section>
 
-                <div class="info-box warning">
-                    <h4>⚠️ Diferencias Clave</h4>
-                    <ul>
-                        <li><strong>SIATA:</strong> Sistema crítico, redundancia, red propia, 24/7</li>
-                        <li><strong>Su proyecto:</strong> Prototipo educativo, WiFi público, alcance limitado</li>
-                    </ul>
-                    <p><strong>Meta:</strong> Aplicar los <em>principios</em> de SIATA a escala de su proyecto.</p>
-                </div>
-            </section>
+      <section id="caso-siata">
+        <h2>Caso SIATA Medellín</h2>
+        <p>Medellín opera uno de los sistemas IoT urbanos más avanzados de Latinoamérica. SIATA monitorea <strong>+100 estaciones</strong> en el Valle de Aburrá para prevenir desastres por inundaciones.</p>
 
-            <section id="actividad">
-                <h2>📝 Actividad: Análisis de Caso</h2>
-                
-                <div class="info-box info">
-                    <h4>🎯 Instrucciones</h4>
-                    <p>En equipos, analicen el caso SIATA y respondan:</p>
-                    <ol>
-                        <li>¿Qué estándares cree que usa SIATA? (IEEE 802.11, MQTT, etc.)</li>
-                        <li>¿Qué medidas de seguridad serán críticas?</li>
-                        <li>¿Qué lección de SIATA aplicarán a su proyecto?</li>
-                        <li>¿Qué limitación de su proyecto vs SIATA es aceptable para fines educativos?</li>
-                    </ol>
-                </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Arquitectura SIATA</h3>
+            <ul>
+              <li><strong>Edge:</strong> Pluviómetros, higrómetros, RADAR meteorológico, cámaras</li>
+              <li><strong>Comunicación:</strong> Fibra óptica + radiofrecuencia propia</li>
+              <li><strong>Cloud:</strong> Bases de datos históricas, modelos ML, dashboards</li>
+              <li><strong>Alertas:</strong> SMS, sirenas, app móvil (menos de 5 min)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Lecciones para su proyecto</h3>
+            <ul>
+              <li><strong>Multi-sensor:</strong> Combinar temperatura + humedad + luz da más contexto</li>
+              <li><strong>Edge processing:</strong> La máquina de estados en el ESP32 es un mini-SIATA</li>
+              <li><strong>Visualización:</strong> Un dashboard claro vale más que mil registros crudos</li>
+              <li><strong>Fiabilidad:</strong> Red propia y redundancia = sistema crítico</li>
+            </ul>
+          </div>
+        </div>
 
-                <h3>Ejemplo de Respuesta</h3>
-                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1rem 0;">
-                    <p><strong>Estándares:</strong> IEEE 802.11 (WiFi), MQTT para alertas, HTTP/REST para datos.</p>
-                    <p><strong>Seguridad:</strong> Encriptación, autenticación, red privada.</p>
-                    <p><strong>Lección aplicable:</strong> Usar múltiples sensores y visualización en dashboard.</p>
-                    <p><strong>Limitación aceptable:</strong> Depender de WiFi público (vs red propia).</p>
-                </div>
-            </section>
+        <div class="info-box warning" style="margin-top: 1rem;">
+          <h4>Diferencias clave</h4>
+          <p><strong>SIATA:</strong> Sistema crítico, red propia, 24/7, presupuesto millonario.<br>
+          <strong>Su proyecto:</strong> Prototipo educativo, WiFi público, alcance limitado.<br>
+          <strong>Meta:</strong> Aplicar los <em>principios</em> de SIATA a escala de su SMAI.</p>
+        </div>
+      </section>
 
-            <section class="summary-table" style="background: #f0fdf4; border: 2px solid #10b981; border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0;">
-                <h2 style="color: #065f46;">📝 Resumen: SIATA</h2>
-                <ul>
-                    <li><strong>+100 estaciones</strong> monitoreando el Valle de Aburrá</li>
-                    <li><strong>Arquitectura 3 capas:</strong> Sensores → Comunicación → Cloud</li>
-                    <li><strong>Datos:</strong> 1.5M registros diarios, alertas &lt;5 min</li>
-                    <li><strong>Lecciones clave:</strong> Multi-sensor, edge processing, ML predictivo</li>
-                    <li><strong>Aplicable:</strong> Principios de arquitectura y procesamiento</li>
-                </ul>
-                <p style="margin-top: 1rem; padding: 1rem; background: #ecfdf5; border-radius: 6px; text-align: center;">
-                    <strong>Próxima Sesión:</strong> El Futuro de Internet (11-may) | <strong>E5 completada hoy</strong>
-                </p>
-            </section>
-        </main>
+      <section id="recursos-curados">
+        <h2>Recursos para LAB 5: Integración Total</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>📘 MDN Web Docs - Fetch API</h3>
+            <p><strong>Web:</strong> developer.mozilla.org</p>
+            <p><strong>Propósito:</strong> Documentación oficial de <code>fetch()</code> en JavaScript para consumir APIs.</p>
+            <p><a href="https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch" target="_blank">Ver documentación →</a></p>
+          </div>
+          <div class="card">
+            <h3>🎓 Tutorial Grafana + SQLite</h3>
+            <p><strong>Web:</strong> grafana.com/tutorials</p>
+            <p><strong>Propósito:</strong> Guía paso a paso para crear dashboards conectados a SQLite.</p>
+            <p><a href="https://grafana.com/tutorials/" target="_blank">Ver tutoriales →</a></p>
+          </div>
+          <div class="card">
+            <h3>📗 FastAPI CORS - Documentación</h3>
+            <p><strong>Web:</strong> fastapi.tiangolo.com</p>
+            <p><strong>Propósito:</strong> Cómo habilitar CORS para que el navegador pueda consultar la API.</p>
+            <p><a href="https://fastapi.tiangolo.com/es/tutorial/cors/" target="_blank">Ver documentación →</a></p>
+          </div>
+          <div class="card">
+            <h3>🔌 Guía SIATA Medellín</h3>
+            <p><strong>Web:</strong> siata.gov.co</p>
+            <p><strong>Propósito:</strong> Conocer el caso real de IoT urbano en Colombia.</p>
+            <p><a href="https://siata.gov.co/" target="_blank">Ver sitio oficial →</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
 
         <nav class="class-nav">
             <div class="class-nav-title">Navegación del Curso</div>
@@ -214,14 +287,56 @@
                 </a>            </div>
         </nav>
 
-        <footer>
-            <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 12</p>
-        </footer>
-    </div>
+    <footer>
+      <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I | Sesión 12</p>
+    </footer>
+  </div>
 
-    <script src="script.js"></script>
-    <!-- Prism.js para resaltado de sintaxis -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script>
+    // Progress bar and back-to-top functionality
+    (function() {
+      const progressFill = document.getElementById('progressFill');
+      const backToTop = document.getElementById('backToTop');
+
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressFill.style.width = Math.min(progress, 100) + '%';
+
+        // Show/hide back-to-top button
+        if (scrollTop > window.innerHeight * 0.3) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+
+      // Throttle scroll events for performance
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            updateProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      // Event listeners
+      window.addEventListener('scroll', onScroll, { passive: true });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Initial call
+      updateProgress();
+    })();
+  </script>
+  <!-- Prism.js para resaltado de sintaxis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
