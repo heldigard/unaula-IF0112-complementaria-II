@@ -129,14 +129,14 @@
             <td>Informe</td>
             <td>15%</td>
             <td>20-abr-2026</td>
-            <td>Lógica de Control y Gestión Domótica</td>
+            <td>Firmware mejorado + FastAPI + Base de Datos</td>
           </tr>
           <tr class="eval-card eval-e5">
             <td><span class="badge badge-e5">E5</span></td>
-            <td>Escrito</td>
+            <td>Demo</td>
             <td>15%</td>
             <td>04-may-2026</td>
-            <td>Normativa, Ficha Técnica y Seguridad IoT</td>
+            <td>Integración Total del Sistema + Visualización</td>
           </tr>
           <tr class="eval-card eval-e6">
             <td><span class="badge badge-e6">E6</span></td>
@@ -285,10 +285,10 @@
     </section>
 
     <!-- E4: Informe -->
-    <section class="eval-card eval-e4">
-      <h2>E4: Informe de Gestión (15%) - 20 de abril de 2026</h2>
-      <p><strong>Propósito:</strong> Evaluar la lógica de negocio y automatización del sistema domótico.</p>
-      <p><strong>Formato:</strong> Informe técnico con diagramas de flujo de decisiones.</p>
+    <section id="e4" class="eval-card eval-e4">
+      <h2>E4: Firmware + FastAPI + Base de Datos (15%) - 20 de abril de 2026</h2>
+      <p><strong>Propósito:</strong> Cimentar el proyecto con firmware mejorado, API propia y base de datos funcionando.</p>
+      <p><strong>Formato:</strong> Informe técnico (PDF) + código fuente ZIP. Todo lo construido en E4 es la base para E5 y E6.</p>
 
       <h3>Criterios de Evaluación</h3>
       <table>
@@ -302,38 +302,44 @@
         </thead>
         <tbody>
           <tr class="criterio-row">
-            <td><strong>Lógica de Automatización</strong></td>
-            <td class="nivel-alto">Define reglas claras (IF-THEN) complejas y útiles para el usuario final.</td>
-            <td class="nivel-medio">Reglas muy básicas (encender/apagar simple).</td>
-            <td class="nivel-bajo">Sin lógica de automatización.</td>
+            <td><strong>Firmware mejorado</strong></td>
+            <td class="nivel-alto">Usa <code>millis()</code>, máquina de estados e histéresis correctamente. Código limpio y funcional.</td>
+            <td class="nivel-medio">Usa <code>millis()</code> pero con errores menores en estados o histéresis.</td>
+            <td class="nivel-bajo">Usa <code>delay()</code> bloqueante o no implementa máquina de estados.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Gestión de Eventos</strong></td>
-            <td class="nivel-alto">Identifica correctamente eventos críticos (Alerta incendio, intrusión, etc).</td>
-            <td class="nivel-medio">Solo considera eventos informativos (Temperatura actual).</td>
-            <td class="nivel-bajo">No diferencia entre datos y eventos.</td>
+            <td><strong>Envío de datos (HTTP/MQTT)</strong></td>
+            <td class="nivel-alto">ESP32 envía JSON estructurado de forma estable a la API o broker MQTT.</td>
+            <td class="nivel-medio">Envía datos pero con formato incorrecto o conexión intermitente.</td>
+            <td class="nivel-bajo">No logra enviar datos desde el ESP32.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Diagramas de Flujo</strong></td>
-            <td class="nivel-alto">Diagramas profesionales que representan la lógica del código implementado.</td>
-            <td class="nivel-medio">Diagramas confusos o que no coinciden con la realidad del sistema.</td>
-            <td class="nivel-bajo">Sin diagramas de flujo.</td>
+            <td><strong>API FastAPI / MQTT</strong></td>
+            <td class="nivel-alto">3 endpoints funcionando (POST /datos, GET /datos, GET /datos/latest) o subscriber MQTT activo. Swagger/docs accesible.</td>
+            <td class="nivel-medio">API básica funcionando pero le faltan endpoints o tiene errores de CORS.</td>
+            <td class="nivel-bajo">API no responde o no tiene los endpoints mínimos requeridos.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Documentación de Pruebas</strong></td>
-            <td class="nivel-alto">Reporte detallado de pruebas de campo o simulación (casos de éxito/error).</td>
-            <td class="nivel-medio">Reporte de pruebas incompleto.</td>
-            <td class="nivel-bajo">Sin evidencia de pruebas de funcionamiento.</td>
+            <td><strong>Base de datos</strong></td>
+            <td class="nivel-alto">Tabla creada correctamente, datos insertados desde ESP32 y consultas funcionando.</td>
+            <td class="nivel-medio">Tabla creada pero con errores en tipos de datos o inserciones.</td>
+            <td class="nivel-bajo">No hay base de datos o no se persisten datos.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Calidad del informe</strong></td>
+            <td class="nivel-alto">Informe claro con diagramas, evidencias (screenshots de Swagger, BD, logs) y código documentado.</td>
+            <td class="nivel-medio">Informe completo pero con poca evidencia o explicaciones superficiales.</td>
+            <td class="nivel-bajo">Informe incompleto o sin evidencias de funcionamiento.</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- E5: Trabajo Escrito -->
-    <section class="eval-card eval-e5">
-      <h2>E5: Trabajo Escrito Normativo (15%) - 4 de mayo de 2026</h2>
-      <p><strong>Propósito:</strong> Evaluar el conocimiento del marco legal y técnico del sector tecnológico.</p>
-      <p><strong>Formato:</strong> Ficha Técnica Legal y Manual de Cumplimiento.</p>
+    <!-- E5: Demo Integración -->
+    <section id="e5" class="eval-card eval-e5">
+      <h2>E5: Demo de Integración Total + Visualización (15%) - 4 de mayo de 2026</h2>
+      <p><strong>Propósito:</strong> Demostrar en clase el sistema completo funcionando de punta a punta.</p>
+      <p><strong>Formato:</strong> Demo en vivo en clase + código fuente ZIP en Canvas. Se construye <strong>sobre E4</strong> — mismo firmware, API y BD.</p>
 
       <h3>Criterios de Evaluación</h3>
       <table>
@@ -347,38 +353,44 @@
         </thead>
         <tbody>
           <tr class="criterio-row">
-            <td><strong>Ley 1581 (Privacidad)</strong></td>
-            <td class="nivel-alto">Aplica correctamente la política de tratamiento de datos al proyecto IoT.</td>
-            <td class="nivel-medio">Menciona la ley pero no explica cómo se aplica a su dispositivo.</td>
-            <td class="nivel-bajo">Desconocimiento total de la normativa de privacidad.</td>
+            <td><strong>Comunicación ESP32→API</strong></td>
+            <td class="nivel-alto">Envío estable de JSON, intervalo definido y conexión WiFi confiable durante la demo.</td>
+            <td class="nivel-medio">Envía datos pero con caídas ocasionales o latencia alta.</td>
+            <td class="nivel-bajo">No logra comunicación estable entre ESP32 y API.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Normativa Eléctrica (RETIE)</strong></td>
-            <td class="nivel-alto">Identifica riesgos eléctricos del prototipo y propone medidas de seguridad.</td>
-            <td class="nivel-medio">Menciona normas pero sin aplicarlas al hardware real.</td>
-            <td class="nivel-bajo">Ignora la seguridad eléctrica del dispositivo.</td>
+            <td><strong>API funcional con BD</strong></td>
+            <td class="nivel-alto">Endpoints operan correctamente, datos persistentes y historial disponible (SQLite/MySQL).</td>
+            <td class="nivel-medio">API funciona pero con errores en consultas o BD incompleta.</td>
+            <td class="nivel-bajo">API o BD no funcionan durante la demo.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Ficha Técnica</strong></td>
-            <td class="nivel-alto">Documento profesional con especificaciones de voltaje, consumo y alcance.</td>
-            <td class="nivel-medio">Ficha técnica incompleta o con datos erróneos.</td>
-            <td class="nivel-bajo">Sin ficha técnica del producto.</td>
+            <td><strong>Visualización de datos</strong></td>
+            <td class="nivel-alto">Dashboard propio (HTML+JS), Grafana o interfaz funcional mostrando datos en tiempo real o históricos.</td>
+            <td class="nivel-medio">Visualización básica o que no se actualiza correctamente.</td>
+            <td class="nivel-bajo">Sin visualización de los datos.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Manual de Usuario</strong></td>
-            <td class="nivel-alto">Guía clara para un usuario no técnico sobre cómo usar el SMAI.</td>
-            <td class="nivel-medio">Manual confuso o muy técnico.</td>
-            <td class="nivel-bajo">Sin manual de instrucciones.</td>
+            <td><strong>Funcionamiento en vivo</strong></td>
+            <td class="nivel-alto">Demo en clase sin fallos mayores; el sistema opera de forma continua durante la presentación.</td>
+            <td class="nivel-medio">Demo funciona pero requiere reinicios o ajustes durante la clase.</td>
+            <td class="nivel-bajo">Demo falla o no se puede presentar en clase.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Coherencia con E4</strong></td>
+            <td class="nivel-alto">Reutiliza y mejora el trabajo de E4 sin reconstruir desde cero.</td>
+            <td class="nivel-medio">Reutiliza parte de E4 pero cambia mucho la arquitectura.</td>
+            <td class="nivel-bajo">Sistema completamente diferente al entregado en E4.</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <!-- E6: Proyecto Final -->
-    <section class="eval-card eval-e6">
-      <h2>E6: Sustentación Final SMAI (20%) - 25 de mayo de 2026</h2>
-      <p><strong>Propósito:</strong> Evaluación integral del producto terminado y defensa de ingeniería.</p>
-      <p><strong>Formato:</strong> Pitch de Ventas + Demo Técnica + Dispositivo Encapsulado.</p>
+    <section id="e6" class="eval-card eval-e6">
+      <h2>E6: Sustentación Final del Proyecto IoT (20%) - 25 de mayo de 2026</h2>
+      <p><strong>Propósito:</strong> Evaluación integral del sistema completo mediante sustentación oral y demo en vivo.</p>
+      <p><strong>Formato:</strong> Pitch de 10-15 min + Demo técnica en vivo + defensa de código. Se demuestra todo lo construido en E4 y E5 (FastAPI o MQTT + BD).</p>
 
       <h3>Criterios de Evaluación</h3>
       <table>
@@ -392,28 +404,34 @@
         </thead>
         <tbody>
           <tr class="criterio-row">
-            <td><strong>Producto Terminado</strong></td>
-            <td class="nivel-alto">Dispositivo encapsulado, robusto, estético y funcional al 100%.</td>
-            <td class="nivel-medio">Funciona pero tiene cables expuestos o problemas de robustez.</td>
-            <td class="nivel-bajo">El sistema falla durante la demo o no está terminado.</td>
+            <td><strong>Funcionamiento en vivo</strong></td>
+            <td class="nivel-alto">Todo el sistema opera durante la sustentación: ESP32, API/BD y visualización sin fallos.</td>
+            <td class="nivel-medio">Funciona pero requiere reinicios o ajustes durante la demo.</td>
+            <td class="nivel-bajo">El sistema falla durante la sustentación o no está terminado.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Sustentación (Pitch)</strong></td>
-            <td class="nivel-alto">Explica el valor agregado, la arquitectura y los estándares con dominio total.</td>
-            <td class="nivel-medio">Explica pero tiene dudas técnicas o no es claro en la propuesta.</td>
-            <td class="nivel-bajo">Incapacidad de explicar cómo funciona el sistema.</td>
+            <td><strong>Explicación del flujo de datos</strong></td>
+            <td class="nivel-alto">Explica con claridad técnica cada capa: Firmware → API → BD → Visualización.</td>
+            <td class="nivel-medio">Explica el flujo pero con imprecisiones técnicas o saltos.</td>
+            <td class="nivel-bajo">No logra explicar cómo viajan los datos de punta a punta.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Integración Cloud-Real</strong></td>
-            <td class="nivel-alto">Sincronización perfecta entre el mundo físico y el dashboard de Grafana.</td>
-            <td class="nivel-medio">Latencia alta o datos inconsistentes en la nube.</td>
-            <td class="nivel-bajo">Sin integración en tiempo real.</td>
+            <td><strong>Dominio del código</strong></td>
+            <td class="nivel-alto">Responde con seguridad preguntas sobre <code>millis()</code>, estados, endpoints, BD y CORS.</td>
+            <td class="nivel-medio">Responde algunas preguntas pero con dudas en detalles técnicos.</td>
+            <td class="nivel-bajo">No domina el código ni puede defender decisiones técnicas.</td>
           </tr>
           <tr class="criterio-row">
-            <td><strong>Calidad de Ingeniería</strong></td>
-            <td class="nivel-alto">Uso correcto de librerías, estándares de código y optimización de recursos.</td>
-            <td class="nivel-medio">Uso ineficiente de memoria o código sin estandarizar.</td>
-            <td class="nivel-bajo">Pobre calidad técnica del desarrollo.</td>
+            <td><strong>Visualización / dashboard</strong></td>
+            <td class="nivel-alto">Interfaz funcional, útil y actualizada con datos reales de la BD propia.</td>
+            <td class="nivel-medio">Visualización básica o con datos de prueba / no actualizados.</td>
+            <td class="nivel-bajo">Sin visualización o dashboard inoperante.</td>
+          </tr>
+          <tr class="criterio-row">
+            <td><strong>Presentación general</strong></td>
+            <td class="nivel-alto">Tiempo bien manejado, organización clara, actitud profesional y participación de todos.</td>
+            <td class="nivel-medio">Desorganizado o algunos integrantes no participan.</td>
+            <td class="nivel-bajo">Mala presentación o actitud poco profesional.</td>
           </tr>
         </tbody>
       </table>

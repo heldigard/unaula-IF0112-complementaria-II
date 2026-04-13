@@ -288,7 +288,7 @@
             <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid #3b82f6; text-align: center;">
                 <h2 style="color: #1e40af; margin: 0 0 1rem 0; font-size: 1.75rem;">Monitor Ambiental IoT</h2>
                 <p style="color: #1e3a8a; margin: 0 0 0.5rem 0; max-width: 60ch; margin-left: auto; margin-right: auto;">
-                    Proyecto progresivo: <strong>ESP32 + DHT22 + LDR → WiFi → ThingSpeak → Grafana</strong>
+                    Proyecto progresivo: <strong>ESP32 + DHT22 + LDR → WiFi → FastAPI/MQTT → BD → Visualización</strong>
                 </p>
                 <p style="color: #1e40af; margin: 0 0 1.5rem 0; font-weight: 600;">
                     ✅ <strong>14 sesiones</strong> (13 teóricas + 1 sustentación) | ⚠️ Sin clase: 23-mar, 30-mar y 18-may | 📅 Seguimientos: 27-mar (50%), 15-may (80%), 28-may (100%)
@@ -304,6 +304,11 @@
                         <span class="class-number" style="background: #3b82f6;">DOCENTE</span>
                         <div class="class-title">Presentación del Docente</div>
                         <div class="class-desc">Metodología, evaluaciones y recursos del curso</div>
+                    </a>
+                    <a href="/unaula-IF0112-complementaria-II/docs/proyecto-integrador-2026-I.html" class="class-card" style="background: linear-gradient(135deg, #fff7ed, #ffedd5); border-color: #f97316;">
+                        <span class="class-number" style="background: #f97316;">🏗️ PROYECTO</span>
+                        <div class="class-title">Proyecto Integrador SMAI</div>
+                        <div class="class-desc">Arquitectura, fases y entregables del sistema IoT</div>
                     </a>
                     <a href="/unaula-IF0112-complementaria-II/planificacion/cronograma.html" class="class-card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #f59e0b;">
                         <span class="class-number" style="background: #f59e0b;">📅 CRONOGRAMA</span>
@@ -407,13 +412,13 @@
                     </a>
                     <a href="clase-10.html" class="class-card" style="border-color: #f59e0b;">
                         <span class="class-number" style="background: #f59e0b;">SESIÓN 10 ⚡</span>
-                        <div class="class-title"><abbr title="Laboratorio 4">LAB 4</abbr>: <abbr title="Dashboard en la Nube">Grafana</abbr></div>
-                        <div class="class-desc">20-abr | Visualización + <abbr title="Evaluación 4">E4 Informe de Gestión</abbr></div>
+                        <div class="class-title">FastAPI + SQLite + Primera API IoT</div>
+                        <div class="class-desc">20-abr | Montar API local + <abbr title="Evaluación 4">E4 Informe</abbr></div>
                     </a>
                     <a href="clase-11.html" class="class-card" style="border-color: #7c3aed;">
                         <span class="class-number" style="background: #7c3aed;">SESIÓN 11 📝</span>
-                        <div class="class-title"><abbr title="Machine-to-Machine / Machine-to-Person / Person-to-Person">M2M/M2P/P2P</abbr> + Marco Legal</div>
-                        <div class="class-desc">27-abr | Patrones + Ley 1581 | <abbr title="Evaluación 5">E5 Trabajo Escrito</abbr></div>
+                        <div class="class-title">API REST Completa + MQTT Opcional</div>
+                        <div class="class-desc">27-abr | Persistencia + filtros + endpoints avanzados</div>
                     </a>
                 </div>
             </section>
@@ -424,8 +429,8 @@
                 <div class="grid">
                     <a href="clase-12.html" class="class-card" style="border-color: #0891b2;">
                         <span class="class-number" style="background: #0891b2;">SESIÓN 12 🎤</span>
-                        <div class="class-title">Caso <abbr title="Sistema de Alerta Temprana">SIATA</abbr> Medellín</div>
-                        <div class="class-desc">04-may | IoT Urbano + <abbr title="Evaluación 5">E5 Entrega</abbr></div>
+                        <div class="class-title">Integración Total del Sistema</div>
+                        <div class="class-desc">04-may | Demo en vivo + <abbr title="Evaluación 5">E5 Demo</abbr></div>
                     </a>
                     <a href="clase-13.html" class="class-card">
                         <span class="class-number">SESIÓN 13</span>
@@ -465,13 +470,13 @@
                     </div>
                     <div class="eval-card class-card">
                         <span class="class-number eval-badge">E4 (15%)</span>
-                        <div class="class-title">Informe de Gestión</div>
-                        <div class="class-desc">20-abr | Lógica y Control Automático</div>
+                        <div class="class-title">Firmware + FastAPI + BD</div>
+                        <div class="class-desc">20-abr | Cimientos del proyecto</div>
                     </div>
                     <div class="eval-card class-card">
                         <span class="class-number eval-badge">E5 (15%)</span>
-                        <div class="class-title">Trabajo Escrito</div>
-                        <div class="class-desc">04-may | Normativa y Seguridad IoT</div>
+                        <div class="class-title">Demo Integración Total</div>
+                        <div class="class-desc">04-may | Sistema en vivo + visualización</div>
                     </div>
                     <div class="eval-card class-card">
                         <span class="class-number eval-badge">E6 (20%)</span>

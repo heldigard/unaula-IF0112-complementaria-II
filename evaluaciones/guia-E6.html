@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía E6: Proyecto Final - IF0112 IoT</title>
+    <title>Guía E6: Proyecto Final - Sustentación del Sistema IoT - IF0112</title>
     <!-- Prism.js para resaltado de sintaxis -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
@@ -37,117 +37,151 @@
 <body>
     <div class="container">
         <header>
-            <h1>Guía E6: Proyecto Final - Sustentación del Producto SMAI</h1>
+            <h1>Guía E6: Proyecto Final - Sustentación del Sistema IoT</h1>
             <p class="meta">Valor: 20% | Tipo: Proyecto | Fecha: 25-may-2026 | Grupal</p>
-            <p class="meta" style="font-size: 0.9rem; color: #9d174d; margin-top: 0.25rem;">Fase 6 del Proyecto SMAI: Normalización y estandarización - Producto final integrado</p>
+            <p class="meta" style="font-size: 0.9rem; color: #9d174d; margin-top: 0.25rem;">Fase 6: Demo en vivo de ESP32 → API → BD → Visualización</p>
         </header>
+
+        <section class="highlight">
+            <h2>Nota importante</h2>
+            <p><strong>E6 es la entrega final del proyecto, presentada mediante sustentación oral con demo en vivo. Se demuestra todo lo construido en E4 y E5.</strong></p>
+            <p>Pueden usar <strong>FastAPI + BD</strong> o <strong>MQTT + BD</strong> como flujo de datos principal.</p>
+        </section>
 
         <section>
             <h2>Objetivo</h2>
-            <p>Demostrar la integración total de todas las fases del curso en un producto funcional, robusto y estéticamente terminado que solucione un problema real de monitoreo ambiental.</p>
+            <p>Demostrar en una sustentación oral que dominan el proyecto completo: el ESP32 envía datos, la API los procesa, la base de datos los almacena y la visualización los presenta. Se evaluará el funcionamiento en vivo y la capacidad de explicar cada capa técnica.</p>
         </section>
 
         <section class="highlight">
-            <h2>📋 Prerrequisitos (Integración E1-E5)</h2>
+            <h2>Prerrequisitos (Integración E4-E5)</h2>
             <p>Para la sustentación final debes presentar:</p>
             <ul>
-                <li><strong>E1:</strong> Arquitectura documentada (foto del diagrama de bloques).</li>
-                <li><strong>E2:</strong> Circuito físico montado y funcionando.</li>
-                <li><strong>E3:</strong> Conectividad WiFi activa y enviando datos a la nube.</li>
-                <li><strong>E4:</strong> Lógica de control con máquina de estados implementada.</li>
-                <li><strong>E5:</strong> Documentación normativa completa (PDF entregado).</li>
+                <li><strong>E4:</strong> Firmware con <code>millis()</code>, máquina de estados e histéresis + API básica + BD funcionando.</li>
+                <li><strong>E5:</strong> Sistema integrado con visualización operativa.</li>
+                <li>Producto físico encapsulado y listo para enchufar.</li>
             </ul>
-            <p><strong>Nota:</strong> E6 es la <strong>integración y presentación</strong> de todo el trabajo anterior. No se desarrolla nuevo código, se perfecciona y encapsula lo existente.</p>
+            <p><strong>Nota:</strong> E6 es la <strong>entrega final con sustentación</strong> de todo el trabajo anterior. Se perfecciona y encapsula lo existente. Flujo principal puede ser FastAPI o MQTT.</p>
         </section>
 
         <section>
-            <h2>Requisitos del Producto Final</h2>
-            <p>El <abbr title="Sistema de Monitoreo Ambiental Inteligente">SMAI</abbr> debe presentarse como un producto de ingeniería completo, cumpliendo estándares profesionales:</p>
+            <h2>Requisitos de la Sustentación</h2>
             <ul>
-                <li><strong>Integración Hardware (Herencia de E1-E5):</strong>
+                <li><strong>Demo en vivo del sistema completo:</strong>
                     <ul>
-                        <li>Circuito funcional con ESP32, DHT22 (GPIO 4) y LDR (GPIO 34).</li>
-                        <li>Conexión WiFi estable en modo <abbr title="Station Mode">STA</abbr>.</li>
-                        <li>Envío de datos cada 20 segundos a plataforma IoT (<a href="../docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">Ubidots STEM, ThingSpeak, Arduino Cloud, Blynk y otras opciones gratuitas</a>).</li>
-                        <li>Estados de alerta funcionando con LEDs (Rojo: temperatura, Amarillo: luz).</li>
+                        <li>Encender el ESP32 y mostrar que se conecta a WiFi.</li>
+                        <li>Levantar la API en el PC (o mostrar que ya está corriendo).</li>
+                        <li>Verificar que los datos llegan a la base de datos.</li>
+                        <li>Mostrar la visualización actualizándose con datos reales.</li>
                     </ul>
                 </li>
-                <li><strong>Encapsulado y Terminación Física:</strong>
+                <li><strong>Explicación del flujo de datos:</strong>
                     <ul>
-                        <li>No cables sueltos: Uso de amarras plásticas o guía de cables.</li>
-                        <li>Caja/gabinete de material aislante (plástico ABS, acrílico o madera).</li>
-                        <li>Orificios de ventilación para el sensor DHT22 (evitar caja hermética).</li>
-                        <li>LEDs visibles desde el exterior o panel frontal.</li>
-                        <li>Puerto Micro-USB accesible para alimentación.</li>
+                        <li>Capa 1 - Firmware: cómo lee sensores, gestiona estados y envía JSON.</li>
+                        <li>Capa 2 - API: qué hace cada endpoint y por qué se eligió FastAPI (o Flask/MQTT).</li>
+                        <li>Capa 3 - Base de datos: estructura de la tabla y cómo consultar los datos.</li>
+                        <li>Capa 4 - Visualización: cómo muestra los datos al usuario final.</li>
                     </ul>
                 </li>
-                <li><strong>Funcionamiento Autónomo:</strong>
+                <li><strong>Datos históricos reales:</strong>
                     <ul>
-                        <li>Al conectar a 5V, el dispositivo debe iniciar automáticamente.</li>
-                        <li>Conexión a WiFi sin intervención manual (credenciales hardcodeadas o modo AP inicial).</li>
-                        <li>Tiempo de inicio: Máximo 30 segundos hasta primer envío de datos.</li>
+                        <li>La BD debe contener datos reales acumulados, no inventados.</li>
+                        <li>Se puede mostrar una consulta SQL o el historial en la visualización.</li>
                     </ul>
                 </li>
-                <li><strong>Dashboard y Visualización:</strong>
+                <li><strong>Responder preguntas técnicas del profesor sobre:</strong>
                     <ul>
-                        <li>Dashboard en plataforma IoT gratuita (<a href="../docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">Ubidots STEM, ThingSpeak, Arduino Cloud, Blynk y otras opciones</a>).</li>
-                        <li>Mínimo 3 widgets/gráficos visibles (Temperatura, Humedad, Luz).</li>
-                        <li>Opcional: Dashboard en <abbr title="Plataforma de visualización de datos">Grafana</abbr> con alertas configuradas.</li>
-                        <li>Historial de datos: Mínimo 1 semana de datos almacenados en la nube.</li>
-                        <li>Link compartible o acceso público para el docente.</li>
+                        <li>Uso de <code>millis()</code> vs <code>delay()</code>.</li>
+                        <li>Transiciones de la máquina de estados y la histéresis.</li>
+                        <li>Formato JSON enviado por el ESP32.</li>
+                        <li>Funcionamiento de los endpoints <code>POST /datos</code>, <code>GET /datos</code> y <code>GET /datos/latest</code>.</li>
+                        <li>Schema de la base de datos y tipo de cada campo.</li>
+                        <li>Por qué habilitaron CORS y qué problema resuelve.</li>
+                        <li>Diferencias entre HTTP y MQTT en su proyecto.</li>
                     </ul>
                 </li>
-                <li><strong>Robustez y Manejo de Errores:</strong>
+                <li><strong>Plataformas IoT externas (opcional):</strong>
                     <ul>
-                        <li>Reconexión automática WiFi ante pérdida de señal.</li>
-                        <li>Manejo de errores de lectura de sensores (<code>isnan()</code> para DHT22).</li>
-                        <li>No bloquearse ante fallos de red (timeout de 10 segundos).</li>
-                        <li>Reinicio automático (watchdog) si el sistema se congela.</li>
+                        <li>ThingSpeak, Ubidots u otras plataformas ya <strong>no son requisito</strong> en E6.</li>
+                        <li>Si las usan como complemento, se valora, pero la evaluación se centra en su propio sistema API+BD.</li>
                     </ul>
                 </li>
             </ul>
         </section>
 
-        <section id="checklist-calidad" class="highlight">
-            <h2>Lista de Verificación de Calidad (SMAI Final)</h2>
-            <p>Para obtener la nota máxima, el producto debe cumplir con:</p>
-            <ul>
-                <li><strong>Organización:</strong> Cables trenzados o sujetos con amarras.</li>
-                <li><strong>Aislamiento:</strong> La protoboard o PCB debe estar aislada de superficies conductoras.</li>
-                <li><strong>Fuente:</strong> El sistema debe encenderse con un cargador de celular estándar (5V) sin depender de la laptop.</li>
-                <li><strong>Sostenibilidad:</strong> El código debe implementar el modo <code>Light Sleep</code> del ESP32 entre envíos para ahorro energético (Opcional - Bono).</li>
-            </ul>
+        <section class="highlight">
+            <h2>Estructura sugerida de la sustentación (10-15 min)</h2>
+            <ol>
+                <li><strong>Presentación del problema y solución (2 min):</strong> Qué monitorean, por qué y cómo lo resolvieron.</li>
+                <li><strong>Demo en vivo del sistema completo (5 min):</strong> Encender, enviar, almacenar y visualizar datos en tiempo real.</li>
+                <li><strong>Explicación técnica del flujo de datos (3 min):</strong> Firmware → API → BD → Dashboard.</li>
+                <li><strong>Preguntas del jurado (3-5 min):</strong> Responder con claridad y mostrar el código si es necesario.</li>
+            </ol>
         </section>
 
-        <section class="highlight" style="background: #fce7f3; border-left: 4px solid #ec4899; padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
-            <h2>✅ Lista de Verificación Final - Producto SMAI Completo</h2>
-            <p>Antes de la sustentación, verifica que todo esté listo:</p>
+        <section class="highlight" style="background: #fce7f3; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>Rúbrica E6 (100 pts)</h2>
+            <table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="background: #fce7f3;">
+                        <th style="text-align:left; padding: 0.5rem; border: 1px solid #e2e8f0;">Componente</th>
+                        <th style="text-align:left; padding: 0.5rem; border: 1px solid #e2e8f0;">Peso</th>
+                        <th style="text-align:left; padding: 0.5rem; border: 1px solid #e2e8f0;">Criterio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Funcionamiento en vivo</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">30%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Todo el sistema opera durante la sustentación</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Explicación del flujo de datos</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Clara, técnica, correcta</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Dominio del código</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">20%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Responde preguntas sobre firmware, API y BD</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Visualización / dashboard</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">15%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Interfaz funcional y útil</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Presentación general</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">15%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Tiempo, organización, actitud profesional</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="highlight" style="background: #fce7f3; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>Lista de Verificación Final - Pre-Sustentación</h2>
             <ul>
-                <li>☐ El dispositivo enciende automáticamente al conectar USB (sin laptop)</li>
+                <li>☐ El dispositivo enciende automáticamente al conectar USB (sin depender de la laptop si es posible)</li>
                 <li>☐ Se conecta a WiFi en menos de 30 segundos</li>
-                <li>☐ Los LEDs muestran el estado del sistema</li>
-                <li>☐ El Dashboard se actualiza cada 20 segundos con datos reales</li>
-                <li>☐ Hay historial de datos de al menos 1 semana</li>
-                <li>☐ El dispositivo está encapsulado (caja/gabinete)</li>
+                <li>☐ Los LEDs muestran el estado del sistema según la máquina de estados</li>
+                <li>☐ La API está corriendo y responde en <code>/docs</code></li>
+                <li>☐ La BD tiene datos históricos reales</li>
+                <li>☐ La visualización muestra datos actualizados</li>
+                <li>☐ El producto está encapsulado (caja/gabinete)</li>
                 <li>☐ No hay cables sueltos (usar amarras)</li>
-                <li>☐ LEDs visibles desde fuera</li>
-                <li>☐ Puerto USB accesible</li>
                 <li>☐ Repositorio GitHub con código y README</li>
-                <li>☐ Documentación de E5 entregada físicamente</li>
                 <li>☐ Presentación tipo pitch preparada (10-15 min)</li>
             </ul>
         </section>
 
         <section style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 1rem; border-radius: 0.5rem; margin: 1.5rem 0;">
-            <h2>🏆 Integración Completa del Proyecto SMAI</h2>
+            <h2>Integración Completa del Proyecto</h2>
             <p>E6 es la culminación de todo tu trabajo:</p>
             <ul>
-                <li><strong>E1:</strong> Arquitectura → Ahora es tu producto real</li>
-                <li><strong>E2:</strong> Circuito → Ahora está encapsulado y terminado</li>
-                <li><strong>E3:</strong> Conectividad → Funcionando 24/7</li>
-                <li><strong>E4:</strong> Lógica → Gestionando alertas automáticamente</li>
-                <li><strong>E5:</strong> Documentación → Entregada con el producto</li>
-                <li><strong>E6:</strong> ¡Producto final listo para usar!</li>
+                <li><strong>E4:</strong> Cimientos → Firmware + API + BD</li>
+                <li><strong>E5:</strong> Integración → Visualización y demo en clase</li>
+                <li><strong>E6:</strong> Sustentación → Sistema completo demostrado en vivo</li>
             </ul>
             <p><strong>¡Felicitaciones por llegar hasta aquí!</strong></p>
         </section>
@@ -157,7 +191,6 @@
             <ul>
                 <li><strong>Producto físico:</strong> SMAI encapsulado y funcionando</li>
                 <li><strong>Repositorio GitHub:</strong> Código + README completo</li>
-                <li><strong>Documentación:</strong> Ficha técnica + Manual de usuario (de E5)</li>
                 <li><strong>Sustentación:</strong> Pitch de 10-15 minutos con demo en vivo</li>
             </ul>
             <p><strong>Fecha de sustentación:</strong> 25 de mayo de 2026</p>
@@ -169,7 +202,7 @@
 
         <div class="footer">
             <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
-            <p>E6: Proyecto Final | Valor: 20% | Fecha: 25-may-2026</p>
+            <p>E6: Proyecto Final - Sustentación del Sistema IoT | Valor: 20% | Fecha: 25-may-2026</p>
             <p><a href="../index.html">← Volver al Portal del Curso</a></p>
         </div>
     </div>

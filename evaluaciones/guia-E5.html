@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía E5: Trabajo Escrito - IF0112 IoT</title>
+    <title>Guía E5: Demo de Integración Total - IF0112 IoT</title>
     <!-- Prism.js para resaltado de sintaxis -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
@@ -37,116 +37,148 @@
 <body>
     <div class="container">
         <header>
-            <h1>Guía E5: Trabajo Escrito Normativo - Marco Legal y Ficha Técnica</h1>
-            <p class="meta">Valor: 15% | Tipo: Escrito | Fecha: 04-may-2026 | Grupal</p>
-            <p class="meta" style="font-size: 0.9rem; color: #7e22ce; margin-top: 0.25rem;">Fase 5 del Proyecto SMAI: Marco legal regulatorio y validación técnica</p>
+            <h1>Guía E5: Demo de Integración Total del Sistema IoT</h1>
+            <p class="meta">Valor: 15% | Tipo: Escrito (demo en vivo) | Fecha: 04-may-2026 | Grupal</p>
+            <p class="meta" style="font-size: 0.9rem; color: #7e22ce; margin-top: 0.25rem;">Fase 5: Visualización + API + BD + ESP32 funcionando de punta a punta</p>
         </header>
 
         <section class="highlight">
-            <h2>📋 Prerrequisitos (de E4)</h2>
+            <h2>Nota importante</h2>
+            <p><strong>E5 se construye ENCIMA de E4. Mismo firmware, misma API, misma base de datos. Solo agregas visualización y pulas la integración.</strong></p>
+        </section>
+
+        <section class="highlight">
+            <h2>Prerrequisitos (de E4)</h2>
             <p>Para realizar esta evaluación debes tener:</p>
             <ul>
-                <li><strong>E4 Lógica:</strong> Firmware con máquina de estados funcionando (NORMAL, ALERTA_TEMP, ALERTA_LUZ).</li>
-                <li>Producto SMAI operativo: sensores leyendo, WiFi conectado, dashboard actualizándose.</li>
-                <li>Código finalizado y estable (será la base para E6).</li>
+                <li><strong>Firmware E4:</strong> ESP32 con <code>millis()</code>, máquina de estados e histéresis funcionando.</li>
+                <li><strong>API E4:</strong> FastAPI (o Flask) con los 3 endpoints y Swagger accesible.</li>
+                <li><strong>BD E4:</strong> Tabla de sensores con datos reales provenientes del ESP32.</li>
+                <li><strong>Conectividad:</strong> ESP32 y PC en la misma red WiFi local.</li>
             </ul>
-            <p><strong>Nota:</strong> Esta evaluación documenta el producto <strong>ya funcionando</strong>. Se crea la ficha técnica, manual de usuario y cumplimiento normativo. La documentación de E5 será entregada junto al producto final en E6.</p>
         </section>
 
         <section>
-            <h2>Objetivo</h2>
-            <p>Asegurar que el SMAI cumple con los estándares legales y técnicos del sector tecnológico en Colombia, incluyendo la privacidad de datos y la seguridad eléctrica.</p>
+            <h2>Objetivo de E5</h2>
+            <p>Demostrar en clase el funcionamiento integral del sistema: el ESP32 envía datos, la API los recibe y almacena en la base de datos, y una interfaz de visualización muestra los datos en tiempo real o el historial.</p>
         </section>
 
         <section>
-            <h2>Estructura del PDF (Obligatoria)</h2>
-            <p>El documento unificado debe contener las siguientes secciones, siguiendo estándares de documentación técnica:</p>
+            <h2>Requisitos del Sistema Integrado</h2>
+            <p>Todo lo heredado de E4 debe seguir funcionando, más los siguientes agregados:</p>
             <ul>
-                <li><strong>1. Ficha Técnica del Producto (SMAI):</strong>
+                <li><strong>Firmware (heredado de E4):</strong>
                     <ul>
-                        <li><strong>Especificaciones Eléctricas:</strong>
-                            <ul>
-                                <li>Voltaje de alimentación: 5V DC (Micro-USB tipo B).</li>
-                                <li>Consumo máximo: ~250mA (con WiFi activo).</li>
-                                <li>Consumo standby: ~80mA (modo ahorro).</li>
-                                <li>Clase de protección: III (bajo voltaje).</li>
-                            </ul>
-                        </li>
-                        <li><strong>Especificaciones de Sensores:</strong>
-                            <ul>
-                                <li><abbr title="Digital Humidity and Temperature 22">DHT22</abbr>: Rango -40°C a 80°C, precisión ±0.5°C, ±2% HR.</li>
-                                <li><abbr title="Light Dependent Resistor">LDR</abbr>: Resistencia 1MΩ (oscuridad) a 10kΩ (luz).</li>
-                            </ul>
-                        </li>
-                        <li><strong>Conectividad:</strong>
-                            <ul>
-                                <li>Protocolo: <abbr title="Institute of Electrical and Electronics Engineers">IEEE</abbr> 802.11 b/g/n (WiFi 2.4GHz).</li>
-                                <li>Seguridad: WPA2/WPA3.</li>
-                                <li>API: HTTP GET a plataforma IoT (puerto 80) - <a href="../docs/plataformas-iot-gratuitas.html" style="color: #3b82f6; font-weight: 600;">opciones: ThingSpeak, Ubidots STEM, Arduino Cloud, etc.</a></li>
-                            </ul>
-                        </li>
+                        <li>Multitarea no bloqueante con <code>millis()</code>.</li>
+                        <li>Máquina de estados (NORMAL, ALERTA_TEMP, ALERTA_LUZ, ALERTA_DOBLE).</li>
+                        <li>Histéresis en los cambios de estado.</li>
+                        <li>Envío periódico de JSON por HTTP POST (o MQTT).</li>
                     </ul>
                 </li>
-                <li><strong>2. Política de Tratamiento de Datos Personales (Ley 1581 de 2012):</strong>
+                <li><strong>API y BD (heredado de E4):</strong>
                     <ul>
-                        <li>Identificación del Responsable: Nombre del estudiante/grupo.</li>
-                        <li>Datos recolectados: Dirección IP del dispositivo, credenciales WiFi (almacenadas localmente).</li>
-                        <li>Finalidad: Monitoreo ambiental y académico.</li>
-                        <li>Derechos del titular: Acceso, rectificación, supresión (derechos <abbr title="Acceso, Rectificación, Cancelación y Oposición">ARCO</abbr>).</li>
-                        <li>Medidas de seguridad: Cifrado WPA2 en red, credenciales no compartidas públicamente.</li>
+                        <li>Endpoints <code>POST /datos</code>, <code>GET /datos</code> y <code>GET /datos/latest</code> operando.</li>
+                        <li>Base de datos con historial real acumulado (idealmente varios días de datos).</li>
+                        <li>Swagger UI visible en <code>/docs</code>.</li>
                     </ul>
                 </li>
-                <li><strong>3. Manual de Instalación Eléctrica (Basado en <abbr title="Reglamento Técnico de Instalaciones Eléctricas">RETIE</abbr>):</strong>
+                <li><strong>Visualización de datos (nuevo):</strong>
                     <ul>
-                        <li>Tipo de fuente: Adaptador USB 5V/1A con certificación de seguridad.</li>
-                        <li>Protección: Fusible de 500mA en línea positiva.</li>
-                        <li>Aislamiento: Caja plástica con IP20 (protección contra objetos sólidos).</li>
-                        <li>Conexión a tierra: No aplica (clase III, doble aislamiento).</li>
-                        <li>Advertencias: No operar en atmósferas explosivas, evitar exposición directa a agua.</li>
+                        <li>Una interfaz gráfica que muestre los datos. Opciones (elige una):
+                            <ul>
+                                <li>Página HTML simple con JavaScript que haga <code>fetch()</code> a tu API.</li>
+                                <li>Dashboard en Grafana conectado a SQLite/MySQL.</li>
+                                <li>Cualquier dashboard web propio que consuma la API.</li>
+                            </ul>
+                        </li>
+                        <li>Debe mostrar al menos temperatura, humedad y luz.</li>
+                        <li>Debe poder verse el último dato o un pequeño historial.</li>
+                    </ul>
+                </li>
+                <li><strong>CORS configurado (nuevo):</strong>
+                    <ul>
+                        <li>La API debe permitir peticiones desde el navegador donde se abra la visualización.</li>
                     </ul>
                 </li>
             </ul>
         </section>
 
         <section class="highlight">
-            <h2>Manual de Usuario</h2>
-            <p>Se debe adjuntar un manual simplificado para el usuario final que incluya:</p>
+            <h2>Entregable</h2>
             <ul>
-                <li>Instrucciones de conexión al WiFi.</li>
-                <li>Interpretación de las alertas visuales (LEDs).</li>
-                <li>Cómo acceder al Dashboard de visualización.</li>
+                <li><strong>Demo en vivo en clase (obligatorio):</strong> Cada grupo conecta el ESP32, levanta la API y muestra la visualización funcionando. El profesor puede hacer preguntas sobre el flujo de datos.</li>
+                <li><strong>Código fuente ZIP subido a Canvas:</strong> Incluye firmware, API, script de BD y archivos de visualización.</li>
             </ul>
         </section>
 
-        <section class="highlight" style="background: #f3e8ff; border-left: 4px solid #a855f7; padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
-            <h2>✅ Lista de Verificación Pre-Entrega</h2>
+        <section class="highlight" style="background: #f3e8ff; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>Rúbrica E5 (100 pts)</h2>
+            <table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="background: #f3e8ff;">
+                        <th style="text-align:left; padding: 0.5rem; border: 1px solid #e2e8f0;">Componente</th>
+                        <th style="text-align:left; padding: 0.5rem; border: 1px solid #e2e8f0;">Peso</th>
+                        <th style="text-align:left; padding: 0.5rem; border: 1px solid #e2e8f0;">Criterio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Comunicación ESP32 → API</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Envío estable, JSON correcto, intervalo definido</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">API funcional con BD</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Endpoints operan, datos persistentes, historial disponible</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Visualización de datos</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">25%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Interfaz muestra datos en tiempo real o históricos</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Funcionamiento en vivo</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">15%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Demo en clase sin fallos mayores</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Coherencia con E4</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">10%</td>
+                        <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Reutiliza trabajo previo, no reconstruye desde cero</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="highlight" style="background: #f3e8ff; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;">
+            <h2>Lista de Verificación Pre-Demo</h2>
             <ul>
-                <li>☐ Ficha técnica completa con especificaciones eléctricas (voltaje, corriente, consumo)</li>
-                <li>☐ Especificaciones de sensores DHT22 y LDR (rangos, precisiones)</li>
-                <li>☐ Sección de conectividad WiFi (protocolo, seguridad WPA2)</li>
-                <li>☐ Política de datos personales según Ley 1581 (identificación del responsable, datos recolectados, derechos ARCO)</li>
-                <li>☐ Manual de instalación eléctrica basado en RETIE (tipo de fuente, protección, aislamiento)</li>
-                <li>☐ Manual de usuario simplificado (conexión WiFi, interpretación de LEDs, acceso al Dashboard)</li>
-                <li>☐ Citas bibliográficas de normas RETIE y Ley 1581</li>
+                <li>☐ El ESP32 enciende y se conecta a WiFi</li>
+                <li>☐ Se ve el log del ESP32 enviando JSON y recibiendo respuesta HTTP 200</li>
+                <li>☐ La API está corriendo en el PC (FastAPI o similar)</li>
+                <li>☐ Swagger UI responde en <code>/docs</code></li>
+                <li>☐ La BD tiene datos recientes del ESP32</li>
+                <li>☐ La visualización muestra al menos un valor actualizado</li>
+                <li>☐ CORS está habilitado si la visualización es web</li>
+                <li>☐ Código fuente comprimido en ZIP y listo para subir a Canvas</li>
             </ul>
         </section>
 
         <section style="background: #fce7f3; border-left: 4px solid #ec4899; padding: 1rem; border-radius: 0.5rem; margin: 1.5rem 0;">
-            <h2>🔗 Conexión con E6 (Proyecto Final)</h2>
+            <h2>Conexión con E6 (Proyecto Final)</h2>
             <ul>
-                <li><strong>E5:</strong> Documentación normativa completa del producto</li>
-                <li><strong>E6:</strong> Producto físico encapsulado + toda la documentación de E5 entregada junto</li>
+                <li><strong>E5:</strong> Sistema integrado funcionando con visualización</li>
+                <li><strong>E6:</strong> Sustentación oral donde demuestras todo lo construido</li>
             </ul>
-            <p><strong>La documentación de E5 se entrega físicamente junto al producto en E6.</strong></p>
+            <p><strong>En E6 se evaluará el mismo sistema funcionando en vivo durante la sustentación.</strong></p>
         </section>
 
         <section>
-            <h2>Formato de Entrega</h2>
+            <h2>Entregables</h2>
             <ul>
-                <li><strong>Archivo:</strong> <code>E5_Apellido_Nombre.pdf</code> (único documento unificado)</li>
-                <li><strong>Extensión:</strong> 8-15 páginas incluyendo todas las secciones</li>
-                <li><strong>Estilo:</strong> Lenguaje profesional y técnico</li>
-                <li><strong>Referencias:</strong> Citas bibliográficas de normas RETIE y Ley 1581</li>
+                <li><strong>Demo en vivo en clase:</strong> obligatorio el 4 de mayo</li>
+                <li><strong>Archivo ZIP en Canvas:</strong> <code>E5_Apellido_Nombre.zip</code> con firmware, API, BD y visualización</li>
             </ul>
             <p><strong>Fecha límite:</strong> 4 de mayo de 2026, 11:59 PM</p>
         </section>
@@ -157,7 +189,7 @@
 
         <div class="footer">
             <p>IF0112 - Complementaria II (IoT) — UNAULA 2026-I</p>
-            <p>E5: Trabajo Escrito Normativo | Valor: 15% | Fecha: 04-may-2026</p>
+            <p>E5: Demo de Integración Total | Valor: 15% | Fecha: 04-may-2026</p>
             <p><a href="../index.html">← Volver al Portal</a> | <a href="guia-E6.html">Ir a E6 →</a></p>
         </div>
     </div>
