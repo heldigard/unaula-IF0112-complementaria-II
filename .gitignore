@@ -133,3 +133,14 @@ temp*.temp-html/
 CONTRIBUTING.md
 scripts/
 # .github/workflows/  # NO ignorar - necesario para GitHub Pages
+
+# ============================================
+# HERRAMIENTAS Y CAPTURAS DE PANTALLA
+# ============================================
+
+# Configuración local de Serena
+.serena/
+
+# Capturas de pantalla del sistema académico
+screencapture-*.pdf
+screencapture-*.png
