@@ -97,9 +97,12 @@ E4 (20-abr)         E5 (04-may)              E6 (25-may)
 - ✅ `evaluaciones/rubricas-evaluacion.html` — Rúbricas E4-E6 reescritas para el nuevo enfoque FastAPI/MQTT+BD; anclas `#e4`, `#e5`, `#e6` agregadas
 - ✅ `evaluaciones/index.html` — Títulos y descripciones de tarjetas E4-E6 actualizados
 - ✅ `clases-html/index.html` — Sesiones 10-12 y tarjetas de evaluación corregidas
-- ✅ `clases-html/clase-08.html` / `clase-09.html` — Referencias a "E4 Informe de Gestión" corregidas
-- ✅ `admin/concertacion.html` — Cajas de E4 y E5 actualizadas al nuevo enfoque
+- ✅ `clases-html/clase-00.html` — Tabla de evaluación E5 corregida de "Escrito" a "Demo"
+- ✅ `clases-html/clase-02.html` — Forward-reference a E5 como evaluación de normatividad eliminado
+- ✅ `clases-html/clase-08.html` / `clase-09.html` — Referencias a "LAB 4 Grafana" y "E4 Informe de Gestión" corregidas al nuevo enfoque FastAPI+SQLite
+- ✅ `admin/concertacion.html` — E5 corregido de "Escrito" a "Demo"; descripción actualizada a integración en vivo
 - ✅ `docs/proyecto-integrador-2026-I.html` — Tabla de evaluaciones E4-E6 corregida
+- ✅ `laboratorios-html/index.html` — LAB 4 desacoplado de Clase 10/E4; etiquetado como apoyo opcional para E5/E6
 - ✅ `laboratorios-html/lab-oficial-04-dashboard-grafana.html` — Enlace de evaluación ajustado a E5/E6
 
 ---
@@ -138,6 +141,12 @@ E4 (20-abr)         E5 (04-may)              E6 (25-may)
 ## Commit Históricos (referencia)
 
 ```
+9c34723 Fix outdated references to old E5 and Clase 10 structure
+62c016d Fix concertacion.html: E5 is Demo, not Escrito
+db077d2 Fix lab index coherence: decouple Grafana lab from Clase 10/E4
+d0afa65 Add hands-on activities and day-of guidance to classes 10-14
+4a67e18 Add .serena/ and screencapture files to .gitignore
+d85ad86 Restructure 2nd cut for FastAPI/MQTT + BD focus (E4-E6)
 09bd56d Improve E3 evaluation guide for better student understanding
 cd86d14 Fix broken links in main index for GitHub Pages
 b10764b Add ThingSpeak introduction for students
